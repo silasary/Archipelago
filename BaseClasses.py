@@ -351,8 +351,10 @@ class MultiWorld():
 
     def _recache(self):
         """Rebuild world cache"""
+        
         self._cached_locations = None
         for region in self.regions:
+            print(region.locations)
             player = region.player
             self._region_cache[player][region.name] = region
             for exit in region.exits:
