@@ -1,11 +1,15 @@
 from __future__ import annotations
-from worlds import AutoWorldRegister
+from worlds.AutoWorld import AutoWorldRegister
+from collections import Counter
 import json
+from typing import Optional
+from worlds._manual.Rules import infix_to_postfix, evaluate_postfix
 
 import asyncio, re
 
 import ModuleUpdate
 ModuleUpdate.update()
+from worlds.AutoWorld import World
 
 import Utils
 
@@ -23,6 +27,84 @@ class ManualClientCommandProcessor(ClientCommandProcessor):
         self.output(f"Syncing items.")
         self.ctx.syncing = True
 
+class ManualCollectionState:
+    def __init__(self, slot: int, world: World):
+        self.prog_items = Counter()
+        self.reachable_regions = {player: set() for player in [slot]}
+        self.blocked_connections = {player: set() for player in [slot]}
+        self.stale = {player: True for player in [slot]}
+        self.locations_checked = set()
+        self.world = world
+
+    def collect(self, item: Item, event: bool = False, location: Optional[Location] = None) -> bool:
+        if location:
+            self.locations_checked.add(location)
+
+        changed = False
+
+        if item.advancement or event:
+            self.prog_items[item.name, item.player] += 1
+            changed = True
+
+        self.stale[item.player] = True
+
+        # if changed and not event:
+        #     self.sweep_for_events()
+
+        return changed
+
+    def can_reach(self, requires: str, location_name: str) -> bool:
+        if not requires:
+            return True
+        if not isinstance(requires, str):
+            pass
+        requires_list = requires
+
+        # parse user written statement into list of each item
+        for item in re.findall(r'\|[^|]+\|', requires):
+            require_type = 'item'
+
+            if '|@' in item:
+                require_type = 'category'
+
+            item_base = item
+            item = item.replace('|', '').replace('@', '')
+
+            item_parts = item.split(":")
+            item_name = item
+            item_count = 1
+
+            if len(item_parts) > 1:
+                item_name = item_parts[0]
+                item_count = int(item_parts[1])
+
+            total = 0
+
+            if require_type == 'category':
+                # todo: implement this
+                pass
+                # category_items = [item["name"] for item in base.item_name_to_item.values() if "category" in item and item_name in item["category"]]
+
+                # for category_item in category_items:
+                #     total += state.item_count(category_item, player)
+
+                #     if total >= item_count:
+                #         requires_list = requires_list.replace(item_base, "1")
+            elif require_type == 'item':
+                total = self.prog_items[item_name]
+
+                if total >= item_count:
+                    requires_list = requires_list.replace(item_base, "1")
+
+            if total <= item_count:
+                requires_list = requires_list.replace(item_base, "0")
+
+        requires_list = re.sub(r'\s?\bAND\b\s?', '&', requires_list, 0, re.IGNORECASE)
+        requires_list = re.sub(r'\s?\bOR\b\s?', '|', requires_list, 0, re.IGNORECASE)
+
+        requires_string = infix_to_postfix("".join(requires_list), location_name)
+        return (evaluate_postfix(requires_string, location_name))
+        return False
 
 class ManualContext(CommonContext):
     command_processor: int = ManualClientCommandProcessor
@@ -36,7 +118,7 @@ class ManualContext(CommonContext):
         self.awaiting_bridge = False
         self.game = game
         self.username = player_name
-        
+
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
             await super(ManualContext, self).server_auth(password_requested)
@@ -307,35 +389,32 @@ class ManualContext(CommonContext):
                 #
                 # multiworld = MultiWorld(10000)
                 # multiworld.add_group("Player" + str(self.ctx.slot), self.ctx.game, [self.ctx.slot])
-                #
-                # collection_state = CollectionState(multiworld)
-                # collection_state.reachable_regions = {player: set() for player in [self.ctx.slot]}
-                # collection_state.blocked_connections = {player: set() for player in [self.ctx.slot]}
-                # collection_state.stale = {player: True for player in [self.ctx.slot]}
-                #
-                # for network_item in self.ctx.items_received:
-                #     item_name = self.ctx.item_names[network_item.item]
-                #     item = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
-                #
-                #     item_classification = ItemClassification.filler
-                #
-                #     if "trap" in item and item["trap"]:
-                #         item_classification = ItemClassification.trap
-                #
-                #     if "useful" in item and item["useful"]:
-                #         item_classification = ItemClassification.useful
-                #
-                #     if "progression" in item and item["progression"]:
-                #         item_classification = ItemClassification.progression
-                #
-                #     item_object = Item(item["name"], item_classification, item["id"],self.ctx.slot)
-                #     collection_state.collect(item_object)
+
+                collection_state = ManualCollectionState(self.ctx.slot, AutoWorldRegister.world_types[self.ctx.game])
+
+                for network_item in self.ctx.items_received:
+                    item_name = self.ctx.item_names[network_item.item]
+                    item = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
+
+                    item_classification = ItemClassification.filler
+
+                    if "trap" in item and item["trap"]:
+                        item_classification = ItemClassification.trap
+
+                    if "useful" in item and item["useful"]:
+                        item_classification = ItemClassification.useful
+
+                    if "progression" in item and item["progression"]:
+                        item_classification = ItemClassification.progression
+
+                    item_object = Item(item["name"], item_classification, item["id"], self.ctx.slot)
+                    collection_state.collect(item_object)
 
                 for _, child in enumerate(self.tracker_and_locations_panel.children):
                     #
                     # Structure of items:
                     # TrackerLayoutScrollable -> TreeView -> TreeViewLabel, TreeViewScrollView -> GridLayout -> Label
-                    #        item tracker     -> category -> category label, category scroll   -> label col  -> item    
+                    #        item tracker     -> category -> category label, category scroll   -> label col  -> item
                     #
                     if type(child) is TrackerLayoutScrollable:
                         treeview = child.children[0] # TreeView
@@ -357,7 +436,7 @@ class ManualContext(CommonContext):
                                 category_name = re.sub("\s\(\d+\)$", "", category_label.text)
                                 category_count = 0
                                 category_unique_name_count = 0
-            
+
                                 # Label (for existing item listings)
                                 for item in category_grid.children:
                                      if type(item) is Label:
@@ -366,13 +445,13 @@ class ManualContext(CommonContext):
                                         item_name = re.sub("\s\(\d+\)$", "", item.text)
                                         item_data = AutoWorldRegister.world_types[self.ctx.game].item_name_to_item[item_name]
                                         item_count = len(list(i for i in self.ctx.items_received if i.item == item_data["id"]))
- 
+
                                         # Update the label quantity
                                         item.text="%s (%s)" % (item_name, item_count)
 
                                         if update_highlights:
                                             item.bold = True if old_item_text != item.text else False
-                                        
+
                                         if item_count > 0:
                                             category_count += item_count
                                             category_unique_name_count += 1
@@ -388,15 +467,15 @@ class ManualContext(CommonContext):
                                     if category_name in item_data["category"] and network_item.item not in self.listed_items[category_name]:
                                         item_name_parts = self.ctx.item_names[network_item.item].split(":")
                                         item_count = len(list(i for i in self.ctx.items_received if i.item == network_item.item))
-                                        item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count), 
+                                        item_text = Label(text="%s (%s)" % (item_name_parts[0], item_count),
                                                     size_hint=(None, None), height=30, width=400, bold=True)
-                                        
+
                                         category_grid.add_widget(item_text)
                                         self.listed_items[category_name].append(network_item.item)
-                                        
+
                                         category_count += item_count
                                         category_unique_name_count += 1
-                                    
+
                             scrollview_height = 30 * category_unique_name_count
 
                             if scrollview_height > 250:
@@ -413,7 +492,7 @@ class ManualContext(CommonContext):
 
                             category_scrollview.size=(Window.width / 2, scrollview_height)
 
-                    #    
+                    #
                     # Structure of locations:
                     # LocationsLayoutScrollable -> TreeView -> TreeViewLabel, TreeViewScrollView -> GridLayout -> Button
                     #      location tracker     -> category -> category label, category scroll   -> label col  -> location
@@ -435,7 +514,7 @@ class ManualContext(CommonContext):
 
                                 category_name = re.sub("\s\(\d+\)$", "", category_label.text)
                                 category_count = 0
-            
+
                                 buttons_to_remove = []
 
                                 # Label (for existing item listings)
@@ -454,28 +533,31 @@ class ManualContext(CommonContext):
                                         #
                                         #
                                         # region_object = None
-                                        #
+
                                         # if location["region"]:
-                                        #     region_object = Region(location["region"], self.ctx.slot)
-                                        #
+                                        #     region_object = Region(location["region"], self.ctx.slot, None)
+
                                         # location_object = Location(self.ctx.slot, location["name"], location["id"], region_object)
-                                        #
-                                        # if location_object.can_reach(collection_state):
-                                        #     logger.info("Location %s can be reached currently." % (location["name"]))
-                                        # else:
-                                        #     logger.info("Location %s can **NOT** be reached currently!" % (location["name"]))
 
-                                        if ("victory" not in location or not location["victory"]) and location["id"] not in self.ctx.missing_locations:
-                                            import logging
+                                        try:
+                                            if collection_state.can_reach(location['requires'], location_button.text):
+                                                # logger.info("Location %s can be reached currently." % (location["name"]))
+                                                location_button.background_color = (1, 2, 1, 1)
+                                            else:
+                                                # logger.info("Location %s can **NOT** be reached currently!" % (location["name"]))
+                                                location_button.background_color = (2, 1, 1, 1)
+                                        except KeyError as e:
+                                            logger.error("Couldn't process requires", exc_info=e)
+                                            location_button.background_color = (1, 1, 1, 1)
 
-                                            logging.info("location button being removed: " + location_button.text)
-                                            buttons_to_remove.append(location_button)
-                                            continue
+                                        # if ("victory" not in location or not location["victory"]) and location["id"] not in self.ctx.missing_locations:
+                                        #     import logging
+
+                                        #     logging.info("location button being removed: " + location_button.text)
+                                        #     buttons_to_remove.append(location_button)
+                                        #     continue
 
                                         category_count += 1
-
-                                for location_button in buttons_to_remove:
-                                    location_button.parent.remove_widget(location_button)
 
                                 scrollview_height = 30 * category_count
 
@@ -487,8 +569,14 @@ class ManualContext(CommonContext):
 
                                 category_name = re.sub("\s\(\d+\)$", "", category_label.text)
                                 category_label.text = "%s (%s)" % (category_name, category_count)
+                                checks = [location_button.background_color == (1, 2, 1, 1) for location_button in category_grid.children if type(location_button) is TreeViewButton]
+                                if all(checks):
+                                    category_label.outline_color = (1, 2, 1, 1)
+                                elif all([not check for check in checks]):
+                                    category_label.outline_color = (2, 1, 1, 1)
+                                else:
+                                    category_label.outline_color = (1, 1, 1, 1)
                                 category_scrollview.size=(Window.width / 2, scrollview_height)
-                    
             def location_button_callback(self, location_id, button):
                 if button.text not in self.ctx.location_names_to_id:
                     raise Exception("Locations were not loaded correctly. Please reconnect your client.")

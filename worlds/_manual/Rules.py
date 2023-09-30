@@ -5,7 +5,7 @@ from BaseClasses import MultiWorld
 import re
 
 
-def infix_to_postfix(expr, location):
+def infix_to_postfix(expr: str, location: str) -> str:
     prec = {"&": 2, "|": 2, "!": 3}
 
     stack = []
@@ -32,7 +32,7 @@ def infix_to_postfix(expr, location):
     return postfix
 
 
-def evaluate_postfix(expr, location):
+def evaluate_postfix(expr, location) -> bool:
     stack = []
     try:
         for c in expr:
