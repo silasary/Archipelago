@@ -179,6 +179,6 @@ class K64World(World):
     def write_spoiler(self, spoiler_handle: TextIO) -> None:
         if self.stage_shuffle_enabled:
             spoiler_handle.write(f"\nLevel Layout ({self.multiworld.get_player_name(self.player)}):\n")
-            for level in LocationName.level_names:
-                for stage, i in zip(self.player_levels[LocationName.level_names[level]], range(1, 7)):
+            for level in LocationName.level_names_inverse:
+                for stage, i in zip(self.player_levels[LocationName.level_names_inverse[level]], range(1, 7)):
                     spoiler_handle.write(f"{level} {i}: {location_table[stage].replace(' - Complete', '')}\n")

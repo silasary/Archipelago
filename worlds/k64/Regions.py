@@ -46,7 +46,7 @@ def generate_valid_levels(world: "K64World", enforce_world: bool) -> dict:
 
     possible_stages = list()
     for level in default_levels:
-        for stage in range(len(default_levels[level])):
+        for stage in range(len(default_levels[level]) - 1):
             possible_stages.append(default_levels[level][stage])
 
     if world.multiworld.plando_connections[world.player]:
@@ -153,12 +153,13 @@ def create_levels(world: "K64World") -> None:
                             world.player, world.multiworld)
             levels[level].connect(region)
             crystals = [(((real_stage & 0xFF) - 1) * 3) + i + 0x640101 for i in range(3) if not real_stage & 0x200]
-            region.add_locations({
+            locations = {
                 location_table[code]: code for code in location_table
                 if code in [real_stage, *crystals]
-            }, K64Location)
+            }
+            region.add_locations(locations, K64Location)
 
-    level6.add_locations({LocationName.dark_star: None}, K64Location)
+    level7.add_locations({LocationName.dark_star: None}, K64Location)
 
     menu.connect(level1, "Start Game")
     level1.connect(level2, "To Level 2")

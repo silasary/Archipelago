@@ -124,8 +124,8 @@ K64_CRYSTAL_ADDRESS = K64_SAVE_ADDRESS + 0x170
 K64_RECV_INDEX = K64_SAVE_ADDRESS + 0x174
 K64_KIRBY_HEALTH_VISUAL = K64_SAVE_ADDRESS + 0x38C
 
-K64_SPLIT_POWER_COMBO = 0x1FFFF220
-K64_DEATHLINK = 0x1FFFF221
+K64_SPLIT_POWER_COMBO = 0x1FFF220
+K64_DEATHLINK = 0x1FFF221
 K64_LEVEL_ADDRESS = 0x1FFF230
 
 
@@ -147,17 +147,18 @@ class K64Client(BizHawkClient):
             # since we have the currently unlocked abilities,and they can only get abilities related to the newly
             # obtained ability, we can just loop once
             shifter = 1
-            copy_abilties = []
+            copy_abilties = {}
             for i in range(1, 8):
-                copy_abilties.append(shifter & current)
+                copy_abilties[i] = shifter & current
                 shifter <<= 1
             new = new_ability & 0xFF
             output = current | new
             for i in range(1, 8):
-                if i < new:
-                    output |= (1 << power_combos[i, new])
-                else:
-                    output |= (1 << power_combos[new, i])
+                if copy_abilties[i]:
+                    if i < new:
+                        output |= (1 << power_combos[i, new])
+                    else:
+                        output |= (1 << power_combos[new, i])
 
         return K64_COPY_ABILITY, struct.pack(">Q", output), "RDRAM"
 
@@ -280,14 +281,16 @@ class K64Client(BizHawkClient):
                     new_checks.append(loc_id)
 
         # check crystals
-        for i, crystal in zip(range(1, 23), crystal_array):
-            loc_base = ((i - 1) * 3) + 0x640100
-            if loc_base + 1 not in ctx.checked_locations and crystal & 0x01:
-                new_checks.append(loc_base + 1)
-            if loc_base + 2 not in ctx.checked_locations and crystal & 0x02:
-                new_checks.append(loc_base + 2)
-            if loc_base + 3 not in ctx.checked_locations and crystal & 0x04:
-                new_checks.append(loc_base + 3)
+        current_crystal = 0x640101
+        for level, stage_num in zip(range(6), (3, 4, 4, 4, 4, 3)):
+            level_crystals = struct.unpack("I", crystal_array[level*4:(level*4)+4])[0]
+            for stage in range(stage_num):
+                shifter = (stage * 8)
+                for i in range(3):
+                    if level_crystals & (1 << shifter) and current_crystal not in ctx.checked_locations:
+                        new_checks.append(current_crystal)
+                    shifter += 1
+                    current_crystal += 1
 
         for new_check_id in new_checks:
             ctx.locations_checked.add(new_check_id)

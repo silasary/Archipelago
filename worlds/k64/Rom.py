@@ -92,15 +92,15 @@ class K64DeltaPatch(APDeltaPatch):
 
 
 def patch_rom(world: "K64World", player: int, rom: RomData):
-    rom.apply_basepatch(pkgutil.get_data(__name__, os.path.join("data", "basepatch.bsdiff4")))
+    rom.apply_basepatch(pkgutil.get_data(__name__, os.path.join("data", "k64basepatch.bsdiff4")))
 
     # now just apply slot data
     # first stage shuffle
     if world.stage_shuffle_enabled:
         for i in range(1, 7):
-            rom.write_bytes(0x7A1E8 + ((i-1) * 48), struct.pack(">HHHHH", [world.player_levels[i][stage]
-                                                                          if stage in world.player_levels[i] else 0
-                                                                          for stage in range(5)]))
+            stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i]) else 0
+                      for stage in range(5)]
+            rom.write_bytes(0x7A1E8 + ((i-1) * 48), struct.pack(">IIIII", *stages))
 
     rom.write_bytes(0x1FFF100, world.boss_requirements)
 
