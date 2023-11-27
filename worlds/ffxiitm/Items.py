@@ -272,7 +272,7 @@ item_table: Dict[str, FFXIITMItemData] = {
     "Mithuna"                  :          FFXIITMItemData("Equipment",          code = 44_04293, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
     "Kanya"                    :          FFXIITMItemData("Equipment",          code = 44_04294, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
     "Dhanusha"                 :          FFXIITMItemData("Equipment",          code = 44_04295, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
-    "Gendarme"                 :          FFXIITMItemData("Equipment",          code = 44_04296, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
+   #"Gendarme"                 :          FFXIITMItemData("Equipment",          code = 44_04296, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
     "Leather Shield"           :          FFXIITMItemData("Equipment",          code = 44_04297, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
     "Buckler"                  :          FFXIITMItemData("Equipment",          code = 44_04298, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
     "Bronze Shield"            :          FFXIITMItemData("Equipment",          code = 44_04299, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
