@@ -74,7 +74,7 @@ class FFXIITMWorld(World):
         fillers = {}
         disclude = []
         fillers.update(get_items_by_category("Equipment", disclude))
-        fillers.update(get_items_by_category("Item", disclude))
+        #fillers.update(get_items_by_category("Item", disclude))
         weights = [data.weight for data in fillers.values()]
         return self.multiworld.random.choices([filler for filler in fillers.keys()], weights, k=1)[0]
         

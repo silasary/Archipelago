@@ -142,7 +142,7 @@ class FFXIITMContext(CommonContext):
 
 
 async def game_watcher(ctx: FFXIITMContext):
-    from worlds.khcom.Locations import lookup_id_to_name
+    from worlds.ffxiitm.Locations import lookup_id_to_name
     while not ctx.exit_event.is_set():
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
