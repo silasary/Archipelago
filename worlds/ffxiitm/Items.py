@@ -629,6 +629,7 @@ item_table: Dict[str, FFXIITMItemData] = {
    #"Exodus's Armor"           :          FFXIITMItemData("Equipment",          code = 44_04650, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
    #"Ultima's Armor"           :          FFXIITMItemData("Equipment",          code = 44_04651, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
    #"Zodiark's Armor"          :          FFXIITMItemData("Equipment",          code = 44_04652, classification = ItemClassification.filler,      max_quantity = 1, weight = 1),
+    "Victory"                  :          FFXIITMItemData("Victory",            code = 44_08703, classification = ItemClassification.progression, max_quantity = 1, weight = 1),
    #"Cure"                     :          FFXIITMItemData("Magick",             code = 44_12288, classification = ItemClassification.useful,      max_quantity = 1, weight = 1),
    #"Blindna"                  :          FFXIITMItemData("Magick",             code = 44_12289, classification = ItemClassification.useful,      max_quantity = 1, weight = 1),
     "Vox"                      :          FFXIITMItemData("Magick",             code = 44_12290, classification = ItemClassification.useful,      max_quantity = 1, weight = 1),

@@ -6,4 +6,4 @@ def has_item(state: CollectionState, player: int, item) -> bool:
 
 def set_rules(multiworld: MultiWorld, player: int):
     # Win condition.
-    multiworld.completion_condition[player] = lambda state: state.has_all({"Ultima"}, player)
+    multiworld.completion_condition[player] = lambda state: state.has_all({"Victory"}, player)

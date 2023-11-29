@@ -53,6 +53,19 @@ class FFXIITMWorld(World):
         return {option_name: self.get_setting(option_name).value for option_name in ffxiitm_options}
 
     def create_items(self):
+        minimum_victory_trial = self.get_setting("trial_minimum_victory")
+        maximum_victory_trial = minimum_victory_trial + self.get_setting("trial_range")
+        if maximum_victory_trial > 100:
+            maximum_victory_trial = 100
+        if maximum_victory_trial != minimum_victory_trial:
+            victory_trial = self.multiworld.random.choices(list(range(minimum_victory_trial, maximum_victory_trial)))
+            victory_trial = victory_trial[0]
+            if victory_trial == 98:
+                victory_trial = 99
+        else:
+            victory_trial = minimum_victory_trial
+        victory_location_name = random.sample(list(get_locations_by_category("Trial " + str(victory_trial).rjust(3, "0")).keys()),1)[0]
+        self.multiworld.get_location(victory_location_name, self.player).place_locked_item(self.create_item("Victory"))
         item_pool: List[FFXIITMItem] = []
         total_locations = len(self.multiworld.get_unfilled_locations(self.player))
         for name, data in item_table.items():
