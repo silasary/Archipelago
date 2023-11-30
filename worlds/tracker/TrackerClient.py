@@ -53,6 +53,14 @@ class TrackerGameContext(CommonContext):
         self.multiworld:MultiWorld = None
         self.player_id = None
 
+    def clear_page(self):
+        if self.tracker_page is not None:
+            self.tracker_page.resetData()
+
+    def log_to_tab(self,line: str):
+        if self.tracker_page is not None:
+            self.tracker_page.addLine(line)
+
     def build_gui(self,manager : GameManager):
         from kivy.uix.boxlayout import BoxLayout
         from kivy.uix.tabbedpanel import TabbedPanelItem
@@ -129,9 +137,12 @@ class TrackerGameContext(CommonContext):
 
     def on_package(self, cmd: str, args: dict):
         if cmd == 'Connected':
+            if self.multiworld is None:
+                self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch")
+                return
             player_ids = [i for i,n in self.multiworld.player_name.items() if n==self.username]
             if len(player_ids) < 1:
-                print("Player's Yaml not in tracker's list")
+                self.log_to_tab("Player's Yaml not in tracker's list")
                 return
             self.player_id = player_ids[0] #should only really ever be one match
             updateTracker(self)
@@ -144,6 +155,9 @@ class TrackerGameContext(CommonContext):
             GMain(None, self.TMain)
         except Exception as e:
             tb = traceback.format_exc()
+            self.clear_page()
+            for line in tb.split("\n"):
+                self.log_to_tab(line)
             logger.error(tb)
 
     def TMain(self, args, seed=None, baked_server_options: Optional[Dict[str, object]] = None):
@@ -262,10 +276,9 @@ class TrackerGameContext(CommonContext):
         return
 
 def updateTracker(ctx: TrackerGameContext):
-    if ctx.player_id == None:
-        logger.error("Player YAML not installed")
-        ctx.tracker_page.resetData()
-        ctx.tracker_page.addLine("Player YAML not installed")
+    if ctx.player_id is None or ctx.multiworld is None:
+        logger.error("Player YAML not installed or Generator failed")
+        ctx.log_to_tab("Check Player YAMLs for error")
         return
 
     state = CollectionState(ctx.multiworld)
@@ -276,13 +289,13 @@ def updateTracker(ctx: TrackerGameContext):
 
     state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
     
-    ctx.tracker_page.resetData()
+    ctx.clear_page()
     for temp_loc in ctx.multiworld.get_reachable_locations(state,ctx.player_id):
         if temp_loc.address == None:
             continue
         if (temp_loc.address in ctx.missing_locations):
             #logger.info("YES rechable (" + temp_loc.name + ")")
-            ctx.tracker_page.addLine( temp_loc.name )
+            ctx.log_to_tab( temp_loc.name )
     ctx.tracker_page.refresh_from_data()
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
