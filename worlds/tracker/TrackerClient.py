@@ -2,6 +2,7 @@ import asyncio
 import logging
 import traceback
 import typing
+from collections.abc import Callable
 from CommonClient import CommonContext, gui_enabled, get_base_parser, server_loop,ClientCommandProcessor
 import os
 import time
@@ -44,6 +45,7 @@ class TrackerGameContext(CommonContext):
     command_processor = TrackerCommandProcessor
     tracker_page = None
     watcher_task = None
+    update_callback: Callable[[list[str]], bool] = None
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -60,6 +62,9 @@ class TrackerGameContext(CommonContext):
     def log_to_tab(self,line: str):
         if self.tracker_page is not None:
             self.tracker_page.addLine(line)
+
+    def set_callback(self,func:Callable[[list[str]],bool]):
+        self.update_callback = func
 
     def build_gui(self,manager : GameManager):
         from kivy.uix.boxlayout import BoxLayout
@@ -284,6 +289,8 @@ def updateTracker(ctx: TrackerGameContext):
     state = CollectionState(ctx.multiworld)
     state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
 
+    callback_list = []
+
     for item in ctx.items_received:
         state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id))
 
@@ -296,7 +303,10 @@ def updateTracker(ctx: TrackerGameContext):
         if (temp_loc.address in ctx.missing_locations):
             #logger.info("YES rechable (" + temp_loc.name + ")")
             ctx.log_to_tab( temp_loc.name )
+            callback_list.append(temp_loc.name)
     ctx.tracker_page.refresh_from_data()
+    if ctx.update_callback is not None:
+        ctx.update_callback(callback_list)
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
     while not ctx.exit_event.is_set():
