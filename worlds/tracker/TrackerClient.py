@@ -150,6 +150,10 @@ class TrackerGameContext(CommonContext):
                 self.log_to_tab("Player's Yaml not in tracker's list")
                 return
             self.player_id = player_ids[0] #should only really ever be one match
+
+            if callable(getattr(self.multiworld.worlds[self.player_id],"interpret_slot_data",None)):
+                self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
+
             updateTracker(self)
             self.watcher_task = asyncio.create_task(game_watcher(self), name="GameWatcher")
         elif cmd == 'RoomUpdate':
