@@ -6,6 +6,7 @@ from collections.abc import Callable
 from CommonClient import CommonContext, gui_enabled, get_base_parser, server_loop,ClientCommandProcessor
 import os
 import time
+import sys
 from typing import Dict, Optional
 from BaseClasses import Region,Location
 
@@ -161,6 +162,8 @@ class TrackerGameContext(CommonContext):
     
     def run_generator(self):
         try:
+            #strip command line args, they won't be useful from the client anyway
+            sys.argv = sys.argv[:1]
             GMain(None, self.TMain)
         except Exception as e:
             tb = traceback.format_exc()
@@ -331,7 +334,7 @@ async def main(args):
     ctx = TrackerGameContext(args.connect, args.password)
     ctx.auth = args.name
     ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
-    ctx.run_generator()
+    ctx.run_generator(args)
 
     if gui_enabled:
         ctx.run_gui()
