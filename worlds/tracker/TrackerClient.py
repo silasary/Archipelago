@@ -47,6 +47,7 @@ class TrackerGameContext(CommonContext):
     tracker_page = None
     watcher_task = None
     update_callback: Callable[[list[str]], bool] = None
+    gen_error = None
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -60,9 +61,9 @@ class TrackerGameContext(CommonContext):
         if self.tracker_page is not None:
             self.tracker_page.resetData()
 
-    def log_to_tab(self,line: str):
+    def log_to_tab(self,line: str, sort:bool = False):
         if self.tracker_page is not None:
-            self.tracker_page.addLine(line)
+            self.tracker_page.addLine(line,sort)
 
     def set_callback(self,func:Callable[[list[str]],bool]):
         self.update_callback = func
@@ -85,8 +86,10 @@ class TrackerGameContext(CommonContext):
             def resetData(self):
                 self.data.clear()
 
-            def addLine(self, line:str):
+            def addLine(self, line:str,sort:bool = False):
                 self.data.append({"text":line})
+                if sort:
+                    self.data.sort(key=lambda e: e["text"])
 
         tracker_page = TabbedPanelItem(text="Tracker Page")
         
@@ -96,6 +99,9 @@ class TrackerGameContext(CommonContext):
             tracker.add_widget(tracker_view)
             self.tracker_page = tracker_view
             tracker_page.content = tracker
+            if self.gen_error is not None:
+                for line in self.gen_error.split("\n"):
+                    self.log_to_tab(line,False)
         except Exception as e:
             tb = traceback.format_exc()
             print(tb)
@@ -144,11 +150,11 @@ class TrackerGameContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == 'Connected':
             if self.multiworld is None:
-                self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch")
+                self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch",False)
                 return
             player_ids = [i for i,n in self.multiworld.player_name.items() if n==self.username]
             if len(player_ids) < 1:
-                self.log_to_tab("Player's Yaml not in tracker's list")
+                self.log_to_tab("Player's Yaml not in tracker's list",False)
                 return
             self.player_id = player_ids[0] #should only really ever be one match
 
@@ -167,9 +173,7 @@ class TrackerGameContext(CommonContext):
             GMain(None, self.TMain)
         except Exception as e:
             tb = traceback.format_exc()
-            self.clear_page()
-            for line in tb.split("\n"):
-                self.log_to_tab(line)
+            self.gen_error = tb
             logger.error(tb)
 
     def TMain(self, args, seed=None, baked_server_options: Optional[Dict[str, object]] = None):
@@ -290,7 +294,7 @@ class TrackerGameContext(CommonContext):
 def updateTracker(ctx: TrackerGameContext):
     if ctx.player_id is None or ctx.multiworld is None:
         logger.error("Player YAML not installed or Generator failed")
-        ctx.log_to_tab("Check Player YAMLs for error")
+        ctx.log_to_tab("Check Player YAMLs for error",False)
         return
 
     state = CollectionState(ctx.multiworld)
@@ -309,7 +313,10 @@ def updateTracker(ctx: TrackerGameContext):
             continue
         if (temp_loc.address in ctx.missing_locations):
             #logger.info("YES rechable (" + temp_loc.name + ")")
-            ctx.log_to_tab( temp_loc.name )
+            if temp_loc.parent_region is None:
+                ctx.log_to_tab("|" + temp_loc.name ,True)
+            else:
+                ctx.log_to_tab(temp_loc.parent_region.name + " | " + temp_loc.name,True )
             callback_list.append(temp_loc.name)
     ctx.tracker_page.refresh_from_data()
     if ctx.update_callback is not None:
@@ -334,7 +341,7 @@ async def main(args):
     ctx = TrackerGameContext(args.connect, args.password)
     ctx.auth = args.name
     ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
-    ctx.run_generator(args)
+    ctx.run_generator()
 
     if gui_enabled:
         ctx.run_gui()
