@@ -321,6 +321,8 @@ def updateTracker(ctx: TrackerGameContext):
     ctx.tracker_page.refresh_from_data()
     if ctx.update_callback is not None:
         ctx.update_callback(callback_list)
+    if len(callback_list) == 0:
+        ctx.log_to_tab("Nothing! Congrats!")
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
     while not ctx.exit_event.is_set():
