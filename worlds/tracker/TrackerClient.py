@@ -37,6 +37,12 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         #self.ctx.tracker_page.content.data = new_data = []
         updateTracker(self.ctx)
 
+    def _cmd_inventory(self):
+        """Print the list of current items in the inventory"""
+        logger.info("Current Inventory:")
+        for item in self.ctx.items_received:
+            logger.info( self.ctx.multiworld.worlds[self.ctx.player_id].item_id_to_name[item[0]])
+
 
 class TrackerGameContext(CommonContext):
     from kvui import GameManager
