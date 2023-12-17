@@ -9,242 +9,285 @@ class FFXIITMRegionData(NamedTuple):
     region_exits: Optional[List[str]]
 
 
-def create_regions(multiworld: MultiWorld, player: int):
+def create_regions(multiworld: MultiWorld, player: int, max_trial_floor: int):
     regions: Dict[str, RLRegionData] = {
-        "Menu":        FFXIITMRegionData(None, ["Trial Mode"]),
-        "Trial Mode":  FFXIITMRegionData([], []),
-    }
+        "Menu":        FFXIITMRegionData(None ,["01-10"]),
+        "01-10":       FFXIITMRegionData([]  ,[]),
+        }
+    regions["01-10"].locations.append("Trial 001 Chest 1")
+    regions["01-10"].locations.append("Trial 001 Chest 2")
+    regions["01-10"].locations.append("Trial 002 Chest 1")
+    regions["01-10"].locations.append("Trial 002 Chest 2")
+    regions["01-10"].locations.append("Trial 003 Chest 1")
+    regions["01-10"].locations.append("Trial 003 Chest 2")
+    regions["01-10"].locations.append("Trial 004 Chest 1")
+    regions["01-10"].locations.append("Trial 004 Chest 2")
+    regions["01-10"].locations.append("Trial 005 Chest 1")
+    regions["01-10"].locations.append("Trial 005 Chest 2")
+    regions["01-10"].locations.append("Trial 006 Chest 1")
+    regions["01-10"].locations.append("Trial 006 Chest 2")
+    regions["01-10"].locations.append("Trial 007 Chest 1")
+    regions["01-10"].locations.append("Trial 007 Chest 2")
+    regions["01-10"].locations.append("Trial 008 Chest 1")
+    regions["01-10"].locations.append("Trial 008 Chest 2")
+    regions["01-10"].locations.append("Trial 009 Chest 1")
+    regions["01-10"].locations.append("Trial 009 Chest 2")
+    regions["01-10"].locations.append("Trial 010 Chest 1")
+    regions["01-10"].locations.append("Trial 010 Chest 2")
+    if max_trial_floor > 10:
+        regions["01-10"].region_exits.append("11-20")
+        regions["11-20"] = FFXIITMRegionData([]  ,[])
+        regions["11-20"].locations.append("Trial 011 Chest 1")
+        regions["11-20"].locations.append("Trial 011 Chest 2")
+        regions["11-20"].locations.append("Trial 012 Chest 1")
+        regions["11-20"].locations.append("Trial 012 Chest 2")
+        regions["11-20"].locations.append("Trial 013 Chest 1")
+        regions["11-20"].locations.append("Trial 013 Chest 2")
+        regions["11-20"].locations.append("Trial 014 Chest 1")
+        regions["11-20"].locations.append("Trial 014 Chest 2")
+        regions["11-20"].locations.append("Trial 015 Chest 1")
+        regions["11-20"].locations.append("Trial 015 Chest 2")
+        regions["11-20"].locations.append("Trial 016 Chest 1")
+        regions["11-20"].locations.append("Trial 016 Chest 2")
+        regions["11-20"].locations.append("Trial 017 Chest 1")
+        regions["11-20"].locations.append("Trial 017 Chest 2")
+        regions["11-20"].locations.append("Trial 018 Chest 1")
+        regions["11-20"].locations.append("Trial 018 Chest 2")
+        regions["11-20"].locations.append("Trial 019 Chest 1")
+        regions["11-20"].locations.append("Trial 019 Chest 2")
+        regions["11-20"].locations.append("Trial 020 Chest 1")
+        regions["11-20"].locations.append("Trial 020 Chest 2")
+    if max_trial_floor > 20:
+        regions["11-20"].region_exits.append("21-30")
+        regions["21-30"] = FFXIITMRegionData([] ,[])
+        regions["21-30"].locations.append("Trial 021 Chest 1")
+        regions["21-30"].locations.append("Trial 021 Chest 2")
+        regions["21-30"].locations.append("Trial 022 Chest 1")
+        regions["21-30"].locations.append("Trial 022 Chest 2")
+        regions["21-30"].locations.append("Trial 023 Chest 1")
+        regions["21-30"].locations.append("Trial 023 Chest 2")
+        regions["21-30"].locations.append("Trial 024 Chest 1")
+        regions["21-30"].locations.append("Trial 024 Chest 2")
+        regions["21-30"].locations.append("Trial 025 Chest 1")
+        regions["21-30"].locations.append("Trial 025 Chest 2")
+        regions["21-30"].locations.append("Trial 026 Chest 1")
+        regions["21-30"].locations.append("Trial 026 Chest 2")
+        regions["21-30"].locations.append("Trial 027 Chest 1")
+        regions["21-30"].locations.append("Trial 027 Chest 2")
+        regions["21-30"].locations.append("Trial 028 Chest 1")
+        regions["21-30"].locations.append("Trial 028 Chest 2")
+        regions["21-30"].locations.append("Trial 029 Chest 1")
+        regions["21-30"].locations.append("Trial 029 Chest 2")
+        regions["21-30"].locations.append("Trial 030 Chest 1")
+        regions["21-30"].locations.append("Trial 030 Chest 2")
+        regions["21-30"].locations.append("Trial 030 Chest 3")
+    if max_trial_floor > 30:
+        regions["21-30"].region_exits.append("31-40")
+        regions["31-40"]  = FFXIITMRegionData([] ,[])
+        regions["31-40"].locations.append("Trial 031 Chest 1")
+        regions["31-40"].locations.append("Trial 031 Chest 2")
+        regions["31-40"].locations.append("Trial 031 Chest 3")
+        regions["31-40"].locations.append("Trial 031 Chest 4")
+        regions["31-40"].locations.append("Trial 031 Chest 5")
+        regions["31-40"].locations.append("Trial 032 Chest 1")
+        regions["31-40"].locations.append("Trial 032 Chest 2")
+        regions["31-40"].locations.append("Trial 032 Chest 3")
+        regions["31-40"].locations.append("Trial 033 Chest 1")
+        regions["31-40"].locations.append("Trial 033 Chest 2")
+        regions["31-40"].locations.append("Trial 034 Chest 1")
+        regions["31-40"].locations.append("Trial 034 Chest 2")
+        regions["31-40"].locations.append("Trial 035 Chest 1")
+        regions["31-40"].locations.append("Trial 035 Chest 2")
+        regions["31-40"].locations.append("Trial 035 Chest 3")
+        regions["31-40"].locations.append("Trial 035 Chest 4")
+        regions["31-40"].locations.append("Trial 036 Chest 1")
+        regions["31-40"].locations.append("Trial 036 Chest 2")
+        regions["31-40"].locations.append("Trial 036 Chest 3")
+        regions["31-40"].locations.append("Trial 037 Chest 1")
+        regions["31-40"].locations.append("Trial 037 Chest 2")
+        regions["31-40"].locations.append("Trial 038 Chest 1")
+        regions["31-40"].locations.append("Trial 038 Chest 2")
+        regions["31-40"].locations.append("Trial 039 Chest 1")
+        regions["31-40"].locations.append("Trial 039 Chest 2")
+        regions["31-40"].locations.append("Trial 040 Chest 1")
+        regions["31-40"].locations.append("Trial 040 Chest 2")
+    if max_trial_floor > 40:
+        regions["31-40"].region_exits.append("41-50")
+        regions["41-50"]  = FFXIITMRegionData([] ,[])
+        regions["41-50"].locations.append("Trial 041 Chest 1")
+        regions["41-50"].locations.append("Trial 041 Chest 2")
+        regions["41-50"].locations.append("Trial 042 Chest 1")
+        regions["41-50"].locations.append("Trial 042 Chest 2")
+        regions["41-50"].locations.append("Trial 043 Chest 1")
+        regions["41-50"].locations.append("Trial 043 Chest 2")
+        regions["41-50"].locations.append("Trial 044 Chest 1")
+        regions["41-50"].locations.append("Trial 044 Chest 2")
+        regions["41-50"].locations.append("Trial 045 Chest 1")
+        regions["41-50"].locations.append("Trial 045 Chest 2")
+        regions["41-50"].locations.append("Trial 046 Chest 1")
+        regions["41-50"].locations.append("Trial 046 Chest 2")
+        regions["41-50"].locations.append("Trial 047 Chest 1")
+        regions["41-50"].locations.append("Trial 047 Chest 2")
+        regions["41-50"].locations.append("Trial 048 Chest 1")
+        regions["41-50"].locations.append("Trial 048 Chest 2")
+        regions["41-50"].locations.append("Trial 049 Chest 1")
+        regions["41-50"].locations.append("Trial 049 Chest 2")
+        regions["41-50"].locations.append("Trial 050 Chest 1")
+        regions["41-50"].locations.append("Trial 050 Chest 2")
+    if max_trial_floor > 50:
+        regions["41-50"].region_exits.append("51-60")
+        regions["51-60"]  = FFXIITMRegionData([] ,[])
+        regions["51-60"].locations.append("Trial 051 Chest 1")
+        regions["51-60"].locations.append("Trial 051 Chest 2")
+        regions["51-60"].locations.append("Trial 052 Chest 1")
+        regions["51-60"].locations.append("Trial 052 Chest 2")
+        regions["51-60"].locations.append("Trial 053 Chest 1")
+        regions["51-60"].locations.append("Trial 053 Chest 2")
+        regions["51-60"].locations.append("Trial 054 Chest 1")
+        regions["51-60"].locations.append("Trial 054 Chest 2")
+        regions["51-60"].locations.append("Trial 055 Chest 1")
+        regions["51-60"].locations.append("Trial 055 Chest 2")
+        regions["51-60"].locations.append("Trial 056 Chest 1")
+        regions["51-60"].locations.append("Trial 056 Chest 2")
+        regions["51-60"].locations.append("Trial 057 Chest 1")
+        regions["51-60"].locations.append("Trial 057 Chest 2")
+        regions["51-60"].locations.append("Trial 058 Chest 1")
+        regions["51-60"].locations.append("Trial 058 Chest 2")
+        regions["51-60"].locations.append("Trial 059 Chest 1")
+        regions["51-60"].locations.append("Trial 059 Chest 2")
+        regions["51-60"].locations.append("Trial 060 Chest 1")
+        regions["51-60"].locations.append("Trial 060 Chest 2")
+    if max_trial_floor > 60:
+        regions["51-60"].region_exits.append("61-70")
+        regions["61-70"]  = FFXIITMRegionData([] ,[])
+        regions["61-70"].locations.append("Trial 061 Chest 1")
+        regions["61-70"].locations.append("Trial 061 Chest 2")
+        regions["61-70"].locations.append("Trial 062 Chest 1")
+        regions["61-70"].locations.append("Trial 062 Chest 2")
+        regions["61-70"].locations.append("Trial 062 Chest 3")
+        regions["61-70"].locations.append("Trial 062 Chest 4")
+        regions["61-70"].locations.append("Trial 063 Chest 1")
+        regions["61-70"].locations.append("Trial 063 Chest 2")
+        regions["61-70"].locations.append("Trial 064 Chest 1")
+        regions["61-70"].locations.append("Trial 064 Chest 2")
+        regions["61-70"].locations.append("Trial 065 Chest 1")
+        regions["61-70"].locations.append("Trial 065 Chest 2")
+        regions["61-70"].locations.append("Trial 066 Chest 1")
+        regions["61-70"].locations.append("Trial 066 Chest 2")
+        regions["61-70"].locations.append("Trial 067 Chest 1")
+        regions["61-70"].locations.append("Trial 067 Chest 2")
+        regions["61-70"].locations.append("Trial 068 Chest 1")
+        regions["61-70"].locations.append("Trial 068 Chest 2")
+        regions["61-70"].locations.append("Trial 069 Chest 1")
+        regions["61-70"].locations.append("Trial 069 Chest 2")
+        regions["61-70"].locations.append("Trial 070 Chest 1")
+        regions["61-70"].locations.append("Trial 070 Chest 2")
+    if max_trial_floor > 70:
+        regions["61-70"].region_exits.append("71-80")
+        regions["71-80"]  = FFXIITMRegionData([] ,[])
+        regions["71-80"].locations.append("Trial 071 Chest 1")
+        regions["71-80"].locations.append("Trial 071 Chest 2")
+        regions["71-80"].locations.append("Trial 072 Chest 1")
+        regions["71-80"].locations.append("Trial 072 Chest 2")
+        regions["71-80"].locations.append("Trial 073 Chest 1")
+        regions["71-80"].locations.append("Trial 073 Chest 2")
+        regions["71-80"].locations.append("Trial 074 Chest 1")
+        regions["71-80"].locations.append("Trial 074 Chest 2")
+        regions["71-80"].locations.append("Trial 075 Chest 1")
+        regions["71-80"].locations.append("Trial 075 Chest 2")
+        regions["71-80"].locations.append("Trial 076 Chest 1")
+        regions["71-80"].locations.append("Trial 076 Chest 2")
+        regions["71-80"].locations.append("Trial 077 Chest 1")
+        regions["71-80"].locations.append("Trial 077 Chest 2")
+        regions["71-80"].locations.append("Trial 078 Chest 1")
+        regions["71-80"].locations.append("Trial 078 Chest 2")
+        regions["71-80"].locations.append("Trial 079 Chest 1")
+        regions["71-80"].locations.append("Trial 079 Chest 2")
+        regions["71-80"].locations.append("Trial 080 Chest 1")
+        regions["71-80"].locations.append("Trial 080 Chest 2")
+    if max_trial_floor > 80:
+        regions["71-80"].region_exits.append("81-90")
+        regions["81-90"] = FFXIITMRegionData([] ,[])
+        regions["81-90"].locations.append("Trial 081 Chest 1")
+        regions["81-90"].locations.append("Trial 081 Chest 2")
+        regions["81-90"].locations.append("Trial 082 Chest 1")
+        regions["81-90"].locations.append("Trial 082 Chest 2")
+        regions["81-90"].locations.append("Trial 082 Chest 3")
+        regions["81-90"].locations.append("Trial 083 Chest 1")
+        regions["81-90"].locations.append("Trial 083 Chest 2")
+        regions["81-90"].locations.append("Trial 083 Chest 3")
+        regions["81-90"].locations.append("Trial 084 Chest 1")
+        regions["81-90"].locations.append("Trial 084 Chest 2")
+        regions["81-90"].locations.append("Trial 084 Chest 3")
+        regions["81-90"].locations.append("Trial 085 Chest 1")
+        regions["81-90"].locations.append("Trial 085 Chest 2")
+        regions["81-90"].locations.append("Trial 085 Chest 3")
+        regions["81-90"].locations.append("Trial 086 Chest 1")
+        regions["81-90"].locations.append("Trial 086 Chest 2")
+        regions["81-90"].locations.append("Trial 086 Chest 3")
+        regions["81-90"].locations.append("Trial 087 Chest 1")
+        regions["81-90"].locations.append("Trial 087 Chest 2")
+        regions["81-90"].locations.append("Trial 087 Chest 3")
+        regions["81-90"].locations.append("Trial 087 Chest 4")
+        regions["81-90"].locations.append("Trial 088 Chest 1")
+        regions["81-90"].locations.append("Trial 088 Chest 2")
+        regions["81-90"].locations.append("Trial 088 Chest 3")
+        regions["81-90"].locations.append("Trial 089 Chest 1")
+        regions["81-90"].locations.append("Trial 089 Chest 2")
+        regions["81-90"].locations.append("Trial 090 Chest 1")
+        regions["81-90"].locations.append("Trial 090 Chest 2")
+    if max_trial_floor > 90:
+        regions["81-90"].region_exits.append("91-100")
+        regions["91-100"] = FFXIITMRegionData([] ,[])
+        regions["91-100"].locations.append("Trial 091 Chest 1")
+        regions["91-100"].locations.append("Trial 091 Chest 2")
+        regions["91-100"].locations.append("Trial 091 Chest 3")
+        regions["91-100"].locations.append("Trial 091 Chest 4")
+        regions["91-100"].locations.append("Trial 092 Chest 1")
+        regions["91-100"].locations.append("Trial 092 Chest 2")
+        regions["91-100"].locations.append("Trial 092 Chest 3")
+        regions["91-100"].locations.append("Trial 093 Chest 1")
+        regions["91-100"].locations.append("Trial 093 Chest 2")
+        regions["91-100"].locations.append("Trial 094 Chest 1")
+        regions["91-100"].locations.append("Trial 094 Chest 2")
+        regions["91-100"].locations.append("Trial 094 Chest 3")
+        regions["91-100"].locations.append("Trial 095 Chest 1")
+        regions["91-100"].locations.append("Trial 096 Chest 1")
+        regions["91-100"].locations.append("Trial 096 Chest 2")
+        regions["91-100"].locations.append("Trial 097 Chest 1")
+        regions["91-100"].locations.append("Trial 097 Chest 2")
+        regions["91-100"].locations.append("Trial 097 Chest 3")
+        regions["91-100"].locations.append("Trial 097 Chest 4")
+        regions["91-100"].locations.append("Trial 099 Chest 1")
+        regions["91-100"].locations.append("Trial 100 Chest 1")
+        regions["91-100"].locations.append("Trial 100 Chest 2")
+        regions["91-100"].locations.append("Trial 100 Chest 3")
 
-    # Set up locations
-    
-    regions["Trial Mode"].locations.append("Trial 001 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 001 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 002 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 002 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 003 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 003 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 004 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 004 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 005 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 005 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 006 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 006 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 007 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 007 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 008 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 008 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 009 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 009 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 010 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 010 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 011 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 011 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 012 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 012 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 013 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 013 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 014 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 014 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 015 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 015 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 016 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 016 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 017 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 017 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 018 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 018 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 019 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 019 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 020 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 020 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 021 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 021 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 022 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 022 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 023 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 023 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 024 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 024 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 025 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 025 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 026 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 026 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 027 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 027 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 028 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 028 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 029 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 029 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 030 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 030 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 030 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 031 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 031 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 031 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 031 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 031 Chest 5"),
-    regions["Trial Mode"].locations.append("Trial 032 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 032 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 032 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 033 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 033 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 034 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 034 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 035 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 035 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 035 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 035 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 036 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 036 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 036 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 037 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 037 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 038 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 038 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 039 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 039 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 040 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 040 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 041 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 041 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 042 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 042 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 043 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 043 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 044 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 044 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 045 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 045 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 046 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 046 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 047 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 047 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 048 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 048 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 049 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 049 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 050 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 050 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 051 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 051 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 052 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 052 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 053 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 053 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 054 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 054 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 055 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 055 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 056 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 056 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 057 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 057 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 058 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 058 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 059 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 059 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 060 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 060 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 061 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 061 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 062 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 062 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 062 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 062 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 063 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 063 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 064 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 064 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 065 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 065 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 066 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 066 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 067 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 067 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 068 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 068 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 069 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 069 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 070 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 070 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 071 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 071 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 072 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 072 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 073 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 073 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 074 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 074 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 075 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 075 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 076 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 076 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 077 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 077 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 078 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 078 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 079 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 079 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 080 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 080 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 081 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 081 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 082 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 082 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 082 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 083 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 083 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 083 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 084 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 084 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 084 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 085 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 085 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 085 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 086 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 086 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 086 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 087 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 087 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 087 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 087 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 088 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 088 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 088 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 089 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 089 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 090 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 090 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 091 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 091 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 091 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 091 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 092 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 092 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 092 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 093 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 093 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 094 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 094 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 094 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 095 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 096 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 096 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 097 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 097 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 097 Chest 3"),
-    regions["Trial Mode"].locations.append("Trial 097 Chest 4"),
-    regions["Trial Mode"].locations.append("Trial 099 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 100 Chest 1"),
-    regions["Trial Mode"].locations.append("Trial 100 Chest 2"),
-    regions["Trial Mode"].locations.append("Trial 100 Chest 3"),
     
     # Set up the regions correctly.
     for name, data in regions.items():
+        print(name)
         multiworld.regions.append(create_region(multiworld, player, name, data))
 
-    multiworld.get_entrance("Trial Mode", player).connect(multiworld.get_region("Trial Mode", player))
-
+    multiworld.get_entrance("01-10", player).connect(multiworld.get_region("01-10", player))
+    if max_trial_floor > 10:
+        multiworld.get_entrance("11-20", player).connect(multiworld.get_region("11-20", player))
+    if max_trial_floor > 20:
+        multiworld.get_entrance("21-30", player).connect(multiworld.get_region("21-30", player))
+    if max_trial_floor > 30:
+        multiworld.get_entrance("31-40", player).connect(multiworld.get_region("31-40", player))
+    if max_trial_floor > 40:
+        multiworld.get_entrance("41-50", player).connect(multiworld.get_region("41-50", player))
+    if max_trial_floor > 50:
+        multiworld.get_entrance("51-60", player).connect(multiworld.get_region("51-60", player))
+    if max_trial_floor > 60:
+        multiworld.get_entrance("61-70", player).connect(multiworld.get_region("61-70", player))
+    if max_trial_floor > 70:
+        multiworld.get_entrance("71-80", player).connect(multiworld.get_region("71-80", player))
+    if max_trial_floor > 80:
+        multiworld.get_entrance("81-90", player).connect(multiworld.get_region("81-90", player))
+    if max_trial_floor > 90:
+        multiworld.get_entrance("91-100", player).connect(multiworld.get_region("91-100", player))
 
 def create_region(multiworld: MultiWorld, player: int, name: str, data: FFXIITMRegionData):
     region = Region(name, player, multiworld)

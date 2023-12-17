@@ -4,25 +4,15 @@ from Options import Choice, Range, Option, Toggle, DeathLink, DefaultOnToggle, O
 
 ffxiitm_options: Dict[str, type(Option)] = {
 }
-class TrialMinVictory(Range):
+class TrialVictory(Range):
     """
-    What is the lowest Trial that can hold the Victory item?
+    Which Trial holds the victory items
     """
-    default = 50
-    range_start = 1
+    default = 20
+    range_start = 10
     range_end = 100
-    display_name = "Minimum Victory Trial"
-    
-class TrialRange(Range):
-    """
-    How many Trials above the minimum can hold the Victory item?  If the range would put the trial above 100, it is flattened to 100.
-    """
-    default = 50
-    range_start = 0
-    range_end = 99
-    display_name = "Trial Range"
+    display_name = "Victory Trial"
 
 ffxiitm_options: Dict[str, type(Option)] = {
-    "trial_minimum_victory": TrialMinVictory,
-    "trial_range": TrialRange,
+    "trial_victory": TrialVictory,
 }
