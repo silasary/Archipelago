@@ -192,49 +192,49 @@ class TrackerGameContext(CommonContext):
             output_path.cached_path = args.outputpath
 
         start = time.perf_counter()
-        # initialize the multiworld
-        multiworld = MultiWorld(args.multi)
+        # initialize the world
+        world = MultiWorld(args.multi)
 
         logger = logging.getLogger()
-        multiworld.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
-        multiworld.plando_options = args.plando_options
+        world.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
+        world.plando_options = args.plando_options
 
-        multiworld.shuffle = args.shuffle.copy()
-        multiworld.logic = args.logic.copy()
-        multiworld.mode = args.mode.copy()
-        multiworld.difficulty = args.difficulty.copy()
-        multiworld.item_functionality = args.item_functionality.copy()
-        multiworld.timer = args.timer.copy()
-        multiworld.goal = args.goal.copy()
-        multiworld.boss_shuffle = args.shufflebosses.copy()
-        multiworld.enemy_health = args.enemy_health.copy()
-        multiworld.enemy_damage = args.enemy_damage.copy()
-        multiworld.beemizer_total_chance = args.beemizer_total_chance.copy()
-        multiworld.beemizer_trap_chance = args.beemizer_trap_chance.copy()
-        multiworld.countdown_start_time = args.countdown_start_time.copy()
-        multiworld.red_clock_time = args.red_clock_time.copy()
-        multiworld.blue_clock_time = args.blue_clock_time.copy()
-        multiworld.green_clock_time = args.green_clock_time.copy()
-        multiworld.dungeon_counters = args.dungeon_counters.copy()
-        multiworld.triforce_pieces_available = args.triforce_pieces_available.copy()
-        multiworld.triforce_pieces_required = args.triforce_pieces_required.copy()
-        multiworld.shop_shuffle = args.shop_shuffle.copy()
-        multiworld.shuffle_prizes = args.shuffle_prizes.copy()
-        multiworld.sprite_pool = args.sprite_pool.copy()
-        multiworld.dark_room_logic = args.dark_room_logic.copy()
-        multiworld.plando_items = args.plando_items.copy()
-        multiworld.plando_texts = args.plando_texts.copy()
-        multiworld.plando_connections = args.plando_connections.copy()
-        multiworld.required_medallions = args.required_medallions.copy()
-        multiworld.game = args.game.copy()
-        multiworld.player_name = args.name.copy()
-        multiworld.sprite = args.sprite.copy()
-        multiworld.glitch_triforce = args.glitch_triforce  # This is enabled/disabled globally, no per player option.
+        world.shuffle = args.shuffle.copy()
+        world.logic = args.logic.copy()
+        world.mode = args.mode.copy()
+        world.difficulty = args.difficulty.copy()
+        world.item_functionality = args.item_functionality.copy()
+        world.timer = args.timer.copy()
+        world.goal = args.goal.copy()
+        world.boss_shuffle = args.shufflebosses.copy()
+        world.enemy_health = args.enemy_health.copy()
+        world.enemy_damage = args.enemy_damage.copy()
+        world.beemizer_total_chance = args.beemizer_total_chance.copy()
+        world.beemizer_trap_chance = args.beemizer_trap_chance.copy()
+        world.countdown_start_time = args.countdown_start_time.copy()
+        world.red_clock_time = args.red_clock_time.copy()
+        world.blue_clock_time = args.blue_clock_time.copy()
+        world.green_clock_time = args.green_clock_time.copy()
+        world.dungeon_counters = args.dungeon_counters.copy()
+        world.triforce_pieces_available = args.triforce_pieces_available.copy()
+        world.triforce_pieces_required = args.triforce_pieces_required.copy()
+        world.shop_shuffle = args.shop_shuffle.copy()
+        world.shuffle_prizes = args.shuffle_prizes.copy()
+        world.sprite_pool = args.sprite_pool.copy()
+        world.dark_room_logic = args.dark_room_logic.copy()
+        world.plando_items = args.plando_items.copy()
+        world.plando_texts = args.plando_texts.copy()
+        world.plando_connections = args.plando_connections.copy()
+        world.required_medallions = args.required_medallions.copy()
+        world.game = args.game.copy()
+        world.player_name = args.name.copy()
+        world.sprite = args.sprite.copy()
+        world.glitch_triforce = args.glitch_triforce  # This is enabled/disabled globally, no per player option.
 
-        multiworld.set_options(args)
-        multiworld.set_item_links()
-        multiworld.state = CollectionState(multiworld)
-        logger.info('Archipelago Version %s  -  Seed: %s\n', __version__, multiworld.seed)
+        world.set_options(args)
+        world.set_item_links()
+        world.state = CollectionState(world)
+        logger.info('Archipelago Version %s  -  Seed: %s\n', __version__, world.seed)
 
         logger.info(f"Found {len(AutoWorld.AutoWorldRegister.world_types)} World Types:")
         longest_name = max(len(text) for text in AutoWorld.AutoWorldRegister.world_types)
@@ -263,38 +263,51 @@ class TrackerGameContext(CommonContext):
 
         del item_digits, location_digits, item_count, location_count
 
-        AutoWorld.call_stage(multiworld, "assert_generate")
+        # This assertion method should not be necessary to run if we are not outputting any multidata.
+        if not args.skip_output:
+            AutoWorld.call_stage(world, "assert_generate")
 
-        AutoWorld.call_all(multiworld, "generate_early")
+        AutoWorld.call_all(world, "generate_early")
 
         logger.info('')
 
-        for player in multiworld.player_ids:
-            for item_name, count in multiworld.worlds[player].options.start_inventory.value.items():
+        for player in world.player_ids:
+            for item_name, count in world.worlds[player].options.start_inventory.value.items():
                 for _ in range(count):
-                    multiworld.push_precollected(multiworld.create_item(item_name, player))
+                    world.push_precollected(world.create_item(item_name, player))
 
-            for item_name, count in multiworld.start_inventory_from_pool.setdefault(player, StartInventoryPool({})).value.items():
+            for item_name, count in world.start_inventory_from_pool.setdefault(player, StartInventoryPool({})).value.items():
                 for _ in range(count):
-                    multiworld.push_precollected(multiworld.create_item(item_name, player))
+                    world.push_precollected(world.create_item(item_name, player))
+                # remove from_pool items also from early items handling, as starting is plenty early.
+                early = world.early_items[player].get(item_name, 0)
+                if early:
+                    world.early_items[player][item_name] = max(0, early-count)
+                    remaining_count = count-early
+                    if remaining_count > 0:
+                        local_early = world.early_local_items[player].get(item_name, 0)
+                        if local_early:
+                            world.early_items[player][item_name] = max(0, local_early - remaining_count)
+                        del local_early
+                del early
 
         logger.info('Creating World.')
-        AutoWorld.call_all(multiworld, "create_regions")
+        AutoWorld.call_all(world, "create_regions")
 
         logger.info('Creating Items.')
-        AutoWorld.call_all(multiworld, "create_items")
+        AutoWorld.call_all(world, "create_items")
 
         logger.info('Calculating Access Rules.')
 
-        for player in multiworld.player_ids:
+        for player in world.player_ids:
             # items can't be both local and non-local, prefer local
-            multiworld.worlds[player].options.non_local_items.value -= multiworld.worlds[player].options.local_items.value
-            multiworld.worlds[player].options.non_local_items.value -= set(multiworld.local_early_items[player])
+            world.worlds[player].options.non_local_items.value -= world.worlds[player].options.local_items.value
+            world.worlds[player].options.non_local_items.value -= set(world.local_early_items[player])
 
-        AutoWorld.call_all(multiworld, "set_rules")
+        AutoWorld.call_all(world, "set_rules")
 
 
-        self.multiworld = multiworld
+        self.multiworld = world
         return
 
 def updateTracker(ctx: TrackerGameContext):
