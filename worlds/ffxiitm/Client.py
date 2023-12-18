@@ -43,20 +43,13 @@ class FFXIITMContext(CommonContext):
         if "localappdata" in os.environ:
             self.game_communication_path = os.path.expandvars(r"%localappdata%/FFXIITM")
         else:
-            # not windows. game is an exe so let's see if wine might be around to run it
-            if "WINEPREFIX" in os.environ:
-                wineprefix = os.environ["WINEPREFIX"]
-            elif shutil.which("wine") or shutil.which("wine-stable"):
-                wineprefix = os.path.expanduser("~/.wine") # default root of wine system data, deep in which is app data
-            else:
-                msg = "FFXIITMClient couldn't detect system type. Unable to infer required game_communication_path"
-                logger.error("Error: " + msg)
-                Utils.messagebox("Error", msg, error=True)
-                sys.exit(1)
-            self.game_communication_path = os.path.join(
-                wineprefix,
-                "drive_c",
-                os.path.expandvars("users/$USER/Local Settings/Application Data/FFXIITM"))
+            self.game_communication_path = os.path.expandvars(r"$HOME/FFXIITM")
+        if not os.path.exists(self.game_communication_path):
+            os.makedirs(self.game_communication_path)
+        for root, dirs, files in os.walk(self.game_communication_path):
+            for file in files:
+                if file.find("obtain") <= -1:
+                    os.remove(root+"/"+file)
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
