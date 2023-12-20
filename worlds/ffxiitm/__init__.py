@@ -61,7 +61,7 @@ class FFXIITMWorld(World):
             quantity = data.max_quantity
             
             # Ignore filler, it will be added in a later stage.
-            if data.category not in ["Mist", "Technick", "Magick"]:
+            if data.category not in ["Mist", "Technick", "Magick", "Equipment"]:
                 continue
             item_pool += [self.create_item(name) for _ in range(0, quantity)]
 
@@ -75,8 +75,7 @@ class FFXIITMWorld(World):
     def get_filler_item_name(self) -> str:
         fillers = {}
         disclude = []
-        fillers.update(get_items_by_category("Equipment", disclude))
-        #fillers.update(get_items_by_category("Item", disclude))
+        fillers.update(get_items_by_category("Item", disclude))
         weights = [data.weight for data in fillers.values()]
         return self.multiworld.random.choices([filler for filler in fillers.keys()], weights, k=1)[0]
         
