@@ -132,6 +132,7 @@ K64_LEVEL_ADDRESS = 0x1FFF230
 class K64Client(BizHawkClient):
     game = "Kirby 64 - The Crystal Shards"
     system = "N64"
+    patch_suffix = ".apk64cs"
     death_link: typing.Optional[bool] = None
     rom: typing.Optional[bytes] = None
     levels: typing.Optional[typing.Dict[int, typing.List[int]]] = None
@@ -152,7 +153,8 @@ class K64Client(BizHawkClient):
                 copy_abilties[i] = shifter & current
                 shifter <<= 1
             new = new_ability & 0xFF
-            output = current | new
+            copy_abilties[new] = 1
+            output = current | 1 << new - 1
             for i in range(1, 8):
                 if copy_abilties[i]:
                     if i < new:
