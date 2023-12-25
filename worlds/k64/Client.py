@@ -283,11 +283,11 @@ class K64Client(BizHawkClient):
                     new_checks.append(loc_id)
 
         # check crystals
-        current_crystal = 0x640101
         for level, stage_num in zip(range(6), (3, 4, 4, 4, 4, 3)):
             level_crystals = struct.unpack("I", crystal_array[level*4:(level*4)+4])[0]
             for stage in range(stage_num):
                 shifter = (stage * 8)
+                current_crystal = 0x640101 + (self.levels[level][stage] * 3)
                 for i in range(3):
                     if level_crystals & (1 << shifter) and current_crystal not in ctx.checked_locations:
                         new_checks.append(current_crystal)
