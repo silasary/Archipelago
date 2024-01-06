@@ -17,7 +17,7 @@ from Utils import __version__, output_path
 from worlds import AutoWorld
 from worlds.tracker import TrackerWorld
 
-from Generate import main as GMain
+from Generate import main as GMain, mystery_argparse
 
 #webserver imports
 import urllib.parse
@@ -174,9 +174,17 @@ class TrackerGameContext(CommonContext):
     
     def run_generator(self):
         try:
+            host = get_settings()
+            if 'universal_tracker' not in host:
+                host['universal_tracker'] = {'player_files_path': None}
+                host.save()
+            yaml_path = host['universal_tracker']['player_files_path']
             #strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
-            GMain(None, self.TMain)
+            args, _settings = mystery_argparse()
+            if yaml_path:
+                args.player_files_path = yaml_path
+            GMain(args, self.TMain)
         except Exception as e:
             tb = traceback.format_exc()
             self.gen_error = tb
