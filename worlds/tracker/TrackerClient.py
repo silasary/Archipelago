@@ -54,6 +54,7 @@ class TrackerGameContext(CommonContext):
     watcher_task = None
     update_callback: Callable[[list[str]], bool] = None
     gen_error = None
+    include_region_name = False
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -163,6 +164,7 @@ class TrackerGameContext(CommonContext):
                 self.log_to_tab("Player's Yaml not in tracker's list",False)
                 return
             self.player_id = player_ids[0] #should only really ever be one match
+            self.game = args["slot_info"][str(args["slot"])][1]
 
             if callable(getattr(self.multiworld.worlds[self.player_id],"interpret_slot_data",None)):
                 self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
@@ -176,9 +178,10 @@ class TrackerGameContext(CommonContext):
         try:
             host = get_settings()
             if 'universal_tracker' not in host:
-                host['universal_tracker'] = {'player_files_path': None}
+                host['universal_tracker'] = {'player_files_path': None,'include_region_name': False}
                 host.save()
             yaml_path = host['universal_tracker']['player_files_path']
+            self.include_region_name = host['universal_tracker']['include_region_name']
             #strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
             args, _settings = mystery_argparse()
@@ -340,10 +343,15 @@ def updateTracker(ctx: TrackerGameContext):
             continue
         if (temp_loc.address in ctx.missing_locations):
             #logger.info("YES rechable (" + temp_loc.name + ")")
+            region = ""
             if temp_loc.parent_region is None:
-                ctx.log_to_tab("|" + temp_loc.name ,True)
+                region = "| "
             else:
-                ctx.log_to_tab(temp_loc.parent_region.name + " | " + temp_loc.name,True )
+                region = temp_loc.parent_region.name + " | "
+            if ctx.include_region_name:
+                ctx.log_to_tab(region + temp_loc.name,True )
+            else:
+                ctx.log_to_tab(temp_loc.name,True )
             callback_list.append(temp_loc.name)
     ctx.tracker_page.refresh_from_data()
     if ctx.update_callback is not None:
