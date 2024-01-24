@@ -10,7 +10,8 @@ import sys
 from typing import Dict, Optional
 from BaseClasses import Region,Location
 
-from BaseClasses import CollectionState,MultiWorld
+from BaseClasses import CollectionState,MultiWorld,LocationProgressType
+from worlds.generic.Rules import exclusion_rules,locality_rules
 from Options import StartInventoryPool
 from settings import get_settings
 from Utils import __version__, output_path
@@ -41,7 +42,10 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
         for item in self.ctx.items_received:
-            logger.info( self.ctx.multiworld.worlds[self.ctx.player_id].item_id_to_name[item[0]])
+            try:
+                logger.info( self.ctx.multiworld.worlds[self.ctx.player_id].item_id_to_name[item[0]])
+            except:
+                logger.error("Item " + str(item[0]) + " not a valid item for this world")
 
 
 class TrackerGameContext(CommonContext):
@@ -88,7 +92,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text":"Tracker Initializing"})
+                self.data.append({"text":"Tracker v0.1.0 Initializing"})
             
             def resetData(self):
                 self.data.clear()
@@ -174,12 +178,19 @@ class TrackerGameContext(CommonContext):
         elif cmd == 'RoomUpdate':
             updateTracker(self)
     
+    def _set_host_settings(self,host):
+        if 'universal_tracker' not in host:
+            host['universal_tracker'] = {}
+        if 'player_files_path' not in host['universal_tracker']:
+            host['universal_tracker']['player_files_path'] = None
+        if 'include_region_name' not in host['universal_tracker']:
+            host['universal_tracker']['include_region_name'] = False
+        host.save()
+
     def run_generator(self):
         try:
             host = get_settings()
-            if 'universal_tracker' not in host:
-                host['universal_tracker'] = {'player_files_path': None,'include_region_name': False}
-                host.save()
+            self._set_host_settings(host)
             yaml_path = host['universal_tracker']['player_files_path']
             self.include_region_name = host['universal_tracker']['include_region_name']
             #strip command line args, they won't be useful from the client anyway
@@ -187,7 +198,13 @@ class TrackerGameContext(CommonContext):
             args, _settings = mystery_argparse()
             if yaml_path:
                 args.player_files_path = yaml_path
+            args.skip_output = True
             GMain(args, self.TMain)
+            temp_precollect = {}
+            for player_id, items in self.multiworld.precollected_items.items():
+                temp_items = [item for item in items if item.code == None]
+                temp_precollect[player_id] = temp_items
+            self.multiworld.precollected_items = temp_precollect
         except Exception as e:
             tb = traceback.format_exc()
             self.gen_error = tb
@@ -317,6 +334,27 @@ class TrackerGameContext(CommonContext):
 
         AutoWorld.call_all(world, "set_rules")
 
+        for player in world.player_ids:
+            exclusion_rules(world, player, world.worlds[player].options.exclude_locations.value)
+            world.worlds[player].options.priority_locations.value -= world.worlds[player].options.exclude_locations.value
+            for location_name in world.worlds[player].options.priority_locations.value:
+                try:
+                    location = world.get_location(location_name, player)
+                except KeyError as e:  # failed to find the given location. Check if it's a legitimate location
+                    if location_name not in world.worlds[player].location_name_to_id:
+                        raise Exception(f"Unable to prioritize location {location_name} in player {player}'s world.") from e
+                else:
+                    location.progress_type = LocationProgressType.PRIORITY
+
+        # Set local and non-local item rules.
+        if world.players > 1:
+            locality_rules(world)
+        else:
+            world.worlds[1].options.non_local_items.value = set()
+            world.worlds[1].options.local_items.value = set()
+
+        AutoWorld.call_all(world, "generate_basic")
+
 
         self.multiworld = world
         return
@@ -333,8 +371,10 @@ def updateTracker(ctx: TrackerGameContext):
     callback_list = []
 
     for item in ctx.items_received:
-        state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id))
-
+        try:
+            state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id))
+        except:
+            ctx.log_to_tab("Item id " + str(item[0]) + " not able to be created",False)
     state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
     
     ctx.clear_page()
