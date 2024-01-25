@@ -57,8 +57,9 @@ class TrackerGameContext(CommonContext):
     tracker_page = None
     watcher_task = None
     update_callback: Callable[[list[str]], bool] = None
+    region_callback: Callable[[list[str]], bool] = None
     gen_error = None
-    include_region_name = False
+    output_format = "Both"
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -76,8 +77,11 @@ class TrackerGameContext(CommonContext):
         if self.tracker_page is not None:
             self.tracker_page.addLine(line,sort)
 
-    def set_callback(self,func:Callable[[list[str]],bool]):
+    def set_callback(self,func:Optional[Callable[[list[str]],bool]]=None):
         self.update_callback = func
+    
+    def set_region_callback(self,func:Optional[Callable[[list[str]],bool]] = None):
+        self.region_callback = func
 
     def build_gui(self,manager : GameManager):
         from kivy.uix.boxlayout import BoxLayout
@@ -92,7 +96,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text":"Tracker v0.1.0 Initializing"})
+                self.data.append({"text":"Tracker v0.1.1 Initializing"})
             
             def resetData(self):
                 self.data.clear()
@@ -178,6 +182,11 @@ class TrackerGameContext(CommonContext):
         elif cmd == 'RoomUpdate':
             updateTracker(self)
     
+    
+    async def disconnect(self, allow_autoreconnect: bool = False):
+        self.game = ""
+        await super().disconnect(allow_autoreconnect)
+    
     def _set_host_settings(self,host):
         if 'universal_tracker' not in host:
             host['universal_tracker'] = {}
@@ -185,14 +194,23 @@ class TrackerGameContext(CommonContext):
             host['universal_tracker']['player_files_path'] = None
         if 'include_region_name' not in host['universal_tracker']:
             host['universal_tracker']['include_region_name'] = False
+        if 'include_location_name' not in host['universal_tracker']:
+            host['universal_tracker']['include_location_name'] = True
+        report_type = "Both"
+        if  host['universal_tracker']['include_location_name']:
+            if host['universal_tracker']['include_region_name']:
+                report_type = "Both"
+            else:
+                report_type = "Location"
+        else:
+            report_type = "Region"
         host.save()
+        return host['universal_tracker']['player_files_path'],report_type
 
     def run_generator(self):
         try:
             host = get_settings()
-            self._set_host_settings(host)
-            yaml_path = host['universal_tracker']['player_files_path']
-            self.include_region_name = host['universal_tracker']['include_region_name']
+            yaml_path ,self.output_format = self._set_host_settings(host)
             #strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
             args, _settings = mystery_argparse()
@@ -378,24 +396,34 @@ def updateTracker(ctx: TrackerGameContext):
     state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
     
     ctx.clear_page()
+    regions = []
     for temp_loc in ctx.multiworld.get_reachable_locations(state,ctx.player_id):
-        if temp_loc.address == None:
+        if temp_loc.address == None or isinstance(temp_loc.address,list):
             continue
-        if (temp_loc.address in ctx.missing_locations):
-            #logger.info("YES rechable (" + temp_loc.name + ")")
-            region = ""
-            if temp_loc.parent_region is None:
-                region = "| "
-            else:
-                region = temp_loc.parent_region.name + " | "
-            if ctx.include_region_name:
-                ctx.log_to_tab(region + temp_loc.name,True )
-            else:
-                ctx.log_to_tab(temp_loc.name,True )
-            callback_list.append(temp_loc.name)
+        try:
+            if (temp_loc.address in ctx.missing_locations):
+                #logger.info("YES rechable (" + temp_loc.name + ")")
+                region = ""
+                if temp_loc.parent_region is None:
+                    region = ""
+                else:
+                    region = temp_loc.parent_region.name
+                if ctx.output_format == "Both":
+                    ctx.log_to_tab(region + " | " + temp_loc.name,True )
+                elif ctx.output_format == "Location":
+                    ctx.log_to_tab(temp_loc.name,True )
+                if region not in regions:
+                    regions.append(region)
+                    if ctx.output_format == "Region":
+                        ctx.log_to_tab(region,True)
+                callback_list.append(temp_loc.name)
+        except:
+            pass
     ctx.tracker_page.refresh_from_data()
     if ctx.update_callback is not None:
         ctx.update_callback(callback_list)
+    if ctx.region_callback is not None:
+        ctx.region_callback(regions)
     if len(callback_list) == 0:
         ctx.log_to_tab("Nothing! Congrats!")
 
