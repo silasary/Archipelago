@@ -33,19 +33,12 @@ ITEMS_HANDLING = 0b111
 
 class TrackerCommandProcessor(ClientCommandProcessor):
 
-    def _cmd_update(self):
-        """Print the Updated Accessable Location set"""
-        #self.ctx.tracker_page.content.data = new_data = []
-        updateTracker(self.ctx)
-
     def _cmd_inventory(self):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
-        for item in self.ctx.items_received:
-            try:
-                logger.info( self.ctx.multiworld.worlds[self.ctx.player_id].item_id_to_name[item[0]])
-            except:
-                logger.error("Item " + str(item[0]) + " not a valid item for this world")
+        prog_items = updateTracker(self.ctx)
+        for item,count in prog_items.items():
+            logger.info( str(count) + "x: " + item)
 
 
 class TrackerGameContext(CommonContext):
@@ -96,7 +89,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text":"Tracker v0.1.1 Initializing"})
+                self.data.append({"text":"Tracker v0.1.2 Initializing"})
             
             def resetData(self):
                 self.data.clear()
@@ -241,6 +234,11 @@ class TrackerGameContext(CommonContext):
         # initialize the world
         world = MultiWorld(args.multi)
 
+        ###
+        # Tracker Specific change to allow for worlds to know they aren't real
+        ###
+        world.generation_is_fake = True
+
         logger = logging.getLogger()
         world.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
         world.plando_options = args.plando_options
@@ -384,16 +382,16 @@ def updateTracker(ctx: TrackerGameContext):
         return
 
     state = CollectionState(ctx.multiworld)
-    state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
+    state.sweep_for_events(locations=(location for location in ctx.multiworld.get_locations() if ( not location.address)))
 
     callback_list = []
 
     for item in ctx.items_received:
         try:
-            state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id))
+            state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id),True)
         except:
             ctx.log_to_tab("Item id " + str(item[0]) + " not able to be created",False)
-    state.sweep_for_events(location for location in ctx.multiworld.get_locations() if not location.address)
+    state.sweep_for_events(locations=(location for location in ctx.multiworld.get_locations() if ( not location.address)))
     
     ctx.clear_page()
     regions = []
@@ -418,6 +416,7 @@ def updateTracker(ctx: TrackerGameContext):
                         ctx.log_to_tab(region,True)
                 callback_list.append(temp_loc.name)
         except:
+            ctx.log_to_tab("ERROR: location " + temp_loc.name + " broke something, report this to discord")
             pass
     ctx.tracker_page.refresh_from_data()
     if ctx.update_callback is not None:
@@ -425,7 +424,8 @@ def updateTracker(ctx: TrackerGameContext):
     if ctx.region_callback is not None:
         ctx.region_callback(regions)
     if len(callback_list) == 0:
-        ctx.log_to_tab("Nothing! Congrats!")
+        ctx.log_to_tab("All " + str(len(ctx.checked_locations)) +  " locations have been checked! Congrats!")
+    return state.prog_items[ctx.player_id]
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
     while not ctx.exit_event.is_set():
