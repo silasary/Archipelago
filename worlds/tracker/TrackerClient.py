@@ -53,6 +53,7 @@ class TrackerGameContext(CommonContext):
     region_callback: Callable[[list[str]], bool] = None
     gen_error = None
     output_format = "Both"
+    re_gen_passthrough = None
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -89,7 +90,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text":"Tracker v0.1.2 Initializing"})
+                self.data.append({"text":"Tracker v0.1.3 Initializing"})
             
             def resetData(self):
                 self.data.clear()
@@ -168,7 +169,10 @@ class TrackerGameContext(CommonContext):
             self.game = args["slot_info"][str(args["slot"])][1]
 
             if callable(getattr(self.multiworld.worlds[self.player_id],"interpret_slot_data",None)):
-                self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
+                temp = self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
+                if temp is not None:
+                    self.re_gen_passthrough = {self.game : temp}
+                    self.run_generator()
 
             updateTracker(self)
             self.watcher_task = asyncio.create_task(game_watcher(self), name="GameWatcher")
@@ -177,7 +181,9 @@ class TrackerGameContext(CommonContext):
     
     
     async def disconnect(self, allow_autoreconnect: bool = False):
-        self.game = ""
+        if "Tracker" in self.tags:
+            self.game = ""
+            self.re_gen_passthrough = None
         await super().disconnect(allow_autoreconnect)
     
     def _set_host_settings(self,host):
@@ -238,6 +244,8 @@ class TrackerGameContext(CommonContext):
         # Tracker Specific change to allow for worlds to know they aren't real
         ###
         world.generation_is_fake = True
+        if self.re_gen_passthrough is not None:
+            world.re_gen_passthrough = self.re_gen_passthrough
 
         logger = logging.getLogger()
         world.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
