@@ -13,7 +13,7 @@ def create_regions(multiworld: MultiWorld, world: "FFXIITMWorld", player: int, m
     regions: Dict[str, FFXIITMRegionData] = {
         "Menu":        FFXIITMRegionData(None ,["Trial 001"]),
         }
-    for trial in range(1, 100):
+    for trial in range(1, 101):
         if trial > max_trial_floor:
             break
         trial_padded = str(trial).rjust(3, "0")
@@ -29,7 +29,7 @@ def create_regions(multiworld: MultiWorld, world: "FFXIITMWorld", player: int, m
         print(name)
         multiworld.regions.append(create_region(multiworld, world, player, name, data))
 
-    for trial in range(1, 100):
+    for trial in range(1, 101):
         if trial > max_trial_floor:
             break
         trial_padded = str(trial).rjust(3, "0")

@@ -771,5 +771,5 @@ item_table: Dict[str, FFXIITMItemData] = {
 event_item_table: Dict[str, FFXIITMItemData] = {
 }
 
-for trial in range(1, 100):
+for trial in range(1, 101):
     event_item_table[f'Reach Trial {str(trial).rjust(3, "0")}'] = FFXIITMItemData("Event", code = 44_08000 + trial, classification = ItemClassification.progression, max_quantity = 1, weight = 1)

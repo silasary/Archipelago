@@ -22,7 +22,7 @@ def get_locations_by_category(category: str) -> Dict[str, FFXIITMLocationData]:
 
     return location_dict
 
-chests = {i: 2 for i in range(1, 100)}
+chests = {i: 2 for i in range(1, 101)}
 chests[30] = 3
 chests[31] = 5
 chests[32] = 3
@@ -54,7 +54,7 @@ for trial, chest_count in chests.items():
         location_table[location_name + '-2'] = FFXIITMLocationData(f"Trial {trial_padded}", 45_0000 + trial * 10 + chest + 5)
 
 event_location_table: Dict[str, FFXIITMLocationData] = {f'Reach Trial {str(trial).rjust(3, "0")}': FFXIITMLocationData("Event", None)
-                                                        for trial in range(1, 100)
+                                                        for trial in range(1, 101)
 }
 
 
