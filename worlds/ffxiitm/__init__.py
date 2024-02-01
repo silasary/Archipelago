@@ -37,7 +37,7 @@ class FFXIITMWorld(World):
     """
     game = "Final Fantasy XII Trial Mode"
     option_definitions = ffxiitm_options
-    topology_present = True
+    topology_present = False
     data_version = 4
     required_client_version = (0, 3, 5)
     web = FFXIITMWeb()
@@ -121,4 +121,4 @@ class FFXIITMWorld(World):
         set_rules(self, self.player)
 
     def create_regions(self):
-        create_regions(self.multiworld, self.player, self.get_setting("trial_victory"))
+        create_regions(self.multiworld, self, self.player, self.get_setting("trial_victory"))

@@ -53,7 +53,9 @@ for trial, chest_count in chests.items():
         location_table[location_name + '-1'] = FFXIITMLocationData(f"Trial {trial_padded}", 45_0000 + trial * 10 + chest)
         location_table[location_name + '-2'] = FFXIITMLocationData(f"Trial {trial_padded}", 45_0000 + trial * 10 + chest + 5)
 
-event_location_table: Dict[str, FFXIITMLocationData] = {
+event_location_table: Dict[str, FFXIITMLocationData] = {f'Reach Trial {str(trial).rjust(3, "0")}': FFXIITMLocationData("Event", None)
+                                                        for trial in range(1, 100)
 }
+
 
 lookup_id_to_name: typing.Dict[int, str] = {data.code: item_name for item_name, data in location_table.items() if data.code}
