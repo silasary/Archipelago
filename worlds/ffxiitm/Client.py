@@ -1,5 +1,8 @@
 from __future__ import annotations
+import hashlib
+import logging
 import os
+import pkgutil
 import sys
 import asyncio
 import shutil
@@ -135,7 +138,6 @@ class FFXIITMContext(CommonContext):
 
 
 async def game_watcher(ctx: FFXIITMContext):
-    from worlds.ffxiitm.Locations import lookup_id_to_name
     while not ctx.exit_event.is_set():
         if ctx.syncing == True:
             sync_msg = [{'cmd': 'Sync'}]
@@ -187,3 +189,27 @@ def launch():
     colorama.init()
     asyncio.run(main(args))
     colorama.deinit()
+
+def copy_data() -> None:
+    try:
+        script_name = "ffxii_tm_ap.lua"
+        script_path = os.path.join(Utils.user_path("data", "lua"), script_name)
+
+        if not os.path.exists(script_path):
+            with open(script_path, "wb") as script_file:
+                script_file.write(pkgutil.get_data(__name__, "data/" + script_name))
+        else:
+            with open(script_path, "rb+") as script_file:
+                expected_script = pkgutil.get_data(__name__, "data/" + script_name)
+
+                expected_hash = hashlib.md5(expected_script).digest()
+                existing_hash = hashlib.md5(script_file.read()).digest()
+
+                if existing_hash != expected_hash:
+                    script_file.seek(0)
+                    script_file.truncate()
+                    script_file.write(expected_script)
+    except IOError:
+        logging.warning("Unable to copy ffxii_tm_ap.lua to /data/lua in your Archipelago install.")
+
+copy_data()
