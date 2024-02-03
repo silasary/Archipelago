@@ -1,8 +1,10 @@
-from typing import Dict, List, NamedTuple, Optional
+from typing import Dict, List, NamedTuple, Optional, TYPE_CHECKING
 
 from BaseClasses import MultiWorld, Region, Entrance
 from .Locations import FFXIITMLocation, location_table, get_locations_by_category, chests, event_location_table
 
+if TYPE_CHECKING:
+    from . import FFXIITMWorld
 
 class FFXIITMRegionData(NamedTuple):
     locations: Optional[List[str]]
