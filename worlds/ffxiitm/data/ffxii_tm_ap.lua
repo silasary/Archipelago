@@ -329,9 +329,9 @@ function get_u8(byte_table, index)
 end
 
 function receive_items()
-    byte_array = memory.readArray(ap_voucher_qty_address, (3*2))
-    ap_voucher_qty = {get_u8(byte_array, 1), get_u8(byte_array, 2), get_u8(byte_array, 3)}
-    check_num = ap_voucher_qty[1] + ap_voucher_qty[2] + ap_voucher_qty[3] + 1
+    byte_array = memory.readArray(ap_voucher_qty_address, (5*2))
+    ap_voucher_qty = {get_u8(byte_array, 1), get_u8(byte_array, 2), get_u8(byte_array, 3), get_u8(byte_array, 4), get_u8(byte_array, 5)}
+    check_num = ap_voucher_qty[1] + ap_voucher_qty[2] + ap_voucher_qty[3] + ap_voucher_qty[4] + ap_voucher_qty[5] + 1
     while file_exists(client_communication_path .. "AP_" .. tostring(check_num) .. ".item") do
         file = io.open(client_communication_path .. "AP_" .. tostring(check_num) .. ".item", "r")
         io.input(file)
@@ -346,10 +346,21 @@ function receive_items()
             add_item(ap_voucher_item_id+1,1)
             ap_voucher_qty[2] = ap_voucher_qty[2] + 1
             check_num = check_num + 1
-        else
+        elseif ap_voucher_qty[2] >= 99 and ap_voucher_qty[3] < 99 then
             add_item(ap_voucher_item_id+2,1)
             ap_voucher_qty[3] = ap_voucher_qty[3] + 1
             check_num = check_num + 1
+        elseif ap_voucher_qty[3] >= 99 and ap_voucher_qty[4] < 99 then
+            add_item(ap_voucher_item_id+3,1)
+            ap_voucher_qty[4] = ap_voucher_qty[4] + 1
+            check_num = check_num + 1
+        elseif ap_voucher_qty[4] >= 99 and ap_voucher_qty[5] < 99 then
+            add_item(ap_voucher_item_id+4,1)
+            ap_voucher_qty[5] = ap_voucher_qty[5] + 1
+            check_num = check_num + 1
+        else
+            print("No more AP vouchers can be received, failed at " .. tostring(check_num) .. ".item")
+            break
         end
         add_item(received_item_id,1)
     end
@@ -434,7 +445,7 @@ function debug()
     event.executeAfterMs(5000, debug)
 end
 
-print("FFXIV Trial Mode AP v0.0.2")
+print("FFXIV Trial Mode AP v0.0.3")
 
 -- event.registerEventAsync("onInitDone", debug)
 event.registerEventAsync("onInitDone", main_loop)
