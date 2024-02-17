@@ -75,24 +75,36 @@ class FFXIITMWorld(World):
         self.random.shuffle(technick)
         self.random.shuffle(mist)
 
-        make_progressive = []
+        progressive = [n for n, i in item_table.items() if i.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing]]
 
-        for _ in range(0, self.get_setting("trial_victory") // 10):
-            make_progressive.append(equipment.pop())
-            make_progressive.append(magick.pop())
-            make_progressive.append(technick.pop())
-            make_progressive.append(mist.pop())
+        for i in range(1, self.get_setting("trial_victory") // 10):
+            progressive.append(equipment.pop())
+            progressive.append(magick.pop())
+            progressive.append(technick.pop())
+            if i // 2 == 0:
+                progressive.append(mist.pop())
 
-        for name, data in item_table.items():
+        progressive_items_left_to_be_added = len(progressive)
+        useful = [n for n, i in item_table.items() if n not in progressive and i.classification == ItemClassification.useful]
+        self.random.shuffle(useful)
+
+        for name in progressive:
+            if len(item_pool) >= total_locations:
+                raise Exception("Not enough locations for progressive items.")
+            data = item_table[name]
             quantity = data.max_quantity
-
-            # Ignore filler, it will be added in a later stage.
-            if data.category not in ["Mist", "Technick", "Magick", "Equipment"]:
-                continue
             items = [self.create_item(name) for _ in range(0, quantity)]
-            if name in make_progressive:
-                for item in items:
-                    item.classification = ItemClassification.progression
+            for item in items:
+                item.classification = ItemClassification.progression
+            item_pool += items
+            progressive_items_left_to_be_added = progressive_items_left_to_be_added - quantity
+
+        for name in useful:
+            if len(item_pool) >= total_locations:
+                break
+            data = item_table[name]
+            quantity = data.max_quantity
+            items = [self.create_item(name) for _ in range(0, quantity)]
             item_pool += items
 
         # Fill any empty locations with filler items.
@@ -100,6 +112,7 @@ class FFXIITMWorld(World):
             item_name = self.get_filler_item_name()
             item_pool.append(self.create_item(item_name))
 
+        # print(f"World contains {len(item_pool)} items. {len(progressive)} progression items, {len(useful)} useful items, and {total_locations} locations.")
         self.multiworld.itempool += item_pool
 
     def get_filler_item_name(self) -> str:

@@ -28,7 +28,7 @@ def create_regions(multiworld: MultiWorld, world: "FFXIITMWorld", player: int, m
 
     # Set up the regions correctly.
     for name, data in regions.items():
-        print(name)
+        # print(name)
         multiworld.regions.append(create_region(multiworld, world, player, name, data))
 
     for trial in range(1, 101):

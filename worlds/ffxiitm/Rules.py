@@ -18,19 +18,30 @@ def set_rules(world: "FFXIITMWorld", player: int):
     def get_entrance(entrance: str):
         return world.multiworld.get_entrance(entrance, world.player)
 
-    set_rule(
-        get_entrance("Trial 006"),
-        lambda state: state.has_group("Magick", world.player)
-    )
-
     if max_floor > 10:
         set_rule(
             get_entrance("Trial 010"),
             lambda state: state.has("Second Job", world.player)
         )
     if max_floor > 20:
+        set_rule(
+            get_entrance("Trial 020"),
+            lambda state: state.count_group("Equipment", world.player) >= 4
+        )
+    if max_floor > 30:
+        set_rule(
+            get_entrance("Trial 030"),
+            lambda state: state.count_group("Magick", world.player) >= 4
+        )
+    if max_floor > 40:
+        set_rule(
+            get_entrance("Trial 040"),
+            lambda state: state.count_group("Technick", world.player) >= 4
+        )
+
+    if max_floor > 50:
         for floor in range(2, max_floor // 10):
             set_rule(
                 get_entrance(f"Trial {str(floor * 10).rjust(3, '0')}"),
-                lambda state: state.count_group("Equipment", world.player) + state.count_group("Magick", world.player) + state.count_group("Technick", world.player) + state.count_group("Mist", world.player) >= floor * 4
+                lambda state: state.count_group("Equipment", world.player) + state.count_group("Magick", world.player) + state.count_group("Technick", world.player) + state.count_group("Mist", world.player) >= floor
             )
