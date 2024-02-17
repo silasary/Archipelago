@@ -227,9 +227,6 @@ end
 location_ids = define_location_ids()
 
 
-
-
-
 --FUNCTION DEFINITIONS
 function file_exists(name)
    local f=io.open(name,"r")
@@ -318,7 +315,7 @@ end
 
 function heal_all()
     argBase = memory.getSymbol("heal_args")
-    memory.u32[argBase] = 29
+    memory.u32[argBase] = 29  -- 0b11101 (Everything but MP/Mist)
     memory.execute("heal_code")
 end
 
@@ -448,7 +445,7 @@ function debug()
     event.executeAfterMs(5000, debug)
 end
 
-print("FFXIV Trial Mode AP v0.0.3")
+print("FFXIV Trial Mode AP v0.0.4")
 
 -- event.registerEventAsync("onInitDone", debug)
 event.registerEventAsync("onInitDone", main_loop)
