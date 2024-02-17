@@ -8,6 +8,10 @@ from BaseClasses import Location
 class FFXIITMLocation(Location):
     game: str = "Final Fantasy XII Trial Mode"
 
+    @property
+    def hint_text(self) -> str:
+        return "at " + self.name.replace("_", " ")
+
 
 class FFXIITMLocationData(NamedTuple):
     category: str

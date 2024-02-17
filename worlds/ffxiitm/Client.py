@@ -199,22 +199,25 @@ def launch():
 def copy_data() -> None:
     try:
         script_name = "ffxii_tm_ap.lua"
-        script_path = os.path.join(Utils.user_path("data", "lua"), script_name)
+        script_paths = [os.path.join(Utils.user_path("data", "lua"), script_name)]
+        if Utils.is_windows and os.path.exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64"):
+            script_paths.append(os.path.join("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64\\scripts", script_name))
 
-        if not os.path.exists(script_path):
-            with open(script_path, "wb") as script_file:
-                script_file.write(pkgutil.get_data(__name__, "data/" + script_name))
-        else:
-            with open(script_path, "rb+") as script_file:
-                expected_script = pkgutil.get_data(__name__, "data/" + script_name)
+        for script_path in script_paths:
+            if not os.path.exists(script_path):
+                with open(script_path, "wb") as script_file:
+                    script_file.write(pkgutil.get_data(__name__, "data/" + script_name))
+            else:
+                with open(script_path, "rb+") as script_file:
+                    expected_script = pkgutil.get_data(__name__, "data/" + script_name)
 
-                expected_hash = hashlib.md5(expected_script).digest()
-                existing_hash = hashlib.md5(script_file.read()).digest()
+                    expected_hash = hashlib.md5(expected_script).digest()
+                    existing_hash = hashlib.md5(script_file.read()).digest()
 
-                if existing_hash != expected_hash:
-                    script_file.seek(0)
-                    script_file.truncate()
-                    script_file.write(expected_script)
+                    if existing_hash != expected_hash:
+                        script_file.seek(0)
+                        script_file.truncate()
+                        script_file.write(expected_script)
     except IOError:
         logging.warning("Unable to copy ffxii_tm_ap.lua to /data/lua in your Archipelago install.")
 
