@@ -116,11 +116,6 @@ class FFXIITMContext(CommonContext):
                         with open(os.path.join(self.game_communication_path, filename), 'w') as f:
                             f.write(str(net_item.item) + "\n" + str(net_item.location) + "\n" + str(net_item.player))
                             f.close()
-                        if net_item.item == 44_08702: # Victory
-                            filename = "victory"
-                            f = open(os.path.join(self.game_communication_path, filename), 'w')
-                            f.close()
-
 
         if cmd in {"RoomUpdate"}:
             if "checked_locations" in args:

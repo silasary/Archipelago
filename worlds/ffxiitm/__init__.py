@@ -75,7 +75,7 @@ class FFXIITMWorld(World):
         self.random.shuffle(technick)
         self.random.shuffle(mist)
 
-        progressive = [n for n, i in item_table.items() if i.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing]]
+        progressive = [n for n, i in item_table.items() if i.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing] and i.category != "Victory"]
 
         for i in range(1, self.get_setting("trial_victory") // 10):
             progressive.append(equipment.pop())
