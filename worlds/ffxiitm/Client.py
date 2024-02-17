@@ -6,11 +6,19 @@ import pkgutil
 import sys
 import asyncio
 import shutil
+from typing import TYPE_CHECKING
 
 import ModuleUpdate
 ModuleUpdate.update()
 
 import Utils
+
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as CommonContext
 
 check_num = 0
 
@@ -18,8 +26,7 @@ if __name__ == "__main__":
     Utils.init_logging("FFXIITMClient", exception_logger="Client")
 
 from NetUtils import NetworkItem, ClientStatus
-from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, \
-    CommonContext, server_loop
+from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, server_loop
 
 
 def check_stdin() -> None:
@@ -36,6 +43,7 @@ class FFXIITMContext(CommonContext):
     command_processor: int = FFXIITMClientCommandProcessor
     game = "Final Fantasy XII Trial Mode"
     items_handling = 0b111  # full remote
+    tags = {"AP"}
 
     def __init__(self, server_address, password):
         super(FFXIITMContext, self).__init__(server_address, password)
@@ -134,6 +142,13 @@ class FFXIITMContext(CommonContext):
             ]
             base_title = "Archipelago FFXIITM Client"
 
+            def build(self):
+                container = super().build()
+                if tracker_loaded:
+                    self.ctx.build_gui(self)  # type: ignore
+
+                return container
+
         self.ui = FFXIITMManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
@@ -156,9 +171,11 @@ async def game_watcher(ctx: FFXIITMContext):
                         sending = sending+[(int(st))]
                 if file.find("victory") > -1:
                     victory = True
+        if len(sending) > len(ctx.locations_checked):
+            ctx.syncing = True
         ctx.locations_checked = sending
-        message = [{"cmd": 'LocationChecks', "locations": sending}]
-        await ctx.send_msgs(message)
+        # message = [{"cmd": 'LocationChecks', "locations": sending}]
+        # await ctx.send_msgs(message)
         if not ctx.finished_game and victory:
             await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
             ctx.finished_game = True
@@ -194,9 +211,11 @@ def launch():
 def copy_data() -> None:
     try:
         script_name = "ffxii_tm_ap.lua"
-        script_paths = [os.path.join(Utils.user_path("data", "lua"), script_name)]
+        script_paths = []
         if Utils.is_windows and os.path.exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64"):
             script_paths.append(os.path.join("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64\\scripts", script_name))
+        else:
+            script_paths.append(os.path.join(Utils.user_path("data", "lua"), script_name))
 
         for script_path in script_paths:
             if not os.path.exists(script_path):
@@ -210,6 +229,7 @@ def copy_data() -> None:
                     existing_hash = hashlib.md5(script_file.read()).digest()
 
                     if existing_hash != expected_hash:
+                        print(f'Updating {script_path}')
                         script_file.seek(0)
                         script_file.truncate()
                         script_file.write(expected_script)
