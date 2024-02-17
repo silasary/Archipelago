@@ -93,6 +93,7 @@ class FFXIITMContext(CommonContext):
             start_index = args["index"]
             if start_index != len(self.items_received):
                 for item in args['items']:
+                    net_item = NetworkItem(*item)
                     check_num = 0
                     for filename in os.listdir(self.game_communication_path):
                         if filename.startswith("AP"):
@@ -103,18 +104,23 @@ class FFXIITMContext(CommonContext):
                     player = ""
                     found = False
                     for filename in os.listdir(self.game_communication_path):
-                        if filename.startswith(f"AP"):
+                        if filename.startswith("AP"):
                             with open(os.path.join(self.game_communication_path, filename), 'r') as f:
                                 item_id = str(f.readline()).replace("\n", "")
                                 location_id = str(f.readline()).replace("\n", "")
                                 player = str(f.readline()).replace("\n", "")
-                                if str(item_id) == str(NetworkItem(*item).item) and str(location_id) == str(NetworkItem(*item).location) and str(player) == str(NetworkItem(*item).player):
+                                if str(item_id) == str(net_item.item) and str(location_id) == str(net_item.location) and str(player) == str(net_item.player):
                                     found = True
                     if not found:
                         filename = f"AP_{str(check_num+1)}.item"
                         with open(os.path.join(self.game_communication_path, filename), 'w') as f:
-                            f.write(str(NetworkItem(*item).item) + "\n" + str(NetworkItem(*item).location) + "\n" + str(NetworkItem(*item).player))
+                            f.write(str(net_item.item) + "\n" + str(net_item.location) + "\n" + str(net_item.player))
                             f.close()
+                        if net_item.item == 44_08702: # Victory
+                            filename = "victory"
+                            f = open(os.path.join(self.game_communication_path, filename), 'w')
+                            f.close()
+
 
         if cmd in {"RoomUpdate"}:
             if "checked_locations" in args:
