@@ -220,8 +220,7 @@ function define_location_ids()
                     450991,
                     451001,
                     451002,
-                    451003,
-                    451004}
+                    451003}
     return location_ids
 end
 
@@ -368,8 +367,8 @@ end
 
 function send_items()
     i = 1
-    byte_array = memory.readArray(chest_item_id_address, ((#location_ids+2)*2))
-    while i <= #location_ids+2 do
+    byte_array = memory.readArray(chest_item_id_address, ((#location_ids+1)*2))
+    while i <= #location_ids+1 do
         if get_u8(byte_array, i) > 0 then
             if i <= #location_ids then
                 if not file_exists(client_communication_path .. "send" .. tostring(location_ids[i])) then
@@ -409,8 +408,12 @@ function check_keys()
             call.mapJump(1155, 0, 2)
         end
     end
+    if input.getKeyPressed(input.key.KEY_F10) then --Jump to previous map
+        if (memory.s8[0x215F1AE] ~= 0) then
+            call.mapJump(call.getPreviousMap(), 0, 2)
+        end
+    end
 end
-
 
 --INITIALIZATIONS
 client_communication_path = os.getenv('LOCALAPPDATA') .. "\\FFXIITM\\"
