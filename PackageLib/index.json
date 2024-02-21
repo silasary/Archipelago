@@ -11,7 +11,7 @@
                 "os": "Windows",
                 "pyversion": "3.10"
             },
-            "world": "https://localhost:8080/worlds/blasphemous-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/blasphemous-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "a0f2ec041341f2f97ea501600b7c95566efae5db276b0006873b4d4dae654fca",
             "size": 73158
         },
@@ -26,7 +26,7 @@
                 "os": "Windows",
                 "pyversion": "3.10"
             },
-            "world": "https://localhost:8080/worlds/bumpstik-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/bumpstik-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "a978fe049f9ce4708a1a890e107db13ef96ded952ae384df26b8f0f49b1f9db6",
             "size": 12562
         },
@@ -41,7 +41,7 @@
                 "os": "Windows",
                 "pyversion": "3.10"
             },
-            "world": "https://localhost:8080/worlds/dark_souls_3-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/dark_souls_3-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "d740c9674b75bfcf507b6838dd2abff8caafe6a3a04ec26e9daf247dcc6eca21",
             "size": 50876
         },
@@ -56,7 +56,7 @@
                 "os": "Windows",
                 "pyversion": "3.10"
             },
-            "world": "https://localhost:8080/worlds/dkc3-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/dkc3-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "1987dc5fc29ff617f399840ce16d5ebbc939163fabce1c5979585982d853c353",
             "size": 44348
         },
@@ -71,7 +71,7 @@
                 "os": "Windows",
                 "pyversion": "3.10"
             },
-            "world": "https://localhost:8080/worlds/doom_1993-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/doom_1993-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "e7c2bcd95d130216d9e49441fe5e8fb4c15961868d61258c111b66088b75ddea",
             "size": 37711
         },
@@ -84,7 +84,7 @@
                 "arch": "AMD64",
                 "os": "Windows"
             },
-            "world": "https://localhost:8080/worlds/ladx-AMD64-Windows-py3.10-0.0.0.apworld",
+            "world": "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/ladx-AMD64-Windows-py3.10-0.0.0.apworld",
             "hash_sha256": "9c8741cb047987410aab7e9a5a768e236d2a3361f702e06f07eb2b084256285a",
             "size": 1027194
         }

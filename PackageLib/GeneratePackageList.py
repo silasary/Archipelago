@@ -3,7 +3,7 @@ import zipfile
 import json
 import hashlib
 
-BASE_URL =  "https://localhost:8080/worlds/"
+BASE_URL =  "https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/worlds/"
 
 out = {
     "worlds": [

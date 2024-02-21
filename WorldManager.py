@@ -1,3 +1,4 @@
+import base64
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty
@@ -11,6 +12,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import packaging.version
 import requests
 import json
 import os
@@ -18,6 +20,7 @@ import shutil
 import typing
 import zipfile
 from Utils import title_sorted
+from worlds import AutoWorldRegister
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
@@ -58,11 +61,11 @@ class ApWorldMetadata:
     @property
     def id(self) -> str:
         return self.data['metadata']['id']
-    
+
     @property
     def name(self) -> str:
         return self.data['metadata']['game']
-    
+
     @property
     def world_version(self) -> str:
         return self.data['metadata']['world_version']
@@ -92,12 +95,12 @@ class Repository:
             ]
             for world in self.worlds:
                 world.data['source_url'] = self.path
-                
+
         elif self.world_source == WorldSource.LOCAL:
             self.worlds = []
             for file in os.listdir(self.path):
                 path = os.path.join(self.path, file)
-                
+
                 try:
                     with open(path, 'rb') as f:
                         hash_sha256 = hashlib.sha256(f.read()).hexdigest()
@@ -113,7 +116,7 @@ class Repository:
                     self.worlds.append(world)
                 except Exception as e:
                     continue
-                
+
                 cache_dir = os.path.join(self.apworld_cache_path, hash_sha256)
                 if not os.path.exists(cache_dir):
                     os.mkdir(cache_dir)
@@ -125,11 +128,51 @@ class Repository:
                     print(f"Copied {file} to cache")
                     # TODO: Log this
                 world.is_in_cache = True
-                
+
         else:
             assert False
-        
+
         self.worlds.sort(key = lambda x: x.name)
+
+class GithubRepository(Repository):
+    def __init__(self, world_source: WorldSource, url: str, apworld_cache_path) -> None:
+        super().__init__(world_source, url, apworld_cache_path)
+        if url.startswith("https://github.com"):
+            url = url.replace("https://github.com", "https://api.github.com/repos")
+        if url.endswith("/"):
+            url = url[:-1]
+        self.url = url
+
+
+    def get_repository_json(self):
+        self.worlds = []
+        # response = requests.get(f"{self.url}/contents/README.md")
+        # readme = response.json()
+        # description = readme['content']
+        # if readme['encoding'] == 'base64':
+        #     description = base64.b64decode(description).decode('utf-8')
+
+        response = requests.get(f"{self.url}/releases")
+        releases = response.json()
+        for release in releases:
+            tag = release['tag_name']
+            for asset in release['assets']:
+                if asset['name'].endswith('.apworld'):
+                    world_id = asset['name'].replace('.apworld', '')
+                    world = {}
+                    world['metadata'] = {
+                        'id': world_id,
+                        'game': '',
+                        'world_version': tag.replace('v', ''),
+                        'description': '',
+                    }
+                    world['source_url'] = asset['browser_download_url'],
+                    self.worlds.append(ApWorldMetadata(self.world_source, world))
+        response = requests.get(f"{self.url}/releases/tags/{tag}")
+        self.index_json = response.json()
+
+        # for world in self.worlds:
+        #     world.data['source_url'] = self.url
 
 from Utils import cache_path
 
@@ -144,9 +187,12 @@ class RepositoryManager:
 
     def add_local_dir(self, path: str):
         self.repositories.append(Repository(WorldSource.LOCAL, path, self.apworld_cache_path))
-        
-    def add_remote_repository(self, url: str, blessed=False) -> None:
+
+    def add_remote_repository(self, url: str, blessed: bool = False) -> None:
         self.repositories.append(Repository(WorldSource.REMOTE_BLESSED if blessed else WorldSource.REMOTE, url, self.apworld_cache_path))
+
+    def add_github_repository(self, url: str, blessed: bool = False) -> None:
+        self.repositories.append(GithubRepository(WorldSource.REMOTE_BLESSED if blessed else WorldSource.REMOTE, url, self.apworld_cache_path))
 
     def refresh(self):
         self.packages_by_id_version.clear()
@@ -160,7 +206,7 @@ class RepositoryManager:
                 for world in repo.worlds:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
-        
+
 
 
 
@@ -195,7 +241,7 @@ class WorldManagerApp(MDApp):
     def __init__(self, repositories) -> None:
         self.repositories = repositories
         super().__init__()
-    
+
     def get_world_info(self):
         world_info = []
         self.world_name_to_id = {}
@@ -213,7 +259,7 @@ class WorldManagerApp(MDApp):
                 #world_info['available.text'] = str(world.world_version)
                 available_versions[world.world_version] = world
                 self.descriptions[world_id] = world.data['metadata']['description']
-                
+
             if world_id in self.repositories.local_packages_by_id:
                 world = self.repositories.local_packages_by_id[world_id]
                 world_name = world.name
@@ -221,22 +267,32 @@ class WorldManagerApp(MDApp):
                 available_versions[world.world_version] = world
                 self.descriptions[world_id] = world.data['metadata']['description']
                 self.installed_version[world_id] = world.world_version
-            
+
+            if installed := AutoWorldRegister.world_types.get(world_name):
+                if world_id not in self.installed_version:
+                    self.installed_version[world_id] = installed.world_version
+                else:
+                    local = packaging.version.parse(self.installed_version[world_id])
+                    installed = packaging.version.parse(installed.world_version)
+                    if installed > local:
+                        self.installed_version[world_id] = installed
+
             installed_version = self.installed_version.get(world_id, 'N/A')
-            
+
             # Unfortunate
-            self.world_name_to_id[world_name] = world_id
-            
+            self.world_name_to_id[world_name or world_id] = world_id
+
+            max_version = max(available_versions, key=packaging.version.parse)
             world_info.append([
-                world_name,
+                world_name or world_id,
                 installed_version,
-                list(available_versions)[-1],
+                max_version,
                 'Info/Set Version...',
             ])
 
         world_info = title_sorted(world_info, key=lambda x: x[0])
         return world_info
-    
+
     def refresh(self):
         self.repositories.refresh()
         self.data_tables.update_row_data(self.data_tables, self.get_world_info())
@@ -277,22 +333,22 @@ class WorldManagerApp(MDApp):
         screen.add_widget(layout)
 
         return screen
-    
+
     def on_row_press(self, instance_table, instance_row):
         '''Called when a table row is clicked.'''
-       
+
         index = instance_row.index
         cols_num = len(instance_table.column_data)
         row_num = int(index/cols_num)
         col_num = index%cols_num
 
         cell_row = instance_table.table_data.view_adapter.get_visible_view(row_num*cols_num)
-            
+
         # instance_table.background_color = self.theme_cls.primary_light
         # for id, widget in instance_row.ids.items():
         #     if id == "label":
         #         widget.color = self.theme_cls.primary_color
-        
+
         # instance_row.add_widget(MDFlatButton(text="test"))
         #print(instance_table, instance_row, cell_row)
         #print(instance_row.text)
@@ -307,17 +363,17 @@ class WorldManagerApp(MDApp):
             # ]
             # MDDropdownMenu(
             #     caller=instance_row,
-            #     items=menu_items,             
+            #     items=menu_items,
             #     width_mult=2,
             #     opening_time=0,
-    
+
             # ).open()
             from kivymd.uix.dialog import MDDialog
             from inspect import cleandoc
             world_name = cell_row.text
             world_id = self.world_name_to_id[world_name]
             available_versions = self.available_versions[world_id]
-            
+
             install_text = [
                 f'Install {version}' if version != self.installed_version.get(world_id, 'N/A') else f'Install {version} (Installed)' for version in available_versions
             ]
@@ -361,14 +417,15 @@ if __name__ == '__main__':
     local_dir = './worlds_test_dir'
 
     repositories = RepositoryManager()
-    repositories.add_local_dir(local_dir)
-    repositories.add_remote_repository('http://localhost:8080/index.json')
+    if os.path.exists(local_dir):
+        repositories.add_local_dir(local_dir)
+    repositories.add_remote_repository('https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/index.json')
+    repositories.add_github_repository('https://github.com/DeamonHunter/ArchipelagoMuseDash/')
     # Comment this out to test refresh from nothing
     repositories.refresh()
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     app = WorldManagerApp(repositories)
-    
+
     loop.run_until_complete(app.async_run())
     loop.close()
-    
