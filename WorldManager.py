@@ -25,6 +25,7 @@ Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
 
+ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
 
 class CustomDropDown(DropDown):
     pass
@@ -154,6 +155,9 @@ class GithubRepository(Repository):
 
         response = requests.get(f"{self.url}/releases")
         releases = response.json()
+        if isinstance(releases, dict) and 'message' in releases:
+            print(f"Error getting releases from {self.url}: {releases['message']}")
+            return
         for release in releases:
             tag = release['tag_name']
             for asset in release['assets']:
@@ -166,7 +170,7 @@ class GithubRepository(Repository):
                         'world_version': tag.replace('v', ''),
                         'description': '',
                     }
-                    world['source_url'] = asset['browser_download_url'],
+                    world['source_url'] = asset['browser_download_url']
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
@@ -238,7 +242,7 @@ class Item(OneLineListItem):
     source = StringProperty()
 
 class WorldManagerApp(MDApp):
-    def __init__(self, repositories) -> None:
+    def __init__(self, repositories: RepositoryManager) -> None:
         self.repositories = repositories
         super().__init__()
 
@@ -268,6 +272,14 @@ class WorldManagerApp(MDApp):
                 self.descriptions[world_id] = world.data['metadata']['description']
                 self.installed_version[world_id] = world.world_version
 
+            if not world_name:
+                # Missing data
+                if w := ap_worlds.get(world_id):
+                    world_name = w.game
+                else:
+                    world_name = world_id + ".apworld"
+                world.data['metadata']['game'] = world_name
+
             if installed := AutoWorldRegister.world_types.get(world_name):
                 if world_id not in self.installed_version:
                     self.installed_version[world_id] = installed.world_version
@@ -280,11 +292,11 @@ class WorldManagerApp(MDApp):
             installed_version = self.installed_version.get(world_id, 'N/A')
 
             # Unfortunate
-            self.world_name_to_id[world_name or world_id] = world_id
+            self.world_name_to_id[world_name] = world_id
 
             max_version = max(available_versions, key=packaging.version.parse)
             world_info.append([
-                world_name or world_id,
+                world_name,
                 installed_version,
                 max_version,
                 'Info/Set Version...',
@@ -296,6 +308,36 @@ class WorldManagerApp(MDApp):
     def refresh(self):
         self.repositories.refresh()
         self.data_tables.update_row_data(self.data_tables, self.get_world_info())
+
+    def do_install(self):
+        print(repr(self.data_tables.get_row_checks()))
+        for row in self.data_tables.get_row_checks():
+            world_name = row[0]
+            world_id = self.world_name_to_id[world_name]
+            available_versions = self.available_versions[world_id]
+            max_version = max(available_versions, key=packaging.version.parse)
+            world = available_versions[max_version]
+            print(f"Installing {world_name} {max_version}")
+            path = os.path.join(self.repositories.apworld_cache_path, f'{world_id}_{max_version}.apworld')
+            with open(path, 'wb') as f:
+                response = requests.get(world.source_url)
+                f.write(response.content)
+            try:
+                metadata_str = zipfile.ZipFile(path).read('metadata.json')
+                metadata = json.loads(metadata_str)
+            except KeyError:
+                print("No metadata.json in ", path)
+                metadata = {
+                        'id': world_id,
+                        'game': world_name,
+                        'world_version': max_version,
+                        'description': '',
+                }
+                with zipfile.ZipFile(path, 'a') as zf:
+                    zf.writestr("metadata.json", json.dumps(metadata, indent=4))
+            print("done")
+
+
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -325,7 +367,7 @@ class WorldManagerApp(MDApp):
         footer = MDBoxLayout(orientation='horizontal', adaptive_height=True)
 
         footer.add_widget(MDRaisedButton(text="Update"))
-        footer.add_widget(MDRaisedButton(text="Install"))
+        footer.add_widget(MDRaisedButton(text="Install", on_release=lambda x: self.do_install()))
         footer.add_widget(MDRaisedButton(text="Uninstall"))
         layout.add_widget(header)
         layout.add_widget(self.data_tables)
@@ -421,6 +463,7 @@ if __name__ == '__main__':
         repositories.add_local_dir(local_dir)
     repositories.add_remote_repository('https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/index.json')
     repositories.add_github_repository('https://github.com/DeamonHunter/ArchipelagoMuseDash/')
+    repositories.add_github_repository('https://github.com/doshyw/CelesteArchipelago')
     # Comment this out to test refresh from nothing
     repositories.refresh()
     loop = asyncio.new_event_loop()
