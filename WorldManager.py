@@ -1,3 +1,5 @@
+import importlib
+import unittest
 import base64
 from kivymd.app import MDApp
 from kivy.lang import Builder
@@ -20,7 +22,7 @@ import shutil
 import typing
 import zipfile
 from Utils import title_sorted
-from worlds import AutoWorldRegister
+from worlds import AutoWorldRegister, WorldSource
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
@@ -45,7 +47,7 @@ class ApWorldMetadataAllVersions:
 from enum import Enum
 
 
-class WorldSource(Enum):
+class RemoteWorldSource(Enum):
     SOURCE_CODE = 0
     LOCAL = 1
     REMOTE_BLESSED = 2
@@ -53,7 +55,7 @@ class WorldSource(Enum):
 
 @dataclass
 class ApWorldMetadata:
-    source: WorldSource
+    source: RemoteWorldSource
     data: dict[str, typing.Any]
     is_in_cache = False
     # source: WorldSource
@@ -76,7 +78,7 @@ class ApWorldMetadata:
         return self.data['source_url']
 
 class Repository:
-    def __init__(self, world_source: WorldSource, path: str, apworld_cache_path) -> None:
+    def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
         self.path = path
         self.index_json = None
         self.world_source = world_source
@@ -87,7 +89,7 @@ class Repository:
         self.get_repository_json()
 
     def get_repository_json(self):
-        if self.world_source == WorldSource.REMOTE or self.world_source == WorldSource.REMOTE_BLESSED:
+        if self.world_source == RemoteWorldSource.REMOTE or self.world_source == RemoteWorldSource.REMOTE_BLESSED:
             response = requests.get(self.path)
             self.index_json = response.json()
 
@@ -97,7 +99,7 @@ class Repository:
             for world in self.worlds:
                 world.data['source_url'] = self.path
 
-        elif self.world_source == WorldSource.LOCAL:
+        elif self.world_source == RemoteWorldSource.LOCAL:
             self.worlds = []
             for file in os.listdir(self.path):
                 path = os.path.join(self.path, file)
@@ -136,7 +138,7 @@ class Repository:
         self.worlds.sort(key = lambda x: x.name)
 
 class GithubRepository(Repository):
-    def __init__(self, world_source: WorldSource, url: str, apworld_cache_path) -> None:
+    def __init__(self, world_source: RemoteWorldSource, url: str, apworld_cache_path) -> None:
         super().__init__(world_source, url, apworld_cache_path)
         if url.startswith("https://github.com"):
             url = url.replace("https://github.com", "https://api.github.com/repos")
@@ -190,19 +192,20 @@ class RepositoryManager:
         os.makedirs(self.apworld_cache_path, exist_ok=True)
 
     def add_local_dir(self, path: str):
-        self.repositories.append(Repository(WorldSource.LOCAL, path, self.apworld_cache_path))
+        self.repositories.append(Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path))
 
     def add_remote_repository(self, url: str, blessed: bool = False) -> None:
-        self.repositories.append(Repository(WorldSource.REMOTE_BLESSED if blessed else WorldSource.REMOTE, url, self.apworld_cache_path))
+        self.repositories.append(Repository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
 
     def add_github_repository(self, url: str, blessed: bool = False) -> None:
-        self.repositories.append(GithubRepository(WorldSource.REMOTE_BLESSED if blessed else WorldSource.REMOTE, url, self.apworld_cache_path))
+        """This is not recommended for general use, as it will bump against the github api rate limit.  But it's useful for testing."""
+        self.repositories.append(GithubRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
 
     def refresh(self):
         self.packages_by_id_version.clear()
         for repo in self.repositories:
             repo.refresh()
-            if repo.world_source == WorldSource.LOCAL:
+            if repo.world_source == RemoteWorldSource.LOCAL:
                 for world in repo.worlds:
                     self.all_known_package_ids.add(world.id)
                     self.local_packages_by_id[world.id] = world
@@ -316,11 +319,11 @@ class WorldManagerApp(MDApp):
             world_id = self.world_name_to_id[world_name]
             available_versions = self.available_versions[world_id]
             max_version = max(available_versions, key=packaging.version.parse)
-            world = available_versions[max_version]
-            print(f"Installing {world_name} {max_version}")
+            source = available_versions[max_version]
+            print(f"Downloading {world_name} {max_version}")
             path = os.path.join(self.repositories.apworld_cache_path, f'{world_id}_{max_version}.apworld')
             with open(path, 'wb') as f:
-                response = requests.get(world.source_url)
+                response = requests.get(source.source_url)
                 f.write(response.content)
             try:
                 metadata_str = zipfile.ZipFile(path).read('metadata.json')
@@ -335,7 +338,21 @@ class WorldManagerApp(MDApp):
                 }
                 with zipfile.ZipFile(path, 'a') as zf:
                     zf.writestr("metadata.json", json.dumps(metadata, indent=4))
-            print("done")
+            print("Testing")
+            loader = WorldSource(path, True, False)
+            if world_id in AutoWorldRegister.world_types:
+                # unload existing version
+                del AutoWorldRegister.world_types[world_id]
+            if not loader.load():
+                print("Failed to load apworld")
+                return
+
+            # test_suite = unittest.defaultTestLoader.discover("test", top_level_dir=os.path.split(test.__file__)[0])
+            # logging.info(test_suite)
+            # import test.worlds
+            # test_suite.addTests(unittest.defaultTestLoader.loadTestsFromModule(test.worlds))
+            # return test_suite
+
 
 
 
