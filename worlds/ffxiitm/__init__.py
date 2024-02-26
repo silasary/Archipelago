@@ -4,7 +4,7 @@ from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
 from .Items import FFXIITMItem, FFXIITMItemData, event_item_table, get_items_by_category, item_table
 from .Locations import FFXIITMLocation, location_table, get_locations_by_category
-from .Options import ffxiitm_options
+from .Options import FF12TMOptions
 from .Regions import create_regions
 from .Rules import set_rules
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
@@ -36,7 +36,8 @@ class FFXIITMWorld(World):
     Final Fantasy XII is JRPG developed by Square Enix.  The Trial Mode involves 100 consecutive battles, each more challenging than the last.
     """
     game = "Final Fantasy XII Trial Mode"
-    option_definitions = ffxiitm_options
+    options_dataclass = FF12TMOptions
+    options: FF12TMOptions
     topology_present = False
     data_version = 4
     required_client_version = (0, 3, 5)
@@ -57,10 +58,12 @@ class FFXIITMWorld(World):
         return getattr(self.multiworld, name)[self.player]
 
     def fill_slot_data(self) -> dict:
-        return {option_name: self.get_setting(option_name).value for option_name in ffxiitm_options}
+        return {
+            "trial_victory": self.options.trial_victory.value,
+        }
 
     def create_items(self):
-        victory_location_name = random.sample(list(get_locations_by_category("Trial " + str(self.get_setting("trial_victory")).rjust(3, "0")).keys()),1)[0]
+        victory_location_name = random.sample(list(get_locations_by_category("Trial " + str(self.options.trial_victory.value).rjust(3, "0")).keys()),1)[0]
         self.multiworld.get_location(victory_location_name, self.player).place_locked_item(self.create_item("Victory"))
         item_pool: List[FFXIITMItem] = []
         total_locations = len(self.multiworld.get_unfilled_locations(self.player))
@@ -75,14 +78,17 @@ class FFXIITMWorld(World):
         self.random.shuffle(technick)
         self.random.shuffle(mist)
 
-        progressive = [n for n, i in item_table.items() if i.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing] and i.category != "Victory"]
+        progressive = [n for n, i in item_table.items()
+                       if i.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing]
+                       and i.category not in ["Victory", "Guest"]
+                      ]
 
-        for i in range(1, self.get_setting("trial_victory") // 10):
-            progressive.append(equipment.pop())
-            progressive.append(magick.pop())
-            progressive.append(technick.pop())
-            if i // 2 == 0:
-                progressive.append(mist.pop())
+        for i in range(1, self.options.trial_victory.value // 10):
+            # progressive.append(equipment.pop())
+            # progressive.append(magick.pop())
+            # progressive.append(technick.pop())
+            # if i // 2 == 0:
+            progressive.append(mist.pop())
 
         progressive_items_left_to_be_added = len(progressive)
         useful = [n for n, i in item_table.items() if n not in progressive and i.classification == ItemClassification.useful]
@@ -134,4 +140,4 @@ class FFXIITMWorld(World):
         set_rules(self, self.player)
 
     def create_regions(self):
-        create_regions(self.multiworld, self, self.player, self.get_setting("trial_victory"))
+        create_regions(self.multiworld, self, self.player, self.options.trial_victory.value)

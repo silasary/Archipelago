@@ -358,7 +358,11 @@ function receive_items()
             print("No more AP vouchers can be received, failed at " .. tostring(check_num) .. ".item")
             break
         end
-        add_item(received_item_id,1)
+        if received_item_id >= 49200 then
+            -- add_guest(received_item_id % 49200,1)
+        else
+            add_item(received_item_id,1)
+        end
     end
 end
 
@@ -410,6 +414,12 @@ function check_keys()
             call.mapJump(call.getPreviousMap(), 0, 2)
         end
     end
+    if input.getKeyPressed(input.key.KEY_F9) then -- test
+        if (memory.s8[0x215F1AE] ~= 0) then
+            call.mapJump(1155, 1, 2)
+        end
+    end
+    
 end
 
 --INITIALIZATIONS

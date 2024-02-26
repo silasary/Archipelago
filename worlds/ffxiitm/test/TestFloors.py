@@ -6,6 +6,11 @@ class TenFloorsTest(FFXIITMTestBase):
         "trial_victory": 10,
     }
 
+class ThirtyFloorsTest(FFXIITMTestBase):
+    options = {
+        "trial_victory": 30,
+    }
+
 class SixtyFloorsTest(FFXIITMTestBase):
     options = {
         "trial_victory": 60,

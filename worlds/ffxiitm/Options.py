@@ -1,9 +1,8 @@
+from dataclasses import dataclass
 from typing import Dict
 
-from Options import Choice, Range, Option, Toggle, DeathLink, DefaultOnToggle, OptionSet
+from Options import Choice, PerGameCommonOptions, Range, Option, Toggle, DeathLink, DefaultOnToggle, OptionSet
 
-ffxiitm_options: Dict[str, type(Option)] = {
-}
 class TrialVictory(Range):
     """
     Which Trial holds the victory items
@@ -13,6 +12,6 @@ class TrialVictory(Range):
     range_end = 100
     display_name = "Victory Trial"
 
-ffxiitm_options: Dict[str, type(Option)] = {
-    "trial_victory": TrialVictory,
-}
+@dataclass
+class FF12TMOptions(PerGameCommonOptions):
+    trial_victory: TrialVictory
