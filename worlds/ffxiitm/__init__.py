@@ -1,5 +1,7 @@
 from typing import List
+import typing
 
+import settings
 from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
 from .Items import FFXIITMItem, FFXIITMItemData, event_item_table, get_items_by_category, item_table
@@ -11,6 +13,11 @@ from worlds.LauncherComponents import Component, components, Type, launch_subpro
 import random
 
 
+class FFXIITMSettings(settings.Group):
+    class InstallScript(settings.Bool):
+        """Automatically install/update the lua script when you launch the client.  If false, you will need to manually install the script from data/lua."""
+
+    install_script: typing.Union[InstallScript, bool] = True
 
 def launch_client():
     from .Client import launch
@@ -42,6 +49,7 @@ class FFXIITMWorld(World):
     data_version = 4
     required_client_version = (0, 3, 5)
     web = FFXIITMWeb()
+    settings: typing.ClassVar[FFXIITMSettings]
 
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}

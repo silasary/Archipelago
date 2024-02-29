@@ -214,7 +214,8 @@ def copy_data() -> None:
     try:
         script_name = "ffxii_tm_ap.lua"
         script_paths = []
-        if Utils.is_windows and os.path.exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64"):
+        install = Utils.get_settings().get("ffxiitm", {}).get("install_script", True)
+        if Utils.is_windows and os.path.exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64") and install:
             script_paths.append(os.path.join("C:\\Program Files (x86)\\Steam\\steamapps\\common\\FINAL FANTASY XII THE ZODIAC AGE\\x64\\scripts", script_name))
         else:
             script_paths.append(os.path.join(Utils.user_path("data", "lua"), script_name))
