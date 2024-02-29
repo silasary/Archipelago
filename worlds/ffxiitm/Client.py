@@ -14,11 +14,11 @@ ModuleUpdate.update()
 import Utils
 
 tracker_loaded = False
-try:
-    from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
-    tracker_loaded = True
-except ModuleNotFoundError:
-    from CommonClient import CommonContext as CommonContext
+# try:
+#     from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
+#     tracker_loaded = True
+# except ModuleNotFoundError:
+from CommonClient import CommonContext as CommonContext
 
 check_num = 0
 
@@ -132,6 +132,8 @@ class FFXIITMContext(CommonContext):
                     with open(os.path.join(self.game_communication_path, filename), 'w') as f:
                         f.close()
 
+        super().on_package(cmd, args)
+
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
         from kvui import GameManager
@@ -155,7 +157,7 @@ class FFXIITMContext(CommonContext):
 
 async def game_watcher(ctx: FFXIITMContext):
     while not ctx.exit_event.is_set():
-        if ctx.syncing == True:
+        if ctx.syncing:
             sync_msg = [{'cmd': 'Sync'}]
             if ctx.locations_checked:
                 sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})

@@ -409,14 +409,14 @@ function check_keys()
             call.mapJump(1155, 0, 2)
         end
     end
-    if input.getKeyPressed(input.key.KEY_F10) then --Jump to previous map
-        if (memory.s8[0x215F1AE] ~= 0) then
-            call.mapJump(call.getPreviousMap(), 0, 2)
-        end
-    end
+    -- if input.getKeyPressed(input.key.KEY_F10) then --Jump to previous map
+    --     if (memory.s8[0x215F1AE] ~= 0) then
+    --         call.mapJump(call.getPreviousMap(), 0, 2)
+    --     end
+    -- end
     if input.getKeyPressed(input.key.KEY_F9) then -- test
         if (memory.s8[0x215F1AE] ~= 0) then
-            call.mapJump(1155, 1, 2)
+            call.mapJump(1165, 0, 2)
         end
     end
     
