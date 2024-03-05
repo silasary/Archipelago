@@ -455,7 +455,7 @@ function debug()
     event.executeAfterMs(5000, debug)
 end
 
-print("FFXIV Trial Mode AP v0.0.4")
+print("FFXII Trial Mode AP v0.0.4")
 
 -- event.registerEventAsync("onInitDone", debug)
 event.registerEventAsync("onInitDone", main_loop)
