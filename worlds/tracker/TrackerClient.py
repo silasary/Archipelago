@@ -38,21 +38,21 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
         all_items, prog_items, events = updateTracker(self.ctx)
-        for item,count in all_items.items():
+        for item,count in sorted(all_items.items()):
             logger.info( str(count) + "x: " + item)
 
     def _cmd_prog_inventory(self):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
         all_items, prog_items, events = updateTracker(self.ctx)
-        for item,count in prog_items.items():
+        for item,count in sorted(prog_items.items()):
             logger.info( str(count) + "x: " + item)
 
     def _cmd_event_inventory(self):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
         all_items, prog_items, events = updateTracker(self.ctx)
-        for event in events:
+        for event in sorted(events):
             logger.info( event)
 
 
