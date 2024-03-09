@@ -7,8 +7,8 @@ from CommonClient import CommonContext, gui_enabled, get_base_parser, server_loo
 import os
 import time
 import sys
-from typing import Dict, Optional
-from BaseClasses import Region,Location
+from typing import Dict, Optional, List
+from BaseClasses import Region,Location,ItemClassification
 
 from BaseClasses import CollectionState,MultiWorld,LocationProgressType
 from worlds.generic.Rules import exclusion_rules,locality_rules
@@ -17,6 +17,7 @@ from settings import get_settings
 from Utils import __version__, output_path
 from worlds import AutoWorld
 from worlds.tracker import TrackerWorld
+from collections import Counter
 
 from Generate import main as GMain, mystery_argparse
 
@@ -36,9 +37,23 @@ class TrackerCommandProcessor(ClientCommandProcessor):
     def _cmd_inventory(self):
         """Print the list of current items in the inventory"""
         logger.info("Current Inventory:")
-        prog_items = updateTracker(self.ctx)
+        all_items, prog_items, events = updateTracker(self.ctx)
+        for item,count in all_items.items():
+            logger.info( str(count) + "x: " + item)
+
+    def _cmd_prog_inventory(self):
+        """Print the list of current items in the inventory"""
+        logger.info("Current Inventory:")
+        all_items, prog_items, events = updateTracker(self.ctx)
         for item,count in prog_items.items():
             logger.info( str(count) + "x: " + item)
+
+    def _cmd_event_inventory(self):
+        """Print the list of current items in the inventory"""
+        logger.info("Current Inventory:")
+        all_items, prog_items, events = updateTracker(self.ctx)
+        for event in events:
+            logger.info( event)
 
 
 class TrackerGameContext(CommonContext):
@@ -90,7 +105,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text":"Tracker v0.1.3 Initializing"})
+                self.data.append({"text":"Tracker v0.1.4 Initializing"})
             
             def resetData(self):
                 self.data.clear()
@@ -391,12 +406,19 @@ def updateTracker(ctx: TrackerGameContext):
 
     state = CollectionState(ctx.multiworld)
     state.sweep_for_events(locations=(location for location in ctx.multiworld.get_locations() if ( not location.address)))
+    prog_items = Counter()
+    all_items = Counter()
 
     callback_list = []
 
     for item in ctx.items_received:
         try:
-            state.collect(ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id),True)
+            world_item = ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],ctx.player_id)
+            state.collect(world_item,True)
+            if world_item.classification == ItemClassification.progression or world_item.classification == ItemClassification.progression_skip_balancing:
+                prog_items[world_item.name] += 1
+            if world_item.code is not None:
+                all_items[world_item.name] += 1
         except:
             ctx.log_to_tab("Item id " + str(item[0]) + " not able to be created",False)
     state.sweep_for_events(locations=(location for location in ctx.multiworld.get_locations() if ( not location.address)))
@@ -432,8 +454,8 @@ def updateTracker(ctx: TrackerGameContext):
     if ctx.region_callback is not None:
         ctx.region_callback(regions)
     if len(callback_list) == 0:
-        ctx.log_to_tab("All " + str(len(ctx.checked_locations)) +  " locations have been checked! Congrats!")
-    return state.prog_items[ctx.player_id]
+        ctx.log_to_tab("All " + str(len(ctx.checked_locations)) +  " accessible locations have been checked! Congrats!")
+    return (all_items,prog_items,[item.name for item in state.events if item.player == ctx.player_id])
 
 async def game_watcher(ctx: TrackerGameContext) -> None:
     while not ctx.exit_event.is_set():
