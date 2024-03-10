@@ -68,6 +68,7 @@ class TrackerGameContext(CommonContext):
     region_callback: Callable[[list[str]], bool] = None
     gen_error = None
     output_format = "Both"
+    hide_excluded = False
     re_gen_passthrough = None
 
     def __init__(self, server_address, password):
@@ -210,6 +211,8 @@ class TrackerGameContext(CommonContext):
             host['universal_tracker']['include_region_name'] = False
         if 'include_location_name' not in host['universal_tracker']:
             host['universal_tracker']['include_location_name'] = True
+        if 'hide_excluded_locations' not in host['universal_tracker']:
+            host['universal_tracker']['hide_excluded_locations'] = False
         report_type = "Both"
         if  host['universal_tracker']['include_location_name']:
             if host['universal_tracker']['include_region_name']:
@@ -219,12 +222,12 @@ class TrackerGameContext(CommonContext):
         else:
             report_type = "Region"
         host.save()
-        return host['universal_tracker']['player_files_path'],report_type
+        return host['universal_tracker']['player_files_path'],report_type, host['universal_tracker']['hide_excluded_locations']
 
     def run_generator(self):
         try:
             host = get_settings()
-            yaml_path ,self.output_format = self._set_host_settings(host)
+            yaml_path ,self.output_format, self.hide_excluded = self._set_host_settings(host)
             #strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
             args, _settings = mystery_argparse()
@@ -427,6 +430,8 @@ def updateTracker(ctx: TrackerGameContext):
     regions = []
     for temp_loc in ctx.multiworld.get_reachable_locations(state,ctx.player_id):
         if temp_loc.address == None or isinstance(temp_loc.address,list):
+            continue
+        elif ctx.hide_excluded and temp_loc.progress_type == LocationProgressType.EXCLUDED:
             continue
         try:
             if (temp_loc.address in ctx.missing_locations):
