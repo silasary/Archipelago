@@ -9,4 +9,4 @@ def launch_client():
 class TrackerWorld:
     pass
 
-components.append(Component("Universal Tracker", "Univeral Tracker client", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Universal Tracker", None, func=launch_client, component_type=Type.CLIENT))
