@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Dict, List, Set, Optional, Tuple
 
 from Options import Toggle
 
-from .data import NUM_REAL_SPECIES, POSTGAME_MAPS, EncounterTableData, LearnsetMove, MiscPokemonData, SpeciesData, data
+from .data import NUM_REAL_SPECIES, POSTGAME_MAPS, EncounterTableData, LearnsetMove, MiscPokemonData, SpeciesData, data, FISH
 from .options import (Goal, HmCompatibility, LevelUpMoves, RandomizeAbilities, RandomizeLegendaryEncounters,
                       RandomizeMiscPokemon, RandomizeStarters, RandomizeTypes, RandomizeWildPokemon,
                       TmTutorCompatibility)
@@ -248,6 +248,13 @@ def randomize_wild_encounters(world: "PokemonEmeraldWorld") -> None:
 
     priority_species = [data.constants["SPECIES_WAILORD"], data.constants["SPECIES_RELICANTH"]]
 
+    easter_egg_type, easter_egg_value = get_easter_egg(world.options.easter_egg.value)
+    illegal_species = set()
+    if easter_egg_type == 5:
+        illegal_species.update(sid for sid in world.modified_species if sid not in FISH)
+
+    NUM_LEGAL_SPECIES = NUM_REAL_SPECIES - len(illegal_species)
+
     # Loop over map data to modify their encounter slots
     map_names = list(world.modified_maps.keys())
     world.random.shuffle(map_names)
@@ -281,6 +288,9 @@ def randomize_wild_encounters(world: "PokemonEmeraldWorld") -> None:
                             # Blacklist pokemon already on this table
                             blacklists[0].append(set(species_old_to_new_map.values()))
 
+                            # Pokemon that will never be catchable
+                            blacklists[0].append(illegal_species)
+
                             # If doing legendary hunt, blacklist Latios from wild encounters so
                             # it can be tracked as the roamer. Otherwise it may be impossible
                             # to tell whether a highlighted route is the roamer or a wild
@@ -290,7 +300,7 @@ def randomize_wild_encounters(world: "PokemonEmeraldWorld") -> None:
 
                             # If dexsanity/catch 'em all mode, blacklist already placed species
                             # until every species has been placed once
-                            if catch_em_all and len(catch_em_all_placed) < NUM_REAL_SPECIES:
+                            if catch_em_all and len(catch_em_all_placed) < NUM_LEGAL_SPECIES:
                                 blacklists[1].append(catch_em_all_placed)
 
                             # Blacklist from player options
@@ -478,7 +488,7 @@ def randomize_learnsets(world: "PokemonEmeraldWorld") -> None:
 
         species.learnset = new_learnset
 
-        
+
 def randomize_starters(world: "PokemonEmeraldWorld") -> None:
     if world.options.starters == RandomizeStarters.option_vanilla:
         return
@@ -524,6 +534,9 @@ def randomize_starters(world: "PokemonEmeraldWorld") -> None:
 
             if should_match_bst:
                 candidates = filter_species_by_nearby_bst(candidates, sum(original_starter.base_stats))
+
+            if easter_egg_type == 5:
+                candidates = [species for species in candidates if species.species_id in FISH]
 
             new_starters.append(world.random.choice(candidates))
 
@@ -663,7 +676,7 @@ def randomize_misc_pokemon(world: "PokemonEmeraldWorld") -> None:
                 ]
             if should_match_bst:
                 candidates = filter_species_by_nearby_bst(candidates, sum(original_species.base_stats))
-            
+
             player_filtered_candidates = [
                 species
                 for species in candidates

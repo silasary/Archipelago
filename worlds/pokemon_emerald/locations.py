@@ -5,8 +5,9 @@ from typing import TYPE_CHECKING, Dict, Optional, FrozenSet, Iterable
 
 from BaseClasses import Location, Region
 
-from .data import BASE_OFFSET, POKEDEX_OFFSET, data
+from .data import BASE_OFFSET, FISH, NATIONAL_ID_TO_SPECIES_ID, POKEDEX_OFFSET, data
 from .items import offset_item_value
+from .util import get_easter_egg
 
 if TYPE_CHECKING:
     from . import PokemonEmeraldWorld
@@ -121,6 +122,7 @@ def create_locations_with_tags(world: "PokemonEmeraldWorld", regions: Dict[str, 
     those locations include any of the provided tags.
     """
     tags = set(tags)
+    easter_egg_type, easter_egg_value = get_easter_egg(world.options.easter_egg.value)
 
     for region_name, region_data in data.regions.items():
         region = regions[region_name]
@@ -131,7 +133,11 @@ def create_locations_with_tags(world: "PokemonEmeraldWorld", regions: Dict[str, 
 
             location_id = offset_flag(location_data.flag)
             if location_data.flag == 0:
-                location_id += POKEDEX_OFFSET + int(location_name[15:])
+                dexnum = int(location_name[15:])
+                if easter_egg_type == 5:
+                    if NATIONAL_ID_TO_SPECIES_ID[dexnum] not in FISH:
+                        continue
+                location_id += POKEDEX_OFFSET + dexnum
 
             location = PokemonEmeraldLocation(
                 world.player,
@@ -203,7 +209,7 @@ def set_legendary_cave_entrances(world: "PokemonEmeraldWorld") -> None:
     terra_cave_location_location = world.multiworld.get_location("TERRA_CAVE_LOCATION", world.player)
     terra_cave_location_location.item = None
     terra_cave_location_location.place_locked_item(world.create_event(terra_cave_location_name))
-    
+
     marine_cave_location_name = world.random.choice([
         "MARINE_CAVE_ROUTE_105_1",
         "MARINE_CAVE_ROUTE_105_2",
