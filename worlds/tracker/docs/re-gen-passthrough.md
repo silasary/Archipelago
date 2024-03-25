@@ -6,13 +6,18 @@
 
 However with some games, the internal logic state of UT and the **actual** state of the server don't match, this is usually caused by the game implementing randomness in the logic that isn't soley tied to items
 
-When this happens the World Dev needs to implement one of a few hooks that UT provides to allow UT to properly track the logic
+When this happens the World Dev needs to use one of a few hooks that UT provides to allow UT to properly track the logic
+
+# generation_is_fake
+
+The first method is `generation_is_fake`. This value is added to the multiworld object when UT is doing the internal generations so that worlds have the ability to not perform useless (for UT) randomization.  
+For example, if the world only creates the locations based on what items get randomly created, if this flag exists, the world can insteed create all locations, and depend on the "real" server only sending the items that got actually created to limit what locations are expected to be completed.  
 
 # interpret_slot_data
 
-The First and simplest hook is for the world to have a function called `interpret_slot_data` that takes in a dict as a parameter  
+The Second hook is for the world to define a function called `interpret_slot_data` that takes in a dict as a parameter  
 If a world implements this function, after UT's internal generation when the tracker connects to the slot on the server, it will pass the slot_data (that the original world created) to the internal world  
-This allows for the internal world to have a space in time before logic is tracked to modify any connections/settings it can in runtime to correct and differences between it and the actual state on the server  
+This allows for the internal world to have a space in time before logic is tracked to modify any connections/settings it can in runtime, to correct any differences between it and the actual state on the server  
 
 ![image](https://github.com/FarisTheAncient/Archipelago/assets/162540354/41578c5f-da5d-418f-be2d-bc2d98182501)
 
