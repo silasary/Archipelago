@@ -1461,4 +1461,16 @@ UNEVOLVED_POKEMON = frozenset({
 })
 """Species IDs of pokemon which have further evolution stages in the vanilla game"""
 
+FISH = frozenset({
+    species.species_id
+    for species in data.species.values()
+    if  species.types[0] == 11 or species.types[1] == 11  # All water types are fish
+    } | {data.constants[species] for species in [  # These are not water types, but are fishy enough to deserve a place
+    "SPECIES_DRATINI",
+    "SPECIES_DRAGONAIR",
+    "SPECIES_SHUCKLE",
+    "SPECIES_DELIBIRD",
+    "SPECIES_LUGIA",
+]})
+
 NATIONAL_ID_TO_SPECIES_ID = {species.national_dex_number: i for i, species in data.species.items()}

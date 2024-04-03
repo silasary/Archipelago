@@ -44,7 +44,7 @@ CHARACTER_ENCODING_MAP.update({
 
 ALLOWED_TRAINER_NAME_CHARACTERS = frozenset({
     " ", "0", "1", "2", "3", "4", "5", "6", "7", "8",
-    "9", "!", "?", ".", "-", "…", "“", "”", "‘", "’",    
+    "9", "!", "?", ".", "-", "…", "“", "”", "‘", "’",
     "♂", "♀", ",", "/", "A", "B", "C", "D", "E", "F",
     "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
     "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
@@ -108,6 +108,8 @@ def get_easter_egg(easter_egg: str) -> Tuple[int, int]:
             return (3, value)
     elif result1 == 0xA7850E45 and (result1 ^ result2) & 0xFF == 96:
         return (4, 0)
+    elif result1 == 0x87be1159 and (result1 ^ result2) & 0xFF == 224:
+        return (5, 0)
 
     return (0, 0)
 

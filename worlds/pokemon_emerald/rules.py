@@ -6,8 +6,9 @@ from typing import TYPE_CHECKING, Callable, Dict
 from BaseClasses import CollectionState
 from worlds.generic.Rules import add_rule, set_rule
 
-from .data import NATIONAL_ID_TO_SPECIES_ID, NUM_REAL_SPECIES, data
+from .data import FISH, NATIONAL_ID_TO_SPECIES_ID, NUM_REAL_SPECIES, data
 from .options import DarkCavesRequireFlash, EliteFourRequirement, NormanRequirement, Goal
+from .util import get_easter_egg
 
 if TYPE_CHECKING:
     from . import PokemonEmeraldWorld
@@ -30,7 +31,7 @@ def set_rules(world: "PokemonEmeraldWorld") -> None:
 
     def has_mach_bike(state: CollectionState):
         return state.has("Mach Bike", world.player)
-    
+
     def defeated_n_gym_leaders(state: CollectionState, n: int) -> bool:
         return sum([state.has(event, world.player) for event in [
             "EVENT_DEFEAT_ROXANNE",
@@ -1525,8 +1526,11 @@ def set_rules(world: "PokemonEmeraldWorld") -> None:
 
     # Pokedex Rewards
     if world.options.dexsanity:
+        easter_egg_type, easter_egg_value = get_easter_egg(world.options.easter_egg.value)
         for i in range(NUM_REAL_SPECIES):
             species = data.species[NATIONAL_ID_TO_SPECIES_ID[i + 1]]
+            if easter_egg_type == 5 and species.species_id not in FISH:
+                continue
             set_rule(
                 get_location(f"Pokedex - {species.label}"),
                 lambda state, species_name=species.name: state.has(f"CATCH_{species_name}", world.player)
@@ -1534,7 +1538,7 @@ def set_rules(world: "PokemonEmeraldWorld") -> None:
 
         # Legendary hunt prevents Latios from being a wild spawn so the roamer
         # can be tracked, and also guarantees that the roamer is a Latios.
-        if world.options.goal == Goal.option_legendary_hunt:
+        if world.options.goal == Goal.option_legendary_hunt and easter_egg_type != 5:
             set_rule(
                 get_location(f"Pokedex - Latios"),
                 lambda state: state.has("EVENT_ENCOUNTER_LATIOS", world.player)
