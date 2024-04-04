@@ -14,6 +14,8 @@ from BaseClasses import MultiWorld
 from worlds.Files import APDeltaPatch
 import bsdiff4
 
+from .Aesthetics import kirby_target_palettes, get_palette_bytes, get_kirby_palette
+
 if typing.TYPE_CHECKING:
     from . import K64World
 
@@ -155,6 +157,10 @@ def patch_rom(world: "K64World", player: int, rom: RomData):
                         rom.write_bytes(ptr, target)
 
     rom.write_bytes(0x1FFF100, world.boss_requirements)
+
+    palette = get_palette_bytes(get_kirby_palette(world), [f"{i}" for i in range(1, 16)])
+    for target in kirby_target_palettes:
+        rom.write_bytes(target, palette)
 
     from Utils import __version__
     rom.name = bytearray(f'K64{__version__.replace(".", "")[0:3]}_{player}_{world.multiworld.seed:11}\0', 'utf8')[:21]

@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 
-from Options import Option, DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
+from Options import DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
     PerGameCommonOptions
 import typing
 
@@ -75,6 +75,62 @@ class FillerPercentage(Range):
     default = 50
 
 
+class KirbyFlavorPreset(Choice):
+    """
+    The color of Kirby, from a list of presets.
+    """
+    display_name = "Kirby Flavor"
+    option_default = 0
+    #option_bubblegum = 1
+    #option_cherry = 2
+    #option_blueberry = 3
+    #option_lemon = 4
+    #option_kiwi = 5
+    #option_grape = 6
+    #option_chocolate = 7
+    #option_marshmallow = 8
+    #option_licorice = 9
+    #option_watermelon = 10
+    #option_orange = 11
+    #option_lime = 12
+    option_lavender = 13
+    option_custom = 14
+    default = 0
+
+    @classmethod
+    def from_text(cls, text: str) -> Choice:
+        text = text.lower()
+        if text == "random":
+            choice_list = list(cls.name_lookup)
+            choice_list.remove(14)
+            return cls(random.choice(choice_list))
+        return super().from_text(text)
+
+
+class KirbyFlavor(OptionDict):
+    """
+    A custom color for Kirby. To use a custom color, set the preset to Custom and then define a dict of keys from "1" to
+    "15", with their values being an HTML hex color.
+    """
+    default = {
+      "1": "080000",
+      "2": "F64A5A",
+      "3": "6A4152",
+      "4": "F6F6F6",
+      "5": "F6A4B4",
+      "6": "E66A62",
+      "7": "00085A",
+      "8": "EE8BA4",
+      "9": "413173",
+      "10": "D5D5D5",
+      "11": "312029",
+      "12": "8B949C",
+      "13": "0000D5",
+      "14": "8B626A",
+      "15": "BD838B",
+    }
+
+
 @dataclass
 class K64Options(PerGameCommonOptions):
     death_link: DeathLink
@@ -85,3 +141,5 @@ class K64Options(PerGameCommonOptions):
     total_crystals: TotalCrystalShards
     required_crystals: CrystalShardsRequired
     filler_percentage: FillerPercentage
+    kirby_flavor_preset: KirbyFlavorPreset
+    kirby_flavor: KirbyFlavor

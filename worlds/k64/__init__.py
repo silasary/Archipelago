@@ -19,13 +19,8 @@ import math
 import threading
 import base64
 import settings
-from worlds.LauncherComponents import components
 
 logger = logging.getLogger("Kirby 64: The Crystal Shards")
-
-
-# SNIComponent = next(x for x in components if x.display_name == "SNI Client")
-# SNIComponent.file_identifier.suffixes.append(".apkdl3")
 
 
 class K64Settings(settings.Group):
@@ -66,7 +61,6 @@ class K64World(World):
     item_name_to_id = {item: item_table[item].code for item in item_table}
     location_name_to_id = {location_table[location]: location for location in location_table}
     item_name_groups = item_names
-    data_version = 0
     web = K64WebWorld()
     settings: typing.ClassVar[K64Settings]
 
@@ -147,8 +141,6 @@ class K64World(World):
     def generate_output(self, output_directory: str):
         rom_path = ""
         try:
-            world = self.multiworld
-            player = self.player
 
             rom = RomData(get_base_rom_path())
             patch_rom(self, self.player, rom)
@@ -157,8 +149,8 @@ class K64World(World):
             rom.write_to_file(rom_path)
             self.rom_name = rom.name
 
-            patch = K64DeltaPatch(os.path.splitext(rom_path)[0] + K64DeltaPatch.patch_file_ending, player=player,
-                                   player_name=world.player_name[player], patched_path=rom_path)
+            patch = K64DeltaPatch(os.path.splitext(rom_path)[0] + K64DeltaPatch.patch_file_ending, player=self.player,
+                                   player_name=self.multiworld.player_name[self.player], patched_path=rom_path)
             patch.write()
         except Exception:
             raise
