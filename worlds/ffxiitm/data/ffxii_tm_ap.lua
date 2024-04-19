@@ -335,22 +335,27 @@ function receive_items()
         io.close(file)
         received_item_id = received_item_id % 4400000
         if ap_voucher_qty[1] < 99 then
+            print('Adding AP voucher 1:' .. tostring(ap_voucher_qty[1] + 1))
             add_item(ap_voucher_item_id,1)
-             ap_voucher_qty[1] = ap_voucher_qty[1] + 1
+            ap_voucher_qty[1] = ap_voucher_qty[1] + 1
             check_num = check_num + 1
         elseif ap_voucher_qty[1] >= 99 and ap_voucher_qty[2] < 99 then
+            print('Adding AP voucher 2:' .. tostring(ap_voucher_qty[2] + 1))
             add_item(ap_voucher_item_id+1,1)
             ap_voucher_qty[2] = ap_voucher_qty[2] + 1
             check_num = check_num + 1
         elseif ap_voucher_qty[2] >= 99 and ap_voucher_qty[3] < 99 then
+            print('Adding AP voucher 3:' .. tostring(ap_voucher_qty[3] + 1))
             add_item(ap_voucher_item_id+2,1)
             ap_voucher_qty[3] = ap_voucher_qty[3] + 1
             check_num = check_num + 1
         elseif ap_voucher_qty[3] >= 99 and ap_voucher_qty[4] < 99 then
+            print('Adding AP voucher 4:' .. tostring(ap_voucher_qty[4] + 1))
             add_item(ap_voucher_item_id+3,1)
             ap_voucher_qty[4] = ap_voucher_qty[4] + 1
             check_num = check_num + 1
         elseif ap_voucher_qty[4] >= 99 and ap_voucher_qty[5] < 99 then
+            print('Adding AP voucher 5:' .. tostring(ap_voucher_qty[5] + 1))
             add_item(ap_voucher_item_id+4,1)
             ap_voucher_qty[5] = ap_voucher_qty[5] + 1
             check_num = check_num + 1
@@ -361,6 +366,7 @@ function receive_items()
         if received_item_id >= 49200 then
             -- add_guest(received_item_id % 49200,1)
         else
+            print('Recived ' .. tostring(received_item_id))
             add_item(received_item_id,1)
         end
     end
@@ -455,7 +461,7 @@ function debug()
     event.executeAfterMs(5000, debug)
 end
 
-print("FFXII Trial Mode AP v0.0.4")
+print("FFXII Trial Mode AP v0.0.5")
 
 -- event.registerEventAsync("onInitDone", debug)
 event.registerEventAsync("onInitDone", main_loop)

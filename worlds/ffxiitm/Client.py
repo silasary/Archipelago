@@ -176,8 +176,6 @@ async def game_watcher(ctx: FFXIITMContext):
         if len(sending) > len(ctx.locations_checked):
             ctx.syncing = True
         ctx.locations_checked = sending
-        # message = [{"cmd": 'LocationChecks', "locations": sending}]
-        # await ctx.send_msgs(message)
         if not ctx.finished_game and victory:
             await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
             ctx.finished_game = True

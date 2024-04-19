@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterable, List
 import typing
 
 import settings
@@ -76,10 +76,15 @@ class FFXIITMWorld(World):
         item_pool: List[FFXIITMItem] = []
         total_locations = len(self.multiworld.get_unfilled_locations(self.player))
 
-        equipment = list(self.item_name_groups["Equipment"])
-        magick = list(self.item_name_groups["Magick"])
-        technick = list(self.item_name_groups["Technick"])
-        mist = list(self.item_name_groups["Mist"])
+        inventory = set(self.options.start_inventory.keys())
+
+        def remove_starting_inventory(items: Iterable[str]) -> List[str]:
+            return list(filter(lambda x: x not in inventory, items))
+
+        equipment = remove_starting_inventory(self.item_name_groups["Equipment"])
+        magick = remove_starting_inventory(self.item_name_groups["Magick"])
+        technick = remove_starting_inventory(self.item_name_groups["Technick"])
+        mist = remove_starting_inventory(self.item_name_groups["Mist"])
 
         self.random.shuffle(equipment)
         self.random.shuffle(magick)
@@ -99,7 +104,7 @@ class FFXIITMWorld(World):
             progressive.append(mist.pop())
 
         progressive_items_left_to_be_added = len(progressive)
-        useful = [n for n, i in item_table.items() if n not in progressive and i.classification == ItemClassification.useful]
+        useful = [n for n, i in item_table.items() if n not in progressive and i.classification == ItemClassification.useful and n not in inventory]
         self.random.shuffle(useful)
 
         for name in progressive:

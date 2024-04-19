@@ -777,3 +777,8 @@ event_item_table: Dict[str, FFXIITMItemData] = {
 
 for trial in range(1, 101):
     event_item_table[f'Reach Trial {str(trial).rjust(3, "0")}'] = FFXIITMItemData("Event", 44_08000 + trial, classification = ItemClassification.progression, max_quantity = 1, weight = 1)
+
+progressive_item_table: Dict[str, list[str]] = {
+    # "Progressive Cure": ["Cura", "Curaga", "Curaja", "Renew"],  # ignore Cure, as it's a starting spell
+    # "Progressive Raise": ["Raise", "Arise"],
+}
