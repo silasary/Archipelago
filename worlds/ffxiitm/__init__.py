@@ -61,10 +61,6 @@ class FFXIITMWorld(World):
         "Mist": {name for name, data in item_table.items() if data.category == "Mist"},
     }
 
-    # TODO: Replace calls to this function with "options-dict", once that PR is completed and merged.
-    def get_setting(self, name: str):
-        return getattr(self.multiworld, name)[self.player]
-
     def fill_slot_data(self) -> dict:
         return {
             "trial_victory": self.options.trial_victory.value,
