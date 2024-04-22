@@ -1,8 +1,9 @@
 import json
 import os
+import re
 from typing import List, Mapping, Any, Dict
 
-from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable
+from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable, LocationProgressType
 from worlds.AutoWorld import WebWorld, World
 from worlds.generic.Rules import add_rule
 from worlds.LauncherComponents import launch_subprocess, components, Component, Type
@@ -24,7 +25,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.1.0"
+FF12OW_VERSION = "0.2.0"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -76,29 +77,38 @@ class FF12OpenWorldWorld(World):
         # Select a random 50% to 75% of the abilities
         ability_count = self.multiworld.random.randint(len(abilities) // 2, len(abilities) * 3 // 4)
         selected_abilities = self.multiworld.random.sample(abilities, k=ability_count)
-        for name in selected_abilities:
-            self.used_items.add(name)
-            for _ in range(item_data_table[name].duplicateAmount):
-                item_pool.append(self.create_item(name))
+        self.add_to_pool(item_pool, selected_abilities)
 
         other_useful_items = [name for name, data in item_data_table.items()
                               if data.classification & ItemClassification.useful and name not in abilities]
-        for name in other_useful_items:
-            self.used_items.add(name)
-            for _ in range(item_data_table[name].duplicateAmount):
-                item_pool.append(self.create_item(name))
+        self.add_to_pool(item_pool, other_useful_items)
+
+        # Add 1 of each trophy filler item
+        trophy_fillers = [name for name, data in item_data_table.items()
+                          if data.classification == ItemClassification.filler and name.endswith(" Trophy")]
+        self.add_to_pool(item_pool, trophy_fillers)
 
         # Get count of non event locations
         non_events = len([location for location in self.multiworld.get_locations(self.player)
                           if location.name not in event_data_table.keys()])
 
+        filler_count = non_events - len(item_pool)
+        if self.options.bahamut_unlock != "random_location":
+            filler_count -= 1
+
         # Add filler items to the pool
-        for _ in range(non_events - len(item_pool) - 1):
+        for _ in range(filler_count):
             filler = self.get_filler_item_name()
             self.used_items.add(filler)
             item_pool.append(self.create_item(filler))
 
         self.multiworld.itempool += item_pool
+
+    def add_to_pool(self, item_pool, other_useful_items):
+        for name in other_useful_items:
+            self.used_items.add(name)
+            for _ in range(item_data_table[name].duplicateAmount):
+                item_pool.append(self.create_item(name))
 
     def create_regions(self) -> None:
         # Create regions.
@@ -141,12 +151,56 @@ class FF12OpenWorldWorld(World):
             location_data = location_data_table[location_name]
             region = self.multiworld.get_region(location_data.region, self.player)
             region.add_locations({location_name: location_data.address}, FF12OpenWorldLocation)
-            self.multiworld.get_location(location_name, self.player).progress_type = location_data.classification
+            self.multiworld.get_location(location_name, self.player).progress_type = (
+                self.get_loc_classification(location_name))
 
         # Add events
         for event_name, data in event_data_table.items():
             region = self.multiworld.get_region("Ivalice", self.player)
             region.locations.append(FF12OpenWorldLocation(self.player, event_name, None, region))
+
+    def get_loc_classification(self, location_name: str) -> LocationProgressType:
+        location_data = location_data_table[location_name]
+        if location_data.type == "treasure" and not self.options.include_treasures:
+            return LocationProgressType.EXCLUDED
+        if location_data.type == "reward":
+            if 0x9134 <= int(location_data.str_id, 16) <= 0x914F and not self.options.include_chops:
+                return LocationProgressType.EXCLUDED
+            if 0x9153 <= int(location_data.str_id, 16) <= 0x916A and not self.options.include_black_orbs:
+                return LocationProgressType.EXCLUDED
+            if 0x9090 <= int(location_data.str_id, 16) <= 0x90AE and not self.options.include_trophy_rare_games:
+                return LocationProgressType.EXCLUDED
+            if 0x90F9 <= int(location_data.str_id, 16) <= 0x90FE and not self.options.include_trophy_rare_games:
+                return LocationProgressType.EXCLUDED
+            if re.match(r"Hunt \d+:", location_name) and not self.options.include_hunt_rewards:
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "916D" and not self.options.include_hunt_rewards:  # Flowering Cactoid
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9172" and not self.options.include_hunt_rewards:  # White Mousse
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9174" and not self.options.include_hunt_rewards:  # Enkelados
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9177" and not self.options.include_hunt_rewards:  # Vorpal Bunny
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9178" and not self.options.include_hunt_rewards:  # Croakadile
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9179" and not self.options.include_hunt_rewards:  # Lindwyrm
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "917B" and not self.options.include_hunt_rewards:  # Orthros
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "917F" and not self.options.include_hunt_rewards:  # Fafnir
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9180" and not self.options.include_hunt_rewards:  # Marilith
+                return LocationProgressType.EXCLUDED
+            if location_data.str_id == "9181" and not self.options.include_hunt_rewards:  # Vyraal
+                return LocationProgressType.EXCLUDED
+            if location_name.startswith("Clan Rank:") and not self.options.include_clan_hall_rewards:
+                return LocationProgressType.EXCLUDED
+            if location_name.startswith("Clan Boss:") and not self.options.include_clan_hall_rewards:
+                return LocationProgressType.EXCLUDED
+            if location_name.startswith("Clan Esper:") and not self.options.include_clan_hall_rewards:
+                return LocationProgressType.EXCLUDED
+        return location_data.classification
 
     def get_filler_item_name(self) -> str:
         filler = self.multiworld.random.choices(filler_items, weights=filler_weights)[0]
@@ -172,6 +226,9 @@ class FF12OpenWorldWorld(World):
         elif self.options.bahamut_unlock == "collect_pinewood_chops":
             self.multiworld.get_location("Sandalwood Chop (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
+        elif self.options.bahamut_unlock == "collect_espers":
+            self.multiworld.get_location("Clan Esper: Control 13 (1)", self.player).place_locked_item(
+                self.create_item("Writ of Transit"))
 
         # Completion condition.
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
@@ -189,8 +246,8 @@ class FF12OpenWorldWorld(World):
                                                       event_data_table[location_name].difficulty,
                                                       self.player)
 
-    def create_event(self, event: str) -> FF12OpenWorldItem:
-        name = event
+    def create_event(self, event_item: str) -> FF12OpenWorldItem:
+        name = event_item
         if name in character_names:
             name = character_names[self.character_order[character_names.index(name)]]
         return FF12OpenWorldItem(name, ItemClassification.progression, None, self.player)
@@ -205,8 +262,23 @@ class FF12OpenWorldWorld(World):
                 all_characters.remove(character)
 
     def generate_output(self, output_directory: str) -> None:
+        spheres: List[Dict[str, Any]] = []
+        cur_sphere = 0
+        for locations in self.multiworld.get_spheres():
+            for loc in locations:
+                if loc.name in location_data_table.keys():
+                    spheres.append({"id": location_data_table[loc.name].str_id,
+                                    "index": location_data_table[loc.name].secondary_index,
+                                    "sphere": cur_sphere})
+                elif loc.name in event_data_table.keys():
+                    spheres.append({"id": loc.name[:loc.name.index(" Event ")],
+                                    "item": event_data_table[loc.name].item,
+                                    "sphere": cur_sphere})
+            cur_sphere += 1
+
+        seed_name = self.multiworld.seed_name + "_" + self.multiworld.get_player_name(self.player)
         data = {
-            "seed": self.multiworld.seed_name,  # to identify the seed
+            "seed": seed_name,  # to identify the seed
             "type": "archipelago",  # to identify the seed type
             "archipelago": {
                 "version": FF12OW_VERSION,
@@ -216,7 +288,8 @@ class FF12OpenWorldWorld(World):
                     {"map": location_data_table[loc].str_id, "index": location_data_table[loc].secondary_index}
                     for loc in self.selected_treasures],
                 "character_order": self.character_order,
-                "allow_seitengrat": self.options.allow_seitengrat.value
+                "allow_seitengrat": self.options.allow_seitengrat.value,
+                "spheres": spheres
             }
         }
         mod_name = self.multiworld.get_out_file_name_base(self.player)
