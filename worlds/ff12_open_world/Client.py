@@ -5,9 +5,7 @@ import ModuleUpdate
 
 ModuleUpdate.update()
 
-import os
 import asyncio
-import json
 from pymem import pymem
 
 from NetUtils import ClientStatus, NetworkItem
@@ -26,6 +24,7 @@ class FF12OpenWorldContext(CommonContext):
     def __init__(self, server_address, password):
         super(FF12OpenWorldContext, self).__init__(server_address, password)
 
+        self.last_big_batch_time = None
         self.debug_time = None
         self.ff12_items_received: List[NetworkItem] = []
         self.prev_map_and_time = None
@@ -35,8 +34,6 @@ class FF12OpenWorldContext(CommonContext):
         self.ff12seedname = None
         self.server_connected = False
         self.ff12connected = False
-        if "localappdata" in os.environ:
-            self.game_communication_path = os.path.expandvars(r"%localappdata%\FF12OWAP")
         # hooked object
         self.ff12 = None
 
@@ -49,19 +46,13 @@ class FF12OpenWorldContext(CommonContext):
     async def connection_closed(self):
         self.ff12connected = False
         self.server_connected = False
-        if self.ff12seedname is not None and self.auth is not None:
-            with open(self.get_save_path(),
-                      'w') as f:
-                f.write(json.dumps(self.ff12_seed_save, indent=4))
+        self.ff12_items_received.clear()
         await super(FF12OpenWorldContext, self).connection_closed()
 
     async def disconnect(self, allow_autoreconnect: bool = False):
         self.ff12connected = False
         self.server_connected = False
-        if self.ff12seedname not in {None} and self.auth not in {None}:
-            with open(self.get_save_path(),
-                      'w') as f:
-                f.write(json.dumps(self.ff12_seed_save, indent=4))
+        self.ff12_items_received.clear()
         await super(FF12OpenWorldContext, self).disconnect()
 
     @property
@@ -72,10 +63,6 @@ class FF12OpenWorldContext(CommonContext):
             return []
 
     async def shutdown(self):
-        if self.ff12seedname not in {None} and self.auth not in {None}:
-            with open(self.get_save_path(),
-                      'w') as f:
-                f.write(json.dumps(self.ff12_seed_save, indent=4))
         await super(FF12OpenWorldContext, self).shutdown()
 
     def ff12_story_address(self):
@@ -120,23 +107,6 @@ class FF12OpenWorldContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd in {"RoomInfo"}:
             self.ff12seedname = args['seed_name']
-            if not os.path.exists(self.game_communication_path):
-                os.makedirs(self.game_communication_path)
-            if not os.path.exists(self.get_save_path()):
-                self.ff12_seed_save = {
-                }
-                with open(self.get_save_path(),
-                          'wt') as f:
-                    pass
-                # self.locations_checked = set()
-            elif os.path.exists(self.get_save_path()):
-                with open(self.get_save_path(), 'r') as f:
-                    self.ff12_seed_save = json.load(f)
-                    if self.ff12_seed_save is None:
-                        self.ff12_seed_save = {
-                        }
-                    # self.locations_checked = set(self.kh2_seed_save_cache["LocationsChecked"])
-            # self.serverconneced = True
 
         if cmd in {"Connected"}:
             asyncio.create_task(self.send_msgs([{"cmd": "GetDataPackage", "games": ["Final Fantasy 12 Open World"]}]))
@@ -174,9 +144,6 @@ class FF12OpenWorldContext(CommonContext):
                     self.ff12connected = False
                 logger.info("Game is not open (Try running the client as an admin).")
                 logger.info(e)
-
-    def get_save_path(self) -> str:
-        return os.path.join(self.game_communication_path, f"ff12save{self.ff12seedname}{self.auth}.json")
 
     def get_current_map(self) -> int:
         return self.ff12_read_short(0x20454C4)
@@ -309,10 +276,10 @@ class FF12OpenWorldContext(CommonContext):
 
     async def check_locations(self):
         try:
-            # Do not check on main menu
-            if not self.is_in_game():
-                return
             for location_name, data in location_data_table.items():
+                # Do not check on main menu
+                if not self.is_in_game():
+                    return
                 if location_name in self.locations_checked:
                     continue
                 elif data.type == "inventory":
@@ -405,6 +372,10 @@ class FF12OpenWorldContext(CommonContext):
         elif 0x9153 <= int(location_data.str_id, 16) <= 0x916A:  # Black Orbs
             return (self.ff12_read_byte(self.get_save_data_address() + 0xDFFC, False) >
                     int(location_data.str_id, 16) - 0x9153)
+        elif location_data.str_id == "918D":  # Hashmal Boss
+            return self.ff12_read_byte(self.get_save_data_address() + 0xA1F, False) >= 2
+        elif location_data.str_id == "918D":  # Cid 2 Boss
+            return self.ff12_read_byte(self.get_save_data_address() + 0xA2A, False) >= 2
         elif location_data.str_id == "9003":  # Hunt 1
             return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 0, False) >= 70
         elif location_data.str_id == "9004":  # Hunt 2
@@ -631,7 +602,7 @@ class FF12OpenWorldContext(CommonContext):
         elif location_data.str_id == "9059":  # Outpost Glint 5
             return self.ff12_read_byte(self.get_save_data_address() + 0x695, False) >= 1
         elif location_data.str_id == "908F":  # Footrace
-            return self.ff12_read_byte(self.get_save_data_address() + 0x73C, False) >= 1
+            return self.ff12_read_byte(self.get_save_data_address() + 0x73D, False) >= 1
         elif location_data.str_id == "9194":  # Adrammelech Boss
             return self.ff12_read_byte(self.get_save_data_address() + 0xA25, False) >= 2
         elif location_data.str_id == "9195":  # Zalera Boss
@@ -703,7 +674,15 @@ class FF12OpenWorldContext(CommonContext):
     async def give_items(self):
         try:
             start_index = self.get_item_index()
-            for index in range(start_index, len(self.ff12_items_received)):
+            # Give at max 100 items at a time in 10 sec intervals
+            if start_index + 100 < len(self.ff12_items_received):
+                self.last_big_batch_time = self.last_big_batch_time or time.time()
+                if time.time() - self.last_big_batch_time < 10:
+                    return
+                stop_index = start_index + 100
+            else:
+                stop_index = len(self.ff12_items_received)
+            for index in range(start_index, stop_index):
                 if not self.is_in_game() or self.get_current_game_state() != 0:
                     return
                 item = self.ff12_items_received[index]
@@ -720,6 +699,8 @@ class FF12OpenWorldContext(CommonContext):
                     raise Exception("Failed to give item in time. The lua script may be missing.")
                 # Sleep 200 ms
                 await asyncio.sleep(0.2)
+            if stop_index < len(self.ff12_items_received):
+                self.last_big_batch_time = time.time()
         except Exception as e:
             if self.ff12connected:
                 self.ff12connected = False
