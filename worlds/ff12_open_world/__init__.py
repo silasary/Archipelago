@@ -1,9 +1,10 @@
 import json
 import os
 import re
-from typing import List, Mapping, Any, Dict
+from typing import List, Any, Dict
 
-from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable, LocationProgressType
+from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable, LocationProgressType, \
+    MultiWorld
 from worlds.AutoWorld import WebWorld, World
 from worlds.generic.Rules import add_rule
 from worlds.LauncherComponents import launch_subprocess, components, Component, Type
@@ -52,9 +53,13 @@ class FF12OpenWorldWorld(World):
     options: FF12OpenWorldGameOptions
     location_name_to_id = location_table
     item_name_to_id = item_table
-    selected_treasures = []
-    used_items: set[str] = set()
-    character_order = list(range(6))
+
+    def __init__(self, world: MultiWorld, player: int):
+        super().__init__(world, player)
+        self.selected_treasures = []
+        self.used_items: set[str] = set()
+        self.character_order = list(range(6))
+        self.re_gen_data: Dict[str, Any] = {}
 
     def create_item(self, name: str) -> FF12OpenWorldItem:
         return FF12OpenWorldItem(name, item_data_table[name].classification, item_data_table[name].code, self.player)
@@ -120,6 +125,25 @@ class FF12OpenWorldWorld(World):
         for region_name, data in region_data_table.items():
             region = self.multiworld.get_region(region_name, self.player)
             region.add_exits(region_data_table[region_name].connecting_regions)
+
+        if len(self.re_gen_data) > 0:
+            locations_to_add = self.re_gen_data["re_gen_locations"]
+            self.selected_treasures = self.re_gen_data["treasures"]
+
+            # Place randomly selected locations.
+            for location_name in locations_to_add:
+                if location_name in location_data_table:
+                    location_data = location_data_table[location_name]
+                    region = self.multiworld.get_region(location_data.region, self.player)
+                    region.add_locations({location_name: location_data.address}, FF12OpenWorldLocation)
+                    self.multiworld.get_location(location_name, self.player).progress_type = (
+                        self.get_loc_classification(location_name))
+
+            # Add events
+            for event_name, data in event_data_table.items():
+                region = self.multiworld.get_region("Ivalice", self.player)
+                region.locations.append(FF12OpenWorldLocation(self.player, event_name, None, region))
+            return
 
         # Select 255 random treasure type locations.
         treasure_names = [name for name, data in location_data_table.items()
@@ -254,12 +278,24 @@ class FF12OpenWorldWorld(World):
 
     def generate_early(self) -> None:
         if self.options.shuffle_main_party:
-            self.character_order = []
-            all_characters = list(range(6))
-            for _ in range(6):
-                character = self.multiworld.random.choice(all_characters)
-                self.character_order.append(character)
-                all_characters.remove(character)
+            self.multiworld.random.shuffle(self.character_order)
+
+        # Universal tracker stuff, shouldn't do anything in standard gen
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if self.game in self.multiworld.re_gen_passthrough:
+                self.re_gen_data = self.multiworld.re_gen_passthrough[self.game]
+                self.character_order = self.re_gen_data["characters"]
+                options = self.re_gen_data["options"]
+                self.options.shuffle_main_party = options["shuffle_main_party"]
+                self.options.character_progression_scaling = options["character_progression_scaling"]
+                self.options.include_treasures = options["include_treasures"]
+                self.options.include_chops = options["include_chops"]
+                self.options.include_black_orbs = options["include_black_orbs"]
+                self.options.include_trophy_rare_games = options["include_trophy_rare_games"]
+                self.options.include_hunt_rewards = options["include_hunt_rewards"]
+                self.options.include_clan_hall_rewards = options["include_clan_hall_rewards"]
+                self.options.allow_seitengrat = options["allow_seitengrat"]
+                self.options.bahamut_unlock = options["bahamut_unlock"]
 
     def generate_output(self, output_directory: str) -> None:
         spheres: List[Dict[str, Any]] = []
@@ -298,5 +334,26 @@ class FF12OpenWorldWorld(World):
 
     def fill_slot_data(self) -> Dict[str, Any]:
         return {
-            "treasures": self.selected_treasures
+            "treasures": self.selected_treasures,
+            "re_gen_locations": [location.name for location in self.multiworld.get_locations(self.player)],
+            "characters": self.character_order,
+            "options": {
+                "shuffle_main_party": self.options.shuffle_main_party.value,
+                "character_progression_scaling": self.options.character_progression_scaling.value,
+                "include_treasures": self.options.include_treasures.value,
+                "include_chops": self.options.include_chops.value,
+                "include_black_orbs": self.options.include_black_orbs.value,
+                "include_trophy_rare_games": self.options.include_trophy_rare_games.value,
+                "include_hunt_rewards": self.options.include_hunt_rewards.value,
+                "include_clan_hall_rewards": self.options.include_clan_hall_rewards.value,
+                "allow_seitengrat": self.options.allow_seitengrat.value,
+                "bahamut_unlock": self.options.bahamut_unlock.value
+            }
         }
+
+    # From Tunic implementation
+    # For the universal tracker, doesn't get called in standard gen
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+        # returning slot_data so it regens, giving it back in multiworld.re_gen_passthrough
+        return slot_data

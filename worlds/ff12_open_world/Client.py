@@ -9,15 +9,38 @@ import asyncio
 from pymem import pymem
 
 from NetUtils import ClientStatus, NetworkItem
-from CommonClient import gui_enabled, logger, get_base_parser, CommonContext, server_loop
+from CommonClient import gui_enabled, logger, get_base_parser, CommonContext, server_loop, ClientCommandProcessor
 
 from .Items import FF12OW_BASE_ID, item_data_table, inv_item_table
 from .Locations import location_data_table, FF12OpenWorldLocationData
 
 
+class FF12OpenWorldCommandProcessor(ClientCommandProcessor):
+    def __init__(self, ctx: CommonContext):
+        super().__init__(ctx)
+
+    def _cmd_list_processes(self):
+        """List all processes found by pymem."""
+        for process in pymem.process.list_processes():
+            self.output(f"{process.szExeFile}: {process.th32ProcessID}")
+
+    def _cmd_set_process_by_id(self, process_id: str):
+        """Set the process by ID (int)."""
+        int_id = int(process_id)
+        try:
+            self.ctx.ff12 = pymem.Pymem().open_process_from_id(int_id)
+            logger.info("You are now auto-tracking")
+            self.ctx.ff12connected = True
+        except Exception as e:
+            if self.ctx.ff12connected:
+                self.ctx.ff12connected = False
+            logger.info("Failed to set process by ID.")
+            logger.info(e)
+
+
 # Copied from KH2 Client
 class FF12OpenWorldContext(CommonContext):
-    # command_processor: int = FF12OpenWorldCommandProcessor
+    command_processor = FF12OpenWorldCommandProcessor
     game = "Final Fantasy 12 Open World"
     items_handling = 0b111  # Indicates you get items sent from other worlds.
 
@@ -25,17 +48,21 @@ class FF12OpenWorldContext(CommonContext):
         super(FF12OpenWorldContext, self).__init__(server_address, password)
 
         self.last_big_batch_time = None
-        self.debug_time = None
         self.ff12_items_received: List[NetworkItem] = []
         self.prev_map_and_time = None
-        self.sending = None
+        self.sending: List[int] = []
         self.ff12slotdata = None
-        self.ff12_seed_save = None
-        self.ff12seedname = None
         self.server_connected = False
         self.ff12connected = False
         # hooked object
         self.ff12 = None
+
+    async def get_username(self):
+        if not self.auth:
+            self.auth = self.username
+            if not self.auth:
+                logger.info('Enter slot name:')
+                self.auth = await self.console_input()
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -105,8 +132,6 @@ class FF12OpenWorldContext(CommonContext):
             return self.ff12.write_bytes(address, value.to_bytes(4, "little"), 4)
 
     def on_package(self, cmd: str, args: dict):
-        if cmd in {"RoomInfo"}:
-            self.ff12seedname = args['seed_name']
 
         if cmd in {"Connected"}:
             asyncio.create_task(self.send_msgs([{"cmd": "GetDataPackage", "games": ["Final Fantasy 12 Open World"]}]))
@@ -297,6 +322,8 @@ class FF12OpenWorldContext(CommonContext):
                     bit_index = treasure_index % 8
                     if self.ff12_read_bit(self.get_save_data_address() + 0x14B4 + byte_index, bit_index, False):
                         self.sending.append(data.address)
+            # Add sending to locations_checked
+            self.locations_checked |= set(self.sending)
 
             # Victory, Final Boss
             if self.ff12_read_byte(self.get_save_data_address() + 0xA2E, False) >= 2 \
@@ -372,9 +399,9 @@ class FF12OpenWorldContext(CommonContext):
         elif 0x9153 <= int(location_data.str_id, 16) <= 0x916A:  # Black Orbs
             return (self.ff12_read_byte(self.get_save_data_address() + 0xDFFC, False) >
                     int(location_data.str_id, 16) - 0x9153)
-        elif location_data.str_id == "918D":  # Hashmal Boss
+        elif location_data.str_id == "9193":  # Hashmal Boss
             return self.ff12_read_byte(self.get_save_data_address() + 0xA1F, False) >= 2
-        elif location_data.str_id == "918D":  # Cid 2 Boss
+        elif location_data.str_id == "918F":  # Cid 2 Boss
             return self.ff12_read_byte(self.get_save_data_address() + 0xA2A, False) >= 2
         elif location_data.str_id == "9003":  # Hunt 1
             return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 0, False) >= 70
@@ -674,12 +701,12 @@ class FF12OpenWorldContext(CommonContext):
     async def give_items(self):
         try:
             start_index = self.get_item_index()
-            # Give at max 100 items at a time in 10 sec intervals
-            if start_index + 100 < len(self.ff12_items_received):
+            # Give at max 10 items at a time in 5 sec intervals
+            if start_index + 10 < len(self.ff12_items_received):
                 self.last_big_batch_time = self.last_big_batch_time or time.time()
-                if time.time() - self.last_big_batch_time < 10:
+                if time.time() - self.last_big_batch_time < 5:
                     return
-                stop_index = start_index + 100
+                stop_index = start_index + 10
             else:
                 stop_index = len(self.ff12_items_received)
             for index in range(start_index, stop_index):
@@ -707,10 +734,6 @@ class FF12OpenWorldContext(CommonContext):
             logger.info(e)
 
     async def debug_info(self):
-        self.debug_time = self.debug_time or time.time()
-        if time.time() - self.debug_time < 5:
-            return
-        self.debug_time = time.time()
         try:
             logger.info("Current Map ID: " + str(self.get_current_map()))
             logger.info("Current State: " + str(self.get_current_game_state()))
@@ -746,8 +769,9 @@ async def ff12_watcher(ctx: FF12OpenWorldContext):
                 #await asyncio.create_task(ctx.debug_info())
                 await asyncio.create_task(ctx.check_locations())
                 await asyncio.create_task(ctx.give_items())
-                message = [{"cmd": 'LocationChecks', "locations": ctx.sending}]
-                await ctx.send_msgs(message)
+                if len(ctx.sending) > 0:
+                    message = [{"cmd": 'LocationChecks', "locations": ctx.sending}]
+                    await ctx.send_msgs(message)
             elif not ctx.ff12connected and ctx.server_connected:
                 logger.info("Game Connection lost. waiting 15 seconds until trying to reconnect.")
                 ctx.ff12 = None
