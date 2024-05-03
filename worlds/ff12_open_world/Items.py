@@ -3822,6 +3822,11 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
         classification=ItemClassification.progression_skip_balancing,
         duplicateAmount=24
     ),
+    "Systems Access Key": FF12OpenWorldItemData(
+        code=FF12OW_BASE_ID + 8472,
+        classification=ItemClassification.progression_skip_balancing,
+        duplicateAmount=3
+    ),
     "Writ of Transit": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 32880,
         classification=ItemClassification.progression
@@ -3844,10 +3849,6 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     ),
     "No. 1 Brig Key": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 32886,
-        classification=ItemClassification.progression
-    ),
-    "Systems Access Key": FF12OpenWorldItemData(
-        code=FF12OW_BASE_ID + 32887,
         classification=ItemClassification.progression
     ),
     "Dawn Shard": FF12OpenWorldItemData(

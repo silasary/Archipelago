@@ -11,22 +11,21 @@ destination_reqs = {
     RABANASTRE: lambda state, player: True,
     NALBINA: lambda state, player: True,
     BHUJERBA: lambda state, player: False,
-    ARCHADES: lambda state, player: (
-        state.has("Soul Ward Key", player) and
-        (state.has("Defeat Bergan", player) or
-         state.has("Cactus Flower", player) or
-         (state.has("Wind Globe", player) and
-          state.has("Windvane", player)) or
-         state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),
-    ),
-    BALFONHEIM: lambda state, player: (
-        (state.has("Defeat Bergan", player) or
-         state.has("Cactus Flower", player) or
-         (state.has("Wind Globe", player) and
-          state.has("Windvane", player)) or
-         (state.has("Soul Ward Key", player) and
-          state_has_aerodromes(state, "Archades Aeropass", player, False)))
-    )
+    ARCHADES: lambda state, player:
+    state.has("Soul Ward Key", player) and
+    (state.has("Defeat Bergan", player) or
+     state.has("Cactus Flower", player) or
+     (state.has("Wind Globe", player) and
+      state.has("Windvane", player)) or
+     state_has_aerodromes(state, "Balfonheim Aeropass", player, False))
+    ,
+    BALFONHEIM: lambda state, player:
+    state.has("Defeat Bergan", player) or
+    state.has("Cactus Flower", player) or
+    (state.has("Wind Globe", player) and
+     state.has("Windvane", player)) or
+    (state.has("Soul Ward Key", player) and
+     state_has_aerodromes(state, "Archades Aeropass", player, False))
 }
 
 destination_graph = {
@@ -35,6 +34,14 @@ destination_graph = {
     BHUJERBA: [RABANASTRE, BALFONHEIM],
     ARCHADES: [RABANASTRE, NALBINA, BALFONHEIM],
     BALFONHEIM: [NALBINA, ARCHADES, BHUJERBA]
+}
+
+destination_strahl_needed = {
+    RABANASTRE: 1,
+    NALBINA: 1,
+    BHUJERBA: 1,
+    ARCHADES: 3,
+    BALFONHEIM: 3
 }
 
 aeropass_stack = []
@@ -48,14 +55,19 @@ class AeropassValidator:
             raise ValueError("Invalid destination: " + destination)
 
     def is_met_impl(self, state: CollectionState, player: int):
-        if self.AllowStrahl and state.has("Systems Access Key", player):
-            return True
-
-        if not state.has(self.Destination, player):
-            return False
 
         for origin in destination_graph[self.Destination]:
-            if state.has(origin, player) and self.is_origin_available(origin, state, player):
+
+            if (self.AllowStrahl and
+                    state.has("Systems Access Key", player,
+                              destination_strahl_needed[self.Destination]) and
+                    state.has("Systems Access Key", player,
+                              destination_strahl_needed[origin])):
+                return True
+
+            if (state.has(origin, player) and
+                    self.is_origin_available(origin, state, player) and
+                    state.has(self.Destination, player)):
                 return True
 
         return False
