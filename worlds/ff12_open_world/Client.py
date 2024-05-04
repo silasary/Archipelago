@@ -930,8 +930,8 @@ class FF12OpenWorldContext(CommonContext):
         '''
         # If it's gil, handle it separately
         if item_data_table[inv_item_table[item_id]].code >= item_data_table["1 Gil"].code:
-            current_gil = self.ff12_read_int(0x02164480 - 0x1F8, False)
-            self.ff12_write_int(0x02164480 - 0x1F8, current_gil + count)
+            current_gil = self.ff12_read_int(0x02044288)
+            self.ff12_write_int(0x02044288, current_gil + count)
         else:
             int_id = item_id - FF12OW_BASE_ID
             current_count = self.get_item_count(inv_item_table[item_id])
