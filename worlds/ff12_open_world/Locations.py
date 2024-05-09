@@ -14733,7 +14733,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Great-chief Elder After Dawn Shard (1)": FF12OpenWorldLocationData(
+    "Great-chief Elder After Defeating Vossler (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1669,
         classification=LocationProgressType.DEFAULT,
@@ -14741,7 +14741,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911F",
         difficulty=2
     ),
-    "Great-chief Elder After Dawn Shard (2)": FF12OpenWorldLocationData(
+    "Great-chief Elder After Defeating Vossler (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1670,
         classification=LocationProgressType.DEFAULT,
@@ -14750,7 +14750,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Great-chief Elder After Dawn Shard (3)": FF12OpenWorldLocationData(
+    "Great-chief Elder After Defeating Vossler (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1671,
         classification=LocationProgressType.DEFAULT,
