@@ -26,12 +26,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Hi-Potion": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 1,
         classification=ItemClassification.filler,
-        weight=98
+        weight=196
     ),
     "X-Potion": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 2,
         classification=ItemClassification.filler,
-        weight=34
+        weight=68
     ),
     "Ether": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 3,

@@ -367,7 +367,7 @@ class FF12OpenWorldContext(CommonContext):
     async def check_locations(self):
         last_end_time = time.time()
         while not self.exit_event.is_set() and self.ff12connected and self.server_connected:
-            if time.time() - last_end_time < 3:
+            if time.time() - last_end_time < 0.5:
                 await asyncio.sleep(0.1)
                 continue
             try:
@@ -882,7 +882,7 @@ class FF12OpenWorldContext(CommonContext):
     async def give_items(self):
         last_end_time = time.time()
         while not self.exit_event.is_set() and self.ff12connected and self.server_connected:
-            if time.time() - last_end_time < 3:
+            if time.time() - last_end_time < 0.5:
                 await asyncio.sleep(0.1)
                 continue
             try:
@@ -935,12 +935,14 @@ class FF12OpenWorldContext(CommonContext):
         else:
             int_id = item_id - FF12OW_BASE_ID
             current_count = self.get_item_count(inv_item_table[item_id])
+            # Limit to 99
+            new_count = min(current_count + count, 99)
             if int_id < 0x1000:  # Normal items
-                self.ff12_write_short(0x02097054 + int_id * 2, current_count + count)
+                self.ff12_write_short(0x02097054 + int_id * 2, new_count)
             elif int_id < 0x2000:  # Equipment
-                self.ff12_write_short(0x020970D4 + (int_id - 0x1000) * 2, current_count + count)
+                self.ff12_write_short(0x020970D4 + (int_id - 0x1000) * 2, new_count)
             elif 0x2000 <= int_id < 0x3000:  # Loot items
-                self.ff12_write_short(0x0209741C + (int_id - 0x2000) * 2, current_count + count)
+                self.ff12_write_short(0x0209741C + (int_id - 0x2000) * 2, new_count)
             elif 0x8000 <= int_id < 0x9000:  # Key items
                 byte_index = (int_id - 0x8000) // 8
                 bit_index = (int_id - 0x8000) % 8
