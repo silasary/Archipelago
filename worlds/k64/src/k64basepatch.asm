@@ -1,16 +1,16 @@
-// Base Patch for Kirby 64 - The Crystal Shards Archipelago
+//; Base Patch for Kirby 64 - The Crystal Shards Archipelago
 .n64
 
 .open "Kirby 64 - The Crystal Shards (USA).z64", "K64Basepatch.z64", 0x0
 
-// NOP CRC checks
+//; NOP CRC checks
 .org 0x63C
 nop
 
 .org 0x648
 nop
 
-.headersize 0x8009B540 - 0x43790 //ovl1
+.headersize 0x8009B540 - 0x43790 //;ovl1
 
 .org 0x800A28A8
 OpenNewWorld:
@@ -19,6 +19,10 @@ addu    at, at, t7
 lb      s2, 0xF000 (at)
 sb      s2, 0x0007 (s6)
 jr      ra
+
+.org 0x800A3B1C
+jal     RedirectStage
+nop
 
 .org 0x800A3CC0
 nop
@@ -53,7 +57,7 @@ nop
 
 .headersize 0x800f61a0 - 0x7ec10 // ovl2
 
-// Block Copy Abilities and Power Combos when flag isn't set
+//; Block Copy Abilities and Power Combos when flag isn't set
 .org 0x80127490
 CopyAbilityBlocker:
 lui     at, 0x800D
@@ -71,12 +75,14 @@ sw      v0, 0xE850 (at)
 @@ReturnToSwallow:
 j       0x8012310C
 nop
+
 SetStartingStage:
 addiu   a2, r0, 0x0003
 sw      a2, 0x0014 (a3)
 addiu   a2, r0, 0x0001
 jr      ra
 nop
+
 PreventBossAccess:
 lui     t2, 0x800D
 addiu   t3, r0, 0x0002
@@ -102,6 +108,7 @@ addiu   t2, v0, 0x0001
 @@ReturnToStageClear:
 j       0x800B9C50
 sw      t2, 0x6B94 (at)
+
 MarkStagesIncomplete:
 // a2 - unlocked level, t3 - save address, t0 free
 addiu   s0, r0, 0x0001
@@ -140,12 +147,27 @@ lw      s1, 0x000C (sp)
 lw      s0, 0x0008 (sp)
 jr      ra
 addiu   sp, sp, 0x10
+
 AllowFinalBoss:
 lui     at, 0x800D
 sw      s2, 0x6B94 (at)
 sw      s2, 0x6C64 (at)
 jr      ra
 
+RedirectStage:
+lw      t5, 0xE500 (at)
+sll     t5, 5
+sll     t3, 2
+addu    t5, t5, t3
+lui     t3, 0xB200
+addu    t5, t5, t3
+lw      t3, 0xF450 (t5)
+lw      t5, 0xF300 (t5)
+sw      t5, 0xE500 (at)
+sw      t3, 0xE504 (at)
+addiu   t5, r0, 0x000F
+jr      ra
+sw      t3, 0x0000 (v0)
 
 .org 0x8011E1BC // write our jump
 jal     CopyAbilityBlocker
@@ -179,4 +201,20 @@ bnez    v0, 0x801587BC
 .org 0xB1FFF100
 // Placeholder values for crystal requirements
 .db 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+.org 0xB1FFF300
+//; Level Order
+.dw 0, 0, 0, 0, -1, -1, -1, -1
+.dw 1, 1, 1, 1, 1, -1, -1, -1
+.dw 2, 2, 2, 2, 2, -1, -1, -1
+.dw 3, 3, 3, 3, 3, -1, -1, -1
+.dw 4, 4, 4, 4, 4, -1, -1, -1
+.dw 5, 5, 5, 5, -1, -1, -1, -1
+.org 0xB1FFF450
+//; Stage Order
+.dw 0, 1, 2, 3, -1, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, -1, -1, -1, -1
 .close

@@ -42,7 +42,7 @@ def rgb888_to_rgba5551(red, green, blue) -> bytes:
     green = green >> 3
     blue = blue >> 3
     outcol = (red << 11) + (green << 6) + (blue << 1) + 1
-    return struct.pack("H", outcol)
+    return struct.pack(">H", outcol)
 
 
 def get_palette_bytes(palette, target):
