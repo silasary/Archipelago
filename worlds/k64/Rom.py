@@ -103,8 +103,8 @@ def patch_rom(world: "K64World", player: int, rom: RomData):
         for i in range(1, 7):
             stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i]) - 1
                       else (-1, -1) for stage in range(8)]
-            rom.write_bytes(0x1FFF300 + ((i - 1) * 48), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
-            rom.write_bytes(0x1FFF450 + ((i - 1) * 48), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
+            rom.write_bytes(0x1FFF300 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
+            rom.write_bytes(0x1FFF450 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
 
     rom.write_bytes(0x1FFF100, world.boss_requirements)
 
