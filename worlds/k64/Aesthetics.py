@@ -27,6 +27,9 @@ kirby_target_palettes = [
     0xA80830,
     0xB6B672,
     0xB6D8F2,
+    0xDC7342,
+    0xDD03A2,
+    0xED0D12,
 ]
 
 
