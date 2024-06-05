@@ -53,6 +53,18 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         for event in sorted(events):
             logger.info(event)
 
+    def _cmd_manually_collect(self, item_name: str):
+        """Manually adds an item name to the CollectionState to test"""
+        self.ctx.manual_items.append(item_name)
+        updateTracker(self.ctx)
+        logger.info("Added {item_name} to manually collect")
+
+    def _cmd_reset_manually_collect(self):
+        """Resets the list of items manually collected by /manually_collect"""
+        self.ctx.manual_items = []
+        updateTracker(self.ctx)
+        logger.info("Reset manually collect")
+
 
 class TrackerGameContext(CommonContext):
     from kvui import GameManager
@@ -78,6 +90,7 @@ class TrackerGameContext(CommonContext):
         self.datapackage = []
         self.multiworld: MultiWorld = None
         self.player_id = None
+        self.manual_items = []
 
     def clear_page(self):
         if self.tracker_page is not None:
@@ -108,7 +121,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text": "Tracker v0.1.4 Initializing"})
+                self.data.append({"text": "Tracker v0.1.7 Initializing"})
 
             def resetData(self):
                 self.data.clear()
@@ -424,9 +437,9 @@ def updateTracker(ctx: TrackerGameContext):
 
     callback_list = []
 
-    for item in ctx.items_received:
+    for item_name in [item[0] for item in ctx.items_received] + ctx.manual_items:
         try:
-            world_item = ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item[0]],
+            world_item = ctx.multiworld.create_item(ctx.multiworld.worlds[ctx.player_id].item_id_to_name[item_name],
                                                     ctx.player_id)
             state.collect(world_item, True)
             if world_item.classification == ItemClassification.progression or world_item.classification == ItemClassification.progression_skip_balancing:
@@ -434,7 +447,7 @@ def updateTracker(ctx: TrackerGameContext):
             if world_item.code is not None:
                 all_items[world_item.name] += 1
         except:
-            ctx.log_to_tab("Item id " + str(item[0]) + " not able to be created", False)
+            ctx.log_to_tab("Item id " + str(item_name) + " not able to be created", False)
     state.sweep_for_events(
         locations=(location for location in ctx.multiworld.get_locations() if (not location.address)))
 
