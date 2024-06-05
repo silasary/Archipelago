@@ -159,9 +159,9 @@ class TrackerGameContext(CommonContext):
                     "receiving": {
                         "text": log.parser.handle_node({"type": "player_id", "text": hint["receiving_player"]})},
                     "item": {"text": log.parser.handle_node(
-                        {"type": "item_id", "text": hint["item"], "flags": hint["item_flags"]})},
+                        {"type": "item_id", "player": hint["receiving_player"],"text": hint["item"], "flags": hint["item_flags"]})},
                     "finding": {"text": log.parser.handle_node({"type": "player_id", "text": hint["finding_player"]})},
-                    "location": {"text": log.parser.handle_node({"type": "location_id", "text": hint["location"]})},
+                    "location": {"text": log.parser.handle_node({"type": "location_id", "player":hint["finding_player"],"text": hint["location"]})},
                     "entrance": {"text": log.parser.handle_node({"type": "color" if hint["entrance"] else "text",
                                                                  "color": "blue", "text": hint["entrance"]
                         if hint["entrance"] else "Vanilla"})},
