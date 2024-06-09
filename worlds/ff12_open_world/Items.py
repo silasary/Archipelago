@@ -276,27 +276,27 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Broadsword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4097,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Longsword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4098,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Iron Sword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4099,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Zwill Blade": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4100,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Ancient Sword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4101,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Blood Sword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4102,
@@ -306,7 +306,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Lohengrin": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4103,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Flametongue": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4104,
@@ -396,17 +396,17 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Kotetsu": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4121,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Osafune": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4122,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Kogarasumaru": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4123,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Magoroku": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4124,
@@ -481,17 +481,17 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Javelin": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4138,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Spear": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4139,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Partisan": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4140,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Heavy Lance": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4141,
@@ -541,22 +541,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Oaken Pole": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4150,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Cypress Pole": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4151,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Battle Bamboo": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4152,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Musk Stick": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4153,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Iron Pole": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4154,
@@ -601,22 +601,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Shortbow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4162,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Silver Bow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4163,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Aevis Killer": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4164,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Killer Bow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4165,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Longbow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4166,
@@ -671,17 +671,17 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Bowgun": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4176,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Crossbow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4177,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Paramina Crossbow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4178,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Recurve Crossbow": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4179,
@@ -706,22 +706,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Altair": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4183,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Capella": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4184,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Vega": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4185,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Sirius": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4186,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Betelgeuse": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4187,
@@ -761,12 +761,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Handaxe": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4194,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Broadaxe": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4195,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Slasher": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4196,
@@ -796,7 +796,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Iron Hammer": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4201,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "War Hammer": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4202,
@@ -821,22 +821,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Dagger": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4206,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Mage Masher": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4207,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Assassin's Dagger": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4208,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Chopper": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4209,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Main Gauche": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4210,
@@ -876,22 +876,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Rod": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4217,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Serpent Rod": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4218,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Healing Rod": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4219,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Gaia Rod": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4220,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Power Rod": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4221,
@@ -916,17 +916,17 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Oak Staff": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4225,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Cherry Staff": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4226,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Wizard's Staff": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4227,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Flame Staff": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4228,
@@ -966,22 +966,22 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Mace": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4235,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Bronze Mace": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4236,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Bhuj": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4237,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Miter": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4238,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Thorned Mace": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4239,
@@ -1011,12 +1011,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Gilt Measure": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4244,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Arc Scale": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4245,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Multiscale": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4246,
@@ -1026,7 +1026,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Cross Scale": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4247,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Caliper": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4248,
@@ -1071,12 +1071,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Mythril Sword": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4256,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Mythril Blade": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4264,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Kumbha": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4266,
@@ -1131,7 +1131,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Excalipur": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4289,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Simha": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4290,
@@ -1171,27 +1171,27 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Leather Shield": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4297,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Buckler": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4298,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Bronze Shield": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4299,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Round Shield": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4300,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Shell Shield": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4301,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Golden Shield": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4302,
@@ -1266,42 +1266,42 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Leather Cap": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4316,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Headgear": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4317,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Headguard": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4318,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Leather Headgear": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4319,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Horned Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4320,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Balaclava": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4321,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Soldier's Cap": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4322,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Green Beret": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4323,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Red Cap": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4324,
@@ -1371,42 +1371,42 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Cotton Cap": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4337,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Magick Curch": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4338,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Pointy Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4339,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Topkapi Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4340,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Calot Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4341,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Wizard's Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4342,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Lambent Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4343,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Feathered Cap": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4344,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Mage's Hat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4345,
@@ -1476,32 +1476,32 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Leather Helm": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4358,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Bronze Helm": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4359,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Sallet": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4360,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Iron Helm": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4361,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Barbut": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4362,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Winged Helm": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4363,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Golden Helm": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4364,
@@ -1566,42 +1566,42 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Leather Clothing": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4376,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Chromed Leathers": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4377,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Leather Breastplate": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4378,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Bronze Chestplate": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4379,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Ringmail": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4380,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Windbreaker": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4381,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Heavy Coat": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4382,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Survival Vest": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4383,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Brigandine": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4384,
@@ -1671,42 +1671,42 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Cotton Shirt": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4397,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Light Woven Shirt": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4398,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Silken Shirt": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4399,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Kilimweave Shirt": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4400,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Shepherd's Bolero": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4401,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Wizard's Robes": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4402,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Chanter's Djellaba": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4403,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Traveler's Vestment": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4404,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Mage's Habit": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4405,
@@ -1776,32 +1776,32 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Leather Armor": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4418,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Bronze Armor": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4419,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Scale Armor": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4420,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Iron Armor": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4421,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Linen Cuirass": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4422,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Chainmail": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4423,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Golden Armor": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4424,
@@ -2091,12 +2091,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Onion Arrows": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4484,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Parallel Arrows": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4485,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Fiery Arrows": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4486,
@@ -2106,7 +2106,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Bamboo Arrows": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4487,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Lightning Arrows": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4488,
@@ -2131,17 +2131,17 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Onion Bolts": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4492,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Long Bolts": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4493,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Stone Bolts": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4494,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Lead Bolts": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4495,
@@ -2171,12 +2171,12 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Onion Shot": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4500,
         classification=ItemClassification.filler,
-        weight=140
+        weight=5
     ),
     "Silent Shot": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4501,
         classification=ItemClassification.filler,
-        weight=98
+        weight=5
     ),
     "Aqua Shot": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4502,
@@ -2191,7 +2191,7 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     "Mud Shot": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4504,
         classification=ItemClassification.filler,
-        weight=69
+        weight=5
     ),
     "Windslicer Shot": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 4505,
@@ -3785,26 +3785,6 @@ item_data_table: Dict[str, FF12OpenWorldItemData] = {
     ),
     "White Tuft": FF12OpenWorldItemData(
         code=FF12OW_BASE_ID + 8456,
-        classification=ItemClassification.filler,
-        weight=10
-    ),
-    "Valeblossom Dew": FF12OpenWorldItemData(
-        code=FF12OW_BASE_ID + 8457,
-        classification=ItemClassification.filler,
-        weight=10
-    ),
-    "Semclam Shell": FF12OpenWorldItemData(
-        code=FF12OW_BASE_ID + 8458,
-        classification=ItemClassification.filler,
-        weight=10
-    ),
-    "Nebralim": FF12OpenWorldItemData(
-        code=FF12OW_BASE_ID + 8459,
-        classification=ItemClassification.filler,
-        weight=10
-    ),
-    "Great Serpentskin": FF12OpenWorldItemData(
-        code=FF12OW_BASE_ID + 8460,
         classification=ItemClassification.filler,
         weight=10
     ),

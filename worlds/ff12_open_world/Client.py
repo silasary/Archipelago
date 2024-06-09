@@ -81,6 +81,16 @@ class FF12OpenWorldCommandProcessor(ClientCommandProcessor):
                 self.ff12connected = False
             logger.info(e)
 
+    def _cmd_check_missing_items(self):
+        """Check for missing items."""
+        try:
+            # Create a task for checking missing items
+            asyncio.create_task(self.ctx.check_missing_items())
+        except Exception as e:
+            if self.ff12connected:
+                self.ff12connected = False
+            logger.info(e)
+
 
 # Copied from KH2 Client
 class FF12OpenWorldContext(CommonContext):
@@ -223,16 +233,17 @@ class FF12OpenWorldContext(CommonContext):
         return self.ff12_read_short(0x20454C4)
 
     def is_in_game(self) -> bool:
-        # Check if the game has been on this map for more than 1 seconds
+        # Check if the game has been on this map for more than 0.25 seconds
         self.prev_map_and_time = self.prev_map_and_time or (self.get_current_map(), time.time())
 
         if (self.prev_map_and_time[0] != self.get_current_map() or
-                self.get_current_map() <= 12 or
+                self.get_current_map() <= 12 or # Main Menus
+                self.get_current_map() == 274 or # Initial Nalbina Fortress Map
                 self.get_current_game_state() != 0):
             self.prev_map_and_time = (self.get_current_map(), time.time())
             return False
         else:
-            return time.time() - self.prev_map_and_time[1] > 1
+            return time.time() - self.prev_map_and_time[1] > 0.25
 
     def get_current_game_state(self) -> int:
         # 0 - Field
@@ -779,6 +790,12 @@ class FF12OpenWorldContext(CommonContext):
     def get_expected_items(self, item_name: str) -> int:
         count = len([self.ff12_items_received[i] for i in range(len(self.ff12_items_received)) if
                      self.ff12_items_received[i].item == item_data_table[item_name].code and i < self.get_item_index()])
+
+        # Limit key item types to 1 as they're stored as bits
+        item_id = item_data_table[item_name].code
+        if 0x8000 <= item_id < 0x9000:
+            count = min(count, 1)
+
         if item_name == "Black Orb":
             if self.ff12_read_bit(self.get_save_data_address() + 0x931, 0, False):
                 count -= 1
@@ -890,23 +907,10 @@ class FF12OpenWorldContext(CommonContext):
                 stop_index = len(self.ff12_items_received)
                 for index in range(start_index, stop_index):
                     if not self.is_in_game():
-                        continue
+                        break
                     item = self.ff12_items_received[index]
                     await self.give_item(item.item, item_data_table[inv_item_table[item.item]].amount)
                     self.set_item_index(index + 1)
-
-                if stop_index < len(self.ff12_items_received):
-                    self.last_big_batch_time = time.time()
-
-                # Check for missing items if we have given all items
-                if stop_index == len(self.ff12_items_received):
-                    for item in item_data_table.keys():
-                        missing_count = self.get_expected_items(item) - self.get_item_count(item)
-                        if (item_data_table[item].classification & ItemClassification.progression and
-                                missing_count > 0):
-                            logger.info("Adding missing item: " + str(missing_count) + " " + item)
-                            await self.give_item(item_data_table[item].code,
-                                                 missing_count)
 
             except Exception as e:
                 if self.ff12connected:
@@ -1005,6 +1009,24 @@ class FF12OpenWorldContext(CommonContext):
         self.ff12_write_int(sort_count_addresses[type_index], len(sort_list))
         for i in range(0, len(sort_list)):
             self.ff12_write_short(sort_start_addresses[type_index] + i * 2, sort_list[i])
+
+    async def check_missing_items(self):
+        try:
+            # Cannot check for missing items if not given all expected items
+            if self.get_item_index() < len(self.ff12_items_received):
+                return
+
+            for item in item_data_table.keys():
+                missing_count = self.get_expected_items(item) - self.get_item_count(item)
+                if (item_data_table[item].classification & ItemClassification.progression and
+                        missing_count > 0):
+                    logger.info("Adding missing item: " + str(missing_count) + " " + item)
+                    await self.give_item(item_data_table[item].code,
+                                         missing_count)
+        except Exception as e:
+            if self.ff12connected:
+                self.ff12connected = False
+            logger.info(e)
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
