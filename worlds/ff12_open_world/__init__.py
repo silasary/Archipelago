@@ -4,7 +4,7 @@ import re
 from typing import List, Any, Dict
 
 from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable, LocationProgressType, \
-    MultiWorld
+    MultiWorld, Item
 from worlds.AutoWorld import WebWorld, World
 from worlds.generic.Rules import add_rule
 from worlds.LauncherComponents import launch_subprocess, components, Component, Type
@@ -26,7 +26,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.3.4"
+FF12OW_VERSION = "0.3.5"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -88,16 +88,15 @@ class FF12OpenWorldWorld(World):
                               if data.classification & ItemClassification.useful and name not in abilities]
         self.add_to_pool(item_pool, other_useful_items)
 
-        # Add 1 of each trophy filler item
-        trophy_fillers = [name for name, data in item_data_table.items()
-                          if data.classification == ItemClassification.filler and name.endswith(" Trophy")]
-        self.add_to_pool(item_pool, trophy_fillers)
-
         # Get count of non event locations
         non_events = len([location for location in self.multiworld.get_locations(self.player)
                           if location.name not in event_data_table.keys()])
 
-        filler_count = non_events - len(item_pool)
+        # Get count of excluded locations
+        excluded = len([location for location in self.multiworld.get_locations(self.player)
+                        if location.progress_type == LocationProgressType.EXCLUDED])
+
+        filler_count = non_events - len(item_pool) - excluded
         if self.options.bahamut_unlock != "random_location":
             filler_count -= 1
 
@@ -253,6 +252,23 @@ class FF12OpenWorldWorld(World):
         elif self.options.bahamut_unlock == "collect_espers":
             self.multiworld.get_location("Clan Esper: Control 13 (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
+
+        # Fill excluded locations with local locked items
+        excluded = [location for location in self.multiworld.get_locations(self.player)
+                    if location.progress_type == LocationProgressType.EXCLUDED]
+        # Shuffle the excluded locations
+        self.multiworld.random.shuffle(excluded)
+
+        # Place filler trophies in excluded locations
+        trophy_fillers = [name for name, data in item_data_table.items()
+                          if data.classification == ItemClassification.filler and name.endswith(" Trophy")]
+
+        for location in excluded:
+            # If there are still trophy fillers to place, place one
+            if trophy_fillers:
+                location.place_locked_item(self.create_item(trophy_fillers.pop()))
+            else:
+                location.place_locked_item(self.create_item(self.get_filler_item_name()))
 
         # Completion condition.
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)

@@ -19,6 +19,10 @@ event_data_table: Dict[str, FF12OpenWorldEventData] = {
         item="Dreadnought Leviathan",
         difficulty=1
     ),
+    "Dreadnought Leviathan Unlock Event (2)": FF12OpenWorldEventData(
+        item="Guest",
+        difficulty=1
+    ),
     "Ashe Event (1)": FF12OpenWorldEventData(
         item="Ashe",
         difficulty=1
@@ -474,6 +478,10 @@ event_data_table: Dict[str, FF12OpenWorldEventData] = {
     "Final Boss Victory Event (1)": FF12OpenWorldEventData(
         item="Victory",
         difficulty=8
+    ),
+    "Great-chief Elder After Defeating Vossler Event (1)": FF12OpenWorldEventData(
+        item="Guest",
+        difficulty=2
     ),
     "Amal's Weaponry Shop Event (1)": FF12OpenWorldEventData(
         item="Amal's Weaponry Shop",
