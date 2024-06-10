@@ -26,7 +26,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.3.5"
+FF12OW_VERSION = "0.3.6"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -255,7 +255,7 @@ class FF12OpenWorldWorld(World):
 
         # Fill excluded locations with local locked items
         excluded = [location for location in self.multiworld.get_locations(self.player)
-                    if location.progress_type == LocationProgressType.EXCLUDED]
+                    if location.progress_type == LocationProgressType.EXCLUDED and location.item is None]
         # Shuffle the excluded locations
         self.multiworld.random.shuffle(excluded)
 
