@@ -13,6 +13,8 @@ When this happens the World Dev needs to use one of a few hooks that UT provides
 The first method is `generation_is_fake`. This value is added to the multiworld object when UT is doing the internal generations so that worlds have the ability to not perform useless (for UT) randomization.  
 For example, if the world only creates the locations based on what items get randomly created, if this flag exists, the world can insteed create all locations, and depend on the "real" server only sending the items that got actually created to limit what locations are expected to be completed.  
 
+This can be checked in world logic with `hasattr(world.multiworld, "generation_is_fake")`  
+
 # interpret_slot_data
 
 The Second hook is for the world to define a function called `interpret_slot_data` that takes in a dict as a parameter  
