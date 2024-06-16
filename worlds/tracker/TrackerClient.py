@@ -82,6 +82,7 @@ class TrackerGameContext(CommonContext):
     gen_error = None
     output_format = "Both"
     hide_excluded = False
+    tracker_failed = False
     re_gen_passthrough = None
 
     def __init__(self, server_address, password):
@@ -123,7 +124,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text": "Tracker v0.1.8 Initializing"})
+                self.data.append({"text": "Tracker v0.1.9 Initializing"})
 
             def resetData(self):
                 self.data.clear()
@@ -277,11 +278,11 @@ class TrackerGameContext(CommonContext):
             yaml_path, self.output_format, self.hide_excluded = self._set_host_settings(host)
             # strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
-            args, _settings = mystery_argparse()
+            args = mystery_argparse()
             if yaml_path:
                 args.player_files_path = yaml_path
             args.skip_output = True
-            GMain(args, self.TMain)
+            self.multiworld = self.TMain(*GMain(args))
             temp_precollect = {}
             for player_id, items in self.multiworld.precollected_items.items():
                 temp_items = [item for item in items if item.code == None]
@@ -421,14 +422,16 @@ class TrackerGameContext(CommonContext):
         
         AutoWorld.call_all(multiworld, "generate_basic")
 
-        self.multiworld = multiworld
-        return
+        return multiworld
 
 
 def updateTracker(ctx: TrackerGameContext):
+    if ctx.tracker_failed:
+        return #just return and don't bug the player
     if ctx.player_id is None or ctx.multiworld is None:
         logger.error("Player YAML not installed or Generator failed")
         ctx.log_to_tab("Check Player YAMLs for error", False)
+        ctx.tracker_failed = True
         return
 
     state = CollectionState(ctx.multiworld)
