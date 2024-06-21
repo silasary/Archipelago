@@ -27,6 +27,9 @@ kirby_target_palettes = [
     0xA80830,
     0xB6B672,
     0xB6D8F2,
+    0xDC7342,
+    0xDD03A2,
+    0xED0D12,
 ]
 
 
@@ -42,7 +45,7 @@ def rgb888_to_rgba5551(red, green, blue) -> bytes:
     green = green >> 3
     blue = blue >> 3
     outcol = (red << 11) + (green << 6) + (blue << 1) + 1
-    return struct.pack("H", outcol)
+    return struct.pack(">H", outcol)
 
 
 def get_palette_bytes(palette, target):

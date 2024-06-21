@@ -1,6 +1,5 @@
-from worlds.generic.Rules import set_rule, add_rule
+from worlds.generic.Rules import set_rule
 from .Names import LocationName, ItemName
-from .Locations import location_table
 import typing
 
 if typing.TYPE_CHECKING:
@@ -203,7 +202,8 @@ def set_rules(world: "K64World") -> None:
              lambda state: has_lightsaber(state, world.player, world.options.split_power_combos.value))
     # Level 6
     set_rule(world.multiworld.get_location(LocationName.ripple_star_1_s3, world.player),
-             lambda state: has_exploding_gordo(state, world.player, world.options.split_power_combos.value))
+             lambda state: has_exploding_gordo(state, world.player, world.options.split_power_combos.value)
+             and state.has_any([ItemName.bomb, ItemName.needle]))  # by default cannot carry enemy across
     set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s1, world.player),
              lambda state: has_any_spark(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s3, world.player),
@@ -215,4 +215,5 @@ def set_rules(world: "K64World") -> None:
     for i, level in zip(range(1, 7), world.boss_requirements):
         set_rule(world.multiworld.get_entrance(f"To Level {i+1}", world.player),
                  lambda state, j=level: state.has(ItemName.crystal_shard, world.player, j))
-
+        set_rule(world.multiworld.get_location(f"{LocationName.level_names[i]} - Boss Defeated", world.player),
+                 lambda state, j=level: state.has(ItemName.crystal_shard, world.player, j))

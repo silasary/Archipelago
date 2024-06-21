@@ -10,6 +10,8 @@ from typing import Any, TYPE_CHECKING
 from NetUtils import ClientStatus, color
 from worlds._bizhawk.client import BizHawkClient
 
+from .Regions import default_levels
+
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 else:
@@ -96,6 +98,8 @@ stage_to_byte = {
 }
 
 K64_IS_DEMO = 0x3387B2
+K64_CURRENT_LEVEL = 0xBE500
+K64_CURRENT_STAGE = 0xBE504
 K64_SAVE_ADDRESS = 0xD6B00
 K64_BOSS_CRYSTALS = K64_SAVE_ADDRESS + 0xC0
 K64_CRYSTAL_ARRAY = K64_SAVE_ADDRESS + 0xC8
@@ -269,7 +273,7 @@ class K64Client(BizHawkClient):
             level_crystals = struct.unpack("I", crystal_array[level*4:(level*4)+4])[0]
             for stage in range(stage_num):
                 shifter = (stage * 8)
-                current_crystal = 0x640101 + ((self.levels[level + 1][stage] - 1) * 3)
+                current_crystal = 0x640101 + (((default_levels[level + 1][stage] & 0xFF) -1) * 3)  # TODO: remove this import
                 for i in range(3):
                     if level_crystals & (1 << shifter) and current_crystal not in ctx.checked_locations:
                         new_checks.append(current_crystal)
