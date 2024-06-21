@@ -203,7 +203,7 @@ def set_rules(world: "K64World") -> None:
     # Level 6
     set_rule(world.multiworld.get_location(LocationName.ripple_star_1_s3, world.player),
              lambda state: has_exploding_gordo(state, world.player, world.options.split_power_combos.value)
-             and state.has_any([ItemName.bomb, ItemName.needle]))  # by default cannot carry enemy across
+             and state.has_any([ItemName.bomb, ItemName.needle], world.player))  # by default cannot carry enemy across
     set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s1, world.player),
              lambda state: has_any_spark(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s3, world.player),
