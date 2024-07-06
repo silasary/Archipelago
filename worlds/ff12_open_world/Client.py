@@ -112,6 +112,7 @@ class FF12OpenWorldContext(CommonContext):
         self.ff12 = None
         self.check_loc_task = None
         self.give_items_task = None
+        self.item_lock = asyncio.Lock()
 
     async def get_username(self):
         if not self.auth:
@@ -919,53 +920,41 @@ class FF12OpenWorldContext(CommonContext):
             last_end_time = time.time()
 
     async def give_item(self, item_id: int, count: int):
-        '''
-        Original implementation. Testing a different one without the lua script.
-        self.set_item_add_id(item_id)
-        self.set_item_add_count(count)
-        start_time = time.time()
-        # If it takes more than 10 seconds, error out
-        while time.time() - start_time < 10:
-            if self.get_item_add_id() == 0xFFFF and self.get_item_add_count() == 0:
-                break
-        if self.get_item_add_id() != 0xFFFF:
-            raise Exception("Failed to give item in time. The lua script may be missing.")
-        # Sleep 200 ms
-        '''
-        # If it's gil, handle it separately
-        if item_data_table[inv_item_table[item_id]].code >= item_data_table["1 Gil"].code:
-            current_gil = self.ff12_read_int(0x02044288)
-            self.ff12_write_int(0x02044288, current_gil + count)
-        else:
-            int_id = item_id - FF12OW_BASE_ID
-            current_count = self.get_item_count(inv_item_table[item_id])
-            # Limit to 99
-            new_count = min(current_count + count, 99)
-            if int_id < 0x1000:  # Normal items
-                self.ff12_write_short(0x02097054 + int_id * 2, new_count)
-            elif int_id < 0x2000:  # Equipment
-                self.ff12_write_short(0x020970D4 + (int_id - 0x1000) * 2, new_count)
-            elif 0x2000 <= int_id < 0x3000:  # Loot items
-                self.ff12_write_short(0x0209741C + (int_id - 0x2000) * 2, new_count)
-            elif 0x8000 <= int_id < 0x9000:  # Key items
-                byte_index = (int_id - 0x8000) // 8
-                bit_index = (int_id - 0x8000) % 8
-                self.ff12_write_bit(0x0209784C + byte_index, bit_index, True)
-            elif 0xC000 <= int_id < 0xD000:  # Espers
-                byte_index = (int_id - 0xC000) // 8
-                bit_index = (int_id - 0xC000) % 8
-                self.ff12_write_bit(0x0209788C + byte_index, bit_index, True)
-            elif 0x3000 <= int_id < 0x4000:  # Magicks
-                byte_index = (int_id - 0x3000) // 8
-                bit_index = (int_id - 0x3000) % 8
-                self.ff12_write_bit(0x0209781C + byte_index, bit_index, True)
-            elif 0x4000 <= int_id < 0x5000:  # Technicks
-                byte_index = (int_id - 0x4000) // 8
-                bit_index = (int_id - 0x4000) % 8
-                self.ff12_write_bit(0x02097828 + byte_index, bit_index, True)
+        async with self.item_lock:
+            # If it's gil, handle it separately
+            if item_data_table[inv_item_table[item_id]].code >= item_data_table["1 Gil"].code:
+                current_gil = self.ff12_read_int(0x02044288)
+                self.ff12_write_int(0x02044288, current_gil + count)
             else:
-                raise Exception("Invalid item ID when giving items: " + str(item_id))
-            self.add_to_sort(item_id)
+                int_id = item_id - FF12OW_BASE_ID
+                current_count = self.get_item_count(inv_item_table[item_id])
+                # Limit to 99
+                new_count = min(current_count + count, 99)
+                if int_id < 0x1000:  # Normal items
+                    self.ff12_write_short(0x02097054 + int_id * 2, new_count)
+                elif int_id < 0x2000:  # Equipment
+                    self.ff12_write_short(0x020970D4 + (int_id - 0x1000) * 2, new_count)
+                elif 0x2000 <= int_id < 0x3000:  # Loot items
+                    self.ff12_write_short(0x0209741C + (int_id - 0x2000) * 2, new_count)
+                elif 0x8000 <= int_id < 0x9000:  # Key items
+                    byte_index = (int_id - 0x8000) // 8
+                    bit_index = (int_id - 0x8000) % 8
+                    self.ff12_write_bit(0x0209784C + byte_index, bit_index, True)
+                elif 0xC000 <= int_id < 0xD000:  # Espers
+                    byte_index = (int_id - 0xC000) // 8
+                    bit_index = (int_id - 0xC000) % 8
+                    self.ff12_write_bit(0x0209788C + byte_index, bit_index, True)
+                elif 0x3000 <= int_id < 0x4000:  # Magicks
+                    byte_index = (int_id - 0x3000) // 8
+                    bit_index = (int_id - 0x3000) % 8
+                    self.ff12_write_bit(0x0209781C + byte_index, bit_index, True)
+                elif 0x4000 <= int_id < 0x5000:  # Technicks
+                    byte_index = (int_id - 0x4000) // 8
+                    bit_index = (int_id - 0x4000) % 8
+                    self.ff12_write_bit(0x02097828 + byte_index, bit_index, True)
+                else:
+                    raise Exception("Invalid item ID when giving items: " + str(item_id))
+                self.add_to_sort(item_id)
 
     def add_to_sort(self, item_id: int):
         int_id = item_id - FF12OW_BASE_ID
