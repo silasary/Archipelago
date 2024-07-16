@@ -22,6 +22,9 @@ from MultiServer import mark_raw
 
 from Generate import main as GMain, mystery_argparse
 
+if typing.TYPE_CHECKING:
+    from kvui import GameManager
+
 # webserver imports
 import urllib.parse
 
@@ -69,7 +72,6 @@ class TrackerCommandProcessor(ClientCommandProcessor):
 
 
 class TrackerGameContext(CommonContext):
-    from kvui import GameManager
     game = ""
     httpServer_task: typing.Optional["asyncio.Task[None]"] = None
     tags = CommonContext.tags | {"Tracker"}
@@ -112,7 +114,7 @@ class TrackerGameContext(CommonContext):
     def set_events_callback(self, func: Optional[Callable[[list[str]], bool]] = None):
         self.events_callback = func
 
-    def build_gui(self, manager: GameManager):
+    def build_gui(self, manager: "GameManager"):
         from kivy.uix.boxlayout import BoxLayout
         from kivy.uix.tabbedpanel import TabbedPanelItem
         from kivy.uix.recycleview import RecycleView
