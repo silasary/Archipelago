@@ -399,7 +399,7 @@ event_data_table: Dict[str, FF12OpenWorldEventData] = {
         item="HuntClubKill",
         difficulty=7
     ),
-    "Sickle Trophy Event (1)": FF12OpenWorldEventData(
+    "Rageclaw - Sickle Trophy Event (1)": FF12OpenWorldEventData(
         item="HuntClubKill",
         difficulty=5
     ),

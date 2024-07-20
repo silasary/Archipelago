@@ -20134,7 +20134,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Sickle Trophy (1)": FF12OpenWorldLocationData(
+    "Rageclaw - Sickle Trophy (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2305,
         classification=LocationProgressType.DEFAULT,
@@ -20142,7 +20142,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909C",
         difficulty=5
     ),
-    "Sickle Trophy (2)": FF12OpenWorldLocationData(
+    "Rageclaw - Sickle Trophy (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2306,
         classification=LocationProgressType.DEFAULT,
@@ -20151,7 +20151,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Sickle Trophy (3)": FF12OpenWorldLocationData(
+    "Rageclaw - Sickle Trophy (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2307,
         classification=LocationProgressType.DEFAULT,
