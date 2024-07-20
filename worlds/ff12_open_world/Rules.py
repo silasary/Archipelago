@@ -357,7 +357,8 @@ rule_data_list: List[Callable[[CollectionState, int], bool]] = [
      state.has("Rainstone", player) and
      state.has("HuntClubStart", player)),  # Rule 107
     lambda state, player:
-    (state.has("Site 3 Key", player) and
+    (state.has("Shelled Trophy", player) and
+     state.has("Site 3 Key", player) and
      state.has("Site 11 Key", player) and
      state_has_aerodromes(state, "Bhujerba Aeropass", player, True) and
      state.has("HuntClubStart", player)),  # Rule 108
@@ -368,167 +369,172 @@ rule_data_list: List[Callable[[CollectionState, int], bool]] = [
     lambda state, player:
     (state.has("Shelled Trophy", player) and
      state.has("HuntClubStart", player) and
-     state.has("Tchita Uplands", player)),  # Rule 110
+     state.has("Tchita Uplands", player) and
+     state.has("Defeat Bergan", player)),  # Rule 110
+    lambda state, player:
+    (state.has("Shelled Trophy", player) and
+     state.has("HuntClubStart", player) and
+     state.has("Tchita Uplands", player)),  # Rule 111
     lambda state, player:
     (state.has("Shelled Trophy", player) and
      state.has("Ozmone Plain", player) and
-     state.has("HuntClubStart", player)),  # Rule 111
-    lambda state, player:
-    (state.has("Shelled Trophy", player) and
-     state.has("Paramina Rift", player) and
      state.has("HuntClubStart", player)),  # Rule 112
     lambda state, player:
     (state.has("Shelled Trophy", player) and
      state.has("Paramina Rift", player) and
-     state.has("Belias", player) and
      state.has("HuntClubStart", player)),  # Rule 113
     lambda state, player:
     (state.has("Shelled Trophy", player) and
      state.has("Paramina Rift", player) and
-     state.has("Dawn Shard", player) and
+     state.has("Belias", player) and
      state.has("HuntClubStart", player)),  # Rule 114
     lambda state, player:
     (state.has("Shelled Trophy", player) and
+     state.has("Paramina Rift", player) and
+     state.has("Dawn Shard", player) and
+     state.has("HuntClubStart", player)),  # Rule 115
+    lambda state, player:
+    (state.has("Shelled Trophy", player) and
      state.has("HuntClubStart", player) and
-     state.has("Sochen Cave Palace", player)),  # Rule 115
+     state.has("Sochen Cave Palace", player)),  # Rule 116
     lambda state, player:
     (state.has("Systems Access Key", player, 2) and
      state.has("Shelled Trophy", player) and
-     state.has("HuntClubStart", player)),  # Rule 116
+     state.has("HuntClubStart", player)),  # Rule 117
     lambda state, player:
     (state.has("Systems Access Key", player, 2) and
      state.has("Black Orb", player, 3) and
      state.has("Shelled Trophy", player) and
-     state.has("HuntClubStart", player)),  # Rule 117
+     state.has("HuntClubStart", player)),  # Rule 118
     lambda state, player:
     (state.has("Sandalwood Chop", player) and
      state.has("HuntClubKill", player, 5) and
-     state.has("Archades", player)),  # Rule 118
-    lambda state, player:
-    (state.has("Sandalwood Chop", player) and
-     state.has("HuntClubKill", player, 10) and
      state.has("Archades", player)),  # Rule 119
     lambda state, player:
     (state.has("Sandalwood Chop", player) and
-     state.has("HuntClubKill", player, 15) and
+     state.has("HuntClubKill", player, 10) and
      state.has("Archades", player)),  # Rule 120
     lambda state, player:
     (state.has("Sandalwood Chop", player) and
-     state.has("HuntClubKill", player, 20) and
+     state.has("HuntClubKill", player, 15) and
      state.has("Archades", player)),  # Rule 121
     lambda state, player:
     (state.has("Sandalwood Chop", player) and
-     state.has("HuntClubKill", player, 25) and
+     state.has("HuntClubKill", player, 20) and
      state.has("Archades", player)),  # Rule 122
     lambda state, player:
     (state.has("Sandalwood Chop", player) and
-     state.has("HuntClubKill", player, 30) and
+     state.has("HuntClubKill", player, 25) and
      state.has("Archades", player)),  # Rule 123
     lambda state, player:
-    state.has("Vaan", player),  # Rule 124
+    (state.has("Sandalwood Chop", player) and
+     state.has("HuntClubKill", player, 30) and
+     state.has("Archades", player)),  # Rule 124
     lambda state, player:
-    state.has("Ashe", player),  # Rule 125
+    state.has("Vaan", player),  # Rule 125
     lambda state, player:
-    state.has("Fran", player),  # Rule 126
+    state.has("Ashe", player),  # Rule 126
     lambda state, player:
-    state.has("Balthier", player),  # Rule 127
+    state.has("Fran", player),  # Rule 127
     lambda state, player:
-    state.has("Basch", player),  # Rule 128
+    state.has("Balthier", player),  # Rule 128
     lambda state, player:
-    state.has("Penelo", player),  # Rule 129
+    state.has("Basch", player),  # Rule 129
+    lambda state, player:
+    state.has("Penelo", player),  # Rule 130
     lambda state, player:
     (state_has_aerodromes(state, "Bhujerba Aeropass", player, True) and
      (state.has("Basch", player) or
-      state.has("Goddess's Magicite", player))),  # Rule 130
+      state.has("Goddess's Magicite", player))),  # Rule 131
     lambda state, player:
     (state.has("Defeat Ghis", player) or
      state.has("Rainstone", player) or
-     state.has("Systems Access Key", player)),  # Rule 131
+     state.has("Systems Access Key", player)),  # Rule 132
     lambda state, player:
     (state.has("Systems Access Key", player, 2) or
-     state.has("Rainstone", player)),  # Rule 132
+     state.has("Rainstone", player)),  # Rule 133
     lambda state, player:
     (state.has("Systems Access Key", player, 2) or
      (state.has("Ozmone Plain", player) and
-      state.has("Lente's Tear", player))),  # Rule 133
+      state.has("Lente's Tear", player))),  # Rule 134
     lambda state, player:
     (state.has("Wind Globe", player) and
-     state.has("Windvane", player)),  # Rule 134
+     state.has("Windvane", player)),  # Rule 135
     lambda state, player:
     (state.has("Defeat Bergan", player) or
      state.has("Cactus Flower", player) or
      state.has("Defeat Earth Tyrant", player) or
      (state_has_aerodromes(state, "Archades Aeropass", player, True) and
       state.has("Soul Ward Key", player)) or
-      state_has_aerodromes(state, "Balfonheim Aeropass", player, True)),  # Rule 135
+      state_has_aerodromes(state, "Balfonheim Aeropass", player, True)),  # Rule 136
     lambda state, player:
     ((state.has("Tchita Uplands", player) or
       state.has("Archades", player)) and
-      state.has("Soul Ward Key", player)),  # Rule 136
+      state.has("Soul Ward Key", player)),  # Rule 137
     lambda state, player:
     ((state.has("Sochen Cave Palace", player) and
       state.has("Soul Ward Key", player)) or
-      state_has_aerodromes(state, "Archades Aeropass", player, True)),  # Rule 137
+      state_has_aerodromes(state, "Archades Aeropass", player, True)),  # Rule 138
     lambda state, player:
     ((state.has("Pinewood Chop", player, 3) or
       state.has("Sandalwood Chop", player)) and
-      state.has("Archades", player)),  # Rule 138
+      state.has("Archades", player)),  # Rule 139
     lambda state, player:
-    state.has("Belias", player),  # Rule 139
+    state.has("Belias", player),  # Rule 140
     lambda state, player:
-    state.has("Mateus", player),  # Rule 140
+    state.has("Mateus", player),  # Rule 141
     lambda state, player:
-    state.has("Adrammelech", player),  # Rule 141
+    state.has("Adrammelech", player),  # Rule 142
     lambda state, player:
-    state.has("Zalera", player),  # Rule 142
+    state.has("Zalera", player),  # Rule 143
     lambda state, player:
-    state.has("Shemhazai", player),  # Rule 143
+    state.has("Shemhazai", player),  # Rule 144
     lambda state, player:
-    state.has("Hashmal", player),  # Rule 144
+    state.has("Hashmal", player),  # Rule 145
     lambda state, player:
-    state.has("Cuchulainn", player),  # Rule 145
+    state.has("Cuchulainn", player),  # Rule 146
     lambda state, player:
-    state.has("Zeromus", player),  # Rule 146
+    state.has("Zeromus", player),  # Rule 147
     lambda state, player:
-    state.has("Exodus", player),  # Rule 147
+    state.has("Exodus", player),  # Rule 148
     lambda state, player:
-    state.has("Famfrit", player),  # Rule 148
+    state.has("Famfrit", player),  # Rule 149
     lambda state, player:
-    state.has("Chaos", player),  # Rule 149
+    state.has("Chaos", player),  # Rule 150
     lambda state, player:
-    state.has("Ultima", player),  # Rule 150
+    state.has("Ultima", player),  # Rule 151
     lambda state, player:
-    state.has("Zodiark", player),  # Rule 151
+    state.has("Zodiark", player),  # Rule 152
     lambda state, player:
     (state.has("Defeat Cid", player) and
-     state.has("Treaty-Blade", player)),  # Rule 152
+     state.has("Treaty-Blade", player)),  # Rule 153
     lambda state, player:
     (state.has("Writ of Transit", player) and
-     state.has("Systems Access Key", player)),  # Rule 153
+     state.has("Systems Access Key", player)),  # Rule 154
     lambda state, player:
     (state.has("Barheim Key", player) or
-     state.has("Crescent Stone", player)),  # Rule 154
+     state.has("Crescent Stone", player)),  # Rule 155
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Bhujerba Aeropass", player, False)),  # Rule 155
+     state_has_aerodromes(state, "Bhujerba Aeropass", player, False)),  # Rule 156
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Nalbina Aeropass", player, False)),  # Rule 156
+     state_has_aerodromes(state, "Nalbina Aeropass", player, False)),  # Rule 157
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 157
-    lambda state, player:
-    (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
      state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 158
     lambda state, player:
     (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
-     state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 159
+     state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 159
     lambda state, player:
-    (state_has_aerodromes(state, "Bhujerba Aeropass", player, False) and
+    (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
      state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 160
     lambda state, player:
-    (state_has_aerodromes(state, "Archades Aeropass", player, False) and
+    (state_has_aerodromes(state, "Bhujerba Aeropass", player, False) and
      state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 161
+    lambda state, player:
+    (state_has_aerodromes(state, "Archades Aeropass", player, False) and
+     state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 162
 ]
 
 rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
@@ -2837,81 +2843,81 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Dheed - Leathern Trophy (1)": rule_data_list[110],
     "Dheed - Leathern Trophy (2)": rule_data_list[110],
     "Dheed - Leathern Trophy (3)": rule_data_list[110],
-    "Sickle Trophy (1)": rule_data_list[110],
-    "Sickle Trophy (2)": rule_data_list[110],
-    "Sickle Trophy (3)": rule_data_list[110],
-    "Arioch - Vengeful Trophy (1)": rule_data_list[110],
-    "Arioch - Vengeful Trophy (2)": rule_data_list[110],
-    "Arioch - Vengeful Trophy (3)": rule_data_list[110],
-    "Vorres - Gravesoil Trophy (1)": rule_data_list[110],
-    "Vorres - Gravesoil Trophy (2)": rule_data_list[110],
-    "Vorres - Gravesoil Trophy (3)": rule_data_list[110],
-    "Killbug - Metallic Trophy (1)": rule_data_list[111],
-    "Killbug - Metallic Trophy (2)": rule_data_list[111],
-    "Killbug - Metallic Trophy (3)": rule_data_list[111],
-    "Melt - Slimy Trophy (1)": rule_data_list[111],
-    "Melt - Slimy Trophy (2)": rule_data_list[111],
-    "Melt - Slimy Trophy (3)": rule_data_list[111],
-    "Biding Mantis - Scythe Trophy (1)": rule_data_list[112],
-    "Biding Mantis - Scythe Trophy (2)": rule_data_list[112],
-    "Biding Mantis - Scythe Trophy (3)": rule_data_list[112],
-    "Dreadguard - Feathered Trophy (1)": rule_data_list[112],
-    "Dreadguard - Feathered Trophy (2)": rule_data_list[112],
-    "Dreadguard - Feathered Trophy (3)": rule_data_list[112],
-    "Crystal Knight - Skull Trophy (1)": rule_data_list[113],
-    "Crystal Knight - Skull Trophy (2)": rule_data_list[113],
-    "Crystal Knight - Skull Trophy (3)": rule_data_list[113],
-    "Ancbolder - Mind Trophy (1)": rule_data_list[112],
-    "Ancbolder - Mind Trophy (2)": rule_data_list[112],
-    "Ancbolder - Mind Trophy (3)": rule_data_list[112],
-    "Myath - Eternal Trophy (1)": rule_data_list[114],
-    "Myath - Eternal Trophy (2)": rule_data_list[114],
-    "Myath - Eternal Trophy (3)": rule_data_list[114],
-    "Skullash - Clawed Trophy (1)": rule_data_list[110],
-    "Skullash - Clawed Trophy (2)": rule_data_list[110],
-    "Skullash - Clawed Trophy (3)": rule_data_list[110],
-    "Kris - Odiferous Trophy (1)": rule_data_list[110],
-    "Kris - Odiferous Trophy (2)": rule_data_list[110],
-    "Kris - Odiferous Trophy (3)": rule_data_list[110],
-    "Grimalkin - Whiskered Trophy (1)": rule_data_list[110],
-    "Grimalkin - Whiskered Trophy (2)": rule_data_list[110],
-    "Grimalkin - Whiskered Trophy (3)": rule_data_list[110],
-    "Wendice - Frigid Trophy (1)": rule_data_list[115],
-    "Wendice - Frigid Trophy (2)": rule_data_list[115],
-    "Wendice - Frigid Trophy (3)": rule_data_list[115],
-    "Anubys - Ensanguined Trophy (1)": rule_data_list[115],
-    "Anubys - Ensanguined Trophy (2)": rule_data_list[115],
-    "Anubys - Ensanguined Trophy (3)": rule_data_list[115],
-    "Bluesang - Cruel Trophy (1)": rule_data_list[110],
-    "Bluesang - Cruel Trophy (2)": rule_data_list[110],
-    "Bluesang - Cruel Trophy (3)": rule_data_list[110],
-    "Aspidochelon - Adamantine Trophy (1)": rule_data_list[110],
-    "Aspidochelon - Adamantine Trophy (2)": rule_data_list[110],
-    "Aspidochelon - Adamantine Trophy (3)": rule_data_list[110],
-    "Abelisk - Reptilian Trophy (1)": rule_data_list[116],
-    "Abelisk - Reptilian Trophy (2)": rule_data_list[116],
-    "Abelisk - Reptilian Trophy (3)": rule_data_list[116],
-    "Avenger - Vile Trophy (1)": rule_data_list[117],
-    "Avenger - Vile Trophy (2)": rule_data_list[117],
-    "Avenger - Vile Trophy (3)": rule_data_list[117],
-    "Hunt Club Owner 5 Trophy Rares Defeated (1)": rule_data_list[118],
-    "Hunt Club Owner 5 Trophy Rares Defeated (2)": rule_data_list[118],
-    "Hunt Club Owner 5 Trophy Rares Defeated (3)": rule_data_list[118],
-    "Hunt Club Owner 10 Trophy Rares Defeated (1)": rule_data_list[119],
-    "Hunt Club Owner 10 Trophy Rares Defeated (2)": rule_data_list[119],
-    "Hunt Club Owner 10 Trophy Rares Defeated (3)": rule_data_list[119],
-    "Hunt Club Owner 15 Trophy Rares Defeated (1)": rule_data_list[120],
-    "Hunt Club Owner 15 Trophy Rares Defeated (2)": rule_data_list[120],
-    "Hunt Club Owner 15 Trophy Rares Defeated (3)": rule_data_list[120],
-    "Hunt Club Owner 20 Trophy Rares Defeated (1)": rule_data_list[121],
-    "Hunt Club Owner 20 Trophy Rares Defeated (2)": rule_data_list[121],
-    "Hunt Club Owner 20 Trophy Rares Defeated (3)": rule_data_list[121],
-    "Hunt Club Owner 25 Trophy Rares Defeated (1)": rule_data_list[122],
-    "Hunt Club Owner 25 Trophy Rares Defeated (2)": rule_data_list[122],
-    "Hunt Club Owner 25 Trophy Rares Defeated (3)": rule_data_list[122],
-    "Hunt Club Owner 30 Trophy Rares Defeated (1)": rule_data_list[123],
-    "Hunt Club Owner 30 Trophy Rares Defeated (2)": rule_data_list[123],
-    "Hunt Club Owner 30 Trophy Rares Defeated (3)": rule_data_list[123],
+    "Rageclaw - Sickle Trophy (1)": rule_data_list[111],
+    "Rageclaw - Sickle Trophy (2)": rule_data_list[111],
+    "Rageclaw - Sickle Trophy (3)": rule_data_list[111],
+    "Arioch - Vengeful Trophy (1)": rule_data_list[111],
+    "Arioch - Vengeful Trophy (2)": rule_data_list[111],
+    "Arioch - Vengeful Trophy (3)": rule_data_list[111],
+    "Vorres - Gravesoil Trophy (1)": rule_data_list[111],
+    "Vorres - Gravesoil Trophy (2)": rule_data_list[111],
+    "Vorres - Gravesoil Trophy (3)": rule_data_list[111],
+    "Killbug - Metallic Trophy (1)": rule_data_list[112],
+    "Killbug - Metallic Trophy (2)": rule_data_list[112],
+    "Killbug - Metallic Trophy (3)": rule_data_list[112],
+    "Melt - Slimy Trophy (1)": rule_data_list[112],
+    "Melt - Slimy Trophy (2)": rule_data_list[112],
+    "Melt - Slimy Trophy (3)": rule_data_list[112],
+    "Biding Mantis - Scythe Trophy (1)": rule_data_list[113],
+    "Biding Mantis - Scythe Trophy (2)": rule_data_list[113],
+    "Biding Mantis - Scythe Trophy (3)": rule_data_list[113],
+    "Dreadguard - Feathered Trophy (1)": rule_data_list[113],
+    "Dreadguard - Feathered Trophy (2)": rule_data_list[113],
+    "Dreadguard - Feathered Trophy (3)": rule_data_list[113],
+    "Crystal Knight - Skull Trophy (1)": rule_data_list[114],
+    "Crystal Knight - Skull Trophy (2)": rule_data_list[114],
+    "Crystal Knight - Skull Trophy (3)": rule_data_list[114],
+    "Ancbolder - Mind Trophy (1)": rule_data_list[113],
+    "Ancbolder - Mind Trophy (2)": rule_data_list[113],
+    "Ancbolder - Mind Trophy (3)": rule_data_list[113],
+    "Myath - Eternal Trophy (1)": rule_data_list[115],
+    "Myath - Eternal Trophy (2)": rule_data_list[115],
+    "Myath - Eternal Trophy (3)": rule_data_list[115],
+    "Skullash - Clawed Trophy (1)": rule_data_list[111],
+    "Skullash - Clawed Trophy (2)": rule_data_list[111],
+    "Skullash - Clawed Trophy (3)": rule_data_list[111],
+    "Kris - Odiferous Trophy (1)": rule_data_list[111],
+    "Kris - Odiferous Trophy (2)": rule_data_list[111],
+    "Kris - Odiferous Trophy (3)": rule_data_list[111],
+    "Grimalkin - Whiskered Trophy (1)": rule_data_list[111],
+    "Grimalkin - Whiskered Trophy (2)": rule_data_list[111],
+    "Grimalkin - Whiskered Trophy (3)": rule_data_list[111],
+    "Wendice - Frigid Trophy (1)": rule_data_list[116],
+    "Wendice - Frigid Trophy (2)": rule_data_list[116],
+    "Wendice - Frigid Trophy (3)": rule_data_list[116],
+    "Anubys - Ensanguined Trophy (1)": rule_data_list[116],
+    "Anubys - Ensanguined Trophy (2)": rule_data_list[116],
+    "Anubys - Ensanguined Trophy (3)": rule_data_list[116],
+    "Bluesang - Cruel Trophy (1)": rule_data_list[111],
+    "Bluesang - Cruel Trophy (2)": rule_data_list[111],
+    "Bluesang - Cruel Trophy (3)": rule_data_list[111],
+    "Aspidochelon - Adamantine Trophy (1)": rule_data_list[111],
+    "Aspidochelon - Adamantine Trophy (2)": rule_data_list[111],
+    "Aspidochelon - Adamantine Trophy (3)": rule_data_list[111],
+    "Abelisk - Reptilian Trophy (1)": rule_data_list[117],
+    "Abelisk - Reptilian Trophy (2)": rule_data_list[117],
+    "Abelisk - Reptilian Trophy (3)": rule_data_list[117],
+    "Avenger - Vile Trophy (1)": rule_data_list[118],
+    "Avenger - Vile Trophy (2)": rule_data_list[118],
+    "Avenger - Vile Trophy (3)": rule_data_list[118],
+    "Hunt Club Owner 5 Trophy Rares Defeated (1)": rule_data_list[119],
+    "Hunt Club Owner 5 Trophy Rares Defeated (2)": rule_data_list[119],
+    "Hunt Club Owner 5 Trophy Rares Defeated (3)": rule_data_list[119],
+    "Hunt Club Owner 10 Trophy Rares Defeated (1)": rule_data_list[120],
+    "Hunt Club Owner 10 Trophy Rares Defeated (2)": rule_data_list[120],
+    "Hunt Club Owner 10 Trophy Rares Defeated (3)": rule_data_list[120],
+    "Hunt Club Owner 15 Trophy Rares Defeated (1)": rule_data_list[121],
+    "Hunt Club Owner 15 Trophy Rares Defeated (2)": rule_data_list[121],
+    "Hunt Club Owner 15 Trophy Rares Defeated (3)": rule_data_list[121],
+    "Hunt Club Owner 20 Trophy Rares Defeated (1)": rule_data_list[122],
+    "Hunt Club Owner 20 Trophy Rares Defeated (2)": rule_data_list[122],
+    "Hunt Club Owner 20 Trophy Rares Defeated (3)": rule_data_list[122],
+    "Hunt Club Owner 25 Trophy Rares Defeated (1)": rule_data_list[123],
+    "Hunt Club Owner 25 Trophy Rares Defeated (2)": rule_data_list[123],
+    "Hunt Club Owner 25 Trophy Rares Defeated (3)": rule_data_list[123],
+    "Hunt Club Owner 30 Trophy Rares Defeated (1)": rule_data_list[124],
+    "Hunt Club Owner 30 Trophy Rares Defeated (2)": rule_data_list[124],
+    "Hunt Club Owner 30 Trophy Rares Defeated (3)": rule_data_list[124],
     "All Trophies Atak 16 or more (1)": rule_data_list[105],
     "All Trophies Atak 16 or more (2)": rule_data_list[105],
     "All Trophies Atak 16 or more (3)": rule_data_list[105],
@@ -3023,86 +3029,86 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Atak 5, Blok 5, Stok 12 Outfitters (1)": rule_data_list[105],
     "Atak 5, Blok 5, Stok 12 Outfitters (2)": rule_data_list[105],
     "Atak 5, Blok 5, Stok 12 Outfitters (3)": rule_data_list[105],
-    "Vaan's Starting Items (1)": rule_data_list[124],
-    "Vaan's Starting Items (2)": rule_data_list[124],
-    "Vaan's Starting Items (3)": rule_data_list[124],
-    "Vaan's Starting Items (4)": rule_data_list[124],
-    "Vaan's Starting Items (5)": rule_data_list[124],
-    "Vaan's Starting Items (6)": rule_data_list[124],
-    "Vaan's Starting Items (7)": rule_data_list[124],
-    "Vaan's Starting Items (8)": rule_data_list[124],
-    "Vaan's Starting Items (9)": rule_data_list[124],
-    "Vaan's Starting Items (10)": rule_data_list[124],
-    "Ashe's Starting Items (1)": rule_data_list[125],
-    "Ashe's Starting Items (2)": rule_data_list[125],
-    "Ashe's Starting Items (3)": rule_data_list[125],
-    "Ashe's Starting Items (4)": rule_data_list[125],
-    "Ashe's Starting Items (5)": rule_data_list[125],
-    "Ashe's Starting Items (6)": rule_data_list[125],
-    "Ashe's Starting Items (7)": rule_data_list[125],
-    "Ashe's Starting Items (8)": rule_data_list[125],
-    "Ashe's Starting Items (9)": rule_data_list[125],
-    "Ashe's Starting Items (10)": rule_data_list[125],
-    "Fran's Starting Items (1)": rule_data_list[126],
-    "Fran's Starting Items (2)": rule_data_list[126],
-    "Fran's Starting Items (3)": rule_data_list[126],
-    "Fran's Starting Items (4)": rule_data_list[126],
-    "Fran's Starting Items (5)": rule_data_list[126],
-    "Fran's Starting Items (6)": rule_data_list[126],
-    "Fran's Starting Items (7)": rule_data_list[126],
-    "Fran's Starting Items (8)": rule_data_list[126],
-    "Fran's Starting Items (9)": rule_data_list[126],
-    "Fran's Starting Items (10)": rule_data_list[126],
-    "Balthier's Starting Items (1)": rule_data_list[127],
-    "Balthier's Starting Items (2)": rule_data_list[127],
-    "Balthier's Starting Items (3)": rule_data_list[127],
-    "Balthier's Starting Items (4)": rule_data_list[127],
-    "Balthier's Starting Items (5)": rule_data_list[127],
-    "Balthier's Starting Items (6)": rule_data_list[127],
-    "Balthier's Starting Items (7)": rule_data_list[127],
-    "Balthier's Starting Items (8)": rule_data_list[127],
-    "Balthier's Starting Items (9)": rule_data_list[127],
-    "Balthier's Starting Items (10)": rule_data_list[127],
-    "Basch's Starting Items (1)": rule_data_list[128],
-    "Basch's Starting Items (2)": rule_data_list[128],
-    "Basch's Starting Items (3)": rule_data_list[128],
-    "Basch's Starting Items (4)": rule_data_list[128],
-    "Basch's Starting Items (5)": rule_data_list[128],
-    "Basch's Starting Items (6)": rule_data_list[128],
-    "Basch's Starting Items (7)": rule_data_list[128],
-    "Basch's Starting Items (8)": rule_data_list[128],
-    "Basch's Starting Items (9)": rule_data_list[128],
-    "Basch's Starting Items (10)": rule_data_list[128],
-    "Penelo's Starting Items (1)": rule_data_list[129],
-    "Penelo's Starting Items (2)": rule_data_list[129],
-    "Penelo's Starting Items (3)": rule_data_list[129],
-    "Penelo's Starting Items (4)": rule_data_list[129],
-    "Penelo's Starting Items (5)": rule_data_list[129],
-    "Penelo's Starting Items (6)": rule_data_list[129],
-    "Penelo's Starting Items (7)": rule_data_list[129],
-    "Penelo's Starting Items (8)": rule_data_list[129],
-    "Penelo's Starting Items (9)": rule_data_list[129],
-    "Penelo's Starting Items (10)": rule_data_list[129],
+    "Vaan's Starting Items (1)": rule_data_list[125],
+    "Vaan's Starting Items (2)": rule_data_list[125],
+    "Vaan's Starting Items (3)": rule_data_list[125],
+    "Vaan's Starting Items (4)": rule_data_list[125],
+    "Vaan's Starting Items (5)": rule_data_list[125],
+    "Vaan's Starting Items (6)": rule_data_list[125],
+    "Vaan's Starting Items (7)": rule_data_list[125],
+    "Vaan's Starting Items (8)": rule_data_list[125],
+    "Vaan's Starting Items (9)": rule_data_list[125],
+    "Vaan's Starting Items (10)": rule_data_list[125],
+    "Ashe's Starting Items (1)": rule_data_list[126],
+    "Ashe's Starting Items (2)": rule_data_list[126],
+    "Ashe's Starting Items (3)": rule_data_list[126],
+    "Ashe's Starting Items (4)": rule_data_list[126],
+    "Ashe's Starting Items (5)": rule_data_list[126],
+    "Ashe's Starting Items (6)": rule_data_list[126],
+    "Ashe's Starting Items (7)": rule_data_list[126],
+    "Ashe's Starting Items (8)": rule_data_list[126],
+    "Ashe's Starting Items (9)": rule_data_list[126],
+    "Ashe's Starting Items (10)": rule_data_list[126],
+    "Fran's Starting Items (1)": rule_data_list[127],
+    "Fran's Starting Items (2)": rule_data_list[127],
+    "Fran's Starting Items (3)": rule_data_list[127],
+    "Fran's Starting Items (4)": rule_data_list[127],
+    "Fran's Starting Items (5)": rule_data_list[127],
+    "Fran's Starting Items (6)": rule_data_list[127],
+    "Fran's Starting Items (7)": rule_data_list[127],
+    "Fran's Starting Items (8)": rule_data_list[127],
+    "Fran's Starting Items (9)": rule_data_list[127],
+    "Fran's Starting Items (10)": rule_data_list[127],
+    "Balthier's Starting Items (1)": rule_data_list[128],
+    "Balthier's Starting Items (2)": rule_data_list[128],
+    "Balthier's Starting Items (3)": rule_data_list[128],
+    "Balthier's Starting Items (4)": rule_data_list[128],
+    "Balthier's Starting Items (5)": rule_data_list[128],
+    "Balthier's Starting Items (6)": rule_data_list[128],
+    "Balthier's Starting Items (7)": rule_data_list[128],
+    "Balthier's Starting Items (8)": rule_data_list[128],
+    "Balthier's Starting Items (9)": rule_data_list[128],
+    "Balthier's Starting Items (10)": rule_data_list[128],
+    "Basch's Starting Items (1)": rule_data_list[129],
+    "Basch's Starting Items (2)": rule_data_list[129],
+    "Basch's Starting Items (3)": rule_data_list[129],
+    "Basch's Starting Items (4)": rule_data_list[129],
+    "Basch's Starting Items (5)": rule_data_list[129],
+    "Basch's Starting Items (6)": rule_data_list[129],
+    "Basch's Starting Items (7)": rule_data_list[129],
+    "Basch's Starting Items (8)": rule_data_list[129],
+    "Basch's Starting Items (9)": rule_data_list[129],
+    "Basch's Starting Items (10)": rule_data_list[129],
+    "Penelo's Starting Items (1)": rule_data_list[130],
+    "Penelo's Starting Items (2)": rule_data_list[130],
+    "Penelo's Starting Items (3)": rule_data_list[130],
+    "Penelo's Starting Items (4)": rule_data_list[130],
+    "Penelo's Starting Items (5)": rule_data_list[130],
+    "Penelo's Starting Items (6)": rule_data_list[130],
+    "Penelo's Starting Items (7)": rule_data_list[130],
+    "Penelo's Starting Items (8)": rule_data_list[130],
+    "Penelo's Starting Items (9)": rule_data_list[130],
+    "Penelo's Starting Items (10)": rule_data_list[130],
     "Vaan Event (1)": rule_data_list[9],
     "Penelo Event (1)": rule_data_list[9],
-    "Dreadnought Leviathan Unlock Event (1)": rule_data_list[130],
-    "Dreadnought Leviathan Unlock Event (2)": rule_data_list[130],
+    "Dreadnought Leviathan Unlock Event (1)": rule_data_list[131],
+    "Dreadnought Leviathan Unlock Event (2)": rule_data_list[131],
     "Ashe Event (1)": rule_data_list[34],
     "Defeat Judge Ghis Event (1)": rule_data_list[34],
-    "Sandsea Unlock Event (1)": rule_data_list[131],
+    "Sandsea Unlock Event (1)": rule_data_list[132],
     "Defeat Vossler Event (1)": rule_data_list[35],
     "Garamsythe Characters Event (1)": rule_data_list[36],
     "Garamsythe Characters Event (2)": rule_data_list[36],
     "Garamsythe Characters Event (3)": rule_data_list[36],
     "Barheim Guest Event (1)": rule_data_list[36],
-    "Ozmone Unlock Event (1)": rule_data_list[132],
-    "Paramina Unlock Event (1)": rule_data_list[133],
+    "Ozmone Unlock Event (1)": rule_data_list[133],
+    "Paramina Unlock Event (1)": rule_data_list[134],
     "Defeat Bergan Event (1)": rule_data_list[92],
-    "Defeat Earth Tyrant Event (1)": rule_data_list[134],
-    "Northern and Tchita Unlock Event (1)": rule_data_list[135],
-    "Sochen Unlock Event (1)": rule_data_list[136],
-    "Archades Unlock Event (1)": rule_data_list[137],
-    "Draklor Laboratory Unlock Event (1)": rule_data_list[138],
+    "Defeat Earth Tyrant Event (1)": rule_data_list[135],
+    "Northern and Tchita Unlock Event (1)": rule_data_list[136],
+    "Sochen Unlock Event (1)": rule_data_list[137],
+    "Archades Unlock Event (1)": rule_data_list[138],
+    "Draklor Laboratory Unlock Event (1)": rule_data_list[139],
     "Defeat Cid Event (1)": rule_data_list[8],
     "Hunt 1: Rogue Tomato Event (1)": rule_data_list[9],
     "Hunt 2: Thextera Event (1)": rule_data_list[9],
@@ -3154,20 +3160,20 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Hunt 43: Ixion Event (1)": rule_data_list[63],
     "Hunt 44: Shadowseer Event (1)": rule_data_list[64],
     "Hunt 45: Yiazmat Event (1)": rule_data_list[65],
-    "Belias Event (1)": rule_data_list[139],
-    "Mateus Event (1)": rule_data_list[140],
-    "Adrammelech Event (1)": rule_data_list[141],
-    "Zalera Event (1)": rule_data_list[142],
-    "Shemhazai Event (1)": rule_data_list[143],
-    "Hashmal Event (1)": rule_data_list[144],
-    "Cuchulainn Event (1)": rule_data_list[145],
-    "Zeromus Event (1)": rule_data_list[146],
-    "Exodus Event (1)": rule_data_list[147],
-    "Famfrit Event (1)": rule_data_list[148],
-    "Chaos Event (1)": rule_data_list[149],
-    "Ultima Event (1)": rule_data_list[150],
-    "Zodiark Event (1)": rule_data_list[151],
-    "Reddas Event (1)": rule_data_list[152],
+    "Belias Event (1)": rule_data_list[140],
+    "Mateus Event (1)": rule_data_list[141],
+    "Adrammelech Event (1)": rule_data_list[142],
+    "Zalera Event (1)": rule_data_list[143],
+    "Shemhazai Event (1)": rule_data_list[144],
+    "Hashmal Event (1)": rule_data_list[145],
+    "Cuchulainn Event (1)": rule_data_list[146],
+    "Zeromus Event (1)": rule_data_list[147],
+    "Exodus Event (1)": rule_data_list[148],
+    "Famfrit Event (1)": rule_data_list[149],
+    "Chaos Event (1)": rule_data_list[150],
+    "Ultima Event (1)": rule_data_list[151],
+    "Zodiark Event (1)": rule_data_list[152],
+    "Reddas Event (1)": rule_data_list[153],
     "Basch Event (1)": rule_data_list[33],
     "Thalassinon - Shelled Trophy Event (1)": rule_data_list[3],
     "Gavial - Fur-scaled Trophy Event (1)": rule_data_list[105],
@@ -3175,32 +3181,32 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Kaiser Wolf - Fanged Trophy Event (1)": rule_data_list[105],
     "Terror Tyrant - Hide-covered Trophy Event (1)": rule_data_list[105],
     "Nazarnir - Maned Trophy Event (1)": rule_data_list[105],
-    "Alteci - Fell Trophy Event (1)": rule_data_list[111],
+    "Alteci - Fell Trophy Event (1)": rule_data_list[112],
     "Disma - Accursed Trophy Event (1)": rule_data_list[108],
     "Bull Chocobo - Beaked Trophy Event (1)": rule_data_list[109],
     "Victanir - Maverick Trophy Event (1)": rule_data_list[109],
     "Zombie Lord - Soulless Trophy Event (1)": rule_data_list[109],
     "Dheed - Leathern Trophy Event (1)": rule_data_list[110],
-    "Sickle Trophy Event (1)": rule_data_list[110],
-    "Arioch - Vengeful Trophy Event (1)": rule_data_list[110],
-    "Vorres - Gravesoil Trophy Event (1)": rule_data_list[110],
-    "Killbug - Metallic Trophy Event (1)": rule_data_list[111],
-    "Melt - Slimy Trophy Event (1)": rule_data_list[111],
-    "Biding Mantis - Scythe Trophy Event (1)": rule_data_list[112],
-    "Dreadguard - Feathered Trophy Event (1)": rule_data_list[112],
-    "Crystal Knight - Skull Trophy Event (1)": rule_data_list[113],
-    "Ancbolder - Mind Trophy Event (1)": rule_data_list[112],
-    "Myath - Eternal Trophy Event (1)": rule_data_list[114],
-    "Skullash - Clawed Trophy Event (1)": rule_data_list[110],
-    "Kris - Odiferous Trophy Event (1)": rule_data_list[110],
-    "Grimalkin - Whiskered Trophy Event (1)": rule_data_list[110],
-    "Wendice - Frigid Trophy Event (1)": rule_data_list[115],
-    "Anubys - Ensanguined Trophy Event (1)": rule_data_list[115],
-    "Bluesang - Cruel Trophy Event (1)": rule_data_list[110],
-    "Aspidochelon - Adamantine Trophy Event (1)": rule_data_list[110],
-    "Abelisk - Reptilian Trophy Event (1)": rule_data_list[116],
-    "Avenger - Vile Trophy Event (1)": rule_data_list[117],
-    "Final Boss Victory Event (1)": rule_data_list[153],
+    "Rageclaw - Sickle Trophy Event (1)": rule_data_list[111],
+    "Arioch - Vengeful Trophy Event (1)": rule_data_list[111],
+    "Vorres - Gravesoil Trophy Event (1)": rule_data_list[111],
+    "Killbug - Metallic Trophy Event (1)": rule_data_list[112],
+    "Melt - Slimy Trophy Event (1)": rule_data_list[112],
+    "Biding Mantis - Scythe Trophy Event (1)": rule_data_list[113],
+    "Dreadguard - Feathered Trophy Event (1)": rule_data_list[113],
+    "Crystal Knight - Skull Trophy Event (1)": rule_data_list[114],
+    "Ancbolder - Mind Trophy Event (1)": rule_data_list[113],
+    "Myath - Eternal Trophy Event (1)": rule_data_list[115],
+    "Skullash - Clawed Trophy Event (1)": rule_data_list[111],
+    "Kris - Odiferous Trophy Event (1)": rule_data_list[111],
+    "Grimalkin - Whiskered Trophy Event (1)": rule_data_list[111],
+    "Wendice - Frigid Trophy Event (1)": rule_data_list[116],
+    "Anubys - Ensanguined Trophy Event (1)": rule_data_list[116],
+    "Bluesang - Cruel Trophy Event (1)": rule_data_list[111],
+    "Aspidochelon - Adamantine Trophy Event (1)": rule_data_list[111],
+    "Abelisk - Reptilian Trophy Event (1)": rule_data_list[117],
+    "Avenger - Vile Trophy Event (1)": rule_data_list[118],
+    "Final Boss Victory Event (1)": rule_data_list[154],
     "Great-chief Elder After Defeating Vossler Event (1)": rule_data_list[37],
     "Amal's Weaponry Shop Event (1)": rule_data_list[9],
     "Panamis's Protectives Shop Event (1)": rule_data_list[9],
@@ -3250,7 +3256,7 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Unlucky Merchant Shop Event (1)": rule_data_list[9],
     "Lohen Shop Event (1)": rule_data_list[9],
     "Arjie Shop Event (1)": rule_data_list[9],
-    "Burrough Shop Event (1)": rule_data_list[154],
+    "Burrough Shop Event (1)": rule_data_list[155],
     "Tetran Shop Event (1)": rule_data_list[34],
     "Garif Trader Shop Event (1)": rule_data_list[12],
     "Tetran Shop Event (2)": rule_data_list[12],
@@ -3260,12 +3266,12 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Vendor of Goods Shop Event (1)": rule_data_list[3],
     "Stranded Merchant Shop Event (1)": rule_data_list[1],
     "Baknamy Shop Event (1)": rule_data_list[3],
-    "Storekeeper (Rabanastre <-> Bhujerba) Shop Event (1)": rule_data_list[155],
-    "Storekeeper (Rabanastre <-> Nalbina) Shop Event (1)": rule_data_list[156],
-    "Storekeeper (Rabanastre <-> Archades) Shop Event (1)": rule_data_list[157],
-    "Storekeeper (Nalbina <-> Archades) Shop Event (1)": rule_data_list[158],
-    "Storekeeper (Nalbina <-> Balfonheim) Shop Event (1)": rule_data_list[159],
-    "Storekeeper (Bhujerba <-> Balfonheim) Shop Event (1)": rule_data_list[160],
-    "Storekeeper (Archades <-> Balfonheim) Shop Event (1)": rule_data_list[161],
+    "Storekeeper (Rabanastre <-> Bhujerba) Shop Event (1)": rule_data_list[156],
+    "Storekeeper (Rabanastre <-> Nalbina) Shop Event (1)": rule_data_list[157],
+    "Storekeeper (Rabanastre <-> Archades) Shop Event (1)": rule_data_list[158],
+    "Storekeeper (Nalbina <-> Archades) Shop Event (1)": rule_data_list[159],
+    "Storekeeper (Nalbina <-> Balfonheim) Shop Event (1)": rule_data_list[160],
+    "Storekeeper (Bhujerba <-> Balfonheim) Shop Event (1)": rule_data_list[161],
+    "Storekeeper (Archades <-> Balfonheim) Shop Event (1)": rule_data_list[162],
     "Storekeeper (All) Shop Event (1)": rule_data_list[2],
 }
