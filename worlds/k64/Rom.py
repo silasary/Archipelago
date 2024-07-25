@@ -169,6 +169,19 @@ def patch_rom(world: "K64World", player: int, rom: RomData):
                 for value, addr in zip(stage_select_vals[world.player_levels[i][j]],
                                        stage_select_ptrs[default_levels[i][j]]):
                     rom.write_bytes(addr, struct.pack(">I", value))
+                if world.player_levels[i][j] in (0x640001, 0x640014, 0x640016) and \
+                        default_levels[i][j] not in (0x640001, 0x640014, 0x640016):
+                    pal_ptr = stage_select_ptrs[default_levels[i][j]][3]
+                    rom.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
+                    rom.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
+                    rom.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
+                elif default_levels[i][j] in (0x640001, 0x640014, 0x640016) and \
+                        world.player_levels[i][j] not in (0x640001, 0x640014, 0x640016):
+                    pal_ptr = stage_select_ptrs[default_levels[i][j]][3]
+                    rom.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
+                    rom.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
+                    rom.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
+
 
     rom.write_bytes(0x1FFF100, world.boss_requirements)
 
