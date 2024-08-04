@@ -2,13 +2,13 @@ import pkgutil
 import typing
 
 import Utils
-from typing import Optional, Dict, List, Tuple
+from typing import Optional, Dict, List, Tuple, Union
 import hashlib
 import os
 import struct
 
 import settings
-from worlds.Files import APDeltaPatch, APProcedurePatch
+from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes, APPatchExtension
 import bsdiff4
 
 from .Aesthetics import kirby_target_palettes, get_palette_bytes, get_kirby_palette
@@ -139,69 +139,83 @@ class RomData:
         with open(file, 'rb') as stream:
             self.file = bytearray(stream.read())
 
-    def apply_basepatch(self, patch: bytes):
-        self.file = bytearray(bsdiff4.patch(bytes(self.file), patch))
+
+class K64PatchExtension(APPatchExtension):
+    game = "Kirby 64 - The Crystal Shards"
+    @staticmethod
+    def apply_basepatch(_: APProcedurePatch, rom: bytes):
+        return bsdiff4.patch(rom, pkgutil.get_data(__name__, os.path.join("data", "k64basepatch.bsdiff4")))
 
 
-class K64DeltaPatch(APDeltaPatch):
+class K64ProcedurePatch(APProcedurePatch, APTokenMixin):
     hash = [K64UHASH]
     game = "Kirby 64 - The Crystal Shards"
     patch_file_ending = ".apk64cs"
     result_file_ending = ".z64"
+    procedure = [
+        ("apply_basepatch", []),
+        ("apply_tokens", ["token_data.bin"])
+    ]
+    name: str = ""
 
     @classmethod
     def get_source_data(cls) -> bytes:
         return get_base_rom_bytes()
 
+    def write_byte(self, offset: int, value: int):
+        self.write_token(APTokenTypes.WRITE, offset, bytes([value]))
 
-def patch_rom(world: "K64World", player: int, rom: RomData):
-    rom.apply_basepatch(pkgutil.get_data(__name__, os.path.join("data", "k64basepatch.bsdiff4")))
+    def write_bytes(self, offset: int, values: Union[List[int], bytes]):
+        self.write_token(APTokenTypes.WRITE, offset, bytes(values))
 
+
+def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
     # now just apply slot data
     # first stage shuffle
     if world.stage_shuffle_enabled:
         for i in range(1, 7):
             stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i]) - 1
                       else (-1, -1) for stage in range(8)]
-            rom.write_bytes(0x1FFF300 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
-            rom.write_bytes(0x1FFF450 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
+            patch.write_bytes(0x1FFF300 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
+            patch.write_bytes(0x1FFF450 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
             for j in range(len(world.player_levels[i])):
                 for value, addr in zip(stage_select_vals[world.player_levels[i][j]],
                                        stage_select_ptrs[default_levels[i][j]]):
-                    rom.write_bytes(addr, struct.pack(">I", value))
+                    patch.write_bytes(addr, struct.pack(">I", value))
                 if world.player_levels[i][j] in (0x640001, 0x640014, 0x640016) and \
                         default_levels[i][j] not in (0x640001, 0x640014, 0x640016):
                     pal_ptr = stage_select_ptrs[default_levels[i][j]][3]
-                    rom.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
-                    rom.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
-                    rom.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
+                    patch.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
+                    patch.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
+                    patch.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
                 elif default_levels[i][j] in (0x640001, 0x640014, 0x640016) and \
                         world.player_levels[i][j] not in (0x640001, 0x640014, 0x640016):
                     pal_ptr = stage_select_ptrs[default_levels[i][j]][3]
-                    rom.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
-                    rom.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
-                    rom.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
+                    patch.write_bytes(pal_ptr - 4, struct.pack(">I", 0xFD50000F))
+                    patch.write_bytes(pal_ptr + 4, struct.pack(">I", 0xF5501000))
+                    patch.write_bytes(pal_ptr + 36, struct.pack(">I", 0xF5501000))
 
-
-    rom.write_bytes(0x1FFF100, world.boss_requirements)
+    patch.write_bytes(0x1FFF100, world.boss_requirements)
 
     if world.options.kirby_flavor_preset != world.options.kirby_flavor_preset.default:
         palette = get_palette_bytes(get_kirby_palette(world), [f"{i}" for i in range(1, 16)])
         for target in kirby_target_palettes:
-            rom.write_bytes(target, palette)
+            patch.write_bytes(target, palette)
 
     from Utils import __version__
-    rom.name = bytearray(f'K64{__version__.replace(".", "")[0:3]}_{player}_{world.multiworld.seed:11}\0', 'utf8')[:21]
-    rom.name.extend([0] * (21 - len(rom.name)))
-    rom.write_bytes(0x1FFF200, rom.name)
+    patch.name = bytearray(f'K64{__version__.replace(".", "")[0:3]}_{player}_{world.multiworld.seed:11}\0', 'utf8')[:21]
+    patch.name.extend([0] * (21 - len(patch.name)))
+    patch.write_bytes(0x1FFF200, patch.name)
 
-    rom.write_byte(0x1FFF220, world.options.split_power_combos.value)
-    rom.write_byte(0x1FFF221, world.options.death_link.value)
+    patch.write_byte(0x1FFF220, world.options.split_power_combos.value)
+    patch.write_byte(0x1FFF221, world.options.death_link.value)
     level_counter = 0
     for level in world.player_levels:
         for stage in world.player_levels[level]:
-            rom.write_bytes(0x1FFF230 + level_counter, struct.pack(">H", stage & 0xFFFF))
+            patch.write_bytes(0x1FFF230 + level_counter, struct.pack(">H", stage & 0xFFFF))
             level_counter += 2
+
+    patch.write_file("token_data.bin", patch.get_token_binary())
 
 
 def get_base_rom_bytes() -> bytes:

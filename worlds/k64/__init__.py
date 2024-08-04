@@ -9,7 +9,7 @@ from .Items import item_table, item_names, copy_ability_table, filler_item_weigh
 from .Locations import location_table, K64Location
 from .Names import LocationName, ItemName
 from .Regions import create_levels, default_levels
-from .Rom import K64DeltaPatch, get_base_rom_path, RomData, patch_rom, K64UHASH
+from .Rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UHASH
 from .Client import K64Client
 from .Options import K64Options
 from .Rules import set_rules
@@ -70,16 +70,10 @@ class K64World(World):
         self.rom_name_available_event = threading.Event()
         super().__init__(multiworld, player)
         self.required_crystals: int = 0  # we fill this during create_items
-        self.boss_requirements: Dict[int, int] = dict()
+        self.boss_requirements: List[int] = list()
         self.player_levels = default_levels.copy()
 
     create_regions = create_levels
-
-    @classmethod
-    def stage_assert_generate(cls, multiworld: MultiWorld) -> None:
-        rom_file: str = get_base_rom_path()
-        if not os.path.exists(rom_file):
-            raise FileNotFoundError(f"Could not find base ROM for {cls.game}: {rom_file}")
 
     def create_item(self, name: str, force_non_progression=False) -> K64Item:
         item = item_table[name]
@@ -98,7 +92,10 @@ class K64World(World):
     def create_items(self) -> None:
         itempool = []
         itempool.extend([self.create_item(name) for name in copy_ability_table])
-        itempool.extend([self.create_item(name) for name in friend_table])
+        #itempool.extend([self.create_item(name) for name in friend_table])
+        # Friends aren't randomized yet
+        for name in friend_table:
+            self.multiworld.push_precollected(self.create_item(name))
         if self.options.split_power_combos:
             itempool.extend([self.create_item(name) for name in power_combo_table])
         required_percentage = self.options.required_crystals / 100.0
@@ -141,23 +138,15 @@ class K64World(World):
     def generate_output(self, output_directory: str):
         rom_path = ""
         try:
-
-            rom = RomData(get_base_rom_path())
-            patch_rom(self, self.player, rom)
-
-            rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}.z64")
-            rom.write_to_file(rom_path)
-            self.rom_name = rom.name
-
-            patch = K64DeltaPatch(os.path.splitext(rom_path)[0] + K64DeltaPatch.patch_file_ending, player=self.player,
-                                   player_name=self.multiworld.player_name[self.player], patched_path=rom_path)
-            patch.write()
+            rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}{K64ProcedurePatch.patch_file_ending}")
+            patch = K64ProcedurePatch(player=self.player, player_name=self.multiworld.player_name[self.player])
+            patch_rom(self, self.player, patch)
+            self.rom_name = patch.name
+            patch.write(rom_path)
         except Exception:
             raise
         finally:
             self.rom_name_available_event.set()  # make sure threading continues and errors are collected
-            if os.path.exists(rom_path):
-                os.unlink(rom_path)
 
     def modify_multidata(self, multidata: dict):
         # wait for self.rom_name to be available.
