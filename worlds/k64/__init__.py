@@ -100,7 +100,7 @@ class K64World(World):
             itempool.extend([self.create_item(name) for name in power_combo_table])
         required_percentage = self.options.required_crystals / 100.0
         remaining_items = len(location_table) - len(itempool)
-        total_crystals = self.options.total_crystals
+        total_crystals = min(remaining_items, self.options.total_crystals.value)
         required_crystals = max(math.floor(total_crystals * required_percentage),
                                    5)  # ensure at least 1 heart star required
         filler_items = total_crystals - required_crystals

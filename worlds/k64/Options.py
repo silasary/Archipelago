@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from Options import DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
     PerGameCommonOptions
+from .Names import LocationName
 import typing
 
 
@@ -56,6 +57,32 @@ class LevelShuffle(Choice):
     option_same_world = 1
     option_shuffled = 2
     default = 0
+
+
+class BossShuffle(PlandoBosses):
+    """
+    None: Bosses will remain in their vanilla locations
+    Shuffled: Bosses will be shuffled amongst each other
+    Full: Bosses will be randomized
+    Singularity: All (non-Zero) bosses will be replaced with a single boss
+    Supports plando placement.
+    """
+    bosses = frozenset(LocationName.boss_names.keys())
+
+    locations = frozenset(LocationName.level_names_inverse.keys())
+
+    duplicate_bosses = True
+
+    @classmethod
+    def can_place_boss(cls, boss: str, location: str) -> bool:
+        # Kirby has no logic about requiring bosses in specific locations (since we load in their stage)
+        return True
+
+    display_name = "Boss Shuffle"
+    option_none = 0
+    option_shuffled = 1
+    option_full = 2
+    option_singularity = 3
 
 
 class BossRequirementRandom(Toggle):

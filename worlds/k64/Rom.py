@@ -144,7 +144,7 @@ class K64PatchExtension(APPatchExtension):
     game = "Kirby 64 - The Crystal Shards"
     @staticmethod
     def apply_basepatch(_: APProcedurePatch, rom: bytes):
-        return bsdiff4.patch(rom, pkgutil.get_data(__name__, os.path.join("data", "k64basepatch.bsdiff4")))
+        return bsdiff4.patch(rom, pkgutil.get_data(__name__, os.path.join("data", "k64_basepatch.bsdiff4")))
 
 
 class K64ProcedurePatch(APProcedurePatch, APTokenMixin):
@@ -209,6 +209,7 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
 
     patch.write_byte(0x1FFF220, world.options.split_power_combos.value)
     patch.write_byte(0x1FFF221, world.options.death_link.value)
+    patch.write_byte(0x1FFF222, world.options.goal_speed.value)
     level_counter = 0
     for level in world.player_levels:
         for stage in world.player_levels[level]:

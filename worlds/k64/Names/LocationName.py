@@ -111,3 +111,13 @@ level_names = {
 }
 
 level_names_inverse = {level_names[idx]: idx for idx in level_names}
+
+boss_names = {
+    "Whispy Woods": 0x640200,
+    "Pix": 0x640201,
+    "Acro": 0x640202,
+    "Magman": 0x640203,
+    "HR-H": 0x640204,
+    "Miracle Matter": 0x640205,
+
+}
