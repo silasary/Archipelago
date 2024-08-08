@@ -87,8 +87,14 @@ class TrackerGameContext(CommonContext):
     tracker_failed = False
     re_gen_passthrough = None
 
-    def __init__(self, server_address, password):
-        super().__init__(server_address, password)
+    def __init__(self, server_address, password, no_connection: bool = False):
+        if no_connection:
+            from worlds import network_data_package
+            self.item_names = self.NameLookupDict(self, "item")
+            self.location_names = self.NameLookupDict(self, "location")
+            self.update_data_package(network_data_package)
+        else:
+            super().__init__(server_address, password)
         self.items_handling = ITEMS_HANDLING
         self.locations_checked = []
         self.locations_available = []
@@ -489,9 +495,10 @@ def updateTracker(ctx: TrackerGameContext):
             pass
     events = [location.item.name for location in state.events if location.player == ctx.player_id]
 
-    ctx.tracker_page.refresh_from_data()
+    if ctx.tracker_page:
+        ctx.tracker_page.refresh_from_data()
     ctx.locations_available = locations
-    if f"_read_hints_{ctx.team}_{ctx.slot}" in ctx.stored_data:
+    if ctx.ui and f"_read_hints_{ctx.team}_{ctx.slot}" in ctx.stored_data:
         ctx.ui.update_hints()
     if ctx.update_callback is not None:
         ctx.update_callback(callback_list)
