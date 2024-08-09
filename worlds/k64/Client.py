@@ -219,8 +219,9 @@ class K64Client(BizHawkClient):
 
             self.split_power_combos = bool(split_power_combos[0])
 
-        halken, is_demo, stage_array, boss_crystals, crystal_array,\
-        copy_ability, crystals, recv_index, health = await read(ctx.bizhawk_ctx, [
+        (halken, is_demo, stage_array, boss_crystals, crystal_array,
+         copy_ability, crystals, recv_index, health, health_visual,
+         lives, lives_visual) = await read(ctx.bizhawk_ctx, [
             (K64_SAVE_ADDRESS, 16, "RDRAM"),
             (K64_IS_DEMO, 4, "RDRAM"),
             (K64_STAGE_STATUSES, 42, "RDRAM"),
@@ -229,7 +230,10 @@ class K64Client(BizHawkClient):
             (K64_COPY_ABILITY, 8, "RDRAM"),
             (K64_CRYSTAL_ADDRESS, 4, "RDRAM"),
             (K64_RECV_INDEX, 4, "RDRAM"),
-            (K64_KIRBY_HEALTH_VISUAL, 4, "RDRAM")
+            (K64_KIRBY_HEALTH, 4, "RDRAM"),
+            (K64_KIRBY_HEALTH_VISUAL, 4, "RDRAM"),
+            (K64_KIRBY_LIVES, 4, "RDRAM"),
+            (K64_KIRBY_LIVES_VISUAL, 4, "RDRAM")
         ])
 
         if halken != b'-HALKEN--KIRBY4-':
@@ -254,7 +258,19 @@ class K64Client(BizHawkClient):
             elif item.item == 0x640020:
                 # crystal shard
                 writes.append((K64_CRYSTAL_ADDRESS, struct.pack(">I", struct.unpack(">I", crystals)[0] + 1), "RDRAM"))
-
+            elif item.item == 0x640021:
+                # 1-Up
+                current_lives = int.from_bytes(lives, "big")
+                writes.extend([
+                    (K64_KIRBY_LIVES, struct.pack(">I", current_lives + 1), "RDRAM"),
+                    (K64_KIRBY_LIVES_VISUAL, struct.pack(">I", current_lives + 1), "RDRAM"),
+                ])
+            elif item.item == 0x640022:
+                # Maxim Tomato
+                writes.extend([
+                    (K64_KIRBY_HEALTH, struct.pack(">f", 6), "RDRAM"),
+                    (K64_KIRBY_HEALTH_VISUAL, struct.pack(">I", 6), "RDRAM"),
+                ])
 
         await write(ctx.bizhawk_ctx, writes)
         new_checks = []

@@ -35,7 +35,7 @@ jal     AllowFinalBoss
 nop
 
 .org 0x800A3E30
-lw      t5, 0x6C64 (t5)
+lw      t5, 0x6C78 (t5)
 addiu   at, r0, 0x0001
 addiu   a0, r0, 0x000D
 bne     t5, at, 0x800A3F4C
@@ -64,7 +64,7 @@ lui     at, 0x800D
 ld      t0, 0x6C68 (at) // Get Copy Ability Flag dw
 addiu   t7, r0, 0x0001
 addiu   t2, v0, -0x0001
-sllv    t7, t7, t2      // Shift current ability to match
+dsllv    t7, t7, t2      // Shift current ability to match
 and     t0, t0, t7
 bnez    t0, @@ReturnToSwallow // we are allowed to use the ability
 nop
@@ -106,6 +106,16 @@ nop
 @@HasCrystals:
 addiu   t2, v0, 0x0001
 @@ReturnToStageClear:
+lui     t1, 0xB200
+lb      t3, 0xF222 (t1)
+blez    t3, @@SkipFast
+lw      t1, 0x6C70 (at)
+lb      t3, 0xF105 (t1)
+sub     t3, t1, t3
+bltz    t3, @@SkipFast
+addiu   t2, v0, 0x0064
+sw      t2, 0x6C78 (at)
+@@SkipFast:
 j       0x800B9C50
 sw      t2, 0x6B94 (at)
 
@@ -151,7 +161,7 @@ addiu   sp, sp, 0x10
 AllowFinalBoss:
 lui     at, 0x800D
 sw      s2, 0x6B94 (at)
-sw      s2, 0x6C64 (at)
+sw      s2, 0x6C78 (at)
 jr      ra
 
 RedirectStage:
@@ -169,8 +179,23 @@ addiu   t5, r0, 0x000F
 jr      ra
 sw      t3, 0x0000 (v0)
 
+DeathLink:
+lui     at, 0x800D
+lw      t0, 0x6C7C (at)
+blez    t0, @@CheckCollision
+sw      r0, 0x6C7C (at)
+jr      ra
+addiu   v0, r0, 0x01
+@@CheckCollision:
+j       0x8010474C
+nop
+
+
 .org 0x8011E1BC // write our jump
 jal     CopyAbilityBlocker
+
+.org 0x80121354
+jal     DeathLink
 
 .headersize 0x80151100 - 0xF8630 // ovl3
 
@@ -188,7 +213,7 @@ nop
 nop                     // remove percentage check
 lui     t6, 0x800D
 lw      t7, 0x6B90 (t6)
-lw      v0, 0x6C64 (t6) // read from save area for cutscene check
+lw      v0, 0x6C78 (t6) // read from save area for cutscene check
 addiu   a0, r0, 0x000D
 bnez    v0, 0x801587BC
 
