@@ -36,6 +36,8 @@ logger = logging.getLogger("Client")
 
 DEBUG = False
 ITEMS_HANDLING = 0b111
+# REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "needs_regen", False)}  # TODO
+REGEN_WORLDS = set()
 
 
 class TrackerCommandProcessor(ClientCommandProcessor):
@@ -110,6 +112,8 @@ class TrackerGameContext(CommonContext):
     hide_excluded = False
     tracker_failed = False
     re_gen_passthrough = None
+    cached_multiworlds = []
+    cached_slot_data = []
 
     def __init__(self, server_address, password, no_connection: bool = False):
         if no_connection:
@@ -124,6 +128,7 @@ class TrackerGameContext(CommonContext):
         self.locations_available = []
         self.datapackage = []
         self.multiworld: MultiWorld = None
+        self.launch_multiworld: MultiWorld = None
         self.player_id = None
         self.manual_items = []
 
@@ -378,15 +383,42 @@ class TrackerGameContext(CommonContext):
 
     def on_package(self, cmd: str, args: dict):
         if cmd == 'Connected':
-            if self.multiworld is None:
+            if self.launch_multiworld is None:
                 self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch", False)
                 return
-            player_ids = [i for i, n in self.multiworld.player_name.items() if n == self.player_names[self.slot]]
-            if len(player_ids) < 1:
+            self.game = args["slot_info"][str(args["slot"])][1]
+            slot_name = self.player_names.get(self.slot, None)
+            if slot_name in self.launch_multiworld.world_name_lookup:
+                internal_id = self.launch_multiworld.world_name_lookup[slot_name]
+                if self.launch_multiworld.worlds[internal_id].game == self.game:
+                    self.multiworld = self.launch_multiworld
+                    self.player_id = internal_id
+                    if callable(getattr(self.multiworld.worlds[self.player_id], "interpret_slot_data", None)):
+                        temp = self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
+
+                        # back compat for worlds that trigger regen with interpret_slot_data, will remove eventually
+                        if temp:
+                            self.player_id = 1
+                            self.re_gen_passthrough = {self.game: temp}
+                            self.run_generator(args["slot_data"])
+                elif self.launch_multiworld.worlds[internal_id].game == "Archipelago":
+                    connected_cls = AutoWorld.AutoWorldRegister.world_types[self.game]
+                    # TODO change this function name to the new API
+                    if callable(getattr(connected_cls, "interpret_slot_data", None)):
+                        # we skipped their world in launch_gen so gen a single player multi for the slot
+                        temp = connected_cls.interpret_slot_data(args["slot_data"])
+                        # temp = self.launch_multiworld.worlds[internal_id].interpret_slot_data(args["slot_data"])
+                        self.player_id = 1
+                        self.re_gen_passthrough = {self.game: temp}
+                        self.run_generator(args["slot_data"])
+                    else:
+                        raise "TODO: add error - something went very wrong with interpret_slot_data"
+                else:
+                    raise "TODO: add error - something went very wrong with matching world to slot"
+            else:
+                # TODO consider allowing worlds that self-attest to not need an options file for UT
                 self.log_to_tab("Player's Yaml not in tracker's list", False)
                 return
-            self.player_id = player_ids[0]  # should only really ever be one match
-            self.game = args["slot_info"][str(args["slot"])][1]
 
             if self.ui is not None and getattr(self.multiworld.worlds[self.player_id], "tracker_world", None):
                 self.tracker_world = UTMapTabData(**self.multiworld.worlds[self.player_id].tracker_world)
@@ -394,13 +426,6 @@ class TrackerGameContext(CommonContext):
                 self.ui.tabs.show_map = True
             else:
                 self.tracker_world = None
-
-            if callable(getattr(self.multiworld.worlds[self.player_id], "interpret_slot_data", None)):
-                temp = self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
-                if temp:
-                    self.re_gen_passthrough = {self.game: temp}
-                    self.run_generator()
-
             updateTracker(self)
             self.watcher_task = asyncio.create_task(game_watcher(self), name="GameWatcher")
         elif cmd == 'RoomUpdate':
@@ -412,6 +437,8 @@ class TrackerGameContext(CommonContext):
             self.re_gen_passthrough = None
             self.ui.tabs.show_map = False
             self.tracker_world = None
+            self.multiworld = None
+
         await super().disconnect(allow_autoreconnect)
 
     def _set_host_settings(self, host):
@@ -437,7 +464,7 @@ class TrackerGameContext(CommonContext):
         return host['universal_tracker']['player_files_path'], report_type, host['universal_tracker'][
             'hide_excluded_locations']
 
-    def run_generator(self):
+    def run_generator(self, slot_data: Optional[Dict] = None):
         try:
             host = get_settings()
             yaml_path, self.output_format, self.hide_excluded = self._set_host_settings(host)
@@ -447,7 +474,32 @@ class TrackerGameContext(CommonContext):
             if yaml_path:
                 args.player_files_path = yaml_path
             args.skip_output = True
-            self.multiworld = self.TMain(*GMain(args))
+
+            g_args, seed = GMain(args)
+            if slot_data:
+                if slot_data in self.cached_slot_data:
+                    print("found cached multiworld!")
+                    index = next(i for i, s in enumerate(self.cached_slot_data) if s == slot_data)
+                    self.multiworld = self.cached_multiworlds[index]
+                    return
+                if not self.game:
+                    raise "No Game found for slot, this should not happen ever"
+                g_args.multi = 1
+                g_args.game = {1: self.game}
+                g_args.player_ids = {1}
+                self.multiworld = self.TMain(g_args, seed)
+                assert len(self.cached_slot_data) == len(self.cached_multiworlds)
+                self.cached_multiworlds.append(self.multiworld)
+                self.cached_slot_data.append(slot_data)
+            else:
+                # skip worlds that we know will regen on connect
+                g_args.game = {
+                    slot: game if game not in REGEN_WORLDS else "Archipelago"
+                    for slot, game in g_args.game.items()
+                    }
+                self.launch_multiworld = self.TMain(g_args, seed)
+                self.multiworld = self.launch_multiworld
+
             temp_precollect = {}
             for player_id, items in self.multiworld.precollected_items.items():
                 temp_items = [item for item in items if item.code == None]
@@ -730,6 +782,7 @@ def launch():
             args.password = urllib.parse.unquote(url.password)
 
     asyncio.run(main(args))
+
 
 if __name__ == "__main__":
     launch()
