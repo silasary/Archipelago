@@ -26,7 +26,7 @@ class UTMapTabData:
     map_page_locations:List[str]
     """The relative paths within the map_page_folder of the location.json"""
 
-    def __init__(self, map_page_folder:str, map_page_maps:Union[List[str],str], map_page_locations:Union[List[str],str]):
+    def __init__(self, map_page_folder:str="", map_page_maps:Union[List[str],str]="", map_page_locations:Union[List[str],str]=""):
         self.map_page_folder=map_page_folder
         if isinstance(map_page_maps,str):
             self.map_page_maps = [map_page_maps]

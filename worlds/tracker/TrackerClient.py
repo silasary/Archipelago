@@ -389,7 +389,7 @@ class TrackerGameContext(CommonContext):
             self.game = args["slot_info"][str(args["slot"])][1]
 
             if self.ui is not None and getattr(self.multiworld.worlds[self.player_id], "tracker_world", None):
-                self.tracker_world = self.multiworld.worlds[self.player_id].tracker_world
+                self.tracker_world = UTMapTabData(**self.multiworld.worlds[self.player_id].tracker_world)
                 self.load_pack()
                 self.ui.tabs.show_map = True
             else:
