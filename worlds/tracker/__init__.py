@@ -1,7 +1,8 @@
 
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
-from typing import Dict, Optional, List, Any, Union
-
+from typing import Dict, Optional, List, Any, Union, ClassVar
+from settings import Group, Bool, LocalFolderPath, _world_settings_name_cache
+from worlds.AutoWorld import World
 
 def launch_client():
     import sys
@@ -11,8 +12,36 @@ def launch_client():
     else:
         TCMain()
 
-class TrackerWorld:
-    pass
+
+class TrackerSettings(Group):
+    class TrackerPlayersPath(LocalFolderPath):
+        """Players folder for UT look for YAMLs"""
+
+    class RegionNameBool(Bool):
+        """Show Region names in the UT tab"""
+
+    class LocationNameBool(Bool):
+        """Show Location names in the UT tab"""
+
+    class HideExcluded(Bool):
+        """Have the UT tab ignore excluded locations"""
+
+    player_files_path: TrackerPlayersPath = TrackerPlayersPath("Players")
+    include_region_name: Union[RegionNameBool, bool] = False
+    include_location_name: Union[LocationNameBool, bool] = True
+    hide_excluded_locations: Union[HideExcluded, bool] = False
+
+
+class TrackerWorld(World):
+    settings: ClassVar[TrackerSettings]
+    settings_key = "universal_tracker"
+
+    # to make auto world register happy so we can register our settings
+    game = "Universal Tracker"
+    hidden = True
+    item_name_to_id = {}
+    location_name_to_id = {}
+
 
 class UTMapTabData:
     """The holding class for all the poptracker integration values"""
