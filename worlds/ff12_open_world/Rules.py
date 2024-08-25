@@ -343,7 +343,6 @@ rule_data_list: List[Callable[[CollectionState, int], bool]] = [
     state.has("Jovy", player, 5),  # Rule 103
     lambda state, player:
     (state.has("Paramina Rift", player) and
-     state.has("Dawn Shard", player) and
      state.has("Stone of the Condemner", player)),  # Rule 104
     lambda state, player:
     (state.has("Shelled Trophy", player) and
@@ -2666,9 +2665,9 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Earth Tyrant Quest Windvane (1)": rule_data_list[93],
     "Earth Tyrant Quest Windvane (2)": rule_data_list[93],
     "Earth Tyrant Quest Windvane (3)": rule_data_list[93],
-    "White Mouse Drop (1)": rule_data_list[9],
-    "White Mouse Drop (2)": rule_data_list[9],
-    "White Mouse Drop (3)": rule_data_list[9],
+    "White Mousse Drop (1)": rule_data_list[9],
+    "White Mousse Drop (2)": rule_data_list[9],
+    "White Mousse Drop (3)": rule_data_list[9],
     "Sorbet Sluice Gate Key (1)": rule_data_list[43],
     "Sorbet Sluice Gate Key (2)": rule_data_list[43],
     "Sorbet Sluice Gate Key (3)": rule_data_list[43],
@@ -2756,9 +2755,9 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Medallion of Might (1)": rule_data_list[102],
     "Medallion of Might (2)": rule_data_list[102],
     "Medallion of Might (3)": rule_data_list[102],
-    "Viera Rendeveous (1)": rule_data_list[9],
-    "Viera Rendeveous (2)": rule_data_list[9],
-    "Viera Rendeveous (3)": rule_data_list[9],
+    "Viera Rendezvous (1)": rule_data_list[9],
+    "Viera Rendezvous (2)": rule_data_list[9],
+    "Viera Rendezvous (3)": rule_data_list[9],
     "Ktjn Reward (1)": rule_data_list[54],
     "Ktjn Reward (2)": rule_data_list[54],
     "Ktjn Reward (3)": rule_data_list[54],

@@ -18624,7 +18624,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "White Mouse Drop (1)": FF12OpenWorldLocationData(
+    "White Mousse Drop (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2128,
         classification=LocationProgressType.DEFAULT,
@@ -18632,7 +18632,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9172",
         difficulty=5
     ),
-    "White Mouse Drop (2)": FF12OpenWorldLocationData(
+    "White Mousse Drop (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2129,
         classification=LocationProgressType.DEFAULT,
@@ -18641,7 +18641,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "White Mouse Drop (3)": FF12OpenWorldLocationData(
+    "White Mousse Drop (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2130,
         classification=LocationProgressType.DEFAULT,
@@ -19398,7 +19398,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Viera Rendeveous (1)": FF12OpenWorldLocationData(
+    "Viera Rendezvous (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2218,
         classification=LocationProgressType.DEFAULT,
@@ -19406,7 +19406,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9056",
         difficulty=1
     ),
-    "Viera Rendeveous (2)": FF12OpenWorldLocationData(
+    "Viera Rendezvous (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2219,
         classification=LocationProgressType.DEFAULT,
@@ -19415,7 +19415,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Viera Rendeveous (3)": FF12OpenWorldLocationData(
+    "Viera Rendezvous (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2220,
         classification=LocationProgressType.DEFAULT,
