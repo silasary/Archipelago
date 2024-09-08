@@ -14312,14 +14312,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="ztc_c04",
         difficulty=5
     ),
-    "Tomaj 1 (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1618,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9000"
     ),
-    "Tomaj 1 (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1619,
         classification=LocationProgressType.DEFAULT,
@@ -14327,7 +14327,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9000",
         secondary_index=1
     ),
-    "Tomaj 1 (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1620,
         classification=LocationProgressType.DEFAULT,
@@ -14335,14 +14335,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9000",
         secondary_index=2
     ),
-    "Tomaj 2 (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1621,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="916B"
     ),
-    "Tomaj 2 (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1622,
         classification=LocationProgressType.DEFAULT,
@@ -14350,7 +14350,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916B",
         secondary_index=1
     ),
-    "Tomaj 2 (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1623,
         classification=LocationProgressType.DEFAULT,
@@ -14358,14 +14358,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916B",
         secondary_index=2
     ),
-    "Tomaj 3 (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 3 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1624,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="916C"
     ),
-    "Tomaj 3 (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 3 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1625,
         classification=LocationProgressType.DEFAULT,
@@ -14373,7 +14373,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916C",
         secondary_index=1
     ),
-    "Tomaj 3 (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Tomaj 3 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1626,
         classification=LocationProgressType.DEFAULT,
@@ -14381,14 +14381,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916C",
         secondary_index=2
     ),
-    "Masyua Shadestone (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Masyua Shadestone Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1627,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9002"
     ),
-    "Masyua Shadestone (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Masyua Shadestone Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1628,
         classification=LocationProgressType.DEFAULT,
@@ -14396,7 +14396,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9002",
         secondary_index=1
     ),
-    "Masyua Shadestone (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Masyua Shadestone Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1629,
         classification=LocationProgressType.DEFAULT,
@@ -14404,7 +14404,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9002",
         secondary_index=2
     ),
-    "Giza Sunstone (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Giza Sunstone Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1630,
         classification=LocationProgressType.DEFAULT,
@@ -14412,7 +14412,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9001",
         difficulty=1
     ),
-    "Giza Sunstone (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Giza Sunstone Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1631,
         classification=LocationProgressType.DEFAULT,
@@ -14421,7 +14421,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Giza Sunstone (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Giza Sunstone Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1632,
         classification=LocationProgressType.DEFAULT,
@@ -14430,14 +14430,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Dalan Crescent Stone (1)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Crescent Stone Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1633,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="905E"
     ),
-    "Dalan Crescent Stone (2)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Crescent Stone Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1634,
         classification=LocationProgressType.DEFAULT,
@@ -14445,7 +14445,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="905E",
         secondary_index=1
     ),
-    "Dalan Crescent Stone (3)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Crescent Stone Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1635,
         classification=LocationProgressType.DEFAULT,
@@ -14453,14 +14453,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="905E",
         secondary_index=2
     ),
-    "Dalan Sword of the Order (1)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Sword of the Order Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1636,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="905F"
     ),
-    "Dalan Sword of the Order (2)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Sword of the Order Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1637,
         classification=LocationProgressType.DEFAULT,
@@ -14468,7 +14468,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="905F",
         secondary_index=1
     ),
-    "Dalan Sword of the Order (3)": FF12OpenWorldLocationData(
+    "Lowtown - Dalan Sword of the Order Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1638,
         classification=LocationProgressType.DEFAULT,
@@ -14476,14 +14476,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="905F",
         secondary_index=2
     ),
-    "Balzac Sword of the Order Turn In (1)": FF12OpenWorldLocationData(
+    "Lowtown - Balzac Sword of the Order Turn In Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1639,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="911E"
     ),
-    "Balzac Sword of the Order Turn In (2)": FF12OpenWorldLocationData(
+    "Lowtown - Balzac Sword of the Order Turn In Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1640,
         classification=LocationProgressType.DEFAULT,
@@ -14491,7 +14491,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911E",
         secondary_index=1
     ),
-    "Balzac Sword of the Order Turn In (3)": FF12OpenWorldLocationData(
+    "Lowtown - Balzac Sword of the Order Turn In Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1641,
         classification=LocationProgressType.DEFAULT,
@@ -14499,7 +14499,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911E",
         secondary_index=2
     ),
-    "No. 1 Brig Key (1)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - No. 1 Brig Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1642,
         classification=LocationProgressType.DEFAULT,
@@ -14507,7 +14507,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9060",
         difficulty=1
     ),
-    "No. 1 Brig Key (2)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - No. 1 Brig Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1643,
         classification=LocationProgressType.DEFAULT,
@@ -14516,7 +14516,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "No. 1 Brig Key (3)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - No. 1 Brig Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1644,
         classification=LocationProgressType.DEFAULT,
@@ -14525,7 +14525,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Systems Access Key (1)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Systems Access Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1645,
         classification=LocationProgressType.DEFAULT,
@@ -14533,7 +14533,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9061",
         difficulty=1
     ),
-    "Systems Access Key (2)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Systems Access Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1646,
         classification=LocationProgressType.DEFAULT,
@@ -14542,7 +14542,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Systems Access Key (3)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Systems Access Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1647,
         classification=LocationProgressType.DEFAULT,
@@ -14551,7 +14551,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Manufacted Nethicite (1)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Manufacted Nethicite Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1648,
         classification=LocationProgressType.DEFAULT,
@@ -14559,7 +14559,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="912C",
         difficulty=1
     ),
-    "Manufacted Nethicite (2)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Manufacted Nethicite Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1649,
         classification=LocationProgressType.DEFAULT,
@@ -14568,7 +14568,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Manufacted Nethicite (3)": FF12OpenWorldLocationData(
+    "Dreadnought Leviathan - Manufacted Nethicite Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1650,
         classification=LocationProgressType.DEFAULT,
@@ -14577,7 +14577,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Eksir Berries (1)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Eksir Berries Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1651,
         classification=LocationProgressType.DEFAULT,
@@ -14585,7 +14585,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="912D",
         difficulty=1
     ),
-    "Eksir Berries (2)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Eksir Berries Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1652,
         classification=LocationProgressType.DEFAULT,
@@ -14594,7 +14594,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Eksir Berries (3)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Eksir Berries Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1653,
         classification=LocationProgressType.DEFAULT,
@@ -14603,7 +14603,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Defeat Belias (1)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Belias Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1654,
         classification=LocationProgressType.DEFAULT,
@@ -14611,7 +14611,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9190",
         difficulty=2
     ),
-    "Defeat Belias (2)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Belias Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1655,
         classification=LocationProgressType.DEFAULT,
@@ -14620,7 +14620,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Defeat Belias (3)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Belias Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1656,
         classification=LocationProgressType.DEFAULT,
@@ -14629,7 +14629,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Dawn Shard (1)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Dawn Shard Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1657,
         classification=LocationProgressType.DEFAULT,
@@ -14637,7 +14637,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="912E",
         difficulty=2
     ),
-    "Dawn Shard (2)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Dawn Shard Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1658,
         classification=LocationProgressType.DEFAULT,
@@ -14646,7 +14646,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Dawn Shard (3)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Dawn Shard Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1659,
         classification=LocationProgressType.DEFAULT,
@@ -14655,7 +14655,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Defeat Vossler (1)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Vossler Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1660,
         classification=LocationProgressType.DEFAULT,
@@ -14663,7 +14663,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918E",
         difficulty=2
     ),
-    "Defeat Vossler (2)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Vossler Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1661,
         classification=LocationProgressType.DEFAULT,
@@ -14672,7 +14672,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Defeat Vossler (3)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Defeat Vossler Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1662,
         classification=LocationProgressType.DEFAULT,
@@ -14681,7 +14681,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Goddess's Magicite (1)": FF12OpenWorldLocationData(
+    "Royal Palace - Goddess's Magicite Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1663,
         classification=LocationProgressType.DEFAULT,
@@ -14689,7 +14689,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="912F",
         difficulty=1
     ),
-    "Goddess's Magicite (2)": FF12OpenWorldLocationData(
+    "Royal Palace - Goddess's Magicite Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1664,
         classification=LocationProgressType.DEFAULT,
@@ -14698,7 +14698,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Goddess's Magicite (3)": FF12OpenWorldLocationData(
+    "Royal Palace - Goddess's Magicite Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1665,
         classification=LocationProgressType.DEFAULT,
@@ -14707,7 +14707,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Burrough Tube Fuse (1)": FF12OpenWorldLocationData(
+    "Barheim Passage - Burrough Tube Fuse Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1666,
         classification=LocationProgressType.DEFAULT,
@@ -14715,7 +14715,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9130",
         difficulty=1
     ),
-    "Burrough Tube Fuse (2)": FF12OpenWorldLocationData(
+    "Barheim Passage - Burrough Tube Fuse Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1667,
         classification=LocationProgressType.DEFAULT,
@@ -14724,7 +14724,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Burrough Tube Fuse (3)": FF12OpenWorldLocationData(
+    "Barheim Passage - Burrough Tube Fuse Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1668,
         classification=LocationProgressType.DEFAULT,
@@ -14733,7 +14733,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Great-chief Elder After Defeating Vossler (1)": FF12OpenWorldLocationData(
+    "Jahara - Great-chief Elder After Defeating Vossler Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1669,
         classification=LocationProgressType.DEFAULT,
@@ -14741,7 +14741,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911F",
         difficulty=2
     ),
-    "Great-chief Elder After Defeating Vossler (2)": FF12OpenWorldLocationData(
+    "Jahara - Great-chief Elder After Defeating Vossler Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1670,
         classification=LocationProgressType.DEFAULT,
@@ -14750,7 +14750,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Great-chief Elder After Defeating Vossler (3)": FF12OpenWorldLocationData(
+    "Jahara - Great-chief Elder After Defeating Vossler Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1671,
         classification=LocationProgressType.DEFAULT,
@@ -14759,7 +14759,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Lente's Tear (1)": FF12OpenWorldLocationData(
+    "Eruyt Village - Lente's Tear Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1672,
         classification=LocationProgressType.DEFAULT,
@@ -14767,7 +14767,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9131",
         difficulty=2
     ),
-    "Lente's Tear (2)": FF12OpenWorldLocationData(
+    "Eruyt Village - Lente's Tear Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1673,
         classification=LocationProgressType.DEFAULT,
@@ -14776,7 +14776,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Lente's Tear (3)": FF12OpenWorldLocationData(
+    "Eruyt Village - Lente's Tear Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1674,
         classification=LocationProgressType.DEFAULT,
@@ -14785,7 +14785,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Defeat Mateus (1)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Mateus Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1675,
         classification=LocationProgressType.DEFAULT,
@@ -14793,7 +14793,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9191",
         difficulty=2
     ),
-    "Defeat Mateus (2)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Mateus Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1676,
         classification=LocationProgressType.DEFAULT,
@@ -14802,7 +14802,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Defeat Mateus (3)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Mateus Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1677,
         classification=LocationProgressType.DEFAULT,
@@ -14811,7 +14811,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Sword of Kings (1)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Sword of Kings Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1678,
         classification=LocationProgressType.DEFAULT,
@@ -14819,7 +14819,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9132",
         difficulty=2
     ),
-    "Sword of Kings (2)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Sword of Kings Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1679,
         classification=LocationProgressType.DEFAULT,
@@ -14828,7 +14828,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Sword of Kings (3)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Sword of Kings Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1680,
         classification=LocationProgressType.DEFAULT,
@@ -14837,7 +14837,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Soul Ward Key (1)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Soul Ward Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1681,
         classification=LocationProgressType.DEFAULT,
@@ -14845,7 +14845,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9133",
         difficulty=3
     ),
-    "Soul Ward Key (2)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Soul Ward Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1682,
         classification=LocationProgressType.DEFAULT,
@@ -14854,7 +14854,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Soul Ward Key (3)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Soul Ward Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1683,
         classification=LocationProgressType.DEFAULT,
@@ -14863,7 +14863,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Mandragora Reward (1)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Mandragora Reward Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1684,
         classification=LocationProgressType.DEFAULT,
@@ -14871,7 +14871,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9052",
         difficulty=3
     ),
-    "Mandragora Reward (2)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Mandragora Reward Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1685,
         classification=LocationProgressType.DEFAULT,
@@ -14880,7 +14880,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Mandragora Reward (3)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Mandragora Reward Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1686,
         classification=LocationProgressType.DEFAULT,
@@ -14889,7 +14889,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Defeat Cid 1 (1)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Defeat Cid 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1687,
         classification=LocationProgressType.DEFAULT,
@@ -14897,7 +14897,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918D",
         difficulty=5
     ),
-    "Defeat Cid 1 (2)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Defeat Cid 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1688,
         classification=LocationProgressType.DEFAULT,
@@ -14906,7 +14906,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Defeat Cid 1 (3)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Defeat Cid 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1689,
         classification=LocationProgressType.DEFAULT,
@@ -14915,14 +14915,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Pinewood Chop 1 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1690,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9134"
     ),
-    "Pinewood Chop 1 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1691,
         classification=LocationProgressType.DEFAULT,
@@ -14930,7 +14930,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9134",
         secondary_index=1
     ),
-    "Pinewood Chop 1 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1692,
         classification=LocationProgressType.DEFAULT,
@@ -14938,14 +14938,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9134",
         secondary_index=2
     ),
-    "Pinewood Chop 2 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1693,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9135"
     ),
-    "Pinewood Chop 2 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1694,
         classification=LocationProgressType.DEFAULT,
@@ -14953,7 +14953,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9135",
         secondary_index=1
     ),
-    "Pinewood Chop 2 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1695,
         classification=LocationProgressType.DEFAULT,
@@ -14961,14 +14961,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9135",
         secondary_index=2
     ),
-    "Pinewood Chop 3 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 3 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1696,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9136"
     ),
-    "Pinewood Chop 3 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 3 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1697,
         classification=LocationProgressType.DEFAULT,
@@ -14976,7 +14976,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9136",
         secondary_index=1
     ),
-    "Pinewood Chop 3 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 3 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1698,
         classification=LocationProgressType.DEFAULT,
@@ -14984,14 +14984,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9136",
         secondary_index=2
     ),
-    "Pinewood Chop 4 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 4 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1699,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9137"
     ),
-    "Pinewood Chop 4 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 4 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1700,
         classification=LocationProgressType.DEFAULT,
@@ -14999,7 +14999,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9137",
         secondary_index=1
     ),
-    "Pinewood Chop 4 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 4 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1701,
         classification=LocationProgressType.DEFAULT,
@@ -15007,14 +15007,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9137",
         secondary_index=2
     ),
-    "Pinewood Chop 5 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 5 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1702,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9138"
     ),
-    "Pinewood Chop 5 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 5 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1703,
         classification=LocationProgressType.DEFAULT,
@@ -15022,7 +15022,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9138",
         secondary_index=1
     ),
-    "Pinewood Chop 5 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 5 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1704,
         classification=LocationProgressType.DEFAULT,
@@ -15030,14 +15030,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9138",
         secondary_index=2
     ),
-    "Pinewood Chop 6 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 6 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1705,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9139"
     ),
-    "Pinewood Chop 6 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 6 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1706,
         classification=LocationProgressType.DEFAULT,
@@ -15045,7 +15045,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9139",
         secondary_index=1
     ),
-    "Pinewood Chop 6 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 6 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1707,
         classification=LocationProgressType.DEFAULT,
@@ -15053,14 +15053,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9139",
         secondary_index=2
     ),
-    "Pinewood Chop 7 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 7 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1708,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913A"
     ),
-    "Pinewood Chop 7 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 7 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1709,
         classification=LocationProgressType.DEFAULT,
@@ -15068,7 +15068,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913A",
         secondary_index=1
     ),
-    "Pinewood Chop 7 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 7 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1710,
         classification=LocationProgressType.DEFAULT,
@@ -15076,14 +15076,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913A",
         secondary_index=2
     ),
-    "Pinewood Chop 8 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 8 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1711,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913B"
     ),
-    "Pinewood Chop 8 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 8 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1712,
         classification=LocationProgressType.DEFAULT,
@@ -15091,7 +15091,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913B",
         secondary_index=1
     ),
-    "Pinewood Chop 8 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 8 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1713,
         classification=LocationProgressType.DEFAULT,
@@ -15099,14 +15099,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913B",
         secondary_index=2
     ),
-    "Pinewood Chop 9 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 9 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1714,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913C"
     ),
-    "Pinewood Chop 9 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 9 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1715,
         classification=LocationProgressType.DEFAULT,
@@ -15114,7 +15114,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913C",
         secondary_index=1
     ),
-    "Pinewood Chop 9 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 9 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1716,
         classification=LocationProgressType.DEFAULT,
@@ -15122,14 +15122,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913C",
         secondary_index=2
     ),
-    "Pinewood Chop 10 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 10 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1717,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913D"
     ),
-    "Pinewood Chop 10 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 10 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1718,
         classification=LocationProgressType.DEFAULT,
@@ -15137,7 +15137,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913D",
         secondary_index=1
     ),
-    "Pinewood Chop 10 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 10 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1719,
         classification=LocationProgressType.DEFAULT,
@@ -15145,14 +15145,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913D",
         secondary_index=2
     ),
-    "Pinewood Chop 11 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 11 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1720,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913E"
     ),
-    "Pinewood Chop 11 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 11 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1721,
         classification=LocationProgressType.DEFAULT,
@@ -15160,7 +15160,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913E",
         secondary_index=1
     ),
-    "Pinewood Chop 11 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 11 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1722,
         classification=LocationProgressType.DEFAULT,
@@ -15168,14 +15168,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913E",
         secondary_index=2
     ),
-    "Pinewood Chop 12 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 12 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1723,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="913F"
     ),
-    "Pinewood Chop 12 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 12 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1724,
         classification=LocationProgressType.DEFAULT,
@@ -15183,7 +15183,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913F",
         secondary_index=1
     ),
-    "Pinewood Chop 12 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 12 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1725,
         classification=LocationProgressType.DEFAULT,
@@ -15191,14 +15191,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="913F",
         secondary_index=2
     ),
-    "Pinewood Chop 13 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 13 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1726,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9140"
     ),
-    "Pinewood Chop 13 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 13 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1727,
         classification=LocationProgressType.DEFAULT,
@@ -15206,7 +15206,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9140",
         secondary_index=1
     ),
-    "Pinewood Chop 13 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 13 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1728,
         classification=LocationProgressType.DEFAULT,
@@ -15214,14 +15214,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9140",
         secondary_index=2
     ),
-    "Pinewood Chop 14 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 14 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1729,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9141"
     ),
-    "Pinewood Chop 14 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 14 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1730,
         classification=LocationProgressType.DEFAULT,
@@ -15229,7 +15229,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9141",
         secondary_index=1
     ),
-    "Pinewood Chop 14 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 14 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1731,
         classification=LocationProgressType.DEFAULT,
@@ -15237,14 +15237,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9141",
         secondary_index=2
     ),
-    "Pinewood Chop 15 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 15 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1732,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9142"
     ),
-    "Pinewood Chop 15 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 15 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1733,
         classification=LocationProgressType.DEFAULT,
@@ -15252,7 +15252,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9142",
         secondary_index=1
     ),
-    "Pinewood Chop 15 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 15 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1734,
         classification=LocationProgressType.DEFAULT,
@@ -15260,14 +15260,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9142",
         secondary_index=2
     ),
-    "Pinewood Chop 16 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 16 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1735,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9143"
     ),
-    "Pinewood Chop 16 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 16 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1736,
         classification=LocationProgressType.DEFAULT,
@@ -15275,7 +15275,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9143",
         secondary_index=1
     ),
-    "Pinewood Chop 16 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 16 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1737,
         classification=LocationProgressType.DEFAULT,
@@ -15283,14 +15283,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9143",
         secondary_index=2
     ),
-    "Pinewood Chop 17 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 17 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1738,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9144"
     ),
-    "Pinewood Chop 17 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 17 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1739,
         classification=LocationProgressType.DEFAULT,
@@ -15298,7 +15298,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9144",
         secondary_index=1
     ),
-    "Pinewood Chop 17 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 17 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1740,
         classification=LocationProgressType.DEFAULT,
@@ -15306,14 +15306,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9144",
         secondary_index=2
     ),
-    "Pinewood Chop 18 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 18 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1741,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9145"
     ),
-    "Pinewood Chop 18 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 18 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1742,
         classification=LocationProgressType.DEFAULT,
@@ -15321,7 +15321,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9145",
         secondary_index=1
     ),
-    "Pinewood Chop 18 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 18 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1743,
         classification=LocationProgressType.DEFAULT,
@@ -15329,14 +15329,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9145",
         secondary_index=2
     ),
-    "Pinewood Chop 19 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 19 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1744,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9146"
     ),
-    "Pinewood Chop 19 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 19 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1745,
         classification=LocationProgressType.DEFAULT,
@@ -15344,7 +15344,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9146",
         secondary_index=1
     ),
-    "Pinewood Chop 19 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 19 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1746,
         classification=LocationProgressType.DEFAULT,
@@ -15352,14 +15352,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9146",
         secondary_index=2
     ),
-    "Pinewood Chop 20 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 20 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1747,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9147"
     ),
-    "Pinewood Chop 20 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 20 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1748,
         classification=LocationProgressType.DEFAULT,
@@ -15367,7 +15367,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9147",
         secondary_index=1
     ),
-    "Pinewood Chop 20 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 20 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1749,
         classification=LocationProgressType.DEFAULT,
@@ -15375,14 +15375,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9147",
         secondary_index=2
     ),
-    "Pinewood Chop 21 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 21 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1750,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9148"
     ),
-    "Pinewood Chop 21 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 21 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1751,
         classification=LocationProgressType.DEFAULT,
@@ -15390,7 +15390,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9148",
         secondary_index=1
     ),
-    "Pinewood Chop 21 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 21 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1752,
         classification=LocationProgressType.DEFAULT,
@@ -15398,14 +15398,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9148",
         secondary_index=2
     ),
-    "Pinewood Chop 22 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 22 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1753,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9149"
     ),
-    "Pinewood Chop 22 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 22 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1754,
         classification=LocationProgressType.DEFAULT,
@@ -15413,7 +15413,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9149",
         secondary_index=1
     ),
-    "Pinewood Chop 22 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 22 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1755,
         classification=LocationProgressType.DEFAULT,
@@ -15421,14 +15421,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9149",
         secondary_index=2
     ),
-    "Pinewood Chop 23 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 23 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1756,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914A"
     ),
-    "Pinewood Chop 23 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 23 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1757,
         classification=LocationProgressType.DEFAULT,
@@ -15436,7 +15436,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914A",
         secondary_index=1
     ),
-    "Pinewood Chop 23 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 23 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1758,
         classification=LocationProgressType.DEFAULT,
@@ -15444,14 +15444,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914A",
         secondary_index=2
     ),
-    "Pinewood Chop 24 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 24 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1759,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914B"
     ),
-    "Pinewood Chop 24 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 24 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1760,
         classification=LocationProgressType.DEFAULT,
@@ -15459,7 +15459,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914B",
         secondary_index=1
     ),
-    "Pinewood Chop 24 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 24 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1761,
         classification=LocationProgressType.DEFAULT,
@@ -15467,14 +15467,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914B",
         secondary_index=2
     ),
-    "Pinewood Chop 25 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 25 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1762,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914C"
     ),
-    "Pinewood Chop 25 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 25 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1763,
         classification=LocationProgressType.DEFAULT,
@@ -15482,7 +15482,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914C",
         secondary_index=1
     ),
-    "Pinewood Chop 25 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 25 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1764,
         classification=LocationProgressType.DEFAULT,
@@ -15490,14 +15490,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914C",
         secondary_index=2
     ),
-    "Pinewood Chop 26 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 26 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1765,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914D"
     ),
-    "Pinewood Chop 26 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 26 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1766,
         classification=LocationProgressType.DEFAULT,
@@ -15505,7 +15505,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914D",
         secondary_index=1
     ),
-    "Pinewood Chop 26 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 26 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1767,
         classification=LocationProgressType.DEFAULT,
@@ -15513,14 +15513,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914D",
         secondary_index=2
     ),
-    "Pinewood Chop 27 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 27 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1768,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914E"
     ),
-    "Pinewood Chop 27 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 27 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1769,
         classification=LocationProgressType.DEFAULT,
@@ -15528,7 +15528,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914E",
         secondary_index=1
     ),
-    "Pinewood Chop 27 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 27 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1770,
         classification=LocationProgressType.DEFAULT,
@@ -15536,14 +15536,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914E",
         secondary_index=2
     ),
-    "Pinewood Chop 28 (1)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 28 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1771,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="914F"
     ),
-    "Pinewood Chop 28 (2)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 28 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1772,
         classification=LocationProgressType.DEFAULT,
@@ -15551,7 +15551,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914F",
         secondary_index=1
     ),
-    "Pinewood Chop 28 (3)": FF12OpenWorldLocationData(
+    "Archades - Pinewood Chop 28 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1773,
         classification=LocationProgressType.DEFAULT,
@@ -15559,7 +15559,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="914F",
         secondary_index=2
     ),
-    "Sandalwood Chop (1)": FF12OpenWorldLocationData(
+    "Archades - Sandalwood Chop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1774,
         classification=LocationProgressType.DEFAULT,
@@ -15567,7 +15567,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9150",
         difficulty=2
     ),
-    "Sandalwood Chop (2)": FF12OpenWorldLocationData(
+    "Archades - Sandalwood Chop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1775,
         classification=LocationProgressType.DEFAULT,
@@ -15576,7 +15576,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Sandalwood Chop (3)": FF12OpenWorldLocationData(
+    "Archades - Sandalwood Chop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1776,
         classification=LocationProgressType.DEFAULT,
@@ -15585,14 +15585,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Lab Access Card (1)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Lab Access Card Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1777,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9151"
     ),
-    "Lab Access Card (2)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Lab Access Card Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1778,
         classification=LocationProgressType.DEFAULT,
@@ -15600,7 +15600,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9151",
         secondary_index=1
     ),
-    "Lab Access Card (3)": FF12OpenWorldLocationData(
+    "Draklor Laboratory - Lab Access Card Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1779,
         classification=LocationProgressType.DEFAULT,
@@ -15608,7 +15608,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9151",
         secondary_index=2
     ),
-    "Defeat Shemhazai (1)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Shemhazai Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1780,
         classification=LocationProgressType.DEFAULT,
@@ -15616,7 +15616,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9192",
         difficulty=5
     ),
-    "Defeat Shemhazai (2)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Shemhazai Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1781,
         classification=LocationProgressType.DEFAULT,
@@ -15625,7 +15625,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Defeat Shemhazai (3)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Shemhazai Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1782,
         classification=LocationProgressType.DEFAULT,
@@ -15634,7 +15634,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Treaty-Blade (1)": FF12OpenWorldLocationData(
+    "Giruvegan - Treaty-Blade Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1783,
         classification=LocationProgressType.DEFAULT,
@@ -15642,7 +15642,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9152",
         difficulty=5
     ),
-    "Treaty-Blade (2)": FF12OpenWorldLocationData(
+    "Giruvegan - Treaty-Blade Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1784,
         classification=LocationProgressType.DEFAULT,
@@ -15651,7 +15651,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Treaty-Blade (3)": FF12OpenWorldLocationData(
+    "Giruvegan - Treaty-Blade Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1785,
         classification=LocationProgressType.DEFAULT,
@@ -15660,7 +15660,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Black Orb 1 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1786,
         classification=LocationProgressType.DEFAULT,
@@ -15668,7 +15668,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9153",
         difficulty=6
     ),
-    "Black Orb 1 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1787,
         classification=LocationProgressType.DEFAULT,
@@ -15677,7 +15677,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Black Orb 1 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1788,
         classification=LocationProgressType.DEFAULT,
@@ -15686,7 +15686,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Black Orb 2 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1789,
         classification=LocationProgressType.DEFAULT,
@@ -15694,7 +15694,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9154",
         difficulty=6
     ),
-    "Black Orb 2 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1790,
         classification=LocationProgressType.DEFAULT,
@@ -15703,7 +15703,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Black Orb 2 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1791,
         classification=LocationProgressType.DEFAULT,
@@ -15712,7 +15712,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Black Orb 3 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 3 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1792,
         classification=LocationProgressType.DEFAULT,
@@ -15720,7 +15720,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9155",
         difficulty=6
     ),
-    "Black Orb 3 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 3 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1793,
         classification=LocationProgressType.DEFAULT,
@@ -15729,7 +15729,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Black Orb 3 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Black Orb 3 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1794,
         classification=LocationProgressType.DEFAULT,
@@ -15738,7 +15738,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Defeat Hashmal (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Hashmal Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1795,
         classification=LocationProgressType.DEFAULT,
@@ -15746,7 +15746,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9193",
         difficulty=6
     ),
-    "Defeat Hashmal (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Hashmal Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1796,
         classification=LocationProgressType.DEFAULT,
@@ -15755,7 +15755,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Defeat Hashmal (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Hashmal Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1797,
         classification=LocationProgressType.DEFAULT,
@@ -15764,7 +15764,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Defeat Famfrit and Cid 2 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1798,
         classification=LocationProgressType.DEFAULT,
@@ -15772,7 +15772,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918F",
         difficulty=7
     ),
-    "Defeat Famfrit and Cid 2 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1799,
         classification=LocationProgressType.DEFAULT,
@@ -15781,7 +15781,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Defeat Famfrit and Cid 2 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1800,
         classification=LocationProgressType.DEFAULT,
@@ -15790,7 +15790,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 4 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 4 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1801,
         classification=LocationProgressType.DEFAULT,
@@ -15798,7 +15798,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9156",
         difficulty=7
     ),
-    "Black Orb 4 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 4 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1802,
         classification=LocationProgressType.DEFAULT,
@@ -15807,7 +15807,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 4 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 4 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1803,
         classification=LocationProgressType.DEFAULT,
@@ -15816,7 +15816,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 5 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 5 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1804,
         classification=LocationProgressType.DEFAULT,
@@ -15824,7 +15824,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9157",
         difficulty=7
     ),
-    "Black Orb 5 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 5 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1805,
         classification=LocationProgressType.DEFAULT,
@@ -15833,7 +15833,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 5 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 5 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1806,
         classification=LocationProgressType.DEFAULT,
@@ -15842,7 +15842,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 6 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 6 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1807,
         classification=LocationProgressType.DEFAULT,
@@ -15850,7 +15850,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9158",
         difficulty=7
     ),
-    "Black Orb 6 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 6 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1808,
         classification=LocationProgressType.DEFAULT,
@@ -15859,7 +15859,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 6 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 6 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1809,
         classification=LocationProgressType.DEFAULT,
@@ -15868,7 +15868,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 7 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 7 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1810,
         classification=LocationProgressType.DEFAULT,
@@ -15876,7 +15876,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9159",
         difficulty=7
     ),
-    "Black Orb 7 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 7 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1811,
         classification=LocationProgressType.DEFAULT,
@@ -15885,7 +15885,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 7 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 7 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1812,
         classification=LocationProgressType.DEFAULT,
@@ -15894,7 +15894,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 8 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 8 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1813,
         classification=LocationProgressType.DEFAULT,
@@ -15902,7 +15902,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915A",
         difficulty=7
     ),
-    "Black Orb 8 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 8 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1814,
         classification=LocationProgressType.DEFAULT,
@@ -15911,7 +15911,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 8 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 8 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1815,
         classification=LocationProgressType.DEFAULT,
@@ -15920,7 +15920,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 9 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 9 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1816,
         classification=LocationProgressType.DEFAULT,
@@ -15928,7 +15928,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915B",
         difficulty=7
     ),
-    "Black Orb 9 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 9 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1817,
         classification=LocationProgressType.DEFAULT,
@@ -15937,7 +15937,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 9 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 9 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1818,
         classification=LocationProgressType.DEFAULT,
@@ -15946,7 +15946,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 10 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 10 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1819,
         classification=LocationProgressType.DEFAULT,
@@ -15954,7 +15954,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915C",
         difficulty=7
     ),
-    "Black Orb 10 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 10 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1820,
         classification=LocationProgressType.DEFAULT,
@@ -15963,7 +15963,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 10 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 10 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1821,
         classification=LocationProgressType.DEFAULT,
@@ -15972,7 +15972,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 11 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 11 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1822,
         classification=LocationProgressType.DEFAULT,
@@ -15980,7 +15980,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915D",
         difficulty=7
     ),
-    "Black Orb 11 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 11 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1823,
         classification=LocationProgressType.DEFAULT,
@@ -15989,7 +15989,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 11 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 11 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1824,
         classification=LocationProgressType.DEFAULT,
@@ -15998,7 +15998,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 12 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 12 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1825,
         classification=LocationProgressType.DEFAULT,
@@ -16006,7 +16006,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915E",
         difficulty=7
     ),
-    "Black Orb 12 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 12 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1826,
         classification=LocationProgressType.DEFAULT,
@@ -16015,7 +16015,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 12 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 12 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1827,
         classification=LocationProgressType.DEFAULT,
@@ -16024,7 +16024,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 13 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 13 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1828,
         classification=LocationProgressType.DEFAULT,
@@ -16032,7 +16032,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="915F",
         difficulty=7
     ),
-    "Black Orb 13 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 13 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1829,
         classification=LocationProgressType.DEFAULT,
@@ -16041,7 +16041,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 13 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 13 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1830,
         classification=LocationProgressType.DEFAULT,
@@ -16050,7 +16050,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 14 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 14 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1831,
         classification=LocationProgressType.DEFAULT,
@@ -16058,7 +16058,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9160",
         difficulty=7
     ),
-    "Black Orb 14 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 14 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1832,
         classification=LocationProgressType.DEFAULT,
@@ -16067,7 +16067,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 14 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 14 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1833,
         classification=LocationProgressType.DEFAULT,
@@ -16076,7 +16076,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 15 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 15 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1834,
         classification=LocationProgressType.DEFAULT,
@@ -16084,7 +16084,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9161",
         difficulty=7
     ),
-    "Black Orb 15 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 15 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1835,
         classification=LocationProgressType.DEFAULT,
@@ -16093,7 +16093,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 15 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 15 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1836,
         classification=LocationProgressType.DEFAULT,
@@ -16102,7 +16102,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 16 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 16 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1837,
         classification=LocationProgressType.DEFAULT,
@@ -16110,7 +16110,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9162",
         difficulty=7
     ),
-    "Black Orb 16 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 16 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1838,
         classification=LocationProgressType.DEFAULT,
@@ -16119,7 +16119,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 16 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 16 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1839,
         classification=LocationProgressType.DEFAULT,
@@ -16128,7 +16128,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 17 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 17 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1840,
         classification=LocationProgressType.DEFAULT,
@@ -16136,7 +16136,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9163",
         difficulty=7
     ),
-    "Black Orb 17 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 17 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1841,
         classification=LocationProgressType.DEFAULT,
@@ -16145,7 +16145,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 17 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 17 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1842,
         classification=LocationProgressType.DEFAULT,
@@ -16154,7 +16154,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 18 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 18 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1843,
         classification=LocationProgressType.DEFAULT,
@@ -16162,7 +16162,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9164",
         difficulty=7
     ),
-    "Black Orb 18 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 18 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1844,
         classification=LocationProgressType.DEFAULT,
@@ -16171,7 +16171,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 18 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 18 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1845,
         classification=LocationProgressType.DEFAULT,
@@ -16180,7 +16180,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 19 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 19 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1846,
         classification=LocationProgressType.DEFAULT,
@@ -16188,7 +16188,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9165",
         difficulty=7
     ),
-    "Black Orb 19 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 19 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1847,
         classification=LocationProgressType.DEFAULT,
@@ -16197,7 +16197,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 19 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 19 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1848,
         classification=LocationProgressType.DEFAULT,
@@ -16206,7 +16206,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 20 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 20 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1849,
         classification=LocationProgressType.DEFAULT,
@@ -16214,7 +16214,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9166",
         difficulty=7
     ),
-    "Black Orb 20 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 20 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1850,
         classification=LocationProgressType.DEFAULT,
@@ -16223,7 +16223,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 20 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 20 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1851,
         classification=LocationProgressType.DEFAULT,
@@ -16232,7 +16232,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 21 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 21 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1852,
         classification=LocationProgressType.DEFAULT,
@@ -16240,7 +16240,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9167",
         difficulty=7
     ),
-    "Black Orb 21 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 21 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1853,
         classification=LocationProgressType.DEFAULT,
@@ -16249,7 +16249,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 21 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 21 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1854,
         classification=LocationProgressType.DEFAULT,
@@ -16258,7 +16258,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 22 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 22 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1855,
         classification=LocationProgressType.DEFAULT,
@@ -16266,7 +16266,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9168",
         difficulty=7
     ),
-    "Black Orb 22 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 22 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1856,
         classification=LocationProgressType.DEFAULT,
@@ -16275,7 +16275,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 22 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 22 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1857,
         classification=LocationProgressType.DEFAULT,
@@ -16284,7 +16284,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 23 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 23 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1858,
         classification=LocationProgressType.DEFAULT,
@@ -16292,7 +16292,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9169",
         difficulty=7
     ),
-    "Black Orb 23 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 23 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1859,
         classification=LocationProgressType.DEFAULT,
@@ -16301,7 +16301,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 23 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 23 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1860,
         classification=LocationProgressType.DEFAULT,
@@ -16310,7 +16310,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Black Orb 24 (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 24 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1861,
         classification=LocationProgressType.DEFAULT,
@@ -16318,7 +16318,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916A",
         difficulty=7
     ),
-    "Black Orb 24 (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 24 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1862,
         classification=LocationProgressType.DEFAULT,
@@ -16327,7 +16327,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Black Orb 24 (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana Subterra - Black Orb 24 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1863,
         classification=LocationProgressType.DEFAULT,
@@ -16336,7 +16336,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 1: Rogue Tomato (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 1: Rogue Tomato Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1864,
         classification=LocationProgressType.DEFAULT,
@@ -16344,7 +16344,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9003",
         difficulty=1
     ),
-    "Hunt 1: Rogue Tomato (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 1: Rogue Tomato Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1865,
         classification=LocationProgressType.DEFAULT,
@@ -16353,7 +16353,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 1: Rogue Tomato (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 1: Rogue Tomato Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1866,
         classification=LocationProgressType.DEFAULT,
@@ -16362,7 +16362,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 2: Thextera (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 2: Thextera Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1867,
         classification=LocationProgressType.DEFAULT,
@@ -16370,7 +16370,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9004",
         difficulty=1
     ),
-    "Hunt 2: Thextera (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 2: Thextera Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1868,
         classification=LocationProgressType.DEFAULT,
@@ -16379,7 +16379,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 2: Thextera (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 2: Thextera Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1869,
         classification=LocationProgressType.DEFAULT,
@@ -16388,7 +16388,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 3: Flowering Cactoid (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 3: Flowering Cactoid Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1870,
         classification=LocationProgressType.DEFAULT,
@@ -16396,7 +16396,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9005",
         difficulty=1
     ),
-    "Hunt 3: Flowering Cactoid (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 3: Flowering Cactoid Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1871,
         classification=LocationProgressType.DEFAULT,
@@ -16405,7 +16405,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 3: Flowering Cactoid (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 3: Flowering Cactoid Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1872,
         classification=LocationProgressType.DEFAULT,
@@ -16414,7 +16414,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 4: Wraith (1)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 4: Wraith Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1873,
         classification=LocationProgressType.DEFAULT,
@@ -16422,7 +16422,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9006",
         difficulty=1
     ),
-    "Hunt 4: Wraith (2)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 4: Wraith Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1874,
         classification=LocationProgressType.DEFAULT,
@@ -16431,7 +16431,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 4: Wraith (3)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 4: Wraith Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1875,
         classification=LocationProgressType.DEFAULT,
@@ -16440,7 +16440,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 5: Nidhogg (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 5: Nidhogg Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1876,
         classification=LocationProgressType.DEFAULT,
@@ -16448,7 +16448,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9007",
         difficulty=1
     ),
-    "Hunt 5: Nidhogg (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 5: Nidhogg Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1877,
         classification=LocationProgressType.DEFAULT,
@@ -16457,7 +16457,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 5: Nidhogg (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 5: Nidhogg Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1878,
         classification=LocationProgressType.DEFAULT,
@@ -16466,7 +16466,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 6: White Mousse (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 6: White Mousse Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1879,
         classification=LocationProgressType.DEFAULT,
@@ -16474,7 +16474,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9008",
         difficulty=5
     ),
-    "Hunt 6: White Mousse (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 6: White Mousse Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1880,
         classification=LocationProgressType.DEFAULT,
@@ -16483,7 +16483,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 6: White Mousse (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 6: White Mousse Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1881,
         classification=LocationProgressType.DEFAULT,
@@ -16492,7 +16492,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 7: Ring Wyrm (1)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 7: Ring Wyrm Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1882,
         classification=LocationProgressType.DEFAULT,
@@ -16500,7 +16500,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9009",
         difficulty=3
     ),
-    "Hunt 7: Ring Wyrm (2)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 7: Ring Wyrm Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1883,
         classification=LocationProgressType.DEFAULT,
@@ -16509,7 +16509,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Hunt 7: Ring Wyrm (3)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 7: Ring Wyrm Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1884,
         classification=LocationProgressType.DEFAULT,
@@ -16518,7 +16518,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Hunt 8: Wyvern Lord (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 8: Wyvern Lord Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1885,
         classification=LocationProgressType.DEFAULT,
@@ -16526,7 +16526,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900A",
         difficulty=2
     ),
-    "Hunt 8: Wyvern Lord (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 8: Wyvern Lord Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1886,
         classification=LocationProgressType.DEFAULT,
@@ -16535,7 +16535,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Hunt 8: Wyvern Lord (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 8: Wyvern Lord Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1887,
         classification=LocationProgressType.DEFAULT,
@@ -16544,7 +16544,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Hunt 9: Marilith (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 9: Marilith Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1888,
         classification=LocationProgressType.DEFAULT,
@@ -16552,7 +16552,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900B",
         difficulty=5
     ),
-    "Hunt 9: Marilith (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 9: Marilith Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1889,
         classification=LocationProgressType.DEFAULT,
@@ -16561,7 +16561,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 9: Marilith (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Hunt 9: Marilith Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1890,
         classification=LocationProgressType.DEFAULT,
@@ -16570,7 +16570,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 10: Enkelados (1)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 10: Enkelados Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1891,
         classification=LocationProgressType.DEFAULT,
@@ -16578,7 +16578,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900C",
         difficulty=2
     ),
-    "Hunt 10: Enkelados (2)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 10: Enkelados Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1892,
         classification=LocationProgressType.DEFAULT,
@@ -16587,7 +16587,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Hunt 10: Enkelados (3)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 10: Enkelados Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1893,
         classification=LocationProgressType.DEFAULT,
@@ -16596,7 +16596,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Hunt 11: Croakadile (1)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Hunt 11: Croakadile Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1894,
         classification=LocationProgressType.DEFAULT,
@@ -16604,7 +16604,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900D",
         difficulty=2
     ),
-    "Hunt 11: Croakadile (2)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Hunt 11: Croakadile Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1895,
         classification=LocationProgressType.DEFAULT,
@@ -16613,7 +16613,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Hunt 11: Croakadile (3)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Hunt 11: Croakadile Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1896,
         classification=LocationProgressType.DEFAULT,
@@ -16622,7 +16622,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Hunt 12: Ixtab (1)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 12: Ixtab Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1897,
         classification=LocationProgressType.DEFAULT,
@@ -16630,7 +16630,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900E",
         difficulty=2
     ),
-    "Hunt 12: Ixtab (2)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 12: Ixtab Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1898,
         classification=LocationProgressType.DEFAULT,
@@ -16639,7 +16639,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Hunt 12: Ixtab (3)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 12: Ixtab Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1899,
         classification=LocationProgressType.DEFAULT,
@@ -16648,7 +16648,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Hunt 13: Feral Retriever (1)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 13: Feral Retriever Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1900,
         classification=LocationProgressType.DEFAULT,
@@ -16656,7 +16656,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="900F",
         difficulty=3
     ),
-    "Hunt 13: Feral Retriever (2)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 13: Feral Retriever Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1901,
         classification=LocationProgressType.DEFAULT,
@@ -16665,7 +16665,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Hunt 13: Feral Retriever (3)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 13: Feral Retriever Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1902,
         classification=LocationProgressType.DEFAULT,
@@ -16674,7 +16674,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Hunt 14: Vorpal Bunny (1)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 14: Vorpal Bunny Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1903,
         classification=LocationProgressType.DEFAULT,
@@ -16682,7 +16682,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9010",
         difficulty=3
     ),
-    "Hunt 14: Vorpal Bunny (2)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 14: Vorpal Bunny Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1904,
         classification=LocationProgressType.DEFAULT,
@@ -16691,7 +16691,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Hunt 14: Vorpal Bunny (3)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 14: Vorpal Bunny Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1905,
         classification=LocationProgressType.DEFAULT,
@@ -16700,7 +16700,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Hunt 15: Mindflayer (1)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 15: Mindflayer Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1906,
         classification=LocationProgressType.DEFAULT,
@@ -16708,7 +16708,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9011",
         difficulty=4
     ),
-    "Hunt 15: Mindflayer (2)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 15: Mindflayer Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1907,
         classification=LocationProgressType.DEFAULT,
@@ -16717,7 +16717,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Hunt 15: Mindflayer (3)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 15: Mindflayer Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1908,
         classification=LocationProgressType.DEFAULT,
@@ -16726,7 +16726,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Hunt 16: Bloodwing (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 16: Bloodwing Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1909,
         classification=LocationProgressType.DEFAULT,
@@ -16734,7 +16734,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9012",
         difficulty=5
     ),
-    "Hunt 16: Bloodwing (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 16: Bloodwing Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1910,
         classification=LocationProgressType.DEFAULT,
@@ -16743,7 +16743,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 16: Bloodwing (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Hunt 16: Bloodwing Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1911,
         classification=LocationProgressType.DEFAULT,
@@ -16752,7 +16752,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 17: Atomos (1)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 17: Atomos Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1912,
         classification=LocationProgressType.DEFAULT,
@@ -16760,7 +16760,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9013",
         difficulty=3
     ),
-    "Hunt 17: Atomos (2)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 17: Atomos Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1913,
         classification=LocationProgressType.DEFAULT,
@@ -16769,7 +16769,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Hunt 17: Atomos (3)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 17: Atomos Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1914,
         classification=LocationProgressType.DEFAULT,
@@ -16778,7 +16778,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Hunt 18: Roblon (1)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 18: Roblon Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1915,
         classification=LocationProgressType.DEFAULT,
@@ -16786,7 +16786,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9014",
         difficulty=6
     ),
-    "Hunt 18: Roblon (2)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 18: Roblon Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1916,
         classification=LocationProgressType.DEFAULT,
@@ -16795,7 +16795,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 18: Roblon (3)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 18: Roblon Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1917,
         classification=LocationProgressType.DEFAULT,
@@ -16804,7 +16804,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 19: Braegh (1)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Hunt 19: Braegh Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1918,
         classification=LocationProgressType.DEFAULT,
@@ -16812,7 +16812,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9015",
         difficulty=4
     ),
-    "Hunt 19: Braegh (2)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Hunt 19: Braegh Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1919,
         classification=LocationProgressType.DEFAULT,
@@ -16821,7 +16821,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Hunt 19: Braegh (3)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Hunt 19: Braegh Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1920,
         classification=LocationProgressType.DEFAULT,
@@ -16830,7 +16830,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Hunt 20: Darksteel (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt 20: Darksteel Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1921,
         classification=LocationProgressType.DEFAULT,
@@ -16838,7 +16838,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9016",
         difficulty=4
     ),
-    "Hunt 20: Darksteel (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt 20: Darksteel Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1922,
         classification=LocationProgressType.DEFAULT,
@@ -16847,7 +16847,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Hunt 20: Darksteel (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt 20: Darksteel Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1923,
         classification=LocationProgressType.DEFAULT,
@@ -16856,7 +16856,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Hunt 21: Vyraal (1)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 21: Vyraal Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1924,
         classification=LocationProgressType.DEFAULT,
@@ -16864,7 +16864,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9017",
         difficulty=5
     ),
-    "Hunt 21: Vyraal (2)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 21: Vyraal Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1925,
         classification=LocationProgressType.DEFAULT,
@@ -16873,7 +16873,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 21: Vyraal (3)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 21: Vyraal Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1926,
         classification=LocationProgressType.DEFAULT,
@@ -16882,7 +16882,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 22: Lindwyrm (1)": FF12OpenWorldLocationData(
+    "Old Archades - Hunt 22: Lindwyrm Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1927,
         classification=LocationProgressType.DEFAULT,
@@ -16890,7 +16890,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9018",
         difficulty=5
     ),
-    "Hunt 22: Lindwyrm (2)": FF12OpenWorldLocationData(
+    "Old Archades - Hunt 22: Lindwyrm Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1928,
         classification=LocationProgressType.DEFAULT,
@@ -16899,7 +16899,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 22: Lindwyrm (3)": FF12OpenWorldLocationData(
+    "Old Archades - Hunt 22: Lindwyrm Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1929,
         classification=LocationProgressType.DEFAULT,
@@ -16908,7 +16908,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 23: Overlord (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt 23: Overlord Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1930,
         classification=LocationProgressType.DEFAULT,
@@ -16916,7 +16916,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9019",
         difficulty=6
     ),
-    "Hunt 23: Overlord (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt 23: Overlord Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1931,
         classification=LocationProgressType.DEFAULT,
@@ -16925,7 +16925,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 23: Overlord (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt 23: Overlord Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1932,
         classification=LocationProgressType.DEFAULT,
@@ -16934,7 +16934,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 24: Goliath (1)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 24: Goliath Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1933,
         classification=LocationProgressType.DEFAULT,
@@ -16942,7 +16942,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901A",
         difficulty=6
     ),
-    "Hunt 24: Goliath (2)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 24: Goliath Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1934,
         classification=LocationProgressType.DEFAULT,
@@ -16951,7 +16951,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 24: Goliath (3)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 24: Goliath Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1935,
         classification=LocationProgressType.DEFAULT,
@@ -16960,7 +16960,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 25: Deathscythe (1)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 25: Deathscythe Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1936,
         classification=LocationProgressType.DEFAULT,
@@ -16968,7 +16968,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901B",
         difficulty=6
     ),
-    "Hunt 25: Deathscythe (2)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 25: Deathscythe Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1937,
         classification=LocationProgressType.DEFAULT,
@@ -16977,7 +16977,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 25: Deathscythe (3)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Hunt 25: Deathscythe Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1938,
         classification=LocationProgressType.DEFAULT,
@@ -16986,7 +16986,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 26: Deathgaze (1)": FF12OpenWorldLocationData(
+    "Skyferry - Hunt 26: Deathgaze Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1939,
         classification=LocationProgressType.DEFAULT,
@@ -16994,7 +16994,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901C",
         difficulty=7
     ),
-    "Hunt 26: Deathgaze (2)": FF12OpenWorldLocationData(
+    "Skyferry - Hunt 26: Deathgaze Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1940,
         classification=LocationProgressType.DEFAULT,
@@ -17003,7 +17003,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 26: Deathgaze (3)": FF12OpenWorldLocationData(
+    "Skyferry - Hunt 26: Deathgaze Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1941,
         classification=LocationProgressType.DEFAULT,
@@ -17012,7 +17012,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 27: Diabolos (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 27: Diabolos Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1942,
         classification=LocationProgressType.DEFAULT,
@@ -17020,7 +17020,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901D",
         difficulty=7
     ),
-    "Hunt 27: Diabolos (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 27: Diabolos Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1943,
         classification=LocationProgressType.DEFAULT,
@@ -17029,7 +17029,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 27: Diabolos (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 27: Diabolos Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1944,
         classification=LocationProgressType.DEFAULT,
@@ -17038,7 +17038,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 28: Piscodaemon (1)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 28: Piscodaemon Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1945,
         classification=LocationProgressType.DEFAULT,
@@ -17046,7 +17046,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901E",
         difficulty=5
     ),
-    "Hunt 28: Piscodaemon (2)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 28: Piscodaemon Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1946,
         classification=LocationProgressType.DEFAULT,
@@ -17055,7 +17055,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 28: Piscodaemon (3)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 28: Piscodaemon Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1947,
         classification=LocationProgressType.DEFAULT,
@@ -17064,7 +17064,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 29: Wild Malboro (1)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 29: Wild Malboro Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1948,
         classification=LocationProgressType.DEFAULT,
@@ -17072,7 +17072,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="901F",
         difficulty=6
     ),
-    "Hunt 29: Wild Malboro (2)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 29: Wild Malboro Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1949,
         classification=LocationProgressType.DEFAULT,
@@ -17081,7 +17081,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 29: Wild Malboro (3)": FF12OpenWorldLocationData(
+    "Eruyt Village - Hunt 29: Wild Malboro Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1950,
         classification=LocationProgressType.DEFAULT,
@@ -17090,7 +17090,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 30: Catoblepas (1)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 30: Catoblepas Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1951,
         classification=LocationProgressType.DEFAULT,
@@ -17098,7 +17098,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9020",
         difficulty=6
     ),
-    "Hunt 30: Catoblepas (2)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 30: Catoblepas Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1952,
         classification=LocationProgressType.DEFAULT,
@@ -17107,7 +17107,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 30: Catoblepas (3)": FF12OpenWorldLocationData(
+    "Jahara - Hunt 30: Catoblepas Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1953,
         classification=LocationProgressType.DEFAULT,
@@ -17116,7 +17116,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 31: Fafnir (1)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 31: Fafnir Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1954,
         classification=LocationProgressType.DEFAULT,
@@ -17124,7 +17124,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9021",
         difficulty=7
     ),
-    "Hunt 31: Fafnir (2)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 31: Fafnir Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1955,
         classification=LocationProgressType.DEFAULT,
@@ -17133,7 +17133,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 31: Fafnir (3)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 31: Fafnir Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1956,
         classification=LocationProgressType.DEFAULT,
@@ -17142,7 +17142,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 32: Pylraster (1)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 32: Pylraster Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1957,
         classification=LocationProgressType.DEFAULT,
@@ -17150,7 +17150,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9022",
         difficulty=7
     ),
-    "Hunt 32: Pylraster (2)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 32: Pylraster Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1958,
         classification=LocationProgressType.DEFAULT,
@@ -17159,7 +17159,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 32: Pylraster (3)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 32: Pylraster Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1959,
         classification=LocationProgressType.DEFAULT,
@@ -17168,7 +17168,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 33: Cluckatrice (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 33: Cluckatrice Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1960,
         classification=LocationProgressType.DEFAULT,
@@ -17176,7 +17176,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9023",
         difficulty=1
     ),
-    "Hunt 33: Cluckatrice (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 33: Cluckatrice Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1961,
         classification=LocationProgressType.DEFAULT,
@@ -17185,7 +17185,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 33: Cluckatrice (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 33: Cluckatrice Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1962,
         classification=LocationProgressType.DEFAULT,
@@ -17194,7 +17194,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 34: Rocktoise (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 34: Rocktoise Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1963,
         classification=LocationProgressType.DEFAULT,
@@ -17202,7 +17202,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9024",
         difficulty=1
     ),
-    "Hunt 34: Rocktoise (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 34: Rocktoise Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1964,
         classification=LocationProgressType.DEFAULT,
@@ -17211,7 +17211,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Hunt 34: Rocktoise (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 34: Rocktoise Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1965,
         classification=LocationProgressType.DEFAULT,
@@ -17220,7 +17220,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Hunt 35: Orthros (1)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 35: Orthros Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1966,
         classification=LocationProgressType.DEFAULT,
@@ -17228,7 +17228,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9025",
         difficulty=5
     ),
-    "Hunt 35: Orthros (2)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 35: Orthros Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1967,
         classification=LocationProgressType.DEFAULT,
@@ -17237,7 +17237,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 35: Orthros (3)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 35: Orthros Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1968,
         classification=LocationProgressType.DEFAULT,
@@ -17246,7 +17246,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 36: Gil Snapper (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 36: Gil Snapper Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1969,
         classification=LocationProgressType.DEFAULT,
@@ -17254,7 +17254,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9026",
         difficulty=3
     ),
-    "Hunt 36: Gil Snapper (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 36: Gil Snapper Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1970,
         classification=LocationProgressType.DEFAULT,
@@ -17263,7 +17263,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Hunt 36: Gil Snapper (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Hunt 36: Gil Snapper Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1971,
         classification=LocationProgressType.DEFAULT,
@@ -17272,7 +17272,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Hunt 37: Trickster (1)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 37: Trickster Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1972,
         classification=LocationProgressType.DEFAULT,
@@ -17280,7 +17280,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9027",
         difficulty=5
     ),
-    "Hunt 37: Trickster (2)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 37: Trickster Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1973,
         classification=LocationProgressType.DEFAULT,
@@ -17289,7 +17289,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 37: Trickster (3)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Hunt 37: Trickster Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1974,
         classification=LocationProgressType.DEFAULT,
@@ -17298,7 +17298,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 38: Antlion (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 38: Antlion Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1975,
         classification=LocationProgressType.DEFAULT,
@@ -17306,7 +17306,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9028",
         difficulty=5
     ),
-    "Hunt 38: Antlion (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 38: Antlion Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1976,
         classification=LocationProgressType.DEFAULT,
@@ -17315,7 +17315,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 38: Antlion (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Hunt 38: Antlion Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1977,
         classification=LocationProgressType.DEFAULT,
@@ -17324,7 +17324,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 39: Carrot (1)": FF12OpenWorldLocationData(
+    "Aerodrome - Hunt 39: Carrot Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1978,
         classification=LocationProgressType.DEFAULT,
@@ -17332,7 +17332,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9029",
         difficulty=7
     ),
-    "Hunt 39: Carrot (2)": FF12OpenWorldLocationData(
+    "Aerodrome - Hunt 39: Carrot Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1979,
         classification=LocationProgressType.DEFAULT,
@@ -17341,7 +17341,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 39: Carrot (3)": FF12OpenWorldLocationData(
+    "Aerodrome - Hunt 39: Carrot Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1980,
         classification=LocationProgressType.DEFAULT,
@@ -17350,7 +17350,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 40: Gilgamesh (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 40: Gilgamesh Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1981,
         classification=LocationProgressType.DEFAULT,
@@ -17358,7 +17358,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902A",
         difficulty=7
     ),
-    "Hunt 40: Gilgamesh (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 40: Gilgamesh Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1982,
         classification=LocationProgressType.DEFAULT,
@@ -17367,7 +17367,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 40: Gilgamesh (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 40: Gilgamesh Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1983,
         classification=LocationProgressType.DEFAULT,
@@ -17376,7 +17376,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 41: Belito (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 41: Belito Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1984,
         classification=LocationProgressType.DEFAULT,
@@ -17384,7 +17384,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9122",
         difficulty=5
     ),
-    "Hunt 41: Belito (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 41: Belito Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1985,
         classification=LocationProgressType.DEFAULT,
@@ -17393,7 +17393,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Hunt 41: Belito (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 41: Belito Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1986,
         classification=LocationProgressType.DEFAULT,
@@ -17402,7 +17402,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Hunt 42: Behemoth King (1)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 42: Behemoth King Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1987,
         classification=LocationProgressType.DEFAULT,
@@ -17410,7 +17410,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902B",
         difficulty=7
     ),
-    "Hunt 42: Behemoth King (2)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 42: Behemoth King Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1988,
         classification=LocationProgressType.DEFAULT,
@@ -17419,7 +17419,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt 42: Behemoth King (3)": FF12OpenWorldLocationData(
+    "Lowtown - Hunt 42: Behemoth King Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1989,
         classification=LocationProgressType.DEFAULT,
@@ -17428,7 +17428,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt 43: Ixion (1)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 43: Ixion Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1990,
         classification=LocationProgressType.DEFAULT,
@@ -17436,7 +17436,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902C",
         difficulty=6
     ),
-    "Hunt 43: Ixion (2)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 43: Ixion Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1991,
         classification=LocationProgressType.DEFAULT,
@@ -17445,7 +17445,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 43: Ixion (3)": FF12OpenWorldLocationData(
+    "Balfonheim - Hunt 43: Ixion Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1992,
         classification=LocationProgressType.DEFAULT,
@@ -17454,7 +17454,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 44: Shadowseer (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 44: Shadowseer Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1993,
         classification=LocationProgressType.DEFAULT,
@@ -17462,7 +17462,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902D",
         difficulty=6
     ),
-    "Hunt 44: Shadowseer (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 44: Shadowseer Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1994,
         classification=LocationProgressType.DEFAULT,
@@ -17471,7 +17471,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt 44: Shadowseer (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 44: Shadowseer Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1995,
         classification=LocationProgressType.DEFAULT,
@@ -17480,7 +17480,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt 45: Yiazmat (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 45: Yiazmat Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1996,
         classification=LocationProgressType.DEFAULT,
@@ -17488,7 +17488,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902E",
         difficulty=8
     ),
-    "Hunt 45: Yiazmat (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 45: Yiazmat Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1997,
         classification=LocationProgressType.DEFAULT,
@@ -17497,7 +17497,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Hunt 45: Yiazmat (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Hunt 45: Yiazmat Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1998,
         classification=LocationProgressType.DEFAULT,
@@ -17506,7 +17506,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Clan Rank: Moppet (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Moppet Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 1999,
         classification=LocationProgressType.DEFAULT,
@@ -17514,7 +17514,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="902F",
         difficulty=1
     ),
-    "Clan Rank: Moppet (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Moppet Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2000,
         classification=LocationProgressType.DEFAULT,
@@ -17523,7 +17523,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Rank: Moppet (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Moppet Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2001,
         classification=LocationProgressType.DEFAULT,
@@ -17532,7 +17532,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Rank: Hedge Knight (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Hedge Knight Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2002,
         classification=LocationProgressType.DEFAULT,
@@ -17540,7 +17540,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9030",
         difficulty=2
     ),
-    "Clan Rank: Hedge Knight (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Hedge Knight Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2003,
         classification=LocationProgressType.DEFAULT,
@@ -17549,7 +17549,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Clan Rank: Hedge Knight (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Hedge Knight Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2004,
         classification=LocationProgressType.DEFAULT,
@@ -17558,7 +17558,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Clan Rank: Rear Guard (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Rear Guard Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2005,
         classification=LocationProgressType.DEFAULT,
@@ -17566,7 +17566,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9031",
         difficulty=3
     ),
-    "Clan Rank: Rear Guard (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Rear Guard Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2006,
         classification=LocationProgressType.DEFAULT,
@@ -17575,7 +17575,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Clan Rank: Rear Guard (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Rear Guard Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2007,
         classification=LocationProgressType.DEFAULT,
@@ -17584,7 +17584,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Clan Rank: Vanguard (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Vanguard Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2008,
         classification=LocationProgressType.DEFAULT,
@@ -17592,7 +17592,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9032",
         difficulty=4
     ),
-    "Clan Rank: Vanguard (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Vanguard Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2009,
         classification=LocationProgressType.DEFAULT,
@@ -17601,7 +17601,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Clan Rank: Vanguard (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Vanguard Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2010,
         classification=LocationProgressType.DEFAULT,
@@ -17610,7 +17610,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Clan Rank: Headhunter (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Headhunter Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2011,
         classification=LocationProgressType.DEFAULT,
@@ -17618,7 +17618,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9033",
         difficulty=5
     ),
-    "Clan Rank: Headhunter (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Headhunter Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2012,
         classification=LocationProgressType.DEFAULT,
@@ -17627,7 +17627,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Rank: Headhunter (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Headhunter Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2013,
         classification=LocationProgressType.DEFAULT,
@@ -17636,7 +17636,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Rank: Ward of Justice (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Ward of Justice Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2014,
         classification=LocationProgressType.DEFAULT,
@@ -17644,7 +17644,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9034",
         difficulty=6
     ),
-    "Clan Rank: Ward of Justice (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Ward of Justice Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2015,
         classification=LocationProgressType.DEFAULT,
@@ -17653,7 +17653,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Clan Rank: Ward of Justice (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Ward of Justice Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2016,
         classification=LocationProgressType.DEFAULT,
@@ -17662,7 +17662,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Clan Rank: Brave Companion (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Brave Companion Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2017,
         classification=LocationProgressType.DEFAULT,
@@ -17670,7 +17670,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9035",
         difficulty=7
     ),
-    "Clan Rank: Brave Companion (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Brave Companion Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2018,
         classification=LocationProgressType.DEFAULT,
@@ -17679,7 +17679,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Clan Rank: Brave Companion (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Brave Companion Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2019,
         classification=LocationProgressType.DEFAULT,
@@ -17688,7 +17688,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Clan Rank: Riskbreaker (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Riskbreaker Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2020,
         classification=LocationProgressType.DEFAULT,
@@ -17696,7 +17696,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9036",
         difficulty=8
     ),
-    "Clan Rank: Riskbreaker (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Riskbreaker Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2021,
         classification=LocationProgressType.DEFAULT,
@@ -17705,7 +17705,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Clan Rank: Riskbreaker (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Riskbreaker Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2022,
         classification=LocationProgressType.DEFAULT,
@@ -17714,7 +17714,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Clan Rank: Paragon of Justice (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Paragon of Justice Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2023,
         classification=LocationProgressType.DEFAULT,
@@ -17722,7 +17722,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9037",
         difficulty=9
     ),
-    "Clan Rank: Paragon of Justice (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Paragon of Justice Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2024,
         classification=LocationProgressType.DEFAULT,
@@ -17731,7 +17731,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Clan Rank: Paragon of Justice (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Paragon of Justice Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2025,
         classification=LocationProgressType.DEFAULT,
@@ -17740,7 +17740,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Clan Rank: High Guardian (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: High Guardian Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2026,
         classification=LocationProgressType.DEFAULT,
@@ -17748,7 +17748,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9038",
         difficulty=10
     ),
-    "Clan Rank: High Guardian (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: High Guardian Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2027,
         classification=LocationProgressType.DEFAULT,
@@ -17757,7 +17757,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Clan Rank: High Guardian (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: High Guardian Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2028,
         classification=LocationProgressType.DEFAULT,
@@ -17766,7 +17766,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Clan Rank: Knight of the Round (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Knight of the Round Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2029,
         classification=LocationProgressType.DEFAULT,
@@ -17774,7 +17774,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9039",
         difficulty=11
     ),
-    "Clan Rank: Knight of the Round (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Knight of the Round Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2030,
         classification=LocationProgressType.DEFAULT,
@@ -17783,7 +17783,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=11
     ),
-    "Clan Rank: Knight of the Round (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Knight of the Round Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2031,
         classification=LocationProgressType.DEFAULT,
@@ -17792,7 +17792,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=11
     ),
-    "Clan Rank: Order of Ambrosia (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Order of Ambrosia Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2032,
         classification=LocationProgressType.EXCLUDED,
@@ -17800,7 +17800,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903A",
         difficulty=12
     ),
-    "Clan Rank: Order of Ambrosia (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Order of Ambrosia Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2033,
         classification=LocationProgressType.EXCLUDED,
@@ -17809,7 +17809,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=12
     ),
-    "Clan Rank: Order of Ambrosia (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Rank: Order of Ambrosia Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2034,
         classification=LocationProgressType.EXCLUDED,
@@ -17818,7 +17818,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=12
     ),
-    "Clan Boss: Flans (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Flans Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2035,
         classification=LocationProgressType.DEFAULT,
@@ -17826,7 +17826,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903B",
         difficulty=1
     ),
-    "Clan Boss: Flans (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Flans Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2036,
         classification=LocationProgressType.DEFAULT,
@@ -17835,7 +17835,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Boss: Flans (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Flans Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2037,
         classification=LocationProgressType.DEFAULT,
@@ -17844,7 +17844,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Boss: Firemane (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Firemane Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2038,
         classification=LocationProgressType.DEFAULT,
@@ -17852,7 +17852,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903C",
         difficulty=1
     ),
-    "Clan Boss: Firemane (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Firemane Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2039,
         classification=LocationProgressType.DEFAULT,
@@ -17861,7 +17861,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Boss: Firemane (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Firemane Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2040,
         classification=LocationProgressType.DEFAULT,
@@ -17870,7 +17870,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Boss: Earth Tyrant (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Earth Tyrant Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2041,
         classification=LocationProgressType.DEFAULT,
@@ -17878,7 +17878,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903D",
         difficulty=4
     ),
-    "Clan Boss: Earth Tyrant (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Earth Tyrant Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2042,
         classification=LocationProgressType.DEFAULT,
@@ -17887,7 +17887,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Clan Boss: Earth Tyrant (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Earth Tyrant Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2043,
         classification=LocationProgressType.DEFAULT,
@@ -17896,7 +17896,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Clan Boss: Mimic Queen (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mimic Queen Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2044,
         classification=LocationProgressType.DEFAULT,
@@ -17904,7 +17904,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903E",
         difficulty=1
     ),
-    "Clan Boss: Mimic Queen (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mimic Queen Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2045,
         classification=LocationProgressType.DEFAULT,
@@ -17913,7 +17913,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Boss: Mimic Queen (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mimic Queen Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2046,
         classification=LocationProgressType.DEFAULT,
@@ -17922,7 +17922,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Boss: Demon Wall 1 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2047,
         classification=LocationProgressType.DEFAULT,
@@ -17930,7 +17930,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="903F",
         difficulty=3
     ),
-    "Clan Boss: Demon Wall 1 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2048,
         classification=LocationProgressType.DEFAULT,
@@ -17939,7 +17939,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Clan Boss: Demon Wall 1 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2049,
         classification=LocationProgressType.DEFAULT,
@@ -17948,7 +17948,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Clan Boss: Demon Wall 2 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2050,
         classification=LocationProgressType.DEFAULT,
@@ -17956,7 +17956,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9040",
         difficulty=1
     ),
-    "Clan Boss: Demon Wall 2 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2051,
         classification=LocationProgressType.DEFAULT,
@@ -17965,7 +17965,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Boss: Demon Wall 2 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Demon Wall 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2052,
         classification=LocationProgressType.DEFAULT,
@@ -17974,7 +17974,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Boss: Elder Wyrm (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Elder Wyrm Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2053,
         classification=LocationProgressType.DEFAULT,
@@ -17982,7 +17982,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9041",
         difficulty=3
     ),
-    "Clan Boss: Elder Wyrm (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Elder Wyrm Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2054,
         classification=LocationProgressType.DEFAULT,
@@ -17991,7 +17991,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Clan Boss: Elder Wyrm (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Elder Wyrm Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2055,
         classification=LocationProgressType.DEFAULT,
@@ -18000,7 +18000,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Clan Boss: Tiamat (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tiamat Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2056,
         classification=LocationProgressType.DEFAULT,
@@ -18008,7 +18008,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9042",
         difficulty=2
     ),
-    "Clan Boss: Tiamat (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tiamat Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2057,
         classification=LocationProgressType.DEFAULT,
@@ -18017,7 +18017,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Clan Boss: Tiamat (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tiamat Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2058,
         classification=LocationProgressType.DEFAULT,
@@ -18026,7 +18026,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Clan Boss: Vinuskar (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Vinuskar Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2059,
         classification=LocationProgressType.DEFAULT,
@@ -18034,7 +18034,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9043",
         difficulty=2
     ),
-    "Clan Boss: Vinuskar (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Vinuskar Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2060,
         classification=LocationProgressType.DEFAULT,
@@ -18043,7 +18043,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Clan Boss: Vinuskar (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Vinuskar Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2061,
         classification=LocationProgressType.DEFAULT,
@@ -18052,7 +18052,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Clan Boss: King Bomb (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: King Bomb Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2062,
         classification=LocationProgressType.DEFAULT,
@@ -18060,7 +18060,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9044",
         difficulty=5
     ),
-    "Clan Boss: King Bomb (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: King Bomb Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2063,
         classification=LocationProgressType.DEFAULT,
@@ -18069,7 +18069,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Boss: King Bomb (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: King Bomb Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2064,
         classification=LocationProgressType.DEFAULT,
@@ -18078,7 +18078,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Boss: Mandragora (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mandragora Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2065,
         classification=LocationProgressType.DEFAULT,
@@ -18086,7 +18086,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9045",
         difficulty=4
     ),
-    "Clan Boss: Mandragora (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mandragora Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2066,
         classification=LocationProgressType.DEFAULT,
@@ -18095,7 +18095,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Clan Boss: Mandragora (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Mandragora Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2067,
         classification=LocationProgressType.DEFAULT,
@@ -18104,7 +18104,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Clan Boss: Ahriman (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Ahriman Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2068,
         classification=LocationProgressType.DEFAULT,
@@ -18112,7 +18112,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9046",
         difficulty=5
     ),
-    "Clan Boss: Ahriman (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Ahriman Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2069,
         classification=LocationProgressType.DEFAULT,
@@ -18121,7 +18121,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Boss: Ahriman (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Ahriman Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2070,
         classification=LocationProgressType.DEFAULT,
@@ -18130,7 +18130,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Boss: Hell Wyrm (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hell Wyrm Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2071,
         classification=LocationProgressType.DEFAULT,
@@ -18138,7 +18138,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9047",
         difficulty=7
     ),
-    "Clan Boss: Hell Wyrm (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hell Wyrm Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2072,
         classification=LocationProgressType.DEFAULT,
@@ -18147,7 +18147,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Clan Boss: Hell Wyrm (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hell Wyrm Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2073,
         classification=LocationProgressType.DEFAULT,
@@ -18156,7 +18156,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Clan Boss: Rafflesia (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Rafflesia Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2074,
         classification=LocationProgressType.DEFAULT,
@@ -18164,7 +18164,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9048",
         difficulty=4
     ),
-    "Clan Boss: Rafflesia (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Rafflesia Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2075,
         classification=LocationProgressType.DEFAULT,
@@ -18173,7 +18173,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Clan Boss: Rafflesia (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Rafflesia Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2076,
         classification=LocationProgressType.DEFAULT,
@@ -18182,7 +18182,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Clan Boss: Daedulus (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Daedulus Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2077,
         classification=LocationProgressType.DEFAULT,
@@ -18190,7 +18190,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9049",
         difficulty=5
     ),
-    "Clan Boss: Daedulus (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Daedulus Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2078,
         classification=LocationProgressType.DEFAULT,
@@ -18199,7 +18199,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Boss: Daedulus (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Daedulus Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2079,
         classification=LocationProgressType.DEFAULT,
@@ -18208,7 +18208,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Boss: Tyrant (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tyrant Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2080,
         classification=LocationProgressType.DEFAULT,
@@ -18216,7 +18216,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904A",
         difficulty=5
     ),
-    "Clan Boss: Tyrant (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tyrant Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2081,
         classification=LocationProgressType.DEFAULT,
@@ -18225,7 +18225,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Boss: Tyrant (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Tyrant Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2082,
         classification=LocationProgressType.DEFAULT,
@@ -18234,7 +18234,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Boss: Hydro (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hydro Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2083,
         classification=LocationProgressType.DEFAULT,
@@ -18242,7 +18242,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904B",
         difficulty=5
     ),
-    "Clan Boss: Hydro (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hydro Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2084,
         classification=LocationProgressType.DEFAULT,
@@ -18251,7 +18251,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Boss: Hydro (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Hydro Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2085,
         classification=LocationProgressType.DEFAULT,
@@ -18260,7 +18260,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Boss: Humbaba Mistant (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Humbaba Mistant Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2086,
         classification=LocationProgressType.DEFAULT,
@@ -18268,7 +18268,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904C",
         difficulty=7
     ),
-    "Clan Boss: Humbaba Mistant (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Humbaba Mistant Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2087,
         classification=LocationProgressType.DEFAULT,
@@ -18277,7 +18277,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Clan Boss: Humbaba Mistant (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Humbaba Mistant Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2088,
         classification=LocationProgressType.DEFAULT,
@@ -18286,7 +18286,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Clan Boss: Fury (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Fury Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2089,
         classification=LocationProgressType.DEFAULT,
@@ -18294,7 +18294,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904D",
         difficulty=7
     ),
-    "Clan Boss: Fury (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Fury Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2090,
         classification=LocationProgressType.DEFAULT,
@@ -18303,7 +18303,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Clan Boss: Fury (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Fury Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2091,
         classification=LocationProgressType.DEFAULT,
@@ -18312,7 +18312,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Clan Boss: Omega Mark XII (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Omega Mark XII Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2092,
         classification=LocationProgressType.DEFAULT,
@@ -18320,7 +18320,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="905A",
         difficulty=8
     ),
-    "Clan Boss: Omega Mark XII (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Omega Mark XII Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2093,
         classification=LocationProgressType.DEFAULT,
@@ -18329,7 +18329,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Clan Boss: Omega Mark XII (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Boss: Omega Mark XII Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2094,
         classification=LocationProgressType.DEFAULT,
@@ -18338,7 +18338,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Clan Esper: Control 1 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2095,
         classification=LocationProgressType.DEFAULT,
@@ -18346,7 +18346,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904E",
         difficulty=1
     ),
-    "Clan Esper: Control 1 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2096,
         classification=LocationProgressType.DEFAULT,
@@ -18355,7 +18355,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clan Esper: Control 1 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2097,
         classification=LocationProgressType.DEFAULT,
@@ -18364,7 +18364,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clan Esper: Control 4 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 4 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2098,
         classification=LocationProgressType.DEFAULT,
@@ -18372,7 +18372,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="904F",
         difficulty=3
     ),
-    "Clan Esper: Control 4 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 4 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2099,
         classification=LocationProgressType.DEFAULT,
@@ -18381,7 +18381,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Clan Esper: Control 4 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 4 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2100,
         classification=LocationProgressType.DEFAULT,
@@ -18390,7 +18390,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Clan Esper: Control 8 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 8 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2101,
         classification=LocationProgressType.DEFAULT,
@@ -18398,7 +18398,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9050",
         difficulty=5
     ),
-    "Clan Esper: Control 8 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 8 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2102,
         classification=LocationProgressType.DEFAULT,
@@ -18407,7 +18407,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Clan Esper: Control 8 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 8 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2103,
         classification=LocationProgressType.DEFAULT,
@@ -18416,7 +18416,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Clan Esper: Control 13 (1)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 13 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2104,
         classification=LocationProgressType.DEFAULT,
@@ -18424,7 +18424,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9051",
         difficulty=8
     ),
-    "Clan Esper: Control 13 (2)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 13 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2105,
         classification=LocationProgressType.DEFAULT,
@@ -18433,7 +18433,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Clan Esper: Control 13 (3)": FF12OpenWorldLocationData(
+    "Clan Hall - Clan Esper: Control 13 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2106,
         classification=LocationProgressType.DEFAULT,
@@ -18442,7 +18442,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Flowering Cactoid Drop (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Flowering Cactoid Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2107,
         classification=LocationProgressType.DEFAULT,
@@ -18450,7 +18450,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916D",
         difficulty=1
     ),
-    "Flowering Cactoid Drop (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Flowering Cactoid Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2108,
         classification=LocationProgressType.DEFAULT,
@@ -18459,7 +18459,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Flowering Cactoid Drop (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Flowering Cactoid Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2109,
         classification=LocationProgressType.DEFAULT,
@@ -18468,7 +18468,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Patient Barheim Key (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Patient Barheim Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2110,
         classification=LocationProgressType.DEFAULT,
@@ -18476,7 +18476,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916E",
         difficulty=2
     ),
-    "Patient Barheim Key (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Patient Barheim Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2111,
         classification=LocationProgressType.DEFAULT,
@@ -18485,7 +18485,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Patient Barheim Key (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Patient Barheim Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2112,
         classification=LocationProgressType.DEFAULT,
@@ -18494,7 +18494,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Dantro's Wife Give Cactus Flower (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Dantro's Wife Give Cactus Flower Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2113,
         classification=LocationProgressType.DEFAULT,
@@ -18502,7 +18502,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9081",
         difficulty=1
     ),
-    "Dantro's Wife Give Cactus Flower (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Dantro's Wife Give Cactus Flower Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2114,
         classification=LocationProgressType.DEFAULT,
@@ -18511,7 +18511,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Dantro's Wife Give Cactus Flower (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Dantro's Wife Give Cactus Flower Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2115,
         classification=LocationProgressType.DEFAULT,
@@ -18520,7 +18520,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Cactus Family Quest (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Cactus Family Quest Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2116,
         classification=LocationProgressType.DEFAULT,
@@ -18528,7 +18528,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="908A",
         difficulty=1
     ),
-    "Cactus Family Quest (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Cactus Family Quest Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2117,
         classification=LocationProgressType.DEFAULT,
@@ -18537,7 +18537,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Cactus Family Quest (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Cactus Family Quest Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2118,
         classification=LocationProgressType.DEFAULT,
@@ -18546,7 +18546,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Acolyte Stone of the Condemner (1)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Acolyte Stone of the Condemner Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2119,
         classification=LocationProgressType.DEFAULT,
@@ -18554,7 +18554,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="916F",
         difficulty=3
     ),
-    "Acolyte Stone of the Condemner (2)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Acolyte Stone of the Condemner Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2120,
         classification=LocationProgressType.DEFAULT,
@@ -18563,7 +18563,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Acolyte Stone of the Condemner (3)": FF12OpenWorldLocationData(
+    "Mt. Bur-Omisace - Acolyte Stone of the Condemner Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2121,
         classification=LocationProgressType.DEFAULT,
@@ -18572,7 +18572,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Earth Tyrant Quest Wind Globe (1)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Earth Tyrant Quest Wind Globe Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2122,
         classification=LocationProgressType.DEFAULT,
@@ -18580,7 +18580,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9170",
         difficulty=1
     ),
-    "Earth Tyrant Quest Wind Globe (2)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Earth Tyrant Quest Wind Globe Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2123,
         classification=LocationProgressType.DEFAULT,
@@ -18589,7 +18589,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Earth Tyrant Quest Wind Globe (3)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Earth Tyrant Quest Wind Globe Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2124,
         classification=LocationProgressType.DEFAULT,
@@ -18598,7 +18598,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Earth Tyrant Quest Windvane (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Earth Tyrant Quest Windvane Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2125,
         classification=LocationProgressType.DEFAULT,
@@ -18606,7 +18606,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9171",
         difficulty=1
     ),
-    "Earth Tyrant Quest Windvane (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Earth Tyrant Quest Windvane Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2126,
         classification=LocationProgressType.DEFAULT,
@@ -18615,7 +18615,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Earth Tyrant Quest Windvane (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Earth Tyrant Quest Windvane Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2127,
         classification=LocationProgressType.DEFAULT,
@@ -18624,7 +18624,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "White Mousse Drop (1)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - White Mousse Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2128,
         classification=LocationProgressType.DEFAULT,
@@ -18632,7 +18632,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9172",
         difficulty=5
     ),
-    "White Mousse Drop (2)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - White Mousse Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2129,
         classification=LocationProgressType.DEFAULT,
@@ -18641,7 +18641,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "White Mousse Drop (3)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - White Mousse Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2130,
         classification=LocationProgressType.DEFAULT,
@@ -18650,7 +18650,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Sorbet Sluice Gate Key (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Sorbet Sluice Gate Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2131,
         classification=LocationProgressType.DEFAULT,
@@ -18658,7 +18658,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9173",
         difficulty=5
     ),
-    "Sorbet Sluice Gate Key (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Sorbet Sluice Gate Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2132,
         classification=LocationProgressType.DEFAULT,
@@ -18667,7 +18667,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Sorbet Sluice Gate Key (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Sorbet Sluice Gate Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2133,
         classification=LocationProgressType.DEFAULT,
@@ -18676,7 +18676,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Enkelados Drop (1)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Enkelados Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2134,
         classification=LocationProgressType.DEFAULT,
@@ -18684,7 +18684,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9174",
         difficulty=3
     ),
-    "Enkelados Drop (2)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Enkelados Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2135,
         classification=LocationProgressType.DEFAULT,
@@ -18693,7 +18693,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Enkelados Drop (3)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Enkelados Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2136,
         classification=LocationProgressType.DEFAULT,
@@ -18702,7 +18702,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Lesina Give Errmonea Leaf (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Lesina Give Errmonea Leaf Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2137,
         classification=LocationProgressType.DEFAULT,
@@ -18710,7 +18710,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9062",
         difficulty=3
     ),
-    "Lesina Give Errmonea Leaf (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Lesina Give Errmonea Leaf Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2138,
         classification=LocationProgressType.DEFAULT,
@@ -18719,7 +18719,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Lesina Give Errmonea Leaf (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Lesina Give Errmonea Leaf Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2139,
         classification=LocationProgressType.DEFAULT,
@@ -18728,7 +18728,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Pilika Merchant's Armband (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Merchant's Armband Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2140,
         classification=LocationProgressType.DEFAULT,
@@ -18736,7 +18736,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9175",
         difficulty=1
     ),
-    "Pilika Merchant's Armband (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Merchant's Armband Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2141,
         classification=LocationProgressType.DEFAULT,
@@ -18745,7 +18745,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Pilika Merchant's Armband (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Merchant's Armband Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2142,
         classification=LocationProgressType.DEFAULT,
@@ -18754,7 +18754,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Clio's Technicks Pilika's Diary (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Clio's Technicks Pilika's Diary Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2143,
         classification=LocationProgressType.DEFAULT,
@@ -18762,7 +18762,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9176",
         difficulty=1
     ),
-    "Clio's Technicks Pilika's Diary (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Clio's Technicks Pilika's Diary Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2144,
         classification=LocationProgressType.DEFAULT,
@@ -18771,7 +18771,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Clio's Technicks Pilika's Diary (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Clio's Technicks Pilika's Diary Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2145,
         classification=LocationProgressType.DEFAULT,
@@ -18780,7 +18780,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Pilika Give Pilika's Diary (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Give Pilika's Diary Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2146,
         classification=LocationProgressType.DEFAULT,
@@ -18788,7 +18788,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="908D",
         difficulty=1
     ),
-    "Pilika Give Pilika's Diary (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Give Pilika's Diary Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2147,
         classification=LocationProgressType.DEFAULT,
@@ -18797,7 +18797,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Pilika Give Pilika's Diary (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Pilika Give Pilika's Diary Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2148,
         classification=LocationProgressType.DEFAULT,
@@ -18806,7 +18806,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Vorpal Bunny Drop (1)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Vorpal Bunny Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2149,
         classification=LocationProgressType.DEFAULT,
@@ -18814,7 +18814,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9177",
         difficulty=3
     ),
-    "Vorpal Bunny Drop (2)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Vorpal Bunny Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2150,
         classification=LocationProgressType.DEFAULT,
@@ -18823,7 +18823,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Vorpal Bunny Drop (3)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Vorpal Bunny Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2151,
         classification=LocationProgressType.DEFAULT,
@@ -18832,7 +18832,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Croakadile Drop (1)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Croakadile Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2152,
         classification=LocationProgressType.DEFAULT,
@@ -18840,7 +18840,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9178",
         difficulty=2
     ),
-    "Croakadile Drop (2)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Croakadile Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2153,
         classification=LocationProgressType.DEFAULT,
@@ -18849,7 +18849,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Croakadile Drop (3)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Croakadile Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2154,
         classification=LocationProgressType.DEFAULT,
@@ -18858,7 +18858,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Lindwyrm Drop (1)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Lindwyrm Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2155,
         classification=LocationProgressType.DEFAULT,
@@ -18866,7 +18866,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9179",
         difficulty=5
     ),
-    "Lindwyrm Drop (2)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Lindwyrm Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2156,
         classification=LocationProgressType.DEFAULT,
@@ -18875,7 +18875,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Lindwyrm Drop (3)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Lindwyrm Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2157,
         classification=LocationProgressType.DEFAULT,
@@ -18884,7 +18884,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Nomads Silent Urn (1)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Nomads Silent Urn Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2158,
         classification=LocationProgressType.DEFAULT,
@@ -18892,7 +18892,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917A",
         difficulty=3
     ),
-    "Nomads Silent Urn (2)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Nomads Silent Urn Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2159,
         classification=LocationProgressType.DEFAULT,
@@ -18901,7 +18901,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Nomads Silent Urn (3)": FF12OpenWorldLocationData(
+    "Giza Plains Rains - Nomads Silent Urn Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2160,
         classification=LocationProgressType.DEFAULT,
@@ -18910,7 +18910,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Orthros Drop (1)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Orthros Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2161,
         classification=LocationProgressType.DEFAULT,
@@ -18918,7 +18918,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917B",
         difficulty=5
     ),
-    "Orthros Drop (2)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Orthros Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2162,
         classification=LocationProgressType.DEFAULT,
@@ -18927,7 +18927,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Orthros Drop (3)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Orthros Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2163,
         classification=LocationProgressType.DEFAULT,
@@ -18936,14 +18936,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Niray Site 3 Key (1)": FF12OpenWorldLocationData(
+    "Bhujerba - Niray Site 3 Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2164,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="917D"
     ),
-    "Niray Site 3 Key (2)": FF12OpenWorldLocationData(
+    "Bhujerba - Niray Site 3 Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2165,
         classification=LocationProgressType.DEFAULT,
@@ -18951,7 +18951,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917D",
         secondary_index=1
     ),
-    "Niray Site 3 Key (3)": FF12OpenWorldLocationData(
+    "Bhujerba - Niray Site 3 Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2166,
         classification=LocationProgressType.DEFAULT,
@@ -18959,7 +18959,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917D",
         secondary_index=2
     ),
-    "Site 11 Key (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Site 11 Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2167,
         classification=LocationProgressType.DEFAULT,
@@ -18967,7 +18967,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917E",
         difficulty=5
     ),
-    "Site 11 Key (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Site 11 Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2168,
         classification=LocationProgressType.DEFAULT,
@@ -18976,7 +18976,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Site 11 Key (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Site 11 Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2169,
         classification=LocationProgressType.DEFAULT,
@@ -18985,7 +18985,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Fafnir Drop (1)": FF12OpenWorldLocationData(
+    "Paramina Rift - Fafnir Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2170,
         classification=LocationProgressType.DEFAULT,
@@ -18993,7 +18993,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917F",
         difficulty=7
     ),
-    "Fafnir Drop (2)": FF12OpenWorldLocationData(
+    "Paramina Rift - Fafnir Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2171,
         classification=LocationProgressType.DEFAULT,
@@ -19002,7 +19002,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Fafnir Drop (3)": FF12OpenWorldLocationData(
+    "Paramina Rift - Fafnir Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2172,
         classification=LocationProgressType.DEFAULT,
@@ -19011,7 +19011,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Marilith Drop (1)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Marilith Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2173,
         classification=LocationProgressType.DEFAULT,
@@ -19019,7 +19019,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9180",
         difficulty=5
     ),
-    "Marilith Drop (2)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Marilith Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2174,
         classification=LocationProgressType.DEFAULT,
@@ -19028,7 +19028,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Marilith Drop (3)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Marilith Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2175,
         classification=LocationProgressType.DEFAULT,
@@ -19037,7 +19037,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Vyraal Drop (1)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Vyraal Drop Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2176,
         classification=LocationProgressType.DEFAULT,
@@ -19045,7 +19045,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9181",
         difficulty=5
     ),
-    "Vyraal Drop (2)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Vyraal Drop Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2177,
         classification=LocationProgressType.DEFAULT,
@@ -19054,7 +19054,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Vyraal Drop (3)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Vyraal Drop Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2178,
         classification=LocationProgressType.DEFAULT,
@@ -19063,7 +19063,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Viera Wayfarer Dragon Scale (1)": FF12OpenWorldLocationData(
+    "Balfonheim - Viera Wayfarer Dragon Scale Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2179,
         classification=LocationProgressType.DEFAULT,
@@ -19071,7 +19071,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9182",
         difficulty=5
     ),
-    "Viera Wayfarer Dragon Scale (2)": FF12OpenWorldLocationData(
+    "Balfonheim - Viera Wayfarer Dragon Scale Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2180,
         classification=LocationProgressType.DEFAULT,
@@ -19080,7 +19080,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Viera Wayfarer Dragon Scale (3)": FF12OpenWorldLocationData(
+    "Balfonheim - Viera Wayfarer Dragon Scale Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2181,
         classification=LocationProgressType.DEFAULT,
@@ -19089,7 +19089,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Wyrm Philosopher Ageworn Key (1)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Wyrm Philosopher Ageworn Key Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2182,
         classification=LocationProgressType.DEFAULT,
@@ -19097,7 +19097,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9183",
         difficulty=5
     ),
-    "Wyrm Philosopher Ageworn Key (2)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Wyrm Philosopher Ageworn Key Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2183,
         classification=LocationProgressType.DEFAULT,
@@ -19106,7 +19106,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Wyrm Philosopher Ageworn Key (3)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Wyrm Philosopher Ageworn Key Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2184,
         classification=LocationProgressType.DEFAULT,
@@ -19115,7 +19115,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Ann's Letter (1)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Letter Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2185,
         classification=LocationProgressType.DEFAULT,
@@ -19123,7 +19123,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9184",
         difficulty=2
     ),
-    "Ann's Letter (2)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Letter Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2186,
         classification=LocationProgressType.DEFAULT,
@@ -19132,7 +19132,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Ann's Letter (3)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Letter Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2187,
         classification=LocationProgressType.DEFAULT,
@@ -19141,7 +19141,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Ann's Sisters Quest (1)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Sisters Quest Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2188,
         classification=LocationProgressType.DEFAULT,
@@ -19149,7 +19149,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906C",
         difficulty=7
     ),
-    "Ann's Sisters Quest (2)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Sisters Quest Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2189,
         classification=LocationProgressType.DEFAULT,
@@ -19158,7 +19158,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Ann's Sisters Quest (3)": FF12OpenWorldLocationData(
+    "Skyferry - Ann's Sisters Quest Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2190,
         classification=LocationProgressType.DEFAULT,
@@ -19167,7 +19167,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Dusty Letter (1)": FF12OpenWorldLocationData(
+    "Lowtown - Dusty Letter Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2191,
         classification=LocationProgressType.DEFAULT,
@@ -19175,7 +19175,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9185",
         difficulty=2
     ),
-    "Dusty Letter (2)": FF12OpenWorldLocationData(
+    "Lowtown - Dusty Letter Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2192,
         classification=LocationProgressType.DEFAULT,
@@ -19184,7 +19184,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Dusty Letter (3)": FF12OpenWorldLocationData(
+    "Lowtown - Dusty Letter Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2193,
         classification=LocationProgressType.DEFAULT,
@@ -19193,7 +19193,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Samal Blackened Fragment (1)": FF12OpenWorldLocationData(
+    "Lowtown - Samal Blackened Fragment Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2194,
         classification=LocationProgressType.DEFAULT,
@@ -19201,7 +19201,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="917C",
         difficulty=5
     ),
-    "Samal Blackened Fragment (2)": FF12OpenWorldLocationData(
+    "Lowtown - Samal Blackened Fragment Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2195,
         classification=LocationProgressType.DEFAULT,
@@ -19210,7 +19210,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Samal Blackened Fragment (3)": FF12OpenWorldLocationData(
+    "Lowtown - Samal Blackened Fragment Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2196,
         classification=LocationProgressType.DEFAULT,
@@ -19219,14 +19219,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Dull Fragment (1)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Dull Fragment Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2197,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9186"
     ),
-    "Dull Fragment (2)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Dull Fragment Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2198,
         classification=LocationProgressType.DEFAULT,
@@ -19234,7 +19234,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9186",
         secondary_index=1
     ),
-    "Dull Fragment (3)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Dull Fragment Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2199,
         classification=LocationProgressType.DEFAULT,
@@ -19242,7 +19242,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9186",
         secondary_index=2
     ),
-    "Grimy Fragment (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Grimy Fragment Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2200,
         classification=LocationProgressType.DEFAULT,
@@ -19250,7 +19250,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9187",
         difficulty=5
     ),
-    "Grimy Fragment (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Grimy Fragment Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2201,
         classification=LocationProgressType.DEFAULT,
@@ -19259,7 +19259,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Grimy Fragment (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Grimy Fragment Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2202,
         classification=LocationProgressType.DEFAULT,
@@ -19268,7 +19268,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Moonsilver Medallion (1)": FF12OpenWorldLocationData(
+    "Old Archades - Moonsilver Medallion Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2203,
         classification=LocationProgressType.DEFAULT,
@@ -19276,7 +19276,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9188",
         difficulty=5
     ),
-    "Moonsilver Medallion (2)": FF12OpenWorldLocationData(
+    "Old Archades - Moonsilver Medallion Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2204,
         classification=LocationProgressType.DEFAULT,
@@ -19285,7 +19285,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Moonsilver Medallion (3)": FF12OpenWorldLocationData(
+    "Old Archades - Moonsilver Medallion Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2205,
         classification=LocationProgressType.DEFAULT,
@@ -19294,7 +19294,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Nabreus Medallion 1 (1)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2206,
         classification=LocationProgressType.DEFAULT,
@@ -19302,7 +19302,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9189",
         difficulty=6
     ),
-    "Nabreus Medallion 1 (2)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2207,
         classification=LocationProgressType.DEFAULT,
@@ -19311,7 +19311,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Nabreus Medallion 1 (3)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2208,
         classification=LocationProgressType.DEFAULT,
@@ -19320,7 +19320,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Nabreus Medallion 2 (1)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2209,
         classification=LocationProgressType.DEFAULT,
@@ -19328,7 +19328,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918A",
         difficulty=6
     ),
-    "Nabreus Medallion 2 (2)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2210,
         classification=LocationProgressType.DEFAULT,
@@ -19337,7 +19337,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Nabreus Medallion 2 (3)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2211,
         classification=LocationProgressType.DEFAULT,
@@ -19346,7 +19346,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Nabreus Medallion 3 (1)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 3 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2212,
         classification=LocationProgressType.DEFAULT,
@@ -19354,7 +19354,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918B",
         difficulty=6
     ),
-    "Nabreus Medallion 3 (2)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 3 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2213,
         classification=LocationProgressType.DEFAULT,
@@ -19363,7 +19363,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Nabreus Medallion 3 (3)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Nabreus Medallion 3 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2214,
         classification=LocationProgressType.DEFAULT,
@@ -19372,7 +19372,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Medallion of Might (1)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Medallion of Might Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2215,
         classification=LocationProgressType.DEFAULT,
@@ -19380,7 +19380,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="918C",
         difficulty=7
     ),
-    "Medallion of Might (2)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Medallion of Might Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2216,
         classification=LocationProgressType.DEFAULT,
@@ -19389,7 +19389,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Medallion of Might (3)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Medallion of Might Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2217,
         classification=LocationProgressType.DEFAULT,
@@ -19398,7 +19398,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Viera Rendezvous (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Viera Rendezvous Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2218,
         classification=LocationProgressType.DEFAULT,
@@ -19406,7 +19406,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9056",
         difficulty=1
     ),
-    "Viera Rendezvous (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Viera Rendezvous Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2219,
         classification=LocationProgressType.DEFAULT,
@@ -19415,7 +19415,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=1
     ),
-    "Viera Rendezvous (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Viera Rendezvous Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2220,
         classification=LocationProgressType.DEFAULT,
@@ -19424,7 +19424,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=1
     ),
-    "Ktjn Reward (1)": FF12OpenWorldLocationData(
+    "Rabanastre - Ktjn Reward Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2221,
         classification=LocationProgressType.DEFAULT,
@@ -19432,7 +19432,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9058",
         difficulty=2
     ),
-    "Ktjn Reward (2)": FF12OpenWorldLocationData(
+    "Rabanastre - Ktjn Reward Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2222,
         classification=LocationProgressType.DEFAULT,
@@ -19441,7 +19441,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=2
     ),
-    "Ktjn Reward (3)": FF12OpenWorldLocationData(
+    "Rabanastre - Ktjn Reward Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2223,
         classification=LocationProgressType.DEFAULT,
@@ -19450,7 +19450,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=2
     ),
-    "Jovy Reward (1)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Jovy Reward Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2224,
         classification=LocationProgressType.DEFAULT,
@@ -19458,7 +19458,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906A",
         difficulty=7
     ),
-    "Jovy Reward (2)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Jovy Reward Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2225,
         classification=LocationProgressType.DEFAULT,
@@ -19467,7 +19467,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Jovy Reward (3)": FF12OpenWorldLocationData(
+    "Nalbina Fortress - Jovy Reward Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2226,
         classification=LocationProgressType.DEFAULT,
@@ -19476,14 +19476,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Outpost Mysterious Glint 1 (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 1 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2227,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="906E"
     ),
-    "Outpost Mysterious Glint 1 (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 1 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2228,
         classification=LocationProgressType.DEFAULT,
@@ -19491,7 +19491,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906E",
         secondary_index=1
     ),
-    "Outpost Mysterious Glint 1 (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 1 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2229,
         classification=LocationProgressType.DEFAULT,
@@ -19499,14 +19499,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906E",
         secondary_index=2
     ),
-    "Outpost Mysterious Glint 2 (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 2 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2230,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="906F"
     ),
-    "Outpost Mysterious Glint 2 (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 2 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2231,
         classification=LocationProgressType.DEFAULT,
@@ -19514,7 +19514,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906F",
         secondary_index=1
     ),
-    "Outpost Mysterious Glint 2 (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 2 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2232,
         classification=LocationProgressType.DEFAULT,
@@ -19522,14 +19522,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="906F",
         secondary_index=2
     ),
-    "Outpost Mysterious Glint 3 (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 3 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2233,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9057"
     ),
-    "Outpost Mysterious Glint 3 (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 3 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2234,
         classification=LocationProgressType.DEFAULT,
@@ -19537,7 +19537,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9057",
         secondary_index=1
     ),
-    "Outpost Mysterious Glint 3 (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 3 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2235,
         classification=LocationProgressType.DEFAULT,
@@ -19545,14 +19545,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9057",
         secondary_index=2
     ),
-    "Outpost Mysterious Glint 4 (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 4 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2236,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9070"
     ),
-    "Outpost Mysterious Glint 4 (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 4 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2237,
         classification=LocationProgressType.DEFAULT,
@@ -19560,7 +19560,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9070",
         secondary_index=1
     ),
-    "Outpost Mysterious Glint 4 (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 4 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2238,
         classification=LocationProgressType.DEFAULT,
@@ -19568,14 +19568,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9070",
         secondary_index=2
     ),
-    "Outpost Mysterious Glint 5 (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 5 Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2239,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="9059"
     ),
-    "Outpost Mysterious Glint 5 (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 5 Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2240,
         classification=LocationProgressType.DEFAULT,
@@ -19583,7 +19583,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9059",
         secondary_index=1
     ),
-    "Outpost Mysterious Glint 5 (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Outpost Mysterious Glint 5 Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2241,
         classification=LocationProgressType.DEFAULT,
@@ -19591,14 +19591,14 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9059",
         secondary_index=2
     ),
-    "Footrace (1)": FF12OpenWorldLocationData(
+    "Balfonheim - Footrace Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2242,
         classification=LocationProgressType.DEFAULT,
         type="reward",
         str_id="908F"
     ),
-    "Footrace (2)": FF12OpenWorldLocationData(
+    "Balfonheim - Footrace Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2243,
         classification=LocationProgressType.DEFAULT,
@@ -19606,7 +19606,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="908F",
         secondary_index=1
     ),
-    "Footrace (3)": FF12OpenWorldLocationData(
+    "Balfonheim - Footrace Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2244,
         classification=LocationProgressType.DEFAULT,
@@ -19614,7 +19614,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="908F",
         secondary_index=2
     ),
-    "Defeat Adrammelech (1)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Defeat Adrammelech Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2245,
         classification=LocationProgressType.DEFAULT,
@@ -19622,7 +19622,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9194",
         difficulty=3
     ),
-    "Defeat Adrammelech (2)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Defeat Adrammelech Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2246,
         classification=LocationProgressType.DEFAULT,
@@ -19631,7 +19631,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=3
     ),
-    "Defeat Adrammelech (3)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Defeat Adrammelech Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2247,
         classification=LocationProgressType.DEFAULT,
@@ -19640,7 +19640,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=3
     ),
-    "Defeat Zalera (1)": FF12OpenWorldLocationData(
+    "Barheim Passage - Defeat Zalera Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2248,
         classification=LocationProgressType.DEFAULT,
@@ -19648,7 +19648,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9195",
         difficulty=4
     ),
-    "Defeat Zalera (2)": FF12OpenWorldLocationData(
+    "Barheim Passage - Defeat Zalera Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2249,
         classification=LocationProgressType.DEFAULT,
@@ -19657,7 +19657,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Defeat Zalera (3)": FF12OpenWorldLocationData(
+    "Barheim Passage - Defeat Zalera Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2250,
         classification=LocationProgressType.DEFAULT,
@@ -19666,7 +19666,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Defeat Cuchulainn (1)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Defeat Cuchulainn Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2251,
         classification=LocationProgressType.DEFAULT,
@@ -19674,7 +19674,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9196",
         difficulty=6
     ),
-    "Defeat Cuchulainn (2)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Defeat Cuchulainn Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2252,
         classification=LocationProgressType.DEFAULT,
@@ -19683,7 +19683,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Defeat Cuchulainn (3)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Defeat Cuchulainn Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2253,
         classification=LocationProgressType.DEFAULT,
@@ -19692,7 +19692,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Defeat Zeromus (1)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Zeromus Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2254,
         classification=LocationProgressType.DEFAULT,
@@ -19700,7 +19700,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9197",
         difficulty=5
     ),
-    "Defeat Zeromus (2)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Zeromus Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2255,
         classification=LocationProgressType.DEFAULT,
@@ -19709,7 +19709,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Defeat Zeromus (3)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Defeat Zeromus Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2256,
         classification=LocationProgressType.DEFAULT,
@@ -19718,7 +19718,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Defeat Exodus (1)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Defeat Exodus Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2257,
         classification=LocationProgressType.DEFAULT,
@@ -19726,7 +19726,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9198",
         difficulty=4
     ),
-    "Defeat Exodus (2)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Defeat Exodus Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2258,
         classification=LocationProgressType.DEFAULT,
@@ -19735,7 +19735,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=4
     ),
-    "Defeat Exodus (3)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Defeat Exodus Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2259,
         classification=LocationProgressType.DEFAULT,
@@ -19744,7 +19744,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=4
     ),
-    "Defeat Chaos (1)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Defeat Chaos Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2260,
         classification=LocationProgressType.DEFAULT,
@@ -19752,7 +19752,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9199",
         difficulty=5
     ),
-    "Defeat Chaos (2)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Defeat Chaos Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2261,
         classification=LocationProgressType.DEFAULT,
@@ -19761,7 +19761,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Defeat Chaos (3)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Defeat Chaos Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2262,
         classification=LocationProgressType.DEFAULT,
@@ -19770,7 +19770,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Defeat Ultima (1)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Ultima Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2263,
         classification=LocationProgressType.DEFAULT,
@@ -19778,7 +19778,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="919A",
         difficulty=6
     ),
-    "Defeat Ultima (2)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Ultima Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2264,
         classification=LocationProgressType.DEFAULT,
@@ -19787,7 +19787,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Defeat Ultima (3)": FF12OpenWorldLocationData(
+    "Giruvegan - Defeat Ultima Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2265,
         classification=LocationProgressType.DEFAULT,
@@ -19796,7 +19796,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Defeat Zodiark (1)": FF12OpenWorldLocationData(
+    "Henne Mines - Defeat Zodiark Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2266,
         classification=LocationProgressType.DEFAULT,
@@ -19804,7 +19804,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="919B",
         difficulty=7
     ),
-    "Defeat Zodiark (2)": FF12OpenWorldLocationData(
+    "Henne Mines - Defeat Zodiark Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2267,
         classification=LocationProgressType.DEFAULT,
@@ -19813,7 +19813,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Defeat Zodiark (3)": FF12OpenWorldLocationData(
+    "Henne Mines - Defeat Zodiark Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2268,
         classification=LocationProgressType.DEFAULT,
@@ -19822,7 +19822,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Thalassinon - Shelled Trophy (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Thalassinon - Shelled Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2269,
         classification=LocationProgressType.DEFAULT,
@@ -19830,7 +19830,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9090",
         difficulty=6
     ),
-    "Thalassinon - Shelled Trophy (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Thalassinon - Shelled Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2270,
         classification=LocationProgressType.DEFAULT,
@@ -19839,7 +19839,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Thalassinon - Shelled Trophy (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Thalassinon - Shelled Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2271,
         classification=LocationProgressType.DEFAULT,
@@ -19848,7 +19848,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Gavial - Fur-scaled Trophy (1)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Gavial - Fur-scaled Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2272,
         classification=LocationProgressType.DEFAULT,
@@ -19856,7 +19856,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9091",
         difficulty=6
     ),
-    "Gavial - Fur-scaled Trophy (2)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Gavial - Fur-scaled Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2273,
         classification=LocationProgressType.DEFAULT,
@@ -19865,7 +19865,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Gavial - Fur-scaled Trophy (3)": FF12OpenWorldLocationData(
+    "Garamsythe Waterway - Gavial - Fur-scaled Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2274,
         classification=LocationProgressType.DEFAULT,
@@ -19874,7 +19874,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Ishteen - Bony Trophy (1)": FF12OpenWorldLocationData(
+    "Barheim Passage - Ishteen - Bony Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2275,
         classification=LocationProgressType.DEFAULT,
@@ -19882,7 +19882,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9092",
         difficulty=7
     ),
-    "Ishteen - Bony Trophy (2)": FF12OpenWorldLocationData(
+    "Barheim Passage - Ishteen - Bony Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2276,
         classification=LocationProgressType.DEFAULT,
@@ -19891,7 +19891,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Ishteen - Bony Trophy (3)": FF12OpenWorldLocationData(
+    "Barheim Passage - Ishteen - Bony Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2277,
         classification=LocationProgressType.DEFAULT,
@@ -19900,7 +19900,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Kaiser Wolf - Fanged Trophy (1)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Kaiser Wolf - Fanged Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2278,
         classification=LocationProgressType.DEFAULT,
@@ -19908,7 +19908,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9093",
         difficulty=5
     ),
-    "Kaiser Wolf - Fanged Trophy (2)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Kaiser Wolf - Fanged Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2279,
         classification=LocationProgressType.DEFAULT,
@@ -19917,7 +19917,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Kaiser Wolf - Fanged Trophy (3)": FF12OpenWorldLocationData(
+    "Dalmasca Westersand - Kaiser Wolf - Fanged Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2280,
         classification=LocationProgressType.DEFAULT,
@@ -19926,7 +19926,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Terror Tyrant - Hide-covered Trophy (1)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Terror Tyrant - Hide-covered Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2281,
         classification=LocationProgressType.DEFAULT,
@@ -19934,7 +19934,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9094",
         difficulty=7
     ),
-    "Terror Tyrant - Hide-covered Trophy (2)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Terror Tyrant - Hide-covered Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2282,
         classification=LocationProgressType.DEFAULT,
@@ -19943,7 +19943,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Terror Tyrant - Hide-covered Trophy (3)": FF12OpenWorldLocationData(
+    "Dalmasca Estersand - Terror Tyrant - Hide-covered Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2283,
         classification=LocationProgressType.DEFAULT,
@@ -19952,7 +19952,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Nazarnir - Maned Trophy (1)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Nazarnir - Maned Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2284,
         classification=LocationProgressType.DEFAULT,
@@ -19960,7 +19960,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9095",
         difficulty=7
     ),
-    "Nazarnir - Maned Trophy (2)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Nazarnir - Maned Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2285,
         classification=LocationProgressType.DEFAULT,
@@ -19969,7 +19969,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Nazarnir - Maned Trophy (3)": FF12OpenWorldLocationData(
+    "Giza Plains Dry - Nazarnir - Maned Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2286,
         classification=LocationProgressType.DEFAULT,
@@ -19978,7 +19978,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Alteci - Fell Trophy (1)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Alteci - Fell Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2287,
         classification=LocationProgressType.DEFAULT,
@@ -19986,7 +19986,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9096",
         difficulty=5
     ),
-    "Alteci - Fell Trophy (2)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Alteci - Fell Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2288,
         classification=LocationProgressType.DEFAULT,
@@ -19995,7 +19995,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Alteci - Fell Trophy (3)": FF12OpenWorldLocationData(
+    "Zertinan Caverns - Alteci - Fell Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2289,
         classification=LocationProgressType.DEFAULT,
@@ -20004,7 +20004,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Disma - Accursed Trophy (1)": FF12OpenWorldLocationData(
+    "Lhusu Mines - Disma - Accursed Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2290,
         classification=LocationProgressType.DEFAULT,
@@ -20012,7 +20012,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9097",
         difficulty=7
     ),
-    "Disma - Accursed Trophy (2)": FF12OpenWorldLocationData(
+    "Lhusu Mines - Disma - Accursed Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2291,
         classification=LocationProgressType.DEFAULT,
@@ -20021,7 +20021,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Disma - Accursed Trophy (3)": FF12OpenWorldLocationData(
+    "Lhusu Mines - Disma - Accursed Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2292,
         classification=LocationProgressType.DEFAULT,
@@ -20030,7 +20030,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Bull Chocobo - Beaked Trophy (1)": FF12OpenWorldLocationData(
+    "Ogir-Yensa Sandsea - Bull Chocobo - Beaked Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2293,
         classification=LocationProgressType.DEFAULT,
@@ -20038,7 +20038,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9098",
         difficulty=7
     ),
-    "Bull Chocobo - Beaked Trophy (2)": FF12OpenWorldLocationData(
+    "Ogir-Yensa Sandsea - Bull Chocobo - Beaked Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2294,
         classification=LocationProgressType.DEFAULT,
@@ -20047,7 +20047,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Bull Chocobo - Beaked Trophy (3)": FF12OpenWorldLocationData(
+    "Ogir-Yensa Sandsea - Bull Chocobo - Beaked Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2295,
         classification=LocationProgressType.DEFAULT,
@@ -20056,7 +20056,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Victanir - Maverick Trophy (1)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Victanir - Maverick Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2296,
         classification=LocationProgressType.DEFAULT,
@@ -20064,7 +20064,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9099",
         difficulty=7
     ),
-    "Victanir - Maverick Trophy (2)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Victanir - Maverick Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2297,
         classification=LocationProgressType.DEFAULT,
@@ -20073,7 +20073,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Victanir - Maverick Trophy (3)": FF12OpenWorldLocationData(
+    "Nam-Yensa Sandsea - Victanir - Maverick Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2298,
         classification=LocationProgressType.DEFAULT,
@@ -20082,7 +20082,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Zombie Lord - Soulless Trophy (1)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Zombie Lord - Soulless Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2299,
         classification=LocationProgressType.DEFAULT,
@@ -20090,7 +20090,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909A",
         difficulty=6
     ),
-    "Zombie Lord - Soulless Trophy (2)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Zombie Lord - Soulless Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2300,
         classification=LocationProgressType.DEFAULT,
@@ -20099,7 +20099,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Zombie Lord - Soulless Trophy (3)": FF12OpenWorldLocationData(
+    "Tomb of Raithwall - Zombie Lord - Soulless Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2301,
         classification=LocationProgressType.DEFAULT,
@@ -20108,7 +20108,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Dheed - Leathern Trophy (1)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Dheed - Leathern Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2302,
         classification=LocationProgressType.DEFAULT,
@@ -20116,7 +20116,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909B",
         difficulty=7
     ),
-    "Dheed - Leathern Trophy (2)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Dheed - Leathern Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2303,
         classification=LocationProgressType.DEFAULT,
@@ -20125,7 +20125,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Dheed - Leathern Trophy (3)": FF12OpenWorldLocationData(
+    "Mosphoran Highwaste - Dheed - Leathern Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2304,
         classification=LocationProgressType.DEFAULT,
@@ -20134,7 +20134,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Rageclaw - Sickle Trophy (1)": FF12OpenWorldLocationData(
+    "Salikawood - Rageclaw - Sickle Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2305,
         classification=LocationProgressType.DEFAULT,
@@ -20142,7 +20142,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909C",
         difficulty=5
     ),
-    "Rageclaw - Sickle Trophy (2)": FF12OpenWorldLocationData(
+    "Salikawood - Rageclaw - Sickle Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2306,
         classification=LocationProgressType.DEFAULT,
@@ -20151,7 +20151,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Rageclaw - Sickle Trophy (3)": FF12OpenWorldLocationData(
+    "Salikawood - Rageclaw - Sickle Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2307,
         classification=LocationProgressType.DEFAULT,
@@ -20160,7 +20160,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Arioch - Vengeful Trophy (1)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Arioch - Vengeful Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2308,
         classification=LocationProgressType.DEFAULT,
@@ -20168,7 +20168,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909D",
         difficulty=7
     ),
-    "Arioch - Vengeful Trophy (2)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Arioch - Vengeful Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2309,
         classification=LocationProgressType.DEFAULT,
@@ -20177,7 +20177,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Arioch - Vengeful Trophy (3)": FF12OpenWorldLocationData(
+    "Nabreus Deadlands - Arioch - Vengeful Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2310,
         classification=LocationProgressType.DEFAULT,
@@ -20186,7 +20186,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Vorres - Gravesoil Trophy (1)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Vorres - Gravesoil Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2311,
         classification=LocationProgressType.DEFAULT,
@@ -20194,7 +20194,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909E",
         difficulty=7
     ),
-    "Vorres - Gravesoil Trophy (2)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Vorres - Gravesoil Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2312,
         classification=LocationProgressType.DEFAULT,
@@ -20203,7 +20203,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Vorres - Gravesoil Trophy (3)": FF12OpenWorldLocationData(
+    "Necrohol of Nabudis - Vorres - Gravesoil Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2313,
         classification=LocationProgressType.DEFAULT,
@@ -20212,7 +20212,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Killbug - Metallic Trophy (1)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Killbug - Metallic Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2314,
         classification=LocationProgressType.DEFAULT,
@@ -20220,7 +20220,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="909F",
         difficulty=6
     ),
-    "Killbug - Metallic Trophy (2)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Killbug - Metallic Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2315,
         classification=LocationProgressType.DEFAULT,
@@ -20229,7 +20229,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Killbug - Metallic Trophy (3)": FF12OpenWorldLocationData(
+    "Ozmone Plain - Killbug - Metallic Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2316,
         classification=LocationProgressType.DEFAULT,
@@ -20238,7 +20238,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Melt - Slimy Trophy (1)": FF12OpenWorldLocationData(
+    "Henne Mines - Melt - Slimy Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2317,
         classification=LocationProgressType.DEFAULT,
@@ -20246,7 +20246,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A0",
         difficulty=7
     ),
-    "Melt - Slimy Trophy (2)": FF12OpenWorldLocationData(
+    "Henne Mines - Melt - Slimy Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2318,
         classification=LocationProgressType.DEFAULT,
@@ -20255,7 +20255,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Melt - Slimy Trophy (3)": FF12OpenWorldLocationData(
+    "Henne Mines - Melt - Slimy Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2319,
         classification=LocationProgressType.DEFAULT,
@@ -20264,7 +20264,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Biding Mantis - Scythe Trophy (1)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Biding Mantis - Scythe Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2320,
         classification=LocationProgressType.DEFAULT,
@@ -20272,7 +20272,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A1",
         difficulty=6
     ),
-    "Biding Mantis - Scythe Trophy (2)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Biding Mantis - Scythe Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2321,
         classification=LocationProgressType.DEFAULT,
@@ -20281,7 +20281,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Biding Mantis - Scythe Trophy (3)": FF12OpenWorldLocationData(
+    "Golmore Jungle - Biding Mantis - Scythe Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2322,
         classification=LocationProgressType.DEFAULT,
@@ -20290,7 +20290,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Dreadguard - Feathered Trophy (1)": FF12OpenWorldLocationData(
+    "Feywood - Dreadguard - Feathered Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2323,
         classification=LocationProgressType.DEFAULT,
@@ -20298,7 +20298,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A2",
         difficulty=7
     ),
-    "Dreadguard - Feathered Trophy (2)": FF12OpenWorldLocationData(
+    "Feywood - Dreadguard - Feathered Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2324,
         classification=LocationProgressType.DEFAULT,
@@ -20307,7 +20307,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Dreadguard - Feathered Trophy (3)": FF12OpenWorldLocationData(
+    "Feywood - Dreadguard - Feathered Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2325,
         classification=LocationProgressType.DEFAULT,
@@ -20316,7 +20316,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Crystal Knight - Skull Trophy (1)": FF12OpenWorldLocationData(
+    "Giruvegan - Crystal Knight - Skull Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2326,
         classification=LocationProgressType.DEFAULT,
@@ -20324,7 +20324,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A3",
         difficulty=5
     ),
-    "Crystal Knight - Skull Trophy (2)": FF12OpenWorldLocationData(
+    "Giruvegan - Crystal Knight - Skull Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2327,
         classification=LocationProgressType.DEFAULT,
@@ -20333,7 +20333,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Crystal Knight - Skull Trophy (3)": FF12OpenWorldLocationData(
+    "Giruvegan - Crystal Knight - Skull Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2328,
         classification=LocationProgressType.DEFAULT,
@@ -20342,7 +20342,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Ancbolder - Mind Trophy (1)": FF12OpenWorldLocationData(
+    "Paramina Rift - Ancbolder - Mind Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2329,
         classification=LocationProgressType.DEFAULT,
@@ -20350,7 +20350,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A4",
         difficulty=5
     ),
-    "Ancbolder - Mind Trophy (2)": FF12OpenWorldLocationData(
+    "Paramina Rift - Ancbolder - Mind Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2330,
         classification=LocationProgressType.DEFAULT,
@@ -20359,7 +20359,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Ancbolder - Mind Trophy (3)": FF12OpenWorldLocationData(
+    "Paramina Rift - Ancbolder - Mind Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2331,
         classification=LocationProgressType.DEFAULT,
@@ -20368,7 +20368,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Myath - Eternal Trophy (1)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Myath - Eternal Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2332,
         classification=LocationProgressType.DEFAULT,
@@ -20376,7 +20376,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A5",
         difficulty=5
     ),
-    "Myath - Eternal Trophy (2)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Myath - Eternal Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2333,
         classification=LocationProgressType.DEFAULT,
@@ -20385,7 +20385,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Myath - Eternal Trophy (3)": FF12OpenWorldLocationData(
+    "Stilshrine of Miriam - Myath - Eternal Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2334,
         classification=LocationProgressType.DEFAULT,
@@ -20394,7 +20394,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Skullash - Clawed Trophy (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Skullash - Clawed Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2335,
         classification=LocationProgressType.DEFAULT,
@@ -20402,7 +20402,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A6",
         difficulty=7
     ),
-    "Skullash - Clawed Trophy (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Skullash - Clawed Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2336,
         classification=LocationProgressType.DEFAULT,
@@ -20411,7 +20411,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Skullash - Clawed Trophy (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Skullash - Clawed Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2337,
         classification=LocationProgressType.DEFAULT,
@@ -20420,7 +20420,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Kris - Odiferous Trophy (1)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Kris - Odiferous Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2338,
         classification=LocationProgressType.DEFAULT,
@@ -20428,7 +20428,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A7",
         difficulty=7
     ),
-    "Kris - Odiferous Trophy (2)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Kris - Odiferous Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2339,
         classification=LocationProgressType.DEFAULT,
@@ -20437,7 +20437,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Kris - Odiferous Trophy (3)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Kris - Odiferous Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2340,
         classification=LocationProgressType.DEFAULT,
@@ -20446,7 +20446,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Grimalkin - Whiskered Trophy (1)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Grimalkin - Whiskered Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2341,
         classification=LocationProgressType.DEFAULT,
@@ -20454,7 +20454,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A8",
         difficulty=7
     ),
-    "Grimalkin - Whiskered Trophy (2)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Grimalkin - Whiskered Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2342,
         classification=LocationProgressType.DEFAULT,
@@ -20463,7 +20463,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Grimalkin - Whiskered Trophy (3)": FF12OpenWorldLocationData(
+    "Tchita Uplands - Grimalkin - Whiskered Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2343,
         classification=LocationProgressType.DEFAULT,
@@ -20472,7 +20472,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Wendice - Frigid Trophy (1)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Wendice - Frigid Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2344,
         classification=LocationProgressType.DEFAULT,
@@ -20480,7 +20480,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90A9",
         difficulty=5
     ),
-    "Wendice - Frigid Trophy (2)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Wendice - Frigid Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2345,
         classification=LocationProgressType.DEFAULT,
@@ -20489,7 +20489,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Wendice - Frigid Trophy (3)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Wendice - Frigid Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2346,
         classification=LocationProgressType.DEFAULT,
@@ -20498,7 +20498,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Anubys - Ensanguined Trophy (1)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Anubys - Ensanguined Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2347,
         classification=LocationProgressType.DEFAULT,
@@ -20506,7 +20506,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90AA",
         difficulty=7
     ),
-    "Anubys - Ensanguined Trophy (2)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Anubys - Ensanguined Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2348,
         classification=LocationProgressType.DEFAULT,
@@ -20515,7 +20515,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Anubys - Ensanguined Trophy (3)": FF12OpenWorldLocationData(
+    "Sochen Cave Palace - Anubys - Ensanguined Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2349,
         classification=LocationProgressType.DEFAULT,
@@ -20524,7 +20524,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Bluesang - Cruel Trophy (1)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Bluesang - Cruel Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2350,
         classification=LocationProgressType.DEFAULT,
@@ -20532,7 +20532,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90AB",
         difficulty=7
     ),
-    "Bluesang - Cruel Trophy (2)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Bluesang - Cruel Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2351,
         classification=LocationProgressType.DEFAULT,
@@ -20541,7 +20541,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Bluesang - Cruel Trophy (3)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Bluesang - Cruel Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2352,
         classification=LocationProgressType.DEFAULT,
@@ -20550,7 +20550,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Aspidochelon - Adamantine Trophy (1)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Aspidochelon - Adamantine Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2353,
         classification=LocationProgressType.DEFAULT,
@@ -20558,7 +20558,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90AC",
         difficulty=7
     ),
-    "Aspidochelon - Adamantine Trophy (2)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Aspidochelon - Adamantine Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2354,
         classification=LocationProgressType.DEFAULT,
@@ -20567,7 +20567,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Aspidochelon - Adamantine Trophy (3)": FF12OpenWorldLocationData(
+    "Cerobi Steppe - Aspidochelon - Adamantine Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2355,
         classification=LocationProgressType.DEFAULT,
@@ -20576,7 +20576,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Abelisk - Reptilian Trophy (1)": FF12OpenWorldLocationData(
+    "Ridorana Cataract - Abelisk - Reptilian Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2356,
         classification=LocationProgressType.DEFAULT,
@@ -20584,7 +20584,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90AD",
         difficulty=7
     ),
-    "Abelisk - Reptilian Trophy (2)": FF12OpenWorldLocationData(
+    "Ridorana Cataract - Abelisk - Reptilian Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2357,
         classification=LocationProgressType.DEFAULT,
@@ -20593,7 +20593,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Abelisk - Reptilian Trophy (3)": FF12OpenWorldLocationData(
+    "Ridorana Cataract - Abelisk - Reptilian Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2358,
         classification=LocationProgressType.DEFAULT,
@@ -20602,7 +20602,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Avenger - Vile Trophy (1)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Avenger - Vile Trophy Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2359,
         classification=LocationProgressType.DEFAULT,
@@ -20610,7 +20610,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90AE",
         difficulty=7
     ),
-    "Avenger - Vile Trophy (2)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Avenger - Vile Trophy Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2360,
         classification=LocationProgressType.DEFAULT,
@@ -20619,7 +20619,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Avenger - Vile Trophy (3)": FF12OpenWorldLocationData(
+    "Pharos of Ridorana - Avenger - Vile Trophy Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2361,
         classification=LocationProgressType.DEFAULT,
@@ -20628,7 +20628,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt Club Owner 5 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 5 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2362,
         classification=LocationProgressType.DEFAULT,
@@ -20636,7 +20636,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F9",
         difficulty=6
     ),
-    "Hunt Club Owner 5 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 5 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2363,
         classification=LocationProgressType.DEFAULT,
@@ -20645,7 +20645,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Hunt Club Owner 5 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 5 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2364,
         classification=LocationProgressType.DEFAULT,
@@ -20654,7 +20654,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Hunt Club Owner 10 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 10 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2365,
         classification=LocationProgressType.DEFAULT,
@@ -20662,7 +20662,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FA",
         difficulty=7
     ),
-    "Hunt Club Owner 10 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 10 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2366,
         classification=LocationProgressType.DEFAULT,
@@ -20671,7 +20671,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt Club Owner 10 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 10 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2367,
         classification=LocationProgressType.DEFAULT,
@@ -20680,7 +20680,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt Club Owner 15 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 15 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2368,
         classification=LocationProgressType.DEFAULT,
@@ -20688,7 +20688,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FB",
         difficulty=7
     ),
-    "Hunt Club Owner 15 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 15 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2369,
         classification=LocationProgressType.DEFAULT,
@@ -20697,7 +20697,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Hunt Club Owner 15 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 15 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2370,
         classification=LocationProgressType.DEFAULT,
@@ -20706,7 +20706,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Hunt Club Owner 20 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 20 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2371,
         classification=LocationProgressType.DEFAULT,
@@ -20714,7 +20714,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FC",
         difficulty=8
     ),
-    "Hunt Club Owner 20 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 20 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2372,
         classification=LocationProgressType.DEFAULT,
@@ -20723,7 +20723,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Hunt Club Owner 20 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 20 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2373,
         classification=LocationProgressType.DEFAULT,
@@ -20732,7 +20732,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Hunt Club Owner 25 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 25 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2374,
         classification=LocationProgressType.DEFAULT,
@@ -20740,7 +20740,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FD",
         difficulty=9
     ),
-    "Hunt Club Owner 25 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 25 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2375,
         classification=LocationProgressType.DEFAULT,
@@ -20749,7 +20749,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Hunt Club Owner 25 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 25 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2376,
         classification=LocationProgressType.DEFAULT,
@@ -20758,7 +20758,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Hunt Club Owner 30 Trophy Rares Defeated (1)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 30 Trophy Rares Defeated Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2377,
         classification=LocationProgressType.DEFAULT,
@@ -20766,7 +20766,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FE",
         difficulty=10
     ),
-    "Hunt Club Owner 30 Trophy Rares Defeated (2)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 30 Trophy Rares Defeated Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2378,
         classification=LocationProgressType.DEFAULT,
@@ -20775,7 +20775,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Hunt Club Owner 30 Trophy Rares Defeated (3)": FF12OpenWorldLocationData(
+    "Archades - Hunt Club Owner 30 Trophy Rares Defeated Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2379,
         classification=LocationProgressType.DEFAULT,
@@ -20784,7 +20784,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Atak 16 or more (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 16 or more Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2380,
         classification=LocationProgressType.EXCLUDED,
@@ -20792,7 +20792,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F3",
         difficulty=10
     ),
-    "All Trophies Atak 16 or more (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 16 or more Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2381,
         classification=LocationProgressType.EXCLUDED,
@@ -20801,7 +20801,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Atak 16 or more (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 16 or more Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2382,
         classification=LocationProgressType.EXCLUDED,
@@ -20810,7 +20810,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Atak 15 or less (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 15 or less Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2383,
         classification=LocationProgressType.EXCLUDED,
@@ -20818,7 +20818,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F4",
         difficulty=10
     ),
-    "All Trophies Atak 15 or less (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 15 or less Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2384,
         classification=LocationProgressType.EXCLUDED,
@@ -20827,7 +20827,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Atak 15 or less (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Atak 15 or less Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2385,
         classification=LocationProgressType.EXCLUDED,
@@ -20836,7 +20836,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Blok 16 or more (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 16 or more Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2386,
         classification=LocationProgressType.EXCLUDED,
@@ -20844,7 +20844,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F5",
         difficulty=10
     ),
-    "All Trophies Blok 16 or more (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 16 or more Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2387,
         classification=LocationProgressType.EXCLUDED,
@@ -20853,7 +20853,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Blok 16 or more (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 16 or more Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2388,
         classification=LocationProgressType.EXCLUDED,
@@ -20862,7 +20862,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Blok 15 or less (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 15 or less Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2389,
         classification=LocationProgressType.EXCLUDED,
@@ -20870,7 +20870,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F6",
         difficulty=10
     ),
-    "All Trophies Blok 15 or less (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 15 or less Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2390,
         classification=LocationProgressType.EXCLUDED,
@@ -20879,7 +20879,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Blok 15 or less (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Blok 15 or less Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2391,
         classification=LocationProgressType.EXCLUDED,
@@ -20888,7 +20888,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Stok 16 or more (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 16 or more Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2392,
         classification=LocationProgressType.EXCLUDED,
@@ -20896,7 +20896,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F7",
         difficulty=10
     ),
-    "All Trophies Stok 16 or more (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 16 or more Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2393,
         classification=LocationProgressType.EXCLUDED,
@@ -20905,7 +20905,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Stok 16 or more (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 16 or more Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2394,
         classification=LocationProgressType.EXCLUDED,
@@ -20914,7 +20914,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "All Trophies Stok 15 or less (1)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 15 or less Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2395,
         classification=LocationProgressType.EXCLUDED,
@@ -20922,7 +20922,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90F8",
         difficulty=10
     ),
-    "All Trophies Stok 15 or less (2)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 15 or less Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2396,
         classification=LocationProgressType.EXCLUDED,
@@ -20931,7 +20931,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "All Trophies Stok 15 or less (3)": FF12OpenWorldLocationData(
+    "Phon Coast - All Trophies Stok 15 or less Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2397,
         classification=LocationProgressType.EXCLUDED,
@@ -20940,7 +20940,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Atak 1, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2398,
         classification=LocationProgressType.EXCLUDED,
@@ -20948,7 +20948,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="90FF",
         difficulty=5
     ),
-    "Atak 1, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2399,
         classification=LocationProgressType.EXCLUDED,
@@ -20957,7 +20957,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Atak 1, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2400,
         classification=LocationProgressType.EXCLUDED,
@@ -20966,7 +20966,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Atak 0, Blok 1, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 1, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2401,
         classification=LocationProgressType.EXCLUDED,
@@ -20974,7 +20974,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9100",
         difficulty=5
     ),
-    "Atak 0, Blok 1, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 1, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2402,
         classification=LocationProgressType.EXCLUDED,
@@ -20983,7 +20983,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Atak 0, Blok 1, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 1, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2403,
         classification=LocationProgressType.EXCLUDED,
@@ -20992,7 +20992,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Atak 0, Blok 0, Stok 1 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 1 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2404,
         classification=LocationProgressType.EXCLUDED,
@@ -21000,7 +21000,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9101",
         difficulty=5
     ),
-    "Atak 0, Blok 0, Stok 1 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 1 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2405,
         classification=LocationProgressType.EXCLUDED,
@@ -21009,7 +21009,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=5
     ),
-    "Atak 0, Blok 0, Stok 1 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 1 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2406,
         classification=LocationProgressType.EXCLUDED,
@@ -21018,7 +21018,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=5
     ),
-    "Atak 5, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2407,
         classification=LocationProgressType.EXCLUDED,
@@ -21026,7 +21026,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9102",
         difficulty=6
     ),
-    "Atak 5, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2408,
         classification=LocationProgressType.EXCLUDED,
@@ -21035,7 +21035,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Atak 5, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2409,
         classification=LocationProgressType.EXCLUDED,
@@ -21044,7 +21044,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Atak 0, Blok 5, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 5, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2410,
         classification=LocationProgressType.EXCLUDED,
@@ -21052,7 +21052,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9103",
         difficulty=6
     ),
-    "Atak 0, Blok 5, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 5, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2411,
         classification=LocationProgressType.EXCLUDED,
@@ -21061,7 +21061,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Atak 0, Blok 5, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 5, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2412,
         classification=LocationProgressType.EXCLUDED,
@@ -21070,7 +21070,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Atak 0, Blok 0, Stok 5 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 5 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2413,
         classification=LocationProgressType.EXCLUDED,
@@ -21078,7 +21078,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9104",
         difficulty=6
     ),
-    "Atak 0, Blok 0, Stok 5 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 5 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2414,
         classification=LocationProgressType.EXCLUDED,
@@ -21087,7 +21087,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=6
     ),
-    "Atak 0, Blok 0, Stok 5 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 5 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2415,
         classification=LocationProgressType.EXCLUDED,
@@ -21096,7 +21096,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=6
     ),
-    "Atak 10, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2416,
         classification=LocationProgressType.EXCLUDED,
@@ -21104,7 +21104,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9105",
         difficulty=7
     ),
-    "Atak 10, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2417,
         classification=LocationProgressType.EXCLUDED,
@@ -21113,7 +21113,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 10, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2418,
         classification=LocationProgressType.EXCLUDED,
@@ -21122,7 +21122,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 0, Blok 10, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 10, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2419,
         classification=LocationProgressType.EXCLUDED,
@@ -21130,7 +21130,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9106",
         difficulty=7
     ),
-    "Atak 0, Blok 10, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 10, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2420,
         classification=LocationProgressType.EXCLUDED,
@@ -21139,7 +21139,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 0, Blok 10, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 10, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2421,
         classification=LocationProgressType.EXCLUDED,
@@ -21148,7 +21148,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 10 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 10 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2422,
         classification=LocationProgressType.EXCLUDED,
@@ -21156,7 +21156,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9107",
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 10 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 10 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2423,
         classification=LocationProgressType.EXCLUDED,
@@ -21165,7 +21165,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 10 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 10 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2424,
         classification=LocationProgressType.EXCLUDED,
@@ -21174,7 +21174,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 15, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 15, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2425,
         classification=LocationProgressType.EXCLUDED,
@@ -21182,7 +21182,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9108",
         difficulty=7
     ),
-    "Atak 15, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 15, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2426,
         classification=LocationProgressType.EXCLUDED,
@@ -21191,7 +21191,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 15, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 15, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2427,
         classification=LocationProgressType.EXCLUDED,
@@ -21200,7 +21200,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 0, Blok 15, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 15, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2428,
         classification=LocationProgressType.EXCLUDED,
@@ -21208,7 +21208,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9109",
         difficulty=7
     ),
-    "Atak 0, Blok 15, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 15, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2429,
         classification=LocationProgressType.EXCLUDED,
@@ -21217,7 +21217,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 0, Blok 15, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 15, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2430,
         classification=LocationProgressType.EXCLUDED,
@@ -21226,7 +21226,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 15 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 15 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2431,
         classification=LocationProgressType.EXCLUDED,
@@ -21234,7 +21234,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910A",
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 15 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 15 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2432,
         classification=LocationProgressType.EXCLUDED,
@@ -21243,7 +21243,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 0, Blok 0, Stok 15 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 15 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2433,
         classification=LocationProgressType.EXCLUDED,
@@ -21252,7 +21252,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 10, Blok 5, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 5, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2434,
         classification=LocationProgressType.EXCLUDED,
@@ -21260,7 +21260,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910B",
         difficulty=7
     ),
-    "Atak 10, Blok 5, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 5, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2435,
         classification=LocationProgressType.EXCLUDED,
@@ -21269,7 +21269,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=7
     ),
-    "Atak 10, Blok 5, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 5, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2436,
         classification=LocationProgressType.EXCLUDED,
@@ -21278,7 +21278,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=7
     ),
-    "Atak 20, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 20, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2437,
         classification=LocationProgressType.EXCLUDED,
@@ -21286,7 +21286,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910C",
         difficulty=8
     ),
-    "Atak 20, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 20, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2438,
         classification=LocationProgressType.EXCLUDED,
@@ -21295,7 +21295,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 20, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 20, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2439,
         classification=LocationProgressType.EXCLUDED,
@@ -21304,7 +21304,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 0, Blok 20, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 20, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2440,
         classification=LocationProgressType.EXCLUDED,
@@ -21312,7 +21312,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910D",
         difficulty=8
     ),
-    "Atak 0, Blok 20, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 20, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2441,
         classification=LocationProgressType.EXCLUDED,
@@ -21321,7 +21321,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 0, Blok 20, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 20, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2442,
         classification=LocationProgressType.EXCLUDED,
@@ -21330,7 +21330,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 0, Blok 0, Stok 20 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 20 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2443,
         classification=LocationProgressType.EXCLUDED,
@@ -21338,7 +21338,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910E",
         difficulty=8
     ),
-    "Atak 0, Blok 0, Stok 20 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 20 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2444,
         classification=LocationProgressType.EXCLUDED,
@@ -21347,7 +21347,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 0, Blok 0, Stok 20 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 20 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2445,
         classification=LocationProgressType.EXCLUDED,
@@ -21356,7 +21356,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 5, Blok 10, Stok 5 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 10, Stok 5 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2446,
         classification=LocationProgressType.EXCLUDED,
@@ -21364,7 +21364,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="910F",
         difficulty=8
     ),
-    "Atak 5, Blok 10, Stok 5 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 10, Stok 5 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2447,
         classification=LocationProgressType.EXCLUDED,
@@ -21373,7 +21373,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 5, Blok 10, Stok 5 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 10, Stok 5 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2448,
         classification=LocationProgressType.EXCLUDED,
@@ -21382,7 +21382,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 25, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2449,
         classification=LocationProgressType.EXCLUDED,
@@ -21390,7 +21390,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9110",
         difficulty=9
     ),
-    "Atak 25, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2450,
         classification=LocationProgressType.EXCLUDED,
@@ -21399,7 +21399,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 25, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2451,
         classification=LocationProgressType.EXCLUDED,
@@ -21408,7 +21408,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 0, Blok 25, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 25, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2452,
         classification=LocationProgressType.EXCLUDED,
@@ -21416,7 +21416,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9111",
         difficulty=9
     ),
-    "Atak 0, Blok 25, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 25, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2453,
         classification=LocationProgressType.EXCLUDED,
@@ -21425,7 +21425,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 0, Blok 25, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 25, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2454,
         classification=LocationProgressType.EXCLUDED,
@@ -21434,7 +21434,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 0, Blok 0, Stok 25 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 25 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2455,
         classification=LocationProgressType.EXCLUDED,
@@ -21442,7 +21442,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9112",
         difficulty=9
     ),
-    "Atak 0, Blok 0, Stok 25 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 25 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2456,
         classification=LocationProgressType.EXCLUDED,
@@ -21451,7 +21451,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 0, Blok 0, Stok 25 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 25 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2457,
         classification=LocationProgressType.EXCLUDED,
@@ -21460,7 +21460,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 5, Blok 5, Stok 15 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 15 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2458,
         classification=LocationProgressType.EXCLUDED,
@@ -21468,7 +21468,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9113",
         difficulty=9
     ),
-    "Atak 5, Blok 5, Stok 15 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 15 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2459,
         classification=LocationProgressType.EXCLUDED,
@@ -21477,7 +21477,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 5, Blok 5, Stok 15 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 15 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2460,
         classification=LocationProgressType.EXCLUDED,
@@ -21486,7 +21486,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 30, Blok 0, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 30, Blok 0, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2461,
         classification=LocationProgressType.EXCLUDED,
@@ -21494,7 +21494,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9114",
         difficulty=10
     ),
-    "Atak 30, Blok 0, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 30, Blok 0, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2462,
         classification=LocationProgressType.EXCLUDED,
@@ -21503,7 +21503,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Atak 30, Blok 0, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 30, Blok 0, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2463,
         classification=LocationProgressType.EXCLUDED,
@@ -21512,7 +21512,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Atak 0, Blok 30, Stok 0 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 30, Stok 0 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2464,
         classification=LocationProgressType.EXCLUDED,
@@ -21520,7 +21520,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9115",
         difficulty=10
     ),
-    "Atak 0, Blok 30, Stok 0 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 30, Stok 0 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2465,
         classification=LocationProgressType.EXCLUDED,
@@ -21529,7 +21529,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Atak 0, Blok 30, Stok 0 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 30, Stok 0 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2466,
         classification=LocationProgressType.EXCLUDED,
@@ -21538,7 +21538,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Atak 0, Blok 0, Stok 30 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 30 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2467,
         classification=LocationProgressType.EXCLUDED,
@@ -21546,7 +21546,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9116",
         difficulty=10
     ),
-    "Atak 0, Blok 0, Stok 30 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 30 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2468,
         classification=LocationProgressType.EXCLUDED,
@@ -21555,7 +21555,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Atak 0, Blok 0, Stok 30 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 0, Blok 0, Stok 30 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2469,
         classification=LocationProgressType.EXCLUDED,
@@ -21564,7 +21564,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Atak 10, Blok 10, Stok 10 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 10, Stok 10 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2470,
         classification=LocationProgressType.EXCLUDED,
@@ -21572,7 +21572,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9117",
         difficulty=10
     ),
-    "Atak 10, Blok 10, Stok 10 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 10, Stok 10 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2471,
         classification=LocationProgressType.EXCLUDED,
@@ -21581,7 +21581,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=10
     ),
-    "Atak 10, Blok 10, Stok 10 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 10, Blok 10, Stok 10 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2472,
         classification=LocationProgressType.EXCLUDED,
@@ -21590,7 +21590,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=10
     ),
-    "Atak 25, Blok 1, Stok 1 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 1, Stok 1 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2473,
         classification=LocationProgressType.EXCLUDED,
@@ -21598,7 +21598,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9118",
         difficulty=9
     ),
-    "Atak 25, Blok 1, Stok 1 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 1, Stok 1 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2474,
         classification=LocationProgressType.EXCLUDED,
@@ -21607,7 +21607,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 25, Blok 1, Stok 1 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 25, Blok 1, Stok 1 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2475,
         classification=LocationProgressType.EXCLUDED,
@@ -21616,7 +21616,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 1, Blok 25, Stok 1 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 25, Stok 1 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2476,
         classification=LocationProgressType.EXCLUDED,
@@ -21624,7 +21624,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="9119",
         difficulty=9
     ),
-    "Atak 1, Blok 25, Stok 1 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 25, Stok 1 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2477,
         classification=LocationProgressType.EXCLUDED,
@@ -21633,7 +21633,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 1, Blok 25, Stok 1 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 25, Stok 1 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2478,
         classification=LocationProgressType.EXCLUDED,
@@ -21642,7 +21642,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 1, Blok 1, Stok 25 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 1, Stok 25 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2479,
         classification=LocationProgressType.EXCLUDED,
@@ -21650,7 +21650,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911A",
         difficulty=9
     ),
-    "Atak 1, Blok 1, Stok 25 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 1, Stok 25 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2480,
         classification=LocationProgressType.EXCLUDED,
@@ -21659,7 +21659,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=9
     ),
-    "Atak 1, Blok 1, Stok 25 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 1, Blok 1, Stok 25 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2481,
         classification=LocationProgressType.EXCLUDED,
@@ -21668,7 +21668,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=9
     ),
-    "Atak 12, Blok 5, Stok 5 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 12, Blok 5, Stok 5 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2482,
         classification=LocationProgressType.EXCLUDED,
@@ -21676,7 +21676,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911B",
         difficulty=8
     ),
-    "Atak 12, Blok 5, Stok 5 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 12, Blok 5, Stok 5 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2483,
         classification=LocationProgressType.EXCLUDED,
@@ -21685,7 +21685,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 12, Blok 5, Stok 5 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 12, Blok 5, Stok 5 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2484,
         classification=LocationProgressType.EXCLUDED,
@@ -21694,7 +21694,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 5, Blok 12, Stok 5 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 12, Stok 5 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2485,
         classification=LocationProgressType.EXCLUDED,
@@ -21702,7 +21702,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911C",
         difficulty=8
     ),
-    "Atak 5, Blok 12, Stok 5 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 12, Stok 5 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2486,
         classification=LocationProgressType.EXCLUDED,
@@ -21711,7 +21711,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 5, Blok 12, Stok 5 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 12, Stok 5 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2487,
         classification=LocationProgressType.EXCLUDED,
@@ -21720,7 +21720,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=2,
         difficulty=8
     ),
-    "Atak 5, Blok 5, Stok 12 Outfitters (1)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 12 Outfitters Reward (1)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2488,
         classification=LocationProgressType.EXCLUDED,
@@ -21728,7 +21728,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         str_id="911D",
         difficulty=8
     ),
-    "Atak 5, Blok 5, Stok 12 Outfitters (2)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 12 Outfitters Reward (2)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2489,
         classification=LocationProgressType.EXCLUDED,
@@ -21737,7 +21737,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=1,
         difficulty=8
     ),
-    "Atak 5, Blok 5, Stok 12 Outfitters (3)": FF12OpenWorldLocationData(
+    "Phon Coast - Atak 5, Blok 5, Stok 12 Outfitters Reward (3)": FF12OpenWorldLocationData(
         region="Ivalice",
         address=FF12OW_BASE_ID + 2490,
         classification=LocationProgressType.EXCLUDED,

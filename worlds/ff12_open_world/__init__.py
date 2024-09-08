@@ -26,7 +26,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.3.8"
+FF12OW_VERSION = "0.4.0"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -59,6 +59,8 @@ class FF12OpenWorldWorld(World):
         self.selected_treasures = []
         self.used_items: set[str] = set()
         self.character_order = list(range(6))
+        # Dictionary of excluded location names to their item name and count
+        self.excluded_locations: Dict[str, tuple[str, int]] = {}
         self.re_gen_data: Dict[str, Any] = {}
 
     def create_item(self, name: str) -> FF12OpenWorldItem:
@@ -92,11 +94,7 @@ class FF12OpenWorldWorld(World):
         non_events = len([location for location in self.multiworld.get_locations(self.player)
                           if location.name not in event_data_table.keys()])
 
-        # Get count of excluded locations
-        excluded = len([location for location in self.multiworld.get_locations(self.player)
-                        if location.progress_type == LocationProgressType.EXCLUDED])
-
-        filler_count = non_events - len(item_pool) - excluded
+        filler_count = non_events - len(item_pool)
         if self.options.bahamut_unlock != "random_location":
             filler_count -= 1
 
@@ -105,6 +103,15 @@ class FF12OpenWorldWorld(World):
             filler = self.get_filler_item_name()
             self.used_items.add(filler)
             item_pool.append(self.create_item(filler))
+
+        # Set excluded location filler items
+        for location_name, _ in self.excluded_locations.items():
+            filler = self.get_excluded_filler_item_name(location_name)
+            self.used_items.add(filler)
+
+            item_name = filler
+            count = item_data_table[filler].amount
+            self.excluded_locations[location_name] = (item_name, count)
 
         self.multiworld.itempool += item_pool
 
@@ -134,9 +141,15 @@ class FF12OpenWorldWorld(World):
                 if location_name in location_data_table:
                     location_data = location_data_table[location_name]
                     region = self.multiworld.get_region(location_data.region, self.player)
+
+                    # If it's excluded, add it to the excluded locations dictionary with an empty item
+                    classification = self.get_loc_classification(location_name)
+                    if classification == LocationProgressType.EXCLUDED:
+                        self.excluded_locations[location_name] = ("", 0)
+                        continue
+
                     region.add_locations({location_name: location_data.address}, FF12OpenWorldLocation)
-                    self.multiworld.get_location(location_name, self.player).progress_type = (
-                        self.get_loc_classification(location_name))
+                    self.multiworld.get_location(location_name, self.player).progress_type = classification
 
             # Add events
             for event_name, data in event_data_table.items():
@@ -173,9 +186,15 @@ class FF12OpenWorldWorld(World):
         for location_name in locations_to_add:
             location_data = location_data_table[location_name]
             region = self.multiworld.get_region(location_data.region, self.player)
+
+            # If it's excluded, add it to the excluded locations dictionary with an empty item
+            classification = self.get_loc_classification(location_name)
+            if classification == LocationProgressType.EXCLUDED:
+                self.excluded_locations[location_name] = ("", 0)
+                continue
+
             region.add_locations({location_name: location_data.address}, FF12OpenWorldLocation)
-            self.multiworld.get_location(location_name, self.player).progress_type = (
-                self.get_loc_classification(location_name))
+            self.multiworld.get_location(location_name, self.player).progress_type = classification
 
         # Add events
         for event_name, data in event_data_table.items():
@@ -184,6 +203,18 @@ class FF12OpenWorldWorld(World):
 
     def get_loc_classification(self, location_name: str) -> LocationProgressType:
         location_data = location_data_table[location_name]
+
+        # Check for special progression locations which unlock Bahamut and must be available for progression.
+        if (self.options.bahamut_unlock == "defeat_cid_2" and
+                location_name == "Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (1)"):
+            return LocationProgressType.DEFAULT
+        if (self.options.bahamut_unlock == "collect_pinewood_chops" and
+                location_name == "Archades - Sandalwood Chop Reward (1)"):
+            return LocationProgressType.DEFAULT
+        if (self.options.bahamut_unlock == "collect_espers" and
+                location_name == "Clan Hall - Clan Esper: Control 13 Reward (1)"):
+            return LocationProgressType.DEFAULT
+
         if location_data.type == "treasure" and not self.options.include_treasures:
             return LocationProgressType.EXCLUDED
         if location_data.type == "reward":
@@ -217,11 +248,11 @@ class FF12OpenWorldWorld(World):
                 return LocationProgressType.EXCLUDED
             if location_data.str_id == "9181" and not self.options.include_hunt_rewards:  # Vyraal
                 return LocationProgressType.EXCLUDED
-            if location_name.startswith("Clan Rank:") and not self.options.include_clan_hall_rewards:
+            if "Clan Rank:" in location_name and not self.options.include_clan_hall_rewards:
                 return LocationProgressType.EXCLUDED
-            if location_name.startswith("Clan Boss:") and not self.options.include_clan_hall_rewards:
+            if "Clan Boss:" in location_name and not self.options.include_clan_hall_rewards:
                 return LocationProgressType.EXCLUDED
-            if location_name.startswith("Clan Esper:") and not self.options.include_clan_hall_rewards:
+            if "Clan Esper:" in location_name and not self.options.include_clan_hall_rewards:
                 return LocationProgressType.EXCLUDED
         return location_data.classification
 
@@ -229,6 +260,32 @@ class FF12OpenWorldWorld(World):
         filler = self.multiworld.random.choices(filler_items, weights=filler_weights)[0]
         if filler == "Seitengrat" and not self.options.allow_seitengrat:
             filler = "Dhanusha"
+        return filler
+
+    # Special filler item for excluded locations which are limited based on the type and index of the location.
+    def get_excluded_filler_item_name(self, location_name: str) -> str:
+        location = location_data_table[location_name]
+
+        valid = False
+        filler = ""
+        while not valid:
+            filler = self.get_filler_item_name()
+            if location.type == "reward":
+                # The first index of a reward location must be gil.
+                if location.secondary_index == 0:
+                    valid = item_data_table[filler].code >= item_data_table["1 Gil"].code
+                    continue
+                # The second index of a reward location must not be gil.
+                else:
+                    valid = item_data_table[filler].code < item_data_table["1 Gil"].code
+                    continue
+            elif location.type == "inventory":
+                # Inventory locations cannot have gil.
+                valid = item_data_table[filler].code < item_data_table["1 Gil"].code
+                continue
+
+            valid = True
+
         return filler
 
     def set_rules(self) -> None:
@@ -244,19 +301,21 @@ class FF12OpenWorldWorld(World):
             location.place_locked_item(self.create_event(event_data.item))
 
         if self.options.bahamut_unlock == "defeat_cid_2":
-            self.multiworld.get_location("Defeat Famfrit and Cid 2 (1)", self.player).place_locked_item(
+            self.multiworld.get_location("Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
         elif self.options.bahamut_unlock == "collect_pinewood_chops":
-            self.multiworld.get_location("Sandalwood Chop (1)", self.player).place_locked_item(
+            self.multiworld.get_location("Archades - Sandalwood Chop Reward (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
         elif self.options.bahamut_unlock == "collect_espers":
-            self.multiworld.get_location("Clan Esper: Control 13 (1)", self.player).place_locked_item(
+            self.multiworld.get_location("Clan Hall - Clan Esper: Control 13 Reward (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
 
+        # TODO: Disabled for now. May add back in later if needed.
+        '''
         # Fill excluded locations with local locked items
         excluded = [location for location in self.multiworld.get_locations(self.player)
                     if location.progress_type == LocationProgressType.EXCLUDED and location.item is None]
-        # Shuffle the excluded locations
+        Shuffle the excluded locations
         self.multiworld.random.shuffle(excluded)
 
         # Place filler trophies in excluded locations
@@ -269,6 +328,7 @@ class FF12OpenWorldWorld(World):
                 location.place_locked_item(self.create_item(trophy_fillers.pop()))
             else:
                 location.place_locked_item(self.create_item(self.get_filler_item_name()))
+        '''
 
         # Completion condition.
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
@@ -318,12 +378,18 @@ class FF12OpenWorldWorld(World):
         cur_sphere = 0
         for locations in self.multiworld.get_spheres():
             for loc in locations:
+                # Skip locations that are not for this player
+                if loc.player != self.player:
+                    continue
+
                 if loc.name in location_data_table.keys():
-                    spheres.append({"id": location_data_table[loc.name].str_id,
+                    spheres.append({"name": loc.name,
+                                    "id": location_data_table[loc.name].str_id,
                                     "index": location_data_table[loc.name].secondary_index,
                                     "sphere": cur_sphere})
                 elif loc.name in event_data_table.keys():
-                    spheres.append({"id": loc.name[:loc.name.index(" Event ")],
+                    spheres.append({"name": loc.name,
+                                    "id": loc.name[:loc.name.index(" Event ")],
                                     "item": event_data_table[loc.name].item,
                                     "sphere": cur_sphere})
             cur_sphere += 1
@@ -341,7 +407,14 @@ class FF12OpenWorldWorld(World):
                     for loc in self.selected_treasures],
                 "character_order": self.character_order,
                 "allow_seitengrat": self.options.allow_seitengrat.value,
-                "spheres": spheres
+                "spheres": spheres,
+                "filler_item_placements": [
+                    {"id": location_data_table[loc].str_id,
+                     "index": location_data_table[loc].secondary_index,
+                     "item": self.excluded_locations[loc][0],
+                     "amount": self.excluded_locations[loc][1]}
+                    for loc in self.excluded_locations.keys()
+                ]
             }
         }
         mod_name = self.multiworld.get_out_file_name_base(self.player)
