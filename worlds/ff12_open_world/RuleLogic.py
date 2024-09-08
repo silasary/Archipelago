@@ -14,16 +14,20 @@ destination_reqs = {
     ARCHADES: lambda state, player:
     state.has("Soul Ward Key", player) and
     (state.has("Defeat Bergan", player) or
-     state.has("Cactus Flower", player) or
+     (state.has("Cactus Flower", player) and
+      state.has("Defeat Vossler", player)) or
      (state.has("Wind Globe", player) and
-      state.has("Windvane", player)) or
+      state.has("Windvane", player) and
+      state.has("Defeat Vossler", player)) or
      state_has_aerodromes(state, "Balfonheim Aeropass", player, False))
     ,
     BALFONHEIM: lambda state, player:
     state.has("Defeat Bergan", player) or
-    state.has("Cactus Flower", player) or
+    (state.has("Cactus Flower", player) and
+     state.has("Defeat Vossler", player)) or
     (state.has("Wind Globe", player) and
-     state.has("Windvane", player)) or
+     state.has("Windvane", player) and
+     state.has("Defeat Vossler", player)) or
     (state.has("Soul Ward Key", player) and
      state_has_aerodromes(state, "Archades Aeropass", player, False))
 }
