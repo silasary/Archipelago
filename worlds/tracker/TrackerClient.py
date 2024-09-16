@@ -174,6 +174,7 @@ class TrackerGameContext(CommonContext):
     cached_multiworlds: List[MultiWorld] = []
     cached_slot_data: List[Dict[str, Any]] = []
     ignored_locations: Set[int]
+    location_alias_map: Dict[int,str] = {}
 
     def __init__(self, server_address, password, no_connection: bool = False):
         if no_connection:
@@ -398,7 +399,7 @@ class TrackerGameContext(CommonContext):
         HintLog.refresh_hints = update_available_hints
 
     def make_gui(self):
-        ui = super().make_gui(self)  # before the kivy imports so kvui gets loaded first
+        ui = super().make_gui()  # before the kivy imports so kvui gets loaded first
         from kivy.properties import StringProperty, NumericProperty, BooleanProperty
         try:
             from kvui import ImageLoader #one of these needs to be loaded
@@ -483,6 +484,9 @@ class TrackerGameContext(CommonContext):
                 self.ui.tabs.show_map = True
             else:
                 self.tracker_world = None
+
+            if hasattr(self.multiworld.worlds[self.player_id],"location_id_to_alias"):
+                self.location_alias_map = self.multiworld.worlds[self.player_id].location_id_to_alias
             updateTracker(self)
             self.watcher_task = asyncio.create_task(game_watcher(self), name="GameWatcher")
         elif cmd == 'RoomUpdate':
@@ -498,6 +502,7 @@ class TrackerGameContext(CommonContext):
             # TODO: persist these per url+slot(+seed)?
             self.manual_items.clear()
             self.ignored_locations.clear()
+            self.location_alias_map = {}
 
         await super().disconnect(allow_autoreconnect)
 
@@ -763,10 +768,13 @@ def updateTracker(ctx: TrackerGameContext):
                     region = ""
                 else:
                     region = temp_loc.parent_region.name
+                temp_name = temp_loc.name
+                if temp_loc.address in ctx.location_alias_map:
+                    temp_name += f" ({ctx.location_alias_map[temp_loc.address]})"
                 if ctx.output_format == "Both":
-                    ctx.log_to_tab(region + " | " + temp_loc.name, True)
+                    ctx.log_to_tab(region + " | " + temp_name, True)
                 elif ctx.output_format == "Location":
-                    ctx.log_to_tab(temp_loc.name, True)
+                    ctx.log_to_tab(temp_name, True)
                 if region not in regions:
                     regions.append(region)
                     if ctx.output_format == "Region":
