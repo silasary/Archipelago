@@ -282,7 +282,7 @@ class TrackerGameContext(CommonContext):
             def __init__(self, **kwargs):
                 super().__init__(**kwargs)
                 self.data = []
-                self.data.append({"text": "Tracker v0.1.10 Initializing"})
+                self.data.append({"text": "Tracker v0.1.12 RC1 Initializing"})
 
             def resetData(self):
                 self.data.clear()
