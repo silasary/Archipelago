@@ -5,8 +5,8 @@ from pkgutil import get_data
 
 from BaseClasses import Region
 from worlds.AutoWorld import World
-from .Locations import K64Location, location_table
-from .Names import LocationName
+from .locations import K64Location, location_table
+from .names import LocationName
 from worlds.generic.Rules import add_item_rule
 
 if typing.TYPE_CHECKING:

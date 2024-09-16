@@ -1,5 +1,5 @@
 import struct
-from .Options import KirbyFlavorPreset
+from .options import KirbyFlavorPreset
 
 kirby_flavor_presets = {
     13: {

@@ -11,8 +11,8 @@ import settings
 from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes, APPatchExtension
 import bsdiff4
 
-from .Aesthetics import kirby_target_palettes, get_palette_bytes, get_kirby_palette
-from .Regions import default_levels
+from .aesthetics import kirby_target_palettes, get_palette_bytes, get_kirby_palette
+from .regions import default_levels
 
 if typing.TYPE_CHECKING:
     from . import K64World
@@ -52,7 +52,7 @@ stage_locations: Dict[int, Tuple[int, int]] = {
 
 stage_select_ptrs: Dict[int, Tuple[int, int, int, int]] = {  # un-cleared pal, uncleared, cleared pal, cleared
     0x640001: (0x99135C, 0x99138C, 0x9915F4, 0x991634),
-    0x640002: (0x9918CC, 0x9918EC, 0x991AEC, 0x991B1C),
+    0x640002: (0x9918CC, 0x9918FC, 0x991AEC, 0x991B1C),
     0x640003: (0x991D0C, 0x991D3C, 0x991F2C, 0x991F5C),
     0x640004: (0x994AF4, 0x994B24, 0x994DB4, 0x994DE4),
     0x640005: (0x995074, 0x9950A4, 0x995334, 0x995364),

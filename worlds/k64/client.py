@@ -10,7 +10,7 @@ from typing import Any, TYPE_CHECKING
 from NetUtils import ClientStatus, color
 from worlds._bizhawk.client import BizHawkClient
 
-from .Regions import default_levels
+from .regions import default_levels
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -89,12 +89,12 @@ power_combos = {
 }
 
 stage_to_byte = {
-    1: [0,1,2],
-    2: [6,7,8,9],
-    3: [12,13,14,15],
-    4: [18,19,20,21],
-    5: [24,25,26,27],
-    6: [30,31,32],
+    1: [0, 1, 2],
+    2: [6, 7, 8, 9],
+    3: [12, 13, 14, 15],
+    4: [18, 19, 20, 21],
+    5: [24, 25, 26, 27],
+    6: [30, 31, 32],
 }
 
 K64_IS_DEMO = 0x3387B2
@@ -131,8 +131,8 @@ class K64Client(BizHawkClient):
     def interpret_copy_ability(self, current, new_ability):
         if self.split_power_combos:
             # simple, just allow the new power combo
-            xorVal = 1 << ability_to_bit[new_ability]
-            output = current | (current ^ xorVal)
+            xor_val = 1 << ability_to_bit[new_ability]
+            output = current | (current ^ xor_val)
         else:
             # complex, we need to figure out what abilities they are allowed to have
             # since we have the currently unlocked abilities,and they can only get abilities related to the newly
@@ -234,7 +234,7 @@ class K64Client(BizHawkClient):
             (K64_KIRBY_HEALTH_VISUAL, 4, "RDRAM"),
             (K64_KIRBY_LIVES, 4, "RDRAM"),
             (K64_KIRBY_LIVES_VISUAL, 4, "RDRAM")
-        ])
+            ])
 
         if halken != b'-HALKEN--KIRBY4-':
             return
@@ -245,7 +245,7 @@ class K64Client(BizHawkClient):
 
         writes = []
 
-        recv_count = struct.unpack(">I",recv_index)[0]
+        recv_count = struct.unpack(">I", recv_index)[0]
         if recv_count < len(ctx.items_received):
             item = ctx.items_received[recv_count]
             recv_count += 1
@@ -293,7 +293,7 @@ class K64Client(BizHawkClient):
             level_crystals = struct.unpack("I", crystal_array[level*4:(level*4)+4])[0]
             for stage in range(stage_num):
                 shifter = (stage * 8)
-                current_crystal = 0x640101 + (((default_levels[level + 1][stage] & 0xFF) -1) * 3)  # TODO: remove this import
+                current_crystal = 0x640101 + (((default_levels[level + 1][stage] & 0xFF) - 1) * 3)
                 for i in range(3):
                     if level_crystals & (1 << shifter) and current_crystal not in ctx.checked_locations:
                         new_checks.append(current_crystal)

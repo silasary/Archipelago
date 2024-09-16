@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from Options import DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
     PerGameCommonOptions
-from .Names import LocationName
+from .names import LocationName
 import typing
 
 

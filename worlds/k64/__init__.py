@@ -4,15 +4,15 @@ import typing
 from BaseClasses import Tutorial, ItemClassification, MultiWorld
 from Fill import fill_restrictive
 from worlds.AutoWorld import World, WebWorld
-from .Items import item_table, item_names, copy_ability_table, filler_item_weights, K64Item, copy_ability_access_table,\
+from .items import item_table, item_names, copy_ability_table, filler_item_weights, K64Item, copy_ability_access_table,\
     power_combo_table, friend_table
-from .Locations import location_table, K64Location
-from .Names import LocationName, ItemName
-from .Regions import create_levels, default_levels
-from .Rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UHASH
-from .Client import K64Client
-from .Options import K64Options
-from .Rules import set_rules
+from .locations import location_table, K64Location
+from .names import LocationName, ItemName
+from .regions import create_levels, default_levels
+from .rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UHASH
+from .client import K64Client
+from .options import K64Options
+from .rules import set_rules
 from typing import Dict, TextIO, Optional, List
 import os
 import math
@@ -101,8 +101,8 @@ class K64World(World):
         required_percentage = self.options.required_crystals / 100.0
         remaining_items = len(location_table) - len(itempool)
         total_crystals = min(remaining_items, self.options.total_crystals.value)
-        required_crystals = max(math.floor(total_crystals * required_percentage),
-                                   5)  # ensure at least 1 heart star required
+        required_crystals = max(math.floor(total_crystals * required_percentage), 5)
+        # ensure at least 1 crystal shard required
         filler_items = total_crystals - required_crystals
         filler_amount = math.floor(filler_items * (self.options.filler_percentage / 100.0))
         non_required_crystals = filler_items - filler_amount

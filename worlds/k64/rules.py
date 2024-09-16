@@ -1,5 +1,5 @@
 from worlds.generic.Rules import set_rule
-from .Names import LocationName, ItemName
+from .names import LocationName, ItemName
 import typing
 
 if typing.TYPE_CHECKING:

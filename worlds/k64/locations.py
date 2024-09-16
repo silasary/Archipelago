@@ -1,6 +1,6 @@
 import typing
 from BaseClasses import Location
-from .Names import LocationName
+from .names import LocationName
 
 
 class K64Location(Location):
