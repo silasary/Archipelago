@@ -337,23 +337,19 @@ class TrackerGameContext(CommonContext):
 
         HintLog.refresh_hints = update_available_hints
 
-    def run_gui(self):
-        from kvui import GameManager
+    def make_gui(self):
+        ui = super().make_gui(self)  # before the kivy imports so kvui gets loaded first
         from kivy.properties import StringProperty, NumericProperty, BooleanProperty
         try:
             from kvui import ImageLoader #one of these needs to be loaded
         except ImportError:
             from .TrackerKivy import ImageLoader #use local until ap#3629 gets merged/released
-        
 
-        class TrackerManager(GameManager):
+        class TrackerManager(ui):
             source = StringProperty("")
             loc_size = NumericProperty(20)
             loc_border = NumericProperty(5)
             enable_map = BooleanProperty(False)
-            logging_pairs = [
-                ("Client", "Archipelago")
-            ]
             base_title = "Archipelago Tracker Client"
 
             def build(self):
@@ -365,10 +361,8 @@ class TrackerGameContext(CommonContext):
 
                 return container
 
-        self.ui = TrackerManager(self)
         self.load_kv()
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
-        return self
+        return TrackerManager
 
     def load_kv(self):
         from kivy.lang import Builder
