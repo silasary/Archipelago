@@ -55,18 +55,18 @@ jal     SetStartingStage
 j       MarkStagesIncomplete
 nop
 
-.headersize 0x800f61a0 - 0x7ec10 // ovl2
+.headersize 0x800f61a0 - 0x7ec10 //; ovl2
 
 //; Block Copy Abilities and Power Combos when flag isn't set
 .org 0x80127490
 CopyAbilityBlocker:
 lui     at, 0x800D
-ld      t0, 0x6C68 (at) // Get Copy Ability Flag dw
+ld      t0, 0x6C68 (at) //; Get Copy Ability Flag dw
 addiu   t7, r0, 0x0001
 addiu   t2, v0, -0x0001
-dsllv    t7, t7, t2      // Shift current ability to match
+dsllv    t7, t7, t2      //; Shift current ability to match
 and     t0, t0, t7
-bnez    t0, @@ReturnToSwallow // we are allowed to use the ability
+bnez    t0, @@ReturnToSwallow //; we are allowed to use the ability
 nop
 addiu   v0, r0, 0x0000
 addiu   a0, r0, 0x0000
@@ -120,7 +120,7 @@ j       0x800B9C50
 sw      t2, 0x6B94 (at)
 
 MarkStagesIncomplete:
-// a2 - unlocked level, t3 - save address, t0 free
+//; a2 - unlocked level, t3 - save address, t0 free
 addiu   s0, r0, 0x0001
 addiu   t2, r0, 0x0006
 addiu   t0, r0, 0x0000
@@ -191,32 +191,36 @@ j       0x8010474C
 nop
 
 
-.org 0x8011E1BC // write our jump
+.org 0x8011E1BC //; write our jump
 jal     CopyAbilityBlocker
 
 .org 0x80121354
 jal     DeathLink
 
-.headersize 0x80151100 - 0xF8630 // ovl3
+.headersize 0x80151100 - 0xF8630 //; ovl3
 
-// Give access to Dark Star only when flag is set
+//; Give access to Dark Star only when flag is set
 .org 0x80158760
 b       0x80158770
 
 .org 0x80158770
-addiu   t6, r0, 0x0001 // force 1 for miracle matter check
+addiu   t6, r0, 0x0001 //; force 1 for miracle matter check
 
 .org 0x80158788
 nop
 nop
 nop
-nop                     // remove percentage check
+nop                     //; remove percentage check
 lui     t6, 0x800D
 lw      t7, 0x6B90 (t6)
-lw      v0, 0x6C78 (t6) // read from save area for cutscene check
+lw      v0, 0x6C78 (t6) //; read from save area for cutscene check
 addiu   a0, r0, 0x000D
 bnez    v0, 0x801587BC
 
+.headersize 0x801D0C60 - 0x174740 //; ovl8
+
+.org 0x801D2C60
+b       0x801D2CD4 //; always spawn a crystal shard for friend miniboss
 
 // Set Constants
 .headersize 0xB0000000
@@ -225,7 +229,7 @@ bnez    v0, 0x801587BC
 .db 0x00, 0x03, 0x04, 0x04, 0x04, 0x04, 0x03, 0x01
 .org 0xB1FFF100
 // Placeholder values for crystal requirements
-.db 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
+.db 0x01, 0x02, 0x03, 0x04, 0x05, 0x06
 .org 0xB1FFF300
 //; Level Order
 .dw 0, 0, 0, 0, -1, -1, -1, -1
