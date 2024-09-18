@@ -236,7 +236,7 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
     # first stage shuffle
     if world.stage_shuffle_enabled:
         for i in range(1, 7):
-            stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i]) - 1
+            stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i])
                       else (-1, -1) for stage in range(8)]
             patch.write_bytes(0x1FFF300 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
             patch.write_bytes(0x1FFF450 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
@@ -244,8 +244,14 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
                 for value, addr in zip(stage_select_vals[world.player_levels[i][j]],
                                        stage_select_ptrs[default_levels[i][j]]):
                     patch.write_bytes(addr, struct.pack(">I", value))
-                for value, addr in zip(stage_select_param_vals[world.player_levels[i][j]],
-                                       stage_select_param_ptrs[default_levels[i][j]]):
+                for k in range(4):
+                    addr = stage_select_param_ptrs[world.player_levels[i][j]][k]
+                    value = stage_select_param_vals[default_levels[i][j]][k]
+                    if default_levels[i][j] in (0x640001, 0x640014, 0x640016):
+                        if k == 2:
+                            value = value | 0xF
+                        elif k == 3:
+                            patch.write_bytes(addr + 0x20, struct.pack(">I", value))
                     patch.write_bytes(addr, struct.pack(">I", value))
 
     patch.write_bytes(0x1FFF100, world.boss_requirements)
