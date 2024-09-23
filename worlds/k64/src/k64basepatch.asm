@@ -59,6 +59,31 @@ nop
 
 //; Block Copy Abilities and Power Combos when flag isn't set
 .org 0x80127490
+.db "ARCHIPELAGO_DATA"
+// Starting Stage for Levels
+LevelStart:
+.dw 0x00, 0x03, 0x04, 0x04, 0x04, 0x04, 0x03, 0x01
+CrystalRequirements:
+// Placeholder values for crystal requirements
+.dw 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xFF, 0xFF
+SlotData:
+.fill 16
+LevelIndex:
+//; Level Order
+.dw 0, 0, 0, 0, -1, -1, -1, -1
+.dw 1, 1, 1, 1, 1, -1, -1, -1
+.dw 2, 2, 2, 2, 2, -1, -1, -1
+.dw 3, 3, 3, 3, 3, -1, -1, -1
+.dw 4, 4, 4, 4, 4, -1, -1, -1
+.dw 5, 5, 5, 5, -1, -1, -1, -1
+StageIndex:
+//; Stage Order
+.dw 0, 1, 2, 3, -1, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, 4, -1, -1, -1
+.dw 0, 1, 2, 3, -1, -1, -1, -1
 CopyAbilityBlocker:
 lui     at, 0x800D
 ld      t0, 0x6C68 (at) //; Get Copy Ability Flag dw
@@ -94,9 +119,9 @@ addu    t2, t2, t6
 addu    t2, t2, t1
 sb      t3, 0x6BE0 (t2)
 lw      t1, 0x6C70 (at)
-lui     t2, 0xB200
+li      t2, CrystalRequirements
 addu    t2, t2, t0
-lb      t3, 0xF100 (t2)
+lb      t3, 0x0000 (t2)
 sub     t3, t1, t3
 bgez    t3, @@HasCrystals
 nop
@@ -106,11 +131,12 @@ nop
 @@HasCrystals:
 addiu   t2, v0, 0x0001
 @@ReturnToStageClear:
-lui     t1, 0xB200
-lb      t3, 0xF222 (t1)
+li      t1, SlotData
+lb      t3, 0x0002 (t1)
 blez    t3, @@SkipFast
+li      t1, CrystalRequirements
+lb      t3, 0x0005 (t1)
 lw      t1, 0x6C70 (at)
-lb      t3, 0xF105 (t1)
 sub     t3, t1, t3
 bltz    t3, @@SkipFast
 addiu   t2, v0, 0x0064
@@ -159,22 +185,24 @@ jr      ra
 addiu   sp, sp, 0x10
 
 AllowFinalBoss:
+li      s2, 0x0001
 lui     at, 0x800D
 sw      s2, 0x6B94 (at)
 sw      s2, 0x6C78 (at)
 jr      ra
+nop
 
 RedirectStage:
 lw      t5, 0xE500 (at)
 sll     t5, 5
 sll     t3, 2
 addu    t5, t5, t3
-lui     t3, 0xB200
+li      t3, LevelIndex
 addu    t5, t5, t3
-lw      t3, 0xF450 (t5)
-lw      t5, 0xF300 (t5)
-sw      t5, 0xE500 (at)
-sw      t3, 0xE504 (at)
+lw      t3, 0x0000 (t5)
+lw      t5, 0x00C0 (t5)
+sw      t3, 0xE500 (at)
+sw      t5, 0xE504 (at)
 addiu   t5, r0, 0x000F
 jr      ra
 sw      t3, 0x0000 (v0)
@@ -222,28 +250,4 @@ bnez    v0, 0x801587BC
 .org 0x801D2C60
 b       0x801D2CD4 //; always spawn a crystal shard for friend miniboss
 
-// Set Constants
-.headersize 0xB0000000
-.org 0xB1FFF000
-// Starting Stage for Levels
-.db 0x00, 0x03, 0x04, 0x04, 0x04, 0x04, 0x03, 0x01
-.org 0xB1FFF100
-// Placeholder values for crystal requirements
-.db 0x01, 0x02, 0x03, 0x04, 0x05, 0x06
-.org 0xB1FFF300
-//; Level Order
-.dw 0, 0, 0, 0, -1, -1, -1, -1
-.dw 1, 1, 1, 1, 1, -1, -1, -1
-.dw 2, 2, 2, 2, 2, -1, -1, -1
-.dw 3, 3, 3, 3, 3, -1, -1, -1
-.dw 4, 4, 4, 4, 4, -1, -1, -1
-.dw 5, 5, 5, 5, -1, -1, -1, -1
-.org 0xB1FFF450
-//; Stage Order
-.dw 0, 1, 2, 3, -1, -1, -1, -1
-.dw 0, 1, 2, 3, 4, -1, -1, -1
-.dw 0, 1, 2, 3, 4, -1, -1, -1
-.dw 0, 1, 2, 3, 4, -1, -1, -1
-.dw 0, 1, 2, 3, 4, -1, -1, -1
-.dw 0, 1, 2, 3, -1, -1, -1, -1
 .close
