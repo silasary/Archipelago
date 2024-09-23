@@ -173,4 +173,3 @@ def create_levels(world: "K64World") -> None:
     level5.connect(level6, "To Level 6")
     menu.connect(level7, "To Level 7")  # put the connection on menu, since you can reach it before level 6 on fast goal
     world.multiworld.regions.extend([menu, level1, level2, level3, level4, level5, level6, level7])
-    
