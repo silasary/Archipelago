@@ -141,7 +141,11 @@ def create_levels(world: "K64World") -> None:
         6: level6,
     }
     level_shuffle = world.options.stage_shuffle.value
-    if level_shuffle != 0:
+    if (hasattr(world.multiworld, "re_gen_passthrough")
+        and "Kirby 64 - The Crystal Shards" in getattr(world.multiworld, "re_gen_passthrough")):
+        slot_data = getattr(world.multiworld, "re_gen_passthrough")["Kirby 64 - The Crystal Shards"]
+        world.player_levels = slot_data["player_levels"]
+    elif level_shuffle != 0:
         world.player_levels = generate_valid_levels(world, level_shuffle == 1)
 
     for level in world.player_levels:
@@ -169,3 +173,4 @@ def create_levels(world: "K64World") -> None:
     level5.connect(level6, "To Level 6")
     menu.connect(level7, "To Level 7")  # put the connection on menu, since you can reach it before level 6 on fast goal
     world.multiworld.regions.extend([menu, level1, level2, level3, level4, level5, level6, level7])
+    

@@ -1,5 +1,4 @@
 import logging
-import typing
 
 from BaseClasses import Tutorial, ItemClassification, MultiWorld
 from Fill import fill_restrictive
@@ -13,7 +12,7 @@ from .rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UH
 from .client import K64Client
 from .options import K64Options
 from .rules import set_rules
-from typing import Dict, TextIO, Optional, List
+from typing import Dict, TextIO, Optional, List, Any, Mapping, ClassVar
 import os
 import math
 import threading
@@ -62,7 +61,7 @@ class K64World(World):
     location_name_to_id = {location_table[location]: location for location in location_table}
     item_name_groups = item_names
     web = K64WebWorld()
-    settings: typing.ClassVar[K64Settings]
+    settings: ClassVar[K64Settings]
 
     def __init__(self, multiworld: MultiWorld, player: int):
         self.stage_shuffle_enabled: bool = False
@@ -134,6 +133,15 @@ class K64World(World):
         goal_location.place_locked_item(K64Item(ItemName.ribbons_crystal, ItemClassification.progression, None, self.player))
         self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.ribbons_crystal,
                                                                                     self.player)
+
+    def fill_slot_data(self) -> Mapping[str, Any]:
+        return {
+            "player_levels": self.player_levels
+        }
+
+    def interpret_slot_data(self, slot_data: Dict[str, Any]):
+        local_levels = {int(key): value for key, value in slot_data["player_levels"].items()}
+        return {"player_levels": local_levels}
 
     def generate_output(self, output_directory: str):
         rom_path = ""
