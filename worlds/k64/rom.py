@@ -173,6 +173,10 @@ stage_select_param_vals = {
     0x640204: [0xFD500000, 0xF5400800, 0xFD500000, 0xF5400800],
     0x640205: [0xFD500000, 0xF5400800, 0xFD500000, 0xF5400800],
 }
+crystal_requirements = 720664
+slot_data = 720672
+level_index = 720688
+stage_index = 720880
 
 
 class RomData:
@@ -204,6 +208,7 @@ class RomData:
 
 class K64PatchExtension(APPatchExtension):
     game = "Kirby 64 - The Crystal Shards"
+    
     @staticmethod
     def apply_basepatch(_: APProcedurePatch, rom: bytes):
         return bsdiff4.patch(rom, pkgutil.get_data(__name__, os.path.join("data", "k64_basepatch.bsdiff4")))
@@ -238,8 +243,8 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
         for i in range(1, 7):
             stages = [stage_locations[world.player_levels[i][stage]] if stage < len(world.player_levels[i])
                       else (-1, -1) for stage in range(8)]
-            patch.write_bytes(0x1FFF300 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
-            patch.write_bytes(0x1FFF450 + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
+            patch.write_bytes(level_index + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[0] for stage in stages]))
+            patch.write_bytes(stage_index + ((i - 1) * 32), struct.pack(">iiiiiiii", *[stage[1] for stage in stages]))
             for j in range(len(world.player_levels[i])):
                 for value, addr in zip(stage_select_vals[world.player_levels[i][j]],
                                        stage_select_ptrs[default_levels[i][j]]):
@@ -254,7 +259,7 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
                             patch.write_bytes(addr + 0x20, struct.pack(">I", value))
                     patch.write_bytes(addr, struct.pack(">I", value))
 
-    patch.write_bytes(0x1FFF100, world.boss_requirements)
+    patch.write_bytes(crystal_requirements, world.boss_requirements)
 
     if world.options.kirby_flavor_preset != world.options.kirby_flavor_preset.default:
         palette = get_palette_bytes(get_kirby_palette(world), [f"{i}" for i in range(1, 16)])
@@ -266,9 +271,9 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
     patch.name.extend([0] * (21 - len(patch.name)))
     patch.write_bytes(0x1FFF200, patch.name)
 
-    patch.write_byte(0x1FFF220, world.options.split_power_combos.value)
-    patch.write_byte(0x1FFF221, world.options.death_link.value)
-    patch.write_byte(0x1FFF222, world.options.goal_speed.value)
+    patch.write_byte(slot_data, world.options.split_power_combos.value)
+    patch.write_byte(slot_data + 1, world.options.death_link.value)
+    patch.write_byte(slot_data + 2, world.options.goal_speed.value)
     level_counter = 0
     for level in world.player_levels:
         for stage in world.player_levels[level]:

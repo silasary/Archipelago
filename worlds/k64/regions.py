@@ -1,16 +1,16 @@
-import json
-import os
 import typing
-from pkgutil import get_data
 
 from BaseClasses import Region
-from worlds.AutoWorld import World
 from .locations import K64Location, location_table
 from .names import LocationName
-from worlds.generic.Rules import add_item_rule
 
 if typing.TYPE_CHECKING:
     from . import K64World
+
+
+class K64Region(Region):
+    game = "Kirby 64 - The Crystal Shards"
+
 
 default_levels = {
     1: [0x640001, 0x640002, 0x640003, 0x640200],
@@ -124,14 +124,14 @@ def generate_valid_levels(world: "K64World", enforce_world: bool) -> dict:
 
 
 def create_levels(world: "K64World") -> None:
-    menu = Region("Menu", world.player, world.multiworld)
-    level1 = Region("Pop Star", world.player, world.multiworld)
-    level2 = Region("Rock Star", world.player, world.multiworld)
-    level3 = Region("Aqua Star", world.player, world.multiworld)
-    level4 = Region("Neo Star", world.player, world.multiworld)
-    level5 = Region("Shiver Star", world.player, world.multiworld)
-    level6 = Region("Ripple Star", world.player, world.multiworld)
-    level7 = Region("Dark Star", world.player, world.multiworld)
+    menu = K64Region("Menu", world.player, world.multiworld)
+    level1 = K64Region("Pop Star", world.player, world.multiworld)
+    level2 = K64Region("Rock Star", world.player, world.multiworld)
+    level3 = K64Region("Aqua Star", world.player, world.multiworld)
+    level4 = K64Region("Neo Star", world.player, world.multiworld)
+    level5 = K64Region("Shiver Star", world.player, world.multiworld)
+    level6 = K64Region("Ripple Star", world.player, world.multiworld)
+    level7 = K64Region("Dark Star", world.player, world.multiworld)
     levels = {
         1: level1,
         2: level2,
@@ -153,8 +153,8 @@ def create_levels(world: "K64World") -> None:
             real_stage = world.player_levels[level][stage]
             assert real_stage is not None, "Level tried to be sent with a None stage, incorrect plando?"
             # placeholder for when I want to add a data file eventually
-            region = Region(location_table[real_stage].replace(" - Complete", "").replace(" Defeated", ""),
-                            world.player, world.multiworld)
+            region = K64Region(location_table[real_stage].replace(" - Complete", "").replace(" Defeated", ""),
+                               world.player, world.multiworld)
             levels[level].connect(region)
             crystals = [(((real_stage & 0xFF) - 1) * 3) + i + 0x640101 for i in range(3) if not real_stage & 0x200]
             locations = {
@@ -162,6 +162,7 @@ def create_levels(world: "K64World") -> None:
                 if code in [real_stage, *crystals]
             }
             region.add_locations(locations, K64Location)
+            world.multiworld.regions.append(region)
 
     level7.add_locations({LocationName.dark_star: None}, K64Location)
 

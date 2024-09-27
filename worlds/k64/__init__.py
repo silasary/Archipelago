@@ -1,6 +1,6 @@
 import logging
 
-from BaseClasses import Tutorial, ItemClassification, MultiWorld
+from BaseClasses import Tutorial, ItemClassification, MultiWorld, CollectionState, Item
 from Fill import fill_restrictive
 from worlds.AutoWorld import World, WebWorld
 from .items import item_table, item_names, copy_ability_table, filler_item_weights, K64Item, copy_ability_access_table,\
@@ -11,7 +11,8 @@ from .regions import create_levels, default_levels
 from .rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UHASH
 from .client import K64Client
 from .options import K64Options
-from .rules import set_rules
+from .rules import (set_rules, burn_levels, needle_levels, stone_levels,
+                    spark_levels, bomb_levels, ice_levels, cutter_levels)
 from typing import Dict, TextIO, Optional, List, Any, Mapping, ClassVar
 import os
 import math
@@ -20,7 +21,6 @@ import base64
 import settings
 
 logger = logging.getLogger("Kirby 64: The Crystal Shards")
-
 
 class K64Settings(settings.Group):
     class RomFile(settings.UserFilePath):
@@ -171,3 +171,49 @@ class K64World(World):
             for level in LocationName.level_names_inverse:
                 for stage, i in zip(self.player_levels[LocationName.level_names_inverse[level]], range(1, 7)):
                     spoiler_handle.write(f"{level} {i}: {location_table[stage].replace(' - Complete', '')}\n")
+
+    def copy_ability_sweep(self, state: "CollectionState"):
+        for ability, regions in zip(["Burning Ability", "Stone Ability", "Ice Ability",
+                                    "Needle Ability", "Bomb Ability", "Spark Ability", "Cutter Ability"],
+                                    [burn_levels, stone_levels, ice_levels,
+                                    needle_levels, bomb_levels, spark_levels, cutter_levels]):
+            if any(state.can_reach(region, "Region", self.player) for region in regions):
+                state.prog_items[self.player][ability] = 1
+            else:
+                del state.prog_items[self.player][ability]
+
+    def collect(self, state: "CollectionState", item: "Item") -> bool:
+        value = super().collect(state, item)
+
+        if not self.boss_requirements:
+            # 30 stages + menu should be enough to catch this from being done too early
+            return value
+
+        crystals = state.prog_items[self.player][ItemName.crystal_shard]
+        if not hasattr(state, "k64_level_state"):
+            setattr(state, "k64_level_state", dict())
+        if self.player not in state.k64_level_state:
+            state.k64_level_state[self.player] = []
+        level_state = [crystals >= requirement for requirement in self.boss_requirements]
+        if state.k64_level_state[self.player] != level_state:
+            self.copy_ability_sweep(state)
+            return True
+        return value
+
+    def remove(self, state: "CollectionState", item: "Item") -> bool:
+        value = super().remove(state, item)
+
+        if not self.boss_requirements:
+            # 30 stages + menu should be enough to catch this from being done too early
+            return value
+
+        crystals = state.prog_items[self.player][ItemName.crystal_shard]
+        if not hasattr(state, "k64_level_state"):
+            setattr(state, "k64_level_state", dict())
+        if self.player not in state.k64_level_state:
+            state.k64_level_state[self.player] = []
+        level_state = [crystals >= requirement for requirement in self.boss_requirements]
+        if state.k64_level_state[self.player] != level_state:
+            self.copy_ability_sweep(state)
+            return True
+        return value

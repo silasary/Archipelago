@@ -14,9 +14,9 @@ nop
 
 .org 0x800A28A8
 OpenNewWorld:
-lui     at, 0xB200
+li      at, LevelStart
 addu    at, at, t7
-lb      s2, 0xF000 (at)
+lb      s2, 0x0000 (at)
 sb      s2, 0x0007 (s6)
 jr      ra
 
@@ -62,10 +62,10 @@ nop
 .db "ARCHIPELAGO_DATA"
 // Starting Stage for Levels
 LevelStart:
-.dw 0x00, 0x03, 0x04, 0x04, 0x04, 0x04, 0x03, 0x01
+.db 0x00, 0x03, 0x04, 0x04, 0x04, 0x04, 0x03, 0x01
 CrystalRequirements:
 // Placeholder values for crystal requirements
-.dw 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xFF, 0xFF
+.db 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0xFF, 0xFF
 SlotData:
 .fill 16
 LevelIndex:
@@ -249,5 +249,10 @@ bnez    v0, 0x801587BC
 
 .org 0x801D2C60
 b       0x801D2CD4 //; always spawn a crystal shard for friend miniboss
+
+.notice "Crystal Requirements: " + org(CrystalRequirements)
+.notice "Slot Data: " + org(SlotData)
+.notice "Level Index: " + org(LevelIndex)
+.notice "Stage Index: " + org(StageIndex) 
 
 .close
