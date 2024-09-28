@@ -139,8 +139,9 @@ lb      t3, 0x0005 (t1)
 lw      t1, 0x6C70 (at)
 sub     t3, t1, t3
 bltz    t3, @@SkipFast
-addiu   t2, v0, 0x0064
-sw      t2, 0x6C78 (at)
+nop
+addiu   t3, v0, 0x0064
+sw      t3, 0x6C78 (at)
 @@SkipFast:
 j       0x800B9C50
 sw      t2, 0x6B94 (at)
@@ -250,9 +251,9 @@ bnez    v0, 0x801587BC
 .org 0x801D2C60
 b       0x801D2CD4 //; always spawn a crystal shard for friend miniboss
 
-.notice "Crystal Requirements: " + org(CrystalRequirements)
-.notice "Slot Data: " + org(SlotData)
-.notice "Level Index: " + org(LevelIndex)
-.notice "Stage Index: " + org(StageIndex) 
+.notice "Crystal Requirements: " + orga(CrystalRequirements)
+.notice "Slot Data: " + orga(SlotData)
+.notice "Level Index: " + orga(LevelIndex)
+.notice "Stage Index: " + orga(StageIndex) 
 
 .close
