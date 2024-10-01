@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 
 from Options import DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
-    PerGameCommonOptions
+    PerGameCommonOptions, Visibility
 from .names import LocationName
 import typing
 
@@ -156,6 +156,7 @@ class KirbyFlavor(OptionDict):
       "14": "8B626A",
       "15": "BD838B",
     }
+    visibility = Visibility.complex_ui | Visibility.template
 
 
 @dataclass
