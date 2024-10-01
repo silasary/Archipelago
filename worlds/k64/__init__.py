@@ -11,8 +11,7 @@ from .regions import create_levels, default_levels
 from .rom import K64ProcedurePatch, get_base_rom_path, RomData, patch_rom, K64UHASH
 from .client import K64Client
 from .options import K64Options
-from .rules import (set_rules, burn_levels, needle_levels, stone_levels,
-                    spark_levels, bomb_levels, ice_levels, cutter_levels)
+from .rules import set_rules
 from typing import Dict, TextIO, Optional, List, Any, Mapping, ClassVar
 import os
 import math
@@ -172,16 +171,6 @@ class K64World(World):
                 for stage, i in zip(self.player_levels[LocationName.level_names_inverse[level]], range(1, 7)):
                     spoiler_handle.write(f"{level} {i}: {location_table[stage].replace(' - Complete', '')}\n")
 
-    def copy_ability_sweep(self, state: "CollectionState"):
-        for ability, regions in zip(["Burning Ability", "Stone Ability", "Ice Ability",
-                                    "Needle Ability", "Bomb Ability", "Spark Ability", "Cutter Ability"],
-                                    [burn_levels, stone_levels, ice_levels,
-                                    needle_levels, bomb_levels, spark_levels, cutter_levels]):
-            if any(state.can_reach(region, "Region", self.player) for region in regions):
-                state.prog_items[self.player][ability] = 1
-            else:
-                del state.prog_items[self.player][ability]
-
     def collect(self, state: "CollectionState", item: "Item") -> bool:
         value = super().collect(state, item)
 
@@ -194,10 +183,13 @@ class K64World(World):
             setattr(state, "k64_level_state", dict())
         if self.player not in state.k64_level_state:
             state.k64_level_state[self.player] = []
+        if not hasattr(state, "k64_stale"):
+            setattr(state, "k64_stale", dict())
+        if self.player not in state.k64_stale:
+            state.k64_stale[self.player] = True
         level_state = [crystals >= requirement for requirement in self.boss_requirements]
         if state.k64_level_state[self.player] != level_state:
-            self.copy_ability_sweep(state)
-            return True
+            state.k64_stale[self.player] = True
         return value
 
     def remove(self, state: "CollectionState", item: "Item") -> bool:
@@ -212,8 +204,11 @@ class K64World(World):
             setattr(state, "k64_level_state", dict())
         if self.player not in state.k64_level_state:
             state.k64_level_state[self.player] = []
+        if not hasattr(state, "k64_stale"):
+            setattr(state, "k64_stale", dict())
+        if self.player not in state.k64_stale:
+            state.k64_stale[self.player] = True
         level_state = [crystals >= requirement for requirement in self.boss_requirements]
         if state.k64_level_state[self.player] != level_state:
-            self.copy_ability_sweep(state)
-            return True
+            state.k64_stale[self.player] = True
         return value

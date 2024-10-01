@@ -1,8 +1,10 @@
 import typing
 
-from BaseClasses import Region
+from BaseClasses import Region, CollectionState
 from .locations import K64Location, location_table
 from .names import LocationName
+from .rules import (burn_levels, needle_levels, stone_levels,
+                    spark_levels, bomb_levels, ice_levels, cutter_levels)
 
 if typing.TYPE_CHECKING:
     from . import K64World
@@ -10,6 +12,23 @@ if typing.TYPE_CHECKING:
 
 class K64Region(Region):
     game = "Kirby 64 - The Crystal Shards"
+
+    def copy_ability_sweep(self, state: "CollectionState"):
+        for ability, regions in zip(["Burning Ability", "Stone Ability", "Ice Ability",
+                                    "Needle Ability", "Bomb Ability", "Spark Ability", "Cutter Ability"],
+                                    [burn_levels, stone_levels, ice_levels,
+                                    needle_levels, bomb_levels, spark_levels, cutter_levels]):
+            if any(state.can_reach(region, "Region", self.player) for region in regions):
+                state.prog_items[self.player][ability] = 1
+            else:
+                del state.prog_items[self.player][ability]
+
+    def can_reach(self, state: CollectionState) -> bool:
+        stale = getattr(state, "k64_stale", {self.player: False})[self.player]
+        if stale:
+            state.k64_stale[self.player] = False
+            self.copy_ability_sweep(state)
+        return super().can_reach(state)
 
 
 default_levels = {
