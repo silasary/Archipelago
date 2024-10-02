@@ -22,14 +22,14 @@ kirby_flavor_presets = {
 }
 
 kirby_target_palettes = [
-    0x614816,
-    0x859A04,
-    0xA80830,
-    0xB6B672,
-    0xB6D8F2,
-    0xDC7342,
-    0xDD03A2,
-    0xED0D12,
+    0x614818,
+    0x859A06,
+    0xA80832,
+    0xB6B674,
+    0xB6D8F4,
+    0xDC7344,
+    0xDD03A4,
+    0xED0D14,
 ]
 
 
