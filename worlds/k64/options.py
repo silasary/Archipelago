@@ -121,7 +121,7 @@ class KirbyFlavorPreset(Choice):
     #option_orange = 11
     #option_lime = 12
     option_lavender = 13
-    option_custom = 14
+    option_custom = -1
     default = 0
 
     @classmethod
@@ -129,7 +129,7 @@ class KirbyFlavorPreset(Choice):
         text = text.lower()
         if text == "random":
             choice_list = list(cls.name_lookup)
-            choice_list.remove(14)
+            choice_list.remove(-1)
             return cls(random.choice(choice_list))
         return super().from_text(text)
 
@@ -137,14 +137,14 @@ class KirbyFlavorPreset(Choice):
 class KirbyFlavor(OptionDict):
     """
     A custom color for Kirby. To use a custom color, set the preset to Custom and then define a dict of keys from "1" to
-    "15", with their values being an HTML hex color.
+    "17", with their values being an HTML hex color.
     """
     default = {
       "1": "080000",
       "2": "F64A5A",
       "3": "6A4152",
       "4": "F6F6F6",
-      "5": "F6A4B4",
+      "5": "F7A5B5",
       "6": "E66A62",
       "7": "00085A",
       "8": "EE8BA4",
@@ -155,6 +155,8 @@ class KirbyFlavor(OptionDict):
       "13": "0000D5",
       "14": "8B626A",
       "15": "BD838B",
+      "16": "FFAC8F",
+      "17": "FF2600",
     }
     visibility = Visibility.complex_ui | Visibility.template
 

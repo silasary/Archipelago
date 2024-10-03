@@ -11,7 +11,7 @@ import settings
 from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes, APPatchExtension
 import bsdiff4
 
-from .aesthetics import kirby_target_palettes, get_palette_bytes, get_kirby_palette
+from .aesthetics import write_aesthetics
 from .regions import default_levels
 
 if typing.TYPE_CHECKING:
@@ -258,10 +258,7 @@ def patch_rom(world: "K64World", player: int, patch: K64ProcedurePatch):
 
     patch.write_bytes(crystal_requirements, world.boss_requirements)
 
-    if world.options.kirby_flavor_preset != world.options.kirby_flavor_preset.default:
-        palette = get_palette_bytes(get_kirby_palette(world), [f"{i}" for i in range(1, 16)])
-        for target in kirby_target_palettes:
-            patch.write_bytes(target, palette)
+    write_aesthetics(world, patch)
 
     from Utils import __version__
     patch.name = bytearray(f'K64{__version__.replace(".", "")[0:3]}_{player}_{world.multiworld.seed:11}\0', 'utf8')[:21]
