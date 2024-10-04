@@ -11,6 +11,7 @@ from NetUtils import ClientStatus, color
 from worlds._bizhawk.client import BizHawkClient
 
 from .regions import default_levels
+from .rom import slot_data
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -114,8 +115,8 @@ K64_KIRBY_LIVES_VISUAL = K64_SAVE_ADDRESS + 0x388
 K64_KIRBY_HEALTH_VISUAL = K64_SAVE_ADDRESS + 0x38C
 
 
-K64_SPLIT_POWER_COMBO = 0x1FFF220
-K64_DEATHLINK = 0x1FFF221
+K64_SPLIT_POWER_COMBO = slot_data
+K64_DEATHLINK = slot_data + 1
 K64_LEVEL_ADDRESS = 0x1FFF230
 
 
