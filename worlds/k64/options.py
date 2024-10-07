@@ -27,7 +27,7 @@ class SplitPowerCombos(Toggle):
 
 class TotalCrystalShards(Range):
     """
-    Maximum number of heart stars to include in the pool of items.
+    Maximum number of crystal shards to include in the pool of items.
     """
     display_name = "Max Crystal Shards"
     range_start = 5  # set to 5 so strict bosses does not degrade
@@ -37,8 +37,7 @@ class TotalCrystalShards(Range):
 
 class CrystalShardsRequired(Range):
     """
-    Percentage of heart stars required to purify the five bosses and reach Zero.
-    Each boss will require a differing amount of heart stars to purify.
+    Percentage of crystal shards required to unlock the boss of Ripple Star, and grant access to Zero-Two.
     """
     display_name = "Required Crystal Shards"
     range_start = 1
@@ -64,7 +63,7 @@ class BossShuffle(PlandoBosses):
     None: Bosses will remain in their vanilla locations
     Shuffled: Bosses will be shuffled amongst each other
     Full: Bosses will be randomized
-    Singularity: All (non-Zero) bosses will be replaced with a single boss
+    Singularity: All (non-Zero-Two) bosses will be replaced with a single boss
     Supports plando placement.
     """
     bosses = frozenset(LocationName.boss_names.keys())
@@ -94,8 +93,8 @@ class BossRequirementRandom(Toggle):
 
 class FillerPercentage(Range):
     """
-        Percentage of non-required Crystal Shards to be converted to filler items (1-Ups, Maxim Tomatoes, Invincibility Candy).
-        """
+    Percentage of non-required Crystal Shards to be converted to filler items (1-Ups, Maxim Tomatoes, Invincibility Candy).
+    """
     display_name = "Filler Percentage"
     range_start = 0
     range_end = 100
@@ -167,6 +166,7 @@ class K64Options(PerGameCommonOptions):
     goal_speed: GoalSpeed
     split_power_combos: SplitPowerCombos
     stage_shuffle: LevelShuffle
+    # boss_shuffle: BossShuffle
     boss_requirement_random: BossRequirementRandom
     total_crystals: TotalCrystalShards
     required_crystals: CrystalShardsRequired
