@@ -135,7 +135,9 @@ class K64World(World):
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         return {
-            "player_levels": self.player_levels
+            "player_levels": self.player_levels,
+            "required_crystals": self.required_crystals,
+            "boss_requirements": self.boss_requirements
         }
 
     def interpret_slot_data(self, slot_data: Dict[str, Any]):
