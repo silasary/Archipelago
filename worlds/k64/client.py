@@ -114,7 +114,7 @@ K64_KIRBY_LIVES = K64_SAVE_ADDRESS + 0x34C
 K64_KIRBY_HEALTH = K64_SAVE_ADDRESS + 0x350
 K64_KIRBY_LIVES_VISUAL = K64_SAVE_ADDRESS + 0x388
 K64_KIRBY_HEALTH_VISUAL = K64_SAVE_ADDRESS + 0x38C
-
+K64_INVINCIBILITY_CANDY = 0x12E7C9
 
 K64_SPLIT_POWER_COMBO = slot_data
 K64_DEATHLINK = slot_data + 1
@@ -276,7 +276,9 @@ class K64Client(BizHawkClient):
                     (K64_KIRBY_HEALTH, struct.pack(">f", 6), "RDRAM"),
                     (K64_KIRBY_HEALTH_VISUAL, struct.pack(">I", 6), "RDRAM"),
                 ])
-
+            elif item.item == 0x640023:
+                # Invincibility Candy
+                writes.extend([(K64_INVINCIBILITY_CANDY, [1], "RDRAM")])
         new_checks = []
 
         for i, crystal in zip(range(6), boss_crystals):
