@@ -219,6 +219,24 @@ addiu   v0, r0, 0x01
 j       0x8010474C
 nop
 
+RemapStage:
+//; assume level/stage is in a0/a1, add output to t8
+
+sll     t5, a0, 5
+sll     t6, a1, 2
+addu    t5, t5, t6
+li      t6, LevelIndex
+addu    t6, t5, t6
+lw      t6, 0x0000 (t6)
+li      t7, StageIndex
+addu    t7, t5, t7
+lw      t7, 0x0000 (t7)
+sll     t6, t6, 2
+addu    t7, t6, t7
+addu    t8, t7, t8
+j       0x801532A4
+nop
+
 
 .org 0x8011E1BC //; write our jump
 jal     CopyAbilityBlocker
@@ -227,6 +245,10 @@ jal     CopyAbilityBlocker
 jal     DeathLink
 
 .headersize 0x80151100 - 0xF8630 //; ovl3
+
+.org 0x8015329C
+j       RemapStage
+lui     t8, 0x800D
 
 //; Give access to Dark Star only when flag is set
 .org 0x80158760
