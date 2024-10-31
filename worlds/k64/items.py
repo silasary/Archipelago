@@ -61,6 +61,37 @@ power_combo_table = {
     ItemName.cutter_cutter: ItemData(0x64021B, True),
 }
 
+power_combo_map = {
+    (1, 1): ItemName.burn_burn,
+    (1, 2): ItemName.burn_stone,
+    (1, 3): ItemName.burn_ice,
+    (1, 4): ItemName.burn_needle,
+    (1, 5): ItemName.burn_bomb,
+    (1, 6): ItemName.burn_spark,
+    (1, 7): ItemName.burn_cutter,
+    (2, 2): ItemName.stone_stone,
+    (2, 3): ItemName.stone_ice,
+    (2, 4): ItemName.stone_needle,
+    (2, 5): ItemName.stone_bomb,
+    (2, 6): ItemName.stone_spark,
+    (2, 7): ItemName.stone_cutter,
+    (3, 3): ItemName.ice_ice,
+    (3, 4): ItemName.ice_needle,
+    (3, 5): ItemName.ice_bomb,
+    (3, 6): ItemName.ice_spark,
+    (3, 7): ItemName.ice_cutter,
+    (4, 4): ItemName.needle_needle,
+    (4, 5): ItemName.needle_bomb,
+    (4, 6): ItemName.needle_spark,
+    (4, 7): ItemName.needle_cutter,
+    (5, 5): ItemName.bomb_bomb,
+    (5, 6): ItemName.bomb_spark,
+    (5, 7): ItemName.bomb_cutter,
+    (6, 6): ItemName.spark_spark,
+    (6, 7): ItemName.spark_cutter,
+    (7, 7): ItemName.cutter_cutter,
+}
+
 copy_ability_access_table = {
     "No Ability": ItemData(None, False),
     "Burning Ability": ItemData(None, True),
@@ -94,10 +125,19 @@ item_table = {
     **misc_item_table,
 }
 
+power_combo_aliases = {}
+
+for i, ability in enumerate(copy_ability_table, 1):
+    for j, other in enumerate(copy_ability_table, 1):
+        group_name = f"{ability}/{other}"
+        if group_name not in power_combo_aliases:
+            power_combo_aliases[group_name] = {power_combo_map[min((i,j), (j, i))]}
+
 item_names = {
     "Copy Ability": {name for name in copy_ability_table.keys()},
     "Power Combo": {name for name in power_combo_table.keys()},
-    "Friend": {name for name in friend_table.keys()}
+    "Friend": {name for name in friend_table.keys()},
+    **power_combo_aliases
 }
 
 lookup_name_to_id: typing.Dict[str, int] = {item_name: data.code for item_name, data in item_table.items() if data.code}

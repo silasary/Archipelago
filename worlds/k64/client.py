@@ -109,6 +109,7 @@ K64_ENEMY_CARDS = K64_SAVE_ADDRESS + 0x110
 K64_COPY_ABILITY = K64_SAVE_ADDRESS + 0x168
 K64_CRYSTAL_ADDRESS = K64_SAVE_ADDRESS + 0x170
 K64_RECV_INDEX = K64_SAVE_ADDRESS + 0x174
+K64_DEATHLINK_SET = K64_SAVE_ADDRESS + 0x17C
 K64_KIRBY_LIVES = K64_SAVE_ADDRESS + 0x34C
 K64_KIRBY_HEALTH = K64_SAVE_ADDRESS + 0x350
 K64_KIRBY_LIVES_VISUAL = K64_SAVE_ADDRESS + 0x388
@@ -160,7 +161,10 @@ class K64Client(BizHawkClient):
         # they store his HP as a float...
         # there's 7 possible values...
         # and he only dies after taking a hit at 0 hp
-        pass
+        # all of the handling is in basepatch
+        from worlds._bizhawk import write
+        await write(ctx.bizhawk_ctx, [(K64_DEATHLINK_SET, int.to_bytes(1, 4, "big"), "RDRAM")])
+
 
     async def set_auth(self, ctx: BizHawkClientContext) -> None:
         if self.rom:
@@ -273,7 +277,6 @@ class K64Client(BizHawkClient):
                     (K64_KIRBY_HEALTH_VISUAL, struct.pack(">I", 6), "RDRAM"),
                 ])
 
-        await write(ctx.bizhawk_ctx, writes)
         new_checks = []
 
         for i, crystal in zip(range(6), boss_crystals):
@@ -288,6 +291,8 @@ class K64Client(BizHawkClient):
                 loc_id = 0x640000 + self.levels[level][stage]
                 if loc_id not in ctx.checked_locations and stage_array[stage_to_byte[level][stage]] == 0x02:
                     new_checks.append(loc_id)
+                elif loc_id in ctx.checked_locations:
+                    writes.append((K64_CRYSTAL_ADDRESS + stage_to_byte[level][stage], [2], "RDRAM"))
 
         # check crystals
         for level, stage_num in zip(range(6), (3, 4, 4, 4, 4, 3)):
@@ -307,3 +312,5 @@ class K64Client(BizHawkClient):
             k64_logger.info(
                 f'New Check: {location} ({len(ctx.locations_checked)}/{len(ctx.missing_locations) + len(ctx.checked_locations)})')
             await ctx.send_msgs([{"cmd": 'LocationChecks', "locations": [new_check_id]}])
+
+        await write(ctx.bizhawk_ctx, writes)
