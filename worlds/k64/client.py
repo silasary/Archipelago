@@ -11,10 +11,11 @@ from NetUtils import ClientStatus, color
 from worlds._bizhawk.client import BizHawkClient
 
 from .regions import default_levels
-from .rom import slot_data
+from .rom import slot_data, crystal_requirements
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
+    from kvui import Label
 else:
     BizHawkClientContext = Any
 
@@ -118,6 +119,7 @@ K64_INVINCIBILITY_CANDY = 0x12E7C9
 
 K64_SPLIT_POWER_COMBO = slot_data
 K64_DEATHLINK = slot_data + 1
+K64_BOSS_REQUIREMENTS = crystal_requirements
 K64_LEVEL_ADDRESS = 0x1FFF230
 
 
@@ -129,6 +131,8 @@ class K64Client(BizHawkClient):
     rom: typing.Optional[bytes] = None
     levels: typing.Optional[typing.Dict[int, typing.List[int]]] = None
     split_power_combos: typing.Optional[bool] = None
+    boss_requirements: typing.Optional[bytes] = None
+    crystal_label: "Label" = None
 
     def interpret_copy_ability(self, current, new_ability):
         if self.split_power_combos:
@@ -173,18 +177,44 @@ class K64Client(BizHawkClient):
     async def validate_rom(self, ctx) -> bool:
         from worlds._bizhawk import RequestFailedError, read
 
+        def false() -> bool:
+            if self.crystal_label and ctx.ui:
+                if self.crystal_label in ctx.ui.connect_layout.children:
+                    ctx.ui.connect_layout.remove_widget(self.crystal_label)
+            return False
+
         try:
+            kirby = (await read(ctx.bizhawk_ctx, [(0x20, 7, "ROM")]))[0]
+            if kirby != b"Kirby64":
+                return false()
             game_name = ((await read(ctx.bizhawk_ctx, [(0x1FFF200, 21, "ROM")]))[0])
             if game_name[:3] != b"K64":
-                return False
+                return false()
         except UnicodeDecodeError:
-            return False
+            return false()
         except RequestFailedError:
-            return False  # Should verify on the next pass
+            return false()  # Should verify on the next pass
         ctx.game = self.game
         self.rom = game_name
         ctx.items_handling = 0b111
         return True
+
+    async def update_crystal_label(self, ctx: BizHawkClientContext):
+        from kvui import Label
+
+        if not self.crystal_label:
+            self.crystal_label = Label(text=f"")
+            ctx.ui.connect_layout.add_widget(self.crystal_label)
+
+        current_crystals = sum(1 for item in ctx.items_received if item.item == 0x640020)
+        highest = 1
+        for crystal in self.boss_requirements:
+            if current_crystals < crystal:
+                self.crystal_label.text = f"Level {highest}: {current_crystals}/{crystal}"
+                break
+            highest += 1
+        else:
+            self.crystal_label.text = "Level 7"
 
     async def game_watcher(self, ctx: BizHawkClientContext) -> None:
         from worlds._bizhawk import read, write
@@ -223,6 +253,12 @@ class K64Client(BizHawkClient):
             ]))[0]
 
             self.split_power_combos = bool(split_power_combos[0])
+
+        if self.boss_requirements is None:
+            boss_requirements = (await read(ctx.bizhawk_ctx, [
+                (K64_BOSS_REQUIREMENTS, 6, "ROM")
+            ]))
+            self.boss_requirements = boss_requirements[0]
 
         (halken, is_demo, stage_array, boss_crystals, crystal_array,
          copy_ability, crystals, recv_index, health, health_visual,
@@ -279,6 +315,11 @@ class K64Client(BizHawkClient):
             elif item.item == 0x640023:
                 # Invincibility Candy
                 writes.extend([(K64_INVINCIBILITY_CANDY, [1], "RDRAM")])
+
+        # update crystals here
+        if ctx.ui:
+            await self.update_crystal_label(ctx)
+
         new_checks = []
 
         for i, crystal in zip(range(6), boss_crystals):
