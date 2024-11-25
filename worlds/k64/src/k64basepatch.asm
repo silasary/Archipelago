@@ -122,8 +122,7 @@ mflo    t6
 addu    t2, t2, t6
 addu    t2, t2, t1
 sb      t3, 0x6BE0 (t2)
-li      t3, 0x800D6B90
-lw      t3, 0x0000 (t3)
+lw      t3, 0x6B90 (at)
 addiu   t3, t3, -0x0001
 lw      t1, 0x6C70 (at)
 li      t2, CrystalRequirements
@@ -155,6 +154,34 @@ sw      t2, 0x6B94 (at)
 
 MarkStagesIncomplete:
 //; a2 - unlocked level, t3 - save address, t0 free
+//; quickly unlock boss if crystal requirement is met
+addiu   t0, a0, -0x0001
+li      t2, CrystalRequirements
+addu    t2, t2, t0
+lb      t2, 0x0000 (t2)
+lw      t0, 0x0090 (t3)
+sub     t0, t0, t2
+bltz    t0, @@BeginIncomplete
+lw      t2, -0x0050 (t3)
+li      t0, LevelStart
+addu    t0, t0, t2
+lb      t2, 0x0000 (t0)
+lw      t0, -0x004C (t3)
+sub     t0, t0, t2
+bgtz    t0, @@BeginIncomplete
+lw      t0, -0x004C (t3)
+addiu   t0, t0, 0x0001
+sw      t0, -0x004C (t3)
+addiu   t2, r0, 0x0058
+lw      t0, -0x0058 (t3)
+mult    t0, t2
+mflo    t2
+li      t0, 0x800EC9F8
+addu    t2, t2, t0
+lw      t0, -0x004C (t3)
+sw      t0, 0x0014 (t2)
+
+@@BeginIncomplete:
 addiu   s0, r0, 0x0001
 addiu   t2, r0, 0x0006
 addiu   t0, r0, 0x0000
@@ -167,7 +194,7 @@ nop
 beq     t7, t2, @@MarkIncomplete
 lb      t6, 0x0000 (t3)
 addiu   t7, t7, 0x0001
-bnez   t6, @@IncrementStage
+bnez    t6, @@IncrementStage
 nop
 sb      s0, 0x0000(t3)
 @@IncrementStage:

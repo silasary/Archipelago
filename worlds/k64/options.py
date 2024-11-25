@@ -121,6 +121,8 @@ class KirbyFlavorPreset(Choice):
     #option_lime = 12
     option_lavender = 13
     option_miku = 14
+    option_nostalgic = 15
+    option_kusamochi = 16
     option_custom = -1
     default = 0
 
