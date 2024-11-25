@@ -48,6 +48,10 @@ sw      s2, 0x6B7C (at)
 jal     OpenNewWorld
 nop
 
+.org 0x800A3EFC
+jal     SetZeroTwoComplete
+nop
+
 .org 0x800B8C94
 jal     SetStartingStage
 
@@ -118,9 +122,12 @@ mflo    t6
 addu    t2, t2, t6
 addu    t2, t2, t1
 sb      t3, 0x6BE0 (t2)
+li      t3, 0x800D6B90
+lw      t3, 0x0000 (t3)
+addiu   t3, t3, -0x0001
 lw      t1, 0x6C70 (at)
 li      t2, CrystalRequirements
-addu    t2, t2, t0
+addu    t2, t2, t3
 lb      t3, 0x0000 (t2)
 sub     t3, t1, t3
 bgez    t3, @@HasCrystals
@@ -235,6 +242,13 @@ sll     t6, t6, 2
 addu    t7, t6, t7
 addu    t8, t7, t8
 j       0x801532A4
+nop
+
+SetZeroTwoComplete:
+addiu   t3, r0, 0x0001
+lui     at, 0x800D
+sb      t3, 0x6BC0 (at)
+j       0x800A74D8
 nop
 
 
