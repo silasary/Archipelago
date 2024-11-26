@@ -441,6 +441,19 @@ class TrackerGameContext(CommonContext):
         await self.get_username()
         await self.send_connect()
 
+    def regen_slots(self, world, slot_data, tempdir: Optional[str] = None) -> bool:
+        if callable(getattr(world, "interpret_slot_data", None)):
+            temp = world.interpret_slot_data(slot_data)
+
+            # back compat for worlds that trigger regen with interpret_slot_data, will remove eventually
+            if temp:
+                self.player_id = 1
+                self.re_gen_passthrough = {self.game: temp}
+                self.run_generator(slot_data, tempdir)
+            return True
+        else:
+            return False
+
     def on_package(self, cmd: str, args: dict):
         if cmd == 'Connected':
             if self.launch_multiworld is None:
@@ -453,25 +466,10 @@ class TrackerGameContext(CommonContext):
                 if self.launch_multiworld.worlds[internal_id].game == self.game:
                     self.multiworld = self.launch_multiworld
                     self.player_id = internal_id
-                    if callable(getattr(self.multiworld.worlds[self.player_id], "interpret_slot_data", None)):
-                        temp = self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
-
-                        # back compat for worlds that trigger regen with interpret_slot_data, will remove eventually
-                        if temp:
-                            self.player_id = 1
-                            self.re_gen_passthrough = {self.game: temp}
-                            self.run_generator(args["slot_data"])
+                    self.regen_slots(self.multiworld.worlds[self.player_id],args["slot_data"])
                 elif self.launch_multiworld.worlds[internal_id].game == "Archipelago":
                     connected_cls = AutoWorld.AutoWorldRegister.world_types[self.game]
-                    # TODO change this function name to the new API
-                    if callable(getattr(connected_cls, "interpret_slot_data", None)):
-                        # we skipped their world in launch_gen so gen a single player multi for the slot
-                        temp = connected_cls.interpret_slot_data(args["slot_data"])
-                        # temp = self.launch_multiworld.worlds[internal_id].interpret_slot_data(args["slot_data"])
-                        self.player_id = 1
-                        self.re_gen_passthrough = {self.game: temp}
-                        self.run_generator(args["slot_data"])
-                    else:
+                    if not self.regen_slots(connected_cls,args["slot_data"]):
                         raise "TODO: add error - something went very wrong with interpret_slot_data"
                 else:
                     world_dict = {name: self.launch_multiworld.worlds[slot].game for name, slot in self.launch_multiworld.world_name_lookup.items()}
@@ -486,13 +484,7 @@ class TrackerGameContext(CommonContext):
                     with tempfile.TemporaryDirectory() as tempdir:
                         self.write_empty_yaml(self.game, slot_name, tempdir)
                         self.run_generator(None, tempdir)
-                        self.player_id = 1
-                        if callable(getattr(self.multiworld.worlds[self.player_id], "interpret_slot_data", None)):
-                            temp = self.multiworld.worlds[self.player_id].interpret_slot_data(args["slot_data"])
-                            if temp:
-                                self.re_gen_passthrough = {self.game: temp}
-
-                        self.run_generator(args["slot_data"], tempdir)
+                        self.regen_slots(self.multiworld.worlds[self.player_id],args["slot_data"],tempdir)
                 else:
                     self.log_to_tab(f"Player's Yaml not in tracker's list. Known players: {list(self.launch_multiworld.world_name_lookup.keys())}", False)
                     return
