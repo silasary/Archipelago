@@ -31,11 +31,11 @@ if typing.TYPE_CHECKING:
 import urllib.parse
 
 if not sys.stdout:  # to make sure sm varia's "i'm working" dots don't break UT in frozen
-    sys.stdout = open(os.devnull, 'w')  # from https://stackoverflow.com/a/6735958
+    sys.stdout = open(os.devnull, 'w', encoding="utf-8")  # from https://stackoverflow.com/a/6735958
 
 logger = logging.getLogger("Client")
 
-UT_VERSION = "v0.1.12 RC1"
+UT_VERSION = "v0.1.12"
 DEBUG = False
 ITEMS_HANDLING = 0b111
 # REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "needs_regen", False)}  # TODO
@@ -503,7 +503,8 @@ class TrackerGameContext(CommonContext):
         if "Tracker" in self.tags:
             self.game = ""
             self.re_gen_passthrough = None
-            self.ui.tabs.show_map = False
+            if self.ui:
+                self.ui.tabs.show_map = False
             self.tracker_world = None
             self.multiworld = None
             # TODO: persist these per url+slot(+seed)?
