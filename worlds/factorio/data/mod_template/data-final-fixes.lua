@@ -48,8 +48,11 @@ data.raw["rocket-silo"]["rocket-silo"].fluid_boxes = {
 data.raw["rocket-silo"]["rocket-silo"].fluid_boxes_off_when_no_fluid_recipe = true
 
 {%- for recipe_name, recipe in custom_recipes.items() %}
-data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
-data.raw["recipe"]["{{recipe_name}}"].ingredients = {{ dict_to_recipe(recipe.ingredients, liquids) }}
+    data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
+    data.raw["recipe"]["{{recipe_name}}"].ingredients = {{ dict_to_recipe(recipe.ingredients, liquids) }}
+{%- if recipe_name == "cryogenic-science-pack" %}
+    data.raw["recipe"]["cryogenic-science-pack"].results = {{ {type = "item", name = "cryogenic-science-pack", amount = 1} }}
+{%- endif %}
 {%- endfor %}
 
 local technologies = data.raw["technology"]
@@ -62,7 +65,7 @@ template_tech.upgrade = false
 template_tech.effects = {}
 template_tech.prerequisites = {}
 
-{%- if max_science_pack < 6 %}
+{%- if max_science_pack < 10 %}
     technologies["space-science-pack"].effects = {}
     {%- if max_science_pack == 0 %}
         table.insert (technologies["automation"].effects, {type = "unlock-recipe", recipe = "satellite"})
@@ -76,6 +79,14 @@ template_tech.prerequisites = {}
         table.insert (technologies["production-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
     {%- elif max_science_pack == 5 %}
         table.insert (technologies["utility-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
+    {%- elif max_science_pack == 6 %}
+        table.insert (technologies["metallurgic-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
+    {%- elif max_science_pack == 7 %}
+        table.insert (technologies["agricultural-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
+    {%- elif max_science_pack == 8 %}
+        table.insert (technologies["electromagnetic-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
+    {%- elif max_science_pack == 9 %}
+        table.insert (technologies["cryogenic-science-pack"].effects, {type = "unlock-recipe", recipe = "satellite"})
     {% endif %}
 {% endif %}
 {%- if silo == 2 %}
@@ -213,3 +224,5 @@ set_energy("{{ recipe_name }}", {{ flop_random(*recipe_time_range) }})
 technologies["rocket-silo"].enabled = false
 technologies["rocket-silo"].visible_when_disabled = false
 {%- endif %}
+
+data.raw.resource["tungsten-ore"].category = "basic-solid"

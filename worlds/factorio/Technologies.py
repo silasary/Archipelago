@@ -16,10 +16,24 @@ factorio_tech_id = factorio_base_id = 2 ** 17
 
 pool = ThreadPoolExecutor(1)
 
+ignored_recipes = {
+    "casting-pipe", "casting-iron-gear-wheel", "casting-pipe-to-ground", "casting-iron", "casting-copper",
+    "casting-iron-stick", "casting-copper-cable", "casting-low-density-structure", "casting-steel","steam-condensation",
+    "coal-synthesis", "molten-iron-from-lava", "molten-copper-from-lava", "bioplastic", "biosulfur", "biolubricant",
+    "solid-fuel-from-ammonia", "rocket-fuel-from-ammonia", "ice-melting", "acid-neutralisation", "simple-coal-liquefaction",
+    "fluoroketone-cooling"
+}
 
 # Factorio technologies are imported from a .json document in /data
 def load_json_data(data_name: str) -> Union[List[str], Dict[str, Any]]:
-    return orjson.loads(pkgutil.get_data(__name__, "data/" + data_name + ".json"))
+    data = orjson.loads(pkgutil.get_data(__name__, "data/" + data_name + ".json"))
+    for i in range(0, 10):
+        if f"parameter-{i}" in data:
+            if type(data) == dict:
+                del data[f"parameter-{i}"]
+            else:
+                data.remove(f"parameter-{i}")
+    return data
 
 
 techs_future = pool.submit(load_json_data, "techs")
@@ -28,6 +42,8 @@ resources_future = pool.submit(load_json_data, "resources")
 machines_future = pool.submit(load_json_data, "machines")
 fluids_future = pool.submit(load_json_data, "fluids")
 items_future = pool.submit(load_json_data, "items")
+
+
 
 tech_table: Dict[str, int] = {}
 technology_table: Dict[str, Technology] = {}
@@ -156,11 +172,12 @@ class Recipe(FactorioElement):
             for ingredient, cost in self.ingredients.items():
                 if ingredient in all_product_sources:
                     for recipe in all_product_sources[ingredient]:
-                        if recipe.ingredients:
-                            ingredients.update({name: amount * cost / recipe.products[ingredient] for name, amount in
-                                                recipe.base_cost.items()})
-                        else:
-                            ingredients[ingredient] += recipe.energy * cost / recipe.products[ingredient]
+                        if ("-recycling" not in recipe.name or (recipe.name == "scrap-recycling" and ingredient == "holmium-ore")) and recipe.name not in ignored_recipes:
+                            if recipe.ingredients:
+                                ingredients.update({name: amount * cost / recipe.products[ingredient] for name, amount in
+                                                    recipe.base_cost.items()})
+                            else:
+                                ingredients[ingredient] += recipe.energy * cost / recipe.products[ingredient]
                 else:
                     ingredients[ingredient] += cost
         except RecursionError as e:
@@ -223,11 +240,34 @@ for resource_name, resource_data in resources_future.result().items():
     }
 del resources_future
 
+raw_recipes["mining-tungsten-ore"] = {
+    "ingredients": {},
+    "products": {"tungsten-ore": 1},
+    "energy": 1,
+    "category": "basic-solid"
+}
+raw_recipes["mining-jellynut"] = {
+    "ingredients": {},
+    "products": {"jellynut": 1},
+    "energy": 1,
+    "category": "agriculture"
+}
+raw_recipes["mining-yumako"] = {
+    "ingredients": {},
+    "products": {"yumako": 1},
+    "energy": 1,
+    "category": "agriculture"
+}
+raw_recipes["wood-processing"]["category"] = "agriculture"
+
 for recipe_name, recipe_data in raw_recipes.items():
+    if recipe_name in ignored_recipes or ("-recycling" in recipe_name and recipe_name != "scrap-recycling"):
+        continue
     # example:
     # "accumulator":{"ingredients":{"iron-plate":2,"battery":5},"products":{"accumulator":1},"category":"crafting"}
     # FIXME: add mining?
-    recipe = Recipe(recipe_name, recipe_data["category"], recipe_data["ingredients"],
+    ingredients = recipe_data["ingredients"]
+    recipe = Recipe(recipe_name, recipe_data["category"], ingredients,
                     recipe_data["products"], recipe_data["energy"] if "energy" in recipe_data else 0)
     recipes[recipe_name] = recipe
     if set(recipe.products).isdisjoint(
@@ -235,6 +275,8 @@ for recipe_name, recipe_data in raw_recipes.items():
             set(recipe.ingredients)) and ("barrel" not in recipe.products or recipe.name == "barrel") and \
             not recipe_name.endswith("-reprocessing"):
         for product_name in recipe.products:
+            if recipe.name == "scrap-recycling" and product_name != "holmium-ore":
+                continue
             all_product_sources.setdefault(product_name, set()).add(recipe)
 
 assert all(recipe_name in raw_recipes for recipe_name in start_unlocked_recipes), "Unknown Recipe defined."
@@ -248,8 +290,10 @@ for name, categories in machines_future.result().items():
 # add electric mining drill as a crafting machine to resolve basic-solid (mining)
 machines["electric-mining-drill"] = Machine("electric-mining-drill", {"basic-solid"})
 machines["pumpjack"] = Machine("pumpjack", {"basic-fluid"})
+machines["big-mining-drill"] = Machine("big-mining-drill", {"hard-solid"})
 machines["assembling-machine-1"].categories.add("crafting-with-fluid")  # mod enables this
 machines["character"].categories.add("basic-crafting")  # somehow this is implied and not exported
+machines["agricultural-tower"] = Machine("agricultural-tower", {"agriculture"})
 
 del machines_future
 
@@ -277,6 +321,8 @@ def unlock(recipe: Recipe, _done) -> Set[Technology]:
 
 def recursively_get_unlocking_technologies(ingredient_name, _done=None, unlock_func=unlock_just_tech) -> Set[
     Technology]:
+    from .Technologies import recipes
+
     if _done:
         if ingredient_name in _done:
             return set()
@@ -284,6 +330,10 @@ def recursively_get_unlocking_technologies(ingredient_name, _done=None, unlock_f
             _done.add(ingredient_name)
     else:
         _done = {ingredient_name}
+
+    if f"mining-{ingredient_name}" in recipes:
+        return set()
+    # if ingredient_name in {"jellynut", "yumako"}
     recipes = all_product_sources.get(ingredient_name)
     if not recipes:
         return set()
@@ -323,7 +373,7 @@ for category_name, machine_name in machine_per_category.items():
 required_technologies: Dict[str, FrozenSet[Technology]] = Utils.KeyedDefaultDict(lambda ingredient_name: frozenset(
     recursively_get_unlocking_technologies(ingredient_name, unlock_func=unlock)))
 
-
+required_technologies["wood"] = required_technologies["wood-processing"]
 def get_rocket_requirements(silo_recipe: Optional[Recipe], part_recipe: Recipe,
                             satellite_recipe: Optional[Recipe], cargo_landing_pad_recipe: Optional[Recipe]) -> Set[str]:
     techs = set()
@@ -385,22 +435,22 @@ for root in base_starts:
 progressive_rows["progressive-science-pack"] = tuple(Options.MaxSciencePack.get_ordered_science_packs())[1:]
 
 # manual progressive
-progressive_rows["progressive-processing"] = (
-    "steel-processing",
-    "oil-processing", "sulfur-processing", "advanced-oil-processing", "coal-liquefaction",
-    "uranium-processing", "kovarex-enrichment-process", "nuclear-fuel-reprocessing")
+# progressive_rows["progressive-processing"] = (
+#     "steel-processing",
+#     "oil-processing", "sulfur-processing", "advanced-oil-processing", "coal-liquefaction",
+#     "uranium-processing", "kovarex-enrichment-process", "nuclear-fuel-reprocessing")
 progressive_rows["progressive-rocketry"] = ("rocketry", "explosive-rocketry", "atomic-bomb")
 progressive_rows["progressive-vehicle"] = ("automobilism", "tank", "spidertron")
 progressive_rows["progressive-fluid-handling"] = ("fluid-handling", "fluid-wagon")
 progressive_rows["progressive-train-network"] = ("railway", "automated-rail-transportation")
 progressive_rows["progressive-engine"] = ("engine", "electric-engine")
-progressive_rows["progressive-armor"] = ("heavy-armor", "modular-armor", "power-armor", "power-armor-mk2")
-progressive_rows["progressive-personal-battery"] = ("battery-equipment", "battery-mk2-equipment")
+progressive_rows["progressive-armor"] = ("heavy-armor", "modular-armor", "power-armor", "power-armor-mk2", "mech-armor")
+progressive_rows["progressive-personal-battery"] = ("battery-equipment", "battery-mk2-equipment", "battery-mk3-equipment")
 progressive_rows["progressive-energy-shield"] = ("energy-shield-equipment", "energy-shield-mk2-equipment")
 progressive_rows["progressive-wall"] = ("stone-wall", "gate")
 progressive_rows["progressive-follower"] = ("defender", "distractor", "destroyer")
-progressive_rows["progressive-inserter"] = ("fast-inserter", "bulk-inserter")
-progressive_rows["progressive-turret"] = ("gun-turret", "laser-turret")
+progressive_rows["progressive-inserter"] = ("fast-inserter", "bulk-inserter", "stack-inserter")
+progressive_rows["progressive-turret"] = ("gun-turret", "laser-turret", "rocket-turret", "tesla-weapons", "railgun")
 progressive_rows["progressive-flamethrower"] = ("flamethrower",)  # leaving out flammables, as they do nothing
 progressive_rows["progressive-personal-roboport-equipment"] = ("personal-roboport-equipment",
                                                                "personal-roboport-mk2-equipment")
@@ -411,6 +461,7 @@ sorted_rows = sorted(progressive_rows)
 source_target_mapping: Dict[str, str] = {
     "progressive-braking-force": "progressive-train-network",
     "progressive-inserter-capacity-bonus": "progressive-inserter",
+    "progressive-transport-belt-capacity": "progressive-inserter",
     "progressive-refined-flammables": "progressive-flamethrower",
 }
 
@@ -453,16 +504,23 @@ useless_technologies: Set[str] = {tech_name for tech_name in common_tech_table
                                   if not technology_table[tech_name].useful()}
 
 rel_cost = {
-    "wood": 10000,
+    "wood": 1,
     "iron-ore": 1,
     "copper-ore": 1,
     "stone": 1,
+    "scrap": 6,
+    "jellynut": 6,
+    "yumako": 6,
+    "calcite": 6,
+    "tungsten-ore": 6,
     "crude-oil": 0.5,
     "water": 0.001,
     "coal": 1,
     "raw-fish": 1000,
     "steam": 0.01,
-    "used-up-uranium-fuel-cell": 1000
+    "used-up-uranium-fuel-cell": 1000,
+    "ammoniacal-solution": 1,
+    "lava": 1,
 }
 
 exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "used-up-uranium-fuel-cell"}
@@ -478,6 +536,10 @@ def get_science_pack_pools() -> Dict[str, Set[str]]:
 
         for ingredient_name, amount in base_ingredients.items():
             cost += rel_cost.get(ingredient_name, 1) * amount
+
+        machine_cost = get_estimated_difficulty(recipes["recycler"]) if recipe.name == "scrap-recycling" else get_estimated_difficulty(recipes[recipe.crafting_machine]) if recipe.crafting_machine != "character" else 0
+        cost = cost + round(machine_cost / 10)
+
         return cost
 
     science_pack_pools: Dict[str, Set[str]] = {}

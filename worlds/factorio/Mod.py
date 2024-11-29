@@ -31,15 +31,15 @@ template_load_lock = threading.Lock()
 
 base_info = {
     "version": Utils.__version__,
-    "title": "Archipelago",
-    "author": "Berserker",
+    "title": "Archipelago (SAWS)",
+    "author": "Berserker, AlchavX",
     "homepage": "https://archipelago.gg",
-    "description": "Integration client for the Archipelago Randomizer",
+    "description": "Integration client for the Archipelago Randomizer, designed to work with the Space Age Without Space mod",
     "factorio_version": "2.0",
     "dependencies": [
-        "base >= 2.0.15",
-        "? quality >= 2.0.15",
-        "! space-age",
+        "base >= 2.0.20",
+        "space-age >= 2.0.20",
+        "SpaceAgeWithoutSpace >= 0.0.9",
         "? science-not-invited",
         "? factory-levels"
     ]

@@ -24,8 +24,12 @@ class MaxSciencePack(Choice):
     option_chemical_science_pack = 3
     option_production_science_pack = 4
     option_utility_science_pack = 5
-    option_space_science_pack = 6
-    default = 6
+    option_metallurgic_science_pack = 6
+    option_agricultural_science_pack = 7
+    option_electromagnetic_science_pack = 8
+    option_cryogenic_science_pack = 9
+    option_space_science_pack = 10
+    default = 10
 
     def get_allowed_packs(self):
         return {option.replace("_", "-") for option, value in self.options.items() if value <= self.value} - \

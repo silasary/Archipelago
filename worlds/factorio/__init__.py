@@ -23,10 +23,10 @@ from .Technologies import base_tech_table, recipe_sources, base_technology_table
 
 def launch_client():
     from .Client import launch
-    launch_subprocess(launch, name="FactorioClient")
+    launch_subprocess(launch, name="FactorioSAWSClient")
 
 
-components.append(Component("Factorio Client", "FactorioClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Factorio - Space Age Without Space Client", "FactorioSAWSClient", func=launch_client, component_type=Type.CLIENT))
 
 
 class FactorioSettings(settings.Group):
@@ -64,7 +64,7 @@ class FactorioWeb(WebWorld):
 
 
 class FactorioItem(Item):
-    game = "Factorio"
+    game = "Factorio - Space Age Without Space"
 
 
 all_items = tech_table.copy()
@@ -83,7 +83,7 @@ class Factorio(World):
     Nauvis, an inhospitable world filled with dangerous creatures called biters. Build a factory,
     research new technologies, and become more efficient in your quest to build a rocket and return home.
     """
-    game = "Factorio"
+    game = "Factorio - Space Age Without Space"
     special_nodes = {"automation", "logistics", "rocket-silo"}
     custom_recipes: typing.Dict[str, Recipe]
     location_pool: typing.List[FactorioScienceLocation]
@@ -325,9 +325,11 @@ class Factorio(World):
 
     @staticmethod
     def get_category(category: str, liquids: int) -> str:
-        categories = {1: "crafting-with-fluid",
-                      2: "chemistry"}
-        return categories.get(liquids, category)
+        if category == "crafting":
+            categories = {1: "crafting-with-fluid",
+                          2: "chemistry"}
+            return categories.get(liquids, category)
+        return category
 
     def make_quick_recipe(self, original: Recipe, pool: list, allow_liquids: int = 2,
                           ingredients_offset: int = 0) -> Recipe:
@@ -548,8 +550,8 @@ class FactorioScienceLocation(FactorioLocation):
     def __init__(self, player: int, name: str, address: int, parent: Region):
         super(FactorioScienceLocation, self).__init__(player, name, address, parent)
         # "AP-{Complexity}-{Cost}"
-        self.complexity = int(self.name[3]) - 1
-        self.rel_cost = int(self.name[5:])
+        self.complexity = int(self.name.split("-")[1]) - 1
+        self.rel_cost = int(self.name.split("-")[2])
 
         self.ingredients = {Factorio.ordered_science_packs[self.complexity]: 1}
         for complexity in range(self.complexity):
