@@ -39,7 +39,7 @@ base_info = {
     "dependencies": [
         "base >= 2.0.20",
         "space-age >= 2.0.20",
-        "SpaceAgeWithoutSpace >= 0.0.9",
+        "SpaceAgeWithoutSpace >= 0.1.0",
         "? science-not-invited",
         "? factory-levels"
     ]
