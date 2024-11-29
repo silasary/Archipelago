@@ -51,7 +51,8 @@ data.raw["rocket-silo"]["rocket-silo"].fluid_boxes_off_when_no_fluid_recipe = tr
     data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
     data.raw["recipe"]["{{recipe_name}}"].ingredients = {{ dict_to_recipe(recipe.ingredients, liquids) }}
 {%- if recipe_name == "cryogenic-science-pack" %}
-    data.raw["recipe"]["cryogenic-science-pack"].results = {{ {type = "item", name = "cryogenic-science-pack", amount = 1} }}
+    data.raw["recipe"]["cryogenic-science-pack"].results = {{ "{{type = 'item', name = 'cryogenic-science-pack', amount = 1}}" }}
+
 {%- endif %}
 {%- endfor %}
 
