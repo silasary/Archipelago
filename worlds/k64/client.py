@@ -335,7 +335,7 @@ class K64Client(BizHawkClient):
                 if loc_id not in ctx.checked_locations and stage_array[stage_to_byte[level][stage]] == 0x02:
                     new_checks.append(loc_id)
                 elif loc_id in ctx.checked_locations:
-                    writes.append((K64_CRYSTAL_ADDRESS + stage_to_byte[level][stage], [2], "RDRAM"))
+                    writes.append((K64_STAGE_STATUSES + stage_to_byte[level][stage], [2], "RDRAM"))
 
         # check crystals
         for level, stage_num in zip(range(6), (3, 4, 4, 4, 4, 3)):
