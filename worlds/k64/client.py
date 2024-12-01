@@ -100,9 +100,11 @@ stage_to_byte = {
 }
 
 K64_IS_DEMO = 0x3387B2
+K64_GAME_STATE = 0xBE4F0
 K64_CURRENT_LEVEL = 0xBE500
 K64_CURRENT_STAGE = 0xBE504
 K64_SAVE_ADDRESS = 0xD6B00
+K64_MENU_LEVEL = K64_SAVE_ADDRESS + 0x98
 K64_BOSS_CRYSTALS = K64_SAVE_ADDRESS + 0xC0
 K64_CRYSTAL_ARRAY = K64_SAVE_ADDRESS + 0xC8
 K64_STAGE_STATUSES = K64_SAVE_ADDRESS + 0xE0
@@ -127,6 +129,7 @@ class K64Client(BizHawkClient):
     game = "Kirby 64 - The Crystal Shards"
     system = "N64"
     patch_suffix = ".apk64cs"
+    current_level_storage_key: str = ""
     death_link: typing.Optional[bool] = None
     rom: typing.Optional[bytes] = None
     levels: typing.Optional[typing.Dict[int, typing.List[int]]] = None
@@ -228,6 +231,10 @@ class K64Client(BizHawkClient):
         if ctx.slot_data is None:
             return
 
+        if not self.current_level_storage_key:
+            self.current_level_storage_key = f"k64_current_level_{ctx.team}_{ctx.slot}"
+            ctx.set_notify(self.current_level_storage_key)
+
         if self.levels is None:
             levels = (await read(ctx.bizhawk_ctx, [
                 (K64_LEVEL_ADDRESS, 56, "ROM")
@@ -260,11 +267,12 @@ class K64Client(BizHawkClient):
             ]))
             self.boss_requirements = boss_requirements[0]
 
-        (halken, is_demo, stage_array, boss_crystals, crystal_array,
+        (halken, is_demo, game_state, stage_array, boss_crystals, crystal_array,
          copy_ability, crystals, recv_index, health, health_visual,
-         lives, lives_visual) = await read(ctx.bizhawk_ctx, [
+         lives, lives_visual, current_level, current_stage, menu_level) = await read(ctx.bizhawk_ctx, [
             (K64_SAVE_ADDRESS, 16, "RDRAM"),
             (K64_IS_DEMO, 4, "RDRAM"),
+            (K64_GAME_STATE, 4, "RDRAM"),
             (K64_STAGE_STATUSES, 42, "RDRAM"),
             (K64_BOSS_CRYSTALS, 8, "RDRAM"),
             (K64_CRYSTAL_ARRAY, 24, "RDRAM"),
@@ -274,7 +282,10 @@ class K64Client(BizHawkClient):
             (K64_KIRBY_HEALTH, 4, "RDRAM"),
             (K64_KIRBY_HEALTH_VISUAL, 4, "RDRAM"),
             (K64_KIRBY_LIVES, 4, "RDRAM"),
-            (K64_KIRBY_LIVES_VISUAL, 4, "RDRAM")
+            (K64_KIRBY_LIVES_VISUAL, 4, "RDRAM"),
+            (K64_CURRENT_LEVEL, 4, "RDRAM"),
+            (K64_CURRENT_STAGE, 4, "RDRAM"),
+            (K64_MENU_LEVEL, 4, "RDRAM"),
             ])
 
         if halken != b'-HALKEN--KIRBY4-':
@@ -319,6 +330,39 @@ class K64Client(BizHawkClient):
         # update crystals here
         if ctx.ui:
             await self.update_crystal_label(ctx)
+
+        # update data storage
+        game_state_val = int.from_bytes(game_state, "big")
+        if game_state_val == 0xC:
+            # We are on a world menu, update to that world
+            world_str = f"{int.from_bytes(menu_level, 'big')}_S"
+            if ctx.stored_data.get(self.current_level_storage_key, "") != world_str:
+                await ctx.send_msgs([
+                    {
+                        "cmd": "Set",
+                        "key": self.current_level_storage_key,
+                        "default": "0_S",
+                        "want_reply": False,
+                        "operations": [
+                            {"operation": "replace", "value": world_str}
+                        ]
+                    }
+                ])
+        elif game_state_val == 0xF:
+            # We are in a stage, update to that stage
+            stage_str = f"{int.from_bytes(current_level, 'big')}_{int.from_bytes(current_stage, 'big')}"
+            if ctx.stored_data.get(self.current_level_storage_key, "") != stage_str:
+                await ctx.send_msgs([
+                    {
+                        "cmd": "Set",
+                        "key": self.current_level_storage_key,
+                        "default": "0_S",
+                        "want_reply": False,
+                        "operations": [
+                            {"operation": "replace", "value": stage_str}
+                        ]
+                    }
+                ])
 
         new_checks = []
 
