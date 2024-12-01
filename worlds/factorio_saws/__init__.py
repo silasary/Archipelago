@@ -10,7 +10,7 @@ from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 from worlds.generic import Rules
-from .Locations import location_pools, location_table
+from .Locations import location_pools, location_table, craftsanity_locations
 from .Mod import generate_mod
 from .Options import FactorioOptions, MaxSciencePack, Silo, Satellite, TechTreeInformation, Goal, TechCostDistribution
 from .Shapes import get_shapes
@@ -18,7 +18,7 @@ from .Technologies import base_tech_table, recipe_sources, base_technology_table
     all_product_sources, required_technologies, get_rocket_requirements, \
     progressive_technology_table, common_tech_table, tech_to_progressive_lookup, progressive_tech_table, \
     get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, \
-    fluids, stacking_items, valid_ingredients, progressive_rows
+    fluids, stacking_items, valid_ingredients, progressive_rows, ignored_recipes
 
 
 def launch_client():
@@ -116,6 +116,7 @@ class Factorio(World):
         self.advancement_technologies = set()
         self.custom_recipes = {}
         self.science_locations = []
+        self.craftsanity_locations = []
         self.tech_tree_layout_prerequisites = {}
 
     generate_output = generate_mod
@@ -144,17 +145,27 @@ class Factorio(World):
 
         location_pool = []
 
+        craftsanity_count = round(location_count * self.options.craftsanity.value / 100)
+        location_count -= craftsanity_count
+
         for pack in sorted(self.options.max_science_pack.get_allowed_packs()):
             location_pool.extend(location_pools[pack])
         try:
-            location_names = random.sample(location_pool, location_count)
+            science_location_names = random.sample(location_pool, location_count)
+            craftsanity_location_names = random.sample(craftsanity_locations, craftsanity_count)
+
         except ValueError as e:
             # should be "ValueError: Sample larger than population or is negative"
             raise Exception("Too many traps for too few locations. Either decrease the trap count, "
                             f"or increase the location count (higher max science pack). (Player {self.player})") from e
 
         self.science_locations = [FactorioScienceLocation(player, loc_name, self.location_name_to_id[loc_name], nauvis)
-                                  for loc_name in location_names]
+                                  for loc_name in science_location_names]
+
+        self.craftsanity_locations = [FactorioCraftsanityLocation(player, loc_name, self.location_name_to_id[loc_name], nauvis)
+                                      for loc_name in craftsanity_location_names]
+
+
         distribution: TechCostDistribution = self.options.tech_cost_distribution
         min_cost = self.options.min_tech_cost.value
         max_cost = self.options.max_tech_cost.value
@@ -176,6 +187,7 @@ class Factorio(World):
             location.count = rand_values[i]
         del rand_values
         nauvis.locations.extend(self.science_locations)
+        nauvis.locations.extend(self.craftsanity_locations)
         location = FactorioLocation(player, "Rocket Launch", None, nauvis)
         nauvis.locations.append(location)
         event = FactorioItem("Victory", ItemClassification.progression, None, player)
@@ -201,7 +213,7 @@ class Factorio(World):
         want_progressives = collections.defaultdict(lambda: self.options.progressive.
                                                     want_progressives(self.random))
 
-        cost_sorted_locations = sorted(self.science_locations, key=lambda location: location.name)
+        cost_sorted_locations = sorted(self.science_locations, key=lambda location: location.name[3:].zfill(6))
         special_index = {"automation": 0,
                          "logistics": 1,
                          "rocket-silo": -1}
@@ -209,6 +221,8 @@ class Factorio(World):
         if self.options.tech_tree_information == TechTreeInformation.option_full:
             # mark all locations as pre-hinted
             for loc in self.science_locations:
+                loc.revealed = True
+            for loc in self.craftsanity_locations:
                 loc.revealed = True
         if self.skip_silo:
             self.removed_technologies |= {"rocket-silo"}
@@ -248,7 +262,39 @@ class Factorio(World):
 
             else:
                 location.access_rule = lambda state, ingredient=ingredient: \
-                    all(state.has(technology.name, player) for technology in required_technologies[ingredient])
+                    (all(state.has(technology.name, player) for technology in required_technologies[ingredient]))
+
+        for location in self.craftsanity_locations:
+            if location.crafted_item == "ice":
+                recipe = recipes["scrap-recycling"]
+            elif location.crafted_item == "spoilage":
+                recipe = recipes[self.random.choice(["yumako-processing", "jellynut-processing"])]
+            elif location.crafted_item == "fluoroketone-hot":
+                recipe = recipes["fluoroketone"]
+            elif location.crafted_item == "water":
+                recipe = recipes["steam-condensation"]
+            elif location.crafted_item == "crude-oil":
+                recipe = recipes["pumpjack"]
+            elif location.crafted_item in recipes:
+                recipe = recipes[location.crafted_item]
+            else:
+                for recipe_name, recipe in recipes.items():
+                    if recipe_name in ignored_recipes:
+                        continue
+                    if recipe_name == "scrap-recycling" and location.crafted_item != "holmium-ore":
+                        continue
+                    if recipe.category in {"basic-solid", "hard-solid"}:
+                        continue
+                    if recipe_name.endswith("-barrel"):
+                        continue
+                    if location.crafted_item in recipe.products:
+                        break
+                else:
+                    raise Exception(f"No recipe found for {location.crafted_item} for Craftsanity for player {self.player}")
+            if location.crafted_item != recipe.name:
+                print(location.crafted_item + ": " + recipe.name)
+            location.access_rule = lambda state, recipe=recipe: \
+                state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies}, player)
 
         for location in self.science_locations:
             Rules.set_rule(location, lambda state, ingredients=frozenset(location.ingredients):
@@ -346,9 +392,17 @@ class Factorio(World):
                     pool.append(new_ingredient)
                     new_ingredient = pool.pop(0)
                 liquids_used += 1 if new_ingredient in fluids else 0
-            new_ingredients[new_ingredient] = 1
-        return Recipe(original.name, self.get_category(original.category, liquids_used), new_ingredients,
-                      original.products, original.energy)
+            new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
+        products = original.products
+        category = self.get_category(original.category, liquids_used)
+        if "fluoroketone-cold" in new_ingredients:
+            products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
+            if category == "crafting-with-fluid" and "fluoroketone-hot" in products:
+                category = "chemistry"
+        elif "fluoroketone-hot" in products:
+            del products["fluoroketone-hot"]
+        return Recipe(original.name, category, new_ingredients,
+                      products, original.energy)
 
     def make_balanced_recipe(self, original: Recipe, pool: typing.Set[str], factor: float = 1,
                              allow_liquids: int = 2, ingredients_offset: int = 0) -> Recipe:
@@ -440,8 +494,16 @@ class Factorio(World):
         if remaining_num_ingredients > 1:
             logging.warning("could not randomize recipe")
 
-        return Recipe(original.name, self.get_category(original.category, liquids_used), new_ingredients,
-                      original.products, original.energy)
+        products = original.products
+        category = self.get_category(original.category, liquids_used)
+        if "fluoroketone-cold" in new_ingredients:
+            products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
+            if category == "crafting-with-fluid" and "fluoroketone-hot" in products:
+                category = "chemistry"
+        elif "fluoroketone-hot" in products:
+            del products["fluoroketone-hot"]
+        return Recipe(original.name, category, new_ingredients,
+                      products, original.energy)
 
     def set_custom_technologies(self):
         custom_technologies = {}
@@ -462,6 +524,9 @@ class Factorio(World):
                                                      original_rocket_part.products,
                                                      original_rocket_part.energy)}
 
+        categories = ["metallurgy", "organic", "electromagnetics"]
+        self.random.shuffle(categories)
+
         if self.options.recipe_ingredients:
             valid_pool = []
             for pack in self.options.max_science_pack.get_ordered_science_packs():
@@ -470,6 +535,10 @@ class Factorio(World):
                 if pack in recipes:  # skips over space science pack
                     new_recipe = self.make_quick_recipe(recipes[pack], valid_pool, ingredients_offset=
                                                         ingredients_offset.value)
+                    if pack in ("metallurgic-science-pack", "agricultural-science-pack", "electromagnetic-science-pack"):
+                        new_recipe.category = categories.pop()
+                    if new_recipe.category == "crafting-with-fluid" and "fluoroketone-hot" in new_recipe.products:
+                        new_recipe.category = "chemistry"
                     self.custom_recipes[pack] = new_recipe
 
         if self.options.silo.value == Silo.option_randomize_recipe \
@@ -508,6 +577,13 @@ class Factorio(World):
         if self.options.goal.value == Goal.option_satellite:
             needed_recipes |= {"satellite"}
 
+        needed_items = {location.crafted_item for location in self.craftsanity_locations}
+        for recipe_name, recipe in recipes.items():
+            for product in recipe.products:
+                if product in needed_items:
+                    self.advancement_technologies |= {tech.name for tech in recipe.recursive_unlocking_technologies}
+                    break
+
         for recipe in needed_recipes:
             recipe = self.custom_recipes.get(recipe, recipes[recipe])
             self.advancement_technologies |= {tech.name for tech in recipe.recursive_unlocking_technologies}
@@ -539,6 +615,19 @@ class FactorioLocation(Location):
     game: str = Factorio.game
 
 
+class FactorioCraftsanityLocation(FactorioLocation):
+    ingredients = {}
+    count = 0
+    revealed = False
+
+    def __init__(self, player: int, name: str, address: int, parent: Region):
+        super(FactorioCraftsanityLocation, self).__init__(player, name, address, parent)
+
+    @property
+    def crafted_item(self):
+        return " ".join(self.name.split(" ")[1:])
+
+
 class FactorioScienceLocation(FactorioLocation):
     complexity: int
     revealed: bool = False
@@ -546,6 +635,7 @@ class FactorioScienceLocation(FactorioLocation):
     # Factorio technology properties:
     ingredients: typing.Dict[str, int]
     count: int = 0
+    crafted_item = None
 
     def __init__(self, player: int, name: str, address: int, parent: Region):
         super(FactorioScienceLocation, self).__init__(player, name, address, parent)

@@ -16,13 +16,6 @@ factorio_tech_id = factorio_base_id = 2 ** 17
 
 pool = ThreadPoolExecutor(1)
 
-ignored_recipes = {
-    "casting-pipe", "casting-iron-gear-wheel", "casting-pipe-to-ground", "casting-iron", "casting-copper",
-    "casting-iron-stick", "casting-copper-cable", "casting-low-density-structure", "casting-steel","steam-condensation",
-    "coal-synthesis", "molten-iron-from-lava", "molten-copper-from-lava", "bioplastic", "biosulfur", "biolubricant",
-    "solid-fuel-from-ammonia", "rocket-fuel-from-ammonia", "ice-melting", "acid-neutralisation", "simple-coal-liquefaction",
-    "fluoroketone-cooling"
-}
 
 # Factorio technologies are imported from a .json document in /data
 def load_json_data(data_name: str) -> Union[List[str], Dict[str, Any]]:
@@ -172,7 +165,7 @@ class Recipe(FactorioElement):
             for ingredient, cost in self.ingredients.items():
                 if ingredient in all_product_sources:
                     for recipe in all_product_sources[ingredient]:
-                        if ("-recycling" not in recipe.name or (recipe.name == "scrap-recycling" and ingredient == "holmium-ore")) and recipe.name not in ignored_recipes:
+                        if (recipe.name != "scrap-recycling" or ingredient == "holmium-ore") and recipe.name not in ignored_recipes:
                             if recipe.ingredients:
                                 ingredients.update({name: amount * cost / recipe.products[ingredient] for name, amount in
                                                     recipe.base_cost.items()})
@@ -209,8 +202,10 @@ class Machine(FactorioElement):
 
 recipe_sources: Dict[str, Set[str]] = {}  # recipe_name -> technology source
 
+techs = techs_future.result()
+techs["fish-breeding"] = {"ingredients":["space-science-pack","agricultural-science-pack"],"unlocks":["fish-breeding", "nutrients-from-fish"],"requires":["tree-seeding"],"has_modifier":False}
 # recipes and technologies can share names in Factorio
-for technology_name, data in sorted(techs_future.result().items()):
+for technology_name, data in sorted(techs.items()):
     technology = Technology(
         technology_name,
         factorio_tech_id,
@@ -240,6 +235,21 @@ for resource_name, resource_data in resources_future.result().items():
     }
 del resources_future
 
+
+ignored_recipes = {
+
+    "casting-pipe", "casting-iron-gear-wheel", "casting-pipe-to-ground", "casting-iron", "casting-copper",
+    "casting-iron-stick", "casting-copper-cable", "casting-low-density-structure", "casting-steel","steam-condensation",
+    "coal-synthesis", "molten-iron-from-lava", "molten-copper-from-lava", "bioplastic", "biosulfur", "biolubricant",
+    "solid-fuel-from-ammonia", "rocket-fuel-from-ammonia", "ice-melting", "acid-neutralisation", "simple-coal-liquefaction",
+    "nutrients-from-fish", "nutrients-from-biter-egg"
+}
+ignored_recipes.update({recipe for recipe in raw_recipes if "-recycling" in recipe and recipe != "scrap-recycling"})
+
+
+raw_recipes["fish-breeding"] = {"ingredients":{"raw-fish":2,"nutrients":100,"water":100},"products":{"raw-fish":3},"category":"organic-or-chemistry","energy":6}
+raw_recipes["nutrients-from-fish"] = {"ingredients":{"raw-fish":1},"products":{"nutrients":20},"category":"organic-or-assembling","energy":2}
+
 raw_recipes["mining-tungsten-ore"] = {
     "ingredients": {},
     "products": {"tungsten-ore": 1},
@@ -261,8 +271,8 @@ raw_recipes["mining-yumako"] = {
 raw_recipes["wood-processing"]["category"] = "agriculture"
 
 for recipe_name, recipe_data in raw_recipes.items():
-    if recipe_name in ignored_recipes or ("-recycling" in recipe_name and recipe_name != "scrap-recycling"):
-        continue
+    # if recipe_name in ignored_recipes:
+    #     continue
     # example:
     # "accumulator":{"ingredients":{"iron-plate":2,"battery":5},"products":{"accumulator":1},"category":"crafting"}
     # FIXME: add mining?
@@ -273,11 +283,12 @@ for recipe_name, recipe_data in raw_recipes.items():
     if set(recipe.products).isdisjoint(
             # prevents loop recipes like uranium centrifuging
             set(recipe.ingredients)) and ("barrel" not in recipe.products or recipe.name == "barrel") and \
-            not recipe_name.endswith("-reprocessing"):
+            not recipe_name.endswith("-reprocessing") and not recipe.name in ignored_recipes:
         for product_name in recipe.products:
-            if recipe.name == "scrap-recycling" and product_name != "holmium-ore":
+            if product_name == "fluoroketone-hot" and recipe.name != "fluoroketone":
                 continue
             all_product_sources.setdefault(product_name, set()).add(recipe)
+
 
 assert all(recipe_name in raw_recipes for recipe_name in start_unlocked_recipes), "Unknown Recipe defined."
 
@@ -292,7 +303,7 @@ machines["electric-mining-drill"] = Machine("electric-mining-drill", {"basic-sol
 machines["pumpjack"] = Machine("pumpjack", {"basic-fluid"})
 machines["big-mining-drill"] = Machine("big-mining-drill", {"hard-solid"})
 machines["assembling-machine-1"].categories.add("crafting-with-fluid")  # mod enables this
-machines["character"].categories.add("basic-crafting")  # somehow this is implied and not exported
+machines["character"].categories = {"crafting", "electronics", "pressing"}
 machines["agricultural-tower"] = Machine("agricultural-tower", {"agriculture"})
 
 del machines_future
@@ -330,11 +341,12 @@ def recursively_get_unlocking_technologies(ingredient_name, _done=None, unlock_f
             _done.add(ingredient_name)
     else:
         _done = {ingredient_name}
-
-    if f"mining-{ingredient_name}" in recipes:
-        return set()
+    #
+    # if f"mining-{ingredient_name}" in recipes:
+    #     return set()
     # if ingredient_name in {"jellynut", "yumako"}
-    recipes = all_product_sources.get(ingredient_name)
+    recipes = {recipe for recipe in all_product_sources.get(ingredient_name, {}) if recipe.name not in ignored_recipes
+               and (recipe.name != "scrap-recycling" or ingredient_name == "holmium-ore")}
     if not recipes:
         return set()
     current_technologies = set()
@@ -438,11 +450,11 @@ progressive_rows["progressive-science-pack"] = tuple(Options.MaxSciencePack.get_
 # progressive_rows["progressive-processing"] = (
 #     "steel-processing",
 #     "oil-processing", "sulfur-processing", "advanced-oil-processing", "coal-liquefaction",
-#     "uranium-processing", "kovarex-enrichment-process", "nuclear-fuel-reprocessing")
+#     )
 progressive_rows["progressive-rocketry"] = ("rocketry", "explosive-rocketry", "atomic-bomb")
 progressive_rows["progressive-vehicle"] = ("automobilism", "tank", "spidertron")
 progressive_rows["progressive-fluid-handling"] = ("fluid-handling", "fluid-wagon")
-progressive_rows["progressive-train-network"] = ("railway", "automated-rail-transportation")
+progressive_rows["progressive-train-network"] = ("railway", "automated-rail-transportation", "elevated-rail", "rail-support-foundations")
 progressive_rows["progressive-engine"] = ("engine", "electric-engine")
 progressive_rows["progressive-armor"] = ("heavy-armor", "modular-armor", "power-armor", "power-armor-mk2", "mech-armor")
 progressive_rows["progressive-personal-battery"] = ("battery-equipment", "battery-mk2-equipment", "battery-mk3-equipment")
@@ -454,13 +466,17 @@ progressive_rows["progressive-turret"] = ("gun-turret", "laser-turret", "rocket-
 progressive_rows["progressive-flamethrower"] = ("flamethrower",)  # leaving out flammables, as they do nothing
 progressive_rows["progressive-personal-roboport-equipment"] = ("personal-roboport-equipment",
                                                                "personal-roboport-mk2-equipment")
+progressive_rows["progressive-quality"] = ("epic-quality", "legendary-quality")
+progressive_rows["progressive-soil"] = ("artificial-soil", "overgrowth-soil")
+progressive_rows["progressive-oil-processing"] = ("oil-gathering", "oil-processing", "advanced-oil-processing", "coal-liquefaction")
+progressive_rows["progressive-nuclear-power"] = ("uranium-mining", "uranium-processing", "nuclear-power", "kovarex-enrichment-process", "nuclear-fuel-reprocessing")
 
 sorted_rows = sorted(progressive_rows)
 
 # integrate into
 source_target_mapping: Dict[str, str] = {
     "progressive-braking-force": "progressive-train-network",
-    "progressive-inserter-capacity-bonus": "progressive-inserter",
+    # "progressive-inserter-capacity-bonus": "progressive-inserter",
     "progressive-transport-belt-capacity": "progressive-inserter",
     "progressive-refined-flammables": "progressive-flamethrower",
 }
@@ -516,14 +532,17 @@ rel_cost = {
     "crude-oil": 0.5,
     "water": 0.001,
     "coal": 1,
-    "raw-fish": 1000,
+    "raw-fish": 10,
     "steam": 0.01,
     "used-up-uranium-fuel-cell": 1000,
     "ammoniacal-solution": 1,
     "lava": 1,
+    "fluoroketone-hot": 50000
 }
 
-exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "used-up-uranium-fuel-cell"}
+exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "rocket-silo", "cargo-landing-pad",
+                                                   "used-up-uranium-fuel-cell", "fluoroketone-hot",
+                                                   "item-unknown", "satellite"} | {f"parameter-{i}" for i in range(10)}
 fluids: Set[str] = set(fluids_future.result())
 del fluids_future
 
@@ -548,9 +567,10 @@ def get_science_pack_pools() -> Dict[str, Set[str]]:
     for science_pack in Options.MaxSciencePack.get_ordered_science_packs():
         current = science_pack_pools[science_pack] = set()
         for name, recipe in recipes.items():
-            if (science_pack != "automation-science-pack" or not recipe.recursive_unlocking_technologies) \
-                    and get_estimated_difficulty(recipe) < current_difficulty:
-                current |= set(recipe.products)
+            if recipe.name not in ignored_recipes:
+                if (science_pack != "automation-science-pack" or not recipe.recursive_unlocking_technologies) \
+                        and get_estimated_difficulty(recipe) < current_difficulty:
+                    current |= set(recipe.products)
 
         if science_pack == "automation-science-pack":
             # Can't handcraft automation science if fluids end up in its recipe, making the seed impossible.

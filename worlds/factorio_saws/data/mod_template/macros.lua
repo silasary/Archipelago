@@ -17,9 +17,10 @@
 {%- elif value is boolean -%}{{ value | string | lower }}
 {%- elif value is string -%}"{{ value | safe }}"
 {%- elif value is iterable -%}{{ list_to_lua(value) }}
-{%- else -%} {{ value | safe }}
-{%- endif -%}
-{%- endmacro -%}
+{%- elif value is none -%}nil
+{%- else -%}{{ value | safe }}
+{%- endif %}
+{%- endmacro %}
 {% macro dict_to_recipe(dict, liquids) -%}
 {
 {%- for key, value in dict.items() -%}

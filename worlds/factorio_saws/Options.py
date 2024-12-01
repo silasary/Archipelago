@@ -6,7 +6,7 @@ import typing
 from schema import Schema, Optional, And, Or
 
 from Options import Choice, OptionDict, OptionSet, DefaultOnToggle, Range, DeathLink, Toggle, \
-    StartInventoryPool, PerGameCommonOptions
+    StartInventoryPool, PerGameCommonOptions, NamedRange
 
 # schema helpers
 FloatRange = lambda low, high: And(Or(int, float), lambda f: low <= f <= high)
@@ -49,6 +49,17 @@ class Goal(Choice):
     option_rocket = 0
     option_satellite = 1
     default = 0
+
+
+class CraftSanity(NamedRange):
+    """Choose a percentage of researches to require crafting a specific item rather than with science packs."""
+    display_name = "CraftSanity"
+    default = 0
+    range_start = 0
+    range_end = 70
+    special_range_names = {
+        "disabled": 0
+    }
 
 
 class TechCost(Range):
@@ -123,6 +134,14 @@ class FreeSamples(Choice):
     option_half_stack = 2
     option_stack = 3
     default = 3
+
+
+class QualityScaling(Range):
+    """Set the power of Quality Modules by a percentage of the default."""
+    display_name = "Quality Scaling"
+    default = 100
+    range_start = 100
+    range_end = 4000
 
 
 class FreeSamplesQuality(Choice):
@@ -456,6 +475,7 @@ class EnergyLink(Toggle):
 class FactorioOptions(PerGameCommonOptions):
     max_science_pack: MaxSciencePack
     goal: Goal
+    craftsanity: CraftSanity
     tech_tree_layout: TechTreeLayout
     min_tech_cost: MinTechCost
     max_tech_cost: MaxTechCost
@@ -465,6 +485,7 @@ class FactorioOptions(PerGameCommonOptions):
     silo: Silo
     satellite: Satellite
     free_samples: FreeSamples
+    quality_scaling: QualityScaling
     free_samples_quality: FreeSamplesQuality
     tech_tree_information: TechTreeInformation
     starting_items: FactorioStartItems

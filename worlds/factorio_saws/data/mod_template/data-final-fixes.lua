@@ -50,10 +50,8 @@ data.raw["rocket-silo"]["rocket-silo"].fluid_boxes_off_when_no_fluid_recipe = tr
 {%- for recipe_name, recipe in custom_recipes.items() %}
     data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
     data.raw["recipe"]["{{recipe_name}}"].ingredients = {{ dict_to_recipe(recipe.ingredients, liquids) }}
-{%- if recipe_name == "cryogenic-science-pack" %}
-    data.raw["recipe"]["cryogenic-science-pack"].results = {{ "{{type = 'item', name = 'cryogenic-science-pack', amount = 1}}" }}
+    data.raw["recipe"]["{{recipe_name}}"].results = {{ dict_to_recipe(recipe.products, liquids) }}
 
-{%- endif %}
 {%- endfor %}
 
 local technologies = data.raw["technology"]
@@ -179,11 +177,25 @@ technologies["{{ original_tech_name }}"].hidden = true
 {#- the tech researched by the local player #}
 new_tree_copy = table.deepcopy(template_tech)
 new_tree_copy.name = "ap-{{ location.address }}-"{# use AP ID #}
+{%- if location.crafted_item is not none %}
+new_tree_copy.research_trigger = {
+    type = "{{ 'craft-fluid' if location.crafted_item in liquids else 'craft-item' }}",
+    {{ 'fluid' if location.crafted_item in liquids else 'item' }} = {{ variable_to_lua(location.crafted_item) }}
+}
+
+new_tree_copy.unit = nil
+--
+{%- else %}
 new_tree_copy.unit.count = {{ location.count }}
 new_tree_copy.unit.ingredients = {{ variable_to_lua(location.factorio_ingredients) }}
+--
+{%- endif %}
 
-{%- if location.revealed and item.name in base_tech_table -%}
+{%- if location.revealed and item.name in base_tech_table %}
+
 {#- copy Factorio Technology Icon #}
+--
+
 copy_factorio_icon(new_tree_copy, "{{ item.name }}")
 {%- if item.name == "rocket-silo" and item.player == location.player %}
 {%- for ingredient in custom_recipes["rocket-part"].ingredients %}
@@ -191,6 +203,8 @@ table.insert(new_tree_copy.effects, {type = "nothing", effect_description = "Ing
 {% endfor -%}
 {% endif -%}
 {%- elif location.revealed and item.name in progressive_technology_table -%}
+--
+
 copy_factorio_icon(new_tree_copy, "{{ progressive_technology_table[item.name][0] }}")
 {%- else -%}
 {#- use default AP icon if no Factorio graphics exist -#}
@@ -199,6 +213,8 @@ copy_factorio_icon(new_tree_copy, "{{ progressive_technology_table[item.name][0]
 {#- connect Technology  #}
 {%- if location in tech_tree_layout_prerequisites %}
 {%- for prerequisite in tech_tree_layout_prerequisites[location] %}
+--
+
 table.insert(new_tree_copy.prerequisites, "ap-{{ prerequisite.address }}-")
 {% endfor %}
 {% endif -%}
@@ -208,13 +224,13 @@ data:extend{new_tree_copy}
 {#- Recipe Rando #}
 {% if recipe_time_scale %}
 {%- for recipe_name, recipe in recipes.items() %}
-{%- if recipe.category not in ("basic-solid", "basic-fluid") %}
+{%- if recipe.category not in ("basic-solid", "basic-fluid", "agriculture") %}
 adjust_energy("{{ recipe_name }}", {{ flop_random(*recipe_time_scale) }})
 {%- endif %}
 {%- endfor -%}
 {% elif recipe_time_range %}
 {%- for recipe_name, recipe in recipes.items() %}
-{%- if recipe.category not in ("basic-solid", "basic-fluid") %}
+{%- if recipe.category not in ("basic-solid", "basic-fluid", "agriculture") %}
 set_energy("{{ recipe_name }}", {{ flop_random(*recipe_time_range) }})
 {%- endif %}
 {%- endfor -%}
@@ -227,3 +243,22 @@ technologies["rocket-silo"].visible_when_disabled = false
 {%- endif %}
 
 data.raw.resource["tungsten-ore"].category = "basic-solid"
+
+table.insert(data.raw.technology["quality-module-2"].effects, {type = "unlock-quality", quality = "uncommon"})
+table.insert(data.raw.technology["quality-module-3"].effects, {type = "unlock-quality", quality = "uncommon"})
+table.insert(data.raw.technology["quality-module-2"].effects, {type = "unlock-quality", quality = "rare"})
+table.insert(data.raw.technology["quality-module-3"].effects, {type = "unlock-quality", quality = "rare"})
+
+data.raw.module["quality-module"].effect.quality = {{ (0.1 * quality_scaling) / 100 }}
+data.raw.module["quality-module-2"].effect.quality = {{ (0.2 * quality_scaling) / 100 }}
+data.raw.module["quality-module-3"].effect.quality = {{ (0.25 * quality_scaling) / 100 }}
+
+data.raw.recipe["automation-science-pack"].main_product = "automation-science-pack"
+data.raw.recipe["logistic-science-pack"].main_product = "logistic-science-pack"
+data.raw.recipe["chemical-science-pack"].main_product = "chemical-science-pack"
+data.raw.recipe["military-science-pack"].main_product = "military-science-pack"
+data.raw.recipe["production-science-pack"].main_product = "production-science-pack"
+data.raw.recipe["utility-science-pack"].main_product = "utility-science-pack"
+data.raw.recipe["electromagnetic-science-pack"].main_product = "electromagnetic-science-pack"
+data.raw.recipe["agricultural-science-pack"].main_product = "agricultural-science-pack"
+data.raw.recipe["metallurgic-science-pack"].main_product = "metallurgic-science-pack"
