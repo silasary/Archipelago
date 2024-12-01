@@ -109,9 +109,9 @@ class KirbyFlavorPreset(Choice):
     option_default = 0
     #option_bubblegum = 1
     #option_cherry = 2
-    #option_blueberry = 3
-    #option_lemon = 4
-    #option_kiwi = 5
+    option_blueberry = 3
+    option_lemon = 4
+    option_kiwi = 5
     #option_grape = 6
     #option_chocolate = 7
     #option_marshmallow = 8
