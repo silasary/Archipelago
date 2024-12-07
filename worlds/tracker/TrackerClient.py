@@ -36,7 +36,7 @@ if not sys.stdout:  # to make sure sm varia's "i'm working" dots don't break UT 
 
 logger = logging.getLogger("Client")
 
-UT_VERSION = "v0.1.12"
+UT_VERSION = "v0.1.13"
 DEBUG = False
 ITEMS_HANDLING = 0b111
 # REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "needs_regen", False)}  # TODO
