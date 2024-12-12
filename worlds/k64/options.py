@@ -107,7 +107,7 @@ class KirbyFlavorPreset(Choice):
     """
     display_name = "Kirby Flavor"
     option_default = 0
-    #option_bubblegum = 1
+    option_bubblegum = 1
     #option_cherry = 2
     option_blueberry = 3
     option_lemon = 4
@@ -150,7 +150,7 @@ class KirbyFlavor(OptionDict):
       "6": "E66A62",
       "7": "5A0800",
       "8": "EE8BA4",
-      "9": "413173",
+      "9": "733141",
       "10": "D5D5D5",
       "11": "312029",
       "12": "8B949C",
