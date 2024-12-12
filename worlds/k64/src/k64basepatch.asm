@@ -155,7 +155,7 @@ sw      t2, 0x6B94 (at)
 MarkStagesIncomplete:
 //; a2 - unlocked level, t3 - save address, t0 free
 //; quickly unlock boss if crystal requirement is met
-addiu   t0, a0, -0x0001
+addiu   t0, a2, -0x0001
 li      t2, CrystalRequirements
 addu    t2, t2, t0
 lb      t2, 0x0000 (t2)
