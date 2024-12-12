@@ -157,7 +157,7 @@ class KirbyFlavor(OptionDict):
       "13": "0000D5",
       "14": "8B626A",
       "15": "BD838B",
-      "16": "FFAC8F",
+      "16": "FF6946",
       "17": "FF2600",
     }
     visibility = Visibility.complex_ui | Visibility.template
