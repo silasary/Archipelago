@@ -118,7 +118,7 @@ class KirbyFlavorPreset(Choice):
     #option_licorice = 9
     #option_watermelon = 10
     #option_orange = 11
-    #option_lime = 12
+    option_lime = 12
     option_lavender = 13
     option_miku = 14
     option_nostalgic = 15
