@@ -1,7 +1,7 @@
 
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess, icon_paths
+from settings import Group, Bool, UserFolderPath, _world_settings_name_cache
 from typing import Dict, Optional, List, Any, Union, ClassVar, NamedTuple
-from settings import Group, Bool, LocalFolderPath, _world_settings_name_cache
 from worlds.AutoWorld import World
 from BaseClasses import CollectionState
 from collections import Counter
@@ -21,7 +21,7 @@ class CurrentTrackerState(NamedTuple):
     state: CollectionState
 
 class TrackerSettings(Group):
-    class TrackerPlayersPath(LocalFolderPath):
+    class TrackerPlayersPath(UserFolderPath):
         """Players folder for UT look for YAMLs"""
 
     class RegionNameBool(Bool):
