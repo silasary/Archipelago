@@ -266,7 +266,7 @@ class Factorio(World):
 
         for location in self.craftsanity_locations:
             if location.crafted_item == "ice":
-                recipe = recipes["scrap-recycling"]
+                recipe = recipes["ammoniacal-solution-separation"]
             elif location.crafted_item == "spoilage":
                 recipe = recipes[self.random.choice(["yumako-processing", "jellynut-processing"])]
             elif location.crafted_item == "fluoroketone-hot":
@@ -291,8 +291,8 @@ class Factorio(World):
                         break
                 else:
                     raise Exception(f"No recipe found for {location.crafted_item} for Craftsanity for player {self.player}")
-            if location.crafted_item != recipe.name:
-                print(location.crafted_item + ": " + recipe.name)
+            # if location.crafted_item != recipe.name:
+            #     print(location.crafted_item + ": " + recipe.name)
             location.access_rule = lambda state, recipe=recipe: \
                 state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies}, player)
 

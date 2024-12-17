@@ -151,7 +151,10 @@ def generate_mod(world: "Factorio", output_directory: str):
         "liquids": fluids,
         "removed_technologies": world.removed_technologies,
         "chunk_shuffle": 0,
-        "quality_scaling": world.options.quality_scaling.value
+        "quality_scaling": world.options.quality_scaling.value,
+        "productivity_scaling": world.options.productivity_scaling.value,
+        "all_modules_allowed_everywhere": world.options.all_modules_allowed_everywhere.value,
+        "rocket_parts": world.options.rocket_parts.value
     }
 
     for factorio_option, factorio_option_instance in dataclasses.asdict(world.options).items():

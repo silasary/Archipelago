@@ -46,6 +46,7 @@ data.raw["rocket-silo"]["rocket-silo"].fluid_boxes = {
     }
 }
 data.raw["rocket-silo"]["rocket-silo"].fluid_boxes_off_when_no_fluid_recipe = true
+data.raw["rocket-silo"]["rocket-silo"].rocket_parts_required = {{ rocket_parts }}
 
 {%- for recipe_name, recipe in custom_recipes.items() %}
     data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
@@ -255,9 +256,27 @@ table.insert(data.raw.technology["quality-module-3"].effects, {type = "unlock-qu
 table.insert(data.raw.technology["quality-module-2"].effects, {type = "unlock-quality", quality = "rare"})
 table.insert(data.raw.technology["quality-module-3"].effects, {type = "unlock-quality", quality = "rare"})
 
+{%- if all_modules_allowed_everywhere %}
+--
+for name, recipe in pairs(data.raw.recipe) do
+    recipe.allow_productivity = true
+end
+for name, data1 in pairs(data.raw) do
+    for name2, data2 in pairs(data1) do
+        if data2.allowed_effects ~= nil then
+            data2.allowed_effects = {"consumption", "speed", "productivity", "pollution", "quality"}
+        end
+    end
+end
+{%- endif %}
+
 data.raw.module["quality-module"].effect.quality = {{ (0.1 * quality_scaling) / 100 }}
 data.raw.module["quality-module-2"].effect.quality = {{ (0.2 * quality_scaling) / 100 }}
 data.raw.module["quality-module-3"].effect.quality = {{ (0.25 * quality_scaling) / 100 }}
+
+data.raw.module["productivity-module"].effect.productivity = {{ (0.04 * productivity_scaling) / 100 }}
+data.raw.module["productivity-module-2"].effect.productivity = {{ (0.06 * productivity_scaling) / 100 }}
+data.raw.module["productivity-module-3"].effect.productivity = {{ (0.1 * productivity_scaling) / 100 }}
 
 data.raw.recipe["automation-science-pack"].main_product = "automation-science-pack"
 data.raw.recipe["logistic-science-pack"].main_product = "logistic-science-pack"

@@ -118,6 +118,14 @@ class Silo(Choice):
     default = 0
 
 
+class RocketParts(Range):
+    """How many Rocket Parts need to be crafted to launch a rocket."""
+    display_name = "Rocket Parts"
+    range_start = 1
+    range_end = 200
+    default = 100
+
+
 class Satellite(Choice):
     """Ingredients to craft satellite."""
     display_name = "Satellite"
@@ -136,12 +144,26 @@ class FreeSamples(Choice):
     default = 3
 
 
-class QualityScaling(Range):
+class QualityModuleScaling(Range):
     """Set the power of Quality Modules by a percentage of the default."""
     display_name = "Quality Scaling"
     default = 100
     range_start = 100
     range_end = 4000
+
+
+class ProductivityModuleScaling(Range):
+    """Set the power of Productivity Modules by a percentage of the default."""
+    display_name = "Productivity Scaling"
+    default = 100
+    range_start = 100
+    range_end = 4000
+
+
+class AllModulesAllowedEverywhere(Toggle):
+    """Enable all recipes and machines with module slots (including Beacons) to allow all types of Modules."""
+    display_name = "All Modules Allowed Everywhere"
+    default = False
 
 
 class FreeSamplesQuality(Choice):
@@ -247,12 +269,13 @@ class RecipeIngredientsOffset(Range):
 class FactorioStartItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
-    default = {"burner-mining-drill": 4, "stone-furnace": 4,  "raw-fish": 50}
+    default = {"burner-mining-drill": 4, "stone-furnace": 4}
 
 
 class FactorioFreeSampleBlacklist(OptionSet):
     """Set of items that should never be granted from Free Samples"""
     display_name = "Free Sample Blacklist"
+    default = {"biter-egg", "pentapod-egg"}
 
 
 class FactorioFreeSampleWhitelist(OptionSet):
@@ -483,9 +506,12 @@ class FactorioOptions(PerGameCommonOptions):
     tech_cost_mix: TechCostMix
     ramping_tech_costs: RampingTechCosts
     silo: Silo
+    rocket_parts: RocketParts
     satellite: Satellite
     free_samples: FreeSamples
-    quality_scaling: QualityScaling
+    quality_scaling: QualityModuleScaling
+    productivity_scaling: ProductivityModuleScaling
+    all_modules_allowed_everywhere: AllModulesAllowedEverywhere
     free_samples_quality: FreeSamplesQuality
     tech_tree_information: TechTreeInformation
     starting_items: FactorioStartItems

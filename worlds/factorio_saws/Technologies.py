@@ -384,8 +384,7 @@ for category_name, machine_name in machine_per_category.items():
 
 required_technologies: Dict[str, FrozenSet[Technology]] = Utils.KeyedDefaultDict(lambda ingredient_name: frozenset(
     recursively_get_unlocking_technologies(ingredient_name, unlock_func=unlock)))
-
-required_technologies["wood"] = required_technologies["wood-processing"]
+required_technologies["wood"] = required_technologies["tree-seed"]
 def get_rocket_requirements(silo_recipe: Optional[Recipe], part_recipe: Recipe,
                             satellite_recipe: Optional[Recipe], cargo_landing_pad_recipe: Optional[Recipe]) -> Set[str]:
     techs = set()
@@ -484,6 +483,8 @@ source_target_mapping: Dict[str, str] = {
 for source, target in source_target_mapping.items():
     progressive_rows[target] += progressive_rows[source]
 
+progressive_rows["progressive-logistics"] = progressive_rows["progressive-logistics"] + ("turbo-transport-belt",)
+
 base_tech_table = tech_table.copy()  # without progressive techs
 base_technology_table = technology_table.copy()
 
@@ -520,7 +521,7 @@ useless_technologies: Set[str] = {tech_name for tech_name in common_tech_table
                                   if not technology_table[tech_name].useful()}
 
 rel_cost = {
-    "wood": 1,
+    "wood": 50000,
     "iron-ore": 1,
     "copper-ore": 1,
     "stone": 1,
@@ -534,10 +535,12 @@ rel_cost = {
     "coal": 1,
     "raw-fish": 10,
     "steam": 0.01,
-    "used-up-uranium-fuel-cell": 1000,
+    "used-up-uranium-fuel-cell": 50000,
     "ammoniacal-solution": 1,
     "lava": 1,
-    "fluoroketone-hot": 50000
+    "fluoroketone-hot": 50000,
+    "yumako-seed": 50000,
+    "jellynut-seed": 50000
 }
 
 exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "rocket-silo", "cargo-landing-pad",
@@ -550,6 +553,7 @@ del fluids_future
 @Utils.cache_argsless
 def get_science_pack_pools() -> Dict[str, Set[str]]:
     def get_estimated_difficulty(recipe: Recipe):
+
         base_ingredients = recipe.base_cost
         cost = 0
 
@@ -577,6 +581,8 @@ def get_science_pack_pools() -> Dict[str, Set[str]]:
             current -= fluids
         elif science_pack == "logistic-science-pack":
             current |= {"steam"}
+
+        current -= {"yumako-seed", "jellynut-seed"}
 
         current -= already_taken
         already_taken |= current
