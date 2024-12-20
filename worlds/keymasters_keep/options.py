@@ -1,8 +1,10 @@
-from typing import List
+import typing
 
 from dataclasses import dataclass
 
-from Options import Choice, OptionGroup, PerGameCommonOptions, Range, StartInventoryPool
+from Options import Choice, OptionGroup, OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle
+
+from .games import games, metagames, GameArchipelagoOptions
 
 
 class Goal(Choice):
@@ -176,8 +178,72 @@ class AreaTrialsMaximum(Range):
     default = 7
 
 
+class GameSelection(OptionSet):
+    """
+    Defines the game pool to select from.
+
+    All supported games are listed. Remove the ones you don't own or want to play.
+    """
+
+    display_name: str = "Game Selection"
+    valid_keys = games.keys()
+
+    default = games.keys()
+
+
+class MetagameSelection(OptionSet):
+    """
+    Defines the metagame pool to select from.
+
+    All supported metagames are listed. Remove the ones you don't own or want to play.
+    """
+
+    display_name: str = "Metagame Selection"
+    valid_keys = metagames.keys()
+
+    default = metagames.keys()
+
+
+class IncludeAdultOnlyOrUnratedGames(Toggle):
+    """
+    Determines if adult only or unrated games should be considered for the game pool.
+    """
+
+    display_name: str = "Include Adult Only or Unrated Games"
+
+
+class IncludeDifficultObjectives(Toggle):
+    """
+    Determines if difficult objectives should be considered.
+
+    Enabling this option might yield objectives that some players will struggle or not be able to complete.
+    """
+
+    display_name: str = "Include Difficult Objectives"
+
+
+class IncludeTimeConsumingObjectives(Toggle):
+    """
+    Determines if time-consuming objectives should be considered.
+
+    Enabling this option might yield objectives that take much longer to complete (i.e. more than 1 hour).
+    """
+
+    display_name: str = "Include Time-Consuming Objectives"
+
+
+class HintsRevealObjectives(Toggle):
+    """
+    Determines if Archipelago hints will provide information about a location's objective.
+
+    Enabling this option will potentially spoil the game for an area and the objective that needs to be completed.
+    """
+
+    display_name: str = "Hints Reveal Objectives"
+
+
 @dataclass
-class KeymastersKeepOptions(PerGameCommonOptions):
+class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     start_inventory_from_pool: StartInventoryPool
     goal: Goal
     artifacts_of_resolve_total: ArtifactsOfResolveTotal
@@ -190,12 +256,18 @@ class KeymastersKeepOptions(PerGameCommonOptions):
     lock_magic_keys_maximum: LockMagicKeysMaximum
     area_trials_minimum: AreaTrialsMinimum
     area_trials_maximum: AreaTrialsMaximum
+    game_selection: GameSelection
+    metagame_selection: MetagameSelection
+    include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
+    include_difficult_objectives: IncludeDifficultObjectives
+    include_time_consuming_objectives: IncludeTimeConsumingObjectives
+    hints_reveal_objectives: HintsRevealObjectives
 
 
 # Option presets here...
 
 
-option_groups: List[OptionGroup] = [
+option_groups: typing.List[OptionGroup] = [
     OptionGroup(
         "Goal Options",
         [
@@ -217,4 +289,18 @@ option_groups: List[OptionGroup] = [
             AreaTrialsMaximum,
         ],
     ),
+    OptionGroup(
+        "Game / Objective Selection Options",
+        [
+            GameSelection,
+            MetagameSelection,
+            IncludeAdultOnlyOrUnratedGames,
+            IncludeDifficultObjectives,
+            IncludeTimeConsumingObjectives,
+        ],
+    ),
+    OptionGroup(
+        "Individual Game Options",
+        typing.get_type_hints(GameArchipelagoOptions).values(),
+    )
 ]

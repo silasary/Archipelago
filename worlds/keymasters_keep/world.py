@@ -3,7 +3,6 @@ import logging
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, TextIO
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
-from Utils import visualize_regions
 
 from worlds.AutoWorld import WebWorld, World
 
@@ -27,6 +26,8 @@ from .enums import (
     KeymastersKeepRegions,
     KeymastersKeepTags,
 )
+
+from .game_objective_generator import GameObjectiveGenerator, GameObjectiveGeneratorData
 
 from .options import KeymastersKeepOptions, option_groups
 
@@ -79,13 +80,21 @@ class KeymastersKeepWorld(World):
 
     web = KeymastersKeepWebWorld()
 
+    area_game_optional_constraints: Dict[str, List[str]]
+    area_games: Dict[str, str]
+    area_trial_game_objectives: Dict[str, List[str]]
     area_trials: Dict[KeymastersKeepRegions, List[KeymastersKeepLocationData]]
     area_trials_maximum: int
     area_trials_minimum: int
     artifacts_of_resolve_required: int
     artifacts_of_resolve_total: int
     filler_item_names: List[str] = item_groups()["Filler"]
+    game_selection: List[str]
     goal: KeymastersKeepGoals
+    hints_reveal_objectives: bool
+    include_adult_only_or_unrated_games: bool
+    include_difficult_objectives: bool
+    include_time_consuming_objectives: bool
     keep_areas: int
     keep_data: Any
     lock_combinations: Dict[KeymastersKeepRegions, Optional[List[KeymastersKeepItems]]]
@@ -93,6 +102,7 @@ class KeymastersKeepWorld(World):
     lock_magic_keys_minimum: int
     magic_keys_required: int
     magic_keys_total: int
+    metagame_selection: List[str]
     selected_areas: List[KeymastersKeepRegions]
     selected_magic_keys: List[KeymastersKeepItems]
     unlocked_areas: int
@@ -182,46 +192,16 @@ class KeymastersKeepWorld(World):
 
         self._generate_keep()
 
-        # Debugging
-        print("Selected Areas:")
-        for area in self.selected_areas:
-            print(f"  {area.value}")
+        self.game_selection = list(self.options.game_selection.value)
+        self.metagame_selection = list(self.options.metagame_selection.value)
 
-        print()
+        self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
+        self.include_difficult_objectives = bool(self.options.include_difficult_objectives)
+        self.include_time_consuming_objectives = bool(self.options.include_time_consuming_objectives)
 
-        print("Selected Magic Keys:")
-        for key in self.selected_magic_keys:
-            print(f"  {key.value}")
+        self.hints_reveal_objectives = bool(self.options.hints_reveal_objectives)
 
-        print()
-
-        print("Lock Combinations:")
-        for area, keys in self.lock_combinations.items():
-            if keys is None:
-                print(f"  {area.value}: Unlocked")
-                continue
-
-            print(f"  {area.value}:")
-
-            for key in keys:
-                print(f"    {key.value}")
-
-        print()
-
-        print("Area Trials:")
-        for area, trials in self.area_trials.items():
-            print(f"  {area.value}:")
-
-            for trial in trials:
-                print(f"    {trial.name}")
-
-        print()
-
-        print("Unused Magic Keys:")
-        for key in self.unused_magic_keys:
-            print(f"  {key.value}")
-
-        print()
+        self._generate_game_objective_data()
 
     def create_regions(self) -> None:
         #### Menu -> Keymaster's Keep
@@ -373,8 +353,6 @@ class KeymastersKeepWorld(World):
         self.multiworld.regions.append(region_keymasters_keep)
         self.multiworld.regions.append(region_endgame)
 
-        visualize_regions(self.multiworld.get_region("Menu", self.player), "kmk.puml")
-
     def create_items(self) -> None:
         item_pool: List[KeymastersKeepItem] = list()
 
@@ -419,6 +397,21 @@ class KeymastersKeepWorld(World):
     def generate_basic(self) -> None:
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
+    def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
+        if not self.hints_reveal_objectives:
+            return
+
+        data: Dict[int, str] = dict()
+
+        area: KeymastersKeepRegions
+        trial_locations: List[KeymastersKeepLocationData]
+        for area, trial_locations in self.area_trials.items():
+            trial_location: KeymastersKeepLocationData
+            for trial_location in trial_locations:
+                data[trial_location.archipelago_id] = (
+                    f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
+                )
+
     def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
         # Lock Combinations
         spoiler_handle.write("\nRequired Keys:")
@@ -432,13 +425,25 @@ class KeymastersKeepWorld(World):
 
             spoiler_handle.write(f"\n    {area.value}: {', '.join(key.value for key in keys)}")
 
-        # Write Game Challenges to Spoiler Log
-        # ...
+        # Area Games
+        spoiler_handle.write("\n\nArea Games:")
+
+        area: str
+        game: str
+        for area, game in self.area_games.items():
+            spoiler_handle.write(f"\n    {area}: {game}")
+
+        # Area Trial Game Objectives
+        spoiler_handle.write("\n\nArea Trial Game Objectives:")
+
+        trial: str
+        objective: str
+        for trial, objective in self.area_trial_game_objectives.items():
+            spoiler_handle.write(f"\n    {trial}: {objective}")
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
 
-    # Extend Hint Data With Game Challenges
     # Write Slot Data
 
     def _generate_keep(self) -> None:
@@ -506,3 +511,42 @@ class KeymastersKeepWorld(World):
             trial_count: int = self.random.randint(self.area_trials_minimum, self.area_trials_maximum)
 
             self.area_trials[area] = self.random.sample(possible_trials, trial_count)
+
+    def _generate_game_objective_data(self) -> None:
+        game_selection: List[str] = sorted(self.game_selection[:] + self.metagame_selection[:])
+
+        generator: GameObjectiveGenerator = GameObjectiveGenerator(
+            game_selection,
+            self.include_adult_only_or_unrated_games,
+            self.options
+        )
+
+        plan: List[int] = list()
+
+        area: KeymastersKeepRegions
+        trial_locations: List[KeymastersKeepLocationData]
+        for area, trial_locations in self.area_trials.items():
+            plan.append(len(trial_locations))
+
+        game_objective_data: GameObjectiveGeneratorData = generator.generate_from_plan(
+            plan,
+            self.random,
+            self.include_difficult_objectives,
+            self.include_time_consuming_objectives,
+        )
+
+        self.area_games = dict()
+        self.area_game_optional_constraints = dict()
+
+        i: int
+        for i, area in enumerate(self.area_trials.keys()):
+            self.area_games[area.value] = game_objective_data[i][0].name
+            self.area_game_optional_constraints[area.value] = game_objective_data[i][1]
+
+        self.area_trial_game_objectives = dict()
+
+        for i, (area, trial_locations) in enumerate(self.area_trials.items()):
+            ii: int
+            trial_location: KeymastersKeepLocationData
+            for ii, trial_location in enumerate(trial_locations):
+                self.area_trial_game_objectives[trial_location.name] = game_objective_data[i][2][ii]
