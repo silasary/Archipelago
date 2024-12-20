@@ -24,7 +24,7 @@ class GameBacklogGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Game Backlog: ACTION GAME",
+                label="ACTION GAME",
                 data={"ACTION": (self.actions, 1), "GAME": (self.games, 1)},
                 is_time_consuming=True,
                 is_difficult=False,

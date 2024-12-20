@@ -292,11 +292,11 @@ option_groups: typing.List[OptionGroup] = [
     OptionGroup(
         "Game / Objective Selection Options",
         [
-            GameSelection,
-            MetagameSelection,
             IncludeAdultOnlyOrUnratedGames,
             IncludeDifficultObjectives,
             IncludeTimeConsumingObjectives,
+            GameSelection,
+            MetagameSelection,
         ],
     ),
     OptionGroup(

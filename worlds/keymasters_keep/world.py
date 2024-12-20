@@ -412,6 +412,8 @@ class KeymastersKeepWorld(World):
                     f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
                 )
 
+        hint_data[self.player] = data
+
     def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
         # Lock Combinations
         spoiler_handle.write("\nRequired Keys:")
