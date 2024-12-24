@@ -13,19 +13,11 @@ from .data.mapping_data import region_to_unlock_location_and_item
 
 from .data_funcs import item_names_to_id, location_names_to_id, id_to_items, id_to_item_data, id_to_location_data
 
-from .enums import (
-    KeymastersKeepGoals,
-    KeymastersKeepItems,
-    KeymastersKeepLocations,
-    KeymastersKeepRegions,
-    KeymastersKeepTags,
-)
+from .enums import KeymastersKeepGoals, KeymastersKeepItems, KeymastersKeepRegions, KeymastersKeepTags
 
 
 class KeymastersKeepCommandProcessor(CommonClient.ClientCommandProcessor):
-    def __cmd_commandexample(self) -> None:
-        """Example command."""
-        self.output("Example command.")
+    pass
 
 
 class KeymastersKeepContext(CommonClient.CommonContext):

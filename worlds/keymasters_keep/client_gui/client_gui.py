@@ -4,10 +4,6 @@ from kvui import GameManager
 
 from kivy.uix.layout import Layout
 
-# Debugging
-from kivy.core.window import Window
-from kivy.modules import inspector
-
 from ..client import KeymastersKeepContext
 
 from .client_gui_layouts import KeymastersKeepTabLayout, TrialsTabLayout, TrialsCompletedTabLayout
@@ -34,9 +30,6 @@ class KeymastersKeepManager(GameManager):
 
         self.trials_completed_tab_layout = TrialsCompletedTabLayout(self.ctx)
         self.add_client_tab("Completed Trials", self.trials_completed_tab_layout)
-
-        # Debugging
-        inspector.create_inspector(Window, container)
 
         return container
 

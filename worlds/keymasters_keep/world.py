@@ -1,6 +1,6 @@
 import logging
 
-from typing import Any, Dict, List, Optional, Set, Tuple, Union, TextIO
+from typing import Any, Dict, List, Optional, Set, Tuple, TextIO
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
