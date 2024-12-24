@@ -389,7 +389,7 @@ class KeymastersKeepLocations(enum.Enum):
     THE_INVISIBLE_DOORWAY_TRIAL = "Beyond the Invisible Doorway: TRIAL_NAME"
     THE_INVISIBLE_DOORWAY_UNLOCK = "Unlock: The Invisible Doorway"
     THE_KEYMASTERS_CHALLENGE_CHAMBER_UNLOCK = "Unlock: The Keymaster's Challenge Chamber"
-    THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY = "Inside the Keymaster's Challenge Chamber: Victory"
+    THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY = "Inside the Keymaster's Challenge Chamber: Ultimate Challenge"
     THE_LOCKED_DOORWAY_TRIAL = "Beyond the Locked Doorway: TRIAL_NAME"
     THE_LOCKED_DOORWAY_UNLOCK = "Unlock: The Locked Doorway"
     THE_LOCKED_GATEWAY_TRIAL = "Beyond the Locked Gateway: TRIAL_NAME"

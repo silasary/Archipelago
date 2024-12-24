@@ -35,6 +35,22 @@ def location_names_to_id() -> Dict[str, int]:
     return names_to_id
 
 
+def id_to_items() -> Dict[int, KeymastersKeepItems]:
+    return {data.archipelago_id: item for item, data in item_data.items()}
+
+
+def id_to_item_data() -> Dict[int, KeymastersKeepItemData]:
+    return {data.archipelago_id: data for data in item_data.values()}
+
+
+def id_to_location_data() -> Dict[int, KeymastersKeepLocations]:
+    return {
+        data.archipelago_id: data
+        for data in flat_location_data
+        if data.archipelago_id is not None
+    }
+
+
 def item_groups() -> Dict[str, List[str]]:
     groups: Dict[str, List[str]] = dict()
 

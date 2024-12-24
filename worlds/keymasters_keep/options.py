@@ -11,7 +11,7 @@ class Goal(Choice):
     """
     Determines the victory condition.
 
-    Keymasters Challenge: Retrieve X artifacts of resolve to unlock the Keymaster's challenge room and beat the ultimate challenge
+    Keymasters Challenge: Retrieve X artifacts of resolve to unlock the Keymaster's challenge chamber and beat the ultimate challenge
     Magic Key Heist: Acquire X magic keys and escape the Keymaster's Keep
     """
 
@@ -295,6 +295,7 @@ option_groups: typing.List[OptionGroup] = [
             IncludeAdultOnlyOrUnratedGames,
             IncludeDifficultObjectives,
             IncludeTimeConsumingObjectives,
+            HintsRevealObjectives,
             GameSelection,
             MetagameSelection,
         ],

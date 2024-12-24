@@ -91,6 +91,9 @@ class KeymastersKeepWorld(World):
     filler_item_names: List[str] = item_groups()["Filler"]
     game_selection: List[str]
     goal: KeymastersKeepGoals
+    goal_game: str
+    goal_game_optional_constraints: List[str]
+    goal_trial_game_objective: str
     hints_reveal_objectives: bool
     include_adult_only_or_unrated_games: bool
     include_difficult_objectives: bool
@@ -107,9 +110,14 @@ class KeymastersKeepWorld(World):
     selected_magic_keys: List[KeymastersKeepItems]
     unlocked_areas: int
     unused_magic_keys: Set[KeymastersKeepItems]
+    used_magic_keys: Set[KeymastersKeepItems]
 
     def generate_early(self) -> None:
         self.goal = id_to_goals()[self.options.goal.value]
+
+        self.goal_game = None
+        self.goal_game_optional_constraints = None
+        self.goal_trial_game_objective = None
 
         self.artifacts_of_resolve_required = self.options.artifacts_of_resolve_required.value
         self.artifacts_of_resolve_total = self.options.artifacts_of_resolve_total.value
@@ -397,6 +405,45 @@ class KeymastersKeepWorld(World):
     def generate_basic(self) -> None:
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
 
+    def fill_slot_data(self) -> Dict[str, Any]:
+        slot_data: Dict[str, Any] = {
+            "area_game_optional_constraints": self.area_game_optional_constraints,
+            "area_games": self.area_games,
+            "area_trial_game_objectives": self.area_trial_game_objectives,
+            "area_trials": {area.value: [trial.name for trial in trials] for area, trials in self.area_trials.items()},
+            "area_trials_maximum": self.area_trials_maximum,
+            "area_trials_minimum": self.area_trials_minimum,
+            "artifacts_of_resolve_required": self.artifacts_of_resolve_required,
+            "artifacts_of_resolve_total": self.artifacts_of_resolve_total,
+            "goal": self.goal.value,
+            "goal_game": self.goal_game,
+            "goal_game_optional_constraints": self.goal_game_optional_constraints,
+            "goal_trial_game_objective": self.goal_trial_game_objective,
+            "hints_reveal_objectives": self.hints_reveal_objectives,
+            "include_adult_only_or_unrated_games": self.include_adult_only_or_unrated_games,
+            "include_difficult_objectives": self.include_difficult_objectives,
+            "include_time_consuming_objectives": self.include_time_consuming_objectives,
+            "lock_combinations": dict(),
+            "lock_magic_keys_maximum": self.lock_magic_keys_maximum,
+            "lock_magic_keys_minimum": self.lock_magic_keys_minimum,
+            "magic_keys_required": self.magic_keys_required,
+            "magic_keys_total": self.magic_keys_total,
+            "selected_magic_keys": [key.value for key in self.selected_magic_keys],
+            "unlocked_areas": self.unlocked_areas,
+            "used_magic_keys": [key.value for key in self.used_magic_keys],
+        }
+
+        area: KeymastersKeepRegions
+        keys: Optional[List[KeymastersKeepItems]]
+        for area, keys in self.lock_combinations.items():
+            if keys is None:
+                slot_data["lock_combinations"][area.value] = None
+                continue
+
+            slot_data["lock_combinations"][area.value] = [key.value for key in keys]
+
+        return slot_data
+
     def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
         if not self.hints_reveal_objectives:
             return
@@ -445,8 +492,6 @@ class KeymastersKeepWorld(World):
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.filler_item_names)
-
-    # Write Slot Data
 
     def _generate_keep(self) -> None:
         # Select Areas
@@ -502,6 +547,7 @@ class KeymastersKeepWorld(World):
 
             self.lock_combinations[area] = keys_to_lock
 
+        self.used_magic_keys = used_keys
         self.unused_magic_keys = set(self.selected_magic_keys) - used_keys
 
         # Assign Trials to Areas
@@ -530,6 +576,9 @@ class KeymastersKeepWorld(World):
         for area, trial_locations in self.area_trials.items():
             plan.append(len(trial_locations))
 
+        if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
+            plan.append(1)
+
         game_objective_data: GameObjectiveGeneratorData = generator.generate_from_plan(
             plan,
             self.random,
@@ -552,3 +601,8 @@ class KeymastersKeepWorld(World):
             trial_location: KeymastersKeepLocationData
             for ii, trial_location in enumerate(trial_locations):
                 self.area_trial_game_objectives[trial_location.name] = game_objective_data[i][2][ii]
+
+        if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
+            self.goal_game = game_objective_data[-1][0].name
+            self.goal_game_optional_constraints = game_objective_data[-1][1]
+            self.goal_trial_game_objective = game_objective_data[-1][2][0]

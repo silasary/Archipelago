@@ -53,13 +53,6 @@ class ArchipelagoMultiworldRandomizerGame(Game):
                 is_difficult=False,
                 weight=4,
             ),
-            GameObjectiveTemplate(
-                label="Complete a multiworld randomizer with GAMES",
-                data={"GAMES": (self.games, 5)},
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=4,
-            ),
         ]
 
         if bool(self.archipelago_options.archipelago_multiworld_randomizer_allow_apbingo_objectives):
@@ -106,20 +99,6 @@ class ArchipelagoMultiworldRandomizerGame(Game):
                     ),
                     data={
                         "GAMES": (self.games, 3),
-                        "COUNT": (self.bingo_counts, 1),
-                        "SIZE": (self.bingo_board_sizes, 1)
-                    },
-                    is_time_consuming=True,
-                    is_difficult=False,
-                    weight=3,
-                ),
-                GameObjectiveTemplate(
-                    label=(
-                        "Complete a multiworld randomizer with GAMES and get COUNT bingo(s) on a "
-                        "SIZExSIZE APBingo board"
-                    ),
-                    data={
-                        "GAMES": (self.games, 5),
                         "COUNT": (self.bingo_counts, 1),
                         "SIZE": (self.bingo_board_sizes, 1)
                     },

@@ -28,6 +28,7 @@ class GameObjectiveGenerator:
         include_difficult: bool = False,
         include_time_consuming: bool = False,
     ) -> GameObjectiveGeneratorData:
+        # TODO: What happens when a game doesn't meet the filters? We need to filter before sampling
         if plan is None or not len(plan):
             return list()
 
