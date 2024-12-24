@@ -1,7 +1,7 @@
 import abc
 
 from random import Random
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 from .enums import KeymastersKeepGamePlatforms
 
@@ -15,7 +15,7 @@ class Game:
     # Other available platforms the game integration might work with
     platforms_other: Optional[List[KeymastersKeepGamePlatforms]] = None
 
-    is_adult_only_or_unrated: bool = True  # ESRB AO / PEGI 18 / USK 18 / unrated? Used for filtering
+    is_adult_only_or_unrated: bool = True  # ESRB AO / PEGI 18 / USK 18 / Unrated? Used for filtering
 
     random: Random  # Random instance
     archipelago_options: Any  # Archipelago options dataclass
@@ -24,13 +24,50 @@ class Game:
         self.random = random or Random()
         self.archipelago_options = archipelago_options
 
+    @property
+    def only_has_difficult_objectives(self) -> bool:
+        template: GameObjectiveTemplate
+        for template in self.game_objective_templates():
+            if not template.is_difficult:
+                return False
+
+        return True
+
+    @property
+    def only_has_time_consuming_objectives(self) -> bool:
+        template: GameObjectiveTemplate
+        for template in self.game_objective_templates():
+            if not template.is_time_consuming:
+                return False
+
+        return True
+
     @abc.abstractmethod
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        ...
+        return list()
 
     @abc.abstractmethod
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         ...
+
+    def filter_game_objective_templates(
+        self,
+        include_difficult: bool = False,
+        include_time_consuming: bool = False,
+    ) -> List[GameObjectiveTemplate]:
+        filtered_objectives: List[GameObjectiveTemplate] = list()
+
+        template: GameObjectiveTemplate
+        for template in self.game_objective_templates():
+            if not include_difficult and template.is_difficult:
+                continue
+
+            if not include_time_consuming and template.is_time_consuming:
+                continue
+
+            filtered_objectives.append(template)
+
+        return filtered_objectives
 
     def generate_objectives(
         self,

@@ -1,11 +1,15 @@
 from random import Random
-from typing import Any, Dict, List, Tuple, Type
+from typing import Any, List, Tuple, Type
 
 from .game import Game
 from .games import games, metagames
 
 
 GameObjectiveGeneratorData = List[Tuple[Type[Game], List[str], List[str]]]
+
+
+class GameObjectiveGeneratorException(Exception):
+    pass
 
 
 class GameObjectiveGenerator:
@@ -16,10 +20,21 @@ class GameObjectiveGenerator:
         self,
         allowable_games: List[str] = None,
         include_adult_only_or_unrated_games: bool = False,
+        include_difficult_objectives: bool = False,
+        include_time_consuming_objectives: bool = False,
         archipelago_options: Any = None,
     ) -> None:
-        self.games = self._filter_games(allowable_games, include_adult_only_or_unrated_games)
         self.archipelago_options = archipelago_options
+
+        self.games = self._filter_games(
+            allowable_games,
+            include_adult_only_or_unrated_games,
+            include_difficult_objectives,
+            include_time_consuming_objectives,
+        )
+
+        if not len(self.games):
+            raise GameObjectiveGeneratorException("No games are left after game / objective filtering")
 
     def generate_from_plan(
         self,
@@ -28,7 +43,6 @@ class GameObjectiveGenerator:
         include_difficult: bool = False,
         include_time_consuming: bool = False,
     ) -> GameObjectiveGeneratorData:
-        # TODO: What happens when a game doesn't meet the filters? We need to filter before sampling
         if plan is None or not len(plan):
             return list()
 
@@ -48,7 +62,7 @@ class GameObjectiveGenerator:
         i: int
         count: int
         for i, count in enumerate(plan):
-            game: Type[Game] = game_selection[i](random=random, archipelago_options=self.archipelago_options)
+            game: Game = game_selection[i](random=random, archipelago_options=self.archipelago_options)
 
             optional_constraints: List[str]
             objectives: List[str]
@@ -62,9 +76,14 @@ class GameObjectiveGenerator:
 
         return data
 
-    @staticmethod
-    def _filter_games(allowable_games: List[str], include_adult_only_or_unrated_games: bool) -> Dict[str, Type[Game]]:
-        filtered_games = list()
+    def _filter_games(
+        self,
+        allowable_games: List[str],
+        include_adult_only_or_unrated_games: bool,
+        include_difficult_objectives: bool,
+        include_time_consuming_objectives: bool
+    ) -> List[Type[Game]]:
+        filtered_games: List[Type[Game]] = list()
 
         game_name: str
         for game_name in allowable_games:
@@ -72,8 +91,15 @@ class GameObjectiveGenerator:
                 continue
 
             game: Type[Game] = games.get(game_name, metagames.get(game_name))
+            game_instance: Game = game(archipelago_options=self.archipelago_options)
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:
+                continue
+
+            if not include_difficult_objectives and game_instance.only_has_difficult_objectives:
+                continue
+
+            if not include_time_consuming_objectives and game_instance.only_has_time_consuming_objectives:
                 continue
 
             filtered_games.append(game)
