@@ -178,10 +178,11 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.ui.update_tabs()
         elif cmd == "RoomUpdate":
             # To handle collect / coop
-            self.location_ids_checked |= set(_args["checked_locations"])
+            if "checked_locations" in _args:
+                self.location_ids_checked |= set(_args["checked_locations"])
 
-            self._update_game_state()
-            self.ui.update_tabs()
+                self._update_game_state()
+                self.ui.update_tabs()
 
     def complete_location(self, location_id: int) -> None:
         self.completed_locations_queue.append(location_id)
