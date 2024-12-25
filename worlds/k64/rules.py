@@ -1,4 +1,4 @@
-from worlds.generic.Rules import set_rule
+from worlds.generic.Rules import set_rule, add_rule
 from .names import LocationName, ItemName
 import typing
 
@@ -353,8 +353,11 @@ def set_rules(world: "K64World") -> None:
     set_rule(world.multiworld.get_location(LocationName.pop_star_3_s1, world.player),
              lambda state: has_great_cutter(state, world.player, world.options.split_power_combos.value))
     # Level 2
+    set_rule(world.get_location(LocationName.rock_star_1), lambda state: has_waddle_dee(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.rock_star_1_s3, world.player),
-             lambda state: has_geokinesis(state, world.player, world.options.split_power_combos.value))
+             lambda state: has_geokinesis(state, world.player, world.options.split_power_combos.value)
+                           and has_waddle_dee(state, world.player))
+    set_rule(world.get_location(LocationName.rock_star_2), lambda state: has_king_dedede(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.rock_star_2_s3, world.player),
              lambda state: has_king_dedede(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.rock_star_3_s1, world.player),
@@ -367,24 +370,28 @@ def set_rules(world: "K64World") -> None:
              lambda state: has_exploding_snowman(state, world.player, world.options.split_power_combos.value))
     set_rule(world.multiworld.get_location(LocationName.aqua_star_2_s1, world.player),
              lambda state: has_volcano(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.aqua_star_2_s2, world.player),
-             lambda state: has_waddle_dee(state, world.player))
+    for location in (LocationName.aqua_star_2, LocationName.aqua_star_2_s2, LocationName.aqua_star_2_s3):
+        set_rule(world.multiworld.get_location(location, world.player),
+                 lambda state: has_waddle_dee(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.aqua_star_3_s1, world.player),
              lambda state: has_shurikens(state, world.player, world.options.split_power_combos.value))
     set_rule(world.multiworld.get_location(LocationName.aqua_star_3_s3, world.player),
              lambda state: has_stone_friends(state, world.player, world.options.split_power_combos.value))
     # Level 4
-    set_rule(world.multiworld.get_location(LocationName.neo_star_2_s2, world.player),
-             lambda state: has_waddle_dee(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.neo_star_2_s3, world.player),
+    for location in (LocationName.neo_star_2, LocationName.neo_star_2_s2, LocationName.neo_star_2_s3):
+        set_rule(world.multiworld.get_location(location, world.player),
+                 lambda state: has_waddle_dee(state, world.player))
+    add_rule(world.multiworld.get_location(LocationName.neo_star_2_s3, world.player),
              lambda state: has_dynamite(state, world.player, world.options.split_power_combos.value))
     set_rule(world.multiworld.get_location(LocationName.neo_star_3_s1, world.player),
              lambda state: has_any_needle(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.neo_star_3_s2, world.player),
              lambda state: has_adeleine(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.neo_star_4_s1, world.player),
-             lambda state: has_king_dedede(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.neo_star_4_s2, world.player),
+    for location in (LocationName.neo_star_4, LocationName.neo_star_4_s1,
+                     LocationName.neo_star_4_s2, LocationName.neo_star_4_s3):
+        set_rule(world.multiworld.get_location(location, world.player),
+                 lambda state: has_king_dedede(state, world.player))
+    add_rule(world.multiworld.get_location(LocationName.neo_star_4_s2, world.player),
              lambda state: has_any_ice(state, world.player))
     # Level 5
     set_rule(world.multiworld.get_location(LocationName.shiver_star_1_s1, world.player),
@@ -397,8 +404,9 @@ def set_rules(world: "K64World") -> None:
              lambda state: has_adeleine(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.shiver_star_4_s1, world.player),
              lambda state: has_drill(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_4_s2, world.player),
-             lambda state: has_lightsaber(state, world.player, world.options.split_power_combos.value))
+    for location in (LocationName.shiver_star_4, LocationName.shiver_star_4_s2, LocationName.shiver_star_4_s3):
+        set_rule(world.multiworld.get_location(location, world.player),
+                 lambda state: has_king_dedede(state, world.player))
     # Level 6
     set_rule(world.multiworld.get_location(LocationName.ripple_star_1_s3, world.player),
              lambda state: has_exploding_gordo(state, world.player, world.options.split_power_combos.value)
@@ -406,7 +414,10 @@ def set_rules(world: "K64World") -> None:
                                              world.player))  # by default cannot carry enemy across
     set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s1, world.player),
              lambda state: has_any_spark(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s3, world.player),
+    for location in (LocationName.ripple_star_2, LocationName.ripple_star_2_s2, LocationName.ripple_star_2_s3):
+        set_rule(world.multiworld.get_location(location, world.player),
+                 lambda state: has_king_dedede(state, world.player))
+    add_rule(world.multiworld.get_location(LocationName.ripple_star_2_s3, world.player),
              lambda state: has_any_cutter(state, world.player))
     set_rule(world.multiworld.get_location(LocationName.ripple_star_3_s2, world.player),
              lambda state: has_fire_arrows(state, world.player, world.options.split_power_combos.value))
