@@ -21,12 +21,8 @@ class ArchipelagoMultiworldRandomizerGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Hint Cost: HINT_COST%",
-                data={"HINT_COST": (self.hint_costs, 1)}
-            ),
-            GameObjectiveTemplate(
-                label="Release: RELEASE",
-                data={"RELEASE": (self.release, 1)}
+                label="Hint Cost: HINT_COST%, Release: RELEASE",
+                data={"HINT_COST": (self.hint_costs, 1), "RELEASE": (self.release, 1)}
             ),
         ]
 

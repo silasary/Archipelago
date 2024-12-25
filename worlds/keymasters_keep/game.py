@@ -76,9 +76,10 @@ class Game:
         include_time_consuming: bool = False,
     ) -> Tuple[List[str], List[str]]:
         optional_constraints: List[str] = list()
+        optional_constraint_templates: List[GameObjectiveTemplate] = self.optional_game_constraint_templates()
 
-        template: GameObjectiveTemplate
-        for template in self.optional_game_constraint_templates():
+        if len(optional_constraint_templates):
+            template: GameObjectiveTemplate = self.random.choice(self.optional_game_constraint_templates())
             optional_constraints.append(template.generate_game_objective(self.random))
 
         filtered_objectives: List[GameObjectiveTemplate] = list()

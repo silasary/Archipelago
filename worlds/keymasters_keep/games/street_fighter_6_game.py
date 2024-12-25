@@ -27,12 +27,8 @@ class StreetFighter6Game(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Play as CHARACTER",
-                data={"CHARACTER": (self.characters, 1)}
-            ),
-            GameObjectiveTemplate(
-                label="Set CPU level to LEVEL",
-                data={"LEVEL": (self.cpu_levels, 1)}
+                label="Play as CHARACTER, Set CPU level to LEVEL",
+                data={"CHARACTER": (self.characters, 1), "LEVEL": (self.cpu_levels, 1)}
             ),
         ]
 
