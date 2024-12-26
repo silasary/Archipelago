@@ -3,6 +3,7 @@ import logging
 import tempfile
 import traceback
 import typing
+import inspect
 from collections.abc import Callable
 from CommonClient import CommonContext, gui_enabled, get_base_parser, server_loop, ClientCommandProcessor
 import os
@@ -39,8 +40,7 @@ logger = logging.getLogger("Client")
 UT_VERSION = "v0.1.14"
 DEBUG = False
 ITEMS_HANDLING = 0b111
-# REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "needs_regen", False)}  # TODO
-REGEN_WORLDS: Set[str] = set()
+REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "ut_can_gen_without_yaml", False)}
 
 
 class TrackerCommandProcessor(ClientCommandProcessor):
@@ -488,8 +488,17 @@ class TrackerGameContext(CommonContext):
                 if getattr(AutoWorld.AutoWorldRegister.world_types[self.game], "ut_can_gen_without_yaml", False):
                     with tempfile.TemporaryDirectory() as tempdir:
                         self.write_empty_yaml(self.game, slot_name, tempdir)
-                        self.run_generator(None, tempdir)
-                        self.regen_slots(self.multiworld.worlds[self.player_id],args["slot_data"],tempdir)
+                        self.player_id = 1
+                        slot_data = args["slot_data"]
+                        world = None
+                        temp_isd = inspect.getattr_static(AutoWorld.AutoWorldRegister.world_types[self.game], "interpret_slot_data", None)
+                        if isinstance(temp_isd,(staticmethod,classmethod)) and callable(temp_isd):
+                            world = AutoWorld.AutoWorldRegister.world_types[self.game]
+                        else:
+                            self.re_gen_passthrough = {self.game: slot_data}
+                            self.run_generator(args["slot_data"],tempdir)
+                            world = self.multiworld.worlds[self.player_id]
+                        self.regen_slots(world,slot_data,tempdir)
                 else:
                     self.log_to_tab(f"Player's Yaml not in tracker's list. Known players: {list(self.launch_multiworld.world_name_lookup.keys())}", False)
                     return
@@ -574,8 +583,8 @@ class TrackerGameContext(CommonContext):
                 args.log_level = ERROR
 
             g_args, seed = GMain(args)
-            if slot_data:
-                if slot_data in self.cached_slot_data:
+            if slot_data or override_yaml_path:
+                if slot_data and slot_data in self.cached_slot_data:
                     print("found cached multiworld!")
                     index = next(i for i, s in enumerate(self.cached_slot_data) if s == slot_data)
                     self.multiworld = self.cached_multiworlds[index]
