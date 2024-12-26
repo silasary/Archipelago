@@ -48,7 +48,7 @@ class TromboneChampGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Play TRACKS and get an S rank",
+                label="Play TRACKS and get at least 1 S rank",
                 data={"TRACKS": (self.tracks, 3)},
                 is_time_consuming=False,
                 is_difficult=True,
