@@ -156,7 +156,7 @@ class TrackerCommandProcessor(ClientCommandProcessor):
 
 class TrackerGameContext(CommonContext):
     game = ""
-    httpServer_task: typing.Optional["asyncio.Task[None]"] = None
+    quit_after_update = False
     tags = CommonContext.tags | {"Tracker"}
     command_processor = TrackerCommandProcessor
     tracker_page = None
@@ -178,7 +178,7 @@ class TrackerGameContext(CommonContext):
     ignored_locations: Set[int]
     location_alias_map: Dict[int,str] = {}
 
-    def __init__(self, server_address, password, no_connection: bool = False):
+    def __init__(self, server_address, password, no_connection: bool = False,quit_after_update: bool = False):
         if no_connection:
             from worlds import network_data_package
             self.item_names = self.NameLookupDict(self, "item")
@@ -195,6 +195,7 @@ class TrackerGameContext(CommonContext):
         self.player_id = None
         self.manual_items = []
         self.ignored_locations = set()
+        self.quit_after_update = quit_after_update
 
     def load_pack(self):
         PACK_NAME = self.multiworld.worlds[self.player_id].__class__.__module__
@@ -564,6 +565,10 @@ class TrackerGameContext(CommonContext):
                 args.player_files_path = yaml_path
             args.skip_output = True
 
+            if self.quit_after_update:
+                from logging import ERROR
+                args.log_level = ERROR
+
             g_args, seed = GMain(args)
             if slot_data:
                 if slot_data in self.cached_slot_data:
@@ -623,7 +628,6 @@ class TrackerGameContext(CommonContext):
         if self.re_gen_passthrough is not None:
             multiworld.re_gen_passthrough = self.re_gen_passthrough
 
-        logger = logging.getLogger()
         multiworld.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
         multiworld.plando_options = args.plando_options
         multiworld.plando_items = args.plando_items.copy()
@@ -835,6 +839,10 @@ def updateTracker(ctx: TrackerGameContext) -> CurrentTrackerState:
                 status = "in_logic"
             for coord in relevent_coords:
                 coord.update_status(loc_name,status)
+    if ctx.quit_after_update:
+        name = ctx.player_names[ctx.slot]
+        logger.error("Game: " + ctx.game + " | Slot Name : " + name+" | In logic locations : " + str(len(locations)))
+        ctx.exit_event.set()
 
     return CurrentTrackerState(all_items, prog_items, events,state)
 
@@ -852,9 +860,8 @@ async def game_watcher(ctx: TrackerGameContext) -> None:
             tb = traceback.format_exc()
             print(tb)
 
-
 async def main(args):
-    ctx = TrackerGameContext(args.connect, args.password)
+    ctx = TrackerGameContext(args.connect, args.password,quit_after_update=args.count)
     ctx.auth = args.name
     ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
     ctx.run_generator()
@@ -870,6 +877,8 @@ async def main(args):
 def launch(*args):
     parser = get_base_parser(description="Gameless Archipelago Client, for text interfacing.")
     parser.add_argument('--name', default=None, help="Slot Name to connect as.")
+    if sys.stdout:  # If terminal output exists, offer gui-less mode
+        parser.add_argument('--count', default=False, action='store_true', help="just return a count of in logic checks")
     parser.add_argument("url", nargs="?", help="Archipelago connection url")
     args = parser.parse_args(args)
 
@@ -880,6 +889,9 @@ def launch(*args):
             args.name = urllib.parse.unquote(url.username)
         if url.password:
             args.password = urllib.parse.unquote(url.password)
+    if args.count:
+        from logging import ERROR
+        logger.setLevel(ERROR)
 
     asyncio.run(main(args))
 
