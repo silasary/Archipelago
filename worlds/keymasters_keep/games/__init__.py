@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from ..game import Game
 
 # Game Imports
+from .anger_foot_game import AngerFootGame, AngerFootArchipelagoOptions
+
 from .archipelago_multiworld_randomizer_game import (
     ArchipelagoMultiworldRandomizerGame, ArchipelagoMultiworldRandomizerArchipelagoOptions
 )
@@ -19,6 +21,7 @@ from .game_backlog_game import GameBacklogGame, GameBacklogArchipelagoOptions
 
 
 games: Dict[str, Type[Game]] = {
+    AngerFootGame.game_name_with_platforms(): AngerFootGame,
     ArchipelagoMultiworldRandomizerGame.game_name_with_platforms(): ArchipelagoMultiworldRandomizerGame,
     PinballFX3Game.game_name_with_platforms(): PinballFX3Game,
     StreetFighter6Game.game_name_with_platforms(): StreetFighter6Game,
@@ -40,5 +43,6 @@ class GameArchipelagoOptions(
     PinballFX3ArchipelagoOptions,
     GameBacklogArchipelagoOptions,
     ArchipelagoMultiworldRandomizerArchipelagoOptions,
+    AngerFootArchipelagoOptions,
 ):
     pass
