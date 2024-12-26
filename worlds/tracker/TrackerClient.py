@@ -367,41 +367,9 @@ class TrackerGameContext(CommonContext):
         manager.tabs.apply_property(show_map=BooleanProperty(False))
         manager.tabs.fbind("show_map",set_map_tab)
 
-        from kvui import HintLog
-        # hook hint tab
-
-        def update_available_hints(log: HintLog, hints: typing.Set[typing.Dict[str, typing.Any]]):
-            data = []
-            for hint in hints:
-                in_logic = int(hint["location"]) in self.locations_available \
-                    if int(hint["finding_player"]) == self.slot else False
-                data.append({
-                    "receiving": {
-                        "text": log.parser.handle_node({"type": "player_id", "text": hint["receiving_player"]})},
-                    "item": {"text": log.parser.handle_node(
-                        {"type": "item_id", "player": hint["receiving_player"],"text": hint["item"], "flags": hint["item_flags"]})},
-                    "finding": {"text": log.parser.handle_node({"type": "player_id", "text": hint["finding_player"]})},
-                    "location": {"text": log.parser.handle_node({"type": "location_id", "player":hint["finding_player"],"text": hint["location"]})},
-                    "entrance": {"text": log.parser.handle_node({"type": "color" if hint["entrance"] else "text",
-                                                                 "color": "blue", "text": hint["entrance"]
-                        if hint["entrance"] else "Vanilla"})},
-                    "found": {
-                        "text": log.parser.handle_node({"type": "color", "color": "green" if hint["found"] else
-                                                        "orange" if in_logic else "red",
-                                                        "text": "Found" if hint["found"] else "In Logic" if in_logic
-                                                        else "Not Found"})},
-                })
-
-            data.sort(key=log.hint_sorter, reverse=log.reversed)
-            for i in range(0, len(data), 2):
-                data[i]["striped"] = True
-            data.insert(0, log.header)
-            log.data = data
-
-        HintLog.refresh_hints = update_available_hints
-
     def make_gui(self):
         ui = super().make_gui()  # before the kivy imports so kvui gets loaded first
+        from kvui import HintLog, HintLabel, TooltipLabel
         from kivy.properties import StringProperty, NumericProperty, BooleanProperty
         try:
             from kvui import ImageLoader #one of these needs to be loaded
@@ -416,6 +384,42 @@ class TrackerGameContext(CommonContext):
             base_title = f"Tracker {UT_VERSION} for AP version"  # core appends ap version so this works
 
             def build(self):
+                class TrackerHintLabel(HintLabel):
+                    logic_text = StringProperty("")
+
+                    def __init__(self, *args, **kwargs):
+                        super().__init__(*args, **kwargs)
+                        logic = TooltipLabel(
+                            sort_key="status",  # is lying to computer and player but fixing it will need core changes
+                            text="", halign='center', valign='center', pos_hint={"center_y": 0.5},
+                            )
+                        self.add_widget(logic)
+
+                        def set_text(_, value):
+                            logic.text = value
+                        self.bind(logic_text=set_text)
+
+                    def refresh_view_attrs(self, rv, index, data):
+                        super().refresh_view_attrs(rv, index, data)
+                        if data["status"]["hint"]["receiving_player"] == -1:
+                            self.logic_text = "[u]In Logic[/u]"
+                            return
+                        ctx = ui.get_running_app().ctx
+
+                        loc = data["status"]["hint"]["location"]
+                        from NetUtils import HintStatus
+                        found = data["status"]["hint"]["status"] == HintStatus.HINT_FOUND
+                        in_logic = loc in ctx.locations_available
+                        self.logic_text = rv.parser.handle_node({
+                            "type": "color", "color": "green" if found else
+                            "orange" if in_logic else "red",
+                            "text": "Found" if found else "In Logic" if in_logic
+                            else "Not Found"})
+
+                def kv_post(self, base_widget):
+                    self.viewclass = TrackerHintLabel
+                HintLog.on_kv_post = kv_post
+
                 container = super().build()
                 self.tabs.do_default_tab = True
                 self.tabs.current_tab.height = 40
