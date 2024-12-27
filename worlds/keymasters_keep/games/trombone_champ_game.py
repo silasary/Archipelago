@@ -55,7 +55,7 @@ class TromboneChampGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Play TRACK and finish with 0 Nasties",
+                label="Play TRACK and finish with less than 10 Nasties",
                 data={"TRACK": (self.tracks, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
