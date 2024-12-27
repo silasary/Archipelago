@@ -231,7 +231,7 @@ class PlacidPlasticDuckSimulatorGame(Game):
     def ducks_ducks_galore(self) -> List[str]:
         return [
             "Orange Duck (DG 1-1)",
-            "Purple Duck (DG 1-2)",
+            "Kick Me Duck (DG 1-2)",
             "Heart Duck (DG 1-3)",
             "Constellation Duck (DG 1-4)",
             "Clicker Duck (DG 1-5)",
