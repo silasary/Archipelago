@@ -68,13 +68,6 @@ class ArchipelagoMultiworldRandomizerGame(Game):
                     weight=1,
                 ),
                 GameObjectiveTemplate(
-                    label="Blackout a SIZExSIZE APBingo board in a multiworld randomizer with GAMES",
-                    data={"GAMES": (self.games, 5), "SIZE": (self.bingo_board_sizes, 1)},
-                    is_time_consuming=True,
-                    is_difficult=False,
-                    weight=1,
-                ),
-                GameObjectiveTemplate(
                     label=(
                         "Complete a multiworld randomizer with GAMES and get COUNT bingo(s) on a "
                         "SIZExSIZE APBingo board"
