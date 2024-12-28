@@ -29,6 +29,7 @@ from .trombone_champ_game import TromboneChampGame, TromboneChampArchipelagoOpti
 
 # Metagame Imports
 from .game_backlog_game import GameBacklogGame, GameBacklogArchipelagoOptions
+from .retro_achievements_game import RetroAchievementsGame, RetroAchievementsArchipelagoOptions
 
 
 games: Dict[str, Type[Game]] = {
@@ -46,6 +47,7 @@ games: Dict[str, Type[Game]] = {
 
 metagames: Dict[str, Type[Game]] = {
     GameBacklogGame.game_name_with_platforms(): GameBacklogGame,
+    RetroAchievementsGame.game_name_with_platforms(): RetroAchievementsGame,
 }
 
 
@@ -56,6 +58,7 @@ class GameArchipelagoOptions(
     TrackmaniaArchipelagoOptions,
     StreetFighter6ArchipelagoOptions,
     StarWarsBattlefrontIIClassicArchipelagoOptions,
+    RetroAchievementsArchipelagoOptions,
     PlacidPlasticDuckSimulatorArchipelagoOptions,
     PinballFX3ArchipelagoOptions,
     NeonWhiteArchipelagoOptions,
