@@ -17,6 +17,10 @@ from .placid_plastic_duck_simulator_game import (
     PlacidPlasticDuckSimulatorGame, PlacidPlasticDuckSimulatorArchipelagoOptions
 )
 
+from .star_wars_battlefront_ii_classic_game import (
+    StarWarsBattlefrontIIClassicGame, StarWarsBattlefrontIIClassicArchipelagoOptions
+)
+
 from .street_fighter_6_game import StreetFighter6Game, StreetFighter6ArchipelagoOptions
 from .trackmania_game import TrackmaniaGame, TrackmaniaArchipelagoOptions
 from .trombone_champ_game import TromboneChampGame, TromboneChampArchipelagoOptions
@@ -30,6 +34,7 @@ games: Dict[str, Type[Game]] = {
     ArchipelagoMultiworldRandomizerGame.game_name_with_platforms(): ArchipelagoMultiworldRandomizerGame,
     PinballFX3Game.game_name_with_platforms(): PinballFX3Game,
     PlacidPlasticDuckSimulatorGame.game_name_with_platforms(): PlacidPlasticDuckSimulatorGame,
+    StarWarsBattlefrontIIClassicGame.game_name_with_platforms(): StarWarsBattlefrontIIClassicGame,
     StreetFighter6Game.game_name_with_platforms(): StreetFighter6Game,
     TrackmaniaGame.game_name_with_platforms(): TrackmaniaGame,
     TromboneChampGame.game_name_with_platforms(): TromboneChampGame,
@@ -46,6 +51,7 @@ class GameArchipelagoOptions(
     TromboneChampArchipelagoOptions,
     TrackmaniaArchipelagoOptions,
     StreetFighter6ArchipelagoOptions,
+    StarWarsBattlefrontIIClassicArchipelagoOptions,
     PlacidPlasticDuckSimulatorArchipelagoOptions,
     PinballFX3ArchipelagoOptions,
     GameBacklogArchipelagoOptions,
