@@ -12,7 +12,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 class ArchipelagoMultiworldRandomizerGame(Game):
     name = "Archipelago Multiworld Randomizer"
-    platform = KeymastersKeepGamePlatforms.PC
+    platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 

@@ -35,7 +35,6 @@ from .retro_achievements_game import RetroAchievementsGame, RetroAchievementsArc
 games: Dict[str, Type[Game]] = {
     ADanceOfFireAndIceGame.game_name_with_platforms(): ADanceOfFireAndIceGame,
     AngerFootGame.game_name_with_platforms(): AngerFootGame,
-    ArchipelagoMultiworldRandomizerGame.game_name_with_platforms(): ArchipelagoMultiworldRandomizerGame,
     NeonWhiteGame.game_name_with_platforms(): NeonWhiteGame,
     PinballFX3Game.game_name_with_platforms(): PinballFX3Game,
     PlacidPlasticDuckSimulatorGame.game_name_with_platforms(): PlacidPlasticDuckSimulatorGame,
@@ -46,6 +45,7 @@ games: Dict[str, Type[Game]] = {
 }
 
 metagames: Dict[str, Type[Game]] = {
+    ArchipelagoMultiworldRandomizerGame.game_name_with_platforms(): ArchipelagoMultiworldRandomizerGame,
     GameBacklogGame.game_name_with_platforms(): GameBacklogGame,
     RetroAchievementsGame.game_name_with_platforms(): RetroAchievementsGame,
 }
