@@ -11,6 +11,7 @@ from .archipelago_multiworld_randomizer_game import (
     ArchipelagoMultiworldRandomizerGame, ArchipelagoMultiworldRandomizerArchipelagoOptions
 )
 
+from .neon_white_game import NeonWhiteGame, NeonWhiteArchipelagoOptions
 from .pinball_fx3_game import PinballFX3Game, PinballFX3ArchipelagoOptions
 
 from .placid_plastic_duck_simulator_game import (
@@ -32,6 +33,7 @@ from .game_backlog_game import GameBacklogGame, GameBacklogArchipelagoOptions
 games: Dict[str, Type[Game]] = {
     AngerFootGame.game_name_with_platforms(): AngerFootGame,
     ArchipelagoMultiworldRandomizerGame.game_name_with_platforms(): ArchipelagoMultiworldRandomizerGame,
+    NeonWhiteGame.game_name_with_platforms(): NeonWhiteGame,
     PinballFX3Game.game_name_with_platforms(): PinballFX3Game,
     PlacidPlasticDuckSimulatorGame.game_name_with_platforms(): PlacidPlasticDuckSimulatorGame,
     StarWarsBattlefrontIIClassicGame.game_name_with_platforms(): StarWarsBattlefrontIIClassicGame,
@@ -54,6 +56,7 @@ class GameArchipelagoOptions(
     StarWarsBattlefrontIIClassicArchipelagoOptions,
     PlacidPlasticDuckSimulatorArchipelagoOptions,
     PinballFX3ArchipelagoOptions,
+    NeonWhiteArchipelagoOptions,
     GameBacklogArchipelagoOptions,
     ArchipelagoMultiworldRandomizerArchipelagoOptions,
     AngerFootArchipelagoOptions,
