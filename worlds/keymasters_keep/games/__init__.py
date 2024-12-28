@@ -7,7 +7,7 @@ from ..game import Game
 # Game Imports
 from .a_dance_of_fire_and_ice_game import ADanceOfFireAndIceGame, ADanceOfFireAndIceArchipelagoOptions
 from .anger_foot_game import AngerFootGame, AngerFootArchipelagoOptions
-
+from .halls_of_torment_game import HallsOfTormentGame, HallsOfTormentArchipelagoOptions
 from .neon_white_game import NeonWhiteGame, NeonWhiteArchipelagoOptions
 from .pinball_fx3_game import PinballFX3Game, PinballFX3ArchipelagoOptions
 
@@ -36,6 +36,7 @@ from .retro_achievements_game import RetroAchievementsGame, RetroAchievementsArc
 games: Dict[str, Type[Game]] = {
     ADanceOfFireAndIceGame.game_name_with_platforms(): ADanceOfFireAndIceGame,
     AngerFootGame.game_name_with_platforms(): AngerFootGame,
+    HallsOfTormentGame.game_name_with_platforms(): HallsOfTormentGame,
     NeonWhiteGame.game_name_with_platforms(): NeonWhiteGame,
     PinballFX3Game.game_name_with_platforms(): PinballFX3Game,
     PlacidPlasticDuckSimulatorGame.game_name_with_platforms(): PlacidPlasticDuckSimulatorGame,
@@ -65,6 +66,7 @@ class GameArchipelagoOptions(
     PlacidPlasticDuckSimulatorArchipelagoOptions,
     PinballFX3ArchipelagoOptions,
     NeonWhiteArchipelagoOptions,
+    HallsOfTormentArchipelagoOptions,
     GameBacklogArchipelagoOptions,
     ArchipelagoMultiworldRandomizerArchipelagoOptions,
     AngerFootArchipelagoOptions,
