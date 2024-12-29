@@ -19,7 +19,6 @@ class PinballFX3ArchipelagoOptions:
 
 class PinballFX3Game(Game):
     name = "Pinball FX3"
-    options_cls = PinballFX3ArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -29,6 +28,8 @@ class PinballFX3Game(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = PinballFX3ArchipelagoOptions
 
     dlc_to_tables: Dict[Optional[str], List[str]] = {
         None: [

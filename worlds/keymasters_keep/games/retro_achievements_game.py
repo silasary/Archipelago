@@ -19,13 +19,14 @@ class RetroAchievementsArchipelagoOptions:
 
 class RetroAchievementsGame(Game):
     name = "RetroAchievements"
-    options_cls = RetroAchievementsArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 
-    is_adult_only_or_unrated = False
     is_metagame = True
+    is_adult_only_or_unrated = False
+
+    options_cls = RetroAchievementsArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

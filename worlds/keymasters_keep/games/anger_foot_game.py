@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from dataclasses import dataclass
@@ -8,14 +10,20 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class AngerFootArchipelagoOptions:
+    pass
+
+
 class AngerFootGame(Game):
     name = "Anger Foot"
-    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
 
     is_adult_only_or_unrated = True
+
+    options_cls = AngerFootArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -170,3 +178,7 @@ class AngerFootGame(Game):
             "The CEO",
             "Pizza Pig",
         ]
+
+
+# Archipelago Options
+# ...

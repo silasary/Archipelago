@@ -20,7 +20,6 @@ class TromboneChampArchipelagoOptions:
 
 class TromboneChampGame(Game):
     name = "Trombone Champ"
-    options_cls = TromboneChampArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -28,6 +27,8 @@ class TromboneChampGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = TromboneChampArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

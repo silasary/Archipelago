@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 from typing import List
 
@@ -9,11 +11,15 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class NeonWhiteArchipelagoOptions:
+    pass
+
+
 class NeonWhiteGame(Game):
     # Initial Proposal by @pitchouli on Discord
 
     name = "Neon White"
-    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -25,6 +31,8 @@ class NeonWhiteGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = NeonWhiteArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -264,3 +272,7 @@ class NeonWhiteGame(Game):
             "Red",
             "Purple",
         ]
+
+
+# Archipelago Options
+# ...

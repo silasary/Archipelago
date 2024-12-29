@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from dataclasses import dataclass
@@ -8,9 +10,13 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class HallsOfTormentArchipelagoOptions:
+    pass
+
+
 class HallsOfTormentGame(Game):
     name = "Halls of Torment"
-    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -19,6 +25,8 @@ class HallsOfTormentGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = HallsOfTormentArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -329,3 +337,7 @@ class HallsOfTormentGame(Game):
     @staticmethod
     def agony_range() -> range:
         return range(1, 13)
+
+
+# Archipelago Options
+# ...

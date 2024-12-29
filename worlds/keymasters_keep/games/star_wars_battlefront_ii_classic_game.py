@@ -12,7 +12,6 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
-
 @dataclass
 class StarWarsBattlefrontIIClassicArchipelagoOptions:
     # star_wars_battlefront_ii_classic_custom_maps: StarWarsBattlefrontIIClassicCustomMaps
@@ -23,7 +22,6 @@ class StarWarsBattlefrontIIClassicGame(Game):
     # Initial Proposal by @theroadkill on Discord
 
     name = "Star Wars: Battlefront II (Classic)"
-    options_cls = StarWarsBattlefrontIIClassicArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -33,6 +31,8 @@ class StarWarsBattlefrontIIClassicGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = StarWarsBattlefrontIIClassicArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

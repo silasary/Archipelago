@@ -8,16 +8,22 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class UltrakillArchipelagoOptions:
+    pass
+
+
 class UltrakillGame(Game):
     # Initial Proposal by @im_not_original on Discord
 
     name = "ULTRAKILL"
-    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
 
     is_adult_only_or_unrated = False
+
+    options_cls = UltrakillArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

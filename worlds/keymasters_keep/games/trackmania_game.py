@@ -19,7 +19,6 @@ class TrackmaniaArchipelagoOptions:
 
 class TrackmaniaGame(Game):
     name = "Trackmania"
-    options_cls = TrackmaniaArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -30,6 +29,8 @@ class TrackmaniaGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = TrackmaniaArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

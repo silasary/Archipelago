@@ -21,7 +21,6 @@ class PlacidPlasticDuckSimulatorArchipelagoOptions:
 
 class PlacidPlasticDuckSimulatorGame(Game):
     name = "Placid Plastic Duck Simulator"
-    options_cls = PlacidPlasticDuckSimulatorArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -33,6 +32,8 @@ class PlacidPlasticDuckSimulatorGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = PlacidPlasticDuckSimulatorArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

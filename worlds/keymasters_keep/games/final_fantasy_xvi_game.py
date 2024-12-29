@@ -30,6 +30,8 @@ class FinalFantasyXVIGame(Game):
 
     is_adult_only_or_unrated = True
 
+    options_cls = FinalFantasyXVIArchipelagoOptions
+
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(

@@ -23,7 +23,6 @@ class ADanceOfFireAndIceGame(Game):
     # Initial Proposal by @im_not_original on Discord
 
     name = "A Dance of Fire and Ice"
-    options_cls = ADanceOfFireAndIceArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -32,6 +31,8 @@ class ADanceOfFireAndIceGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = ADanceOfFireAndIceArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

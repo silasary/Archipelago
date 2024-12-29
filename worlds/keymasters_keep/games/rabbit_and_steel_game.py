@@ -22,12 +22,14 @@ class RabbitAndSteelArchipelagoOptions:
 
 class RabbitAndSteelGame(Game):
     name = "Rabbit & Steel"
-    options_cls = RabbitAndSteelArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
+
     is_adult_only_or_unrated = False
 
+    options_cls = RabbitAndSteelArchipelagoOptions
+
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return []
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -121,7 +123,8 @@ class RabbitAndSteelGame(Game):
 
         return characters
 
-    def base_difficulties(self):
+    @staticmethod
+    def base_difficulties():
         return [
             "Cute",
             "Normal",
@@ -171,9 +174,10 @@ class RabbitAndSteelUnlockedCharacters(OptionSet):
         "Defender Rabbit",
         "Ancient Rabbit"
     }
+
     default = valid_keys
 
 
 class RabbitAndSteelAllowLunar(Toggle):
-    """Whether or not the Lunar difficulty should be an option for objectives in Rabbit & Steel"""
+    """Whether the Lunar difficulty should be an option for objectives in Rabbit & Steel"""
     display_name = "Rabbit & Steel Allow Lunar Difficulty"

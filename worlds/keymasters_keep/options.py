@@ -4,9 +4,8 @@ from dataclasses import dataclass
 
 from Options import Choice, OptionGroup, OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle
 
-from .games import GameArchipelagoOptions
-
 from .game import AutoGameRegister
+from .games import GameArchipelagoOptions
 
 
 class Goal(Choice):

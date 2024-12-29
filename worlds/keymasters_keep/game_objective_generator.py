@@ -1,10 +1,8 @@
 from random import Random
 from typing import Any, List, Tuple, Type
 
-from .game import Game, AutoGameRegister
-
-from .games import *
-# * imports aren't great, but we need to ensure every game is imported at least once for registration
+from .game import Game
+from .games import AutoGameRegister
 
 
 GameObjectiveGeneratorData = List[Tuple[Type[Game], List[str], List[str]]]

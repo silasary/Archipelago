@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import functools
 
 from typing import List, Set
@@ -14,29 +12,22 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
-@dataclass
-class StreetFighter6ArchipelagoOptions:
-    street_fighter_6_dlc_owned: StreetFighter6DLCOwned
-
-
-class StreetFighter6Game(Game):
-    name = "Street Fighter 6"
+class CarcassonneTilesAndTacticsGame(Game):
+    name = "Carcassonne - Tiles & Tactics"
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
-        KeymastersKeepGamePlatforms.PS4,
-        KeymastersKeepGamePlatforms.PS5,
-        KeymastersKeepGamePlatforms.XSX,
+        KeymastersKeepGamePlatforms.AND,
+        KeymastersKeepGamePlatforms.IOS,
+        KeymastersKeepGamePlatforms.SW,
     ]
 
     is_adult_only_or_unrated = False
 
-    options_cls = StreetFighter6ArchipelagoOptions
-
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Play as CHARACTER, Set CPU level to LEVEL",
+                label="Win by over X points",
                 data={"CHARACTER": (self.characters, 1), "LEVEL": (self.cpu_levels, 1)}
             ),
         ]
@@ -244,6 +235,22 @@ class StreetFighter6Game(Game):
 
 
 # Archipelago Options
+class CarcasoneTilesAndTacticsExpansionsOwned(OptionSet):
+    """
+    Indicates which Carcassone - Tiles & Tactics expansions the player owns, if any.
+    """
+
+    display_name = "Carcassone - Tiles & Tactics Expansions Owned"
+    valid_keys = [
+        "Inns & Cathedrals",
+        "The Abbot",
+        "The Princess & The Dragon",
+        "The River",
+        "Traders & Builders",
+    ]
+
+    default = valid_keys
+
 class StreetFighter6DLCOwned(OptionSet):
     """
     Indicates which Street Fighter 6 DLC the player owns, if any.
@@ -258,3 +265,8 @@ class StreetFighter6DLCOwned(OptionSet):
     ]
 
     default = valid_keys
+
+
+@dataclass
+class StreetFighter6ArchipelagoOptions:
+    street_fighter_6_dlc_owned: StreetFighter6DLCOwned

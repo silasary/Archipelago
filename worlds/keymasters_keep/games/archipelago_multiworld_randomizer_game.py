@@ -31,12 +31,13 @@ class ArchipelagoMultiworldRandomizerArchipelagoOptions:
 class ArchipelagoMultiworldRandomizerGame(Game):
     name = "Archipelago Multiworld Randomizer"
     platform = KeymastersKeepGamePlatforms.META
-    options_cls = ArchipelagoMultiworldRandomizerArchipelagoOptions
 
     platforms_other = None
 
-    is_adult_only_or_unrated = False
     is_metagame = True
+    is_adult_only_or_unrated = False
+
+    options_cls = ArchipelagoMultiworldRandomizerArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

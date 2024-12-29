@@ -20,13 +20,14 @@ class GameBacklogArchipelagoOptions:
 
 class GameBacklogGame(Game):
     name = "Game Backlog"
-    options_cls = GameBacklogArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 
-    is_adult_only_or_unrated = False
     is_metagame = True
+    is_adult_only_or_unrated = False
+
+    options_cls = GameBacklogArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
