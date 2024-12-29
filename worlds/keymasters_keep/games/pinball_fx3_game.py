@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Dict, List, Optional, Set
 
 from dataclasses import dataclass
@@ -10,8 +12,14 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class PinballFX3ArchipelagoOptions:
+    pinball_fx3_dlc_owned: PinballFX3DLCOwned
+
+
 class PinballFX3Game(Game):
     name = "Pinball FX3"
+    options_cls = PinballFX3ArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -392,8 +400,3 @@ class PinballFX3DLCOwned(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class PinballFX3ArchipelagoOptions:
-    pinball_fx3_dlc_owned: PinballFX3DLCOwned

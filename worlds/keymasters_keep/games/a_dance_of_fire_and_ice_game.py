@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 from typing import List, Set
 
@@ -11,10 +13,17 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class ADanceOfFireAndIceArchipelagoOptions:
+    a_dance_of_fire_and_ice_dlc_owned: ADanceOfFireAndIceDLCOwned
+    a_dance_of_fire_and_ice_custom_tracks: ADanceOfFireAndIceCustomTracks
+
+
 class ADanceOfFireAndIceGame(Game):
     # Initial Proposal by @im_not_original on Discord
 
     name = "A Dance of Fire and Ice"
+    options_cls = ADanceOfFireAndIceArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -234,9 +243,3 @@ class ADanceOfFireAndIceCustomTracks(OptionSet):
 
     display_name = "A Dance of Fire and Ice Custom Tracks"
     default = list()
-
-
-@dataclass
-class ADanceOfFireAndIceArchipelagoOptions:
-    a_dance_of_fire_and_ice_dlc_owned: ADanceOfFireAndIceDLCOwned
-    a_dance_of_fire_and_ice_custom_tracks: ADanceOfFireAndIceCustomTracks

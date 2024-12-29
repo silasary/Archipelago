@@ -12,6 +12,7 @@ class UltrakillGame(Game):
     # Initial Proposal by @im_not_original on Discord
 
     name = "ULTRAKILL"
+    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
@@ -272,9 +273,3 @@ class UltrakillGame(Game):
             "HERESY",
             "VIOLENCE",
         ]
-
-
-# Archipelago Options
-@dataclass
-class UltrakillArchipelagoOptions:
-    pass

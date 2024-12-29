@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 from typing import List, Set
 
@@ -11,8 +13,14 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class TromboneChampArchipelagoOptions:
+    trombone_champ_custom_tracks: TromboneChampCustomTracks
+
+
 class TromboneChampGame(Game):
     name = "Trombone Champ"
+    options_cls = TromboneChampArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -227,8 +235,3 @@ class TromboneChampCustomTracks(OptionSet):
 
     display_name = "Trombone Champ Custom Tracks"
     default = list()
-
-
-@dataclass
-class TromboneChampArchipelagoOptions:
-    trombone_champ_custom_tracks: TromboneChampCustomTracks

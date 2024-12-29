@@ -13,6 +13,7 @@ class NeonWhiteGame(Game):
     # Initial Proposal by @pitchouli on Discord
 
     name = "Neon White"
+    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -263,9 +264,3 @@ class NeonWhiteGame(Game):
             "Red",
             "Purple",
         ]
-
-
-# Archipelago Options
-@dataclass
-class NeonWhiteArchipelagoOptions:
-    pass

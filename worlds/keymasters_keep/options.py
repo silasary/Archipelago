@@ -4,7 +4,9 @@ from dataclasses import dataclass
 
 from Options import Choice, OptionGroup, OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle
 
-from .games import games, metagames, GameArchipelagoOptions
+from .games import GameArchipelagoOptions
+
+from .game import AutoGameRegister
 
 
 class Goal(Choice):
@@ -186,9 +188,9 @@ class GameSelection(OptionSet):
     """
 
     display_name: str = "Game Selection"
-    valid_keys = games.keys()
+    valid_keys = AutoGameRegister.games.keys()
 
-    default = games.keys()
+    default = AutoGameRegister.games.keys()
 
 
 class MetagameSelection(OptionSet):
@@ -199,9 +201,9 @@ class MetagameSelection(OptionSet):
     """
 
     display_name: str = "Metagame Selection"
-    valid_keys = metagames.keys()
+    valid_keys = AutoGameRegister.metagames.keys()
 
-    default = metagames.keys()
+    default = AutoGameRegister.metagames.keys()
 
 
 class IncludeAdultOnlyOrUnratedGames(Toggle):

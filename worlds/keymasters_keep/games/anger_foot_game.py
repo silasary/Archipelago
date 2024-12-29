@@ -10,6 +10,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 class AngerFootGame(Game):
     name = "Anger Foot"
+    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
@@ -169,9 +170,3 @@ class AngerFootGame(Game):
             "The CEO",
             "Pizza Pig",
         ]
-
-
-# Archipelago Options
-@dataclass
-class AngerFootArchipelagoOptions:
-    pass

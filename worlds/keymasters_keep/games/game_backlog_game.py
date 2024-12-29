@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from dataclasses import dataclass
@@ -10,13 +12,21 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class GameBacklogArchipelagoOptions:
+    game_backlog_game_selection: GameBacklogGameSelection
+    game_backlog_actions: GameBacklogActions
+
+
 class GameBacklogGame(Game):
     name = "Game Backlog"
+    options_cls = GameBacklogArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 
     is_adult_only_or_unrated = False
+    is_metagame = True
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -66,9 +76,3 @@ class GameBacklogActions(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class GameBacklogArchipelagoOptions:
-    game_backlog_game_selection: GameBacklogGameSelection
-    game_backlog_actions: GameBacklogActions

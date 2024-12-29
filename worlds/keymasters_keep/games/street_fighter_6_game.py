@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 
 from typing import List, Set
@@ -12,8 +14,14 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class StreetFighter6ArchipelagoOptions:
+    street_fighter_6_dlc_owned: StreetFighter6DLCOwned
+
+
 class StreetFighter6Game(Game):
     name = "Street Fighter 6"
+    options_cls = StreetFighter6ArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -249,8 +257,3 @@ class StreetFighter6DLCOwned(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class StreetFighter6ArchipelagoOptions:
-    street_fighter_6_dlc_owned: StreetFighter6DLCOwned

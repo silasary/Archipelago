@@ -10,6 +10,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 class HallsOfTormentGame(Game):
     name = "Halls of Torment"
+    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -328,9 +329,3 @@ class HallsOfTormentGame(Game):
     @staticmethod
     def agony_range() -> range:
         return range(1, 13)
-
-
-# Archipelago Options
-@dataclass
-class HallsOfTormentArchipelagoOptions:
-    pass

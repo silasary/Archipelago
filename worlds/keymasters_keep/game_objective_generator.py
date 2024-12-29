@@ -1,8 +1,10 @@
 from random import Random
 from typing import Any, List, Tuple, Type
 
-from .game import Game
-from .games import games, metagames
+from .game import Game, AutoGameRegister
+
+from .games import *
+# * imports aren't great, but we need to ensure every game is imported at least once for registration
 
 
 GameObjectiveGeneratorData = List[Tuple[Type[Game], List[str], List[str]]]
@@ -87,10 +89,10 @@ class GameObjectiveGenerator:
 
         game_name: str
         for game_name in allowable_games:
-            if game_name not in games and game_name not in metagames:
+            if game_name not in AutoGameRegister.games and game_name not in AutoGameRegister.metagames:
                 continue
 
-            game: Type[Game] = games.get(game_name, metagames.get(game_name))
+            game: Type[Game] = AutoGameRegister.games.get(game_name, AutoGameRegister.metagames.get(game_name))
             game_instance: Game = game(archipelago_options=self.archipelago_options)
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:

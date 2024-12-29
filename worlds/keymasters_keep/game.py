@@ -1,24 +1,44 @@
+from __future__ import annotations
+
 import abc
 
 from random import Random
-from typing import Any, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, Dict, Type
 
 from .enums import KeymastersKeepGamePlatforms
 
 from .game_objective_template import GameObjectiveTemplate
 
 
-class Game:
+class AutoGameRegister(type):
+    games: Dict[str, Type[Game]] = {}
+    metagames: Dict[str, Type[Game]] = {}
+
+    def __new__(mcs, name: str, bases: Tuple[type, ...], dct: Dict[str, Any]) -> AutoGameRegister:
+        new_class = super().__new__(mcs, name, bases, dct)
+        if name != "Game":
+            game_name = dct["name"]
+            if "is_metagame" in dct and dct["is_metagame"]:
+                mcs.metagames[game_name] = new_class
+            else:
+                mcs.games[game_name] = new_class
+
+        return new_class
+
+
+class Game(metaclass=AutoGameRegister):
     name: str  # Official name of the game. Use a resource like IGDB to get the correct name
+    options_cls: Optional[Type] = None  # Archipelago options type
     platform: KeymastersKeepGamePlatforms  # Platform that the game integration was developed with and tested on
 
     # Other available platforms the game integration might work with
     platforms_other: Optional[List[KeymastersKeepGamePlatforms]] = None
 
     is_adult_only_or_unrated: bool = True  # ESRB AO / PEGI 18 / USK 18 / Unrated? Used for filtering
+    is_metagame: bool = False  # Whether the game should be considered a metagame for grouping purposes
 
     random: Random  # Random instance
-    archipelago_options: Any  # Archipelago options dataclass
+    archipelago_options: Any  # Archipelago options dataclass for access
 
     def __init__(self, random: Random = None, archipelago_options: Any = None) -> None:
         self.random = random or Random()

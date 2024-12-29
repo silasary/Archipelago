@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from dataclasses import dataclass
@@ -10,13 +12,20 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class RetroAchievementsArchipelagoOptions:
+    retroachievements_games: RetroAchievementsGames
+
+
 class RetroAchievementsGame(Game):
     name = "RetroAchievements"
+    options_cls = RetroAchievementsArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.META
 
     platforms_other = None
 
     is_adult_only_or_unrated = False
+    is_metagame = True
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -72,7 +81,3 @@ class RetroAchievementsGames(OptionSet):
         "[PLATFORM] Game 3",
     ]
 
-
-@dataclass
-class RetroAchievementsArchipelagoOptions:
-    retroachievements_games: RetroAchievementsGames

@@ -12,6 +12,7 @@ class PizzaTowerGame(Game):
     # Initial Proposal by @bowsercrusher on Discord
 
     name = "Pizza Tower"
+    options_cls = None
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -158,9 +159,3 @@ class PizzaTowerGame(Game):
     @staticmethod
     def task_range() -> range:
         return range(1, 4)
-
-
-# Archipelago Options
-@dataclass
-class PizzaTowerArchipelagoOptions:
-    pass

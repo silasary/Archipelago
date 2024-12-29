@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 from typing import List
 
@@ -9,6 +11,11 @@ from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
+
+
+@dataclass
+class FinalFantasyXVIArchipelagoOptions:
+    final_fantasy_xvi_dlc_owned: FinalFantasyXVIDLCOwned
 
 
 class FinalFantasyXVIGame(Game):
@@ -221,8 +228,3 @@ class FinalFantasyXVIDLCOwned(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class FinalFantasyXVIArchipelagoOptions:
-    final_fantasy_xvi_dlc_owned: FinalFantasyXVIDLCOwned

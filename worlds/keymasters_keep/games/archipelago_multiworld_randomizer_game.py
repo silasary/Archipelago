@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from dataclasses import dataclass
@@ -10,13 +12,31 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class ArchipelagoMultiworldRandomizerArchipelagoOptions:
+    archipelago_multiworld_randomizer_supported_game_selection: ArchipelagoMultiworldRandomizerSupportedGameSelection
+
+    archipelago_multiworld_randomizer_unsupported_game_selection: (
+        ArchipelagoMultiworldRandomizerUnsupportedGameSelection
+    )
+
+    archipelago_multiworld_randomizer_adult_only_or_unrated_game_selection: (
+        ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection
+    )
+
+    archipelago_multiworld_randomizer_custom_game_selection: ArchipelagoMultiworldRandomizerCustomGameSelection
+    archipelago_multiworld_randomizer_allow_apbingo_objectives: ArchipelagoMultiworldRandomizerAllowAPBingoObjectives
+
+
 class ArchipelagoMultiworldRandomizerGame(Game):
     name = "Archipelago Multiworld Randomizer"
     platform = KeymastersKeepGamePlatforms.META
+    options_cls = ArchipelagoMultiworldRandomizerArchipelagoOptions
 
     platforms_other = None
 
     is_adult_only_or_unrated = False
+    is_metagame = True
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -421,19 +441,3 @@ class ArchipelagoMultiworldRandomizerAllowAPBingoObjectives(Toggle):
     """
 
     display_name = "Allow APBingo Objectives"
-
-
-@dataclass
-class ArchipelagoMultiworldRandomizerArchipelagoOptions:
-    archipelago_multiworld_randomizer_supported_game_selection: ArchipelagoMultiworldRandomizerSupportedGameSelection
-
-    archipelago_multiworld_randomizer_unsupported_game_selection: (
-        ArchipelagoMultiworldRandomizerUnsupportedGameSelection
-    )
-
-    archipelago_multiworld_randomizer_adult_only_or_unrated_game_selection: (
-        ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection
-    )
-
-    archipelago_multiworld_randomizer_custom_game_selection: ArchipelagoMultiworldRandomizerCustomGameSelection
-    archipelago_multiworld_randomizer_allow_apbingo_objectives: ArchipelagoMultiworldRandomizerAllowAPBingoObjectives

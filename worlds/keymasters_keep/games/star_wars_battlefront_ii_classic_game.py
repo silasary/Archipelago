@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Set
 
 from dataclasses import dataclass
@@ -10,10 +12,18 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+
+@dataclass
+class StarWarsBattlefrontIIClassicArchipelagoOptions:
+    # star_wars_battlefront_ii_classic_custom_maps: StarWarsBattlefrontIIClassicCustomMaps
+    pass
+
+
 class StarWarsBattlefrontIIClassicGame(Game):
     # Initial Proposal by @theroadkill on Discord
 
     name = "Star Wars: Battlefront II (Classic)"
+    options_cls = StarWarsBattlefrontIIClassicArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -295,9 +305,3 @@ class StarWarsBattlefrontIIClassicGame(Game):
 #
 #     display_name = "Star Wars Battlefront II (Classic) Custom Maps"
 #     default = list()
-
-
-@dataclass
-class StarWarsBattlefrontIIClassicArchipelagoOptions:
-    # star_wars_battlefront_ii_classic_custom_maps: StarWarsBattlefrontIIClassicCustomMaps
-    pass

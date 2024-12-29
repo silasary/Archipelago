@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import functools
 
 from typing import List, Set
@@ -12,8 +14,14 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class PlacidPlasticDuckSimulatorArchipelagoOptions:
+    placid_plastic_duck_simulator_dlc_owned: PlacidPlasticDuckSimulatorDLCOwned
+
+
 class PlacidPlasticDuckSimulatorGame(Game):
     name = "Placid Plastic Duck Simulator"
+    options_cls = PlacidPlasticDuckSimulatorArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -344,8 +352,3 @@ class PlacidPlasticDuckSimulatorDLCOwned(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class PlacidPlasticDuckSimulatorArchipelagoOptions:
-    placid_plastic_duck_simulator_dlc_owned: PlacidPlasticDuckSimulatorDLCOwned

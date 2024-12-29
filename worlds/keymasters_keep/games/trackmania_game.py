@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Set
 
 from dataclasses import dataclass
@@ -10,8 +12,14 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
+@dataclass
+class TrackmaniaArchipelagoOptions:
+    trackmania_campaigns_owned: TrackmaniaCampaignsOwned
+
+
 class TrackmaniaGame(Game):
     name = "Trackmania"
+    options_cls = TrackmaniaArchipelagoOptions
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
@@ -172,8 +180,3 @@ class TrackmaniaCampaignsOwned(OptionSet):
     ]
 
     default = valid_keys
-
-
-@dataclass
-class TrackmaniaArchipelagoOptions:
-    trackmania_campaigns_owned: TrackmaniaCampaignsOwned
