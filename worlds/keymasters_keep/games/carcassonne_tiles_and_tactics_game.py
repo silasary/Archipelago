@@ -24,6 +24,8 @@ class CarcassonneTilesAndTacticsGame(Game):
 
     is_adult_only_or_unrated = False
 
+    is_wip = True
+
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(

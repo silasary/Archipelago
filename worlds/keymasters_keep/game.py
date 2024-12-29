@@ -17,7 +17,7 @@ class AutoGameRegister(type):
     def __new__(mcs, name: str, bases: Tuple[type, ...], dict_: Dict[str, Any]) -> AutoGameRegister:
         new_class: Type[Game] = super().__new__(mcs, name, bases, dict_)
 
-        if name != "Game":
+        if name != "Game" and not new_class.is_wip:
             game_name: str = new_class.game_name_with_platforms()
 
             if "is_metagame" in dict_ and dict_["is_metagame"]:
@@ -37,6 +37,8 @@ class Game(metaclass=AutoGameRegister):
 
     is_metagame: bool = False  # Whether the game should be considered a metagame for grouping purposes
     is_adult_only_or_unrated: bool = True  # ESRB AO / PEGI 18 / USK 18 / Unrated? Used for filtering
+
+    is_wip: bool = False  # Development flag. Used to hide from AutoGameRegister
 
     archipelago_options: Any  # Archipelago options dataclass (for access)
 

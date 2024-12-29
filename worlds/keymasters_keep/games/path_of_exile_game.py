@@ -22,6 +22,8 @@ class PathofExileGame(Game):
 
     is_adult_only_or_unrated = True
 
+    is_wip = True
+
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
