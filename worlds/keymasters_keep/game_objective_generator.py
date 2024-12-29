@@ -41,7 +41,9 @@ class GameObjectiveGenerator:
         plan: List[int] = None,
         random: Random = None,
         include_difficult: bool = False,
+        excluded_games_difficult: List[str] = None,
         include_time_consuming: bool = False,
+        excluded_games_time_consuming: List[str] = None,
     ) -> GameObjectiveGeneratorData:
         if plan is None or not len(plan):
             return list()
@@ -63,6 +65,22 @@ class GameObjectiveGenerator:
         count: int
         for i, count in enumerate(plan):
             game: Game = game_selection[i](random=random, archipelago_options=self.archipelago_options)
+
+            is_in_difficult_exclusions: bool = game.game_name_with_platforms() in excluded_games_difficult
+            include_difficult = include_difficult and not is_in_difficult_exclusions
+
+            # This appears to completely ignore the passed 'include_difficult' value, but in reality, a game that only
+            # implements difficult objectives would already be filtered out in the constructor when 'include_difficult'
+            # is False, so we are only forcing it on when it's in the excluded list.
+            if game.only_has_difficult_objectives and not include_difficult:
+                include_difficult = True
+
+            is_in_time_consuming_exclusions: bool = game.game_name_with_platforms() in excluded_games_time_consuming
+            include_time_consuming = include_time_consuming and not is_in_time_consuming_exclusions
+
+            # Same as above
+            if game.only_has_time_consuming_objectives and not include_time_consuming:
+                include_time_consuming = True
 
             optional_constraints: List[str]
             objectives: List[str]

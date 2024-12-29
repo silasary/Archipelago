@@ -88,6 +88,8 @@ class KeymastersKeepWorld(World):
     area_trials_minimum: int
     artifacts_of_resolve_required: int
     artifacts_of_resolve_total: int
+    excluded_games_difficult_objectives: List[str]
+    excluded_games_time_consuming_objectives: List[str]
     filler_item_names: List[str] = item_groups()["Filler"]
     game_selection: List[str]
     goal: KeymastersKeepGoals
@@ -204,8 +206,15 @@ class KeymastersKeepWorld(World):
         self.metagame_selection = list(self.options.metagame_selection.value)
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
+
         self.include_difficult_objectives = bool(self.options.include_difficult_objectives)
+        self.excluded_games_difficult_objectives = list(self.options.excluded_games_difficult_objectives.value)
+
         self.include_time_consuming_objectives = bool(self.options.include_time_consuming_objectives)
+
+        self.excluded_games_time_consuming_objectives = list(
+            self.options.excluded_games_time_consuming_objectives.value
+        )
 
         self.hints_reveal_objectives = bool(self.options.hints_reveal_objectives)
 
@@ -585,7 +594,9 @@ class KeymastersKeepWorld(World):
             plan,
             self.random,
             self.include_difficult_objectives,
+            self.excluded_games_difficult_objectives,
             self.include_time_consuming_objectives,
+            self.excluded_games_time_consuming_objectives,
         )
 
         self.area_games = dict()

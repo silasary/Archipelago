@@ -218,9 +218,26 @@ class IncludeDifficultObjectives(Toggle):
     Determines if difficult objectives should be considered.
 
     Enabling this option might yield objectives that some players will struggle or not be able to complete.
+
+    If enabled, you can still exclude specific games with the 'excluded_games_difficult_objectives' option.
     """
 
     display_name: str = "Include Difficult Objectives"
+
+
+class ExcludedGamesDifficultObjectives(OptionSet):
+    """
+    When 'include_difficult_objectives' is enabled, this option allows you to still exclude specific games.
+
+    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+
+    If a game specified here only offers difficult objectives, this option will have no effect for it.
+    """
+
+    display_name: str = "Excluded Games Difficult Objectives"
+    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+
+    default = list()
 
 
 class IncludeTimeConsumingObjectives(Toggle):
@@ -228,9 +245,26 @@ class IncludeTimeConsumingObjectives(Toggle):
     Determines if time-consuming objectives should be considered.
 
     Enabling this option might yield objectives that take much longer to complete (i.e. more than 1 hour).
+
+    If enabled, you can still exclude specific games with the 'excluded_games_time_consuming_objectives' option.
     """
 
     display_name: str = "Include Time-Consuming Objectives"
+
+
+class ExcludedGamesTimeConsumingObjectives(OptionSet):
+    """
+    When 'include_time_consuming_objectives' is enabled, this option allows you to still exclude specific games.
+
+    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+
+    If a game specified here only offers time-consuming objectives, this option will have no effect for it.
+    """
+
+    display_name: str = "Excluded Games Time-Consuming Objectives"
+    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+
+    default = list()
 
 
 class HintsRevealObjectives(Toggle):
@@ -261,7 +295,9 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     metagame_selection: MetagameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_difficult_objectives: IncludeDifficultObjectives
+    excluded_games_difficult_objectives: ExcludedGamesDifficultObjectives
     include_time_consuming_objectives: IncludeTimeConsumingObjectives
+    excluded_games_time_consuming_objectives: ExcludedGamesTimeConsumingObjectives
     hints_reveal_objectives: HintsRevealObjectives
 
 
@@ -295,10 +331,12 @@ option_groups: typing.List[OptionGroup] = [
         [
             IncludeAdultOnlyOrUnratedGames,
             IncludeDifficultObjectives,
+            ExcludedGamesDifficultObjectives,
             IncludeTimeConsumingObjectives,
+            ExcludedGamesTimeConsumingObjectives,
             HintsRevealObjectives,
-            GameSelection,
             MetagameSelection,
+            GameSelection,
         ],
     ),
     OptionGroup(
