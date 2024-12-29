@@ -521,7 +521,7 @@ useless_technologies: Set[str] = {tech_name for tech_name in common_tech_table
                                   if not technology_table[tech_name].useful()}
 
 rel_cost = {
-    "wood": 50000,
+    "wood": 5000000,
     "iron-ore": 1,
     "copper-ore": 1,
     "stone": 1,
@@ -535,12 +535,12 @@ rel_cost = {
     "coal": 1,
     "raw-fish": 10,
     "steam": 0.01,
-    "used-up-uranium-fuel-cell": 50000,
+    "used-up-uranium-fuel-cell": 500000,
     "ammoniacal-solution": 1,
     "lava": 1,
-    "fluoroketone-hot": 50000,
-    "yumako-seed": 50000,
-    "jellynut-seed": 50000
+    "fluoroketone-hot": 5000000,
+    "yumako-seed": 5000000,
+    "jellynut-seed": 5000000
 }
 
 exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "rocket-silo", "cargo-landing-pad",
