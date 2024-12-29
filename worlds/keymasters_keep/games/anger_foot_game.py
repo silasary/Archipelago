@@ -21,7 +21,7 @@ class AngerFootGame(Game):
 
     platforms_other = None
 
-    is_adult_only_or_unrated = True
+    is_adult_only_or_unrated = False
 
     options_cls = AngerFootArchipelagoOptions
 
