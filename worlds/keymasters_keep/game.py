@@ -121,15 +121,22 @@ class Game(metaclass=AutoGameRegister):
             filtered_objectives.append(template)
             weights.append(template.weight)
 
-        selected_objectives: List[str] = list()
+        selected_objectives: List[GameObjectiveTemplate] = self.random.choices(
+            filtered_objectives, weights=weights, k=count
+        )
 
-        if count <= len(filtered_objectives):
-            selected_objectives = self.random.choices(filtered_objectives, weights=weights, k=count)
-        else:
-            for _ in range(count):
-                selected_objectives.append(self.random.choices(filtered_objectives, weights=weights)[0])
+        objectives: List[str] = list()
 
-        objectives: List[str] = [template.generate_game_objective(self.random) for template in selected_objectives]
+        for template in selected_objectives:
+            passes: int = 0
+
+            while True:
+                passes += 1
+                objective: str = template.generate_game_objective(self.random)
+
+                if objective not in objectives or passes > 10:
+                    objectives.append(objective)
+                    break
 
         return optional_constraints, objectives
 
