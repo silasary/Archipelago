@@ -19,6 +19,8 @@ class PokemonRSEKeymastersKeepOptions:
 
 
 class PokemonRSEGame(Game):
+    # Initial implementation by soopercool101
+
     name = "Pokémon Ruby, Sapphire, and Emerald Versions"
     platform = KeymastersKeepGamePlatforms.GBA
 
