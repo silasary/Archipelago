@@ -75,7 +75,7 @@ class GuitarHeroGame(Game):
             "Iron Man (tier 2)",
             "Killer Queen (tier 3)",
             "More Than a Feeling (tier 2)",
-            "No One Knowns (tier 5)",
+            "No One Knows (tier 5)",
             "Sharp Dressed Man (tier 2)",
             "Smoke on the Water (tier 1)",
             "Spanish Castle Magic (tier 5)",
