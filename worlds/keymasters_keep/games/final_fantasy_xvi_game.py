@@ -19,7 +19,7 @@ class FinalFantasyXVIArchipelagoOptions:
 
 
 class FinalFantasyXVIGame(Game):
-    # Initial Proposal by @delcake on Discord
+    # Initial implementation by @delcake on Discord
 
     name = "Final Fantasy XVI"
     platform = KeymastersKeepGamePlatforms.PC
