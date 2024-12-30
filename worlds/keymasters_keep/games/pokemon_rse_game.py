@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import functools
-from msilib.schema import Property
 from typing import List, Set
 
 from dataclasses import dataclass
@@ -16,8 +14,8 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class PokemonRSEKeymastersKeepOptions:
-    pokemon_rse_owned_games: RSEOwnedGames
-    pokemon_rse_objectives: RSEObjectives
+    pokemon_rse_owned_games: PokemonRSEOwnedGames
+    pokemon_rse_objectives: PokemonRSEObjectives
 
 
 class PokemonRSEGame(Game):
@@ -33,19 +31,23 @@ class PokemonRSEGame(Game):
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
                 data={"POKEMON": (self.wild_pokemon, 1)},
-                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Use POKEMON as your lead whenever possible",
+                data={"POKEMON": (self.wild_pokemon, 1)},
+            ),
+            GameObjectiveTemplate(
+                label="Use POKEMON as your lead whenever possible",
+                data={"POKEMON": (self.wild_pokemon, 1)},
             ),
             GameObjectiveTemplate(
                 label="Use RAREPOKEMON as your lead whenever possible",
                 data={"RAREPOKEMON": (self.difficult_pokemon, 1)},
-                is_time_consuming=True,
-                is_difficult=True,
-                weight=1
             ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        objectives: List[GameObjectiveTemplate] = []
+        objectives: List[GameObjectiveTemplate] = list()
         if self.objective_catching:
             objectives += self.catching_objectives()
         if self.objective_contests:
@@ -54,7 +56,7 @@ class PokemonRSEGame(Game):
             objectives += self.battle_objectives()
         if self.objective_battle_frontier:
             objectives += self.battle_frontier_objectives()
-        if len(objectives) == 0: # Fallback default objectives. Better versions of these exist in other categories
+        if len(objectives) == 0:  # Fallback default objectives. Better versions of these exist in other categories
             objectives += [
                 GameObjectiveTemplate(
                     label="Without using Fly, travel between the following cities: CITY",
@@ -72,7 +74,7 @@ class PokemonRSEGame(Game):
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild Feebas",
-                    data={},
+                    data=dict(),
                     is_time_consuming=True,
                     is_difficult=True,
                     weight=1
@@ -99,7 +101,7 @@ class PokemonRSEGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Catch a wild Feebas",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=3,
@@ -119,7 +121,6 @@ class PokemonRSEGame(Game):
                 weight=25,
             ),
         ]
-
 
     def contest_objectives(self) -> List[GameObjectiveTemplate]:
         return [
@@ -146,14 +147,14 @@ class PokemonRSEGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Win a Hyper Rank Contest",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=15,
             ),
             GameObjectiveTemplate(
                 label="Win a Master Rank Contest",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=10,
@@ -185,7 +186,7 @@ class PokemonRSEGame(Game):
         objectives: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Defeat the Pokémon League and enter the Hall of Fame",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=25,
@@ -199,7 +200,7 @@ class PokemonRSEGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Defeat the Pokémon League and enter the Hall of Fame with only one Pokémon",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=10,
@@ -218,14 +219,14 @@ class PokemonRSEGame(Game):
             objectives.extend([
                 GameObjectiveTemplate(
                     label="Win any Match Call rematch",
-                    data={},
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=35,
                 ),
                 GameObjectiveTemplate(
                     label="Win a Match Call rematch against a Gym Leader",
-                    data={},
+                    data=dict(),
                     is_time_consuming=True,
                     is_difficult=False,
                     weight=5,
@@ -253,7 +254,7 @@ class PokemonRSEGame(Game):
                 ),
                 GameObjectiveTemplate(
                     label="Complete 7 floors in a row in the Battle Pyramid",
-                    data={},
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=10,
@@ -270,7 +271,7 @@ class PokemonRSEGame(Game):
             return [
                 GameObjectiveTemplate(
                     label="Win 7 battles in a row in the Battle Tower",
-                    data={},
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=20,
@@ -404,11 +405,11 @@ class PokemonRSEGame(Game):
         ]
 
         if not self.has_ruby:
-            pokemon.append("Dusclops") # Evolution-only in all other games
+            pokemon.append("Dusclops")  # Evolution-only in all other games
         if not self.has_sapphire and not self.has_emerald:
-            pokemon.append("Banette") # Evolution-only in Ruby
+            pokemon.append("Banette")  # Evolution-only in Ruby
         if not self.has_emerald:
-            pokemon.append("Mightyena") # Evolution-only outside of Emerald
+            pokemon.append("Mightyena")  # Evolution-only outside of Emerald
 
         if self.has_ruby or self.has_sapphire:
             pokemon.append("Masquerain")
@@ -764,8 +765,9 @@ class PokemonRSEGame(Game):
             "Salon Maiden Anabel"
         ]
 
+
 # Archipelago Options
-class RSEOwnedGames(OptionSet):
+class PokemonRSEOwnedGames(OptionSet):
     """
     Indicates which versions of the games the player owns between Pokémon Ruby/Sapphire/Emerald.
     """
@@ -779,7 +781,8 @@ class RSEOwnedGames(OptionSet):
 
     default = valid_keys
 
-class RSEObjectives(OptionSet):
+
+class PokemonRSEObjectives(OptionSet):
     """
     Indicates which objective types the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
     """
