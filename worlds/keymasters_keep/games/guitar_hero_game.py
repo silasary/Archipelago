@@ -5,7 +5,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet
+from Options import Toggle
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -17,7 +17,10 @@ from ..enums import KeymastersKeepGamePlatforms
 class GuitarHeroArchipelagoOptions:
     guitar_hero_bonus_tracks: GuitarHeroBonusTracks
 
+
 class GuitarHeroGame(Game):
+    # Initial implementation by JCBoorgo
+
     name = "Guitar Hero"
     platform = KeymastersKeepGamePlatforms.PS2
 
@@ -84,7 +87,7 @@ class GuitarHeroGame(Game):
             "Thunder Kiss '65 (tier 1)",
             "Unsung (tier 4)",
             "You've Got Another Thing Comin (tier 2)",
-            "Ziggy Stardust (tier 4)"
+            "Ziggy Stardust (tier 4)",
         ]
     
     @functools.cached_property
@@ -111,9 +114,9 @@ class GuitarHeroGame(Game):
 
 
 # Archipelago Options
-class GuitarHeroBonusTracks(OptionSet):
+class GuitarHeroBonusTracks(Toggle):
     """
-    Indicates whether or not to include the bonus tracks in the list
+    Indicates whether to include the bonus tracks in the list for Guitar Hero.
     """
 
     display_name = "Guitar Hero Bonus Tracks"
