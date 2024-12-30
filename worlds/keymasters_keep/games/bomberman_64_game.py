@@ -80,7 +80,7 @@ class Bomberman64Game(Game):
                 data={"STAGE": (self.deep_stages, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=23,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete all stages in WORLD",
@@ -201,6 +201,6 @@ class Bomberman64Game(Game):
 # Archipelago Options
 class Bomberman64AllowRainbowPalace(Toggle):
     """
-    Whether objectives are allowed require accessing the secret Rainbow Palace stages.
+    Whether objectives are allowed to require accessing the secret Rainbow Palace stages.
     """
     display_name = "Bomberman 64 Allow Rainbow Palace"
