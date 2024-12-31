@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import functools
 from typing import List
 
 from dataclasses import dataclass
@@ -15,15 +14,16 @@ from ..enums import KeymastersKeepGamePlatforms
 class MarioParty2KeymastersKeepOptions:
     pass
 
+
 class MarioParty2Game(Game):
     name = "Mario Party 2"
     platform = KeymastersKeepGamePlatforms.N64
 
     # Virtual Console and Nintendo Online re-releases
     platforms_other = [
+        KeymastersKeepGamePlatforms.SW,
         KeymastersKeepGamePlatforms.WII,
         KeymastersKeepGamePlatforms.WIIU,
-        KeymastersKeepGamePlatforms.SW,
     ]
 
     is_adult_only_or_unrated = False
@@ -33,42 +33,29 @@ class MarioParty2Game(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Never use a ITEM", # All items start with a consonant
+                label="Never use a ITEM",  # All items start with a consonant
                 data={"ITEM": (self.items, 1)},
-                is_time_consuming=True, # All board objectives are time-consuming, and this only affects those
-                weight=10
             ),
             GameObjectiveTemplate(
                 label="Set the Computer Character skill levels individually in the following order: SKILLS",
                 data={"SKILLS": (self.skill_levels_duplicated, 3)},
-                weight=10
             ),
             GameObjectiveTemplate(
                 label="Set the Computer Character skill levels all the same to SKILL",
                 data={"SKILL": (self.skill_levels, 1)},
-                is_difficult=True, # Only because this could land on all Hard
-                weight=5
             ),
             GameObjectiveTemplate(
                 label="Do not use any items",
-                data={},
-                is_difficult=True,
-                is_time_consuming=True, # All board objectives are time-consuming, and this only affects those
-                weight=1
+                data=dict(),
             ),
             GameObjectiveTemplate(
                 label="Say no the first time you are offered a Star in a board",
-                data={},
-                is_difficult=True,
-                is_time_consuming=True, # All board objectives are time-consuming, and this only affects those
-                weight=1
+                data=dict(),
             ),
             GameObjectiveTemplate(
                 label="For all Mini-Game objectives, include at least one Computer Player not on your team set"
                       " to Super Hard",
-                data={},
-                is_difficult=True,
-                weight=1
+                data=dict(),
             ),
         ]
 
@@ -97,7 +84,7 @@ class MarioParty2Game(Game):
             ),
             GameObjectiveTemplate(
                 label="Win a DIFFICULTY Course Mini-Game Coaster",
-                data={"DIFFICULTY": (self.skill_levels, 1)}, # Course names are the same as COM Skill Levels
+                data={"DIFFICULTY": (self.skill_levels, 1)},  # Course names are the same as COM Skill Levels
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=3,
@@ -117,7 +104,7 @@ class MarioParty2Game(Game):
                 weight=5,
             ),
             GameObjectiveTemplate(
-                label="Win a ITEM in an Item Mini-Game", # All items start with a consonant
+                label="Win a ITEM in an Item Mini-Game",  # All items start with a consonant
                 data={"ITEM": (self.items, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
@@ -183,7 +170,7 @@ class MarioParty2Game(Game):
 
     @staticmethod
     def skill_levels_duplicated() -> List[str]:
-        return [ # Two of each difficulty to allow one duplicate for the Set Individually challenges
+        return [  # Two of each difficulty to allow one duplicate for the Set Individually challenges
             "Easy",
             "Easy",
             "Normal",
@@ -194,7 +181,7 @@ class MarioParty2Game(Game):
 
     @staticmethod
     def base_minigame_categories() -> List[str]:
-        return [ # As a hack, all categories are listed here twice to compensate for the two 1 VS 3 options
+        return [  # As a hack, all categories are listed here twice to compensate for the two 1 VS 3 options
             "4-Player Game",
             "4-Player Game",
             "1 VS 3 Game (as the 1)",
@@ -257,7 +244,7 @@ class MarioParty2Game(Game):
             "Lights Out (as the 1)",
             "Filet Relay (as the 1)",
             "Archer-ival (as the 1)",
-            #"Quicksand Cache (as the 1)", # Coin Minigame, different objective
+            # "Quicksand Cache (as the 1)", # Coin Minigame, different objective
             "Rainbow Run (as the 1)",
         ]
 
@@ -273,7 +260,7 @@ class MarioParty2Game(Game):
             "Lights Out (as the 3)",
             "Filet Relay (as the 3)",
             "Archer-ival (as the 3)",
-            #"Quicksand Cache (as the 3)", # Coin Minigame, different objective
+            # "Quicksand Cache (as the 3)", # Coin Minigame, different objective
             "Rainbow Run (as the 3)",
         ]
 
@@ -321,6 +308,7 @@ class MarioParty2Game(Game):
     def minigame_list_winnable(self) -> List[str]:
         # Add all Mini-Games twice as weight against for the different 1v3 variants
         minigames: List[str] = self.minigame_list_4p()[:]
+
         minigames.extend(self.minigame_list_4p()[:])
         minigames.extend(self.minigame_list_1v3as1()[:])
         minigames.extend(self.minigame_list_1v3as3()[:])
@@ -330,6 +318,7 @@ class MarioParty2Game(Game):
         minigames.extend(self.minigame_list_battle()[:])
         minigames.extend(self.minigame_list_duel()[:])
         minigames.extend(self.minigame_list_duel()[:])
+
         return minigames
 
     @staticmethod
