@@ -35,35 +35,73 @@ class NeonWhiteGame(Game):
     options_cls = NeonWhiteArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return [
-            GameObjectiveTemplate(
-                label="Achieve at least RANK Rank Times (if applicable)",
-                data={"RANK": (self.ranks, 1)},
-            ),
-        ]
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Complete LEVEL",
-                data={"LEVEL": (self.levels_standard, 1)},
+                label="Complete LEVEL and earn: MEDAL medal",
+                data={
+                    "LEVEL": (self.levels_standard, 1),
+                    "MEDAL": (self.medals, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=5,
             ),
             GameObjectiveTemplate(
-                label="Complete LEVELS",
-                data={"LEVELS": (self.levels_standard, 3)},
+                label="Complete LEVEL and earn: MEDAL medal",
+                data={
+                    "LEVEL": (self.levels_standard, 1),
+                    "MEDAL": (self.medals_hard, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVELS and earn at least COUNT MEDAL medal(s)",
+                data={
+                    "LEVELS": (self.levels_standard, 3),
+                    "COUNT": (self.medal_count_range_low, 1),
+                    "MEDAL": (self.medals, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
             ),
             GameObjectiveTemplate(
-                label="Complete LEVELS",
-                data={"LEVELS": (self.levels_standard, 5)},
+                label="Complete LEVELS and earn at least COUNT MEDAL medal(s)",
+                data={
+                    "LEVELS": (self.levels_standard, 3),
+                    "COUNT": (self.medal_count_range_low, 1),
+                    "MEDAL": (self.medals_hard, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVELS and earn at least COUNT MEDAL medal(s)",
+                data={
+                    "LEVELS": (self.levels_standard, 5),
+                    "COUNT": (self.medal_count_range_high, 1),
+                    "MEDAL": (self.medals, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVELS and earn at least COUNT MEDAL medal(s)",
+                data={
+                    "LEVELS": (self.levels_standard, 5),
+                    "COUNT": (self.medal_count_range_high, 1),
+                    "MEDAL": (self.medals_hard, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete LEVEL",
@@ -77,7 +115,7 @@ class NeonWhiteGame(Game):
                 data={"LEVELS": (self.levels_sidequest, 3)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete every stage in MISSION",
@@ -103,11 +141,32 @@ class NeonWhiteGame(Game):
         ]
 
     @staticmethod
-    def ranks() -> List[str]:
+    def medals() -> List[str]:
         return [
+            "Bronze",
+            "Silver",
+            "Silver",
             "Gold",
-            "Ace",
+            "Gold",
+            "Gold",
         ]
+
+    @staticmethod
+    def medals_hard() -> List[str]:
+        return [
+            "Ace",
+            "Ace",
+            "Ace",
+            "Red",
+        ]
+
+    @staticmethod
+    def medal_count_range_low() -> range:
+        return range(1, 3)
+
+    @staticmethod
+    def medal_count_range_high() -> range:
+        return range(1, 5)
 
     @staticmethod
     def levels_standard() -> List[str]:
