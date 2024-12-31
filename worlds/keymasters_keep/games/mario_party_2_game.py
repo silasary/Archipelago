@@ -83,7 +83,7 @@ class MarioParty2Game(Game):
                 weight=8,
             ),
             GameObjectiveTemplate(
-                label="Win a DIFFICULTY Course Mini-Game Coaster",
+                label="Complete the DIFFICULTY Course in Mini-Game Coaster",
                 data={"DIFFICULTY": (self.skill_levels, 1)},  # Course names are the same as COM Skill Levels
                 is_time_consuming=True,
                 is_difficult=False,
@@ -306,7 +306,7 @@ class MarioParty2Game(Game):
         ]
 
     def minigame_list_winnable(self) -> List[str]:
-        # Add all Mini-Games twice as weight against for the different 1v3 variants
+        # Add all Mini-Games twice as weight against the different 1v3 variants
         minigames: List[str] = self.minigame_list_4p()[:]
 
         minigames.extend(self.minigame_list_4p()[:])
