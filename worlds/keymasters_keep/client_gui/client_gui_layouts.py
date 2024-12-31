@@ -134,10 +134,29 @@ class KeepAreaLayout(BoxLayout):
             self.unlock_button.text = "Unlocked!"
 
             game: str = self.ctx.area_games[self.area.value]
+
             trial_count: int = len(self.ctx.area_trials[self.area])
 
-            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=6faeed][u]{trial_count} trials[/u][/color]"
-            self.locked_by_button.bind(on_press=lambda _: self.ctx.ui.tabs.switch_to(self.ctx.ui.available_trials_tab)) 
+            trial_available_count: int = len(self.ctx.game_state["trials_available"][self.area])
+            trial_completed_count: int = trial_count - trial_available_count
+
+            label: str
+            if trial_available_count:
+                if not trial_completed_count:
+                    label = f"{trial_available_count} available trials"
+                else:
+                    label = f"{trial_available_count} available trials ({trial_completed_count} complete)"
+            else:
+                label = f"Area complete!"
+
+            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=00FA9A]{label}[/color]"
+
+            if trial_available_count:
+                self.locked_by_button.bind(
+                    on_press=lambda _: self.ctx.ui.tabs.switch_to(self.ctx.ui.available_trials_tab)
+                )
+            else:
+                self.locked_by_button.bind(on_press=lambda _: None)
         else:
             self.unlock_button.disabled = False
             self.unlock_button.text = "Unlock"
