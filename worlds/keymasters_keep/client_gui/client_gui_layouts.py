@@ -56,7 +56,7 @@ class KeepAreaLayout(BoxLayout):
 
     area: KeymastersKeepRegions
     unlock_button: Button
-    locked_by_label: Label
+    locked_by_button: Button
 
     def __init__(
         self,
@@ -99,7 +99,7 @@ class KeepAreaLayout(BoxLayout):
 
         self.add_widget(area_label)
 
-        self.locked_by_label: Label = Label(
+        self.locked_by_button: Button = Button(
             text="",
             markup=True,
             size_hint_x=0.77,
@@ -107,23 +107,25 @@ class KeepAreaLayout(BoxLayout):
             height="40dp",
             halign="left",
             valign="middle",
+            background_normal="",
+            background_color=(0, 0, 0, 0)
         )
 
         if bool(locked_by):
-            self.locked_by_label.text = "[b]Needs:[/b]  " + "    ".join(
+            self.locked_by_button.text = "[b]Needs:[/b]  " + "    ".join(
                 [key_to_markup_text(key) for key in locked_by]
             )
 
-        self.locked_by_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+        self.locked_by_button.bind(size=lambda btn, size: setattr(btn, "text_size", size))
 
-        self.add_widget(self.locked_by_label)
+        self.add_widget(self.locked_by_button)
 
     def update(self, locked_by: Optional[List[KeymastersKeepItems]], unlocked: bool) -> None:
         if locked_by:
             self.unlock_button.disabled = True
             self.unlock_button.text = "Locked"
 
-            self.locked_by_label.text = "[b]Needs:[/b]  " + "    ".join(
+            self.locked_by_button.text = "[b]Needs:[/b]  " + "    ".join(
                 [key_to_markup_text(key) for key in locked_by]
             )
         elif unlocked:
@@ -133,12 +135,13 @@ class KeepAreaLayout(BoxLayout):
             game: str = self.ctx.area_games[self.area.value]
             trial_count: int = len(self.ctx.area_trials[self.area])
 
-            self.locked_by_label.text = f"[b]Game:[/b]  {game}    [color=888888]{trial_count} trials[/color]"
+            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=6faeed][u]{trial_count} trials[/u][/color]"
+            self.locked_by_button.bind(on_press=lambda _: self.ctx.ui.tabs.switch_to(self.ctx.ui.available_trials_tab)) 
         else:
             self.unlock_button.disabled = False
             self.unlock_button.text = "Unlock"
 
-            self.locked_by_label.text = ""
+            self.locked_by_button.text = ""
 
     def on_unlock_button_press(self, _) -> None:
         self.unlock_button.disabled = True

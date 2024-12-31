@@ -26,7 +26,7 @@ class KeymastersKeepManager(GameManager):
         self.add_client_tab("Keymaster's Keep", self.keymasters_keep_tab_layout)
 
         self.trials_tab_layout = TrialsTabLayout(self.ctx)
-        self.add_client_tab("Available Trials", self.trials_tab_layout)
+        self.available_trials_tab = self.add_client_tab("Available Trials", self.trials_tab_layout)
 
         self.trials_completed_tab_layout = TrialsCompletedTabLayout(self.ctx)
         self.add_client_tab("Completed Trials", self.trials_completed_tab_layout)
