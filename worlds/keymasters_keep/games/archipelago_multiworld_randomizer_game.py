@@ -342,6 +342,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
         "Ori and the Blind Forest",
         "Osu!",
         "Outer Wilds",
+        "Oxygen Not Included",
         "Paper Mario",
         "Pokémon Crystal",
         "Pokémon FireRed and LeafGreen",
