@@ -15,7 +15,7 @@ class KeymastersKeepItemData(NamedTuple):
 item_data: Dict[KeymastersKeepItems, KeymastersKeepItemData] = {
     # Keys
     KeymastersKeepItems.KEY_AMBER_INFERNO: KeymastersKeepItemData(
-        archipelago_id=0,
+        archipelago_id=100,
         classification=ItemClassification.progression,
         tags=(KeymastersKeepTags.KEYS,),
     ),

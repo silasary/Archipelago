@@ -22,7 +22,7 @@ location_data: Dict[
     # Door Unlocks
     KeymastersKeepLocations.THE_ARCANE_DOOR_UNLOCK: KeymastersKeepLocationData(
         name=KeymastersKeepLocations.THE_ARCANE_DOOR_UNLOCK.value,
-        archipelago_id=0,
+        archipelago_id=201,
         region=KeymastersKeepRegions.KEYMASTERS_KEEP,
         tags=(KeymastersKeepTags.DOOR_UNLOCKS,),
     ),
