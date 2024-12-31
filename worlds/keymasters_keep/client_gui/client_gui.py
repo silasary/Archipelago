@@ -3,6 +3,11 @@ from typing import List, Tuple
 from kvui import GameManager
 
 from kivy.uix.layout import Layout
+from kivy.uix.widget import Widget
+
+# Debugging
+# from kivy.core.window import Window
+# from kivy.modules import inspector
 
 from ..client import KeymastersKeepContext
 
@@ -19,17 +24,24 @@ class KeymastersKeepManager(GameManager):
     trials_tab_layout: TrialsTabLayout
     trials_completed_tab_layout: TrialsCompletedTabLayout
 
+    keymasters_keep_tab: Widget
+    available_trials_tab: Widget
+    completed_trials_tab: Widget
+
     def build(self) -> Layout:
         container: Layout = super().build()
 
         self.keymasters_keep_tab_layout = KeymastersKeepTabLayout(self.ctx)
-        self.add_client_tab("Keymaster's Keep", self.keymasters_keep_tab_layout)
+        self.keymasters_keep_tab = self.add_client_tab("Keymaster's Keep", self.keymasters_keep_tab_layout)
 
         self.trials_tab_layout = TrialsTabLayout(self.ctx)
         self.available_trials_tab = self.add_client_tab("Available Trials", self.trials_tab_layout)
 
         self.trials_completed_tab_layout = TrialsCompletedTabLayout(self.ctx)
-        self.add_client_tab("Completed Trials", self.trials_completed_tab_layout)
+        self.completed_trials_tab = self.add_client_tab("Completed Trials", self.trials_completed_tab_layout)
+
+        # Debugging
+        # inspector.create_inspector(Window, container)
 
         return container
 

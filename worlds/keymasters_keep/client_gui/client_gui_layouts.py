@@ -55,6 +55,7 @@ class KeepAreaLayout(BoxLayout):
     ctx: KeymastersKeepContext
 
     area: KeymastersKeepRegions
+
     unlock_button: Button
     locked_by_button: Button
 
