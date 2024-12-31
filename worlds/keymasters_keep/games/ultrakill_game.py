@@ -28,27 +28,11 @@ class UltrakillGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Play on DIFFICULTY difficulty",
-                data={"DIFFICULTY": (self.difficulties, 1)},
-            ),
-            GameObjectiveTemplate(
-                label="Play without using any WEAPON variants",
-                data={"WEAPON": (self.weapons, 1)},
-            ),
-            GameObjectiveTemplate(
-                label="Play without using any WEAPONS variants",
-                data={"WEAPONS": (self.weapons, 2)},
-            ),
-            GameObjectiveTemplate(
                 label="Set FOV to X",
                 data={"X": (self.fov_range, 1)},
             ),
             GameObjectiveTemplate(
-                label="All weapons stay on their Primary / Normal versions",
-                data=dict(),
-            ),
-            GameObjectiveTemplate(
-                label="Set all weapons with alternate versions to their Alternate versions",
+                label="Set HUD Type to NONE",
                 data=dict(),
             ),
             GameObjectiveTemplate(
@@ -88,18 +72,44 @@ class UltrakillGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Complete LEVEL",
-                data={"LEVEL": (self.levels_easy, 1)},
+                label="Complete LEVEL while on DIFFICULTY difficulty",
+                data={
+                    "LEVEL": (self.levels_easy, 1),
+                    "DIFFICULTY": (self.difficulties, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=5,
             ),
             GameObjectiveTemplate(
-                label="Complete LEVEL",
-                data={"LEVEL": (self.levels_hard, 1)},
+                label="Complete LEVEL while on DIFFICULTY difficulty",
+                data={
+                    "LEVEL": (self.levels_hard, 1),
+                    "DIFFICULTY": (self.difficulties, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVEL while only using the WEAPON",
+                data={
+                    "LEVEL": (self.levels_easy, 1),
+                    "WEAPON": (self.weapons, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVEL while only using the WEAPON",
+                data={
+                    "LEVEL": (self.levels_hard, 1),
+                    "WEAPON": (self.weapons, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete LEVEL",
@@ -127,6 +137,26 @@ class UltrakillGame(Game):
                 data={"LEVEL": (self.levels_hard, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="P-Rank LEVEL while only using: WEAPONS",
+                data={
+                    "LEVEL": (self.levels_easy, 1),
+                    "WEAPONS": (self.weapons, 2),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="P-Rank LEVEL while only using: WEAPONS",
+                data={
+                    "LEVEL": (self.levels_hard, 1),
+                    "WEAPONS": (self.weapons, 2),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
@@ -144,22 +174,38 @@ class UltrakillGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Beat Wave X in Cybergrind",
-                data={"X": (self.cybergrind_wave_low_range, 1)},
+                label="Beat Wave WAVE in Cybergrind while only using: WEAPONS",
+                data={
+                    "WAVE": (self.cybergrind_wave_low_range, 1),
+                    "WEAPONS": (self.weapons, 2),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Beat Wave X in Cybergrind",
-                data={"X": (self.cybergrind_wave_high_range, 1)},
+                label="Beat Wave WAVE in Cybergrind without using: WEAPONS",
+                data={
+                    "WAVE": (self.cybergrind_wave_medium_range, 1),
+                    "WEAPONS": (self.weapons, 2),
+                },
                 is_time_consuming=False,
-                is_difficult=False,
+                is_difficult=True,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Beat Wave WAVE in Cybergrind",
+                data={"WAVE": (self.cybergrind_wave_high_range, 1)},
+                is_time_consuming=False,
+                is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Complete all levels in LAYER (excluding secret levels)",
-                data={"LAYER": (self.layers, 1)},
+                label="Complete all levels in LAYER (excluding secret levels) without using the WEAPON",
+                data={
+                    "LAYER": (self.layers, 1),
+                    "WEAPON": (self.weapons, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=2,
@@ -264,8 +310,12 @@ class UltrakillGame(Game):
         return range(1, 16)
 
     @staticmethod
-    def cybergrind_wave_high_range() -> List[str]:
+    def cybergrind_wave_medium_range() -> List[str]:
         return range(16, 26)
+
+    @staticmethod
+    def cybergrind_wave_high_range() -> List[str]:
+        return range(26, 31)
 
     @staticmethod
     def layers() -> List[str]:
@@ -279,3 +329,7 @@ class UltrakillGame(Game):
             "HERESY",
             "VIOLENCE",
         ]
+
+
+# Archipelago Options
+# ...
