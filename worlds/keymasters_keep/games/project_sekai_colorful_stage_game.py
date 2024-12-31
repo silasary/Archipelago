@@ -14,10 +14,10 @@ from Options import Choice, OptionSet
 
 
 @dataclass
-class ProjectSekaiArchipelagoOptions:
-    project_sekai_include_songs: ProjectSekaiIncludeSongs
-    project_sekai_min_difficulty: ProjectSekaiMinDifficulty
-    project_sekai_max_difficulty: ProjectSekaiMaxDifficulty
+class ProjectSekaiColorfulStageArchipelagoOptions:
+    project_sekai_colorful_stage_additional_songs: ProjectSekaiColorfulStageAdditionalSongs
+    project_sekai_colorful_stage_minimum_difficulty: ProjectSekaiColorfulStageMinimumDifficulty
+    project_sekai_colorful_stage_maximum_difficulty: ProjectSekaiColorfulStageMaximumDifficulty
 
 
 # Pair setup
@@ -94,7 +94,7 @@ for group in [leo_need, more_more_jump, vivid_bad_squad, wonderlands_x_showtime,
                 pairs.append(f"{member} and {secondary}")
 
 
-class ProjectSekaiGame(Game):
+class ProjectSekaiColorfulStageGame(Game):
     name = "Project Sekai: Colorful Stage"
     platform = KeymastersKeepGamePlatforms.AND
 
@@ -102,7 +102,7 @@ class ProjectSekaiGame(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = ProjectSekaiArchipelagoOptions
+    options_cls = ProjectSekaiColorfulStageArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -151,8 +151,9 @@ class ProjectSekaiGame(Game):
                 weight=6
             )
         ]
+
         if self.archipelago_options.include_difficult_objectives and \
-                self.archipelago_options.project_sekai_max_difficulty in ("expert", "master"):
+                self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty in ("expert", "master"):
             objectives.extend([
                 GameObjectiveTemplate(
                     label="Complete a show on APPEND difficulty",
@@ -174,7 +175,8 @@ class ProjectSekaiGame(Game):
                 data={},
                 weight=2
             ))
-        if self.archipelago_options.project_sekai_include_songs:
+
+        if self.archipelago_options.project_sekai_colorful_stage_additional_songs:
             objectives.extend([
                 GameObjectiveTemplate(
                     label="Play SONG on DIFF difficulty (or higher)",
@@ -187,6 +189,7 @@ class ProjectSekaiGame(Game):
                     weight=max(1, ceil(len(self.songs()) / 4) - 2)
                 ),
             ])
+
         return objectives
 
     @staticmethod
@@ -201,11 +204,11 @@ class ProjectSekaiGame(Game):
             "Expert",
             "Master"
         ]
-        return difficulties[self.archipelago_options.project_sekai_min_difficulty.value:
-                            self.archipelago_options.project_sekai_max_difficulty.value + 1]
+        return difficulties[self.archipelago_options.project_sekai_colorful_stage_minimum_difficulty.value:
+                            self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty.value + 1]
 
     def songs(self):
-        return sorted(self.archipelago_options.project_sekai_include_songs.value)
+        return sorted(self.archipelago_options.project_sekai_colorful_stage_additional_songs.value)
 
     @staticmethod
     def groups():
@@ -219,28 +222,40 @@ class ProjectSekaiGame(Game):
         ]
 
 
-class ProjectSekaiIncludeSongs(OptionSet):
-    """Additional songs that can be rolled as objectives in Project Sekai"""
-    display_name = "Project Sekai Include Songs"
+class ProjectSekaiColorfulStageAdditionalSongs(OptionSet):
+    """
+    Additional songs that can be rolled as objectives in Project Sekai: Colorful Stage
+    """
+
+    display_name = "Project Sekai: Colorful Stage Additional Songs"
 
 
-class ProjectSekaiMinDifficulty(Choice):
-    """The minimum difficulty that should be rolled for objectives in Project Sekai"""
-    display_name = "Project Sekai Min Difficulty"
+class ProjectSekaiColorfulStageMinimumDifficulty(Choice):
+    """
+    The minimum difficulty that should be rolled for objectives in Project Sekai: Colorful Stage
+    """
+
+    display_name = "Project Sekai: Colorful Stage Minimum Difficulty"
+
     option_easy = 0
     option_normal = 1
     option_hard = 2
     option_expert = 3
     option_master = 4
+
     default = 1
 
 
-class ProjectSekaiMaxDifficulty(Choice):
-    """The minimum difficulty that should be rolled for objectives in Project Sekai (excluding APPEND)"""
-    display_name = "Project Sekai Max Difficulty"
+class ProjectSekaiColorfulStageMaximumDifficulty(Choice):
+    """
+    The maximum difficulty that should be rolled for objectives in Project Sekai: Colorful Stage (excluding APPEND)
+    """
+    display_name = "Project Sekai: Colorful Stage Maximum Difficulty"
+
     option_easy = 0
     option_normal = 1
     option_hard = 2
     option_expert = 3
     option_master = 4
+
     default = 2

@@ -30,15 +30,18 @@ class GameObjectiveTemplate:
         key: str
         collection: Tuple[Callable[[], Union[List[Any], range]], Union[int, Sequence[int], Callable[[], int]]]
         for key, collection in self.data.items():
+            k: int
+
             if isinstance(collection[1], Sequence):
-                num = random.choice(collection[1])
+                k = random.choice(collection[1])
             elif callable(collection[1]):
-                num = collection[1]()
+                k = collection[1]()
             else:
-                num = collection[1]
+                k = collection[1]
+
             game_objective = game_objective.replace(
                 key,
-                ", ".join(str(value) for value in random.sample(*(collection[0](), num)))
+                ", ".join(str(value) for value in random.sample(*(collection[0](), k)))
             )
 
         return game_objective
