@@ -40,76 +40,81 @@ class ADanceOfFireAndIceGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Complete LEVEL with less than X QUALIFIERs",
+                label="Complete LEVEL with at least ACCURACY% accuracy",
                 data={
                     "LEVEL": (self.levels, 1),
-                    "X": (self.qualifier_count, 1),
-                    "QUALIFIER": (self.qualifiers, 1),
+                    "ACCURACY": (self.accuracy_range, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVEL with less than COUNT JUDGMENT judgments",
+                data={
+                    "LEVEL": (self.levels, 1),
+                    "COUNT": (self.judgment_count_range_low, 1),
+                    "JUDGMENT": (self.judgments, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Complete the Speed Trial Goal for LEVEL",
+                data={"LEVEL": (self.levels, 1)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVEL with 'Limit Judgments' set to 'Perfects Only'",
+                data={"LEVEL": (self.levels, 1)},
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Complete LEVEL with at least ACCURACY% accuracy",
+                data={
+                    "LEVEL": (self.levels_extra, 1),
+                    "ACCURACY": (self.accuracy_range, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Complete LEVEL with 100%+ accuracy",
-                data={"LEVEL": (self.levels, 1)},
+                label="Complete LEVEL with less than COUNT JUDGMENT judgments",
+                data={
+                    "LEVEL": (self.levels_extra, 1),
+                    "COUNT": (self.judgment_count_range_high, 1),
+                    "JUDGMENT": (self.judgments, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete the Speed Trial Goal for LEVEL",
-                data={"LEVEL": (self.levels, 1)},
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=4,
-            ),
-            GameObjectiveTemplate(
-                label="Complete LEVEL_EXTRA with less than X QUALIFIERs",
-                data={
-                    "LEVEL_EXTRA": (self.levels_extra, 1),
-                    "X": (self.qualifier_count, 1),
-                    "QUALIFIER": (self.qualifiers, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Complete LEVEL_EXTRA with 100%+ accuracy",
-                data={"LEVEL_EXTRA": (self.levels_extra, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Complete the Speed Trial Goal for LEVEL_EXTRA",
-                data={"LEVEL_EXTRA": (self.levels_extra, 1)},
+                data={"LEVEL": (self.levels_extra, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Complete LEVEL_CROWN with less than X QUALIFIERs",
+                label="Complete LEVEL with at least ACCURACY% accuracy",
                 data={
-                    "LEVEL_CROWN": (self.levels_crown, 1),
-                    "X": (self.qualifier_count, 1),
-                    "QUALIFIER": (self.qualifiers, 1),
+                    "LEVEL": (self.levels_crown, 1),
+                    "ACCURACY": (self.accuracy_range, 1),
                 },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Complete LEVEL_CROWN with 100%+ accuracy",
-                data={"LEVEL_CROWN": (self.levels_crown, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Complete the Speed Trial Goal for LEVEL_CROWN",
-                data={"LEVEL_CROWN": (self.levels_crown, 1)},
+                label="Complete the Speed Trial Goal for LEVEL",
+                data={"LEVEL": (self.levels_crown, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
@@ -210,17 +215,24 @@ class ADanceOfFireAndIceGame(Game):
         ]
 
     @staticmethod
-    def qualifiers() -> List[str]:
+    def accuracy_range() -> range:
+        return range(85, 96)
+
+    @staticmethod
+    def judgments() -> List[str]:
         return [
+            "Too Early",
             "Early",
-            "EPerfect",
             "Late",
-            "LPerfect",
         ]
 
     @staticmethod
-    def qualifier_count() -> range:
-        return range(5, 21)
+    def judgment_count_range_low() -> range:
+        return range(5, 16)
+
+    @staticmethod
+    def judgment_count_range_high() -> range:
+        return range(10, 21)
 
 
 # Archipelago Options
