@@ -1,10 +1,10 @@
 from random import Random
-from typing import Any, Callable, Dict, List, Tuple, Union
+from typing import Any, Callable, Dict, List, Sequence, Tuple, Union
 
 
 GameObjectiveTemplateData = Dict[
     str,
-    Tuple[Callable[[], Union[List[Any], range]], int]
+    Tuple[Callable[[], Union[List[Any], range]], Union[int, Sequence, Callable[[], int]]]
 ]
 
 
@@ -28,11 +28,17 @@ class GameObjectiveTemplate:
         game_objective = self.label
 
         key: str
-        collection: Tuple[Callable[[], Union[List[Any], range]], int]
+        collection: Tuple[Callable[[], Union[List[Any], range]], Union[int, Sequence[int], Callable[[], int]]]
         for key, collection in self.data.items():
+            if isinstance(collection[1], Sequence):
+                num = random.choice(collection[1])
+            elif callable(collection[1]):
+                num = collection[1]()
+            else:
+                num = collection[1]
             game_objective = game_objective.replace(
                 key,
-                ", ".join(str(value) for value in random.sample(*(collection[0](), collection[1])))
+                ", ".join(str(value) for value in random.sample(*(collection[0](), num)))
             )
 
         return game_objective
