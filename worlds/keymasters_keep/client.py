@@ -53,6 +53,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     hints_reveal_objectives: bool
     include_adult_only_or_unrated_games: bool
     include_difficult_objectives: bool
+    include_modern_console_games: bool
     include_time_consuming_objectives: bool
     location_ids_checked: Set[int]
     lock_combinations: Dict[KeymastersKeepRegions, Optional[List[KeymastersKeepItems]]]
@@ -141,6 +142,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.hints_reveal_objectives = _args["slot_data"]["hints_reveal_objectives"]
             self.include_adult_only_or_unrated_games = _args["slot_data"]["include_adult_only_or_unrated_games"]
             self.include_difficult_objectives = _args["slot_data"]["include_difficult_objectives"]
+            self.include_modern_console_games = _args["slot_data"]["include_modern_console_games"]
             self.include_time_consuming_objectives = _args["slot_data"]["include_time_consuming_objectives"]
 
             self.lock_combinations = dict()

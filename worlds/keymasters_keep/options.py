@@ -232,9 +232,21 @@ class MetagameSelection(OptionSet):
 class IncludeAdultOnlyOrUnratedGames(Toggle):
     """
     Determines if adult only or unrated games should be considered for the game pool.
+
+    Can be a useful filter to adhere to the rules of certain communities.
     """
 
     display_name: str = "Include Adult Only or Unrated Games"
+
+
+class IncludeModernConsoleGames(Toggle):
+    """
+    Determines if modern console games should be considered for the game pool.
+
+    Can be a useful filter to adhere to the rules of certain communities.
+    """
+
+    display_name: str = "Include Modern Console Games"
 
 
 class IncludeDifficultObjectives(Toggle):
@@ -320,6 +332,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     game_selection: GameSelection
     metagame_selection: MetagameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
+    include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
     excluded_games_difficult_objectives: ExcludedGamesDifficultObjectives
     include_time_consuming_objectives: IncludeTimeConsumingObjectives
@@ -356,6 +369,7 @@ option_groups: typing.List[OptionGroup] = [
         "Game / Objective Selection Options",
         [
             IncludeAdultOnlyOrUnratedGames,
+            IncludeModernConsoleGames,
             IncludeDifficultObjectives,
             ExcludedGamesDifficultObjectives,
             IncludeTimeConsumingObjectives,

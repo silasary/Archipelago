@@ -356,13 +356,14 @@ class SeedInformationGoalLayout(ScrollView):
                 f"Area Trials (Maximum): [color=00FA9A]{self.ctx.area_trials_maximum}[/color]\n\n"
                 f"Game Medley Mode: [color=00FA9A]{game_medley_mode_label}[/color]\n\n"
                 f"Include 18+ / Unrated Games: [color=00FA9A]{lm[self.ctx.include_adult_only_or_unrated_games]}[/color]\n"
+                f"Include Modern Console Games: [color=00FA9A]{lm[self.ctx.include_modern_console_games]}[/color]\n"
                 f"Include Difficult Objectives: [color=00FA9A]{lm[self.ctx.include_difficult_objectives]}[/color]\n"
                 f"Include Time Consuming Objectives: [color=00FA9A]{lm[self.ctx.include_time_consuming_objectives]}[/color]\n\n"
                 f"Hints Reveal Objectives: [color=00FA9A]{lm[self.ctx.hints_reveal_objectives]}[/color]"
             ),
             markup=True,
             size_hint_y=None,
-            height="300dp",
+            height="320dp",
             halign="left",
             valign="top",
         )

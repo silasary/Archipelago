@@ -1,6 +1,8 @@
 from random import Random
 from typing import Any, List, Tuple, Type, Union
 
+from .enums import KeymastersKeepGamePlatforms
+
 from .game import Game
 from .games import AutoGameRegister
 
@@ -22,6 +24,7 @@ class GameObjectiveGenerator:
         self,
         allowable_games: List[str] = None,
         include_adult_only_or_unrated_games: bool = False,
+        include_modern_console_games: bool = False,
         include_difficult_objectives: bool = False,
         include_time_consuming_objectives: bool = False,
         archipelago_options: Any = None,
@@ -31,6 +34,7 @@ class GameObjectiveGenerator:
         self.games = self._filter_games(
             allowable_games,
             include_adult_only_or_unrated_games,
+            include_modern_console_games,
             include_difficult_objectives,
             include_time_consuming_objectives,
         )
@@ -126,6 +130,7 @@ class GameObjectiveGenerator:
         self,
         allowable_games: List[str],
         include_adult_only_or_unrated_games: bool,
+        include_modern_console_games: bool,
         include_difficult_objectives: bool,
         include_time_consuming_objectives: bool
     ) -> List[Type[Game]]:
@@ -140,6 +145,16 @@ class GameObjectiveGenerator:
             game_instance: Game = game(archipelago_options=self.archipelago_options)
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:
+                continue
+
+            modern_consoles: List[KeymastersKeepGamePlatforms] = [
+                KeymastersKeepGamePlatforms.PS5,
+                KeymastersKeepGamePlatforms.SW,
+                KeymastersKeepGamePlatforms.XSX,
+            ]
+
+            # We only want to filter out games that are exclusive to modern consoles, hence the primary platform check
+            if not include_modern_console_games and game.platform in modern_consoles:
                 continue
 
             if not include_difficult_objectives and game_instance.only_has_difficult_objectives:

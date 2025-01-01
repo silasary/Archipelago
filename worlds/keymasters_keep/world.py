@@ -101,6 +101,7 @@ class KeymastersKeepWorld(World):
     hints_reveal_objectives: bool
     include_adult_only_or_unrated_games: bool
     include_difficult_objectives: bool
+    include_modern_console_games: bool
     include_time_consuming_objectives: bool
     keep_areas: int
     keep_data: Any
@@ -211,6 +212,7 @@ class KeymastersKeepWorld(World):
         self.metagame_selection = list(self.options.metagame_selection.value)
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
+        self.include_modern_console_games = bool(self.options.include_modern_console_games)
 
         self.include_difficult_objectives = bool(self.options.include_difficult_objectives)
         self.excluded_games_difficult_objectives = list(self.options.excluded_games_difficult_objectives.value)
@@ -438,6 +440,7 @@ class KeymastersKeepWorld(World):
             "hints_reveal_objectives": self.hints_reveal_objectives,
             "include_adult_only_or_unrated_games": self.include_adult_only_or_unrated_games,
             "include_difficult_objectives": self.include_difficult_objectives,
+            "include_modern_console_games": self.include_modern_console_games,
             "include_time_consuming_objectives": self.include_time_consuming_objectives,
             "lock_combinations": dict(),
             "lock_magic_keys_maximum": self.lock_magic_keys_maximum,
@@ -582,6 +585,7 @@ class KeymastersKeepWorld(World):
         generator: GameObjectiveGenerator = GameObjectiveGenerator(
             game_selection,
             self.include_adult_only_or_unrated_games,
+            self.include_modern_console_games,
             self.include_difficult_objectives,
             self.include_time_consuming_objectives,
             self.options
