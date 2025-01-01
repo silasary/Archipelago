@@ -136,6 +136,12 @@ class GameObjectiveGenerator:
     ) -> List[Type[Game]]:
         filtered_games: List[Type[Game]] = list()
 
+        modern_consoles: List[KeymastersKeepGamePlatforms] = [
+            KeymastersKeepGamePlatforms.PS5,
+            KeymastersKeepGamePlatforms.SW,
+            KeymastersKeepGamePlatforms.XSX,
+        ]
+
         game_name: str
         for game_name in allowable_games:
             if game_name not in AutoGameRegister.games and game_name not in AutoGameRegister.metagames:
@@ -146,12 +152,6 @@ class GameObjectiveGenerator:
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:
                 continue
-
-            modern_consoles: List[KeymastersKeepGamePlatforms] = [
-                KeymastersKeepGamePlatforms.PS5,
-                KeymastersKeepGamePlatforms.SW,
-                KeymastersKeepGamePlatforms.XSX,
-            ]
 
             # We only want to filter out games that are exclusive to modern consoles, hence the primary platform check
             if not include_modern_console_games and game.platform in modern_consoles:
