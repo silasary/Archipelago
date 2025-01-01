@@ -1,5 +1,5 @@
 from random import Random
-from typing import Any, List, Tuple, Type
+from typing import Any, List, Tuple, Type, Union
 
 from .game import Game
 from .games import AutoGameRegister
@@ -47,6 +47,7 @@ class GameObjectiveGenerator:
         include_time_consuming: bool = False,
         excluded_games_time_consuming: List[str] = None,
         game_medley_mode: bool = False,
+        game_medley_percentage_chance: int = 100,
     ) -> GameObjectiveGeneratorData:
         if plan is None or not len(plan):
             return list()
@@ -56,22 +57,26 @@ class GameObjectiveGenerator:
 
         game_selection: List[Type[Game]] = list()
 
-        if game_medley_mode:
-            game_selection = [GameMedleyGame for _ in range(plan_length)]
+        if plan_length <= len(self.games):
+            game_selection = random.sample(self.games, plan_length)
         else:
-            if plan_length <= len(self.games):
-                game_selection = random.sample(self.games, plan_length)
-            else:
-                for _ in range(plan_length):
-                    game_selection.append(random.choice(self.games))
+            for _ in range(plan_length):
+                game_selection.append(random.choice(self.games))
+
+        if game_medley_mode:
+            for i in range(len(game_selection)):
+                if random.randint(1, 100) <= game_medley_percentage_chance:
+                    game_selection[i] = GameMedleyGame
 
         data: GameObjectiveGeneratorData = list()
 
         i: int
         count: int
         for i, count in enumerate(plan):
-            if game_medley_mode:
-                game: Game = game_selection[i](
+            game_class: Type[Union[Game, GameMedleyGame]] = game_selection[i]
+
+            if game_class == GameMedleyGame:
+                game: GameMedleyGame = game_class(
                     random=random,
                     archipelago_options=self.archipelago_options,
                     game_selection=self.games,
@@ -87,7 +92,7 @@ class GameObjectiveGenerator:
 
                 data.append((game, optional_constraints, objectives))
             else:
-                game: Game = game_selection[i](random=random, archipelago_options=self.archipelago_options)
+                game: Game = game_class(random=random, archipelago_options=self.archipelago_options)
 
                 is_in_difficult_exclusions: bool = game.game_name_with_platforms() in excluded_games_difficult
                 include_difficult = include_difficult and not is_in_difficult_exclusions

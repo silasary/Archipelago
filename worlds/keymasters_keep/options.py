@@ -181,12 +181,26 @@ class AreaTrialsMaximum(Range):
 
 class GameMedleyMode(Toggle):
     """
-    If true, keep areas will all have Game Medley as their game and each trial will be from a random game in the pool.
+    If true, a percentage of keep areas will feature Game Medley as their game, with each trial sourced randomly from
+    the pool of available games.
 
-    Using Game Medley Mode will disable optional game conditions.
+    Activating Game Medley Mode will disable optional game conditions for keep areas assigned to Game Medley.
     """
 
     display_name: str = "Game Medley Mode"
+
+
+class GameMedleyPercentageChance(Range):
+    """
+    Determines the percentage chance of a game medley being selected when Game Medley Mode is enabled.
+    """
+
+    display_name: str = "Game Medley Percentage Chance"
+
+    range_start: int = 1
+    range_end: int = 100
+
+    default = 100
 
 
 class GameSelection(OptionSet):
@@ -302,6 +316,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     area_trials_minimum: AreaTrialsMinimum
     area_trials_maximum: AreaTrialsMaximum
     game_medley_mode: GameMedleyMode
+    game_medley_percentage_chance: GameMedleyPercentageChance
     game_selection: GameSelection
     metagame_selection: MetagameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
@@ -347,6 +362,7 @@ option_groups: typing.List[OptionGroup] = [
             ExcludedGamesTimeConsumingObjectives,
             HintsRevealObjectives,
             GameMedleyMode,
+            GameMedleyPercentageChance,
             MetagameSelection,
             GameSelection,
         ],

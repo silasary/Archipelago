@@ -43,6 +43,8 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     artifacts_of_resolve_required: int
     artifacts_of_resolve_total: int
     completed_locations_queue: collections.deque
+    game_medley_mode: bool
+    game_medley_percentage_chance: int
     goal: KeymastersKeepGoals
     goal_completed: bool
     goal_game: str
@@ -130,6 +132,8 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.area_trials_minimum = _args["slot_data"]["area_trials_minimum"]
             self.artifacts_of_resolve_required = _args["slot_data"]["artifacts_of_resolve_required"]
             self.artifacts_of_resolve_total = _args["slot_data"]["artifacts_of_resolve_total"]
+            self.game_medley_mode = _args["slot_data"]["game_medley_mode"]
+            self.game_medley_percentage_chance = _args["slot_data"]["game_medley_percentage_chance"]
             self.goal = KeymastersKeepGoals(_args["slot_data"]["goal"])
             self.goal_game = _args["slot_data"]["goal_game"]
             self.goal_game_optional_constraints = _args["slot_data"]["goal_game_optional_constraints"]

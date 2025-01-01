@@ -92,6 +92,7 @@ class KeymastersKeepWorld(World):
     excluded_games_time_consuming_objectives: List[str]
     filler_item_names: List[str] = item_groups()["Filler"]
     game_medley_mode: bool
+    game_medley_percentage_chance: int
     game_selection: List[str]
     goal: KeymastersKeepGoals
     goal_game: str
@@ -204,6 +205,7 @@ class KeymastersKeepWorld(World):
         self._generate_keep()
 
         self.game_medley_mode = bool(self.options.game_medley_mode)
+        self.game_medley_percentage_chance = self.options.game_medley_percentage_chance.value
 
         self.game_selection = list(self.options.game_selection.value)
         self.metagame_selection = list(self.options.metagame_selection.value)
@@ -428,6 +430,7 @@ class KeymastersKeepWorld(World):
             "artifacts_of_resolve_required": self.artifacts_of_resolve_required,
             "artifacts_of_resolve_total": self.artifacts_of_resolve_total,
             "game_medley_mode": self.game_medley_mode,
+            "game_medley_percentage_chance": self.game_medley_percentage_chance,
             "goal": self.goal.value,
             "goal_game": self.goal_game,
             "goal_game_optional_constraints": self.goal_game_optional_constraints,
@@ -468,12 +471,9 @@ class KeymastersKeepWorld(World):
         for area, trial_locations in self.area_trials.items():
             trial_location: KeymastersKeepLocationData
             for trial_location in trial_locations:
-                if self.game_medley_mode:
-                    data[trial_location.archipelago_id] = self.area_trial_game_objectives[trial_location.name]
-                else:
-                    data[trial_location.archipelago_id] = (
-                        f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
-                    )
+                data[trial_location.archipelago_id] = (
+                    f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
+                )
 
         hint_data[self.player] = data
 
@@ -605,6 +605,7 @@ class KeymastersKeepWorld(World):
             self.include_time_consuming_objectives,
             self.excluded_games_time_consuming_objectives,
             self.game_medley_mode,
+            self.game_medley_percentage_chance,
         )
 
         self.area_games = dict()
