@@ -179,6 +179,16 @@ class AreaTrialsMaximum(Range):
     default = 7
 
 
+class GameMedleyMode(Toggle):
+    """
+    If true, keep areas will all have Game Medley as their game and each trial will be from a random game in the pool.
+
+    Using Game Medley Mode will disable optional game conditions.
+    """
+
+    display_name: str = "Game Medley Mode"
+
+
 class GameSelection(OptionSet):
     """
     Defines the game pool to select from.
@@ -291,6 +301,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     lock_magic_keys_maximum: LockMagicKeysMaximum
     area_trials_minimum: AreaTrialsMinimum
     area_trials_maximum: AreaTrialsMaximum
+    game_medley_mode: GameMedleyMode
     game_selection: GameSelection
     metagame_selection: MetagameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
@@ -335,6 +346,7 @@ option_groups: typing.List[OptionGroup] = [
             IncludeTimeConsumingObjectives,
             ExcludedGamesTimeConsumingObjectives,
             HintsRevealObjectives,
+            GameMedleyMode,
             MetagameSelection,
             GameSelection,
         ],

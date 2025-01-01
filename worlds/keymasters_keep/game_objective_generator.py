@@ -4,6 +4,8 @@ from typing import Any, List, Tuple, Type
 from .game import Game
 from .games import AutoGameRegister
 
+from .games.game_medley_game import GameMedleyGame
+
 
 GameObjectiveGeneratorData = List[Tuple[Type[Game], List[str], List[str]]]
 
@@ -44,6 +46,7 @@ class GameObjectiveGenerator:
         excluded_games_difficult: List[str] = None,
         include_time_consuming: bool = False,
         excluded_games_time_consuming: List[str] = None,
+        game_medley_mode: bool = False,
     ) -> GameObjectiveGeneratorData:
         if plan is None or not len(plan):
             return list()
@@ -53,44 +56,64 @@ class GameObjectiveGenerator:
 
         game_selection: List[Type[Game]] = list()
 
-        if plan_length <= len(self.games):
-            game_selection = random.sample(self.games, plan_length)
+        if game_medley_mode:
+            game_selection = [GameMedleyGame for _ in range(plan_length)]
         else:
-            for _ in range(plan_length):
-                game_selection.append(random.choice(self.games))
+            if plan_length <= len(self.games):
+                game_selection = random.sample(self.games, plan_length)
+            else:
+                for _ in range(plan_length):
+                    game_selection.append(random.choice(self.games))
 
         data: GameObjectiveGeneratorData = list()
 
         i: int
         count: int
         for i, count in enumerate(plan):
-            game: Game = game_selection[i](random=random, archipelago_options=self.archipelago_options)
+            if game_medley_mode:
+                game: Game = game_selection[i](
+                    random=random,
+                    archipelago_options=self.archipelago_options,
+                    game_selection=self.games,
+                )
 
-            is_in_difficult_exclusions: bool = game.game_name_with_platforms() in excluded_games_difficult
-            include_difficult = include_difficult and not is_in_difficult_exclusions
+                optional_constraints: List[str]
+                objectives: List[str]
+                optional_constraints, objectives = game.generate_objectives(
+                    count=count,
+                    include_difficult=include_difficult,
+                    include_time_consuming=include_time_consuming,
+                )
 
-            # This appears to completely ignore the passed 'include_difficult' value, but in reality, a game that only
-            # implements difficult objectives would already be filtered out in the constructor when 'include_difficult'
-            # is False, so we are only forcing it on when it's in the excluded list.
-            if game.only_has_difficult_objectives and not include_difficult:
-                include_difficult = True
+                data.append((game, optional_constraints, objectives))
+            else:
+                game: Game = game_selection[i](random=random, archipelago_options=self.archipelago_options)
 
-            is_in_time_consuming_exclusions: bool = game.game_name_with_platforms() in excluded_games_time_consuming
-            include_time_consuming = include_time_consuming and not is_in_time_consuming_exclusions
+                is_in_difficult_exclusions: bool = game.game_name_with_platforms() in excluded_games_difficult
+                include_difficult = include_difficult and not is_in_difficult_exclusions
 
-            # Same as above
-            if game.only_has_time_consuming_objectives and not include_time_consuming:
-                include_time_consuming = True
+                # This appears to completely ignore the passed 'include_difficult' value, but in reality, a game that
+                # only implements difficult objectives would already be filtered out in the constructor when
+                # 'include_difficult' is False, so we are only forcing it on when it's in the excluded list.
+                if game.only_has_difficult_objectives and not include_difficult:
+                    include_difficult = True
 
-            optional_constraints: List[str]
-            objectives: List[str]
-            optional_constraints, objectives = game.generate_objectives(
-                count=count,
-                include_difficult=include_difficult,
-                include_time_consuming=include_time_consuming,
-            )
+                is_in_time_consuming_exclusions: bool = game.game_name_with_platforms() in excluded_games_time_consuming
+                include_time_consuming = include_time_consuming and not is_in_time_consuming_exclusions
 
-            data.append((game, optional_constraints, objectives))
+                # Same as above
+                if game.only_has_time_consuming_objectives and not include_time_consuming:
+                    include_time_consuming = True
+
+                optional_constraints: List[str]
+                objectives: List[str]
+                optional_constraints, objectives = game.generate_objectives(
+                    count=count,
+                    include_difficult=include_difficult,
+                    include_time_consuming=include_time_consuming,
+                )
+
+                data.append((game, optional_constraints, objectives))
 
         return data
 

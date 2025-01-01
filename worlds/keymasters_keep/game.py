@@ -17,7 +17,7 @@ class AutoGameRegister(type):
     def __new__(mcs, name: str, bases: Tuple[type, ...], dict_: Dict[str, Any]) -> AutoGameRegister:
         new_class: Type[Game] = super().__new__(mcs, name, bases, dict_)
 
-        if name != "Game" and not new_class.is_wip:
+        if name != "Game" and new_class.should_autoregister:
             game_name: str = new_class.game_name_with_platforms()
 
             if "is_metagame" in dict_ and dict_["is_metagame"]:
@@ -38,7 +38,7 @@ class Game(metaclass=AutoGameRegister):
     is_metagame: bool = False  # Whether the game should be considered a metagame for grouping purposes
     is_adult_only_or_unrated: bool = True  # ESRB AO / PEGI 18 / USK 18 / Unrated? Used for filtering
 
-    is_wip: bool = False  # Development flag. Used to hide from AutoGameRegister
+    should_autoregister: bool = True  # Development flag. Used to prevent AutoGameRegister from registering the game
 
     archipelago_options: Any  # Archipelago options dataclass (for access)
 
@@ -108,18 +108,12 @@ class Game(metaclass=AutoGameRegister):
             template: GameObjectiveTemplate = self.random.choice(self.optional_game_constraint_templates())
             optional_constraints.append(template.generate_game_objective(self.random))
 
-        filtered_objectives: List[GameObjectiveTemplate] = list()
-        weights: List[int] = list()
+        filtered_objectives: List[GameObjectiveTemplate] = self.filter_game_objective_templates(
+            include_difficult=include_difficult,
+            include_time_consuming=include_time_consuming,
+        )
 
-        for template in self.game_objective_templates():
-            if not include_difficult and template.is_difficult:
-                continue
-
-            if not include_time_consuming and template.is_time_consuming:
-                continue
-
-            filtered_objectives.append(template)
-            weights.append(template.weight)
+        weights: List[int] = [template.weight for template in filtered_objectives]
 
         selected_objectives: List[GameObjectiveTemplate] = self.random.choices(
             filtered_objectives, weights=weights, k=count
