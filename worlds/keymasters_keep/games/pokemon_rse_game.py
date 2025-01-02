@@ -1134,11 +1134,11 @@ class PokemonRSEGame(Game):
             # "Trainer Hill", # No encounters
         ]
 
+
 # Archipelago Options
 class PokemonRSEOwnedGames(OptionSet):
     """
     Indicates which versions of the games the player owns between Pokémon Ruby/Sapphire/Emerald.
-    Possible values: 'Ruby', 'Sapphire', 'Emerald'
     """
 
     display_name = "Pokémon Ruby/Sapphire/Emerald Owned Games"
@@ -1154,7 +1154,6 @@ class PokemonRSEOwnedGames(OptionSet):
 class PokemonRSEObjectives(OptionSet):
     """
     Indicates which types of trial objectives the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
-    Possible values: 'Catching', 'Contests', 'Battles', 'Battle Frontier', 'Shiny Hunting'
     """
 
     display_name = "Pokémon Ruby/Sapphire/Emerald Objective Types"
@@ -1166,9 +1165,4 @@ class PokemonRSEObjectives(OptionSet):
         "Shiny Hunting"
     ]
 
-    default = [
-        "Catching",
-        "Contests",
-        "Battles",
-        "Battle Frontier",
-    ]
+    default = valid_keys
