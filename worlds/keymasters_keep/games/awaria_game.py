@@ -50,7 +50,7 @@ class AwariaGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Beat STAGES consecutively and without dying on MODE",
+                label="Beat STAGES consecutively and without failing on MODE",
                 data={
                     "STAGES": (self.stages, 3),
                     "MODE": (self.modes, 1)
@@ -60,7 +60,7 @@ class AwariaGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Beat STAGES consecutively and without dying on HARD MODE",
+                label="Beat STAGES consecutively and without failing on HARD MODE",
                 data={
                     "STAGES": (self.stages, 3),
                 },
