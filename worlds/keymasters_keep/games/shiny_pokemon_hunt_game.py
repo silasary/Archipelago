@@ -11,9 +11,11 @@ from ..enums import KeymastersKeepGamePlatforms
 
 from Options import OptionSet
 
+
 @dataclass
 class ShinyPokemonHuntArchipelagoOptions:
     shiny_pokemon_hunt_owned_games: ShinyPokemonHuntOwnedGames
+
 
 GEN_2_PRIMARY = "Gold/Silver/Crystal"
 GEN_3_PRIMARY = "Ruby/Sapphire/Emerald"
@@ -70,21 +72,15 @@ outbreaks = [
     GEN_9_DLC
 ]
 
+
 class ShinyPokemonHuntGame(Game):
     name = "Shiny Pokémon Hunt"
     platform = KeymastersKeepGamePlatforms.META
 
-    platforms_other = [
-        KeymastersKeepGamePlatforms.GBC,
-        KeymastersKeepGamePlatforms.GBA,
-        KeymastersKeepGamePlatforms.GC,
-        KeymastersKeepGamePlatforms.NDS,
-        KeymastersKeepGamePlatforms._3DS,
-        KeymastersKeepGamePlatforms.SW,
-    ]
+    platforms_other = None
 
-    is_adult_only_or_unrated = False
     is_metagame = True
+    is_adult_only_or_unrated = False
 
     options_cls = ShinyPokemonHuntArchipelagoOptions
 
@@ -104,7 +100,7 @@ class ShinyPokemonHuntGame(Game):
             GameObjectiveTemplate(
                 label="Encounter and capture a Shiny Pokémon by soft-resetting a static encounter",
                 data={},
-                is_difficult=True, # it's not but it's exponentially more time consuming than the rest
+                is_difficult=True,  # it's not but it's exponentially more time consuming than the rest
                 is_time_consuming=True,
             )
         ]
