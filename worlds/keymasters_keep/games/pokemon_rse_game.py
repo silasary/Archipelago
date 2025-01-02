@@ -40,11 +40,19 @@ class PokemonRSEGame(Game):
             ),
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
-                data={"POKEMON": (self.wild_pokemon, 1)},
+                data={"POKEMON": (self.available_pokemon, 1)},
             ),
             GameObjectiveTemplate(
-                label="Use RAREPOKEMON as your lead whenever possible",
-                data={"RAREPOKEMON": (self.difficult_pokemon, 1)},
+                label="Use POKEMON as your lead whenever possible",
+                data={"POKEMON": (self.difficult_pokemon, 1)},
+            ),
+            GameObjectiveTemplate(
+                label="Only use the following Pokémon (unless otherwise needed for HMs or specific challenges): PKMON",
+                data={"PKMON": (self.wild_pokemon, 6)},
+            ),
+            GameObjectiveTemplate(
+                label="Only use the following Pokémon (unless otherwise needed for HMs or specific challenges): PKMON",
+                data={"PKMON": (self.available_pokemon, 6)},
             ),
         ]
 
@@ -58,6 +66,8 @@ class PokemonRSEGame(Game):
             objectives += self.battle_objectives()
         if self.objective_battle_frontier:
             objectives += self.battle_frontier_objectives()
+        if self.objective_shiny_hunting:
+            objectives += self.shiny_hunting_objectives()
         if len(objectives) == 0:  # Fallback default objectives. Better versions of these exist in other categories
             objectives += [
                 GameObjectiveTemplate(
@@ -68,8 +78,22 @@ class PokemonRSEGame(Game):
                     weight=20
                 ),
                 GameObjectiveTemplate(
+                    label="Without using Fly, travel between the following locations: LOCATION",
+                    data={"LOCATION": (self.locations, 2)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=10
+                ),
+                GameObjectiveTemplate(
                     label="Encounter a wild POKEMON",
                     data={"POKEMON": (self.wild_pokemon, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=70
+                ),
+                GameObjectiveTemplate(
+                    label="Encounter a wild Pokémon in LOCATION",
+                    data={"LOCATION": (self.encounter_locations, 1)},
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=70
@@ -88,36 +112,29 @@ class PokemonRSEGame(Game):
     def catching_objectives(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Catch a wild POKEMON",
-                data={"POKEMON": (self.wild_pokemon, 1)},
+                label="Catch a wild POKEMON CONDITION",
+                data={"POKEMON": (self.wild_pokemon, 1), "CONDITION": (self.pokemon_catch_conditions, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=100,
+                weight=90,
             ),
             GameObjectiveTemplate(
-                label="Catch a wild POKEMON in a BALL",
-                data={"POKEMON": (self.wild_pokemon, 1), "BALL": (self.poke_ball_types, 1)},
+                label="Catch a wild Pokémon in LOCATION CONDITION",
+                data={"LOCATION": (self.encounter_locations, 1), "CONDITION": (self.pokemon_catch_conditions, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=70,
+                weight=90,
             ),
             GameObjectiveTemplate(
-                label="Catch a wild Feebas",
-                data=dict(),
+                label="Catch a wild Feebas CONDITION",
+                data={"CONDITION": (self.pokemon_catch_conditions, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Catch a wild Feebas in a BALL",
-                data={"BALL": (self.poke_ball_types, 1)},
-                is_time_consuming=True,
-                is_difficult=True,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Catch a wild POKEMON in the Safari Zone",
-                data={"POKEMON": (self.safari_pokemon, 1)},
+                label="Catch a wild POKEMON in the Safari Zone CONDITION",
+                data={"POKEMON": (self.safari_pokemon, 1), "CONDITION": (self.safari_catch_conditions, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=25,
@@ -127,85 +144,64 @@ class PokemonRSEGame(Game):
     def contest_objectives(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Make a COLOR Pokéblock",
+                label="Make COLOR Pokéblock",
                 data={"COLOR": (self.common_pokeblock_types, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=50,
             ),
             GameObjectiveTemplate(
-                label="Make a COLOR Pokéblock",
+                label="Make COLOR Pokéblock",
                 data={"COLOR": (self.rare_pokeblock_types, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=10,
             ),
             GameObjectiveTemplate(
-                label="Win a RANKING Rank Contest",
-                data={"RANKING": (self.base_contest_ranks, 1)},
+                label="Win a RANKING Rank TYPE",
+                data={"RANKING": (self.base_contest_ranks, 1), "TYPE": (self.contest_types, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=30,
             ),
             GameObjectiveTemplate(
-                label="Win a Hyper Rank Contest",
-                data=dict(),
+                label="Win a Hyper Rank TYPE",
+                data={"TYPE": (self.contest_types, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=15,
             ),
             GameObjectiveTemplate(
-                label="Win a Master Rank Contest",
-                data=dict(),
+                label="Win a Master Rank TYPE",
+                data={"TYPE": (self.contest_types, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=10,
             ),
             GameObjectiveTemplate(
-                label="Win a RANKING Rank TYPE Contest",
-                data={"RANKING": (self.base_contest_ranks, 1), "TYPE": (self.contest_types, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=20,
-            ),
-            GameObjectiveTemplate(
-                label="Win a Hyper Rank TYPE Contest",
-                data={"TYPE": (self.contest_types, 1)},
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=10,
-            ),
-            GameObjectiveTemplate(
-                label="Win a Master Rank TYPE Contest",
+                label="Get your Pokémon painted after winning a Master Rank TYPE",
                 data={"TYPE": (self.contest_types, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=8,
+                weight=1,
             ),
         ]
 
     def battle_objectives(self) -> List[GameObjectiveTemplate]:
         objectives: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
-                label="Defeat the Pokémon League and enter the Hall of Fame",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=25,
-            ),
-            GameObjectiveTemplate(
-                label="Defeat a wild POKEMON",
-                data={"POKEMON": (self.wild_pokemon, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=100,
-            ),
-            GameObjectiveTemplate(
-                label="Defeat the Pokémon League and enter the Hall of Fame with only one Pokémon",
-                data=dict(),
+                label="Defeat the Pokémon League and enter the Hall of Fame CONDITION",
+                data={"CONDITION": (self.pokemon_league_battle_conditions, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=10,
+                weight=50,
+            ),
+            GameObjectiveTemplate(
+                label="Defeat a wild POKEMON CONDITION",
+                data={"POKEMON": (self.wild_pokemon, 1), "CONDITION": (self.wild_battle_conditions, 1)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=70,
             ),
             GameObjectiveTemplate(
                 label="Without using Fly, items, or a Pokémon Center, travel between the following cities "
@@ -215,23 +211,38 @@ class PokemonRSEGame(Game):
                 is_difficult=False,
                 weight=35,
             ),
+            GameObjectiveTemplate(
+                label="Without using Fly, items, or a Pokémon Center, travel between the following locations "
+                      "and defeat every wild encounter you see: LOCATION",
+                data={"LOCATION": (self.locations, 2)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=25,
+            ),
         ]
 
         if self.has_emerald:
             objectives.extend([
                 GameObjectiveTemplate(
-                    label="Win any Match Call rematch",
-                    data=dict(),
+                    label="Win any Match Call rematch CONDITION",
+                    data={"CONDITION": (self.easy_trainer_battle_conditions, 1)},
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=35,
                 ),
                 GameObjectiveTemplate(
-                    label="Win a Match Call rematch against a Gym Leader",
-                    data=dict(),
+                    label="Win a Match Call rematch against a Gym Leader CONDITION",
+                    data={"CONDITION": (self.pokemon_league_battle_conditions, 1)},
                     is_time_consuming=True,
                     is_difficult=False,
                     weight=5,
+                ),
+                GameObjectiveTemplate(
+                    label="Defeat Steven in Meteor Falls CONDITION",
+                    data={"CONDITION": (self.steven_battle_conditions, 1)},
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=10,
                 ),
             ])
 
@@ -268,6 +279,13 @@ class PokemonRSEGame(Game):
                     is_difficult=True,
                     weight=5,
                 ),
+                GameObjectiveTemplate(
+                    label="Complete the MODE in Trainer Hill TIME",
+                    data={"MODE": (self.trainer_hill_modes, 1), "TIME": (self.trainer_hill_times, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=30,
+                ),
             ]
         else:
             return [
@@ -279,6 +297,31 @@ class PokemonRSEGame(Game):
                     weight=20,
                 ),
             ]
+
+    def shiny_hunting_objectives(self) -> List[GameObjectiveTemplate]:
+        return [
+            GameObjectiveTemplate(
+                label="Encounter or obtain a shiny POKEMON",
+                data={"POKEMON": (self.wild_pokemon, 1)},
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Encounter a shiny Pokémon in LOCATION",
+                data={"LOCATION": (self.encounter_locations_with_safari, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Catch any wild shiny Pokémon",
+                data=dict(),
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=2,
+            ),
+        ]
 
     @property
     def games_owned(self) -> Set[str]:
@@ -315,6 +358,15 @@ class PokemonRSEGame(Game):
     @property
     def objective_battle_frontier(self) -> bool:
         return "Battle Frontier" in self.objectives
+
+    @property
+    def objective_shiny_hunting(self) -> bool:
+        return "Shiny Hunting" in self.objectives
+
+    def available_pokemon(self) -> List[str]:
+        pokemon: List[str] = self.wild_pokemon()[:]
+        pokemon.extend(self.difficult_pokemon()[:])
+        return pokemon
 
     def wild_pokemon(self) -> List[str]:
         # List fully in common with all three games
@@ -460,18 +512,111 @@ class PokemonRSEGame(Game):
         return pokemon
 
     @staticmethod
-    def poke_ball_types() -> List[str]:
+    def pokemon_catch_conditions() -> List[str]:
         return [
-            "Poké Ball",
-            "Great Ball",
-            "Ultra Ball",
-            "Net Ball",
-            "Dive Ball",
-            "Nest Ball",
-            "Repeat Ball",
-            "Timer Ball",
-            "Premier Ball",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "without using False Swipe",
+            "without using status moves",
+            "without damaging it",
+            "without damaging it or using status moves",
+            "in a Poké Ball",
+            "in a Great Ball",
+            "in a Ultra Ball",
+            "in a Net Ball",
+            "in a Dive Ball",
+            "in a Nest Ball",
+            "in a Repeat Ball",
+            "in a Timer Ball",
+            "in a Premier Ball",
             # Luxury and Master Balls *can* be found infinitely, but are too annoying
+        ]
+
+    @staticmethod
+    def safari_catch_conditions() -> List[str]:
+        return [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "without using Pokéblocks",
+            "without going near",
+            "without using Sweet Scent",
+        ]
+
+    @staticmethod
+    def base_trainer_battle_conditions() -> List[str]:
+        return [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "using only one Pokémon",
+            "without using items in battle",
+            "without using healing items",
+            "without a Pokémon fainting",
+            "without using STAB moves",
+            "without using Super-Effective moves",
+            "without using status moves",
+            "without using physical moves",
+            "without using special moves",
+            "without using any moves over 40 Power",
+            "without using any moves over 60 Power",
+            "without using any moves with 100 accuracy or moves that bypass accuracy checks",
+            "without using a Pokémon with a Base Stat Total over 500",
+            "without using legendary Pokémon",
+            "only using Pokémon that can still evolve",
+        ]
+
+    def easy_trainer_battle_conditions(self) -> List[str]:
+        conditions : List[str] = self.base_trainer_battle_conditions()[:]
+        conditions.extend([
+            "without taking damage",
+            "without using a Pokémon higher than level 30",
+            "without using a Pokémon with a Base Stat Total over 400",
+            "only using Pokémon that can still evolve twice",
+        ][:])
+        return conditions
+
+    def pokemon_league_battle_conditions(self) -> List[str]:
+        conditions : List[str] = self.base_trainer_battle_conditions()[:]
+        conditions.extend([
+            "without taking damage",
+            "without using a Pokémon higher than level 50",
+            "without using a Pokémon higher than level 60",
+        ][:])
+        return conditions
+
+    def steven_battle_conditions(self) -> List[str]:
+        conditions : List[str] = self.base_trainer_battle_conditions()[:]
+        conditions.extend([
+            "without using a Pokémon higher than level 60",
+            "without using a Pokémon higher than level 70",
+            "without using a Pokémon higher than level 80",
+        ][:])
+        return conditions
+
+    @staticmethod
+    def wild_battle_conditions() -> List[str]:
+        return [
+            "",
+            "",
+            "",
+            "without using a Pokémon higher than level 30",
+            "without taking damage",
+            "without using STAB moves",
+            "without using Super-Effective moves",
+            "without using any moves over 40 Power",
+            "without using any moves with 100 accuracy or moves that bypass accuracy checks",
+            "only using Pokémon that can still evolve",
+            "only using Pokémon that can still evolve twice",
         ]
 
     @staticmethod
@@ -673,25 +818,25 @@ class PokemonRSEGame(Game):
     @staticmethod
     def common_pokeblock_types() -> List[str]:
         return [
-            "Red",
-            "Blue",
-            "Pink",
-            "Green",
-            "Yellow",
+            "a Red",
+            "a Blue",
+            "a Pink",
+            "a Green",
+            "a Yellow",
         ]
 
     @staticmethod
     def rare_pokeblock_types() -> List[str]:
         return [
-            "Black",
-            "Gold",
-            "Purple",
-            "Indigo",
-            "Brown",
-            "LiteBlue",
-            "Olive",
-            "Gray",
-            "White",
+            # "a Black", # Impossible in single player
+            "a Gold",
+            "a Purple",
+            "an Indigo",
+            "a Brown",
+            "a LiteBlue",
+            "an Olive",
+            "a Gray",
+            # "a White", # Impossible in single player
         ]
 
     @staticmethod
@@ -706,11 +851,12 @@ class PokemonRSEGame(Game):
     @staticmethod
     def contest_types() -> List[str]:
         return [
-            "Cool",
-            "Beauty",
-            "Cute",
-            "Smart",
-            "Tough"
+            "Contest",
+            "Cool Contest",
+            "Beauty Contest",
+            "Cute Contest",
+            "Smart Contest",
+            "Tough Contest",
         ]
 
     @staticmethod
@@ -767,11 +913,232 @@ class PokemonRSEGame(Game):
             "Salon Maiden Anabel"
         ]
 
+    @staticmethod
+    def trainer_hill_modes() -> List[str]:
+        return [
+            "Normal Mode",
+            "Variety Mode",
+            "Unique Mode",
+            "Expert Mode",
+        ]
+
+    @staticmethod
+    def trainer_hill_times() -> List [str]:
+        return [
+            "",
+            "",
+            "under 12 minutes to win the Grand Prize",
+            "within 12-13 minutes to win an Ether",
+            "within 13-14 minutes to win a Max Potion",
+            "within 14-16 minutes to win a Revive",
+            "within 16-18 minutes to win a Fluffy Tail",
+            "in over 18 minutes to win a Great Ball",
+        ]
+
+    def encounter_locations(self) -> List[str]:
+        encounters = self.encounter_locations_rse()[:]
+
+        if self.has_emerald:
+            encounters.extend(self.encounter_locations_e()[:])
+
+        return encounters
+
+    def encounter_locations_with_safari(self) -> List[str]:
+        encounters = self.encounter_locations()[:]
+
+        encounters.extend([
+            "Safari Zone Area 1",
+            "Safari Zone Area 2",
+            "Safari Zone Area 3",
+            "Safari Zone Area 4",
+        ][:])
+
+        if self.has_emerald:
+            encounters.extend([
+                "Safari Zone Area 5",
+                "Safari Zone Area 6",
+            ][:])
+
+        return encounters
+
+    def locations(self) -> List[str]:
+        locations = self.encounter_locations_with_safari()[:]
+
+        locations.extend([
+            "Littleroot Town", # No encounters
+            "Oldale Town", # No encounters
+            "Lavaridge Town", # No encounters
+            "Fallarbor Town", # No encounters
+            "Verdanturf Town", # No encounters
+            "Mauville City", # No encounters
+            "Rustboro City", # No encounters
+            "Fortree City", # No encounters
+            "Ever Grande City (North)", # No encounters
+            "Underwater (Route 127)", # No encounters
+            "Underwater (Route 128)", # No encounters
+            "Underwater (Sootopolis City)", # No encounters
+            "Mt. Chimney",  # No encounters
+            "Battle Tower/Battle Frontier",  # No encounters
+            "Underwater (Seafloor Cavern)",  # No encounters
+            "Sealed Chamber", # No encounters
+            "Underwater (Route 134)", # No encounters
+            "Scorched Slab", # No encounters
+            "Island Cave", # Only one encounter, not repeatable
+            "Desert Ruins", # Only one encounter, not repeatable
+            "Ancient Tomb", # Only one encounter, not repeatable
+            "S.S. Tidal",  # No encounters
+            "Sky Pillar 2F", # No encounters
+            "Sky Pillar 4F", # No encounters
+            "Sky Pillar Apex", # Only one encounter, not repeatable
+        ][:])
+
+        return locations
+
+    @staticmethod
+    def encounter_locations_rse() -> List[str]:
+        return [
+            # "Littleroot Town", # No encounters
+            # "Oldale Town", # No encounters
+            "Dewford Town",
+            # "Lavaridge Town", # No encounters
+            # "Fallarbor Town", # No encounters
+            # "Verdanturf Town", # No encounters
+            "Pacifidlog Town",
+            "Petalburg City",
+            "Slateport City",
+            # "Mauville City", # No encounters
+            # "Rustboro City", # No encounters
+            # "Fortree City", # No encounters
+            "Lilycove City",
+            "Mossdeep City",
+            "Sootopolis City",
+            "Ever Grande City (South)",
+            # "Ever Grande City (North)", # No encounters
+            "Route 101",
+            "Route 102",
+            "Route 103",
+            "Route 104",
+            "Route 105",
+            "Route 106",
+            "Route 107",
+            "Route 108",
+            "Route 109",
+            "Route 110",
+            "Route 111",
+            "Route 112",
+            "Route 113",
+            "Route 114",
+            "Route 115",
+            "Route 116",
+            "Route 117",
+            "Route 118",
+            "Route 119",
+            "Route 120",
+            "Route 121",
+            "Route 122",
+            "Route 123",
+            "Route 124",
+            "Route 125",
+            "Route 126",
+            "Route 127",
+            "Route 128",
+            "Route 129",
+            "Route 130",
+            "Route 131",
+            "Route 132",
+            "Route 133",
+            "Route 134",
+            "Underwater (Route 124)",
+            "Underwater (Route 126)",
+            # "Underwater (Route 127)", # No encounters
+            # "Underwater (Route 128)", # No encounters
+            # "Underwater (Sootopolis City)", # No encounters
+            "Granite Cave 1F",
+            "Granite Cave B1F",
+            "Granite Cave B2F",
+            "Granite Cave Steven's Room",
+            # "Mt. Chimney", # No encounters
+            # "Safari Zone Area 1", # Incompatible with most encounter objectives
+            # "Safari Zone Area 2", # Incompatible with most encounter objectives
+            # "Safari Zone Area 3", # Incompatible with most encounter objectives
+            # "Safari Zone Area 4", # Incompatible with most encounter objectives
+            # "Battle Tower", # No encounters
+            "Petalburg Woods",
+            "Rusturf Tunnel",
+            "Abandoned Ship",
+            "New Mauville Entrance",
+            "New Mauville Basement",
+            "Meteor Falls 1F 1R",
+            "Meteor Falls 1F 2R",
+            "Meteor Falls B1F 1R",
+            "Meteor Falls B1F 2R",
+            "Mt. Pyre 1F",
+            "Mt. Pyre 2F",
+            "Mt. Pyre 3F",
+            "Mt. Pyre 4F",
+            "Mt. Pyre 5F",
+            "Mt. Pyre 6F",
+            "Mt. Pyre Exterior",
+            "Mt. Pyre Summit",
+            # "Hideout", # Closed after badge 7
+            "Shoal Cave",
+            # "Shoal Cave (Ice Room)", # Only available at low tide, not worth making players wait for
+            "Seafloor Cavern",
+            # "Underwater (Seafloor Cavern)", # No encounters
+            "Victory Road 1F",
+            "Victory Road B1F",
+            "Victory Road B2F",
+            # "Mirage Island", # Way too rare
+            "Cave of Origin",
+            # "Southern Island", # Event only, only one encounter
+            "Fiery Path",
+            "Jagged Pass",
+            # "Sealed Chamber", # No encounters
+            # "Underwater (Route 134)", # No encounters
+            # "Scorched Slab", # No encounters
+            # "Island Cave", # Only one encounter, not repeatable
+            # "Desert Ruins", # Only one encounter, not repeatable
+            # "Ancient Tomb", # Only one encounter, not repeatable
+            # "Inside of Truck", # No encounters, can't be returned to
+            "Sky Pillar 1F",
+            # "Sky Pillar 2F", # No encounters
+            "Sky Pillar 3F",
+            # "Sky Pillar 4F", # No encounters
+            "Sky Pillar 5F",
+            # "Sky Pillar Apex", # Only one encounter, not repeatable
+            # "S.S. Tidal", # No encounters
+        ]
+
+    @staticmethod
+    def encounter_locations_e() -> List[str]:
+        return [
+            # "Safari Zone Area 5", # Incompatible with most encounter objectives
+            # "Safari Zone Area 6", # Incompatible with most encounter objectives
+            "Meteor Falls Steven's Room",
+            # "Battle Frontier", Only one encounter, not repeatable
+            # "Aqua Hideout", # Closed after badge 7
+            "Magma Hideout",
+            # "Mirage Tower", # Disappears after collecting a fossil
+            # "Birth Island", # Event only, only one encounter
+            # "Faraway Island", # Event only, only one encounter
+            "Artisan Cave",
+            # "Marine Cave", # Only one encounter, disappears after catching Kyogre
+            # "Underwater (Marine Cave)", # No encounters, disappears after catching Kyogre
+            # "Terra Cave", # Only one encounter, disappears after catching Groudon
+            # "Underwater (Route 105)", # No encounters, only appears when Marine Cave appears
+            # "Underwater (Route 125)", # No encounters, only appears when Marine Cave appears
+            # "Underwater (Route 129)", # No encounters, only appears when Marine Cave appears
+            "Desert Underpass",
+            "Altering Cave",
+            # "Navel Rock", # Only two encounters, disappears after catching Lugia or Ho-Oh
+            # "Trainer Hill", # No encounters
+        ]
 
 # Archipelago Options
 class PokemonRSEOwnedGames(OptionSet):
     """
     Indicates which versions of the games the player owns between Pokémon Ruby/Sapphire/Emerald.
+    Possible values: 'Ruby', 'Sapphire', 'Emerald'
     """
 
     display_name = "Pokémon Ruby/Sapphire/Emerald Owned Games"
@@ -786,14 +1153,22 @@ class PokemonRSEOwnedGames(OptionSet):
 
 class PokemonRSEObjectives(OptionSet):
     """
-    Indicates which objective types the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
+    Indicates which types of trial objectives the player would like to engage in for Pokémon Ruby/Sapphire/Emerald.
+    Possible values: 'Catching', 'Contests', 'Battles', 'Battle Frontier', 'Shiny Hunting'
     """
+
     display_name = "Pokémon Ruby/Sapphire/Emerald Objective Types"
     valid_keys = [
         "Catching",
         "Contests",
         "Battles",
         "Battle Frontier",
+        "Shiny Hunting"
     ]
 
-    default = valid_keys
+    default = [
+        "Catching",
+        "Contests",
+        "Battles",
+        "Battle Frontier",
+    ]
