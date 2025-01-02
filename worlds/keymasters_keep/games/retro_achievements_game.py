@@ -65,7 +65,7 @@ class RetroAchievementsGame(Game):
         return sorted(self.archipelago_options.retroachievements_games.value)
 
     @staticmethod
-    def percentages() -> List[str]:
+    def percentages() -> range:
         return range(10, 76)
 
 
