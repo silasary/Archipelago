@@ -211,9 +211,9 @@ class GameSelection(OptionSet):
     """
 
     display_name: str = "Game Selection"
-    valid_keys = AutoGameRegister.games.keys()
+    valid_keys = sorted(AutoGameRegister.games.keys())
 
-    default = AutoGameRegister.games.keys()
+    default = sorted(AutoGameRegister.games.keys())
 
 
 class MetagameSelection(OptionSet):
@@ -224,9 +224,9 @@ class MetagameSelection(OptionSet):
     """
 
     display_name: str = "Metagame Selection"
-    valid_keys = AutoGameRegister.metagames.keys()
+    valid_keys = sorted(AutoGameRegister.metagames.keys())
 
-    default = AutoGameRegister.metagames.keys()
+    default = sorted(AutoGameRegister.metagames.keys())
 
 
 class IncludeAdultOnlyOrUnratedGames(Toggle):

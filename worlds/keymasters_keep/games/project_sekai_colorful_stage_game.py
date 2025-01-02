@@ -131,34 +131,61 @@ class ProjectSekaiColorfulStageGame(Game):
                 weight=2
             ),
             GameObjectiveTemplate(
-                label="Complete 5 shows with 3DMVs",
-                data={},
+                label="Complete NUM shows with 3DMVs",
+                data={"NUM": ((lambda: list(range(3, 11))), 1)},
                 weight=2
             ),
             GameObjectiveTemplate(
-                label="Complete 5 shows with 2DMVs/Original MVs",
-                data={},
+                label="Complete NUM shows with 2DMVs/Original MVs",
+                data={"NUM": ((lambda: list(range(3, 11))), 1)},
                 weight=2
             ),
             GameObjectiveTemplate(
-                label="Complete 5 Co-op/Cheerful Shows",
-                data={},
+                label="Complete NUM Co-op/Cheerful Shows",
+                data={"NUM": ((lambda: list(range(3, 11))), 1)},
                 weight=4
             ),
             GameObjectiveTemplate(
-                label="Complete 5 shows featuring songs from the following groups: GROUP",
-                data={"GROUP": (self.groups, range(1, 4))},
+                label="Complete NUM shows featuring songs from the following groups: GROUP",
+                data={"GROUP": (self.groups, range(1, 4)), "NUM": ((lambda: list(range(3, 11))), 1)},
                 weight=6
+            ),
+            GameObjectiveTemplate(
+                label="Complete NUM shows with Mirror Mode enabled",
+                data={"NUM": ((lambda: list(range(3, 11))), 1)},
+                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Achieve 3 Full Combos during shows",
+                data={},
+                is_difficult=self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty.value < ProjectSekaiColorfulStageMaximumDifficulty.option_hard,
+                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Achieve a Full Combo during a show featuring PAIR",
+                data={"PAIR": (self.characters, 1)},
+                is_difficult= self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty.value < ProjectSekaiColorfulStageMaximumDifficulty.option_hard,
+                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Achieve a Full Combo during a show on DIFF difficulty",
+                data={"DIFF": (self.difficulties, 1)},
+                is_difficult=self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty.value < ProjectSekaiColorfulStageMaximumDifficulty.option_hard,
+                weight=3
+            ),
+            GameObjectiveTemplate(
+                label="Achieve an All Perfect during a show",
+                data={},
+                is_difficult=True,
+                weight=1
             )
         ]
 
-        if self.archipelago_options.include_difficult_objectives and \
-                self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty in ("expert", "master"):
+        if self.archipelago_options.project_sekai_colorful_stage_maximum_difficulty in ("expert", "master"):
             objectives.extend([
                 GameObjectiveTemplate(
                     label="Complete a show on APPEND difficulty",
                     data={},
-                    is_difficult=True,
                     weight=4
                 ),
                 GameObjectiveTemplate(
@@ -171,7 +198,7 @@ class ProjectSekaiColorfulStageGame(Game):
             ])
         else:
             objectives.append(GameObjectiveTemplate(
-                label="Attempt a show on APPEND difficulty",
+                label="Finish a show on APPEND difficulty",
                 data={},
                 weight=2
             ))
@@ -181,12 +208,12 @@ class ProjectSekaiColorfulStageGame(Game):
                 GameObjectiveTemplate(
                     label="Play SONG on DIFF difficulty (or higher)",
                     data={"SONG": (self.songs, 1), "DIFF": (self.difficulties, 1)},
-                    weight=max(1, ceil(len(self.songs()) / 4))
+                    weight=min(10, max(1, ceil(len(self.songs()) / 4)))
                 ),
                 GameObjectiveTemplate(
                     label="Play SONG on DIFF difficulty (or higher) with 7 or less GOOD/BAD/MISS",
                     data={"SONG": (self.songs, 1), "DIFF": (self.difficulties, 1)},
-                    weight=max(1, ceil(len(self.songs()) / 4) - 2)
+                    weight=min(10, max(1, ceil(len(self.songs()) / 4) - 2))
                 ),
             ])
 
