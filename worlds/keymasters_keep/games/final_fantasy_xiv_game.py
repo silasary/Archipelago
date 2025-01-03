@@ -33,8 +33,6 @@ class FinalFantasyXIVGame(Game):
 
     is_adult_only_or_unrated = False
 
-    is_wip = False
-
     options_cls = FinalFantasyXIVArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
@@ -240,7 +238,7 @@ class FinalFantasyXIVGame(Game):
             objective_list += [
                 GameObjectiveTemplate(
                     label="Complete COUNT unique sets of floors in DEEPDUNGEON solo as JOB (prior saves allowed)",
-                    data = {
+                    data={
                         "COUNT": (self.deep_dungeon_floor_range, 1),
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOB": (self.combat_jobs, 1),
@@ -251,7 +249,7 @@ class FinalFantasyXIVGame(Game):
                 ),
                 GameObjectiveTemplate(
                     label="Obtain 3 Accursed Hoard from a single set of floors in DEEPDUNGEON solo as JOB (prior saves allowed)",
-                    data = {
+                    data={
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOB": (self.combat_jobs, 1),
                     },
@@ -261,7 +259,7 @@ class FinalFantasyXIVGame(Game):
                 ),
                 GameObjectiveTemplate(
                     label="Complete a single set of floors in DEEPDUNGEON solo without triggering any floor traps as JOB (prior saves allowed)",
-                    data = {
+                    data={
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOB": (self.combat_jobs, 1),
                     },
@@ -275,7 +273,7 @@ class FinalFantasyXIVGame(Game):
             objective_list += [
                 GameObjectiveTemplate(
                     label="Complete the Variant Dungeon route which corresponds to the record entry 'ROUTE' as JOB",
-                    data = {
+                    data={
                         "ROUTE": (self.variant_dungeon_routes, 1),
                         "JOB": (self.combat_jobs, 1),
                     },
@@ -290,7 +288,7 @@ class FinalFantasyXIVGame(Game):
                 objective_list += [
                     GameObjectiveTemplate(
                         label="In Masked Carnivale, complete the stage STAGE within the TIME Completion Time",
-                        data = {
+                        data={
                             "STAGE": (self.masked_carnivale, 1),
                             "TIME": (self.masked_carnivale_completion_times, 1),
                         },
@@ -300,7 +298,7 @@ class FinalFantasyXIVGame(Game):
                     ),
                     GameObjectiveTemplate(
                         label="In Masked Carnivale, complete the Weekly DIFF Target stage, satisfying all completion requirements within the TIME Completion Time",
-                        data = {
+                        data={
                             "DIFF": (self.masked_carnivale_weekly_targets, 1),
                             "TIME": (self.masked_carnivale_completion_times, 1),
                         },
@@ -645,7 +643,7 @@ class FinalFantasyXIVGame(Game):
     def limited_jobs(self) -> List[str]:
         limited_jobs = [
             "Blue Mage",
-            #"Beastmaster",
+            # "Beastmaster",
         ]
 
         # Remove any jobs that the player has not enabled in their config.
@@ -655,7 +653,7 @@ class FinalFantasyXIVGame(Game):
 
     @staticmethod
     def fate_range() -> range:
-        return range(1,6)
+        return range(1, 6)
 
     def zones(self) -> List[str]:
         zones = [
@@ -3071,7 +3069,7 @@ class FinalFantasyXIVPlayableJobs(OptionSet):
         "Pictomancer",
         # Limited Jobs
         "Blue Mage",
-        #"Beastmaster",
+        # "Beastmaster",
         # Crafting
         "Carpenter",
         "Blacksmith",
