@@ -33,7 +33,7 @@ class Bomberman64Game(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Complete objectives on DIFF difficulty",
+                label="Complete objectives on DIFF difficulty where applicable",
                 data={"DIFF": (self.difficulties, 1)},
             ),
         ]
@@ -45,21 +45,21 @@ class Bomberman64Game(Game):
                 data={"STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete STAGE",
                 data={"STAGE": (self.deep_stages, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Earn CARDS gold card(s) from STAGE",
                 data={"CARDS": (self.stage_gold_card_range, 1), "STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=4,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Earn CARDS gold card(s) from STAGE",
@@ -73,7 +73,7 @@ class Bomberman64Game(Game):
                 data={"STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Earn the Target Time gold card from STAGE",
@@ -83,29 +83,64 @@ class Bomberman64Game(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Complete all stages in WORLD",
-                data={"WORLD": (self.base_worlds, 1)},
+                label="Complete COUNT stages in WORLD",
+                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.base_worlds, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Complete all stages in WORLD",
-                data={"WORLD": (self.deep_worlds, 1)},
+                label="Complete COUNT stages in WORLD",
+                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.deep_worlds, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=1,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete all stages in WORLD, earning at least CARDS gold cards from the set",
                 data={"WORLD": (self.base_worlds, 1), "CARDS": (self.world_gold_card_range, 1)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete all stages in WORLD, earning at least CARDS gold cards from the set",
                 data={"WORLD": (self.deep_worlds, 1), "CARDS": (self.world_gold_card_range, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Find the PART costume item",
+                data={"PART": (self.findable_custom_parts, 1)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Find the following costume items: PARTS",
+                data={"PARTS": (self.findable_custom_parts, 2)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Find COUNT costume item(s) located in WORLD",
+                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.base_worlds, 1)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Find COUNT costume item(s) located in WORLD",
+                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.deep_worlds, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Earn the PART costume item",
+                data={"PART": (self.earnable_custom_parts, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
@@ -196,6 +231,74 @@ class Bomberman64Game(Game):
     @staticmethod
     def world_gold_card_range() -> range:
         return range(5, 16)
+    
+    @staticmethod
+    def custom_parts_range() -> range:
+        return range(1,5)
+    
+    def findable_custom_parts(self) -> List[str]:
+        findable_custom_parts = [
+            # HEAD Costume Pieces
+            "Dragon Head",
+            "Iron Goggles",
+            "Cat Hood",
+            "Sunglasses",
+            "Chicken Head",
+            # BODY Costume Pieces
+            "Dragon Mail",
+            "Iron Armor",
+            "Cat Suit",
+            "Dress",
+            "Rocking Horse",
+            # ARMS Costume Pieces
+            "Dragon Gloves",
+            "Iron Nuckles",
+            "Slash Claws",
+            "Drill Arms",
+            "Chicken Wings",
+            # FEET Costume Pieces
+            "Dragon Spikes",
+            "Iron Sneakers",
+            "Cat Paws (Legs)",
+            "High Tops",
+            "Bubby Socks",
+        ]
+
+        rainbow_palace_custom_parts = [
+            "Pony Tails",
+            "Duck Float",
+            "Cat Paws (Arms)",
+            "Duck Feet",
+        ]
+
+        if self.archipelago_options.bomberman_64_allow_rainbow_palace:
+            findable_custom_parts.extend(rainbow_palace_custom_parts)
+
+        return sorted(findable_custom_parts)
+
+    def earnable_custom_parts(self) -> List[str]:
+        earnable_custom_parts = [
+            "Clown Smile",
+            "Karate Ware",
+            "Boxing Gloves",
+            "Clogs",
+        ]
+
+        rainbow_palace_earnable_custom_parts = [
+            "Samurai Head",
+            "Gold Visor",
+            "Shogun Kimono",
+            "Gold Armor",
+            "Fans",
+            "Gold Gloves",
+            "High Heels",
+            "Gold Boots",
+        ]
+
+        if self.archipelago_options.bomberman_64_allow_rainbow_palace:
+            earnable_custom_parts.extend(rainbow_palace_earnable_custom_parts)
+
+        return sorted(earnable_custom_parts)
 
 
 # Archipelago Options
