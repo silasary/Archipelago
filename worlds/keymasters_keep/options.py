@@ -2,7 +2,16 @@ import typing
 
 from dataclasses import dataclass
 
-from Options import Choice, OptionGroup, OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle
+from Options import (
+    Choice,
+    DefaultOnToggle,
+    OptionGroup,
+    OptionSet,
+    PerGameCommonOptions,
+    Range,
+    StartInventoryPool,
+    Toggle,
+)
 
 from .game import AutoGameRegister
 from .games import GameArchipelagoOptions
@@ -276,7 +285,7 @@ class ExcludedGamesDifficultObjectives(OptionSet):
     default = list()
 
 
-class IncludeTimeConsumingObjectives(Toggle):
+class IncludeTimeConsumingObjectives(DefaultOnToggle):
     """
     Determines if time-consuming objectives should be considered.
 
@@ -329,8 +338,8 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     area_trials_maximum: AreaTrialsMaximum
     game_medley_mode: GameMedleyMode
     game_medley_percentage_chance: GameMedleyPercentageChance
-    game_selection: GameSelection
     metagame_selection: MetagameSelection
+    game_selection: GameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
