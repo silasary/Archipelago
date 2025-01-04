@@ -31,7 +31,7 @@
 * Guitar Hero World Tour (X360 + PS3, PS2, PC, NGAGE, WII)
 * Guitar Hero: Warriors of Rock (X360 + PS3, WII)
 * Halls of Torment (PC + AND, IOS)
-* Hollowcure: Save the Fans! (PC)
+* HoloCure: Save the Fans! (PC)
 * Just Shapes & Beats (PC + PS4, SW, XONE)
 * League of Legends (PC)
 * Mages of Mystralia (PC + PS4, SW, XONE)
