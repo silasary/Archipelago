@@ -25,9 +25,7 @@ class GuitarHeroIIGame(Game):
     name = "Guitar Hero II"
     platform = KeymastersKeepGamePlatforms.PS2
 
-    platforms_other = [
-        KeymastersKeepGamePlatforms.X360
-    ]
+    platforms_other = [KeymastersKeepGamePlatforms.X360]
 
     is_adult_only_or_unrated = False
 
@@ -35,7 +33,7 @@ class GuitarHeroIIGame(Game):
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
-    
+
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
@@ -43,25 +41,32 @@ class GuitarHeroIIGame(Game):
                 data={"TRACK": (self.tracks, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Get a Full Combo on TRACK",
                 data={"TRACK": (self.tracks, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=1
+                weight=1,
             ),
         ]
-    
+
     def tracks(self) -> List[str]:
         track_list = self.tracks_base
+
         if self.archipelago_options.guitar_hero_ii_bonus_tracks.value:
             track_list += self.tracks_bonus
+
         if self.archipelago_options.guitar_hero_ii_x360_tracks.value:
             track_list += self.tracks_x360
-        if self.archipelago_options.guitar_hero_ii_bonus_tracks.value and self.archipelago_options.guitar_hero_ii_x360_tracks.value:
+
+        if (
+            self.archipelago_options.guitar_hero_ii_bonus_tracks.value
+            and self.archipelago_options.guitar_hero_ii_x360_tracks.value
+        ):
             track_list += self.tracks_x360_bonus
+
         return sorted(track_list)
 
     @functools.cached_property
@@ -109,7 +114,7 @@ class GuitarHeroIIGame(Game):
             "Hangar 18 (tier 8)",
             "Free Bird (tier 8)",
         ]
-    
+
     @functools.cached_property
     def tracks_bonus(self) -> List[str]:
         return [
@@ -136,9 +141,9 @@ class GuitarHeroIIGame(Game):
             "Thunderhorse (bonus)",
             "Trogdor (bonus)",
             "X-Stream (bonus)",
-            "Yes We Can (bonus)"
+            "Yes We Can (bonus)",
         ]
-    
+
     @functools.cached_property
     def tracks_x360(self) -> List[str]:
         return [
@@ -149,15 +154,12 @@ class GuitarHeroIIGame(Game):
             "Hush (tier 4)",
             "Rock and Roll, Hoochie Koo (tier 5)",
             "Dead! (tier 6)",
-            "The Trooper (tier 7)"
+            "The Trooper (tier 7)",
         ]
-    
+
     @functools.cached_property
     def tracks_x360_bonus(self) -> List[str]:
-        return [
-            "Drink Up (bonus)",
-            "Kicked to the Curb (bonus)"
-        ]
+        return ["Drink Up (bonus)", "Kicked to the Curb (bonus)"]
 
 
 # Archipelago Options
@@ -167,7 +169,7 @@ class GuitarHeroIIBonusTracks(Toggle):
     """
 
     display_name = "Guitar Hero II Bonus Tracks"
-    default = False
+
 
 class GuitarHeroIIX360Tracks(Toggle):
     """
@@ -175,4 +177,3 @@ class GuitarHeroIIX360Tracks(Toggle):
     """
 
     display_name = "Guitar Hero II X360 Tracks"
-    default = False

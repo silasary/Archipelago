@@ -3,10 +3,17 @@ from __future__ import annotations
 import functools
 from typing import List
 
+from dataclasses import dataclass
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
+
+
+@dataclass
+class GuitarHeroWorldTourArchipelagoOptions:
+    pass
 
 
 class GuitarHeroWorldTourGame(Game):
@@ -24,6 +31,8 @@ class GuitarHeroWorldTourGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = GuitarHeroWorldTourArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -137,3 +146,7 @@ class GuitarHeroWorldTourGame(Game):
             "The Wind Cries Mary",
             "You're Gonna Say Yeah!"
         ]
+
+
+# Archipelago Options
+# ...

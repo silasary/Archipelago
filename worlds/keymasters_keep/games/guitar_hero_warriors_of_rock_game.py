@@ -3,10 +3,17 @@ from __future__ import annotations
 import functools
 from typing import List
 
+from dataclasses import dataclass
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
+
+
+@dataclass
+class GuitarHeroWarriorsOfRockArchipelagoOptions:
+    pass
 
 
 class GuitarHeroWarriorsOfRockGame(Game):
@@ -21,6 +28,8 @@ class GuitarHeroWarriorsOfRockGame(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = GuitarHeroWarriorsOfRockArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -143,3 +152,7 @@ class GuitarHeroWarriorsOfRockGame(Game):
             "What Do I Get?",
             "Wish"
         ]
+
+
+# Archipelago Options
+# ...

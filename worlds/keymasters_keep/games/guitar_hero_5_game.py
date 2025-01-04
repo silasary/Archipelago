@@ -3,10 +3,17 @@ from __future__ import annotations
 import functools
 from typing import List
 
+from dataclasses import dataclass
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
+
+
+@dataclass
+class GuitarHero5ArchipelagoOptions:
+    pass
 
 
 class GuitarHero5Game(Game):
@@ -22,6 +29,8 @@ class GuitarHero5Game(Game):
     ]
 
     is_adult_only_or_unrated = False
+
+    options_cls = GuitarHero5ArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -134,5 +143,9 @@ class GuitarHero5Game(Game):
             "Woman From Tokyo",
             "You and Me",
             "You Give Love a Bad Name",
-            "Younk Funk"
+            "Younk Funk",
         ]
+
+
+# Archipelago Options
+# ...
