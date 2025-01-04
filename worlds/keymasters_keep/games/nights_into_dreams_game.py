@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import functools
 from typing import List
 
 from dataclasses import dataclass
@@ -97,7 +96,10 @@ class NightsIntoDreamsGame(Game):
             "-DREAMY !!!-",
         ]
 
+
 class NightsIntoDreamsEnableChristmas(Toggle):
     """
     Whether objectives involving the Christmas version of Spring Valley should be included
     """
+
+    display_name = "NiGHTS into Dreams... Enable Christmas"
