@@ -113,7 +113,6 @@ class MagesOfMystraliaGame(Game):
             ),
         ]
 
-
     @staticmethod
     def difficulties() -> List[str]:
         return [
