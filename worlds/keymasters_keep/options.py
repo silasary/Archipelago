@@ -212,6 +212,19 @@ class GameMedleyPercentageChance(Range):
     default = 100
 
 
+class MetagameSelection(OptionSet):
+    """
+    Defines the metagame pool to select from.
+
+    All supported metagames are listed. Remove the ones you don't own or want to play.
+    """
+
+    display_name: str = "Metagame Selection"
+    valid_keys = sorted(AutoGameRegister.metagames.keys())
+
+    default = sorted(AutoGameRegister.metagames.keys())
+
+
 class GameSelection(OptionSet):
     """
     Defines the game pool to select from.
@@ -225,17 +238,17 @@ class GameSelection(OptionSet):
     default = sorted(AutoGameRegister.games.keys())
 
 
-class MetagameSelection(OptionSet):
+class ModdedGameSelection(OptionSet):
     """
-    Defines the metagame pool to select from.
+    Defines the modded game pool to select from.
 
-    All supported metagames are listed. Remove the ones you don't own or want to play.
+    All supported modded games are listed. Remove the ones you don't own or want to play.
     """
 
-    display_name: str = "Metagame Selection"
-    valid_keys = sorted(AutoGameRegister.metagames.keys())
+    display_name: str = "Modded Game Selection"
+    valid_keys = sorted(AutoGameRegister.modded_games.keys())
 
-    default = sorted(AutoGameRegister.metagames.keys())
+    default = sorted(AutoGameRegister.modded_games.keys())
 
 
 class IncludeAdultOnlyOrUnratedGames(Toggle):
@@ -280,7 +293,11 @@ class ExcludedGamesDifficultObjectives(OptionSet):
     """
 
     display_name: str = "Excluded Games Difficult Objectives"
-    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
 
     default = list()
 
@@ -307,7 +324,11 @@ class ExcludedGamesTimeConsumingObjectives(OptionSet):
     """
 
     display_name: str = "Excluded Games Time-Consuming Objectives"
-    valid_keys = sorted(AutoGameRegister.games.keys()) + sorted(AutoGameRegister.metagames.keys())
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
 
     default = list()
 
@@ -340,6 +361,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     game_medley_percentage_chance: GameMedleyPercentageChance
     metagame_selection: MetagameSelection
     game_selection: GameSelection
+    modded_game_selection: ModdedGameSelection
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
@@ -388,6 +410,7 @@ option_groups: typing.List[OptionGroup] = [
             GameMedleyPercentageChance,
             MetagameSelection,
             GameSelection,
+            ModdedGameSelection,
         ],
     ),
     OptionGroup(
