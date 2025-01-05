@@ -364,11 +364,7 @@ class AdvanceWarsDaysOfRuinGame(Game):
         return sorted(self.maps_trials_2p + self.maps_trials_3p + self.maps_trials_4p)
 
     def maps_freeplay_2p(self) -> List[str]:
-        return sorted(
-            self.maps_classic
-            + self.maps_2p
-            + self.maps_trials_2p
-        )
+        return sorted(self.maps_classic + self.maps_2p + self.maps_trials_2p)
 
     def maps_freeplay_3p(self) -> List[str]:
         return sorted(self.maps_3p + self.maps_trials_3p)
