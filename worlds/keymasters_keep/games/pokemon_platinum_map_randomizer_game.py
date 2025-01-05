@@ -194,7 +194,7 @@ class PokemonPlatinumMapRandomizerGame(Game):
             "Oreburgh",
             "Eterna",
             "Hearthome",
-            "Solaceon",
+            "Canalave",
             "Veilstone",
             "Pastoria",
             "Snowpoint",
