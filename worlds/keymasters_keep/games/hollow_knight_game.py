@@ -32,11 +32,11 @@ class HollowKnightGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Defeat the Boss on Radiant difficulty",
+                label="Defeat Bosses on Radiant difficulty",
                 data=dict(),
             ),
             GameObjectiveTemplate(
-                label="Activate BINDING before entering the Pantheon",
+                label="Activate BINDING before entering a Pantheon (when applicable)",
                 data={
                     "BINDING": (self.bindings, 1),
                 },
@@ -185,7 +185,7 @@ class HollowKnightGame(Game):
             "Paintmaster Sheo, Ascended",
             "Nailsage Sly, Ascended",
             "Pure Vessel, Ascended",
-            "Grimm, Ascended, Ascended",
+            "Grimm, Ascended",
             "Nightmare King, Ascended",
             "Radiance, Ascended",
         ]
