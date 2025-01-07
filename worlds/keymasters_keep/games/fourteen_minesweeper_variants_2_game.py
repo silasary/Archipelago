@@ -158,7 +158,7 @@ class FourteenMinesweeperVariants2Game(Game):
                     label="Complete SIZE VARIANT_LEFT + VARIANT_RIGHT board",
                     data={
                         "SIZE": (self.sizes, 1),
-                        "VARIANT_LEFT": (self.variants_left, 1),
+                        "VARIANT_LEFT": (self.variants_left_no_bonus, 1),
                         "VARIANT_RIGHT": (self.variants_right_one, 1),
                     },
                     is_time_consuming=False,
@@ -170,7 +170,7 @@ class FourteenMinesweeperVariants2Game(Game):
                     data={
                         "SIZE": (self.sizes, 1),
                         "VARIANT_LEFT": (self.variants_left_one, 1),
-                        "VARIANT_RIGHT": (self.variants_right, 1),
+                        "VARIANT_RIGHT": (self.variants_right_no_bonus, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
@@ -243,7 +243,7 @@ class FourteenMinesweeperVariants2Game(Game):
                     label="Perfect SIZE VARIANT_LEFT + VARIANT_RIGHT board",
                     data={
                         "SIZE": (self.sizes, 1),
-                        "VARIANT_LEFT": (self.variants_left, 1),
+                        "VARIANT_LEFT": (self.variants_left_no_bonus, 1),
                         "VARIANT_RIGHT": (self.variants_right_one, 1),
                     },
                     is_time_consuming=False,
@@ -255,7 +255,7 @@ class FourteenMinesweeperVariants2Game(Game):
                     data={
                         "SIZE": (self.sizes, 1),
                         "VARIANT_LEFT": (self.variants_left_one, 1),
-                        "VARIANT_RIGHT": (self.variants_right, 1),
+                        "VARIANT_RIGHT": (self.variants_right_no_bonus, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
@@ -305,6 +305,20 @@ class FourteenMinesweeperVariants2Game(Game):
         return variants
 
     @staticmethod
+    def variants_left_no_bonus() -> List[str]:
+        variants: List[str] = [
+            "[2H] Horizontal",
+            "[2C] Connected",
+            "[2S] Segment",
+            "[2G] Group",
+            "[2F] Flowers",
+            "[2B] Bridge",
+            "[2T] Triplet",
+        ]
+
+        return variants
+
+    @staticmethod
     def variants_double_left() -> List[str]:
         return [
             "[2G] Group + [2H] Horizontal",
@@ -333,6 +347,20 @@ class FourteenMinesweeperVariants2Game(Game):
                 "[2X'] Cross'",
                 "[2I] Incompleteness",
             ])
+
+        return variants
+
+    @staticmethod
+    def variants_right_no_bonus() -> List[str]:
+        variants: List[str] = [
+            "[2X] Cross",
+            "[2D] Deviation",
+            "[2P] Product",
+            "[2E] Encrypted",
+            "[2M] Modulo",
+            "[2A] Area",
+            "[2L] Liar",
+        ]
 
         return variants
 
