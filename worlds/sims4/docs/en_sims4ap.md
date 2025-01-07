@@ -7,7 +7,7 @@ Skills can not be levelled past the number of collected items for each skill.
 Later versions may include randomization for career skill requirements. 
 
 ## What is the goal of Sims 4 when randomized?
-Current goal is to get promoted to level 10 of one career with one Sim. 
+Current goal is to complete a chosen aspiration with one Sim. 
 
 ## Which items can be in another player's world?
 Skills are progression items, Simoleons are trash items
