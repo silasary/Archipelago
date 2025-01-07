@@ -1,13 +1,24 @@
 import typing
+from typing import Mapping, Any
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
 from .Locations import location_table, Sims4Location
 from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
-from .Options import sims4_options
+from .Options import Sims4Options
 from .Regions import sims4_career_paths, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
 from .Rules import set_rules
 from worlds.AutoWorld import World, WebWorld
+from ..LauncherComponents import Component, components, Type
+from multiprocessing import Process
+
+def run_client():
+    from worlds.sims4.Client import main
+    p = Process(target=main)
+    p.start()
+
+
+components.append(Component("The Sims 4 Client", func=run_client, component_type=Type.CLIENT))
 
 
 class Sims4APWeb(WebWorld):
@@ -75,6 +86,12 @@ class Sims4World(World):
 
         self.multiworld.regions.append(menu)
 
+    def fill_slot_data(self) -> Mapping[str, Any]:
+        slot_data = {
+            "goal": self.options.goal.current_key
+        }
+        return slot_data
+
     game: str = "The Sims 4"
     topology_present = False
     web = Sims4APWeb()
@@ -88,6 +105,7 @@ class Sims4World(World):
 
     area_connections: typing.Dict[int, int]
 
-    option_definitions = sims4_options
+    options_dataclass = Sims4Options
+    options: Sims4Options
 
     set_rules = set_rules

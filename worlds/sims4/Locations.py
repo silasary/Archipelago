@@ -1,5 +1,6 @@
 import typing
 from typing import Dict, NamedTuple, Optional
+
 from BaseClasses import Location
 from .Names import SkillNames, CareerNames, AspirationNames
 
@@ -24,9 +25,6 @@ class Sims4LocationData(NamedTuple):
 
 
 skill_locations_table: Dict[int, Sims4LocationDict] = {
-    0x73341001: {'name': f"{SkillNames.base_skill_comedy} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341002: {'name': f"{SkillNames.base_skill_comedy} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -55,9 +53,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334100B: {'name': f"{SkillNames.base_skill_guitar} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334100C: {'name': f"{SkillNames.base_skill_guitar} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -86,9 +81,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341015: {'name': f"{SkillNames.base_skill_logic} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341016: {'name': f"{SkillNames.base_skill_logic} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -117,9 +109,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334101F: {'name': f"{SkillNames.base_skill_piano} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341020: {'name': f"{SkillNames.base_skill_piano} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -148,9 +137,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341029: {'name': f"{SkillNames.base_skill_violin} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334102A: {'name': f"{SkillNames.base_skill_violin} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -179,9 +165,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341033: {'name': f"{SkillNames.base_skill_charisma} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341034: {'name': f"{SkillNames.base_skill_charisma} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -210,9 +193,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334103D: {'name': f"{SkillNames.base_skill_cooking} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334103E: {'name': f"{SkillNames.base_skill_cooking} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -241,9 +221,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341047: {'name': f"{SkillNames.base_skill_fishing} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341048: {'name': f"{SkillNames.base_skill_fishing} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -272,9 +249,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341051: {'name': f"{SkillNames.base_skill_fitness} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341052: {'name': f"{SkillNames.base_skill_fitness} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -303,9 +277,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334105B: {'name': f"{SkillNames.base_skill_gardening} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334105C: {'name': f"{SkillNames.base_skill_gardening} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -334,9 +305,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341065: {'name': f"{SkillNames.base_skill_gourmet} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341066: {'name': f"{SkillNames.base_skill_gourmet} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -365,9 +333,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334106F: {'name': f"{SkillNames.base_skill_handiness} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341070: {'name': f"{SkillNames.base_skill_handiness} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -396,9 +361,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341079: {'name': f"{SkillNames.base_skill_mischief} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334107A: {'name': f"{SkillNames.base_skill_mischief} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -427,9 +389,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341083: {'name': f"{SkillNames.base_skill_mixology} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341084: {'name': f"{SkillNames.base_skill_mixology} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -458,9 +417,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334108D: {'name': f"{SkillNames.base_skill_painting} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334108E: {'name': f"{SkillNames.base_skill_painting} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -489,9 +445,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341097: {'name': f"{SkillNames.base_skill_programming} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341098: {'name': f"{SkillNames.base_skill_programming} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -520,9 +473,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341101: {'name': f"{SkillNames.base_skill_rocket_science} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341102: {'name': f"{SkillNames.base_skill_rocket_science} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -551,9 +501,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334110B: {'name': f"{SkillNames.base_skill_video_gaming} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x7334110C: {'name': f"{SkillNames.base_skill_video_gaming} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -582,9 +529,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x73341115: {'name': f"{SkillNames.base_skill_writing} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341116: {'name': f"{SkillNames.base_skill_writing} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -613,9 +557,6 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
                  'category': "Skills",
                  'expansion': "base"},
 
-    0x7334111F: {'name': f"{SkillNames.base_skill_photography} 1",
-                 'category': "Skills",
-                 'expansion': "base"},
     0x73341120: {'name': f"{SkillNames.base_skill_photography} 2",
                  'category': "Skills",
                  'expansion': "base"},
@@ -631,9 +572,7 @@ skill_locations_table: Dict[int, Sims4LocationDict] = {
 }
 
 careers_locations_table = {
-    0x73342000: {"name": f"{CareerNames.base_career_athlete_1}",
-                 "category": "Athlete",
-                 "expansion": "base"},
+
     0x73342001: {"name": f"{CareerNames.base_career_athlete_2}",
                  "category": "Athlete",
                  "expansion": "base"},
@@ -680,9 +619,6 @@ careers_locations_table = {
                  "category": "Bodybuilder",
                  "expansion": "base"},
 
-    0x73342010: {"name": f"{CareerNames.base_career_business_1}",
-                 "category": "Business",
-                 "expansion": "base"},
     0x73342011: {"name": f"{CareerNames.base_career_business_2}",
                  "category": "Business",
                  "expansion": "base"},
@@ -723,9 +659,6 @@ careers_locations_table = {
                  "category": "Investor",
                  "expansion": "base"},
 
-    0x7334201E: {"name": f"{CareerNames.base_career_criminal_1}",
-                 "category": "Criminal",
-                 "expansion": "base"},
     0x7334201F: {"name": f"{CareerNames.base_career_criminal_2}",
                  "category": "Criminal",
                  "expansion": "base"},
@@ -769,9 +702,6 @@ careers_locations_table = {
                  "category": "Oracle",
                  "expansion": "base"},
 
-    0x7334202D: {"name": f"{CareerNames.base_career_culinary_1}",
-                 "category": "Culinary",
-                 "expansion": "base"},
     0x7334202E: {"name": f"{CareerNames.base_career_culinary_2}",
                  "category": "Culinary",
                  "expansion": "base"},
@@ -815,9 +745,6 @@ careers_locations_table = {
                  "category": "Mixologist",
                  "expansion": "base"},
 
-    0x7334203C: {"name": f"{CareerNames.base_career_painter_1}",
-                 "category": "Painter",
-                 "expansion": "base"},
     0x7334203D: {"name": f"{CareerNames.base_career_painter_2}",
                  "category": "Painter",
                  "expansion": "base"},
@@ -858,9 +785,6 @@ careers_locations_table = {
                  "category": "Patron of the Arts",
                  "expansion": "base"},
 
-    0x7334204A: {"name": f"{CareerNames.base_career_astronaut_1}",
-                 "category": "Astronaut",
-                 "expansion": "base"},
     0x7334204B: {"name": f"{CareerNames.base_career_astronaut_2}",
                  "category": "Astronaut",
                  "expansion": "base"},
@@ -898,9 +822,6 @@ careers_locations_table = {
                  "category": "Interstellar Smuggler",
                  "expansion": "base"},
 
-    0x73342057: {"name": f"{CareerNames.base_career_entertainer_1}",
-                 "category": "Entertainer",
-                 "expansion": "base"},
     0x73342058: {"name": f"{CareerNames.base_career_entertainer_2}",
                  "category": "Entertainer",
                  "expansion": "base"},
@@ -947,9 +868,6 @@ careers_locations_table = {
                  "category": "Comedian",
                  "expansion": "base"},
 
-    0x73342067: {"name": f"{CareerNames.base_career_secret_agent_1}",
-                 "category": "Secret Agent",
-                 "expansion": "base"},
     0x73342068: {"name": f"{CareerNames.base_career_secret_agent_2}",
                  "category": "Secret Agent",
                  "expansion": "base"},
@@ -990,9 +908,6 @@ careers_locations_table = {
                  "category": "Villain",
                  "expansion": "base"},
 
-    0x73342075: {"name": f"{CareerNames.base_career_style_influencer_1}",
-                 "category": "Style Influencer",
-                 "expansion": "base"},
     0x73342076: {"name": f"{CareerNames.base_career_style_influencer_2}",
                  "category": "Style Influencer",
                  "expansion": "base"},
@@ -1036,9 +951,6 @@ careers_locations_table = {
                  "category": "Trend Setter",
                  "expansion": "base"},
 
-    0x73342084: {"name": f"{CareerNames.base_career_tech_guru_1}",
-                 "category": "Tech Guru",
-                 "expansion": "base"},
     0x73342085: {"name": f"{CareerNames.base_career_tech_guru_2}",
                  "category": "Tech Guru",
                  "expansion": "base"},
@@ -1079,9 +991,6 @@ careers_locations_table = {
                  "category": "Start-up Entrepreneur",
                  "expansion": "base"},
 
-    0x73342092: {"name": f"{CareerNames.base_career_writer_1}",
-                 "category": "Writer",
-                 "expansion": "base"},
     0x73342093: {"name": f"{CareerNames.base_career_writer_2}",
                  "category": "Writer",
                  "expansion": "base"},
@@ -1128,9 +1037,7 @@ careers_locations_table = {
 }
 
 ptj_locations_table = {
-    0x733420A1: {"name": f"{CareerNames.base_ptj_babysitter_1}",
-                 "category": "Babysitter",
-                 "expansion": "base"},
+
     0x733420A2: {"name": f"{CareerNames.base_ptj_babysitter_2}",
                  "category": "Babysitter",
                  "expansion": "base"},
@@ -1138,9 +1045,6 @@ ptj_locations_table = {
                  "category": "Babysitter",
                  "expansion": "base"},
 
-    0x733420A4: {"name": f"{CareerNames.base_ptj_barista_1}",
-                 "category": "Barista",
-                 "expansion": "base"},
     0x733420A5: {"name": f"{CareerNames.base_ptj_barista_2}",
                  "category": "Barista",
                  "expansion": "base"},
@@ -1148,9 +1052,6 @@ ptj_locations_table = {
                  "category": "Barista",
                  "expansion": "base"},
 
-    0x733420A7: {"name": f"{CareerNames.base_ptj_retail_employee_1}",
-                 "category": "Retail Employee",
-                 "expansion": "base"},
     0x733420A8: {"name": f"{CareerNames.base_ptj_retail_employee_2}",
                  "category": "Retail Employee",
                  "expansion": "base"},
@@ -1158,9 +1059,6 @@ ptj_locations_table = {
                  "category": "Retail Employee",
                  "expansion": "base"},
 
-    0x733420AA: {"name": f"{CareerNames.base_ptj_manual_laborer_1}",
-                 "category": "Manual Laborer",
-                 "expansion": "base"},
     0x733420AB: {"name": f"{CareerNames.base_ptj_manual_laborer_2}",
                  "category": "Manual Laborer",
                  "expansion": "base"},
@@ -1168,9 +1066,6 @@ ptj_locations_table = {
                  "category": "Manual Laborer",
                  "expansion": "base"},
 
-    0x733420AD: {"name": f"{CareerNames.base_ptj_fastfood_employee_1}",
-                 "category": "Fastfood Employee",
-                 "expansion": "base"},
     0x733420AE: {"name": f"{CareerNames.base_ptj_fastfood_employee_2}",
                  "category": "Fastfood Employee",
                  "expansion": "base"},

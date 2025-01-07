@@ -1,6 +1,5 @@
 # Base game careers
 # Astronaut
-base_career_astronaut_1 = "Intern (Astronaut 1)"
 base_career_astronaut_2 = "Module Cleaner (Astronaut 2)"
 base_career_astronaut_3 = "Technician (Astronaut 3)"
 base_career_astronaut_4 = "Command Center Lead (Astronaut 4)"
@@ -14,7 +13,6 @@ base_career_astronaut_8B = "Moon Mercenary (Astronaut / Interstellar Smuggler 8)
 base_career_astronaut_9B = "Alien Goods Trader (Astronaut / Interstellar Smuggler 9)"
 base_career_astronaut_10B = "Interstellar Smuggler (Astronaut / Interstellar Smuggler 10)"
 # Athlete
-base_career_athlete_1 = "Waterperson (Athlete 1)"
 base_career_athlete_2 = "Locker Room Attendant (Athlete 2)"
 base_career_athlete_3 = "Team Mascot (Athlete 3)"
 base_career_athlete_4 = "Dance Team Captain (Athlete 4)"
@@ -31,7 +29,6 @@ base_career_athlete_8B = "Trainer to the Stars (Athlete / Bodybuilder 8)"
 base_career_athlete_9B = "Celebrity Bodybuilder (Athlete / Bodybuilder 9)"
 base_career_athlete_10B = "Mr. / Mrs. Solar System (Athlete / Bodybuilder 10)"
 # Business
-base_career_business_1 = "Mailroom Technician (Business 1)"
 base_career_business_2 = "Office Assistant (Business 2)"
 base_career_business_3 = "Assistant to the Manager (Business 3)"
 base_career_business_4 = "Assistant Manager (Business 4)"
@@ -46,7 +43,6 @@ base_career_business_8B = "Hedge Fund Manager (Business / Investor 8)"
 base_career_business_9B = "Corporate Raider (Business / Investor 9)"
 base_career_business_10B = "Angel Investor (Business / Investor 10)"
 # Criminal
-base_career_criminal_1 = "Tough Guy / Gal (Criminal 1)"
 base_career_criminal_2 = "Petty Thief (Criminal 2)"
 base_career_criminal_3 = "Ringleader (Criminal 3)"
 base_career_criminal_4 = "Felonious Monk (Criminal 4)"
@@ -62,7 +58,6 @@ base_career_criminal_8B = "An0nymous Ghost (Criminal / Oracle 8)"
 base_career_criminal_9B = "Net Demon (Criminal / Oracle 9)"
 base_career_criminal_10B = "The Oracle (Criminal / Oracle 10"
 # Culinary
-base_career_culinary_1 = "Assistant Dishwasher (Culinary 1)"
 base_career_culinary_2 = "Head Dishwascher (Culinary 2)"
 base_career_culinary_3 = "Caterer (Culinary 3)"
 base_career_culinary_4 = "Mixologist (Culinary 4)"
@@ -78,7 +73,6 @@ base_career_culinary_8B = "Chief Drink Operator (Culinary / Mixologist 8)"
 base_career_culinary_9B = "Drinkmaster (Culinary / Mixologist 9)"
 base_career_culinary_10B = "Celebrity Mixologist (Culinary / Mixologist 10)"
 # Entertainer
-base_career_entertainer_1 = "Amateur Entertainer (Entertainer 1)"
 base_career_entertainer_2 = "Open Mic Seeker (Entertainer 2)"
 base_career_entertainer_3 = "C-Lister (Entertainer 3)"
 base_career_entertainer_4 = "Opening Act (Entertainer 4)"
@@ -94,7 +88,6 @@ base_career_entertainer_7B = "Rising Comedian (Entertainer / Comedian 7)"
 base_career_entertainer_8B = "Roast Master (Entertainer / Comedian 8)"
 base_career_entertainer_9B = "Stand up Star (Entertainer / Comedian 9)"
 base_career_entertainer_10B = "Show Stopper (Entertainer / Comedian 10)"
-base_career_painter_1 = "Palette Cleaner (Painter 1)"
 base_career_painter_2 = "Art Book Collector (Painter 2)"
 base_career_painter_3 = "Hungry Artist (Painter 3)"
 base_career_painter_4 = "Watercolor Dabbler (Painter 4)"
@@ -109,7 +102,6 @@ base_career_painter_8B = "Fine-Art Aficionado (Painter / Patron of the Arts 8)"
 base_career_painter_9B = "Composition Curator (Painter / Patron of the Arts 9)"
 base_career_painter_10B = "Patron of the Arts (Painter / Patron of the Arts 10)"
 # Secret Agent
-base_career_secret_agent_1 = "Agency Clerk (Secret Agent 1)"
 base_career_secret_agent_2 = "Intelligence Researcher (Secret Agent 2)"
 base_career_secret_agent_3 = "Agent Handler (Secret Agent 3)"
 base_career_secret_agent_4 = "Field Agent (Secret Agent 4)"
@@ -124,7 +116,6 @@ base_career_secret_agent_9B = "[Redacted] (Secret Agent / Villain  9)"
 base_career_secret_agent_10B = "Supreme Villain (Secret Agent / Villain 10)"
 base_career_secret_agent_11B = "Triple Agent (Secret Agent / Villain 10)"
 # Style Influencer
-base_career_style_influencer_1 = "Rag Reviewer (Style Influencer 1)"
 base_career_style_influencer_2 = "Consignment Commentator (Style Influencer 2)"
 base_career_style_influencer_3 = "Wearable Wordsmith (Style Influencer 3)"
 base_career_style_influencer_4 = "Ensemble Author (Style Influencer 4)"
@@ -140,7 +131,6 @@ base_career_style_influencer_8B = "Best-Self-Helper (Style Influencer / Trend Se
 base_career_style_influencer_9B = "It Sim (Style Influencer / Trend Setter 9)"
 base_career_style_influencer_10B = "Icon O'Class (Style Influencer / Trend Setter 10)"
 # Tech Guru
-base_career_tech_guru_1 = "Live Chat Support Agent (Tech Guru 1)"
 base_career_tech_guru_2 = "Quality Assurance (Tech Guru 2)"
 base_career_tech_guru_3 = "Code Monkey (Tech Guru 3)"
 base_career_tech_guru_4 = "Ace Engineer (Tech Guru 4)"
@@ -156,7 +146,6 @@ base_career_tech_guru_9B = "Dot-Com Pioneer (Tech Guru / Start-up entrepreneur 9
 base_career_tech_guru_10B = "Start-up Genius (Tech Guru / Start-up entrepreneur 10)"
 
 # Writer
-base_career_writer_1 = "Writer's Assistant (Writer 1)"
 base_career_writer_2 = "Blogger (Writer 2)"
 base_career_writer_3 = "Freelance Article Writer (Writer 3)"
 base_career_writer_4 = "Advice Columnist (Writer 4)"
@@ -172,27 +161,20 @@ base_career_writer_8B = "Investigative Journalist (Writer / Journalist 8)"
 base_career_writer_9B = "Editor-in-Chef (Writer / Journalist 9)"
 base_career_writer_10B = "Scribe of History (Writer / Journalist 10)"
 
-# TODO, Freelancer Careers work different from other careers in regards to promotions
-base_career_freelancer = "Freelancer Career"
 
 # Base Game Part Time Jobs
-base_ptj_babysitter_1 = "Baby Sitter (Babysitter 1)"
 base_ptj_babysitter_2 = "Nanny (Babysitter 2)"
 base_ptj_babysitter_3 = "Daycare Assistant (Babysitter 3)"
 
-base_ptj_barista_1 = "Coffee Stain Remover (Barista 1)"
 base_ptj_barista_2 = "Bean Blender (Barista 2)"
 base_ptj_barista_3 = "Latte Artiste (Barista 3)"
 
-base_ptj_fastfood_employee_1 = "Table Cleaner (Fastfood Employee 1)"
 base_ptj_fastfood_employee_2 = "Fry Cook (Fastfood Employee 2)"
 base_ptj_fastfood_employee_3 = "Food Service Cashier (Fastfood Employee 3)"
 
-base_ptj_manual_laborer_1 = "Lawn Mower (Manual Laborer 1)"
 base_ptj_manual_laborer_2 = "Landscaper (Manual Laborer 2)"
 base_ptj_manual_laborer_3 = "Backhoe Operator (Manual Laborer 3)"
 
-base_ptj_retail_employee_1 = "Shelf Stocker (Retail Employee 1)"
 base_ptj_retail_employee_2 = "Sales Floor Clerk (Retail Employee 2)"
 base_ptj_retail_employee_3 = "Customer Support (Retail Employee 3)"
 
