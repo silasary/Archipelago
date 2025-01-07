@@ -11,6 +11,7 @@
 - Install Archipelago
 - Add sims4.apworld to custom_worlds folder in your Archipelago directory or double click the .apworld to install it automatically
 - Follow Archipelago's tutorial on [how to generate a game.](https://archipelago.gg/tutorial/Archipelago/setup/en)
+- Make sure you download both the .ts4script and .package files from Sims 4 community library and the sims 4 archipelago mod and install them to your mods folder (usually located in Documents/Electronic Arts/The Sims 4/Mods)
 
 ## Setting up
 - This mod only uses skills from the base game as checks and locations. Make sure to disable your packs as they are likely to break the mod. 
