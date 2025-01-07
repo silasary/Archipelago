@@ -307,14 +307,14 @@ class FourteenMinesweeperVariants2Game(Game):
     @staticmethod
     def variants_double_left() -> List[str]:
         return [
-            "[2G]Group + [2H] Horizontal",
-            "[2C]Connected + [2H] Horizontal",
-            "[2C]Connected + [2G] Group",
-            "[2F]Flowers + [2G] Group",
-            "[2F]Flowers + [2H] Horizontal",
-            "[2C]Connected + [2F] Flowers",
-            "[2B]Bridge + [2H] Horizontal",
-            "[2G]Group + [R+] Mine Count+",
+            "[2G] Group + [2H] Horizontal",
+            "[2C] Connected + [2H] Horizontal",
+            "[2C] Connected + [2G] Group",
+            "[2F] Flowers + [2G] Group",
+            "[2F] Flowers + [2H] Horizontal",
+            "[2C] Connected + [2F] Flowers",
+            "[2B] Bridge + [2H] Horizontal",
+            "[2G] Group + [R+] Mine Count+",
         ]
 
     def variants_right(self) -> List[str]:
