@@ -54,7 +54,7 @@ class Pikmin4Game(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Max out the following Oatchi: OATCHI",
+                label="Max out the following Oatchi skill: OATCHI",
                 data={
                     "OATCHI": (self.oatchi, 1),
                 },
