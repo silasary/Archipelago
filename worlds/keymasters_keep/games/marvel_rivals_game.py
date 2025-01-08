@@ -16,8 +16,6 @@ class MarvelRivalsArchipelagoOptions:
 
 
 class MarvelRivalsGame(Game):
-    # Initial proposal by @qwiskyy on Discord
-
     name = "Marvel Rivals"
     platform = KeymastersKeepGamePlatforms.PC
 
@@ -135,6 +133,7 @@ class MarvelRivalsGame(Game):
     @staticmethod
     def maps_convoy() -> List[str]:
         return [
+            "Empire of Eternal Night: Midtown",
             "Tokyo 2099: Spider-Islands",
             "Yggsgard: Yggdrasill Path",
         ]
@@ -166,6 +165,7 @@ class MarvelRivalsGame(Game):
             "Hawkeye",
             "Hela",
             "Hulk",
+            "Invisible Woman",
             "Iron Fist",
             "Iron Man",
             "Jeff the Land Shark",
@@ -174,6 +174,7 @@ class MarvelRivalsGame(Game):
             "Magik",
             "Magneto",
             "Mantis",
+            "Mister Fantastic",
             "Moon Knight",
             "Namor",
             "Peni Parker",
