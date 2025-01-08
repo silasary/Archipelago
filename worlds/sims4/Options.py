@@ -32,6 +32,9 @@ class AspirationGoal(Choice):
     option_friend_of_the_world = 23
     option_neighborly_advisor = 24
 
+class ExpansionPacks(OptionSet):
+
+
 
 @dataclass
 class Sims4Options(PerGameCommonOptions):
