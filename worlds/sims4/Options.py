@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from Options import Choice, PerGameCommonOptions, OptionSet
-from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames
+from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
     """The Aspiration Needed to win the game"""
@@ -69,6 +69,17 @@ class CASKits(OptionSet):
                   CASKitNames.poolside_splash, CASKitNames.goth_galore, CASKitNames.urban_homage,
                   CASKitNames.sweet_slumber_party}
 
+class BuildKits(OptionSet):
+    """List of Build Kits that will be included in the shuffling."""
+    display_name = "build_kits"
+    valid_keys = {BuildKitNames.country_kitchen, BuildKitNames.courtyard_oasis, BuildKitNames.industrial_loft,
+                  BuildKitNames.blooming_rooms, BuildKitNames.decor_to_the_max, BuildKitNames.little_campers,
+                  BuildKitNames.desert_luxe, BuildKitNames.everyday_clutter, BuildKitNames.pastel_pop,
+                  BuildKitNames.bathroom_clutter, BuildKitNames.basement_treasures, BuildKitNames.greenhouse_haven,
+                  BuildKitNames.book_nook, BuildKitNames.modern_luxe, BuildKitNames.castle_estate,
+                  BuildKitNames.party_essentials, BuildKitNames.cozy_bistro, BuildKitNames.riviera_retreat,
+                  BuildKitNames.artist_studio, BuildKitNames.storybook_nursery, BuildKitNames.cozy_kitsch}
+
 @dataclass
 class Sims4Options(PerGameCommonOptions):
     goal: AspirationGoal
@@ -76,3 +87,4 @@ class Sims4Options(PerGameCommonOptions):
     game_packs: GamePacks
     stuff_packs: StuffPacks
     cas_kits: CASKits
+    build_kits: BuildKits
