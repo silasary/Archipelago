@@ -4,6 +4,7 @@ from typing import List
 
 from dataclasses import dataclass
 
+from Options import OptionSet
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -13,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class HyruleWarriorsDefinitiveEditionArchipelagoOptions:
-    pass
+    hyrule_warriors_definitive_edition_unlocked_characters: HyruleWarriorsDefinitiveEditionUnlockedCharacters
 
 
 class HyruleWarriorsDefinitiveEditionGame(Game):
@@ -47,17 +48,17 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Complete STAGE with CHARACTER",
+                label="Complete STAGE using CHARACTER",
                 data={
                     "STAGE": (self.stages, 1),
                     "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=5,
             ),
             GameObjectiveTemplate(
-                label="Beat the Battle Challenge BATTLE CHALLENGE with CHARACTER",
+                label="Beat the Battle Challenge BATTLE CHALLENGE using CHARACTER",
                 data={
                     "BATTLE CHALLENGE": (self.battle_challenges, 1),
                     "CHARACTER": (self.characters, 1),
@@ -67,7 +68,7 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Beat the Boss Challenge BOSS CHALLENGE with CHARACTER",
+                label="Beat the Boss Challenge BOSS CHALLENGE using CHARACTER",
                 data={
                     "BOSS CHALLENGE": (self.boss_challenges, 1),
                     "CHARACTER": (self.characters, 1),
@@ -77,69 +78,35 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Beat the Ganon's Fury Mission GANON'S FURY with CHARACTER",
+                label="Beat the Ganon's Fury Mission GANON'S FURY",
                 data={
                     "GANON'S FURY": (self.ganons_fury, 1),
-                    "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Unlock the following Character: CHARACTER",
+                label="Complete NUM stages within the MAP",
                 data={
-                    "CHARACTER": (self.characters_unlockable, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Unlock the following Weapon: WEAPON",
-                data={
-                    "WEAPON": (self.weapons_unlockable, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Reach at least 5% Completion on ADVENTURE_MODE",
-                data={
-                    "ADVENTURE_MODE": (self.adventure_mode_maps, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Reach at least 10% Completion on ADVENTURE_MODE",
-                data={
-                    "ADVENTURE_MODE": (self.adventure_mode_maps, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Reach at least 25% Completion on ADVENTURE_MODE",
-                data={
-                    "ADVENTURE_MODE": (self.adventure_mode_maps, 1),
+                    "NUM": (lambda: list(range(5, 31, 5)), 1),
+                    "MAP": (self.adventure_mode_maps, 1)
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=1,
+                weight=4
             ),
             GameObjectiveTemplate(
-                label="Reach at least 50% Completion on ADVENTURE_MODE",
+                label="Complete NUM stages within the MAP using CHARACTER",
                 data={
-                    "ADVENTURE_MODE": (self.adventure_mode_maps, 1),
+                    "NUM": (lambda: list(range(3, 6)), 1),
+                    "MAP": (self.adventure_mode_maps, 1),
+                    "CHARACTER": (self.characters, 1)
                 },
-                is_time_consuming=True,
-                is_difficult=True,
-                weight=1,
-            ),
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5
+            )
         ]
 
     @staticmethod
@@ -159,16 +126,21 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
             "C Rank",
         ]
 
+    def characters(self) -> List[str]:
+        characters = self.characters_base()
+        characters.extend(sorted(self.archipelago_options.hyrule_warriors_definitive_edition_unlocked_characters.value))
+        return characters
+
     @staticmethod
-    def characters() -> List[str]:
+    def characters_base() -> List[str]:
         return [
-            "Link",
-            "Impa",
+            "Link with the Hylian Sword",
+            "Impa with the Giant Blade",
             "Sheik",
-            "Lana",
+            "Lana with the Book of Sorcery",
             "Darunia",
-            "Zelda",
-            "Ganondorf",
+            "Zelda with the Rapier",
+            "Ganondorf with the Great Swords",
             "Ruto",
             "Agitha",
             "Midna",
@@ -178,19 +150,7 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
             "Cia",
             "Volga",
             "Wizzro",
-            "Twili Midna",
-            "Young Link",
-            "Tingle",
-            "Linkle",
-            "Skull Kid",
-            "Toon Link",
-            "Tetra",
-            "King Daphnes",
-            "Medli",
-            "Marin",
-            "Toon Zelda",
-            "Ravio",
-            "Yuga",
+            "Linkle with the Twin Crossbows",
         ]
 
     @staticmethod
@@ -200,7 +160,7 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
             "Young Link",
             "Tingle",
             "Skull Kid",
-            "Toon Link",
+            "Toon Link with the Light Sword",
             "Tetra",
             "King Daphnes",
             "Medli",
@@ -213,19 +173,20 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
     @staticmethod
     def weapons_unlockable() -> List[str]:
         return [
-            "Magic Rod",
-            "Great Fairy",
-            "Gauntlets",
-            "Master Sword",
-            "Horse",
-            "Spinner",
-            "Niginata",
-            "Summoning Gate",
-            "Baton",
-            "Dominion Rod",
-            "Trident",
-            "Boots",
-            "Sand Wand",
+            "Link with the Magic Rod",
+            "Link & the Great Fairy",
+            "Link with the Gauntlets",
+            "Link with the Master Sword",
+            "Link with the Horse",
+            "Link with the Spinner",
+            "Impa with the Naginata",
+            "Lana with the Spear",
+            "Lana with the Summoning Gate",
+            "Zelda with the Baton",
+            "Zelda with the Dominion Rod",
+            "Ganondorf with the Trident",
+            "Linkle with the Boots",
+            "Toon Link with the Sand Wand",
         ]
 
     @staticmethod
@@ -317,5 +278,12 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
             "Survival Battle LV.4",
         ]
 
+
 # Archipelago Options
-# ...
+class HyruleWarriorsDefinitiveEditionUnlockedCharacters(OptionSet):
+    """What unlockable characters/weapons should be considered for objectives in Hyrule Warriors: Definitive Edition"""
+    valid_keys = HyruleWarriorsDefinitiveEditionGame.characters_unlockable() \
+                    + HyruleWarriorsDefinitiveEditionGame.weapons_unlockable()
+
+    default = valid_keys
+    
