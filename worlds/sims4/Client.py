@@ -113,14 +113,24 @@ class SimsContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             self.goal = args["slot_data"]["goal"]
-            payload = {
-                'cmd': "Connected",
-                'host': self.server_address.split(':')[1].replace('//', ''),
-                'port': self.server_address.split(':')[2],
-                'name': self.slot_info[self.slot].name,
-                'seed_name': self.seed_name,
-            }
-            print_json(payload, 'connection_status.json', self)
+            if '@' in self.server_address:
+                payload = {
+                    'cmd': "Connected",
+                    'host': self.server_address.split(':')[2].split('@')[1].replace('//', ''),
+                    'port': self.server_address.split(':')[3],
+                    'name': self.slot_info[self.slot].name,
+                    'seed_name': self.seed_name,
+                }
+                print_json(payload, 'connection_status.json', self)
+            else:
+                payload = {
+                    'cmd': "Connected",
+                    'host': self.server_address.split(':')[1].replace('//', ''),
+                    'port': self.server_address.split(':')[2],
+                    'name': self.slot_info[self.slot].name,
+                    'seed_name': self.seed_name,
+                }
+                print_json(payload, 'connection_status.json', self)
 
 
         elif cmd == "RoomInfo":
