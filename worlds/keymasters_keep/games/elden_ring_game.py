@@ -397,6 +397,15 @@ class EldenRingGame(Game):
                 is_difficult=False,
                 weight=2,
             ),
+            GameObjectiveTemplate(
+                label="Reach Level LEVEL",
+                data={
+                    "LEVEL": (self.level_range, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=1,
+            ),
         ]
 
     @property
@@ -3249,6 +3258,10 @@ class EldenRingGame(Game):
     @staticmethod
     def flask_potency_range() -> range:
         return range(3, 13)
+
+    @staticmethod
+    def level_range() -> range:
+        return range(40, 151)
 
 
 # Archipelago Options
