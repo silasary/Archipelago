@@ -291,7 +291,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
         "Enter the Gungeon",
         "Faxanadu",
         "Final Fantasy IV",
-        "Final Fantasy V",
+        # "Final Fantasy V",
         "Final Fantasy VI",
         "Final Fantasy XII: Open World",
         "Final Fantasy XII: Trial Mode",
