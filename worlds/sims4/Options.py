@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from Options import Choice, PerGameCommonOptions, OptionSet
-from .Names.DLC import ExpansionNames
+from .Names.DLC import ExpansionNames, GamePackNames
 
 class AspirationGoal(Choice):
     """The Aspiration Needed to win the game"""
@@ -42,9 +42,17 @@ class ExpansionPacks(OptionSet):
                   ExpansionNames.horse_ranch, ExpansionNames.for_rent, ExpansionNames.lovestruck,
                   ExpansionNames.life_and_death}
 
+class GamePacks(OptionSet):
+    """List of Game Packs that will be included in the shuffling."""
+    display_name = "game_packs"
+    valid_keys = {GamePackNames.outdoor_retreat, GamePackNames.spa_day, GamePackNames.dine_out,
+                  GamePackNames.vampires, GamePackNames.parenthood, GamePackNames.jungle_adventure,
+                  GamePackNames.stranger_ville, GamePackNames.realm_of_magic, GamePackNames.dream_home_decorator,
+                  GamePackNames.my_wedding_stories, GamePackNames.werewolves}
 
 
 @dataclass
 class Sims4Options(PerGameCommonOptions):
     goal: AspirationGoal
     expansion_packs: ExpansionPacks
+    game_packs: GamePacks
