@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from Options import Choice, PerGameCommonOptions, OptionSet
-from .Names.DLC import ExpansionNames, GamePackNames, StuffNames
+from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames
 
 class AspirationGoal(Choice):
     """The Aspiration Needed to win the game"""
@@ -60,6 +60,14 @@ class StuffPacks(OptionSet):
                   StuffNames.laundry_day, StuffNames.my_first_pet, StuffNames.moshino,
                   StuffNames.tiny_living, StuffNames.nifty_knitting, StuffNames.paranormal,
                   StuffNames.home_chef_hustle, StuffNames.crystal_creations}
+class CASKits(OptionSet):
+    """List of CAS (Create a Sim) Kits that will be included in the shuffling."""
+    display_name = "cas_kits"
+    valid_keys = {CASKitNames.throwback_fit, CASKitNames.fashion_street, CASKitNames.incheon_arrivals,
+                  CASKitNames.modern_menswear, CASKitNames.carnaval_streetwear, CASKitNames.moonlight_chic,
+                  CASKitNames.first_fits, CASKitNames.simtimates_collection, CASKitNames.grunge_revival,
+                  CASKitNames.poolside_splash, CASKitNames.goth_galore, CASKitNames.urban_homage,
+                  CASKitNames.sweet_slumber_party}
 
 @dataclass
 class Sims4Options(PerGameCommonOptions):
@@ -67,3 +75,4 @@ class Sims4Options(PerGameCommonOptions):
     expansion_packs: ExpansionPacks
     game_packs: GamePacks
     stuff_packs: StuffPacks
+    cas_kits: CASKits
