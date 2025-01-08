@@ -1,6 +1,6 @@
-from typing import List, Tuple, Optional, Callable, NamedTuple
-from BaseClasses import MultiWorld, CollectionState
-from .Options import is_option_enabled
+from typing import List, Optional, Callable, NamedTuple
+from BaseClasses import CollectionState
+from .Options import TimespinnerOptions
 from .PreCalculatedWeights import PreCalculatedWeights
 from .LogicExtensions import TimespinnerLogic
 
@@ -11,14 +11,13 @@ class LocationData(NamedTuple):
     region: str
     name: str
     code: Optional[int]
-    rule: Callable[[CollectionState], bool] = lambda state: True
+    rule: Optional[Callable[[CollectionState], bool]] = None
 
 
-def get_locations(world: Optional[MultiWorld], player: Optional[int], 
-                  precalculated_weights: PreCalculatedWeights) -> Tuple[LocationData, ...]:
-
-    flooded: PreCalculatedWeights = precalculated_weights
-    logic = TimespinnerLogic(world, player, precalculated_weights)
+def get_location_datas(player: Optional[int], options: Optional[TimespinnerOptions],
+                  precalculated_weights: Optional[PreCalculatedWeights]) -> List[LocationData]:
+    flooded: Optional[PreCalculatedWeights] = precalculated_weights
+    logic = TimespinnerLogic(player, options, precalculated_weights)
 
     # 1337000 - 1337155 Generic locations
     # 1337171 - 1337175 New Pickup checks
@@ -41,8 +40,8 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Upper lake desolation', 'Lake Desolation (Upper): Double jump cave floor',  1337013),
         LocationData('Upper lake desolation', 'Lake Desolation (Upper): Sparrow chest',  1337014),
         LocationData('Upper lake desolation', 'Lake Desolation (Upper): Crash site pedestal',  1337015),
-        LocationData('Upper lake desolation', 'Lake Desolation (Upper): Crash site chest 1',  1337016, lambda state: state.has_all({'Killed Maw'}, player)),
-        LocationData('Upper lake desolation', 'Lake Desolation (Upper): Crash site chest 2',  1337017, lambda state: state.has_all({'Killed Maw'}, player)),
+        LocationData('Upper lake desolation', 'Lake Desolation (Upper): Crash site chest 1',  1337016, lambda state: state.has('Killed Maw', player)),
+        LocationData('Upper lake desolation', 'Lake Desolation (Upper): Crash site chest 2',  1337017, lambda state: state.has('Killed Maw', player)),
         LocationData('Eastern lake desolation', 'Lake Desolation: Kitty Boss',  1337018),
         LocationData('Library', 'Library: Basement',  1337019),
         LocationData('Library', 'Library: Warp gate',  1337020),
@@ -72,12 +71,12 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Skeleton Shaft', 'Sealed Caves (Xarion): Skeleton',  1337044),
         LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Shroom jump room',  1337045, logic.has_timestop),
         LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Double shroom room',  1337046),
-        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Mini jackpot room',  1337047, logic.has_forwarddash_doublejump),
-        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Below mini jackpot room',  1337048),
+        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Jacksquat room',  1337047, logic.has_forwarddash_doublejump),
+        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Below Jacksquat room',  1337048),
         LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Secret room',  1337049, logic.can_break_walls),
         LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Bottom left room',  1337050),
         LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Last chance before Xarion',  1337051, logic.has_doublejump),
-        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Xarion',  1337052, lambda state: state.has('Water Mask', player) if flooded.flood_xarion else True),
+        LocationData('Sealed Caves (Xarion)', 'Sealed Caves (Xarion): Xarion',  1337052, lambda state: not flooded.flood_xarion or state.has('Water Mask', player)),
         LocationData('Sealed Caves (Sirens)', 'Sealed Caves (Sirens): Water hook',  1337053, lambda state: state.has('Water Mask', player)),
         LocationData('Sealed Caves (Sirens)', 'Sealed Caves (Sirens): Siren room underwater right',  1337054, lambda state: state.has('Water Mask', player)),
         LocationData('Sealed Caves (Sirens)', 'Sealed Caves (Sirens): Siren room underwater left',  1337055, lambda state: state.has('Water Mask', player)),
@@ -88,9 +87,9 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Military Fortress (hangar)', 'Military Fortress: Soldiers bridge',  1337060),
         LocationData('Military Fortress (hangar)', 'Military Fortress: Giantess room',  1337061),
         LocationData('Military Fortress (hangar)', 'Military Fortress: Giantess bridge',  1337062),
-        LocationData('Military Fortress (hangar)', 'Military Fortress: B door chest 2',  1337063, lambda state: logic.has_doublejump(state) and logic.has_keycard_B(state)),
-        LocationData('Military Fortress (hangar)', 'Military Fortress: B door chest 1',  1337064, lambda state: logic.has_doublejump(state) and logic.has_keycard_B(state)),
-        LocationData('Military Fortress (hangar)', 'Military Fortress: Pedestal',  1337065, lambda state: logic.has_doublejump_of_npc(state) or logic.has_forwarddash_doublejump(state)),
+        LocationData('Military Fortress (hangar)', 'Military Fortress: B door chest 2',  1337063, lambda state: logic.has_keycard_B(state) and (state.has('Water Mask', player) if flooded.flood_lab else logic.has_doublejump(state))),
+        LocationData('Military Fortress (hangar)', 'Military Fortress: B door chest 1',  1337064, lambda state: logic.has_keycard_B(state) and (state.has('Water Mask', player) if flooded.flood_lab else logic.has_doublejump(state))),
+        LocationData('Military Fortress (hangar)', 'Military Fortress: Pedestal',  1337065, lambda state: state.has('Water Mask', player) if flooded.flood_lab else (logic.has_doublejump_of_npc(state) or logic.has_forwarddash_doublejump(state))),
         LocationData('The lab', 'Lab: Coffee break',  1337066),
         LocationData('The lab', 'Lab: Lower trash right',  1337067, logic.has_doublejump),
         LocationData('The lab', 'Lab: Lower trash left',  1337068, logic.has_upwarddash),
@@ -125,7 +124,7 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Forest', 'Forest: Waterfall chest 1',  1337094, lambda state: state.has('Water Mask', player)),
         LocationData('Forest', 'Forest: Waterfall chest 2',  1337095, lambda state: state.has('Water Mask', player)),
         LocationData('Forest', 'Forest: Batcave',  1337096),
-        LocationData('Forest', 'Castle Ramparts: In the moat',  1337097, lambda state: state.has('Water Mask', player) if flooded.flood_moat else True),
+        LocationData('Forest', 'Castle Ramparts: In the moat',  1337097, lambda state: not flooded.flood_moat or state.has('Water Mask', player)),
         LocationData('Left Side forest Caves', 'Forest: Before Serene single bat cave',  1337098),
         LocationData('Upper Lake Serene', 'Lake Serene (Upper): Rat nest',  1337099),
         LocationData('Upper Lake Serene', 'Lake Serene (Upper): Double jump cave platform',  1337100, logic.has_doublejump),
@@ -136,25 +135,25 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Upper Lake Serene', 'Lake Serene: Pyramid keys room',  1337104),
         LocationData('Upper Lake Serene', 'Lake Serene (Upper): Chicken ledge', 1337174),
         LocationData('Lower Lake Serene', 'Lake Serene (Lower): Deep dive',  1337105),
-        LocationData('Lower Lake Serene', 'Lake Serene (Lower): Under the eels',  1337106),
+        LocationData('Left Side forest Caves', 'Lake Serene (Lower): Under the eels',  1337106, lambda state: state.has('Water Mask', player)),
         LocationData('Lower Lake Serene', 'Lake Serene (Lower): Water spikes room',  1337107),
         LocationData('Lower Lake Serene', 'Lake Serene (Lower): Underwater secret',  1337108, logic.can_break_walls),
-        LocationData('Lower Lake Serene', 'Lake Serene (Lower): T chest',  1337109, lambda state: logic.has_doublejump_of_npc(state) if flooded.dry_lake_serene else True),
-        LocationData('Lower Lake Serene', 'Lake Serene (Lower): Past the eels',  1337110),
-        LocationData('Lower Lake Serene', 'Lake Serene (Lower): Underwater pedestal',  1337111, lambda state: logic.has_doublejump(state) if flooded.dry_lake_serene else True),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Shroom jump room',  1337112, lambda state: logic.has_doublejump(state) if not flooded.flood_maw else True),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Secret room',  1337113, lambda state: logic.can_break_walls(state) and (state.has('Water Mask', player) if flooded.flood_maw else True)),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Bottom left room',  1337114, lambda state: state.has('Water Mask', player) if flooded.flood_maw else True),
+        LocationData('Lower Lake Serene', 'Lake Serene (Lower): T chest',  1337109, lambda state: flooded.flood_lake_serene or logic.has_doublejump_of_npc(state)),
+        LocationData('Left Side forest Caves', 'Lake Serene (Lower): Past the eels',  1337110, lambda state: state.has('Water Mask', player)),
+        LocationData('Lower Lake Serene', 'Lake Serene (Lower): Underwater pedestal',  1337111, lambda state: flooded.flood_lake_serene or logic.has_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Shroom jump room',  1337112, lambda state: flooded.flood_maw or logic.has_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Secret room',  1337113, lambda state: logic.can_break_walls(state) and (not flooded.flood_maw or state.has('Water Mask', player))),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Bottom left room',  1337114, lambda state: not flooded.flood_maw or state.has('Water Mask', player)),
         LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Single shroom room',  1337115),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 1',  1337116, lambda state: logic.has_forwarddash_doublejump(state) or flooded.flood_maw),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 2',  1337117, lambda state: logic.has_forwarddash_doublejump(state) or flooded.flood_maw),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 3',  1337118, lambda state: logic.has_forwarddash_doublejump(state) or flooded.flood_maw),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 4',  1337119, lambda state: logic.has_forwarddash_doublejump(state) or flooded.flood_maw),
-        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Pedestal',  1337120, lambda state: state.has('Water Mask', player) if flooded.flood_maw else True),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 1',  1337116, lambda state: flooded.flood_maw or logic.has_forwarddash_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 2',  1337117, lambda state: flooded.flood_maw or logic.has_forwarddash_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 3',  1337118, lambda state: flooded.flood_maw or logic.has_forwarddash_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Jackpot room chest 4',  1337119, lambda state: flooded.flood_maw or logic.has_forwarddash_doublejump(state)),
+        LocationData('Caves of Banishment (upper)', 'Caves of Banishment (Maw): Pedestal',  1337120, lambda state: not flooded.flood_maw or state.has('Water Mask', player)),
         LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Last chance before Maw',  1337121, lambda state: state.has('Water Mask', player) if flooded.flood_maw else logic.has_doublejump(state)),
-        LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Plasma Crystal', 1337173, lambda state: state.has_any({'Gas Mask', 'Talaria Attachment'}, player) and (state.has('Water Mask', player) if flooded.flood_maw else True)),
-        LocationData('Caves of Banishment (Maw)', 'Killed Maw',  EventId, lambda state: state.has('Gas Mask', player) and (state.has('Water Mask', player) if flooded.flood_maw else True)),
-        LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Mineshaft',  1337122, lambda state: state.has_any({'Gas Mask', 'Talaria Attachment'}, player) and (state.has('Water Mask', player) if flooded.flood_maw else True)),
+        LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Plasma Crystal', 1337173, lambda state: state.has_any({'Gas Mask', 'Talaria Attachment'}, player) and (not flooded.flood_maw or state.has('Water Mask', player))),
+        LocationData('Caves of Banishment (Maw)', 'Killed Maw',  EventId, lambda state: state.has('Gas Mask', player) and (not flooded.flood_maw or state.has('Water Mask', player))),
+        LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Mineshaft',  1337122, lambda state: state.has_any({'Gas Mask', 'Talaria Attachment'}, player) and (not flooded.flood_maw or state.has('Water Mask', player))),
         LocationData('Caves of Banishment (Sirens)', 'Caves of Banishment (Sirens): Wyvern room',  1337123),
         LocationData('Caves of Banishment (Sirens)', 'Caves of Banishment (Sirens): Siren room above water chest',  1337124),
         LocationData('Caves of Banishment (Sirens)', 'Caves of Banishment (Sirens): Siren room underwater left chest',  1337125, lambda state: state.has('Water Mask', player)),
@@ -179,11 +178,11 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         LocationData('Castle Keep', 'Castle Keep: Royal guard tiny room',  1337141, lambda state: logic.has_doublejump(state) or logic.has_fastjump_on_npc(state)),
         LocationData('Royal towers (lower)', 'Royal Towers: Floor secret',  1337142, lambda state: logic.has_doublejump(state) and logic.can_break_walls(state)),
         LocationData('Royal towers', 'Royal Towers: Pre-climb gap',  1337143),
-        LocationData('Royal towers', 'Royal Towers: Long balcony',  1337144, lambda state: state.has('Water Mask', player) if flooded.flood_courtyard else True),
-        LocationData('Royal towers', 'Royal Towers: Past bottom struggle juggle',  1337145, lambda state: logic.has_doublejump_of_npc(state) if not flooded.flood_courtyard else True),
+        LocationData('Royal towers', 'Royal Towers: Long balcony',  1337144, lambda state: not flooded.flood_courtyard or state.has('Water Mask', player)),
+        LocationData('Royal towers', 'Royal Towers: Past bottom struggle juggle',  1337145, lambda state: flooded.flood_courtyard or logic.has_doublejump_of_npc(state)),
         LocationData('Royal towers', 'Royal Towers: Bottom struggle juggle',  1337146, logic.has_doublejump_of_npc),
         LocationData('Royal towers (upper)', 'Royal Towers: Top struggle juggle',  1337147, logic.has_doublejump_of_npc),
-        LocationData('Royal towers (upper)', 'Royal Towers: No struggle required',  1337148, logic.has_doublejump_of_npc),
+        LocationData('Royal towers (upper)', 'Royal Towers: No struggle required',  1337148),
         LocationData('Royal towers', 'Royal Towers: Right tower freebie',  1337149),
         LocationData('Royal towers (upper)', 'Royal Towers: Left tower small balcony',  1337150),
         LocationData('Royal towers (upper)', 'Royal Towers: Left tower royal guard',  1337151),
@@ -196,19 +195,19 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         # Ancient pyramid locations
         LocationData('Ancient Pyramid (entrance)', 'Ancient Pyramid: Why not it\'s right there',  1337246),
         LocationData('Ancient Pyramid (left)', 'Ancient Pyramid: Conviction guarded room',  1337247),
-        LocationData('Ancient Pyramid (left)', 'Ancient Pyramid: Pit secret room',  1337248, lambda state: logic.can_break_walls(state) and (state.has('Water Mask', player) if flooded.flood_pyramid_shaft else True)),
-        LocationData('Ancient Pyramid (left)', 'Ancient Pyramid: Regret chest',  1337249, lambda state: logic.can_break_walls(state) and (state.has('Water Mask', player) if flooded.flood_pyramid_shaft else True)),
-        LocationData('Ancient Pyramid (right)', 'Ancient Pyramid: Nightmare Door chest',  1337236, lambda state: state.has('Water Mask', player) if flooded.flood_pyramid_back else True),
-        LocationData('Ancient Pyramid (right)', 'Killed Nightmare', EventId, lambda state: state.has_all({'Timespinner Wheel', 'Timespinner Spindle', 'Timespinner Gear 1', 'Timespinner Gear 2', 'Timespinner Gear 3'}, player) and (state.has('Water Mask', player) if flooded.flood_pyramid_back else True))
+        LocationData('Ancient Pyramid (left)', 'Ancient Pyramid: Pit secret room',  1337248, lambda state: logic.can_break_walls(state) and (not flooded.flood_pyramid_shaft or state.has('Water Mask', player))),
+        LocationData('Ancient Pyramid (left)', 'Ancient Pyramid: Regret chest',  1337249, lambda state: logic.can_break_walls(state) and (state.has('Water Mask', player) if flooded.flood_pyramid_shaft else logic.has_doublejump(state))),
+        LocationData('Ancient Pyramid (right)', 'Ancient Pyramid: Nightmare Door chest',  1337236, lambda state: not flooded.flood_pyramid_back or state.has('Water Mask', player)),
+        LocationData('Ancient Pyramid (right)', 'Killed Nightmare', EventId, lambda state: state.has_all({'Timespinner Wheel', 'Timespinner Spindle', 'Timespinner Gear 1', 'Timespinner Gear 2', 'Timespinner Gear 3'}, player) and (not flooded.flood_pyramid_back or state.has('Water Mask', player)))
     ]
 
     # 1337156 - 1337170 Downloads
-    if not world or is_option_enabled(world, player, "DownloadableItems"):
+    if not options or options.downloadable_items:
         location_table += ( 
             LocationData('Library', 'Library: Terminal 2 (Lachiem)',  1337156, lambda state: state.has('Tablet', player)),
             LocationData('Library', 'Library: Terminal 1 (Windaria)',  1337157, lambda state: state.has('Tablet', player)),
             # 1337158 Is lost in time
-            LocationData('Library', 'Library: Terminal 3 (Emporer Nuvius)',  1337159, lambda state: state.has('Tablet', player)),
+            LocationData('Library', 'Library: Terminal 3 (Emperor Nuvius)',  1337159, lambda state: state.has('Tablet', player)),
             LocationData('Library', 'Library: V terminal 1 (War of the Sisters)',  1337160, lambda state: state.has_all({'Tablet', 'Library Keycard V'}, player)),
             LocationData('Library', 'Library: V terminal 2 (Lake Desolation Map)',  1337161, lambda state: state.has_all({'Tablet', 'Library Keycard V'}, player)),
             LocationData('Library', 'Library: V terminal 3 (Vilete)',  1337162, lambda state: state.has_all({'Tablet', 'Library Keycard V'}, player)),
@@ -223,13 +222,13 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
         )
 
     # 1337176 - 1337176 Cantoran
-    if not world or is_option_enabled(world, player, "Cantoran"):
+    if not options or options.cantoran:
         location_table += (
             LocationData('Left Side forest Caves', 'Lake Serene: Cantoran',  1337176),
         )
 
     # 1337177 - 1337198 Lore Checks
-    if not world or is_option_enabled(world, player, "LoreChecks"):
+    if not options or options.lore_checks:
         location_table += (
             LocationData('Lower lake desolation', 'Lake Desolation: Memory - Coyote Jump (Time Messenger)',  1337177),
             LocationData('Library', 'Library: Memory - Waterway (A Message)',  1337178),
@@ -244,21 +243,21 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
             LocationData('Emperors tower', 'Emperor\'s Tower: Memory - Way Up There (Final Circle)',  1337187, logic.has_doublejump_of_npc),
             LocationData('Forest', 'Forest: Journal - Rats (Lachiem Expedition)',  1337188),
             LocationData('Forest', 'Forest: Journal - Bat Jump Ledge (Peace Treaty)',  1337189, lambda state: logic.has_doublejump_of_npc(state) or logic.has_forwarddash_doublejump(state) or logic.has_fastjump_on_npc(state)),
-            LocationData('Forest', 'Forest: Journal - Floating in Moat (Prime Edicts)',  1337190, lambda state: state.has('Water Mask', player) if flooded.flood_moat else True),
+            LocationData('Forest', 'Forest: Journal - Floating in Moat (Prime Edicts)',  1337190, lambda state: not flooded.flood_moat or state.has('Water Mask', player)),
             LocationData('Castle Ramparts', 'Castle Ramparts: Journal - Archer + Knight (Declaration of Independence)',  1337191),
             LocationData('Castle Keep', 'Castle Keep: Journal - Under the Twins (Letter of Reference)',  1337192),
             LocationData('Castle Basement', 'Castle Basement: Journal - Castle Loop Giantess (Political Advice)',  1337193),
             LocationData('Royal towers (lower)', 'Royal Towers: Journal - Aelana\'s Room (Diplomatic Missive)',  1337194, logic.has_pink),
             LocationData('Royal towers (upper)', 'Royal Towers: Journal - Top Struggle Juggle Base (War of the Sisters)',  1337195),
             LocationData('Royal towers (upper)', 'Royal Towers: Journal - Aelana Boss (Stained Letter)',  1337196),
-            LocationData('Royal towers', 'Royal Towers: Journal - Near Bottom Struggle Juggle (Mission Findings)',  1337197, lambda state: logic.has_doublejump_of_npc(state) if not flooded.flood_courtyard else True),
-            LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Journal - Lower Left Caves (Naivety)',  1337198, lambda state: state.has('Water Mask', player) if flooded.flood_maw else True)
+            LocationData('Royal towers', 'Royal Towers: Journal - Near Bottom Struggle Juggle (Mission Findings)',  1337197, lambda state: flooded.flood_courtyard or logic.has_doublejump_of_npc(state)),
+            LocationData('Caves of Banishment (Maw)', 'Caves of Banishment (Maw): Journal - Lower Left Caves (Naivety)',  1337198, lambda state: not flooded.flood_maw or state.has('Water Mask', player))
         )
 
     # 1337199 - 1337236 Reserved for future use
 
     # 1337237 - 1337245 GyreArchives
-    if not world or is_option_enabled(world, player, "GyreArchives"):
+    if not options or options.gyre_archives:
         location_table += (
             LocationData('Ravenlord\'s Lair', 'Ravenlord: Post fight (pedestal)',  1337237),
             LocationData('Ifrit\'s Lair', 'Ifrit: Post fight (pedestal)',  1337238),
@@ -271,4 +270,4 @@ def get_locations(world: Optional[MultiWorld], player: Optional[int],
             LocationData('Ifrit\'s Lair', 'Ifrit: Post fight (chest)', 1337245),
         )
  
-    return tuple(location_table)
+    return location_table

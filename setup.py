@@ -5,24 +5,45 @@ import platform
 import shutil
 import sys
 import sysconfig
-import typing
+import warnings
 import zipfile
-from collections.abc import Iterable
+import urllib.request
+import io
+import json
+import threading
+import subprocess
+
 from hashlib import sha3_512
 from pathlib import Path
-import subprocess
-import pkg_resources
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
+
 
 # This is a bit jank. We need cx-Freeze to be able to run anything from this script, so install it
+requirement = 'cx-Freeze==7.2.0'
 try:
-    requirement = 'cx-Freeze>=6.14.1'
-    pkg_resources.require(requirement)
-    import cx_Freeze
-except pkg_resources.ResolutionError:
+    import pkg_resources
+    try:
+        pkg_resources.require(requirement)
+        install_cx_freeze = False
+    except pkg_resources.ResolutionError:
+        install_cx_freeze = True
+except ImportError:
+    install_cx_freeze = True
+    pkg_resources = None  # type: ignore[assignment]
+
+if install_cx_freeze:
+    # check if pip is available
+    try:
+        import pip  # noqa: F401
+    except ImportError:
+        raise RuntimeError("pip not available. Please install pip.")
+    # install and import cx_freeze
     if '--yes' not in sys.argv and '-y' not in sys.argv:
         input(f'Requirement {requirement} is not satisfied, press enter to install it')
     subprocess.call([sys.executable, '-m', 'pip', 'install', requirement, '--upgrade'])
-    import cx_Freeze
+    import pkg_resources
+
+import cx_Freeze
 
 # .build only exists if cx-Freeze is the right version, so we have to update/install that first before this line
 import setuptools.command.build
@@ -32,22 +53,102 @@ if __name__ == "__main__":
     # TODO: move stuff to not require this
     import ModuleUpdate
     ModuleUpdate.update(yes="--yes" in sys.argv or "-y" in sys.argv)
-    ModuleUpdate.update_ran = False  # restore for later
 
-from Launcher import components, icon_paths
+from worlds.LauncherComponents import components, icon_paths
 from Utils import version_tuple, is_windows, is_linux
+from Cython.Build import cythonize
 
 
 # On  Python < 3.10 LogicMixin is not currently supported.
-apworlds: set = {
-    "Subnautica",
-    "Factorio",
-    "Rogue Legacy",
-    "Donkey Kong Country 3",
-    "Super Mario World",
-    "Timespinner",
+non_apworlds: Set[str] = {
+    "A Link to the Past",
+    "Adventure",
+    "ArchipIDLE",
+    "Archipelago",
+    "Clique",
+    "Final Fantasy",
+    "Lufia II Ancient Cave",
+    "Meritous",
+    "Ocarina of Time",
+    "Overcooked! 2",
+    "Raft",
+    "Slay the Spire",
+    "Sudoku",
+    "Super Mario 64",
+    "VVVVVV",
+    "Wargroove",
 }
 
+# LogicMixin is broken before 3.10 import revamp
+if sys.version_info < (3,10):
+    non_apworlds.add("Hollow Knight")
+
+def download_SNI() -> None:
+    print("Updating SNI")
+    machine_to_go = {
+        "x86_64": "amd64",
+        "aarch64": "arm64",
+        "armv7l": "arm"
+    }
+    platform_name = platform.system().lower()
+    machine_name = platform.machine().lower()
+    # force amd64 on macos until we have universal2 sni, otherwise resolve to GOARCH
+    machine_name = "universal" if platform_name == "darwin" else machine_to_go.get(machine_name, machine_name)
+    with urllib.request.urlopen("https://api.github.com/repos/alttpo/sni/releases/latest") as request:
+        data = json.load(request)
+    files = data["assets"]
+
+    source_url = None
+
+    for file in files:
+        download_url: str = file["browser_download_url"]
+        machine_match = download_url.rsplit("-", 1)[1].split(".", 1)[0] == machine_name
+        if platform_name in download_url and machine_match:
+            source_url = download_url
+            # prefer "many" builds
+            if "many" in download_url:
+                break
+            # prefer the correct windows or windows7 build
+            if platform_name == "windows" and ("windows7" in download_url) == (sys.version_info < (3, 9)):
+                break
+
+    if source_url and source_url.endswith(".zip"):
+        with urllib.request.urlopen(source_url) as download:
+            with zipfile.ZipFile(io.BytesIO(download.read()), "r") as zf:
+                for zf_member in zf.infolist():
+                    zf.extract(zf_member, path="SNI")
+        print(f"Downloaded SNI from {source_url}")
+
+    elif source_url and (source_url.endswith(".tar.xz") or source_url.endswith(".tar.gz")):
+        import tarfile
+        mode = "r:xz" if source_url.endswith(".tar.xz") else "r:gz"
+        with urllib.request.urlopen(source_url) as download:
+            sni_dir = None
+            with tarfile.open(fileobj=io.BytesIO(download.read()), mode=mode) as tf:
+                for member in tf.getmembers():
+                    if member.name.startswith("/") or "../" in member.name:
+                        raise ValueError(f"Unexpected file '{member.name}' in {source_url}")
+                    elif member.isdir() and not sni_dir:
+                        sni_dir = member.name
+                    elif member.isfile() and not sni_dir or sni_dir and not member.name.startswith(sni_dir):
+                        raise ValueError(f"Expected folder before '{member.name}' in {source_url}")
+                    elif member.isfile() and sni_dir:
+                        tf.extract(member)
+            # sadly SNI is in its own folder on non-windows, so we need to rename
+            if not sni_dir:
+                raise ValueError("Did not find SNI in archive")
+            shutil.rmtree("SNI", True)
+            os.rename(sni_dir, "SNI")
+        print(f"Downloaded SNI from {source_url}")
+
+    elif source_url:
+        print(f"Don't know how to extract SNI from {source_url}")
+
+    else:
+        print(f"No SNI found for system spec {platform_name} {machine_name}")
+
+
+signtool: Optional[str]
 if os.path.exists("X:/pw.txt"):
     print("Using signtool")
     with open("X:/pw.txt", encoding="utf-8-sig") as f:
@@ -66,26 +167,46 @@ build_arch = build_platform.split('-')[-1] if '-' in build_platform else platfor
 
 
 # see Launcher.py on how to add scripts to setup.py
+def resolve_icon(icon_name: str):
+    base_path = icon_paths[icon_name]
+    if is_windows:
+        path, extension = os.path.splitext(base_path)
+        ico_file = path + ".ico"
+        assert os.path.exists(ico_file), f"ico counterpart of {base_path} should exist."
+        return ico_file
+    else:
+        return base_path
+
+
 exes = [
     cx_Freeze.Executable(
-        script=f'{c.script_name}.py',
+        script=f"{c.script_name}.py",
         target_name=c.frozen_name + (".exe" if is_windows else ""),
-        icon=icon_paths[c.icon],
+        icon=resolve_icon(c.icon),
         base="Win32GUI" if is_windows and not c.cli else None
-    ) for c in components if c.script_name
+    ) for c in components if c.script_name and c.frozen_name
 ]
 
-extra_data = ["LICENSE", "data", "EnemizerCLI", "host.yaml", "SNI"]
+if is_windows:
+    # create a duplicate Launcher for Windows, which has a working stdout/stderr, for debugging and --help
+    c = next(component for component in components if component.script_name == "Launcher")
+    exes.append(cx_Freeze.Executable(
+        script=f"{c.script_name}.py",
+        target_name=f"{c.frozen_name}Debug.exe",
+        icon=resolve_icon(c.icon),
+    ))
+
+extra_data = ["LICENSE", "data", "EnemizerCLI", "SNI"]
 extra_libs = ["libssl.so", "libcrypto.so"] if is_linux else []
 
 
-def remove_sprites_from_folder(folder):
+def remove_sprites_from_folder(folder: Path) -> None:
     for file in os.listdir(folder):
         if file != ".gitignore":
             os.remove(folder / file)
 
 
-def _threaded_hash(filepath):
+def _threaded_hash(filepath: Union[str, Path]) -> str:
     hasher = sha3_512()
     hasher.update(open(filepath, "rb").read())
     return base64.b85encode(hasher.digest()).decode()
@@ -99,43 +220,43 @@ class BuildCommand(setuptools.command.build.build):
     yes: bool
     last_yes: bool = False  # used by sub commands of build
 
-    def initialize_options(self):
+    def initialize_options(self) -> None:
         super().initialize_options()
         type(self).last_yes = self.yes = False
 
-    def finalize_options(self):
+    def finalize_options(self) -> None:
         super().finalize_options()
         type(self).last_yes = self.yes
 
 
 # Override cx_Freeze's build_exe command for pre and post build steps
-class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
-    user_options = cx_Freeze.command.build_exe.BuildEXE.user_options + [
+class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
+    user_options = cx_Freeze.command.build_exe.build_exe.user_options + [
         ('yes', 'y', 'Answer "yes" to all questions.'),
         ('extra-data=', None, 'Additional files to add.'),
     ]
     yes: bool
-    extra_data: Iterable  # [any] not available in 3.8
-    extra_libs: Iterable  # work around broken include_files
+    extra_data: Iterable[str]
+    extra_libs: Iterable[str]  # work around broken include_files
 
     buildfolder: Path
     libfolder: Path
     library: Path
     buildtime: datetime.datetime
 
-    def initialize_options(self):
+    def initialize_options(self) -> None:
         super().initialize_options()
         self.yes = BuildCommand.last_yes
         self.extra_data = []
         self.extra_libs = []
 
-    def finalize_options(self):
+    def finalize_options(self) -> None:
         super().finalize_options()
         self.buildfolder = self.build_exe
         self.libfolder = Path(self.buildfolder, "lib")
         self.library = Path(self.libfolder, "library.zip")
 
-    def installfile(self, path, subpath=None, keep_content: bool = False):
+    def installfile(self, path: Path, subpath: Optional[Union[str, Path]] = None, keep_content: bool = False) -> None:
         folder = self.buildfolder
         if subpath:
             folder /= subpath
@@ -150,7 +271,7 @@ class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
         else:
             print('Warning,', path, 'not found')
 
-    def create_manifest(self, create_hashes=False):
+    def create_manifest(self, create_hashes: bool = False) -> None:
         # Since the setup is now split into components and the manifest is not,
         # it makes most sense to just remove the hashes for now. Not aware of anyone using them.
         hashes = {}
@@ -172,17 +293,44 @@ class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
         json.dump(manifest, open(manifestpath, "wt"), indent=4)
         print("Created Manifest")
 
-    def run(self):
-        # pre build steps
+    def run(self) -> None:
+        # start downloading sni asap
+        sni_thread = threading.Thread(target=download_SNI, name="SNI Downloader")
+        sni_thread.start()
+
+        # pre-build steps
         print(f"Outputting to: {self.buildfolder}")
         os.makedirs(self.buildfolder, exist_ok=True)
         import ModuleUpdate
-        ModuleUpdate.requirements_files.add(os.path.join("WebHostLib", "requirements.txt"))
         ModuleUpdate.update(yes=self.yes)
 
+        # auto-build cython modules
+        build_ext = self.distribution.get_command_obj("build_ext")
+        build_ext.inplace = False
+        self.run_command("build_ext")
+        # find remains of previous in-place builds, try to delete and warn otherwise
+        for path in build_ext.get_outputs():
+            parts = os.path.split(path)[-1].split(".")
+            pattern = parts[0] + ".*." + parts[-1]
+            for match in Path().glob(pattern):
+                try:
+                    match.unlink()
+                    print(f"Removed {match}")
+                except Exception as ex:
+                    warnings.warn(f"Could not delete old build output: {match}\n"
+                                  f"{ex}\nPlease close all AP instances and delete manually.")
+
         # regular cx build
-        self.buildtime = datetime.datetime.utcnow()
+        self.buildtime = datetime.datetime.now(datetime.timezone.utc)
         super().run()
+
+        # manually copy built modules to lib folder. cx_Freeze does not know they exist.
+        for src in build_ext.get_outputs():
+            print(f"copying {src} -> {self.libfolder}")
+            shutil.copy(src, self.libfolder, follow_symlinks=False)
+
+        # need to finish download before copying
+        sni_thread.join()
 
         # include_files seems to not be done automatically. implement here
         for src, dst in self.include_files:
@@ -196,49 +344,59 @@ class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
 
         # post build steps
         if is_windows:  # kivy_deps is win32 only, linux picks them up automatically
-            from kivy_deps import sdl2, glew
+            from kivy_deps import sdl2, glew  # type: ignore
             for folder in sdl2.dep_bins + glew.dep_bins:
                 shutil.copytree(folder, self.libfolder, dirs_exist_ok=True)
                 print(f"copying {folder} -> {self.libfolder}")
+            # windows needs Visual Studio C++ Redistributable
+            # Installer works for x64 and arm64
+            print("Downloading VC Redist")
+            import certifi
+            import ssl
+            context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=certifi.where())
+            with urllib.request.urlopen(r"https://aka.ms/vs/17/release/vc_redist.x64.exe",
+                                        context=context) as download:
+                vc_redist = download.read()
+            print(f"Download complete, {len(vc_redist) / 1024 / 1024:.2f} MBytes downloaded.", )
+            with open("VC_redist.x64.exe", "wb") as vc_file:
+                vc_file.write(vc_redist)
 
         for data in self.extra_data:
             self.installfile(Path(data))
 
         # kivi data files
-        import kivy
+        import kivy  # type: ignore[import-untyped]
         shutil.copytree(os.path.join(os.path.dirname(kivy.__file__), "data"),
                         self.buildfolder / "data",
                         dirs_exist_ok=True)
 
         os.makedirs(self.buildfolder / "Players" / "Templates", exist_ok=True)
-        from WebHostLib.options import create
-        create()
+        from Options import generate_yaml_templates
         from worlds.AutoWorld import AutoWorldRegister
-        assert not apworlds - set(AutoWorldRegister.world_types), "Unknown world designated for .apworld"
-        folders_to_remove: typing.List[str] = []
+        assert not non_apworlds - set(AutoWorldRegister.world_types), \
+            f"Unknown world {non_apworlds - set(AutoWorldRegister.world_types)} designated for .apworld"
+        folders_to_remove: List[str] = []
+        disabled_worlds_folder = "worlds_disabled"
+        for entry in os.listdir(disabled_worlds_folder):
+            if os.path.isdir(os.path.join(disabled_worlds_folder, entry)):
+                folders_to_remove.append(entry)
+        generate_yaml_templates(self.buildfolder / "Players" / "Templates", False)
         for worldname, worldtype in AutoWorldRegister.world_types.items():
-            if not worldtype.hidden:
-                file_name = worldname+".yaml"
-                shutil.copyfile(os.path.join("WebHostLib", "static", "generated", "configs", file_name),
-                                self.buildfolder / "Players" / "Templates" / file_name)
-            if worldname in apworlds:
+            if worldname not in non_apworlds:
                 file_name = os.path.split(os.path.dirname(worldtype.__file__))[1]
                 world_directory = self.libfolder / "worlds" / file_name
                 # this method creates an apworld that cannot be moved to a different OS or minor python version,
                 # which should be ok
                 with zipfile.ZipFile(self.libfolder / "worlds" / (file_name + ".apworld"), "x", zipfile.ZIP_DEFLATED,
                                      compresslevel=9) as zf:
-                    entry: os.DirEntry
                     for path in world_directory.rglob("*.*"):
                         relative_path = os.path.join(*path.parts[path.parts.index("worlds")+1:])
                         zf.write(path, relative_path)
                     folders_to_remove.append(file_name)
                 shutil.rmtree(world_directory)
         shutil.copyfile("meta.yaml", self.buildfolder / "Players" / "Templates" / "meta.yaml")
-        # TODO: fix LttP options one day
-        shutil.copyfile("playerSettings.yaml", self.buildfolder / "Players" / "Templates" / "A Link to the Past.yaml")
         try:
-            from maseya import z3pr
+            from maseya import z3pr  # type: ignore[import-untyped]
         except ImportError:
             print("Maseya Palette Shuffle not found, skipping data files.")
         else:
@@ -251,9 +409,9 @@ class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
             for exe in self.distribution.executables:
                 print(f"Signing {exe.target_name}")
                 os.system(signtool + os.path.join(self.buildfolder, exe.target_name))
-            print(f"Signing SNI")
+            print("Signing SNI")
             os.system(signtool + os.path.join(self.buildfolder, "SNI", "SNI.exe"))
-            print(f"Signing OoT Utils")
+            print("Signing OoT Utils")
             for exe_path in (("Compress", "Compress.exe"), ("Decompress", "Decompress.exe")):
                 os.system(signtool + os.path.join(self.buildfolder, "lib", "worlds", "oot", "data", *exe_path))
 
@@ -277,14 +435,6 @@ class BuildExeCommand(cx_Freeze.command.build_exe.BuildEXE):
             for extra_exe in extra_exes:
                 if extra_exe.is_file():
                     extra_exe.chmod(0o755)
-            # rewrite windows-specific things in host.yaml
-            host_yaml = self.buildfolder / 'host.yaml'
-            with host_yaml.open('r+b') as f:
-                data = f.read()
-                data = data.replace(b'factorio\\\\bin\\\\x64\\\\factorio', b'factorio/bin/x64/factorio')
-                f.seek(0, os.SEEK_SET)
-                f.write(data)
-                f.truncate()
 
 
 class AppImageCommand(setuptools.Command):
@@ -297,17 +447,18 @@ class AppImageCommand(setuptools.Command):
         ("app-exec=", None, "The application to run inside the image."),
         ("yes", "y", 'Answer "yes" to all questions.'),
     ]
-    build_folder: typing.Optional[Path]
-    dist_file: typing.Optional[Path]
-    app_dir: typing.Optional[Path]
+    build_folder: Optional[Path]
+    dist_file: Optional[Path]
+    app_dir: Optional[Path]
     app_name: str
-    app_exec: typing.Optional[Path]
-    app_icon: typing.Optional[Path]  # source file
+    app_exec: Optional[Path]
+    app_icon: Optional[Path]  # source file
     app_id: str  # lower case name, used for icon and .desktop
     yes: bool
 
-    def write_desktop(self):
-        desktop_filename = self.app_dir / f'{self.app_id}.desktop'
+    def write_desktop(self) -> None:
+        assert self.app_dir, "Invalid app_dir"
+        desktop_filename = self.app_dir / f"{self.app_id}.desktop"
         with open(desktop_filename, 'w', encoding="utf-8") as f:
             f.write("\n".join((
                 "[Desktop Entry]",
@@ -320,8 +471,9 @@ class AppImageCommand(setuptools.Command):
             )))
         desktop_filename.chmod(0o755)
 
-    def write_launcher(self, default_exe: Path):
-        launcher_filename = self.app_dir / f'AppRun'
+    def write_launcher(self, default_exe: Path) -> None:
+        assert self.app_dir, "Invalid app_dir"
+        launcher_filename = self.app_dir / "AppRun"
         with open(launcher_filename, 'w', encoding="utf-8") as f:
             f.write(f"""#!/bin/sh
 exe="{default_exe}"
@@ -342,12 +494,13 @@ $APPDIR/$exe "$@"
 """)
         launcher_filename.chmod(0o755)
 
-    def install_icon(self, src: Path, name: typing.Optional[str] = None, symlink: typing.Optional[Path] = None):
+    def install_icon(self, src: Path, name: Optional[str] = None, symlink: Optional[Path] = None) -> None:
+        assert self.app_dir, "Invalid app_dir"
         try:
             from PIL import Image
         except ModuleNotFoundError:
             if not self.yes:
-                input(f'Requirement PIL is not satisfied, press enter to install it')
+                input("Requirement PIL is not satisfied, press enter to install it")
             subprocess.call([sys.executable, '-m', 'pip', 'install', 'Pillow', '--upgrade'])
             from PIL import Image
         im = Image.open(src)
@@ -363,7 +516,8 @@ $APPDIR/$exe "$@"
         if symlink:
             symlink.symlink_to(dest_file.relative_to(symlink.parent))
 
-    def initialize_options(self):
+    def initialize_options(self) -> None:
+        assert self.distribution.metadata.name
         self.build_folder = None
         self.app_dir = None
         self.app_name = self.distribution.metadata.name
@@ -377,17 +531,22 @@ $APPDIR/$exe "$@"
         ))
         self.yes = False
 
-    def finalize_options(self):
+    def finalize_options(self) -> None:
+        assert self.build_folder
         if not self.app_dir:
             self.app_dir = self.build_folder.parent / "AppDir"
         self.app_id = self.app_name.lower()
 
-    def run(self):
+    def run(self) -> None:
+        assert self.build_folder and self.dist_file, "Command not properly set up"
+        assert (
+            self.app_icon and self.app_id and self.app_dir and self.app_exec and self.app_name
+        ), "AppImageCommand not properly set up"
         self.dist_file.parent.mkdir(parents=True, exist_ok=True)
         if self.app_dir.is_dir():
             shutil.rmtree(self.app_dir)
         self.app_dir.mkdir(parents=True)
-        opt_dir = self.app_dir / "opt" / self.distribution.metadata.name
+        opt_dir = self.app_dir / "opt" / self.app_name
         shutil.copytree(self.build_folder, opt_dir)
         root_icon = self.app_dir / f'{self.app_id}{self.app_icon.suffix}'
         self.install_icon(self.app_icon, self.app_id, symlink=root_icon)
@@ -398,7 +557,7 @@ $APPDIR/$exe "$@"
         subprocess.call(f'ARCH={build_arch} ./appimagetool -n "{self.app_dir}" "{self.dist_file}"', shell=True)
 
 
-def find_libs(*args: str) -> typing.Sequence[typing.Tuple[str, str]]:
+def find_libs(*args: str) -> Sequence[Tuple[str, str]]:
     """Try to find system libraries to be included."""
     if not args:
         return []
@@ -406,7 +565,7 @@ def find_libs(*args: str) -> typing.Sequence[typing.Tuple[str, str]]:
     arch = build_arch.replace('_', '-')
     libc = 'libc6'  # we currently don't support musl
 
-    def parse(line):
+    def parse(line: str) -> Tuple[Tuple[str, str, str], str]:
         lib, path = line.strip().split(' => ')
         lib, typ = lib.split(' ', 1)
         for test_arch in ('x86-64', 'i386', 'aarch64'):
@@ -424,25 +583,32 @@ def find_libs(*args: str) -> typing.Sequence[typing.Tuple[str, str]]:
         return (lib, lib_arch, lib_libc), path
 
     if not hasattr(find_libs, "cache"):
-        data = subprocess.run([shutil.which('ldconfig'), '-p'], capture_output=True, text=True).stdout.split('\n')[1:]
-        find_libs.cache = {k: v for k, v in (parse(line) for line in data if '=>' in line)}
+        ldconfig = shutil.which("ldconfig")
+        assert ldconfig, "Make sure ldconfig is in PATH"
+        data = subprocess.run([ldconfig, "-p"], capture_output=True, text=True).stdout.split("\n")[1:]
+        find_libs.cache = {  # type: ignore[attr-defined]
+            k: v for k, v in (parse(line) for line in data if "=>" in line)
+        }
 
-    def find_lib(lib, arch, libc):
-        for k, v in find_libs.cache.items():
+    def find_lib(lib: str, arch: str, libc: str) -> Optional[str]:
+        cache: Dict[Tuple[str, str, str], str] = getattr(find_libs, "cache")
+        for k, v in cache.items():
             if k == (lib, arch, libc):
                 return v
-        for k, v, in find_libs.cache.items():
+        for k, v, in cache.items():
             if k[0].startswith(lib) and k[1] == arch and k[2] == libc:
                 return v
         return None
 
-    res = []
+    res: List[Tuple[str, str]] = []
     for arg in args:
         # try exact match, empty libc, empty arch, empty arch and libc
         file = find_lib(arg, arch, libc)
         file = file or find_lib(arg, arch, '')
         file = file or find_lib(arg, '', libc)
         file = file or find_lib(arg, '', '')
+        if not file:
+            raise ValueError(f"Could not find lib {arg}")
         # resolve symlinks
         for n in range(0, 5):
             res.append((file, os.path.join('lib', os.path.basename(file))))
@@ -460,13 +626,13 @@ cx_Freeze.setup(
     version=f"{version_tuple.major}.{version_tuple.minor}.{version_tuple.build}",
     description="Archipelago",
     executables=exes,
-    ext_modules=[],  # required to disable auto-discovery with setuptools>=61
+    ext_modules=cythonize("_speedups.pyx"),
     options={
         "build_exe": {
-            "packages": ["websockets", "worlds", "kivy"],
+            "packages": ["worlds", "kivy", "cymem", "websockets"],
             "includes": [],
             "excludes": ["numpy", "Cython", "PySide2", "PIL",
-                         "pandas"],
+                         "pandas", "zstandard"],
             "zip_include_packages": ["*"],
             "zip_exclude_packages": ["worlds", "sc2"],
             "include_files": [],  # broken in cx 6.14.0, we use more special sauce now
