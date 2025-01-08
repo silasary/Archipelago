@@ -20,9 +20,6 @@ class VampireSurvivorsArchipelagoOptions:
 
 
 class VampireSurvivorsGame(Game):
-    # Initial Proposal by @bowsercrusher on Discord
-    # Expanded by SerpentAI
-
     name = "Vampire Survivors"
     platform = KeymastersKeepGamePlatforms.PC
 
@@ -851,10 +848,10 @@ class VampireSurvivorsGame(Game):
             "Cappella Magna",
             "Carlo Cart",
             "Dairy Plant",
-            "Eudaimonia Machine",
+            # "Eudaimonia Machine",
             "Gallo Tower",
             "Green Acres",
-            "Holy Forbidden",
+            # "Holy Forbidden",
             "Il Molise",
             "Inlaid Library",
             "Laborratory",
