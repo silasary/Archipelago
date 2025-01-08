@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from Options import Choice, PerGameCommonOptions
-
+from Options import Choice, PerGameCommonOptions, OptionSet
+from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
     """The Aspiration Needed to win the game"""
@@ -32,7 +32,59 @@ class AspirationGoal(Choice):
     option_friend_of_the_world = 23
     option_neighborly_advisor = 24
 
+class ExpansionPacks(OptionSet):
+    """List of Expansion Packs that will be included in the shuffling."""
+    display_name = "expansion_packs"
+    valid_keys = {ExpansionNames.get_to_work, ExpansionNames.get_together, ExpansionNames.city_living,
+                  ExpansionNames.cats_and_dogs, ExpansionNames.seasons, ExpansionNames.get_famous,
+                  ExpansionNames.island_living, ExpansionNames.discover_university, ExpansionNames.eco_lifestyle,
+                  ExpansionNames.snowy_escape, ExpansionNames.high_school_years, ExpansionNames.growing_together,
+                  ExpansionNames.horse_ranch, ExpansionNames.for_rent, ExpansionNames.lovestruck,
+                  ExpansionNames.life_and_death}
+
+class GamePacks(OptionSet):
+    """List of Game Packs that will be included in the shuffling."""
+    display_name = "game_packs"
+    valid_keys = {GamePackNames.outdoor_retreat, GamePackNames.spa_day, GamePackNames.dine_out,
+                  GamePackNames.vampires, GamePackNames.parenthood, GamePackNames.jungle_adventure,
+                  GamePackNames.stranger_ville, GamePackNames.realm_of_magic, GamePackNames.dream_home_decorator,
+                  GamePackNames.my_wedding_stories, GamePackNames.werewolves}
+
+class StuffPacks(OptionSet):
+    """List of Stuff Packs that will be included in the shuffling."""
+    display_name = "stuff_packs"
+    valid_keys = {StuffNames.luxury_party, StuffNames.perfect_patio, StuffNames.cool_kitchen,
+                  StuffNames.spooky, StuffNames.movie_hangout, StuffNames.romantic_garden,
+                  StuffNames.kids_room, StuffNames.backyard, StuffNames.vintage_glamour,
+                  StuffNames.bowling_night, StuffNames.fitness, StuffNames.toddler,
+                  StuffNames.laundry_day, StuffNames.my_first_pet, StuffNames.moshino,
+                  StuffNames.tiny_living, StuffNames.nifty_knitting, StuffNames.paranormal,
+                  StuffNames.home_chef_hustle, StuffNames.crystal_creations}
+class CASKits(OptionSet):
+    """List of CAS (Create a Sim) Kits that will be included in the shuffling."""
+    display_name = "cas_kits"
+    valid_keys = {CASKitNames.throwback_fit, CASKitNames.fashion_street, CASKitNames.incheon_arrivals,
+                  CASKitNames.modern_menswear, CASKitNames.carnaval_streetwear, CASKitNames.moonlight_chic,
+                  CASKitNames.first_fits, CASKitNames.simtimates_collection, CASKitNames.grunge_revival,
+                  CASKitNames.poolside_splash, CASKitNames.goth_galore, CASKitNames.urban_homage,
+                  CASKitNames.sweet_slumber_party}
+
+class BuildKits(OptionSet):
+    """List of Build Kits that will be included in the shuffling."""
+    display_name = "build_kits"
+    valid_keys = {BuildKitNames.country_kitchen, BuildKitNames.courtyard_oasis, BuildKitNames.industrial_loft,
+                  BuildKitNames.blooming_rooms, BuildKitNames.decor_to_the_max, BuildKitNames.little_campers,
+                  BuildKitNames.desert_luxe, BuildKitNames.everyday_clutter, BuildKitNames.pastel_pop,
+                  BuildKitNames.bathroom_clutter, BuildKitNames.basement_treasures, BuildKitNames.greenhouse_haven,
+                  BuildKitNames.book_nook, BuildKitNames.modern_luxe, BuildKitNames.castle_estate,
+                  BuildKitNames.party_essentials, BuildKitNames.cozy_bistro, BuildKitNames.riviera_retreat,
+                  BuildKitNames.artist_studio, BuildKitNames.storybook_nursery, BuildKitNames.cozy_kitsch}
 
 @dataclass
 class Sims4Options(PerGameCommonOptions):
     goal: AspirationGoal
+    expansion_packs: ExpansionPacks
+    game_packs: GamePacks
+    stuff_packs: StuffPacks
+    cas_kits: CASKits
+    build_kits: BuildKits
