@@ -144,6 +144,7 @@ class TrackManiaUnitedForeverGame(Game):
             for letter in self.track_letters():
                 for i in range(1, 16):
                     tracks.append(f"Nations - {letter}{str(i).zfill(2)}")
+
             for i in range(1, 6):
                 tracks.append(f"Nations - E0{str(i)}")
 
@@ -152,6 +153,7 @@ class TrackManiaUnitedForeverGame(Game):
                 for letter in self.track_letters():
                     for i in range(1, 6):
                         tracks.append(f"{environment}{letter}{str(i)}")
+
                 tracks.append(f"{environment}E")
 
         if self.star:
@@ -159,12 +161,14 @@ class TrackManiaUnitedForeverGame(Game):
                 for letter in self.track_letters():
                     for i in range(1, 6):
                         tracks.append(f"Star{environment}{letter}{str(i)}")
+
                 tracks.append(f"Star{environment}E")
 
         if self.stunt:
             for letter in self.track_letters():
                 for i in range(1, 6):
                     tracks.append(f"Stunt{letter}{str(i)}")
+
             tracks.append(f"StuntE")
 
         if self.puzzle:
@@ -182,6 +186,7 @@ class TrackManiaUnitedForeverGame(Game):
             for letter in self.track_letters():
                 for i in range(1, 6):
                     tracks.append(f"Platform{letter}{str(i)}")
+
             tracks.append(f"PlatformE")
 
         return tracks
@@ -190,7 +195,7 @@ class TrackManiaUnitedForeverGame(Game):
 # Archipelago Options
 class TrackManiaUnitedForeverModes(OptionSet):
     """
-    Indicates which TrackMania United Forever modes to include.
+    Indicates which TrackMania United Forever modes to include in objectives.
     """
 
     display_name = "TrackMania United Forever Modes"

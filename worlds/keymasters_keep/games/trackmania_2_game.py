@@ -13,19 +13,19 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class Trackmania2ArchipelagoOptions:
-    trackmania_2_environments_owned: Trackmania2EnvironmentsOwned
+class TrackMania2ArchipelagoOptions:
+    trackmania_2_environments_owned: TrackMania2EnvironmentsOwned
 
 
-class Trackmania2Game(Game):
-    name = "Trackmania²"
+class TrackMania2Game(Game):
+    name = "TrackMania²"
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
 
     is_adult_only_or_unrated = False
 
-    options_cls = Trackmania2ArchipelagoOptions
+    options_cls = TrackMania2ArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -150,12 +150,12 @@ class Trackmania2Game(Game):
 
 
 # Archipelago Options
-class Trackmania2EnvironmentsOwned(OptionSet):
+class TrackMania2EnvironmentsOwned(OptionSet):
     """
-    Indicates which Trackmania 2 environments the player owns.
+    Indicates which TrackMania 2 environments the player owns.
     """
 
-    display_name = "Trackmania Environments Owned"
+    display_name = "TrackMania 2 Environments Owned"
     valid_keys = [
         "Stadium",
         "Canyon",
