@@ -128,7 +128,9 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
 
     def characters(self) -> List[str]:
         characters = self.characters_base()
+
         characters.extend(sorted(self.archipelago_options.hyrule_warriors_definitive_edition_unlocked_characters.value))
+
         return characters
 
     @staticmethod
@@ -281,9 +283,13 @@ class HyruleWarriorsDefinitiveEditionGame(Game):
 
 # Archipelago Options
 class HyruleWarriorsDefinitiveEditionUnlockedCharacters(OptionSet):
-    """What unlockable characters/weapons should be considered for objectives in Hyrule Warriors: Definitive Edition"""
-    valid_keys = HyruleWarriorsDefinitiveEditionGame.characters_unlockable() \
-                    + HyruleWarriorsDefinitiveEditionGame.weapons_unlockable()
+    """
+    Indicates which unlockable characters / weapons should be considered for objectives in
+    Hyrule Warriors: Definitive Edition
+    """
+    valid_keys = (
+        HyruleWarriorsDefinitiveEditionGame.characters_unlockable()
+        + HyruleWarriorsDefinitiveEditionGame.weapons_unlockable()
+    )
 
     default = valid_keys
-    
