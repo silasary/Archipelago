@@ -13,7 +13,7 @@
 - Hardware o software capaz de cargar y ejecutar archivos de ROM de SNES
     - Un emulador capaz de ejecutar scripts Lua
       ([snes9x rr](https://github.com/gocha/snes9x-rr/releases),
-       [BizHawk](http://tasvideos.org/BizHawk.html), o
+       [BizHawk](https://tasvideos.org/BizHawk), o
        [RetroArch](https://retroarch.com?page=platforms) 1.10.1 o más nuevo). O,
     - Un flashcart SD2SNES, [FXPak Pro](https://krikzz.com/store/home/54-fxpak-pro.html), o otro hardware compatible
 - Tu archivo ROM japones v1.0, probablemente se llame `Zelda no Densetsu - Kamigami no Triforce (Japan).sfc`
@@ -59,12 +59,13 @@ de multiworld puede tener diferentes opciones.
 
 ### Donde puedo obtener un fichero YAML?
 
-La página "[Generate Game](/games/A%20Link%20to%20the%20Past/player-settings)" en el sitio web te permite configurar tu
+La página "[Generate Game](/games/A%20Link%20to%20the%20Past/player-options)" en el sitio web te permite configurar tu
 configuración personal y descargar un fichero "YAML".
 
 ### Configuración YAML avanzada
 
-Una version mas avanzada del fichero Yaml puede ser creada usando la pagina ["Weighted settings"](/weighted-settings),
+Una version mas avanzada del fichero Yaml puede ser creada usando la pagina
+["Weighted settings"](/games/A Link to the Past/weighted-options),
 la cual te permite tener almacenadas hasta 3 preajustes. La pagina "Weighted Settings" tiene muchas opciones
 representadas con controles deslizantes. Esto permite elegir cuan probable los valores de una categoría pueden ser
 elegidos sobre otros de la misma.
@@ -82,11 +83,11 @@ debe tener al menos un valor mayor que cero, si no la generación fallará.
 ### Verificando tu archivo YAML
 
 Si quieres validar que tu fichero YAML para asegurarte que funciona correctamente, puedes hacerlo en la pagina
-[YAML Validator](/mysterycheck).
+[YAML Validator](/check).
 
 ## Generar una partida para un jugador
 
-1. Navega a [la pagina Generate game](/games/A%20Link%20to%20the%20Past/player-settings), configura tus opciones, haz
+1. Navega a [la pagina Generate game](/games/A%20Link%20to%20the%20Past/player-options), configura tus opciones, haz
    click en el boton "Generate game".
 2. Se te redigirá a una pagina "Seed Info", donde puedes descargar tu archivo de parche.
 3. Haz doble click en tu fichero de parche, y el emulador debería ejecutar tu juego automáticamente. Como el Cliente no
@@ -126,7 +127,7 @@ ejecutas, puedes ser que el firewall de Windows te pregunte si le permites la co
 
 1. Asegurate que se ha cargado el nucleo BSNES. Debes hacer esto en el menu Tools y siguiento estas opciones:
    `Config --> Cores --> SNES --> BSNES`  
-   Una vez cambiado el nucleo cargado, Bizhawk ha de ser reiniciado.
+   Una vez cambiado el nucleo cargado, BizHawk ha de ser reiniciado.
 2. Carga tu fichero de ROM, si no lo has hecho ya.
 3. Haz click en el menu Tools y en la opción **Lua Console**
 4. Haz click en el botón para abrir un nuevo script Lua.

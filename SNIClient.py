@@ -68,12 +68,11 @@ class SNIClientCommandProcessor(ClientCommandProcessor):
         options = snes_options.split()
         num_options = len(options)
 
-        if num_options > 0:
-            snes_device_number = int(options[0])
-
         if num_options > 1:
             snes_address = options[0]
             snes_device_number = int(options[1])
+        elif num_options > 0:
+            snes_device_number = int(options[0])
 
         self.ctx.snes_reconnect_address = None
         if self.ctx.snes_connect_task:
@@ -86,6 +85,7 @@ class SNIClientCommandProcessor(ClientCommandProcessor):
         """Close connection to a currently connected snes"""
         self.ctx.snes_reconnect_address = None
         self.ctx.cancel_snes_autoreconnect()
+        self.ctx.snes_state = SNESState.SNES_DISCONNECTED
         if self.ctx.snes_socket and not self.ctx.snes_socket.closed:
             async_start(self.ctx.snes_socket.close())
             return True
@@ -115,8 +115,8 @@ class SNIClientCommandProcessor(ClientCommandProcessor):
 
 class SNIContext(CommonContext):
     command_processor: typing.Type[SNIClientCommandProcessor] = SNIClientCommandProcessor
-    game = None  # set in validate_rom
-    items_handling = None  # set in game_watcher
+    game: typing.Optional[str] = None  # set in validate_rom
+    items_handling: typing.Optional[int] = None  # set in game_watcher
     snes_connect_task: "typing.Optional[asyncio.Task[None]]" = None
     snes_autoreconnect_task: typing.Optional["asyncio.Task[None]"] = None
 
@@ -208,12 +208,12 @@ class SNIContext(CommonContext):
             self.killing_player_task = asyncio.create_task(deathlink_kill_player(self))
         super(SNIContext, self).on_deathlink(data)
 
-    async def handle_deathlink_state(self, currently_dead: bool) -> None:
+    async def handle_deathlink_state(self, currently_dead: bool, death_text: str = "") -> None:
         # in this state we only care about triggering a death send
         if self.death_state == DeathState.alive:
             if currently_dead:
                 self.death_state = DeathState.dead
-                await self.send_death()
+                await self.send_death(death_text)
         # in this state we care about confirming a kill, to move state to dead
         elif self.death_state == DeathState.killing_player:
             # this is being handled in deathlink_kill_player(ctx) already
@@ -243,6 +243,9 @@ class SNIContext(CommonContext):
                 # Once the games handled by SNIClient gets made to be remote items,
                 # this will no longer be needed.
                 async_start(self.send_msgs([{"cmd": "LocationScouts", "locations": list(new_locations)}]))
+                
+        if self.client_handler is not None:
+            self.client_handler.on_package(self, cmd, args)
 
     def run_gui(self) -> None:
         from kvui import GameManager
@@ -282,7 +285,7 @@ class SNESState(enum.IntEnum):
 
 
 def launch_sni() -> None:
-    sni_path = Utils.get_options()["sni_options"]["sni_path"]
+    sni_path = Utils.get_settings()["sni_options"]["sni_path"]
 
     if not os.path.isdir(sni_path):
         sni_path = Utils.local_path(sni_path)
@@ -315,7 +318,7 @@ def launch_sni() -> None:
             f"please start it yourself if it is not running")
 
 
-async def _snes_connect(ctx: SNIContext, address: str) -> WebSocketClientProtocol:
+async def _snes_connect(ctx: SNIContext, address: str, retry: bool = True) -> WebSocketClientProtocol:
     address = f"ws://{address}" if "://" not in address else address
     snes_logger.info("Connecting to SNI at %s ..." % address)
     seen_problems: typing.Set[str] = set()
@@ -336,6 +339,8 @@ async def _snes_connect(ctx: SNIContext, address: str) -> WebSocketClientProtoco
             await asyncio.sleep(1)
         else:
             return snes_socket
+        if not retry:
+            break
 
 
 class SNESRequest(typing.TypedDict):
@@ -564,8 +569,6 @@ async def snes_write(ctx: SNIContext, write_list: typing.List[typing.Tuple[int, 
         try:
             for address, data in write_list:
                 PutAddress_Request['Operands'] = [hex(address)[2:], hex(len(data))[2:]]
-                # REVIEW: above: `if snes_socket is None: return False`
-                # Does it need to be checked again?
                 if ctx.snes_socket is not None:
                     await ctx.snes_socket.send(dumps(PutAddress_Request))
                     await ctx.snes_socket.send(data)
@@ -633,7 +636,13 @@ async def game_watcher(ctx: SNIContext) -> None:
         if not ctx.client_handler:
             continue
 
-        rom_validated = await ctx.client_handler.validate_rom(ctx)
+        try:
+            rom_validated = await ctx.client_handler.validate_rom(ctx)
+        except Exception as e:
+            snes_logger.error(f"An error occurred, see logs for details: {e}")
+            text_file_logger = logging.getLogger()
+            text_file_logger.exception(e)
+            rom_validated = False
 
         if not rom_validated or (ctx.auth and ctx.auth != ctx.rom):
             snes_logger.warning("ROM change detected, please reconnect to the multiworld server")
@@ -649,12 +658,18 @@ async def game_watcher(ctx: SNIContext) -> None:
 
         perf_counter = time.perf_counter()
 
-        await ctx.client_handler.game_watcher(ctx)
+        try:
+            await ctx.client_handler.game_watcher(ctx)
+        except Exception as e:
+            snes_logger.error(f"An error occurred, see logs for details: {e}")
+            text_file_logger = logging.getLogger()
+            text_file_logger.exception(e)
+            await snes_disconnect(ctx)
 
 
 async def run_game(romfile: str) -> None:
     auto_start = typing.cast(typing.Union[bool, str],
-                             Utils.get_options()["sni_options"].get("snes_rom_start", True))
+                             Utils.get_settings()["sni_options"].get("snes_rom_start", True))
     if auto_start is True:
         import webbrowser
         webbrowser.open(romfile)
@@ -684,6 +699,8 @@ async def main() -> None:
         logging.info(f"Wrote rom file to {romfile}")
         if args.diff_file.endswith(".apsoe"):
             import webbrowser
+            async_start(run_game(romfile))
+            await _snes_connect(SNIContext(args.snes, args.connect, args.password), args.snes, False)
             webbrowser.open(f"http://www.evermizer.com/apclient/#server={meta['server']}")
             logging.info("Starting Evermizer Client in your Browser...")
             import time

@@ -1,4 +1,4 @@
-import worlds.oot.Messages as Messages
+from . import Messages
 
 # Least common multiple of all possible character widths. A line wrap must occur when the combined widths of all of the
 # characters on a line reach this value.
@@ -367,3 +367,10 @@ def test_support_long_words():
         print('"Support Long Words" test failed: Got ' + result + ', wanted ' + expected)
     else:
         print('"Support Long Words" test passed!')
+
+
+# AP additions
+
+rom_safe_lambda = lambda c: c if c in character_table else '?'
+def rom_safe_text(text):
+    return ''.join(map(rom_safe_lambda, text))
