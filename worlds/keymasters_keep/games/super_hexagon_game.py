@@ -49,13 +49,6 @@ class SuperHexagonGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Complete the STAGE stage",
-                data={"STAGE": (self.stages_hyper, 1)},
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
                 label="Survive for TIME seconds in STAGE",
                 data={
                     "TIME": (self.survival_time_range_low, 1),
@@ -187,19 +180,19 @@ class SuperHexagonGame(Game):
 
     @staticmethod
     def survival_time_range_low() -> range:
-        return range(20, 60)
-
-    @staticmethod
-    def survival_time_range_high() -> range:
-        return range(61, 91)
-
-    @staticmethod
-    def survival_time_range_hyper_low() -> range:
         return range(10, 26)
 
     @staticmethod
+    def survival_time_range_high() -> range:
+        return range(26, 51)
+
+    @staticmethod
+    def survival_time_range_hyper_low() -> range:
+        return range(5, 11)
+
+    @staticmethod
     def survival_time_range_hyper_high() -> range:
-        return range(26, 41)
+        return range(11, 21)
 
 
 # Archipelago Options
