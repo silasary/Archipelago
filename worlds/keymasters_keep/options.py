@@ -261,7 +261,7 @@ class IncludeAdultOnlyOrUnratedGames(Toggle):
     display_name: str = "Include Adult Only or Unrated Games"
 
 
-class IncludeModernConsoleGames(Toggle):
+class IncludeModernConsoleGames(DefaultOnToggle):
     """
     Determines if modern console games should be considered for the game pool.
 
