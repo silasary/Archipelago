@@ -2,6 +2,8 @@ from typing import List, Tuple
 
 from kvui import GameManager
 
+from kivy.lang import Builder
+
 from kivy.uix.layout import Layout
 from kivy.uix.widget import Widget
 
@@ -12,6 +14,21 @@ from kivy.uix.widget import Widget
 from ..client import KeymastersKeepContext
 
 from .client_gui_layouts import KeymastersKeepTabLayout, TrialsTabLayout, TrialsCompletedTabLayout
+
+from ..world import KeymastersKeepWorld
+
+
+unicode_font_name: str = KeymastersKeepWorld.settings.client_unicode_font_name or "Roboto"
+unicode_font_size: int = KeymastersKeepWorld.settings.client_unicode_font_size or 15
+
+Builder.load_string(
+    f"""
+<TrialLabel>
+    font_name: '{unicode_font_name}'
+    font_size: '{unicode_font_size}dp'
+    markup: True
+    """
+)
 
 
 class KeymastersKeepManager(GameManager):

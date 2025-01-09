@@ -642,6 +642,10 @@ class TrialGameLabel(Label):
         self.disabled = True
 
 
+class TrialLabel(Label):
+    pass
+
+
 class AvailableTrialLayout(BoxLayout):
     ctx: KeymastersKeepContext
 
@@ -689,7 +693,7 @@ class AvailableTrialLayout(BoxLayout):
 
         trial_objective: str = self.ctx.area_trial_game_objectives[self.trial.name]
 
-        trial_label: Label = Label(
+        trial_label: TrialLabel = TrialLabel(
             text=f"[b]{self.trial.name}[/b]\n[color=bbbbbb]{trial_objective}[/color]",
             markup=True,
             size_hint_y=None,
@@ -824,7 +828,7 @@ class AvailableGoalTrialLayout(BoxLayout):
         trial_name: str = KeymastersKeepLocations.THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY.value
         trial_objective: str = self.ctx.goal_trial_game_objective
 
-        trial_label: Label = Label(
+        trial_label: TrialLabel = TrialLabel(
             text=f"[b]{trial_name}[/b]\n[color=bbbbbb]{trial_objective}[/color]",
             markup=True,
             size_hint_y=None,
@@ -1074,7 +1078,7 @@ class CompletedGoalTrialLayout(BoxLayout):
         trial_name: str = KeymastersKeepLocations.THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY.value
         trial_objective: str = self.ctx.goal_trial_game_objective
 
-        trial_label: Label = Label(
+        trial_label: TrialLabel = TrialLabel(
             text=f"[b]{trial_name}[/b]\n[color=bbbbbb]{trial_objective}[/color]",
             markup=True,
             size_hint_y=None,
@@ -1119,7 +1123,7 @@ class CompletedTrialLayout(BoxLayout):
 
         trial_objective: str = self.ctx.area_trial_game_objectives[self.trial.name]
 
-        trial_label: Label = Label(
+        trial_label: TrialLabel = TrialLabel(
             text=f"[b]{self.trial.name}[/b]\n[color=bbbbbb]{trial_objective}[/color]",
             markup=True,
             size_hint_y=None,

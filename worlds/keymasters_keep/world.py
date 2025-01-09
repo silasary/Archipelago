@@ -1,6 +1,7 @@
 import logging
+import settings
 
-from typing import Any, Dict, List, Optional, Set, Tuple, TextIO
+from typing import Any, ClassVar, Dict, List, Optional, Set, Tuple, TextIO
 
 from BaseClasses import Item, ItemClassification, Location, Region, Tutorial
 
@@ -40,6 +41,28 @@ class KeymastersKeepLocation(Location):
     game = "Keymaster's Keep"
 
 
+class KeymastersKeepSettings(settings.Group):
+    class ClientUnicodeFontName(str):
+        """
+        Determines the name of the locally installed font to use for parts of the client that may need to display
+        Unicode / special characters (e.g. Song names in Japanese / Chinese).
+
+        The default is Roboto, which is the font used by all Archipelago clients. It doesn't support Unicode / special
+        characters.
+
+        Only TTF fonts are supported. You will need to use the full name of the font file without the extension. Example:
+        "NotoSansJP-Regular" for NotoSansJP-Regular.ttf.
+
+        Using an invalid font name here will crash / hang the client on launch. Be careful!
+        """
+
+    class ClientUnicodeFontSize(int):
+        pass
+
+    client_unicode_font_name: ClientUnicodeFontName = ClientUnicodeFontName("Roboto")
+    client_unicode_font_size: ClientUnicodeFontSize = ClientUnicodeFontSize(15)
+
+
 class KeymastersKeepWebWorld(WebWorld):
     theme: str = "stone"
 
@@ -67,6 +90,9 @@ class KeymastersKeepWorld(World):
 
     options_dataclass = KeymastersKeepOptions
     options: KeymastersKeepOptions
+
+    settings_key = "keymasters_keep_options"
+    settings: ClassVar[KeymastersKeepSettings]
 
     game = "Keymaster's Keep"
 
