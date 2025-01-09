@@ -145,13 +145,24 @@ class MarioParty3Game(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Have at least COUNT coins at once",
+                label="Have at least COUNT coins at once on BOARD",
                 data={
                     "COUNT": (self.board_coin_counts, 1),
+                    "BOARD": (self.boards_battle_royale, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Win a BONUS on BOARD",
+                data={
+                    "BONUS": (self.bonus_star_types, 1),
+                    "BOARD": (self.boards_battle_royale, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=5,
             ),
         ]
 
@@ -182,6 +193,14 @@ class MarioParty3Game(Game):
             "Blowhard",
             "Mr. Mover",
             "Backtrack",
+        ]
+
+    @staticmethod
+    def bonus_star_types() -> List[str]:
+        return [
+            "Coin Star",
+            "Happening Star",
+            "Minigame Star",
         ]
 
     @staticmethod

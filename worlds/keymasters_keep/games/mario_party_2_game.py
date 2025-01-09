@@ -101,21 +101,28 @@ class MarioParty2Game(Game):
                 data={"MINIGAME": (self.minigame_list_coin, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=5,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Win a ITEM in an Item Mini-Game",  # All items start with a consonant
                 data={"ITEM": (self.items, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=3,
+                weight=5,
             ),
             GameObjectiveTemplate(
-                label="Have at least COINCOUNT coins at once",
-                data={"COINCOUNT": (self.board_coin_counts, 1)},
+                label="Have at least COINCOUNT coins at once on BOARD",
+                data={"COINCOUNT": (self.board_coin_counts, 1), "BOARD": (self.boards, 1)},
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Win a BONUS on BOARD",
+                data={"BONUS": (self.bonus_star_types, 1), "BOARD": (self.boards, 1)},
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=5,
             ),
         ])
 
@@ -150,6 +157,14 @@ class MarioParty2Game(Game):
             "Boo Bell",
             "Bowser Suit",
             "Bowser Bomb"
+        ]
+
+    @staticmethod
+    def bonus_star_types() -> List[str]:
+        return [
+            "Coin Star",
+            "Happening Star",
+            "Minigame Star",
         ]
 
     @staticmethod
