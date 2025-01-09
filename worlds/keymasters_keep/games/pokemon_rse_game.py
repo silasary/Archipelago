@@ -4,7 +4,7 @@ from typing import List, Set
 
 from dataclasses import dataclass
 
-from Options import OptionSet
+from Options import OptionSet, Toggle
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -16,6 +16,7 @@ from ..enums import KeymastersKeepGamePlatforms
 class PokemonRSEKeymastersKeepOptions:
     pokemon_rse_owned_games: PokemonRSEOwnedGames
     pokemon_rse_objectives: PokemonRSEObjectives
+    pokemon_rse_allow_one_offs: PokemonRSEAllowOneOffs
 
 
 class PokemonRSEGame(Game):
@@ -32,27 +33,39 @@ class PokemonRSEGame(Game):
         return [
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
-                data={"POKEMON": (self.wild_pokemon, 1)},
+                data={
+                    "POKEMON": (self.wild_pokemon, 1),
+                },
             ),
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
-                data={"POKEMON": (self.wild_pokemon, 1)},
+                data={
+                    "POKEMON": (self.wild_pokemon, 1),
+                },
             ),
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
-                data={"POKEMON": (self.available_pokemon, 1)},
+                data={
+                    "POKEMON": (self.available_pokemon, 1),
+                },
             ),
             GameObjectiveTemplate(
                 label="Use POKEMON as your lead whenever possible",
-                data={"POKEMON": (self.difficult_pokemon, 1)},
+                data={
+                    "POKEMON": (self.difficult_pokemon, 1),
+                },
             ),
             GameObjectiveTemplate(
                 label="Only use the following Pokémon (unless otherwise needed for HMs or specific challenges): PKMON",
-                data={"PKMON": (self.wild_pokemon, 6)},
+                data={
+                    "PKMON": (self.wild_pokemon, 6),
+                },
             ),
             GameObjectiveTemplate(
                 label="Only use the following Pokémon (unless otherwise needed for HMs or specific challenges): PKMON",
-                data={"PKMON": (self.available_pokemon, 6)},
+                data={
+                    "PKMON": (self.available_pokemon, 6),
+                },
             ),
         ]
 
@@ -72,35 +85,45 @@ class PokemonRSEGame(Game):
             objectives += [
                 GameObjectiveTemplate(
                     label="Without using Fly, travel between the following cities: CITY",
-                    data={"CITY": (self.cities, 2)},
+                    data={
+                        "CITY": (self.cities, 2),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=20
                 ),
                 GameObjectiveTemplate(
                     label="Without using Fly, travel between the following locations: LOCATION",
-                    data={"LOCATION": (self.locations, 2)},
+                    data={
+                        "LOCATION": (self.locations, 2),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=10
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild POKEMON",
-                    data={"POKEMON": (self.wild_pokemon, 1)},
+                    data={
+                        "POKEMON": (self.wild_pokemon, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=70
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild Pokémon in LOCATION",
-                    data={"LOCATION": (self.encounter_locations, 1)},
+                    data={
+                        "LOCATION": (self.encounter_locations, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=70
                 ),
                 GameObjectiveTemplate(
-                    label="Encounter a wild Feebas",
-                    data=dict(),
+                    label="Encounter a wild RAREPOKEMON",
+                    data={
+                        "RAREPOKEMON": (self.rare_wild_pokemon, 1),
+                    },
                     is_time_consuming=True,
                     is_difficult=True,
                     weight=1
@@ -113,28 +136,40 @@ class PokemonRSEGame(Game):
         return [
             GameObjectiveTemplate(
                 label="Catch a wild POKEMON CONDITION",
-                data={"POKEMON": (self.wild_pokemon, 1), "CONDITION": (self.pokemon_catch_conditions, 1)},
+                data={
+                    "POKEMON": (self.wild_pokemon, 1),
+                    "CONDITION": (self.pokemon_catch_conditions, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=90,
             ),
             GameObjectiveTemplate(
                 label="Catch a wild Pokémon in LOCATION CONDITION",
-                data={"LOCATION": (self.encounter_locations, 1), "CONDITION": (self.pokemon_catch_conditions, 1)},
+                data={
+                    "LOCATION": (self.encounter_locations, 1),
+                    "CONDITION": (self.pokemon_catch_conditions, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=90,
             ),
             GameObjectiveTemplate(
-                label="Catch a wild Feebas CONDITION",
-                data={"CONDITION": (self.pokemon_catch_conditions, 1)},
+                label="Catch a wild RAREPOKEMON CONDITION",
+                data={
+                    "RAREPOKEMON": (self.rare_wild_pokemon, 1),
+                    "CONDITION": (self.pokemon_catch_conditions, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Catch a wild POKEMON in the Safari Zone CONDITION",
-                data={"POKEMON": (self.safari_pokemon, 1), "CONDITION": (self.safari_catch_conditions, 1)},
+                data={
+                    "POKEMON": (self.safari_pokemon, 1),
+                    "CONDITION": (self.safari_catch_conditions, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=25,
@@ -145,42 +180,55 @@ class PokemonRSEGame(Game):
         return [
             GameObjectiveTemplate(
                 label="Make COLOR Pokéblock",
-                data={"COLOR": (self.common_pokeblock_types, 1)},
+                data={
+                    "COLOR": (self.common_pokeblock_types, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=50,
             ),
             GameObjectiveTemplate(
                 label="Make COLOR Pokéblock",
-                data={"COLOR": (self.rare_pokeblock_types, 1)},
+                data={
+                    "COLOR": (self.rare_pokeblock_types, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=10,
             ),
             GameObjectiveTemplate(
                 label="Win a RANKING Rank TYPE",
-                data={"RANKING": (self.base_contest_ranks, 1), "TYPE": (self.contest_types, 1)},
+                data={
+                    "RANKING": (self.base_contest_ranks, 1),
+                    "TYPE": (self.contest_types, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=30,
             ),
             GameObjectiveTemplate(
                 label="Win a Hyper Rank TYPE",
-                data={"TYPE": (self.contest_types, 1)},
+                data={
+                    "TYPE": (self.contest_types, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=15,
             ),
             GameObjectiveTemplate(
                 label="Win a Master Rank TYPE",
-                data={"TYPE": (self.contest_types, 1)},
+                data={
+                    "TYPE": (self.contest_types, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=10,
             ),
             GameObjectiveTemplate(
                 label="Get your Pokémon painted after winning a Master Rank TYPE",
-                data={"TYPE": (self.contest_types, 1)},
+                data={
+                    "TYPE": (self.contest_types, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
@@ -191,22 +239,39 @@ class PokemonRSEGame(Game):
         objectives: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Defeat the Pokémon League and enter the Hall of Fame CONDITION",
-                data={"CONDITION": (self.pokemon_league_battle_conditions, 1)},
+                data={
+                    "CONDITION": (self.pokemon_league_battle_conditions, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=50,
             ),
             GameObjectiveTemplate(
                 label="Defeat a wild POKEMON CONDITION",
-                data={"POKEMON": (self.wild_pokemon, 1), "CONDITION": (self.wild_battle_conditions, 1)},
+                data={
+                    "POKEMON": (self.wild_pokemon, 1),
+                    "CONDITION": (self.easy_wild_battle_conditions, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=70,
             ),
             GameObjectiveTemplate(
+                label="Defeat a wild RAREPOKEMON CONDITION",
+                data={
+                    "RAREPOKEMON": (self.rare_wild_pokemon, 1),
+                    "CONDITION": (self.base_wild_battle_conditions, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
                 label="Without using Fly, items, or a Pokémon Center, travel between the following cities "
                       "and defeat every wild encounter you see: CITY",
-                data={"CITY": (self.cities, 2)},
+                data={
+                    "CITY": (self.cities, 2),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=35,
@@ -214,7 +279,9 @@ class PokemonRSEGame(Game):
             GameObjectiveTemplate(
                 label="Without using Fly, items, or a Pokémon Center, travel between the following locations "
                       "and defeat every wild encounter you see: LOCATION",
-                data={"LOCATION": (self.locations, 2)},
+                data={
+                    "LOCATION": (self.locations, 2),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=25,
@@ -225,26 +292,44 @@ class PokemonRSEGame(Game):
             objectives.extend([
                 GameObjectiveTemplate(
                     label="Win any Match Call rematch CONDITION",
-                    data={"CONDITION": (self.easy_trainer_battle_conditions, 1)},
+                    data={
+                        "CONDITION": (self.easy_trainer_battle_conditions, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=35,
                 ),
                 GameObjectiveTemplate(
                     label="Win a Match Call rematch against a Gym Leader CONDITION",
-                    data={"CONDITION": (self.pokemon_league_battle_conditions, 1)},
+                    data={
+                        "CONDITION": (self.pokemon_league_battle_conditions, 1),
+                    },
                     is_time_consuming=True,
                     is_difficult=False,
                     weight=5,
                 ),
                 GameObjectiveTemplate(
                     label="Defeat Steven in Meteor Falls CONDITION",
-                    data={"CONDITION": (self.steven_battle_conditions, 1)},
+                    data={
+                        "CONDITION": (self.steven_battle_conditions, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=10,
                 ),
             ])
+
+        if self.allow_oneoffs:
+            objectives.append(GameObjectiveTemplate(
+                label="Defeat Gym Leader LEADER CONDITION",
+                data={
+                    "LEADER": (self.gym_leaders_and_level_caps, 1),
+                    "CONDITION": (self.base_trainer_battle_conditions, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=15,
+            ))
 
         return objectives
 
@@ -253,14 +338,18 @@ class PokemonRSEGame(Game):
             return [
                 GameObjectiveTemplate(
                     label="Win 3 battles in a row in the FACILITY",
-                    data={"FACILITY": (self.battle_tents, 1)},
+                    data={
+                        "FACILITY": (self.battle_tents, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=30,
                 ),
                 GameObjectiveTemplate(
                     label="Win 7 battles in a row in the FACILITY",
-                    data={"FACILITY": (self.battle_frontier_facilities, 1)},
+                    data={
+                        "FACILITY": (self.battle_frontier_facilities, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=60,
@@ -268,20 +357,25 @@ class PokemonRSEGame(Game):
                 GameObjectiveTemplate(
                     label="Complete 7 floors in a row in the Battle Pyramid",
                     data=dict(),
-                    is_time_consuming=False,
+                    is_time_consuming=True,
                     is_difficult=True,
                     weight=10,
                 ),
                 GameObjectiveTemplate(
                     label="Win a battle against BRAIN",
-                    data={"BRAIN": (self.battle_frontier_brains, 1)},
+                    data={
+                        "BRAIN": (self.battle_frontier_brains, 1),
+                    },
                     is_time_consuming=True,
                     is_difficult=True,
                     weight=5,
                 ),
                 GameObjectiveTemplate(
                     label="Complete the MODE in Trainer Hill TIME",
-                    data={"MODE": (self.trainer_hill_modes, 1), "TIME": (self.trainer_hill_times, 1)},
+                    data={
+                        "MODE": (self.trainer_hill_modes, 1),
+                        "TIME": (self.trainer_hill_times, 1),
+                    },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=30,
@@ -302,14 +396,18 @@ class PokemonRSEGame(Game):
         return [
             GameObjectiveTemplate(
                 label="Encounter or obtain a shiny POKEMON",
-                data={"POKEMON": (self.wild_pokemon, 1)},
+                data={
+                    "POKEMON": (self.wild_pokemon, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Encounter a shiny Pokémon in LOCATION",
-                data={"LOCATION": (self.encounter_locations_with_safari, 1)},
+                data={
+                    "LOCATION": (self.encounter_locations_with_safari, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
@@ -322,6 +420,10 @@ class PokemonRSEGame(Game):
                 weight=2,
             ),
         ]
+
+    @property
+    def allow_oneoffs(self) -> bool:
+        return bool(self.archipelago_options.pokemon_rse_allow_one_offs.value)
 
     @property
     def games_owned(self) -> Set[str]:
@@ -390,9 +492,35 @@ class PokemonRSEGame(Game):
 
         return pokemon
 
+    def rare_wild_pokemon(self) -> List[str]:
+        pokemon: List[str] = ["Feebas"][:]
+        if self.allow_oneoffs:
+            pokemon.extend([
+                "Regirock",
+                "Regice",
+                "Registeel",
+                "Rayquaza",
+            ][:])
+            if self.has_ruby or self.has_emerald:
+                pokemon.extend([
+                    "Latios",
+                    "Groudon",
+                ][:])
+            if self.has_sapphire or self.has_emerald:
+                pokemon.extend([
+                    "Latias",
+                    "Kyogre",
+                ][:])
+            if self.has_emerald:
+                pokemon.append("Sudowoodo")
+
+        return pokemon
+
     def difficult_pokemon(self) -> List[str]:
+        pokemon: List[str] = self.rare_wild_pokemon()[:]
+
         # Evolutions, Breeding, and other rare repeatable Pokémon
-        pokemon: List[str] = [
+        pokemon.extend([
             # Evolution exclusive
             "Beautifly",
             "Dustox",
@@ -420,6 +548,7 @@ class PokemonRSEGame(Game):
             "Flygon",
             "Cacturne",
             "Crawdaunt",
+            "Milotic",
             "Glalie",
             "Sealeo",
             "Walrein",
@@ -439,7 +568,6 @@ class PokemonRSEGame(Game):
             "Doduo",
             "Dodrio",
             "Pikachu",
-            "Raichu",
             "Psyduck",
             "Golduck",
             "Wobbuffet",
@@ -452,11 +580,7 @@ class PokemonRSEGame(Game):
             "Heracross",
             "Rhyhorn",
             "Rhydon",
-
-            # Feebas
-            "Feebas",
-            "Milotic",
-        ]
+        ][:])
 
         if not self.has_ruby:
             pokemon.append("Dusclops")  # Evolution-only in all other games
@@ -481,7 +605,6 @@ class PokemonRSEGame(Game):
                 "Ampharos",
                 "Aipom",
                 "Sunkern",
-                "Sunflora",
                 "Wooper",
                 "Quagsire",
                 "Pineco",
@@ -501,6 +624,49 @@ class PokemonRSEGame(Game):
                 "Miltank",
             ][:])
 
+        if self.allow_oneoffs:
+            pokemon.extend([
+                # Starters. Mutually exclusive, one family per game
+                "Treecko",
+                "Grovyle",
+                "Sceptile",
+                "Torchic",
+                "Combusken",
+                "Blaziken",
+                "Mudkip",
+                "Marshtomp",
+                "Swampert",
+                # Stone evolution
+                "Delcatty",
+                "Vileplume",
+                "Bellossom",
+                "Wigglytuff",
+                "Starmie",
+                "Ninetales",
+                "Raichu",
+                # Fossils. Mutually exclusive, one family per game
+                "Lileep",
+                "Cradily",
+                "Anorith",
+                "Armaldo",
+                # Only one given as a gift
+                "Castform",
+                "Beldum",
+                "Metang",
+                "Metagross",
+            ][:])
+            if self.has_sapphire or self.has_emerald:
+                pokemon.append("Ludicolo") # Stone evolution
+            if self.has_ruby or self.has_emerald:
+                pokemon.append("Shiftry") # Stone evolution
+            if self.has_emerald:
+                pokemon.extend([
+                    # In-game trade only
+                    "Meowth",
+                    "Persian",
+                    # Stone evolution
+                    "Sunflora",
+                ][:])
         return pokemon
 
     def safari_pokemon(self) -> List[str]:
@@ -550,6 +716,37 @@ class PokemonRSEGame(Game):
             "without using Sweet Scent",
         ]
 
+    def gym_leaders_and_level_caps(self) -> List[str]:
+        leaders: List[str] = [
+            "Roxanne",
+            "Roxanne (using level cap: 15)",
+            "Brawly",
+            "Wattson",
+            "Norman",
+            "Norman (using level cap: 31)",
+            "Winona",
+            "Winona (using level cap: 33)",
+            "Tate & Liza",
+            "Tate & Liza (using level cap: 42)",
+        ][:]
+        if self.has_ruby or self.has_sapphire:
+            leaders.extend([
+                "Brawly (using level cap: 18)",
+                "Wattson (using level cap: 23)",
+                "Flannery (using level cap: 28)",
+                "Wallace",
+                "Wallace (using level cap: 43)",
+            ][:])
+        if self.has_emerald:
+            leaders.extend([
+                "Brawly (using level cap: 19)",
+                "Wattson (using level cap: 24)",
+                "Flannery (using level cap: 29)",
+                "Juan",
+                "Juan (using level cap: 46)",
+            ][:])
+        return leaders
+
     @staticmethod
     def base_trainer_battle_conditions() -> List[str]:
         return [
@@ -558,10 +755,12 @@ class PokemonRSEGame(Game):
             "",
             "",
             "",
-            "using only one Pokémon",
+            "",
+            "",
+            "using only one Pokémon (two if it's a double battle)",
             "without using items in battle",
             "without using healing items",
-            "without a Pokémon fainting",
+            "without any of your Pokémon fainting",
             "without using STAB moves",
             "without using Super-Effective moves",
             "without using status moves",
@@ -570,17 +769,18 @@ class PokemonRSEGame(Game):
             "without using any moves over 40 Power",
             "without using any moves over 60 Power",
             "without using any moves with 100 accuracy or moves that bypass accuracy checks",
-            "without using a Pokémon with a Base Stat Total over 500",
+            "without using any Pokémon with a Base Stat Total over 500",
             "without using legendary Pokémon",
             "only using Pokémon that can still evolve",
+            "using no more Pokémon than your opponent",
         ]
 
     def easy_trainer_battle_conditions(self) -> List[str]:
         conditions : List[str] = self.base_trainer_battle_conditions()[:]
         conditions.extend([
             "without taking damage",
-            "without using a Pokémon higher than level 30",
-            "without using a Pokémon with a Base Stat Total over 400",
+            "without using any Pokémon higher than level 30",
+            "without using any Pokémon with a Base Stat Total over 400",
             "only using Pokémon that can still evolve twice",
         ][:])
         return conditions
@@ -589,35 +789,41 @@ class PokemonRSEGame(Game):
         conditions : List[str] = self.base_trainer_battle_conditions()[:]
         conditions.extend([
             "without taking damage",
-            "without using a Pokémon higher than level 50",
-            "without using a Pokémon higher than level 60",
+            "without using any Pokémon higher than level 50",
+            "without using any Pokémon higher than level 60",
         ][:])
         return conditions
 
     def steven_battle_conditions(self) -> List[str]:
         conditions : List[str] = self.base_trainer_battle_conditions()[:]
         conditions.extend([
-            "without using a Pokémon higher than level 60",
-            "without using a Pokémon higher than level 70",
-            "without using a Pokémon higher than level 80",
+            "without using any Pokémon higher than level 60",
+            "without using any Pokémon higher than level 70",
+            "without using any Pokémon higher than level 80",
         ][:])
         return conditions
 
     @staticmethod
-    def wild_battle_conditions() -> List[str]:
+    def base_wild_battle_conditions() -> List[str]:
         return [
             "",
             "",
             "",
-            "without using a Pokémon higher than level 30",
             "without taking damage",
             "without using STAB moves",
             "without using Super-Effective moves",
             "without using any moves over 40 Power",
             "without using any moves with 100 accuracy or moves that bypass accuracy checks",
             "only using Pokémon that can still evolve",
-            "only using Pokémon that can still evolve twice",
         ]
+
+    def easy_wild_battle_conditions(self) -> List[str]:
+        conditions : List[str] = self.base_wild_battle_conditions()[:]
+        conditions.extend([
+            "without using any Pokémon higher than level 30",
+            "only using Pokémon that can still evolve twice",
+        ][:])
+        return conditions
 
     @staticmethod
     def wild_rse() -> List[str]:
@@ -1166,3 +1372,10 @@ class PokemonRSEObjectives(OptionSet):
     ]
 
     default = valid_keys
+
+class PokemonRSEAllowOneOffs(Toggle):
+    """
+    If true, adds additional challenges that are only available once in a save file. May require starting a new game!
+    """
+
+    display_name = "Pokémon Ruby/Sapphire/Emerald Allow One-Offs"
