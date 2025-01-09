@@ -5,7 +5,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet, Toggle
+from Options import OptionSet, Toggle, DefaultOnToggle
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -14,20 +14,24 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class MarioKart8DeluxeArchipelagoOptions:
+class MarioKart8ArchipelagoOptions:
+    mario_kart_8_is_deluxe: MarioKart8IsDeluxe
+    mario_kart_8_wii_u_dlc_owned: MarioKart8WiiUDLCOwned
     mario_kart_8_deluxe_dlc_owned: MarioKart8DeluxeDLCOwned
-    mario_kart_8_deluxe_include_battle_mode: MarioKart8DeluxeIncludeBattleMode
+    mario_kart_8_include_battle_mode: MarioKart8IncludeBattleMode
 
 
-class MarioKart8DeluxeGame(Game):
-    name = "Mario Kart 8 Deluxe"
+class MarioKart8Game(Game):
+    name = "Mario Kart 8"
     platform = KeymastersKeepGamePlatforms.SW
 
-    platforms_other = None
+    platforms_other = [
+        KeymastersKeepGamePlatforms.WIIU,
+    ]
 
     is_adult_only_or_unrated = False
 
-    options_cls = MarioKart8DeluxeArchipelagoOptions
+    options_cls = MarioKart8ArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -130,7 +134,7 @@ class MarioKart8DeluxeGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Finish 1st in a race while holding the follwing item: ITEM",
+                label="Finish 1st in a race while holding a ITEM",
                 data={
                     "ITEM": (self.items, 1),
                 },
@@ -158,16 +162,36 @@ class MarioKart8DeluxeGame(Game):
         return objectives
 
     @property
-    def dlc_owned(self) -> List[str]:
+    def is_deluxe(self) -> bool:
+        return bool(self.archipelago_options.mario_kart_8_is_deluxe.value)
+
+    @property
+    def wii_u_dlc_owned(self) -> List[str]:
+        return sorted(self.archipelago_options.mario_kart_8_wii_u_dlc_owned.value)
+
+    @property
+    def has_animal_crossing(self) -> bool:
+        return self.is_deluxe or "Animal Crossing x Mario Kart 8" in self.wii_u_dlc_owned
+
+    @property
+    def has_mercedes_benz(self) -> bool:
+        return self.is_deluxe or "Mercedes-Benz x Mario Kart 8" in self.wii_u_dlc_owned
+
+    @property
+    def has_zelda(self) -> bool:
+        return self.is_deluxe or "The Legend of Zelda x Mario Kart 8" in self.wii_u_dlc_owned
+
+    @property
+    def deluxe_dlc_owned(self) -> List[str]:
         return sorted(self.archipelago_options.mario_kart_8_deluxe_dlc_owned.value)
 
     @property
     def has_booster_course_pass(self) -> bool:
-        return "Booster Course Pass" in self.dlc_owned
+        return self.is_deluxe and "Booster Course Pass" in self.deluxe_dlc_owned
 
     @property
     def includes_battle_mode(self) -> bool:
-        return bool(self.archipelago_options.mario_kart_8_deluxe_include_battle_mode.value)
+        return bool(self.archipelago_options.mario_kart_8_include_battle_mode.value)
 
     @functools.cached_property
     def characters_base(self) -> List[str]:
@@ -177,22 +201,14 @@ class MarioKart8DeluxeGame(Game):
             "Baby Mario",
             "Baby Peach",
             "Baby Rosalina",
-            "Bowser Jr.",
             "Bowser",
-            "Cat Peach",
             "Daisy",
             "Donkey Kong",
-            "Dry Bones",
-            "Dry Bowser",
             "Iggy",
-            "Inkling",
-            "Isabelle",
-            "King Boo",
             "Koopa Troopa",
             "Lakitu",
             "Larry",
             "Lemmy",
-            "Link",
             "Ludwig",
             "Luigi",
             "Mario",
@@ -204,14 +220,37 @@ class MarioKart8DeluxeGame(Game):
             "Rosalina",
             "Roy",
             "Shy Guy",
-            "Tanooki Mario",
             "Toad",
             "Toadette",
-            "Villager",
             "Waluigi",
             "Wario",
             "Wendy",
             "Yoshi",
+        ]
+
+    @functools.cached_property
+    def characters_zelda(self) -> List[str]:
+        return [
+            "Cat Peach",
+            "Link",
+            "Tanooki Mario",
+        ]
+
+    @functools.cached_property
+    def characters_animal_crossing(self) -> List[str]:
+        return [
+            "Dry Bowser",
+            "Isabelle",
+            "Villager",
+        ]
+
+    @functools.cached_property
+    def characters_deluxe(self) -> List[str]:
+        return [
+            "Bowser Jr.",
+            "Dry Bones",
+            "Inkling",
+            "King Boo",
         ]
 
     @functools.cached_property
@@ -230,69 +269,114 @@ class MarioKart8DeluxeGame(Game):
     def characters(self) -> List[str]:
         characters: List[str] = self.characters_base[:]
 
+        if self.has_animal_crossing:
+            characters.extend(self.characters_animal_crossing[:])
+
+        if self.has_zelda:
+            characters.extend(self.characters_zelda[:])
+
+        if self.is_deluxe:
+            characters.extend(self.characters_deluxe[:])
+
         if self.has_booster_course_pass:
             characters.extend(self.characters_booster_course_pass[:])
 
         return characters
 
-    @staticmethod
-    def bodies() -> List[str]:
+    @functools.cached_property
+    def bodies_base(self) -> List[str]:
         return [
-            "300 SL Roadster",
             "Badwagon",
             "Biddybuggy",
-            "Blue Falcon",
-            "Bone Rattler",
             "Cat Cruiser",
             "Circuit Special",
-            "City Tripper",
             "Comet",
             "Flame Rider",
-            "GLA",
             "Gold Standard",
-            "Inkstriker",
             "Jet Bike",
-            "Koopa Clown",
             "Landship",
             "Mach 8",
-            "Master Cycle Zero",
-            "Master Cycle",
             "Mr. Scooty",
-            "P-Wing",
+            "Pipe Frame",
             "Prancer",
             "Sneeker",
-            "Splat Buggy",
             "Sport Bike",
             "Sports Coupe",
             "Standard ATV",
             "Standard Bike",
-            "Standard KartPipe Frame",
+            "Standard Kart",
             "Steel Driver",
-            "Streetle",
-            "Tanooki KartB Dasher",
             "Teddy Buggy",
             "The Duke",
             "Tri-Speeder",
             "Varmint",
-            "W 25 Silver Arrow",
             "Wild Wiggler",
             "Yoshi Bike",
         ]
 
-    @staticmethod
-    def tires() -> List[str]:
+    @functools.cached_property
+    def bodies_animal_crossing(self) -> List[str]:
         return [
-            "Ancient Tires",
+            "Bone Rattler",
+            "City Tripper",
+            "P-Wing",
+            "Streetle",
+        ]
+
+    @functools.cached_property
+    def bodies_mercedes_benz(self) -> List[str]:
+        return [
+            "300 SL Roadster",
+            "GLA",
+            "W 25 Silver Arrow",
+        ]
+
+    @functools.cached_property
+    def bodies_zelda(self) -> List[str]:
+        return [
+            "B Dasher",
+            "Blue Falcon",
+            "Master Cycle",
+            "Tanooki Kart",
+        ]
+
+    @functools.cached_property
+    def bodies_deluxe(self) -> List[str]:
+        return [
+            "Inkstriker",
+            "Koopa Clown",
+            "Master Cycle Zero",
+            "Splat Buggy",
+        ]
+
+    def bodies(self) -> List[str]:
+        bodies: List[str] = self.bodies_base[:]
+
+        if self.has_animal_crossing:
+            bodies.extend(self.bodies_animal_crossing[:])
+
+        if self.has_mercedes_benz:
+            bodies.extend(self.bodies_mercedes_benz[:])
+
+        if self.has_zelda:
+            bodies.extend(self.bodies_zelda[:])
+
+        if self.is_deluxe:
+            bodies.extend(self.bodies_deluxe[:])
+
+        return bodies
+
+    @functools.cached_property
+    def tires_base(self) -> List[str]:
+        return [
             "Azure Roller Tires",
             "Blue Standard Tires",
             "Button Tires",
             "Crimson Slim Tires",
             "Cushion Tires",
             "Cyber Slick Tires",
-            "GLA Tires",
             "Gold Tires",
             "Hot Monster Tires",
-            "Leaf Tires",
             "Metal Tires",
             "Monster Tires",
             "Off-Road Tires",
@@ -302,29 +386,98 @@ class MarioKart8DeluxeGame(Game):
             "Slim Tires",
             "Sponge Tires",
             "Standard Tires",
-            "Triforce Tires",
             "Wood Tires",
         ]
 
-    @staticmethod
-    def gliders() -> List[str]:
+    @functools.cached_property
+    def tires_animal_crossing(self) -> List[str]:
+        return [
+            "Leaf Tires",
+        ]
+
+    @functools.cached_property
+    def tires_mercedes_benz(self) -> List[str]:
+        return [
+            "GLA Tires",
+        ]
+
+    @functools.cached_property
+    def tires_zelda(self) -> List[str]:
+        return [
+            "Triforce Tires",
+        ]
+
+    @functools.cached_property
+    def tires_deluxe(self) -> List[str]:
+        return [
+            "Ancient Tires",
+        ]
+
+    def tires(self) -> List[str]:
+        tires: List[str] = self.tires_base[:]
+
+        if self.has_animal_crossing:
+            tires.extend(self.tires_animal_crossing[:])
+
+        if self.has_mercedes_benz:
+            tires.extend(self.tires_mercedes_benz[:])
+
+        if self.has_zelda:
+            tires.extend(self.tires_zelda[:])
+
+        if self.is_deluxe:
+            tires.extend(self.tires_deluxe[:])
+
+        return tires
+
+    @functools.cached_property
+    def gliders_base(self) -> List[str]:
         return [
             "Bowser Kite",
             "Cloud Glider",
             "Flower Glider",
             "Gold Glider",
-            "Hylian Kite",
             "MKTV Parafoil",
-            "Paper Glider",
             "Parachute",
             "Parafoil",
-            "Paraglider",
             "Peach Parasol",
             "Plane Glider",
             "Super Glider",
             "Waddle Wing",
             "Wario Wing",
         ]
+
+    @functools.cached_property
+    def gliders_animal_crossing(self) -> List[str]:
+        return [
+            "Paper Glider",
+        ]
+
+    @functools.cached_property
+    def gliders_zelda(self) -> List[str]:
+        return [
+            "Hylian Kite",
+        ]
+
+    @functools.cached_property
+    def gliders_deluxe(self) -> List[str]:
+        return [
+            "Paraglider",
+        ]
+
+    def gliders(self) -> List[str]:
+        gliders: List[str] = self.gliders_base[:]
+
+        if self.has_animal_crossing:
+            gliders.extend(self.gliders_animal_crossing[:])
+
+        if self.has_zelda:
+            gliders.extend(self.gliders_zelda[:])
+
+        if self.is_deluxe:
+            gliders.extend(self.gliders_deluxe[:])
+
+        return gliders
 
     @functools.cached_property
     def courses_base(self) -> List[str]:
@@ -345,14 +498,6 @@ class MarioKart8DeluxeGame(Game):
             "Bone-Dry Dunes (Special)",
             "Bowser's Castle (Special)",
             "Rainbow Road (Special)",
-            "GCN Yoshi Circuit (Egg)",
-            "Excitebike Arena (Egg)",
-            "Dragon Driftway (Egg)",
-            "Mute City (Egg)",
-            "GCN Baby Park (Crossing)",
-            "GBA Cheese Land (Crossing)",
-            "Wild Woods (Crossing)",
-            "Animal Crossing (Crossing)",
             "Wii Moo Moo Meadows (Shell)",
             "GBA Mario Circuit (Shell)",
             "DS Cheep Cheep Beach (Shell)",
@@ -369,14 +514,32 @@ class MarioKart8DeluxeGame(Game):
             "3DS Piranha Plant Slide (Lightning)",
             "Wii Grumble Volcano (Lightning)",
             "N64 Rainbow Road (Lightning)",
-            "Wii Wario's Gold Mine (Triforce)",
-            "SNES Rainbow Road (Triforce)",
-            "Ice Ice Outpost (Triforce)",
-            "Hyrule Circuit (Triforce)",
+        ]
+
+    @functools.cached_property
+    def courses_animal_crossing(self) -> List[str]:
+        return [
+            "GCN Baby Park (Crossing)",
+            "GBA Cheese Land (Crossing)",
+            "Wild Woods (Crossing)",
+            "Animal Crossing (Crossing)",
             "3DS Neo Bowser City (Bell)",
             "GBA Ribbon Road (Bell)",
             "Super Bell Subway (Bell)",
             "Big Blue (Bell)",
+        ]
+
+    @functools.cached_property
+    def courses_zelda(self) -> List[str]:
+        return [
+            "GCN Yoshi Circuit (Egg)",
+            "Excitebike Arena (Egg)",
+            "Dragon Driftway (Egg)",
+            "Mute City (Egg)",
+            "Wii Wario's Gold Mine (Triforce)",
+            "SNES Rainbow Road (Triforce)",
+            "Ice Ice Outpost (Triforce)",
+            "Hyrule Circuit (Triforce)",
         ]
 
     @functools.cached_property
@@ -435,6 +598,12 @@ class MarioKart8DeluxeGame(Game):
     def courses(self) -> List[str]:
         courses: List[str] = self.courses_base[:]
 
+        if self.has_animal_crossing:
+            courses.extend(self.courses_animal_crossing[:])
+
+        if self.has_zelda:
+            courses.extend(self.courses_zelda[:])
+
         if self.has_booster_course_pass:
             courses.extend(self.courses_booster_course_pass[:])
 
@@ -444,9 +613,6 @@ class MarioKart8DeluxeGame(Game):
     def cups_base(self) -> List[str]:
         return [
             "Banana Cup",
-            "Bell Cup",
-            "Crossing Cup",
-            "Egg Cup",
             "Flower Cup",
             "Leaf Cup",
             "Lightning Cup",
@@ -454,6 +620,19 @@ class MarioKart8DeluxeGame(Game):
             "Shell Cup",
             "Special Cup",
             "Star Cup",
+        ]
+
+    @functools.cached_property
+    def cups_animal_crossing(self) -> List[str]:
+        return [
+            "Bell Cup",
+            "Crossing Cup",
+        ]
+
+    @functools.cached_property
+    def cups_zelda(self) -> List[str]:
+        return [
+            "Egg Cup",
             "Triforce Cup",
         ]
 
@@ -476,6 +655,12 @@ class MarioKart8DeluxeGame(Game):
 
     def cups(self) -> List[str]:
         cups: List[str] = self.cups_base[:]
+
+        if self.has_animal_crossing:
+            cups.extend(self.cups_animal_crossing[:])
+
+        if self.has_zelda:
+            cups.extend(self.cups_zelda[:])
 
         if self.has_booster_course_pass:
             cups.extend(self.cups_booster_course_pass[:])
@@ -505,18 +690,35 @@ class MarioKart8DeluxeGame(Game):
             "Hard",
         ]
 
-    @staticmethod
-    def battle_modes() -> List[str]:
-        return [
+
+    def battle_modes(self) -> List[str]:
+        modes: List[str] = [
             "Balloon Battle",
-            "Bob-omb Blast",
-            "Coin Runners",
-            "Renegade Roundup",
-            "Shine Thief",
+        ][:]
+        if self.is_deluxe:
+            modes.extend([
+                "Bob-omb Blast",
+                "Coin Runners",
+                "Renegade Roundup",
+                "Shine Thief",
+            ][:])
+        return modes
+
+    @functools.cached_property
+    def battle_stages_wii_u(self) -> List[str]:
+        return [
+            "Wii Moo Moo Meadows",
+            "GCN Dry Dry Desert",
+            "SNES Donut Plains 3",
+            "N64 Toad's Turnpike",
+            "Mario Circuit",
+            "Toad Harbor",
+            "GCN Sherbet Land",
+            "N64 Yoshi Valley"
         ]
 
-    @staticmethod
-    def battle_stages() -> List[str]:
+    @functools.cached_property
+    def battle_stages_deluxe(self) -> List[str]:
         return [
             "3DS Wuhu Town",
             "Battle Stadium",
@@ -528,12 +730,15 @@ class MarioKart8DeluxeGame(Game):
             "Urchin Underpass",
         ]
 
-    @staticmethod
-    def items() -> List[str]:
-        return [
+    def battle_stages(self) -> List[str]:
+        if self.is_deluxe:
+            return self.battle_stages_deluxe
+        return self.battle_stages_wii_u
+
+    def items(self) -> List[str]:
+        items: List[str] = [
             "Banana",
             "Blooper",
-            "Boo",
             "Boomerang Flower",
             "Bullet Bill",
             "Coin",
@@ -550,7 +755,10 @@ class MarioKart8DeluxeGame(Game):
             "Triple Green Shells",
             "Triple Mushrooms",
             "Triple Red Shells",
-        ]
+        ][:]
+        if self.is_deluxe:
+            items.append("Boo")
+        return items
 
     @staticmethod
     def positions() -> List[str]:
@@ -560,11 +768,30 @@ class MarioKart8DeluxeGame(Game):
             "3rd or better",
         ]
 
+class MarioKart8IsDeluxe(DefaultOnToggle):
+    """
+    If true, use Mario Kart 8 Deluxe content. If false, only use Mario Kart 8 (Wii U) content.
+    """
+    display_name = "Mario Kart 8 is Deluxe"
+
+class MarioKart8WiiUDLCOwned(OptionSet):
+    """
+    Indicates which Mario Kart 8 (Wii U) DLC the player owns, if any. Has no effect if Deluxe is enabled.
+    """
+
+    display_name = "Mario Kart 8 (Wii U) DLC Owned"
+    valid_keys = [
+        "Animal Crossing x Mario Kart 8",
+        "Mercedes-Benz x Mario Kart 8",
+        "The Legend of Zelda x Mario Kart 8",
+    ]
+
+    default = valid_keys
 
 # Archipelago Options
 class MarioKart8DeluxeDLCOwned(OptionSet):
     """
-    Indicates which Mario Kart 8 Deluxe DLC the player owns, if any.
+    Indicates which Mario Kart 8 Deluxe DLC the player owns, if any. Has no effect if Deluxe is disabled.
     """
 
     display_name = "Mario Kart 8 Deluxe DLC Owned"
@@ -575,9 +802,9 @@ class MarioKart8DeluxeDLCOwned(OptionSet):
     default = valid_keys
 
 
-class MarioKart8DeluxeIncludeBattleMode(Toggle):
+class MarioKart8IncludeBattleMode(Toggle):
     """
-    Indicates whether the player wants to include Mario Kart 8 Deluxe Battle Mode objectives
+    Indicates whether the player wants to include Mario Kart 8 Battle Mode objectives
     """
 
-    display_name = "Mario Kart 8 Deluxe Include Battle Mode"
+    display_name = "Mario Kart 8 Include Battle Mode"
