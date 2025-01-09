@@ -70,6 +70,11 @@ class SimsCommandProcessor(ClientCommandProcessor):
         print_json(False, 'sync.json')
 
     @mark_raw
+    def _cmd_goal(self):
+        """Displays the goal of the AP"""
+        self.output(self.ctx.goal)
+
+    @mark_raw
     def _cmd_set_path(self, sims_4_mods_path: str = ''):
         """Set the file path to the Sims 4 mods folder manually (if automatic detection fails)"""
         p = sims_4_mods_path
