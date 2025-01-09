@@ -5,7 +5,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet, Toggle, DefaultOnToggle
+from Options import DefaultOnToggle, OptionSet, Toggle
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -768,11 +768,15 @@ class MarioKart8Game(Game):
             "3rd or better",
         ]
 
+
+# Archipelago Options
 class MarioKart8IsDeluxe(DefaultOnToggle):
     """
     If true, use Mario Kart 8 Deluxe content. If false, only use Mario Kart 8 (Wii U) content.
     """
+
     display_name = "Mario Kart 8 is Deluxe"
+
 
 class MarioKart8WiiUDLCOwned(OptionSet):
     """
@@ -788,7 +792,7 @@ class MarioKart8WiiUDLCOwned(OptionSet):
 
     default = valid_keys
 
-# Archipelago Options
+
 class MarioKart8DeluxeDLCOwned(OptionSet):
     """
     Indicates which Mario Kart 8 Deluxe DLC the player owns, if any. Has no effect if Deluxe is disabled.
