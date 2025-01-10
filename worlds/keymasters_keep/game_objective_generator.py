@@ -1,3 +1,5 @@
+import logging
+
 from random import Random
 from typing import Any, List, Tuple, Type, Union
 
@@ -18,11 +20,14 @@ class GameObjectiveGeneratorException(Exception):
 
 class GameObjectiveGenerator:
     games: List[Type[Game]]
+    games_medley: List[Type[Game]]
+
     archipelago_options: Any
 
     def __init__(
         self,
         allowable_games: List[str] = None,
+        allowable_games_medley: List[str] = None,
         include_adult_only_or_unrated_games: bool = False,
         include_modern_console_games: bool = False,
         include_difficult_objectives: bool = False,
@@ -41,6 +46,21 @@ class GameObjectiveGenerator:
 
         if not len(self.games):
             raise GameObjectiveGeneratorException("No games are left after game / objective filtering")
+
+        self.games_medley = self._filter_games(
+            allowable_games_medley,
+            include_adult_only_or_unrated_games,
+            include_modern_console_games,
+            include_difficult_objectives,
+            include_time_consuming_objectives,
+        )
+
+        if not len(self.games_medley):
+            logging.warning(
+                "Keymaster's Keep: No medley games are left after game / objective filtering. Using all games."
+            )
+
+            self.games_medley = self.games[:]
 
     def generate_from_plan(
         self,
@@ -83,7 +103,7 @@ class GameObjectiveGenerator:
                 game: GameMedleyGame = game_class(
                     random=random,
                     archipelago_options=self.archipelago_options,
-                    game_selection=self.games,
+                    game_selection=self.games_medley,
                 )
 
                 optional_constraints: List[str]

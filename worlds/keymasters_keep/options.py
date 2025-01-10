@@ -191,7 +191,7 @@ class AreaTrialsMaximum(Range):
 class GameMedleyMode(Toggle):
     """
     If true, a percentage of keep areas will feature Game Medley as their game, with each trial sourced randomly from
-    the pool of available games.
+    a separate, dedicated pool of games.
 
     Activating Game Medley Mode will disable optional game conditions for keep areas assigned to Game Medley.
     """
@@ -210,6 +210,27 @@ class GameMedleyPercentageChance(Range):
     range_end: int = 100
 
     default = 100
+
+
+class GameMedleyGameSelection(OptionSet):
+    """
+    Defines the game pool that will be used to generate Game Medley trials.
+
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
+
+    You are allowed to place games that already appear in other selection options here.
+
+    If this is left empty, all games from other selection options will be used as a default.
+    """
+
+    display_name: str = "Game Medley Game Selection"
+    valid_keys = (
+        sorted(AutoGameRegister.games.keys())
+        + sorted(AutoGameRegister.metagames.keys())
+        + sorted(AutoGameRegister.modded_games.keys())
+    )
+
+    default = list()
 
 
 class MetagameSelection(OptionSet):
@@ -287,7 +308,7 @@ class ExcludedGamesDifficultObjectives(OptionSet):
     """
     When 'include_difficult_objectives' is enabled, this option allows you to still exclude specific games.
 
-    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
 
     If a game specified here only offers difficult objectives, this option will have no effect for it.
     """
@@ -318,7 +339,7 @@ class ExcludedGamesTimeConsumingObjectives(OptionSet):
     """
     When 'include_time_consuming_objectives' is enabled, this option allows you to still exclude specific games.
 
-    Only game names from 'game_selection' and 'metagame_selection' are accepted.
+    Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
 
     If a game specified here only offers time-consuming objectives, this option will have no effect for it.
     """
@@ -359,6 +380,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     area_trials_maximum: AreaTrialsMaximum
     game_medley_mode: GameMedleyMode
     game_medley_percentage_chance: GameMedleyPercentageChance
+    game_medley_game_selection: GameMedleyGameSelection
     metagame_selection: MetagameSelection
     game_selection: GameSelection
     modded_game_selection: ModdedGameSelection
@@ -408,6 +430,7 @@ option_groups: typing.List[OptionGroup] = [
             HintsRevealObjectives,
             GameMedleyMode,
             GameMedleyPercentageChance,
+            GameMedleyGameSelection,
             MetagameSelection,
             GameSelection,
             ModdedGameSelection,

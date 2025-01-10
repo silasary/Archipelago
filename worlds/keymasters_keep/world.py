@@ -117,6 +117,7 @@ class KeymastersKeepWorld(World):
     excluded_games_difficult_objectives: List[str]
     excluded_games_time_consuming_objectives: List[str]
     filler_item_names: List[str] = item_groups()["Filler"]
+    game_medley_game_selection: List[str]
     game_medley_mode: bool
     game_medley_percentage_chance: int
     game_selection: List[str]
@@ -234,6 +235,7 @@ class KeymastersKeepWorld(World):
 
         self.game_medley_mode = bool(self.options.game_medley_mode)
         self.game_medley_percentage_chance = self.options.game_medley_percentage_chance.value
+        self.game_medley_game_selection = list(self.options.game_medley_game_selection.value)
 
         self.game_selection = list(self.options.game_selection.value)
         self.metagame_selection = list(self.options.metagame_selection.value)
@@ -616,6 +618,7 @@ class KeymastersKeepWorld(World):
 
         generator: GameObjectiveGenerator = GameObjectiveGenerator(
             game_selection,
+            self.game_medley_game_selection,
             self.include_adult_only_or_unrated_games,
             self.include_modern_console_games,
             self.include_difficult_objectives,
