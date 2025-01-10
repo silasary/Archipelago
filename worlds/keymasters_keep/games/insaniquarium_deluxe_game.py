@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-import functools
 from typing import List
 
 from dataclasses import dataclass
-
-from Options import Toggle
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -13,25 +10,25 @@ from ..game_objective_template import GameObjectiveTemplate
 from ..enums import KeymastersKeepGamePlatforms
 
 
-@dataclass  # no options, is this needed???
-class InsaniquariumOptions:
+@dataclass
+class InsaniquariumDeluxeArchipelagoOptions:
     pass
 
 
-class InsaniquariumGame(Game):
-    # Initial implementation by RoobyRoo. Adapted from Guitar Hero by JCBoorgo
+class InsaniquariumDeluxeGame(Game):
+    # Initial implementation by RoobyRoo.
 
     name = "Insaniquarium Deluxe"
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
-        KeymastersKeepGamePlatforms.IOS,
         KeymastersKeepGamePlatforms.AND,
+        KeymastersKeepGamePlatforms.IOS,
     ]
 
     is_adult_only_or_unrated = False
 
-    options_cls = InsaniquariumOptions
+    options_cls = InsaniquariumDeluxeArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()
@@ -46,12 +43,12 @@ class InsaniquariumGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1
+                weight=1,
             )
         ]
 
-    @functools.cached_property
-    def level(self) -> List[str]:
+    @staticmethod
+    def level() -> List[str]:
         return [
             "1-1",
             "1-2",
@@ -72,11 +69,11 @@ class InsaniquariumGame(Game):
             "4-2",
             "4-3",
             "4-4",
-            "4-5"
+            "4-5",
         ]
     
-    @functools.cached_property
-    def pets(self) -> List[str]:
+    @staticmethod
+    def pets() -> List[str]:
         return [
             "Stinky",
             "Niko",
@@ -101,8 +98,9 @@ class InsaniquariumGame(Game):
             "Brinkley",
             "Nostradamus",
             "Stanley",
-            "Walter"
+            "Walter",
         ]
 
 
-# Archipelago Options - none needed
+# Archipelago Options
+# ...
