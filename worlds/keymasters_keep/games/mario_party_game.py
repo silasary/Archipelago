@@ -30,13 +30,13 @@ class MarioPartyGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Use BLOCK at least once on a board",
+                label="Enable BLOCKs before playing a board",
                 data={
                     "BLOCK": (self.extra_dice_blocks, 1),
                 },
             ),
             GameObjectiveTemplate(
-                label="Win a game without using BLOCK",
+                label="Win a board without using BLOCKs",
                 data={
                     "BLOCK": (self.extra_dice_blocks, 1),
                 },
@@ -86,7 +86,7 @@ class MarioPartyGame(Game):
                 weight=8,
             ),
             GameObjectiveTemplate(
-                label="Win a COUNT Trial in Mini-Game Stadium",
+                label="Win a COUNT turn Trial in Mini-Game Stadium",
                 data={
                     "COUNT": (self.minigame_trial_turn_count_range, 1),
                 },
