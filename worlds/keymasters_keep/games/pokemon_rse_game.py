@@ -17,6 +17,7 @@ class PokemonRSEKeymastersKeepOptions:
     pokemon_rse_owned_games: PokemonRSEOwnedGames
     pokemon_rse_objectives: PokemonRSEObjectives
     pokemon_rse_allow_one_offs: PokemonRSEAllowOneOffs
+    pokemon_rse_allow_event_items: PokemonRSEAllowEventItems
 
 
 class PokemonRSEGame(Game):
@@ -90,7 +91,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=20
+                    weight=200,
                 ),
                 GameObjectiveTemplate(
                     label="Without using Fly, travel between the following locations: LOCATION",
@@ -99,7 +100,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=10
+                    weight=100,
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild POKEMON",
@@ -108,7 +109,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=70
+                    weight=700,
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild Pokémon in LOCATION",
@@ -117,7 +118,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=70
+                    weight=700,
                 ),
                 GameObjectiveTemplate(
                     label="Encounter a wild RAREPOKEMON",
@@ -126,7 +127,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=True,
-                    weight=1
+                    weight=self.rare_pokemon_objective_weight(),
                 ),
             ]
 
@@ -142,7 +143,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=90,
+                weight=900,
             ),
             GameObjectiveTemplate(
                 label="Catch a wild Pokémon in LOCATION CONDITION",
@@ -152,7 +153,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=90,
+                weight=900,
             ),
             GameObjectiveTemplate(
                 label="Catch a wild RAREPOKEMON CONDITION",
@@ -162,7 +163,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=3,
+                weight=self.rare_pokemon_objective_weight(),
             ),
             GameObjectiveTemplate(
                 label="Catch a wild POKEMON in the Safari Zone CONDITION",
@@ -172,7 +173,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=25,
+                weight=250,
             ),
         ]
 
@@ -185,7 +186,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=50,
+                weight=500,
             ),
             GameObjectiveTemplate(
                 label="Make COLOR Pokéblock",
@@ -194,7 +195,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=10,
+                weight=100,
             ),
             GameObjectiveTemplate(
                 label="Win a RANKING Rank TYPE",
@@ -204,7 +205,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=30,
+                weight=300,
             ),
             GameObjectiveTemplate(
                 label="Win a Hyper Rank TYPE",
@@ -213,7 +214,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=15,
+                weight=150,
             ),
             GameObjectiveTemplate(
                 label="Win a Master Rank TYPE",
@@ -222,7 +223,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=10,
+                weight=100,
             ),
             GameObjectiveTemplate(
                 label="Get your Pokémon painted after winning a Master Rank TYPE",
@@ -231,7 +232,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=1,
+                weight=40,
             ),
         ]
 
@@ -244,7 +245,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=50,
+                weight=500,
             ),
             GameObjectiveTemplate(
                 label="Defeat a wild POKEMON CONDITION",
@@ -254,7 +255,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=70,
+                weight=700,
             ),
             GameObjectiveTemplate(
                 label="Defeat a wild RAREPOKEMON CONDITION",
@@ -264,7 +265,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=3,
+                weight=self.rare_pokemon_objective_weight(),
             ),
             GameObjectiveTemplate(
                 label="Without using Fly, items, or a Pokémon Center, travel between the following cities "
@@ -274,7 +275,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=35,
+                weight=350,
             ),
             GameObjectiveTemplate(
                 label="Without using Fly, items, or a Pokémon Center, travel between the following locations "
@@ -284,7 +285,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=25,
+                weight=250,
             ),
         ]
 
@@ -297,7 +298,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=35,
+                    weight=350,
                 ),
                 GameObjectiveTemplate(
                     label="Win a Match Call rematch against a Gym Leader CONDITION",
@@ -306,7 +307,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=5,
+                    weight=50,
                 ),
                 GameObjectiveTemplate(
                     label="Defeat Steven in Meteor Falls CONDITION",
@@ -315,7 +316,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=10,
+                    weight=100,
                 ),
             ])
 
@@ -328,7 +329,7 @@ class PokemonRSEGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=15,
+                weight=150,
             ))
 
         return objectives
@@ -343,7 +344,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=30,
+                    weight=300,
                 ),
                 GameObjectiveTemplate(
                     label="Win 7 battles in a row in the FACILITY",
@@ -352,14 +353,14 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=60,
+                    weight=600,
                 ),
                 GameObjectiveTemplate(
                     label="Complete 7 floors in a row in the Battle Pyramid",
                     data=dict(),
                     is_time_consuming=True,
                     is_difficult=True,
-                    weight=10,
+                    weight=100,
                 ),
                 GameObjectiveTemplate(
                     label="Win a battle against BRAIN",
@@ -368,7 +369,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=True,
-                    weight=5,
+                    weight=50,
                 ),
                 GameObjectiveTemplate(
                     label="Complete the MODE in Trainer Hill TIME",
@@ -378,7 +379,7 @@ class PokemonRSEGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=30,
+                    weight=300,
                 ),
             ]
         else:
@@ -388,42 +389,50 @@ class PokemonRSEGame(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=20,
+                    weight=200,
                 ),
             ]
 
     def shiny_hunting_objectives(self) -> List[GameObjectiveTemplate]:
-        return [
+        objectives : List [GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Encounter or obtain a shiny POKEMON",
                 data={
-                    "POKEMON": (self.wild_pokemon, 1),
+                    "POKEMON": (self.available_pokemon, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=1,
+                weight=15,
             ),
             GameObjectiveTemplate(
-                label="Encounter a shiny Pokémon in LOCATION",
+                label="Encounter a wild shiny Pokémon in LOCATION",
                 data={
                     "LOCATION": (self.encounter_locations_with_safari, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Catch any wild shiny Pokémon",
-                data=dict(),
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=2,
+                weight=25,
             ),
         ]
+        if self.allow_oneoffs:
+            objectives.append(GameObjectiveTemplate(
+                label="UNOBTAINABLE",
+                data={
+                    "UNOBTAINABLE": (self.unobtainable_shinies, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=True,
+                weight=1,
+            ))
+        return objectives
 
     @property
     def allow_oneoffs(self) -> bool:
         return bool(self.archipelago_options.pokemon_rse_allow_one_offs.value)
+
+    @property
+    def allow_events(self) -> bool:
+        return bool(self.archipelago_options.pokemon_rse_allow_event_items.value)
 
     @property
     def games_owned(self) -> Set[str]:
@@ -465,6 +474,18 @@ class PokemonRSEGame(Game):
     def objective_shiny_hunting(self) -> bool:
         return "Shiny Hunting" in self.objectives
 
+    def unobtainable_shinies(self) -> List[str]:
+        pokemon: List[str] = [
+            "Have Wally encounter a shiny Ralts"
+        ][:]
+        if self.has_ruby or self.has_sapphire:
+            pokemon.append("Save Professor Birch from a shiny Poochyena")
+        if self.has_emerald:
+            pokemon.append("Save Professor Birch from a shiny Zigzagoon")
+            if self.objective_battle_frontier:
+                pokemon.append("Rent a shiny Pokémon in the Battle Factory") # Not a one-off, but works best here
+        return pokemon
+
     def available_pokemon(self) -> List[str]:
         pokemon: List[str] = self.wild_pokemon()[:]
         pokemon.extend(self.difficult_pokemon()[:])
@@ -492,8 +513,16 @@ class PokemonRSEGame(Game):
 
         return pokemon
 
+    def rare_pokemon_objective_weight(self) -> int:
+        if self.allow_oneoffs:
+            if self.allow_events:
+                return 100
+            return 80
+        return 30
+
     def rare_wild_pokemon(self) -> List[str]:
         pokemon: List[str] = ["Feebas"][:]
+
         if self.allow_oneoffs:
             pokemon.extend([
                 "Regirock",
@@ -513,6 +542,19 @@ class PokemonRSEGame(Game):
                 ][:])
             if self.has_emerald:
                 pokemon.append("Sudowoodo")
+            if self.allow_events:
+                if self.has_emerald:
+                    pokemon.extend([
+                        "Deoxys",   # AuroraTicket
+                        "Mew",      # Old Sea Map
+                        "Lugia",    # MysticTicket
+                        "Ho-Oh",    # MysticTicket
+                    ][:])
+                else:
+                    if not self.has_sapphire:
+                        pokemon.append("Latias")  # Eon Ticket
+                    if not self.has_ruby:
+                        pokemon.append("Latios")  # Eon Ticket
 
         return pokemon
 
@@ -1379,3 +1421,11 @@ class PokemonRSEAllowOneOffs(Toggle):
     """
 
     display_name = "Pokémon Ruby/Sapphire/Emerald Allow One-Offs"
+
+
+class PokemonRSEAllowEventItems(Toggle):
+    """
+    Adds Pokémon acquired through event items into the pool. One-offs are required for this setting to have any effect.
+    """
+
+    display_name = "Pokémon Ruby/Sapphire/Emerald Allow Event Items"
