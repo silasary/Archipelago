@@ -45,98 +45,91 @@ class Bomberman64Game(Game):
                 data={"STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete STAGE",
                 data={"STAGE": (self.deep_stages, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=1,
+                weight=2,
             ),
             GameObjectiveTemplate(
-                label="Earn CARDS gold card(s) from STAGE",
+                label="Earn CARDS gold cards from STAGE",
                 data={"CARDS": (self.stage_gold_card_range, 1), "STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
-                label="Earn CARDS gold card(s) from STAGE",
+                label="Earn CARDS gold cards from STAGE",
                 data={"CARDS": (self.stage_gold_card_range, 1), "STAGE": (self.deep_stages, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Earn the Target Time gold card from STAGE",
                 data={"STAGE": (self.base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Earn the Target Time gold card from STAGE",
                 data={"STAGE": (self.deep_stages, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
-                label="Complete COUNT stages in WORLD",
-                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.base_worlds, 1)},
+                label="Earn the Enemies Defeated gold card from STAGE",
+                data={"STAGE": (self.enemy_eligible_base_stages, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="Earn the Enemies Defeated gold card from STAGE",
+                data={"STAGE": (self.enemy_eligible_deep_stages, 1)},
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete COUNT stages in WORLD",
-                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.deep_worlds, 1)},
+                data={"COUNT": (self.stage_count_range, 1), "WORLD": (self.base_worlds, 1)},
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete COUNT stages in WORLD",
+                data={"COUNT": (self.stage_count_range, 1), "WORLD": (self.deep_worlds, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete all stages in WORLD, earning at least CARDS gold cards from the set",
                 data={"WORLD": (self.base_worlds, 1), "CARDS": (self.world_gold_card_range, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete all stages in WORLD, earning at least CARDS gold cards from the set",
                 data={"WORLD": (self.deep_worlds, 1), "CARDS": (self.world_gold_card_range, 1)},
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Find the PART costume item",
                 data={"PART": (self.findable_custom_parts, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Find the following costume items: PARTS",
-                data={"PARTS": (self.findable_custom_parts, 2)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Find COUNT costume item(s) located in WORLD",
-                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.base_worlds, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Find COUNT costume item(s) located in WORLD",
-                data={"COUNT": (self.custom_parts_range, 1), "WORLD": (self.deep_worlds, 1)},
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=1,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Earn the PART costume item",
@@ -194,6 +187,16 @@ class Bomberman64Game(Game):
 
         return deep_stages
 
+    def enemy_eligible_base_stages(self) -> List[str]:
+        ignore_stages = ["Stage 2", "Stage 4"]
+
+        return [stage for stage in self.base_stages() if not any(entry in stage for entry in ignore_stages)]
+    
+    def enemy_eligible_deep_stages(self) -> List[str]:
+        ignore_stages = ["Stage 2", "Stage 4"]
+
+        return [stage for stage in self.deep_stages() if not any(entry in stage for entry in ignore_stages)]
+
     @staticmethod
     def base_worlds() -> List[str]:
         return [
@@ -225,16 +228,16 @@ class Bomberman64Game(Game):
         ]
 
     @staticmethod
+    def stage_count_range() -> range:
+        return range(2,5)
+    
+    @staticmethod
     def stage_gold_card_range() -> range:
-        return range(1, 6)
+        return range(2,6)
 
     @staticmethod
     def world_gold_card_range() -> range:
-        return range(5, 16)
-    
-    @staticmethod
-    def custom_parts_range() -> range:
-        return range(1,5)
+        return range(5,16)
     
     def findable_custom_parts(self) -> List[str]:
         findable_custom_parts = [
