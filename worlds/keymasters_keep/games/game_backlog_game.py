@@ -66,14 +66,14 @@ class GameBacklogGameSelection(OptionSet):
 class GameBacklogActions(OptionSet):
     """
     Defines the possible actions that could be required on a game in the backlog.
+
+    You can customize this list to your liking.
     """
 
     display_name = "Game Backlog Actions"
 
-    valid_keys = [
+    default = [
         "TRY",
         "FINISH",
         "COMPLETE",
     ]
-
-    default = valid_keys
