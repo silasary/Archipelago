@@ -48,29 +48,16 @@ masuda_games = [
     GEN_8_DLC,
     GEN_8_REMAKE,
     GEN_9_PRIMARY,
-    GEN_9_DLC
+    GEN_9_DLC,
 ]
 
-poke_radar = [
-    GEN_4_PRIMARY,
-    GEN_6_PRIMARY
-]
+poke_radar = [GEN_4_PRIMARY, GEN_6_PRIMARY]
 
-chain_fishing = [
-    GEN_6_PRIMARY,
-    GEN_6_REMAKE
-]
+chain_fishing = [GEN_6_PRIMARY, GEN_6_REMAKE]
 
-sos_chaining = [
-    GEN_7_PRIMARY,
-    GEN_7_SECONDARY
-]
+sos_chaining = [GEN_7_PRIMARY, GEN_7_SECONDARY]
 
-outbreaks = [
-    GEN_8_SECONDARY,
-    GEN_9_PRIMARY,
-    GEN_9_DLC
-]
+outbreaks = [GEN_8_SECONDARY, GEN_9_PRIMARY, GEN_9_DLC]
 
 
 class ShinyPokemonHuntGame(Game):
@@ -85,99 +72,160 @@ class ShinyPokemonHuntGame(Game):
     options_cls = ShinyPokemonHuntArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return [GameObjectiveTemplate(
-            label="Complete at least one hunt in GAME",
-            data={"GAME": (self.games, 1)}
-        )]
+        return [
+            GameObjectiveTemplate(
+                label="Complete at least one hunt in GAME",
+                data={
+                    "GAME": (self.games, 1)
+                },
+            ),
+        ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+        games: List[str] = self.games()
+
         objectives = [
             GameObjectiveTemplate(
                 label="Encounter and capture a Shiny Pokémon",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Encounter and capture a Shiny Pokémon by soft-resetting a static encounter",
-                data={},
-                is_difficult=True,  # it's not but it's exponentially more time consuming than the rest
+                data=dict(),
                 is_time_consuming=True,
-            )
+                is_difficult=True,  # it's not, but it's exponentially more time-consuming than the rest
+                weight=1,
+            ),
         ]
-        if any(game in masuda_games for game in self.archipelago_options.shiny_pokemon_hunt_owned_games) or \
-                (self.archipelago_options.include_modern_console_games and
-                 GEN_8_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.append(GameObjectiveTemplate(
-                label="Hatch a Shiny Pokémon from an Egg",
-                data={},
-                is_time_consuming=True,
-            ))
-        if any(game in poke_radar for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon using the Poké Radar",
-                data={},
-                is_time_consuming=True,
-            ))
-        if any(game in chain_fishing for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.extend([
+
+        if any(game in masuda_games for game in games):
+            objectives.append(
                 GameObjectiveTemplate(
-                    label="Encounter and capture a Shiny Pokémon by chain fishing",
-                    data={},
+                    label="Hatch a Shiny Pokémon from an Egg",
+                    data=dict(),
                     is_time_consuming=True,
-                ),
-                GameObjectiveTemplate(
-                    label="Encounter and capture a Shiny Pokémon during a horde encounter",
-                    data={},
-                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=1,
                 )
-            ])
-        if GEN_6_PRIMARY in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon in the Friend Safari",
-                data={},
-                is_time_consuming=True,
-            ))
-        if GEN_6_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon by using DexNav",
-                data={},
-                is_time_consuming=True,
-            ))
-        if any(game in sos_chaining for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon by chaining SOS calls",
-                data={},
-                is_time_consuming=True,
-            ))
-        if GEN_7_SECONDARY in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-            objectives.append(GameObjectiveTemplate(
-                label="Encounter and capture a Shiny Pokémon within an Ultra Wormhole",
-                data={},
-                is_time_consuming=True,
-            ))
-        if self.archipelago_options.include_modern_console_games:
-            if GEN_7_REMAKE in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-                objectives.append(GameObjectiveTemplate(
-                    label="Encounter and capture a Shiny Pokémon by maintaining a catch combo",
-                    data={},
+            )
+
+        if any(game in poke_radar for game in games) or (
+            bool(self.archipelago_options.include_modern_console_games.value) and GEN_8_REMAKE in games
+        ):
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon using the Poké Radar",
+                    data=dict(),
                     is_time_consuming=True,
-                ))
-            if GEN_8_DLC in self.archipelago_options.shiny_pokemon_hunt_owned_games:
-                objectives.append(GameObjectiveTemplate(
-                    label="Encounter and capture a Shiny Pokémon within a Dynamax Adventure",
-                    data={},
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        if any(game in chain_fishing for game in games):
+            objectives.extend(
+                [
+                    GameObjectiveTemplate(
+                        label="Encounter and capture a Shiny Pokémon by chain fishing",
+                        data=dict(),
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    ),
+                    GameObjectiveTemplate(
+                        label="Encounter and capture a Shiny Pokémon during a horde encounter",
+                        data=dict(),
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    ),
+                ]
+            )
+
+        if GEN_6_PRIMARY in games:
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon in the Friend Safari",
+                    data=dict(),
                     is_time_consuming=True,
-                ))
-            if any(game in outbreaks for game in self.archipelago_options.shiny_pokemon_hunt_owned_games):
-                objectives.append(GameObjectiveTemplate(
-                    label="Encounter and capture a Shiny Pokémon within a mass outbreak",
-                    data={},
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        if GEN_6_REMAKE in games:
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon by using DexNav",
+                    data=dict(),
                     is_time_consuming=True,
-                ))
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        if any(game in sos_chaining for game in games):
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon by chaining SOS calls",
+                    data=dict(),
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        if GEN_7_SECONDARY in games:
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Encounter and capture a Shiny Pokémon within an Ultra Wormhole",
+                    data=dict(),
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        if bool(self.archipelago_options.include_modern_console_games.value):
+            if GEN_7_REMAKE in games:
+                objectives.append(
+                    GameObjectiveTemplate(
+                        label="Encounter and capture a Shiny Pokémon by maintaining a catch combo",
+                        data=dict(),
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    )
+                )
+
+            if GEN_8_DLC in games:
+                objectives.append(
+                    GameObjectiveTemplate(
+                        label="Encounter and capture a Shiny Pokémon within a Dynamax Adventure",
+                        data=dict(),
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    )
+                )
+
+            if any(game in outbreaks for game in games):
+                objectives.append(
+                    GameObjectiveTemplate(
+                        label="Encounter and capture a Shiny Pokémon within a mass outbreak",
+                        data=dict(),
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    )
+                )
 
         return objectives
 
-    def games(self):
+    def games(self) -> List[str]:
         return sorted(self.archipelago_options.shiny_pokemon_hunt_owned_games.value)
 
 
