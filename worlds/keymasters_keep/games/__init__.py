@@ -14,6 +14,7 @@ option_classes: List[Type] = list()
 
 # Reverse order here is needed so that the options are added in alphabetical order in the YAML
 for _, game_cls in [
+    *sorted(AutoGameRegister.modded_games.items(), reverse=True),
     *sorted(AutoGameRegister.games.items(), reverse=True),
     *sorted(AutoGameRegister.metagames.items(), reverse=True),
 ]:
