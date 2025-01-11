@@ -2,10 +2,10 @@ import typing
 from typing import Mapping, Any
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
-from .Locations import location_table, Sims4Location
+from .Locations import location_table, Sims4Location, skill_locations_table
 from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
-from .Regions import sims4_career_paths, sims4_aspiration_milestones, sims4_skill_dependencies, \
+from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
 from .Rules import set_rules
 from worlds.AutoWorld import World, WebWorld
@@ -49,10 +49,16 @@ class Sims4World(World):
         return Sims4Item(event, ItemClassification.progression, None, self.player)
 
     def create_items(self) -> None:
+        career_key = self.options.career.current_key
+        aspiration_key = self.options.goal.current_key
+
         pool = []
 
-        count_to_fill = len(location_table)
-
+        count_to_fill = (
+            len(sims4_careers[career_key]) +
+            len(sims4_aspiration_milestones[aspiration_key]) +
+            len(skill_locations_table)
+        )
         for item in item_table.values():
             for i in range(item["count"]):
                 sims4_item = self.create_item(item["name"])
@@ -81,14 +87,26 @@ class Sims4World(World):
 
     def create_regions(self):
         menu = self.create_region("Menu", locations=None, exits=None)
-        for location in self.location_name_to_id:
-            menu.locations.append(Sims4Location(self.player, location, self.location_name_to_id.get(location), menu))
-
+        career_key = self.options.career.current_key
+        aspiration_key = self.options.goal.current_key
+        for career in sims4_careers[career_key]:
+            menu.locations.append(
+                Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
+        for aspiration in sims4_aspiration_milestones[aspiration_key]:
+            menu.locations.append(
+                Sims4Location(self.player, aspiration, self.location_name_to_id.get(aspiration), menu)
+            )
+        for skill in skill_locations_table.values():
+            skill_name = skill["name"]
+            menu.locations.append(
+                Sims4Location(self.player, skill_name, self.location_name_to_id.get(skill_name), menu)
+            )
         self.multiworld.regions.append(menu)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         slot_data = {
-            "goal": self.options.goal.current_key
+            "goal": self.options.goal.current_key,
+            "career": self.options.career.current_key
         }
         return slot_data
 

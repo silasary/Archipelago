@@ -3,7 +3,7 @@ from Options import Choice, PerGameCommonOptions, OptionSet
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
-    """The Aspiration Needed to win the game"""
+    """The Aspiration Needed to win the game and the only one that will be included in the locations"""
     display_name = "goal"
     default = 1
     option_bodybuilder = 0
@@ -31,6 +31,23 @@ class AspirationGoal(Choice):
     option_party_animal = 22
     option_friend_of_the_world = 23
     option_neighborly_advisor = 24
+
+class Career(Choice):
+    """The career that will be the only one included in the locations"""
+    display_name = "career"
+    default = 1
+    option_astronaut = 0
+    option_athlete = 1
+    option_business = 2
+    option_criminal = 3
+    option_culinary = 4
+    option_entertainer = 5
+    option_painter = 6
+    option_secret_agent = 7
+    option_style_influencer = 8
+    option_tech_guru = 9
+    option_writer = 10
+
 
 class ExpansionPacks(OptionSet):
     """List of Expansion Packs that will be included in the shuffling."""
@@ -83,6 +100,7 @@ class BuildKits(OptionSet):
 @dataclass
 class Sims4Options(PerGameCommonOptions):
     goal: AspirationGoal
+    career: Career
     expansion_packs: ExpansionPacks
     game_packs: GamePacks
     stuff_packs: StuffPacks

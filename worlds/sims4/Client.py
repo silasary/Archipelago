@@ -24,8 +24,6 @@ else:
 
 
 # reads and prints json files
-import os
-import json
 
 
 def print_json(obj: object, name: str, ctx: SimsContext):
@@ -67,12 +65,17 @@ class SimsCommandProcessor(ClientCommandProcessor):
         """Manually trigger a resync."""
         self.output(f"Syncing items.")
         self.ctx.syncing = True
-        print_json(False, 'sync.json')
+        print_json(False, 'sync.json', self.ctx)
 
     @mark_raw
     def _cmd_goal(self):
         """Displays the goal of the AP"""
         self.output(self.ctx.goal)
+
+    @mark_raw
+    def _cmd_career(self):
+        """Displays the selected career in the Yaml"""
+        self.output(self.ctx.career)
 
     @mark_raw
     def _cmd_set_path(self, sims_4_mods_path: str = ''):

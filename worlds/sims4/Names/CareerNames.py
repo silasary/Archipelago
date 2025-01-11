@@ -114,7 +114,7 @@ base_career_secret_agent_10A = "Double Diamond Agent (Secret Agent / Diamond Age
 base_career_secret_agent_8B = "Double Agent (Secret Agent / Villain 8)"
 base_career_secret_agent_9B = "[Redacted] (Secret Agent / Villain  9)"
 base_career_secret_agent_10B = "Supreme Villain (Secret Agent / Villain 10)"
-base_career_secret_agent_11B = "Triple Agent (Secret Agent / Villain 10)"
+base_career_secret_agent_11B = "Triple Agent (Secret Agent / Villain 11)"
 # Style Influencer
 base_career_style_influencer_2 = "Consignment Commentator (Style Influencer 2)"
 base_career_style_influencer_3 = "Wearable Wordsmith (Style Influencer 3)"
