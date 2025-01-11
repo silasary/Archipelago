@@ -29,7 +29,7 @@ class RimworldGame(Game):
     options_cls = RimworldArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return []
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
@@ -49,7 +49,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Tame one ANIMALS (This does not include Self-Taming)",
@@ -58,18 +58,18 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Successfully have a tamed animal kill someone during a Raid",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ), 
             GameObjectiveTemplate(
                 label="Take a Prisoner from another Colony",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
@@ -81,7 +81,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Have a Pawn suffer a Mental Break from any of the following: BADMOODS",
@@ -99,7 +99,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ), 
             GameObjectiveTemplate(
                 label="Craft any ranged weapon out of METALS",
@@ -108,7 +108,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Craft any article of clothing out of LEATHERS",
@@ -154,7 +154,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=4,
+                weight=5,
             ),
             GameObjectiveTemplate(
                 label="Have a storyteller cause the STORYTELLEREVENT event to occur",
@@ -163,7 +163,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Hunt an ANIMALS",
@@ -172,7 +172,7 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Grow and Harvest CROPS",
@@ -181,11 +181,11 @@ class RimworldGame(Game):
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ), 
             GameObjectiveTemplate(
                 label="Have a Pawn cure their own Sickness",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
@@ -203,25 +203,25 @@ class RimworldGame(Game):
             GameObjectiveTemplate(
                 label="Level up a Pawn's SKILL skill (Maxed or Incapable Pawns not applicable)",
                 data={
-                    "SKILL": (self.skill 1),                    
+                    "SKILL": (self.skill, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),             
         ]
 
     @staticmethod
-    def wealth() -> List[int]:
-        return list(range(500, 5001))        
+    def wealth() -> range:
+        return range(500, 5001)
 
     @staticmethod
-    def d20() -> List[int]:
-        return list(range(1, 21)) 
+    def d20() -> range:
+        return range(1, 21)
 
     @staticmethod
     def stockobject() -> List[str]:
-        return [ # I just want this to be a really weird set of objects, feel free to add whatever in the future.
+        return [  # I just want this to be a really weird set of objects, feel free to add whatever in the future.
             "Corpse",
             "Silver",
             "Cooked Meal",
@@ -699,7 +699,6 @@ class RimworldGame(Game):
             "Johnson-Tanaka Drive",
             "Machine Persuasion",
         ]
- 
 
     def researches(self) -> List[str]:
         return sorted(
@@ -714,6 +713,7 @@ class RimworldGame(Game):
             self.good_moods()
             + self.bad_moods()
         ) 
- 
+
+
 # Archipelago Options
 # ...
