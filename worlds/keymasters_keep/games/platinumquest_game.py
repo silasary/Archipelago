@@ -221,7 +221,7 @@ class PlatinumQuestGame(Game):
                     GameObjectiveTemplate(
                         label="Complete LEVEL from Level Pack: PlatinumQuest Intermediate",
                         data={
-                            "LEVEL": (self.levels_platinumquest_beginner_locked, 1),
+                            "LEVEL": (self.levels_platinumquest_intermediate, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
@@ -234,7 +234,7 @@ class PlatinumQuestGame(Game):
                     GameObjectiveTemplate(
                         label="Complete LEVEL from Level Pack: PlatinumQuest Advanced",
                         data={
-                            "LEVEL": (self.levels_platinumquest_intermediate, 1),
+                            "LEVEL": (self.levels_platinumquest_advanced, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=True,
