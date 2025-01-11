@@ -82,7 +82,7 @@ class ShadowTheHedgehogGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Defeat BOSS an earn an A Rank",
+                label="Defeat BOSS and earn an A Rank",
                 data={
                     "BOSS": (self.bosses, 1),
                 },
