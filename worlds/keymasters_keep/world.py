@@ -619,6 +619,7 @@ class KeymastersKeepWorld(World):
         generator: GameObjectiveGenerator = GameObjectiveGenerator(
             game_selection,
             self.game_medley_game_selection,
+            self.game_medley_mode,
             self.include_adult_only_or_unrated_games,
             self.include_modern_console_games,
             self.include_difficult_objectives,

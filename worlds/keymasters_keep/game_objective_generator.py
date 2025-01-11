@@ -28,6 +28,7 @@ class GameObjectiveGenerator:
         self,
         allowable_games: List[str] = None,
         allowable_games_medley: List[str] = None,
+        game_medley_mode: bool = False,
         include_adult_only_or_unrated_games: bool = False,
         include_modern_console_games: bool = False,
         include_difficult_objectives: bool = False,
@@ -47,19 +48,22 @@ class GameObjectiveGenerator:
         if not len(self.games):
             raise GameObjectiveGeneratorException("No games are left after game / objective filtering")
 
-        self.games_medley = self._filter_games(
-            allowable_games_medley,
-            include_adult_only_or_unrated_games,
-            include_modern_console_games,
-            include_difficult_objectives,
-            include_time_consuming_objectives,
-        )
-
-        if not len(self.games_medley):
-            logging.warning(
-                "Keymaster's Keep: No medley games are left after game / objective filtering. Using all games."
+        if game_medley_mode:
+            self.games_medley = self._filter_games(
+                allowable_games_medley,
+                include_adult_only_or_unrated_games,
+                include_modern_console_games,
+                include_difficult_objectives,
+                include_time_consuming_objectives,
             )
 
+            if not len(self.games_medley):
+                logging.warning(
+                    "Keymaster's Keep: No medley games are left after game / objective filtering. Using all games."
+                )
+
+                self.games_medley = self.games[:]
+        else:
             self.games_medley = self.games[:]
 
     def generate_from_plan(
