@@ -116,7 +116,7 @@ class DisneyMusicParadeEncoreGame(Game):
             "First Flight",
             "Try Everything (Original Movie Version)",
             "How Far I'll Go (End Credit Version)",
-            "You'r Welcome",
+            "You're Welcome",
             "Remember Me (End Credit Version)",
             "Un Poco Loco (Original Movie Version)",
             "This Wish (Original Movie Version)",
