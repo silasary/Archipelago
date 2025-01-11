@@ -11,12 +11,12 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class PlantsVSZombies2ArchipelagoOptions:
+class PlantsVSZombies2ItSAboutTimeArchipelagoOptions:
     pass
 
 
-class PlantsVSZombies2Game(Game):
-    name = "Plants vs. Zombies 2"
+class PlantsVSZombies2ItSAboutTimeGame(Game):
+    name = "Plants vs. Zombies 2: It's About Time"
     platform = KeymastersKeepGamePlatforms.AND
 
     platforms_other = [
@@ -25,26 +25,25 @@ class PlantsVSZombies2Game(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = PlantsVSZombies2ArchipelagoOptions
+    options_cls = PlantsVSZombies2ItSAboutTimeArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
                 label="Do not use any Premium/Gemium/Seedium plants",
-                weight=3
+                data=dict(),
             ),
             GameObjectiveTemplate(
                 label="Do not use any Plant Food or Zen Garden boosts",
-                weight=3
+                data=dict(),
             ),
             GameObjectiveTemplate(
                 label="Do not use the Shovel",
-                weight=2
+                data=dict(),
             ),
             GameObjectiveTemplate(
                 label="Have the Turbo Button on for the whole level",
-                weight=1,
-                is_difficult=True
+                data=dict(),
             ),
         ]
 
@@ -62,7 +61,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat PIRATESEAS with at least 3 plants from the following: APPEASE, ARMA, SPEAR, REINFORCE, CONTAIN",
@@ -75,7 +75,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat WILDWEST with at least 3 plants from the following: ENFORCE, APPEASE, SPEAR, REINFORCE, WINTER, AIL",
@@ -89,7 +90,8 @@ class PlantsVSZombies2Game(Game):
                     "AIL": (self.ailmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat FARFUTURE with at least 3 plants from the following: APPEASE, ARMA, SPEAR, REINFORCE, FILA",
@@ -102,7 +104,8 @@ class PlantsVSZombies2Game(Game):
                     "FILA": (self.filamintplants, 2),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat DARKAGES with at least 3 plants from the following: ARMA, SPEAR, AIL, CONTAIN",
@@ -114,7 +117,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat BIGWAVEBEACH with at least 3 plants from the following: ENFORCE, APPEASE, ARMA, AIL, CONTAIN",
@@ -127,7 +131,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat BIGWAVEBEACHHARD with at least 3 plants from the following: ENFORCE, APPEASE, ARMA, AIL, CONTAIN",
@@ -140,7 +145,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=True
+                is_difficult=True,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat FROSTBITECAVES with at least 3 plants from the following: ENFORCE, SPEAR, REINFORCE, PEPPER, CONTAIN",
@@ -153,7 +159,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat LOSTCITY with at least 3 plants from the following: APPEASE, ARMA, BOMBARD, CONTAIN",
@@ -165,7 +172,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 2),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat NEONMIXTAPETOUR with at least 3 plants from the following: ENCHANT, ENFORCE, APPEASE, ARMA, SPEAR, BOMBARD, CONTAIN",
@@ -180,7 +188,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat NEONMIXTAPETOURHARD with at least 3 plants from the following: ENCHANT, ENFORCE, APPEASE, ARMA, SPEAR, BOMBARD, CONTAIN",
@@ -195,7 +204,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=True
+                is_difficult=True,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat JURASSICMARSH with at least 3 plants from the following: APPEASE, SPEAR, REINFORCE, BOMBARD, CONTAIN",
@@ -208,7 +218,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat JURASSICMARSHHARD with at least 3 plants from the following: APPEASE, SPEAR, REINFORCE, BOMBARD, CONTAIN",
@@ -221,7 +232,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=True
+                is_difficult=True,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Beat MODERNDAY with at least 3 plants from the following: CONCEAL, APPEASE, ARMA, SPEAR, CONTAIN",
@@ -234,7 +246,8 @@ class PlantsVSZombies2Game(Game):
                     "CONTAIN": (self.containmintplants, 2),
                 },
                 is_time_consuming=False,
-                is_difficult=True
+                is_difficult=True,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Minigame Time! Beat MINIGAME",
@@ -242,7 +255,8 @@ class PlantsVSZombies2Game(Game):
                     "MINIGAME": (self.minigameslevels, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Vasebreaker Time! Beat VASEBREAKER",
@@ -250,7 +264,8 @@ class PlantsVSZombies2Game(Game):
                     "VASEBREAKER": (self.vasebreakerlevels, 1),
                 },
                 is_time_consuming=False,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Reach Level LEVEL in ENDLESS",
@@ -259,7 +274,8 @@ class PlantsVSZombies2Game(Game):
                     "ENDLESS": (self.endlesszones, 1),
                 },
                 is_time_consuming=True,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Reach Level LEVEL in ENDLESS",
@@ -268,15 +284,17 @@ class PlantsVSZombies2Game(Game):
                     "ENDLESS": (self.endlesszonesdifficult, 1),
                 },
                 is_time_consuming=True,
-                is_difficult=True
+                is_difficult=True,
+                weight=1,
             ),
-                GameObjectiveTemplate(
+            GameObjectiveTemplate(
                 label="Reach Level LEVEL in Vasebreaker Endless",
                 data={
                     "LEVEL": (self.endless_range, 1),
                 },
                 is_time_consuming=True,
-                is_difficult=False
+                is_difficult=False,
+                weight=1,
             ),
         ]
 
@@ -746,5 +764,7 @@ class PlantsVSZombies2Game(Game):
             "Magnet-shroom",
             "Lily Pad",
         ]
+
+
 # Archipelago Options
 # ...
