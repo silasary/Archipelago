@@ -537,8 +537,8 @@ class KingdomHeartsIIIGame(Game):
             "Soothing Crystal",
         ]
 
-    @staticmethod
-    def shotlocks() -> List[str]:
+    @functools.cached_property
+    def shotlocks_base(self) -> List[str]:
         return [
             "Kingdom Key / King of Hearts",
             "Kingdom Key / Ragnarok",
@@ -569,11 +569,24 @@ class KingdomHeartsIIIGame(Game):
             "Starlight / Blades of the Round",
             "Starlight / Union Ragnarök",
             "Ultima Weapon / Infinity Circle",
+        ]
+
+    @functools.cached_property
+    def shotlocks_re_mind(self) -> List[str]:
+        return [
             "Oathkeeper / Sunray Blast",
             "Oathkeeper / Stellar Inception",
             "Oblivion / Bladefury Eclipse",
             "Oblivion / Stellar Inception",
         ]
+
+    def shotlocks(self) -> List[str]:
+        shotlocks: List[str] = self.shotlocks_base[:]
+
+        if self.has_dlc_re_mind:
+            shotlocks.extend(self.shotlocks_re_mind)
+
+        return sorted(shotlocks)
 
     @staticmethod
     def attractions() -> List[str]:
