@@ -132,7 +132,7 @@ class NeonWhiteGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Complete RUSH's Heaven Rush",
+                label="Complete RUSH's Hell Rush",
                 data={"RUSH": (self.rushes, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
