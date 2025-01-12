@@ -332,18 +332,6 @@ sims4_aspiration_milestones = {
         AspirationNames.base_aspiration_professional_prankster,
         AspirationNames.base_aspiration_chief_of_mischief,
     ),
-    "readily_a_parent": (
-        AspirationNames.base_aspiration_readily_a_parent,
-        AspirationNames.base_aspiration_caregiver,
-        AspirationNames.base_aspiration_trusted_mentor,
-        AspirationNames.base_aspiration_successful_lineage,
-    ),
-    "big_happy_family": (
-        AspirationNames.base_aspiration_readily_a_parent,
-        AspirationNames.base_aspiration_caregiver,
-        AspirationNames.base_aspiration_loving_guardian,
-        AspirationNames.base_aspiration_big_happy_family
-    ),
     "master_chef": (
         AspirationNames.base_aspiration_aluminum_chef,
         AspirationNames.base_aspiration_captain_cook,
@@ -355,18 +343,6 @@ sims4_aspiration_milestones = {
         AspirationNames.base_aspiration_electric_mixer,
         AspirationNames.base_aspiration_beverage_boss,
         AspirationNames.base_aspiration_master_mixologist
-    ),
-    "fabulously_wealthy": (
-        AspirationNames.base_aspiration_going_for_not_broke,
-        AspirationNames.base_aspiration_learning_earning,
-        AspirationNames.base_aspiration_welloff,
-        AspirationNames.base_aspiration_fabulously_wealthy,
-    ),
-    "mansion_baron": (
-        AspirationNames.base_aspiration_estate_of_the_art,
-        AspirationNames.base_aspiration_the_great_landscaper,
-        AspirationNames.base_aspiration_home_renovator,
-        AspirationNames.base_aspiration_mansion_baron,
     ),
     "renaissance_sim": (
         AspirationNames.base_aspiration_prudent_student,
@@ -392,12 +368,6 @@ sims4_aspiration_milestones = {
         AspirationNames.base_aspiration_romance_juggler,
         AspirationNames.base_aspiration_serial_romantic,
     ),
-    "soulmate": (
-        AspirationNames.base_aspiration_amore_amateur,
-        AspirationNames.base_aspiration_marriage_material,
-        AspirationNames.base_aspiration_love_handler,
-        AspirationNames.base_aspiration_soulmate,
-    ),
     "freelance_botanist": (
         AspirationNames.base_aspiration_naturewalker,
         AspirationNames.base_aspiration_garden_variety,
@@ -421,12 +391,6 @@ sims4_aspiration_milestones = {
         AspirationNames.base_aspiration_standup_startup,
         AspirationNames.base_aspiration_funny,
         AspirationNames.base_aspiration_joke_star,
-    ),
-    "party_animal": (
-        AspirationNames.base_aspiration_new_in_town,
-        AspirationNames.base_aspiration_welcoming_host,
-        AspirationNames.base_aspiration_sir_gala_had,
-        AspirationNames.base_aspiration_party_animal,
     ),
     "friend_of_the_world": (
         AspirationNames.base_aspiration_new_in_town,

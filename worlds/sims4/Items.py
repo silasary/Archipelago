@@ -1,5 +1,5 @@
 from BaseClasses import Item, ItemClassification
-from .Names import SkillNames, JunkNames
+from .Names import SkillNames, JunkNames, UsefulNames
 import typing
 
 
@@ -101,6 +101,13 @@ skills_table: typing.Dict[int, ItemDict] = {
                  'name': SkillNames.base_skill_photography,
                  'tech_type': 'Skill'}
 }
+useful_table = {
+    0x733400FF: {'classification': ItemClassification.useful,
+                 'count': 4,
+                 'name': UsefulNames.skill_gain_boost,
+                 'tech_type': 'Skill Gain Buff'}
+
+}
 
 junk_table = {
     0x73340FFF: {'classification': ItemClassification.filler,
@@ -110,12 +117,16 @@ junk_table = {
     0x73340FFE: {'classification': ItemClassification.filler,
                  'count': 0,
                  'name': JunkNames.fivethousand_simoleons,
-                 'tech_type': 'Simoleons'}
+                 'tech_type': 'Simoleons'},
+    0x73340FFD: {'classification': ItemClassification.filler,
+                 'count': 0,
+                 'name': JunkNames.career_performance_boost,
+                 'tech_type': 'Career Boost'},
 }
-
 
 item_table = {
     **junk_table,
+    **useful_table,
     **skills_table
 }
 

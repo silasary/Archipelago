@@ -986,24 +986,12 @@ def set_rules(sims4_world: "Sims4World"):
     elif options.goal.value == options.goal.option_chief_of_mischief:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_chief_of_mischief, player), player=player)
-    elif options.goal.value == options.goal.option_successful_lineage:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_successful_lineage, player), player=player)
-    elif options.goal.value == options.goal.option_big_happy_family:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_big_happy_family, player), player=player)
     elif options.goal.value == options.goal.option_master_chef:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_master_chef, player), player=player)
     elif options.goal.value == options.goal.option_master_mixologist:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_master_mixologist, player), player=player)
-    elif options.goal.value == options.goal.option_fabulously_wealthy:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_fabulously_wealthy, player), player=player)
-    elif options.goal.value == options.goal.option_mansion_baron:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_mansion_baron, player), player=player)
     elif options.goal.value == options.goal.option_renaissance_sim:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_renaissance_sim, player), player=player)
@@ -1016,9 +1004,6 @@ def set_rules(sims4_world: "Sims4World"):
     elif options.goal.value == options.goal.option_serial_romantic:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_serial_romantic, player), player=player)
-    elif options.goal.value == options.goal.option_soulmate:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_soulmate, player), player=player)
     elif options.goal.value == options.goal.option_freelance_botanist:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_freelance_botanist, player), player=player)
@@ -1031,9 +1016,6 @@ def set_rules(sims4_world: "Sims4World"):
     elif options.goal.value == options.goal.option_joke_star:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_joke_star, player), player=player)
-    elif options.goal.value == options.goal.option_party_animal:
-        world.completion_condition[player] = lambda state: state.can_reach(
-            world.get_location(AspirationNames.base_aspiration_party_animal, player), player=player)
     elif options.goal.value == options.goal.option_friend_of_the_world:
         world.completion_condition[player] = lambda state: state.can_reach(
             world.get_location(AspirationNames.base_aspiration_friend_of_the_world, player), player=player)
