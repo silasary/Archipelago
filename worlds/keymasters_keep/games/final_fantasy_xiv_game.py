@@ -78,7 +78,7 @@ class FinalFantasyXIVGame(Game):
                 ),
             ]
 
-            if "Unreasonable Tasks" in self.content_types_allowed:
+            if self.unreasonable_tasks_enabled:
                 objective_list += [
                     GameObjectiveTemplate(
                         label="Complete World FATE 'NAME' with gold credit (Optional choice of jobs: JOBS)",
@@ -131,6 +131,44 @@ class FinalFantasyXIVGame(Game):
                     ),
                 ]
         
+        if "Treasure Hunt" in self.content_types_allowed:
+            objective_list += [
+                GameObjectiveTemplate(
+                    label="Deciper a MAP and claim its treasure (Optional choice of jobs: JOBS)",
+                    data={
+                        "MAP": (self.treasure_hunt_maps, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="Enter the Treasure Dungeon 'DUNGEON' and clear at least one chamber for its reward (Optional choice of jobs: JOBS)",
+                    data={
+                        "DUNGEON": (self.treasure_hunt_dungeons, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+            ]
+
+            if self.unreasonable_tasks_enabled:
+                objective_list += [
+                    GameObjectiveTemplate(
+                        label="Enter the Treasure Dungeon 'DUNGEON' and successfully clear all chambers (Optional choice of jobs: JOBS)",
+                        data={
+                            "DUNGEON": (self.treasure_hunt_dungeons, 1),
+                            "JOBS": (self.combat_jobs, 2),
+                        },
+                        is_time_consuming=True,
+                        is_difficult=False,
+                        weight=1,
+                    ),
+                ]
+
         if "The Hunt" in self.content_types_allowed or len(self.content_types_allowed) == 0:
             objective_list += [
                 GameObjectiveTemplate(
@@ -144,7 +182,7 @@ class FinalFantasyXIVGame(Game):
                 ),
             ]
 
-            if "Unreasonable Tasks" in self.content_types_allowed:
+            if self.unreasonable_tasks_enabled:
                 objective_list += [
                     GameObjectiveTemplate(
                         label="Successfully spawn S-rank Hunt mark MARK",
@@ -304,6 +342,84 @@ class FinalFantasyXIVGame(Game):
                 ),
             ]
         
+        if "Adventuring Forays" in self.content_types_allowed:
+            if self.has_stormblood:
+                objective_list += [
+                    GameObjectiveTemplate(
+                        label="Defeat the Notorious Monster spawn at Eureka LOC (Optional choice of jobs: JOBS)",
+                        data={
+                            "LOC": (self.eureka_nm_fates, 1),
+                            "JOBS": (self.combat_jobs, 2),
+                        },
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=2,
+                    ),
+                    GameObjectiveTemplate(
+                        label="Complete the Happy Bunny elemental conflict at Eureka FATE and uncover a QUALITY coffer (Optional choice of jobs: JOBS)",
+                        data={
+                            "FATE": (self.eureka_bunny_fates, 1),
+                            "QUALITY": (self.eureka_bunny_coffers, 1),
+                            "JOBS": (self.combat_jobs, 2),
+                        },
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=1,
+                    ),
+                ]
+
+                if self.unreasonable_tasks_enabled:
+                    objective_list += [
+                        GameObjectiveTemplate(
+                            label="Spawn and defeat the Notorious Monster for Eureka LOC (Optional choice of jobs: JOBS)",
+                            data={
+                                "LOC": (self.eureka_nm_fates, 1),
+                                "JOBS": (self.combat_jobs, 2),
+                            },
+                            is_time_consuming=True,
+                            is_difficult=False,
+                            weight=1,
+                        ),
+                    ]
+
+            if self.has_shadowbringers:
+                objective_list += [
+                    GameObjectiveTemplate(
+                        label="Complete the FATE at LOC (Optional choice of jobs: JOBS)",
+                        data={
+                            "LOC": (self.bozja_fates, 1),
+                            "JOBS": (self.combat_jobs, 2),
+                        },
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=2,
+                    ),
+                    GameObjectiveTemplate(
+                        label="Complete the Critical Engagement at LOC (Optional choice of jobs: JOBS)",
+                        data={
+                            "LOC": (self.bozja_ce_fates, 1),
+                            "JOBS": (self.combat_jobs, 2),
+                        },
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=1,
+                    ),
+                ]
+
+                if self.unreasonable_tasks_enabled:
+                    objective_list += [
+                        GameObjectiveTemplate(
+                            label="Win the Critical Engagement duel at LOC (Optional choice of jobs: JOBS)",
+                            data={
+                                "LOC": (self.bozja_duel_fates, 1),
+                                "JOBS": (self.combat_jobs, 2),
+                            },
+                            is_time_consuming=True,
+                            is_difficult=True,
+                            weight=1,
+                        ),
+                    ]
+
         if "Limited Jobs" in self.content_types_allowed:
             if "Blue Mage" in self.playable_jobs:
                 objective_list += [
@@ -424,7 +540,7 @@ class FinalFantasyXIVGame(Game):
                 ),
             ]
 
-            if "Unreasonable Tasks" in self.content_types_allowed:
+            if self.unreasonable_tasks_enabled:
                 objective_list += [
                     GameObjectiveTemplate(
                         label="Catch the Big Fish 'FISH'",
@@ -636,7 +752,7 @@ class FinalFantasyXIVGame(Game):
             ]
 
         if "Minigames" in self.content_types_allowed:
-            if "Shadowbringers" in self.expansions_accessible:
+            if self.has_shadowbringers:
                 objective_list += [
                     GameObjectiveTemplate(
                         label="Win COUNT consecutive matches of High or Low against Tista-Bie in Eulmore",
@@ -659,28 +775,44 @@ class FinalFantasyXIVGame(Game):
         return sorted(self.expansions_accessible)
 
     @property
+    def has_heavensward(self) -> bool:
+        return "Heavensward" in self.expansions_accessible
+
+    @property
+    def has_stormblood(self) -> bool:
+        return "Stormblood" in self.expansions_accessible
+
+    @property
+    def has_shadowbringers(self) -> bool:
+        return "Shadowbringers" in self.expansions_accessible
+
+    @property
+    def has_endwalker(self) -> bool:
+        return "Endwalker" in self.expansions_accessible
+
+    @property
+    def has_dawntrail(self) -> bool:
+        return "Dawntrail" in self.expansions_accessible
+
+    @property
     def has_level_60_or_higher(self) -> bool:
-        return ("Heavensward" in self.expansions_accessible or
-                self.has_level_70_or_higher)
+        return (self.has_heavensward or self.has_level_70_or_higher)
     
     @property
     def has_level_70_or_higher(self) -> bool:
-        return ("Stormblood" in self.expansions_accessible or
-                self.has_level_80_or_higher)
+        return (self.has_stormblood or self.has_level_80_or_higher)
     
     @property
     def has_level_80_or_higher(self) -> bool:
-        return ("Shadowbringers" in self.expansions_accessible or
-                self.has_level_90_or_higher)
+        return (self.has_shadowbringers or self.has_level_90_or_higher)
     
     @property
     def has_level_90_or_higher(self) -> bool:
-        return ("Endwalker" in self.expansions_accessible or
-                self.has_level_100_or_higher)
+        return (self.has_endwalker or self.has_level_100_or_higher)
     
     @property
     def has_level_100_or_higher(self) -> bool:
-        return ("Dawntrail" in self.expansions_accessible)
+        return (self.has_dawntrail)
     
     @property
     def content_types_allowed(self) -> Set[str]:
@@ -689,6 +821,10 @@ class FinalFantasyXIVGame(Game):
     @property
     def playable_jobs(self) -> Set[str]:
         return self.archipelago_options.final_fantasy_xiv_playable_jobs.value
+
+    @property
+    def unreasonable_tasks_enabled(self) -> bool:
+        return "Unreasonable Tasks" in self.content_types_allowed
 
     def combat_jobs(self) -> List[str]:
         combat_jobs = [
@@ -730,19 +866,19 @@ class FinalFantasyXIVGame(Game):
             "Pictomancer",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             combat_jobs.extend(heavensward_jobs)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             combat_jobs.extend(stormblood_jobs)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             combat_jobs.extend(shadowbringers_jobs)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             combat_jobs.extend(endwalker_jobs)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             combat_jobs.extend(dawntrail_jobs)
 
         # Remove any jobs that the player has not enabled in their config.
@@ -762,7 +898,7 @@ class FinalFantasyXIVGame(Game):
         ]
 
         # Remove any jobs that the player has not enabled in their config.
-        jobs = [x for x in limited_jobs if x in self.playable_jobs]
+        jobs = [job for job in limited_jobs if job in self.playable_jobs]
 
         return sorted(jobs)
 
@@ -836,19 +972,19 @@ class FinalFantasyXIVGame(Game):
             "Living Memory",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             zones.extend(heavensward_zones)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             zones.extend(stormblood_zones)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             zones.extend(shadowbringers_zones)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             zones.extend(endwalker_zones)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             zones.extend(dawntrail_zones)
 
         return sorted(zones)
@@ -884,19 +1020,19 @@ class FinalFantasyXIVGame(Game):
             "Mascot Murder",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             world_fates.extend(heavensward_world_fates)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             world_fates.extend(stormblood_world_fates)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             world_fates.extend(shadowbringers_world_fates)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             world_fates.extend(endwalker_world_fates)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             world_fates.extend(dawntrail_world_fates)
 
         return sorted(world_fates)
@@ -921,6 +1057,104 @@ class FinalFantasyXIVGame(Game):
         ]
 
         return sorted(guildests)
+
+    def treasure_hunt_maps(self) -> List[str]:
+        maps = [
+            "Timeworn Leather Map",
+            "Timeworn Goatskin Map",
+            "Timeworn Toadskin Map",
+            "Timeworn Boarskin Map",
+            "Timeworn Peisteskin Map",
+            "Unhidden Leather Map",
+        ]
+
+        heavensward_maps = [
+            "Timeworn Archaeoskin Map",
+            "Timeworn Wyvernskin Map",
+            "Timeworn Dragonskin Map",
+        ]
+
+        stormblood_maps = [
+            "Timeworn Gaganaskin Map",
+            "Timeworn Gazelleskin Map",
+        ]
+
+        shadowbringers_maps = [
+            "Timeworn Gliderskin Map",
+            "Timeworn Zonureskin Map",
+        ]
+
+        endwalker_maps = [
+            "Timeworn Saigaskin Map",
+            "Timeworn Kumbhiraskin Map",
+            "Timeworn Ophiotauroskin Map",
+        ]
+
+        dawntrail_maps = [
+            "Timeworn Loboskin Map",
+            "Timeworn Br'aaxskin Map",
+        ]
+
+        if self.has_heavensward:
+            maps.extend(heavensward_maps)
+
+        if self.has_stormblood:
+            maps.extend(stormblood_maps)
+
+        if self.has_shadowbringers:
+            maps.extend(shadowbringers_maps)
+
+        if self.has_endwalker:
+            maps.extend(endwalker_maps)
+
+        if self.has_dawntrail:
+            maps.extend(dawntrail_maps)
+
+        return sorted(maps)
+    
+    def treasure_hunt_dungeons(self) -> List[str]:
+        dungeons = list()
+
+        heavensward_dungeons = [
+            "The Aquapolis",
+        ]
+
+        stormblood_dungeons = [
+            "The Lost Canals of Uznair",
+            "The Shifting Altars of Uznair",
+            "The Hidden Canals of Uznair",
+        ]
+
+        shadowbringers_dungeons = [
+            "The Dungeons of Lyhe Ghiah",
+            "The Shifting Oubliettes of Lyhe Ghiah",
+        ]
+
+        endwalker_dungeons = [
+            "The Excitatron 6000",
+            "The Shifting Gymnasion Agonon",
+        ]
+
+        dawntrail_dungeons = [
+            "Cenote Ja Ja Gural",
+        ]
+
+        if self.has_heavensward:
+            dungeons.extend(heavensward_dungeons)
+
+        if self.has_stormblood:
+            dungeons.extend(stormblood_dungeons)
+
+        if self.has_shadowbringers:
+            dungeons.extend(shadowbringers_dungeons)
+
+        if self.has_endwalker:
+            dungeons.extend(endwalker_dungeons)
+
+        if self.has_dawntrail:
+            dungeons.extend(dawntrail_dungeons)
+
+        return sorted(dungeons)
 
     def hunt_b_ranks(self) -> List[str]:
         b_ranks = [
@@ -1018,19 +1252,19 @@ class FinalFantasyXIVGame(Game):
             "13th Child",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             b_ranks.extend(heavensward_b_ranks)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             b_ranks.extend(stormblood_b_ranks)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             b_ranks.extend(shadowbringers_b_ranks)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             b_ranks.extend(endwalker_b_ranks)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             b_ranks.extend(dawntrail_b_ranks)
 
         return sorted(b_ranks)
@@ -1101,19 +1335,19 @@ class FinalFantasyXIVGame(Game):
             "Sansheya",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             s_ranks.extend(heavensward_s_ranks)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             s_ranks.extend(stormblood_s_ranks)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             s_ranks.extend(shadowbringers_s_ranks)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             s_ranks.extend(endwalker_s_ranks)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             s_ranks.extend(dawntrail_s_ranks)
 
         return sorted(s_ranks)
@@ -1121,10 +1355,10 @@ class FinalFantasyXIVGame(Game):
     def jumping_puzzles(self) -> List[str]:
         jumping_puzzles = list()
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             jumping_puzzles += ["The Firmament: Outer Towers"]
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             jumping_puzzles += [
                 "Kugane: Shiokaze Hostelry",
                 "Kugane: Bokairo Inn",
@@ -1132,8 +1366,14 @@ class FinalFantasyXIVGame(Game):
                 "Rhalgr's Reach: Chakra Falls",
             ]
         
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             jumping_puzzles += ["Radz-at-Han: Paksa's Path"]
+
+        if self.has_dawntrail:
+            jumping_puzzles += [
+                "Tuliyollal: Pinion's Reach",
+                "Tuliyollal: Hunu'iliy Tower",
+            ]
         
         return sorted(jumping_puzzles)
     
@@ -1255,19 +1495,19 @@ class FinalFantasyXIVGame(Game):
             "Yuweyawata Field Station",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             dungeons.extend(heavensward_dungeons)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             dungeons.extend(stormblood_dungeons)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             dungeons.extend(shadowbringers_dungeons)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             dungeons.extend(endwalker_dungeons)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             dungeons.extend(dawntrail_dungeons)
 
         return sorted(dungeons)
@@ -1343,19 +1583,19 @@ class FinalFantasyXIVGame(Game):
             "The Interphos",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             trials.extend(heavensward_trials)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             trials.extend(stormblood_trials)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             trials.extend(shadowbringers_trials)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             trials.extend(endwalker_trials)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             trials.extend(dawntrail_trials)
 
         return sorted(trials)
@@ -1420,19 +1660,19 @@ class FinalFantasyXIVGame(Game):
             "The Minstrel's Ballad: Sphene's Burden",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             extreme_trials.extend(heavensward_extreme_trials)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             extreme_trials.extend(stormblood_extreme_trials)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             extreme_trials.extend(shadowbringers_extreme_trials)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             extreme_trials.extend(endwalker_extreme_trials)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             extreme_trials.extend(dawntrail_extreme_trials)
 
         return sorted(extreme_trials)
@@ -1521,19 +1761,19 @@ class FinalFantasyXIVGame(Game):
             "AAC Light-heavyweight M4",
         ]
         
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             normal_raids.extend(heavensward_normal_raids)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             normal_raids.extend(stormblood_normal_raids)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             normal_raids.extend(shadowbringers_normal_raids)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             normal_raids.extend(endwalker_normal_raids)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             normal_raids.extend(dawntrail_normal_raids)
 
         return sorted(normal_raids)
@@ -1613,19 +1853,19 @@ class FinalFantasyXIVGame(Game):
             "AAC Light-heavyweight M4 (Savage)",
         ]
         
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             savage_raids.extend(heavensward_savage_raids)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             savage_raids.extend(stormblood_savage_raids)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             savage_raids.extend(shadowbringers_savage_raids)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             savage_raids.extend(endwalker_savage_raids)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             savage_raids.extend(dawntrail_savage_raids)
 
         return sorted(savage_raids)
@@ -1665,19 +1905,19 @@ class FinalFantasyXIVGame(Game):
             "Jeuno: The First Walk",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             alliance_raids.extend(heavensward_alliance_raids)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             alliance_raids.extend(stormblood_alliance_raids)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             alliance_raids.extend(shadowbringers_alliance_raids)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             alliance_raids.extend(endwalker_alliance_raids)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             alliance_raids.extend(dawntrail_alliance_raids)
 
         return sorted(alliance_raids)
@@ -1689,7 +1929,7 @@ class FinalFantasyXIVGame(Game):
             "The Cloud of Darkness (Chaotic)",
         ]
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             chaotic_alliance_raids.extend(dawntrail_chaotic_alliance_raids)
 
         return sorted(chaotic_alliance_raids)
@@ -1701,10 +1941,10 @@ class FinalFantasyXIVGame(Game):
     def deep_dungeons(self) -> List[str]:
         deep_dungeons = ["Palace of the Dead"]
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             deep_dungeons += ["Heaven-on-High"]
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             deep_dungeons += ["Eureka Orthos"]
 
         return sorted(deep_dungeons)
@@ -1712,7 +1952,7 @@ class FinalFantasyXIVGame(Game):
     def variant_dungeon_routes(self) -> List[str]:
         routes = list()
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             routes += [
                 "Sil'dihn Subterrane: Whom the Silkie Serves",
                 "Sil'dihn Subterrane: Pride and Acceptance",
@@ -1753,6 +1993,199 @@ class FinalFantasyXIVGame(Game):
             ]
         
         return sorted(routes)
+
+    @staticmethod
+    def eureka_nm_fates() -> List[str]:
+        return [
+            "Anemos: Unsafety Dance",
+            "Anemos: The Shadow over Anemos",
+            "Anemos: Teles House",
+            "Anemos: The Swarm Never Sets",
+            "Anemos: One Missed Callisto",
+            "Anemos: By Numbers",
+            "Anemos: Disinherit the Wind",
+            "Anemos: Prove Your Amemettle",
+            "Anemos: Caym What May",
+            "Anemos: The Killing of a Sacred Bombadier",
+            "Anemos: Short Serket 2",
+            "Anemos: Don't Judge Me, Morbol",
+            "Anemos: When You Ride Alone",
+            "Anemos: Sing, Muse",
+            "Anemos: Simurghasbord",
+            "Anemos: To the Mat",
+            "Anemos: Wine and Honey",
+            "Anemos: I Amarok",
+            "Anemos: Drama Lamashtu",
+            "Anemos: Wail in the Willows",
+            "Pagos: Eternity",
+            "Pagos: Cairn Blight 451",
+            "Pagos: Ash the Magic Dragon",
+            "Pagos: Conqueror Worm",
+            "Pagos: Melting Point",
+            "Pagos: The Wobbler in Darkness",
+            "Pagos: Does It Have to Be a Snowman",
+            "Pagos: Disorder in the Court",
+            "Pagos: Cows for Concern",
+            "Pagos: Morte Arthro",
+            "Pagos: Brothers",
+            "Pagos: Apocalypse Cow",
+            "Pagos: Third Impact",
+            "Pagos: Eye of Horus",
+            "Pagos: Eye Scream for Ice Cream",
+            "Pagos: Cassie and the Copycats",
+            "Pagos: Louhi on Ice",
+            "Pyros: Medias Res",
+            "Pyros: High Voltage",
+            "Pyros: On the Non-existent",
+            "Pyros: Creepy Doll",
+            "Pyros: Quiet, Please",
+            "Pyros: Up and Batym",
+            "Pyros: Rondo Aetolus",
+            "Pyros: Scorchpion King",
+            "Pyros: Burning Hunger",
+            "Pyros: Dry Iris",
+            "Pyros: Thirty Whacks",
+            "Pyros: Put Up Your Dux",
+            "Pyros: You Do Know Jack",
+            "Pyros: Mister Bright-eyes",
+            "Pyros: Haunter of the Dark",
+            "Pyros: Heavens' Warg",
+            "Pyros: Lost Epic",
+            "Hydatos: I Ink, Therefore I Am",
+            "Hydatos: From Tusk till Dawn",
+            "Hydatos: Bullheaded Berserker",
+            "Hydatos: Mad, Bad, and Fabulous to Know",
+            "Hydatos: Fearful Symmetry",
+            "Hydatos: Crawling Chaos",
+            "Hydatos: Duty-free",
+            "Hydatos: Leukewarm Reception",
+            "Hydatos: Robber Barong",
+            "Hydatos: Stone-cold Killer",
+            "Hydatos: Crystalline Provenance",
+            "Hydatos: I Don't Want to Believe",
+            #"Hydatos: The Baldesion Arsenal: Expedition Support" # Excluded so as not to grief BA parties.
+        ]
+    
+    @staticmethod
+    def eureka_bunny_fates() -> List[str]:
+        return [
+            "Pagos: Down the Rabbit Hole",
+            "Pagos: Curiouser and Curiouser",
+            "Pyros: We're All Mad Here",
+            "Pyros: Uncommon Nonsense",
+            "Hydatos: Drink Me",
+        ]
+
+    @staticmethod
+    def eureka_bunny_coffers() -> List[str]:
+        return [
+            "Bronze",
+            "Silver",
+            "Gold",
+        ]
+
+    @staticmethod
+    def bozja_fates() -> List[str]:
+        return [
+            "the Bozjan Southern Front: All Pets Are Off",
+            "the Bozjan Southern Front: Brought to Heal",
+            "the Bozjan Southern Front: Can Carnivorous Plants Bloom Even on a Battlefield?",
+            "the Bozjan Southern Front: Conflicting with the First Law",
+            "the Bozjan Southern Front: More Machine Now than Man",
+            "the Bozjan Southern Front: None of Them Knew They Were Robots",
+            "the Bozjan Southern Front: Seeq and Destroy",
+            "the Bozjan Southern Front: Sneak and Spell",
+            "the Bozjan Southern Front: The Beasts Must Die",
+            "the Bozjan Southern Front: Unrest for the Wicked",
+            "the Bozjan Southern Front: Heavy Boots of Lead",
+            "the Bozjan Southern Front: Help Wanted",
+            "the Bozjan Southern Front: No Camping Allowed",
+            "the Bozjan Southern Front: Parts and Recreation",
+            "the Bozjan Southern Front: Pyromancer Supreme",
+            "the Bozjan Southern Front: Red (Chocobo) Alert",
+            "the Bozjan Southern Front: Scavengers of Man's Sorrow",
+            "the Bozjan Southern Front: The Element of Supplies",
+            "the Bozjan Southern Front: The Monster Mash",
+            "the Bozjan Southern Front: Unicorn Flakes",
+            "the Bozjan Southern Front: Demonstrably Demonic",
+            "the Bozjan Southern Front: Desperately Seeking Something",
+            "the Bozjan Southern Front: For Absent Friends",
+            "the Bozjan Southern Front: I'm a Mechanical Man",
+            "the Bozjan Southern Front: Let Slip the Dogs of War",
+            "the Bozjan Southern Front: Murder Death Kill",
+            "the Bozjan Southern Front: My Family and Other Animals",
+            "the Bozjan Southern Front: Of Steel and Flame",
+            "the Bozjan Southern Front: Supplies Party",
+            "the Bozjan Southern Front: The War Against the Machines",
+            "the Bozjan Southern Front: The Wild Bunch",
+            "the Bozjan Southern Front: Waste the Rainbow",
+            "Zadnor: A Wrench in the Reconnaissance Effort",
+            "Zadnor: An Immoral Dilemma",
+            "Zadnor: Another Pilot Episode",
+            "Zadnor: Breaking the Ice",
+            "Zadnor: Deadly Divination",
+            "Zadnor: Meet the Puppetmaster",
+            "Zadnor: Of Beasts and Braggadocio",
+            "Zadnor: Parts and Parcel",
+            "Zadnor: A Just Pursuit",
+            "Zadnor: An End to Atrocities",
+            "Zadnor: Challenge Accepted",
+            "Zadnor: Demented Mentor",
+            "Zadnor: Sever the Strings",
+            "Zadnor: Supersoldier Rising",
+            "Zadnor: Tanking Up",
+            "Zadnor: Th'uban the Terrible",
+            "Zadnor: A Relic Unleashed",
+            "Zadnor: Attack of the Machines",
+            "Zadnor: Attack of the Supersoldiers",
+            "Zadnor: Hypertuned Havoc",
+            "Zadnor: Mean-spirited",
+            "Zadnor: Seeq and You Will Find",
+            "Zadnor: Still Only Counts as One",
+            "Zadnor: The Beasts Are Back",
+            "Zadnor: The Student Becalms the Master",
+            "Zadnor: When Mages Rage",
+        ]
+    
+    @staticmethod
+    def bozja_ce_fates() -> List[str]:
+        return [
+            "the Bozjan Southern Front: Kill It with Fire",
+            "the Bozjan Southern Front: The Baying of the Hound(s)",
+            "the Bozjan Southern Front: The Shadow of Death's Hand",
+            "the Bozjan Southern Front: Vigil for the Lost",
+            "the Bozjan Southern Front: Patriot Games",
+            "the Bozjan Southern Front: The Final Furlong",
+            "the Bozjan Southern Front: The Fires of War",
+            "the Bozjan Southern Front: The Hunt for Red Choctober",
+            "the Bozjan Southern Front: Metal Fox Chaos",
+            "the Bozjan Southern Front: Rise of the Robots",
+            "the Bozjan Southern Front: Trampled under Hoof",
+            "the Bozjan Southern Front: Where Strode the Behemoth",
+            "Zadnor: A Familiar Face",
+            "Zadnor: From Beyond the Grave",
+            "Zadnor: On Serpents' Wings",
+            "Zadnor: With Diremite and Main",
+            "Zadnor: Here Comes the Cavalry",
+            "Zadnor: Never Cry Wolf",
+            "Zadnor: There Would Be Blood",
+            "Zadnor: Time to Burn",
+            "Zadnor: Feeling the Burn",
+            "Zadnor: Lean, Mean, Magitek Machines",
+            "Zadnor: Looks to Die For",
+            "Zadnor: Worn to a Shadow",
+        ]
+    
+    @staticmethod
+    def bozja_duel_fates() -> List[str]:
+        return [
+            "the Bozjan Southern Front: Aces High",
+            "the Bozjan Southern Front: Beast of Man",
+            "the Bozjan Southern Front: And the Flames Went Higher",
+            "Zadnor: The Broken Blade",
+            "Zadnor: Head of the Snake",
+            "Zadnor: Taking the Lyon's Share",
+        ]
 
     @staticmethod
     def masked_carnivale_range() -> range:
@@ -1818,13 +2251,13 @@ class FinalFantasyXIVGame(Game):
             "A Golden Opportunity",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_level_60_or_higher:
             masked_carnivale.extend(heavensward_masked_carnivale)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_level_70_or_higher:
             masked_carnivale.extend(stormblood_masked_carnivale)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_level_80_or_higher:
             masked_carnivale.extend(shadowbringers_masked_carnivale)
 
         return sorted(masked_carnivale)
@@ -1946,35 +2379,35 @@ class FinalFantasyXIVGame(Game):
             "Rarefied Acacia Log",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             if "Miner" in self.playable_jobs:
                 gathering_collectables.extend(heavensward_mining_collectables)
 
             if "Botanist" in self.playable_jobs:
                 gathering_collectables.extend(heavensward_botany_collectables)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             if "Miner" in self.playable_jobs:
                 gathering_collectables.extend(stormblood_mining_collectables)
 
             if "Botanist" in self.playable_jobs:
                 gathering_collectables.extend(stormblood_botany_collectables)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             if "Miner" in self.playable_jobs:
                 gathering_collectables.extend(shadowbringers_mining_collectables)
 
             if "Botanist" in self.playable_jobs:
                 gathering_collectables.extend(shadowbringers_botany_collectables)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             if "Miner" in self.playable_jobs:
                 gathering_collectables.extend(endwalker_mining_collectables)
 
             if "Botanist" in self.playable_jobs:
                 gathering_collectables.extend(endwalker_botany_collectables)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             if "Miner" in self.playable_jobs:
                 gathering_collectables.extend(dawntrail_mining_collectables)
 
@@ -2036,7 +2469,7 @@ class FinalFantasyXIVGame(Game):
             miner_collectables.extend(miner_lv80_collectables)
             botanist_collectables.extend(botanist_lv80_collectables)
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             if "Miner" in self.playable_jobs:
                 firmament_gathering_collectables.extend(miner_collectables)
 
@@ -2068,7 +2501,7 @@ class FinalFantasyXIVGame(Game):
             "Grade 4 Skybuilders' Umbral Dirtleaf",
         ]
 
-        if "Heavensward" in self.expansions_accessible and self.has_level_80_or_higher:
+        if self.has_heavensward and self.has_level_80_or_higher:
             if "Miner" in self.playable_jobs:
                 firmament_high_tier_gathering_collectables.extend(high_tier_miner_collectables)
 
@@ -2214,19 +2647,19 @@ class FinalFantasyXIVGame(Game):
             "Urqofrog",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             fishing_collectables.extend(heavensward_fishing_collectables)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             fishing_collectables.extend(stormblood_fishing_collectables)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             fishing_collectables.extend(shadowbringers_fishing_collectables)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             fishing_collectables.extend(endwalker_fishing_collectables)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             fishing_collectables.extend(dawntrail_fishing_collectables)
 
         return sorted(fishing_collectables)
@@ -2265,7 +2698,7 @@ class FinalFantasyXIVGame(Game):
         if self.has_level_80_or_higher:
             fisher_collectables.extend(fisher_lv80_collectables)
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             firmament_fishing_collectables.extend(fisher_collectables)
 
         return sorted(firmament_fishing_collectables)
@@ -2284,7 +2717,7 @@ class FinalFantasyXIVGame(Game):
             "Grade 4 Artisanal Skybuilders' Meganeura",
         ]
 
-        if "Heavensward" in self.expansions_accessible and self.has_level_80_or_higher:
+        if self.has_heavensward and self.has_level_80_or_higher:
                 firmament_high_tier_fishing_collectables.extend(high_tier_fisher_collectables)
 
         return sorted(firmament_high_tier_fishing_collectables)
@@ -2592,19 +3025,19 @@ class FinalFantasyXIVGame(Game):
             "Pixel Loach",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             big_fish.extend(heavensward_big_fish)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             big_fish.extend(stormblood_big_fish)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             big_fish.extend(shadowbringers_big_fish)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             big_fish.extend(endwalker_big_fish)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             big_fish.extend(dawntrail_big_fish)
 
         return sorted(big_fish)
@@ -2960,7 +3393,7 @@ class FinalFantasyXIVGame(Game):
             "Rarefied Tacos de Carne Asada",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             if "Carpenter" in self.playable_jobs:
                 crafting_collectables.extend(heavensward_carpenter_collectables)
 
@@ -2985,7 +3418,7 @@ class FinalFantasyXIVGame(Game):
             if "Culinarian" in self.playable_jobs:
                 crafting_collectables.extend(heavensward_culinarian_collectables)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             if "Carpenter" in self.playable_jobs:
                 crafting_collectables.extend(stormblood_carpenter_collectables)
 
@@ -3010,7 +3443,7 @@ class FinalFantasyXIVGame(Game):
             if "Culinarian" in self.playable_jobs:
                 crafting_collectables.extend(stormblood_culinarian_collectables)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             if "Carpenter" in self.playable_jobs:
                 crafting_collectables.extend(shadowbringers_carpenter_collectables)
 
@@ -3035,7 +3468,7 @@ class FinalFantasyXIVGame(Game):
             if "Culinarian" in self.playable_jobs:
                 crafting_collectables.extend(shadowbringers_culinarian_collectables)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             if "Carpenter" in self.playable_jobs:
                 crafting_collectables.extend(endwalker_carpenter_collectables)
 
@@ -3060,7 +3493,7 @@ class FinalFantasyXIVGame(Game):
             if "Culinarian" in self.playable_jobs:
                 crafting_collectables.extend(endwalker_culinarian_collectables)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             if "Carpenter" in self.playable_jobs:
                 crafting_collectables.extend(dawntrail_carpenter_collectables)
 
@@ -3223,7 +3656,7 @@ class FinalFantasyXIVGame(Game):
             culinarian_collectables.extend(culinarian_lv80_collectables)
 
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             if "Carpenter" in self.playable_jobs:
                 firmament_crafting_collectables.extend(carpenter_collectables)
 
@@ -3285,7 +3718,7 @@ class FinalFantasyXIVGame(Game):
             "Grade 4 Artisanal Skybuilders' Sorbet",
         ]
 
-        if "Heavensward" in self.expansions_accessible and self.has_level_80_or_higher:
+        if self.has_heavensward and self.has_level_80_or_higher:
             if "Carpenter" in self.playable_jobs:
                 firmament_high_tier_crafting_collectables.extend(high_tier_carpenter_collectables)
 
@@ -3485,19 +3918,19 @@ class FinalFantasyXIVGame(Game):
             "Miitso",
         ]
 
-        if "Heavensward" in self.expansions_accessible:
+        if self.has_heavensward:
             triple_triad.extend(heavensward_triple_triad)
 
-        if "Stormblood" in self.expansions_accessible:
+        if self.has_stormblood:
             triple_triad.extend(stormblood_triple_triad)
 
-        if "Shadowbringers" in self.expansions_accessible:
+        if self.has_shadowbringers:
             triple_triad.extend(shadowbringers_triple_triad)
 
-        if "Endwalker" in self.expansions_accessible:
+        if self.has_endwalker:
             triple_triad.extend(endwalker_triple_triad)
 
-        if "Dawntrail" in self.expansions_accessible:
+        if self.has_dawntrail:
             triple_triad.extend(dawntrail_triple_triad)
 
         return sorted(triple_triad)
@@ -3521,6 +3954,7 @@ class FinalFantasyXIVContentTypesAllowed(OptionSet):
         # Battle Content
         "FATEs",
         "Guildhests",
+        "Treasure Hunt",
         "The Hunt",
         "Dungeons",
         "Trials",
@@ -3531,6 +3965,7 @@ class FinalFantasyXIVContentTypesAllowed(OptionSet):
         "Chaotic Alliance Raids",
         "Deep Dungeons",
         "Variant Dungeons",
+        "Adventuring Forays",
         "Limited Jobs",
         # PvP
         "Crystalline Conflict",
