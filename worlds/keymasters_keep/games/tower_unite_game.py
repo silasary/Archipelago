@@ -14,19 +14,19 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class TowerUniteArchipelagoOptions:
-    tower_unite_multiplayer: TowerUniteMultiplayer
-    plaza_activities: PlazaActivities
-    game_worlds: GameWorlds
+    tower_unite_multiplayer_content: TowerUniteMultiplayerContent
+    tower_unite_plaza_activities: TowerUnitePlazaActivities
+    tower_unite_game_worlds: TowerUniteGameWorlds
+
 
 class TowerUniteGame(Game):
-    name = "TowerUnite"
-    #version = 0.18.5.1 as of the time of writing this
+    # Implementation based on game version 0.18.5.1
+    name = "Tower Unite"
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = None
 
     is_adult_only_or_unrated = True
-    #Tower Unite doesn't have an official rating as the game is working towards a 1.0 release/leaving Early Access
 
     options_cls = TowerUniteArchipelagoOptions
 
@@ -36,153 +36,132 @@ class TowerUniteGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         templates: List[GameObjectiveTemplate] = list()
 
-    if "Casino" in self.activities:
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, win a game of GAME.",
-                data={
-                    "GAME": (self.casino, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-                )
-            )
-        
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, cash out with a streak of at least 3 at Double or Nothing.",
-                data={
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-                )
-            )
-        
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, get at least 4 hits in KENO.",
-                data={
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-                )
-            )
-        
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, defeat the dragon in Grand Quest.",
-                data={
-                },
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=1,
-                )
-            )
-        
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, get any combination of 3 at Triple Diamonds.",
-                data={
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-                )
-            )
-        
-        templates.append(
-              GameObjectiveTemplate(
-                label="In the Casino, spin the wheel 5 times in Wheel of Money.",
-                data={
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-                )
-            )
-        if "PAEnabled" in self.multiplayer:
-            templates.append(
+        if "Casino" in self.activities:
+            templates.extend([
                 GameObjectiveTemplate(
-                    label="In the Casino, win a game of GAME.",
+                    label="In the Casino, win a game of GAME",
                     data={
-                        "GAME": (self.casino_multi, 1),              
+                        "GAME": (self.casino, 1),
                     },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="In the Casino, cash out with a streak of at least 3 at Double or Nothing",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
-                    )
-                )
-    if "Arcade" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="In the Arcade, play a round of GAME.",
-                    data={
-                        "GAME": (self.arcade, 1),              
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                )
-            )
-        
-    if "Trivia" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get a score of 3 or higher in Trivia.",
-                    data={         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                )
-            ) 
-
-    if "Bowling" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get a score of 150 or higher in Bowling.",
-                    data={         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                )
-            )
-
-    if "Laser Tag" in self.activities:
-        if "PAEnabled" in self.multiplayer:
-            templates.append(
+                ),
                 GameObjectiveTemplate(
-                    label="Play a round of Laser Tag.",
-                        data={          
+                    label="In the Casino, get at least 4 hits in KENO",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="In the Casino, defeat the dragon in Grand Quest",
+                    data=dict(),
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In the Casino, get any combination of 3 at Triple Diamonds",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In the Casino, spin the wheel 5 times in Wheel of Money",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                )
+            ])
+
+            if "PAEnabled" in self.multiplayer:
+                templates.append(
+                    GameObjectiveTemplate(
+                        label="In the Casino, win a game of GAME",
+                        data={
+                            "GAME": (self.casino_multi, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=3,
+                        weight=2,
                     )
                 )
 
-    if "Dark Voyage" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get a solo score higher than RANGE at Dark Voyage.",
+        if "Arcade" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="In the Arcade, play a round of GAME",
                     data={
-                        "RANGE": (self.dark_voyage_range, 1),           
+                        "GAME": (self.arcade, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                )
+            )
+
+        if "Trivia" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Get a score of 3 or higher in Trivia",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                )
+            )
+
+        if "Bowling" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Get a score of 150 or higher in Bowling",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                )
+            )
+
+        if "Laser Tag" in self.activities and "PAEnabled" in self.multiplayer:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Play a round of Laser Tag",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                )
+            )
+
+        if "Dark Voyage" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Get a solo score higher than RANGE at Dark Voyage",
+                    data={
+                        "RANGE": (self.dark_voyage_range, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
                 )
             )
-        if "PAEnabled" in self.multiplayer:
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Get a team score higher than RANGE at Dark Voyage.",
+
+            if "PAEnabled" in self.multiplayer:
+                templates.append(
+                    GameObjectiveTemplate(
+                        label="Get a team score higher than RANGE at Dark Voyage",
                         data={
-                            "RANGE": (self.dark_voyage_multi_range, 1),              
+                            "RANGE": (self.dark_voyage_multi_range, 1),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
@@ -190,84 +169,79 @@ class TowerUniteGame(Game):
                     )
                 )
 
-    if "Minigames Arena" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Play any of the following minigames: Balloon Burst, Fruit Frenzy, Target Practice or any holiday exclusive minigame.",
-                    data={         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                )
-            )
-        if "PAEnabled" in self.multiplayer:
-            templates.append(
-            GameObjectiveTemplate(
-                label="Play any of the following minigames: Chainsaw Deathmatch, Plane Wars, Snowball Battle or any holiday exclusive minigame.",
-                    data={         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=1,
-                )
-            )
-
-    if "Billiards" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Play a game of Billiards/Pool at the Nightclub or the Arcade.",
-                    data={         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                )
-            )
-
-    if "Boardwalk" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="At the Boardwalk, play a round of GAME.",
-                    data={
-                        "GAME": (self.boardwalk, 1),         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                )
-            )
-
-        templates.append(
-            GameObjectiveTemplate(
-                label="At the Boardwalk, ride the ATTRACTION attraction.",
-                    data={
-                        "ATTRACTION": (self.boardwalk_rides, 1),         
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=3,
-                )
-            )
-
-        if "PAEnabled" in self.multiplayer:
+        if "Minigames Arena" in self.activities:
             templates.append(
                 GameObjectiveTemplate(
-                    label="At the Boardwalk, play a round of Bumper Cars.",
-                        data={       
-                        },
+                    label="Play any of the following minigames: Balloon Burst, Fruit Frenzy, Target Practice or any holiday exclusive minigame",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                )
+            )
+
+            if "PAEnabled" in self.multiplayer:
+                templates.append(
+                    GameObjectiveTemplate(
+                        label="Play any of the following minigames: Chainsaw Deathmatch, Plane Wars, Snowball Battle or any holiday exclusive minigame",
+                        data=dict(),
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=1,
+                    )
+                )
+
+        if "Billiards" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Play a game of Billiards/Pool at the Nightclub or the Arcade",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                )
+            )
+
+        if "Boardwalk" in self.activities:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="At the Boardwalk, play a round of GAME",
+                    data={
+                        "GAME": (self.boardwalk, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="At the Boardwalk, ride the ATTRACTION attraction",
+                    data={
+                        "ATTRACTION": (self.boardwalk_rides, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+            ])
+
+            if "PAEnabled" in self.multiplayer:
+                templates.append(
+                    GameObjectiveTemplate(
+                        label="At the Boardwalk, play a round of Bumper Cars",
+                        data=dict(),
                         is_time_consuming=False,
                         is_difficult=False,
                         weight=2,
                     )
                 )
-    if "Fishing" in self.activities:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Fish up RANGE fish, marine life, treasures or trash using the bait: BAIT.",
+
+        if "Fishing" in self.activities:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Fish up RANGE fish, marine life, treasures or trash using the bait: BAIT",
                     data={
                         "RANGE": (self.fishing_range, 1),
-                        "BAIT": (self.fishing_baits, 1),    
+                        "BAIT": (self.fishing_baits, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
@@ -275,338 +249,263 @@ class TowerUniteGame(Game):
                 )
             )
 
-    if "Minigolf" in self.worlds:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Minigolf on STAGE.",
+        if "Minigolf" in self.worlds:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete a game of Minigolf on STAGE",
                     data={
-                        "STAGE": (self.minigolf_maps, 1),   
+                        "STAGE": (self.minigolf_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=3,
-                )
-            )
-        
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Minigolf on a Custom Level.",
-                    data={
-                    },
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Minigolf on a Custom Level",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=1,
-                )
-            )
-
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get a hole in one on any map in Minigolf.",
-                    data={
-                    },
+                ),
+                GameObjectiveTemplate(
+                    label="Get a hole in one on any map in Minigolf",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
-                )
-            )
-
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get par or under on STAGE in Minigolf.",
+                ),
+                GameObjectiveTemplate(
+                    label="Get par or under on STAGE in Minigolf",
                     data={
-                        "STAGE": (self.minigolf_maps, 1),   
+                        "STAGE": (self.minigolf_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=2,
-                )
-            )
+                ),
+            ])
 
-    if "Ball Race" in self.worlds:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Ball Race on STAGE.",
+        if "Ball Race" in self.worlds:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete a game of Ball Race on STAGE",
                     data={
-                        "STAGE": (self.ball_race_maps, 1),   
+                        "STAGE": (self.ball_race_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=3,
-                )
-            )
-        
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Ball Race on a Custom Level.",
-                    data={
-                    },
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Ball Race on a Custom Level",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=1,
-                )
-            )
-        
-        templates.append(
-            GameObjectiveTemplate(
-                label="Get at least 30 collectibles on any bonus stage in Ball Race.",
-                    data={
-                    },
+                ),
+                GameObjectiveTemplate(
+                    label="Get at least 30 collectibles on any bonus stage in Ball Race",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
-                )
-            )
-
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Ball Race on STAGE without dying once.",
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Ball Race on STAGE without dying once",
                     data={
-                        "STAGE": (self.ball_race_maps, 1),   
+                        "STAGE": (self.ball_race_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=2,
-                )
-            )
+                ),
+            ])
 
-    if "SDNL" in self.worlds:
-        if "GWEnabled" in self.multiplayer:
-            templates.append(
+        if "SDNL" in self.worlds and "GWEnabled" in self.multiplayer:
+            templates.extend([
                 GameObjectiveTemplate(
-                    label="Complete a game of SDNL on STAGE.",
-                        data={
-                            "STAGE": (self.sdnl_maps, 1),   
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=3,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Complete a game of SDNL on a Custom Level.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=1,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In SDNL, either place 1st or win with your team.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=True,
-                        weight=2,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In SDNL, get 5 kills in total before the end of the match.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=2,
-                    )
-                )
-    
-    if "Virus" in self.worlds:
-        if "GWEnabled" in self.multiplayer:
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Complete a game of Virus on STAGE.",
-                        data={
-                            "STAGE": (self.virus_maps, 1),   
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=3,
-                    )
-                )
-
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Complete a game of Virus on a Custom Level.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=1,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In Virus, survive a round without getting infected.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=True,
-                        weight=2,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In Virus, infect 3 survivors in total before the end of the match.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=2,
-                    )
-                )
-        
-    if "Little Crusaders" in self.worlds:
-        if "GWEnabled" in self.multiplayer:
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Complete a game of Little Crusaders on STAGE.",
-                        data={
-                            "STAGE": (self.little_crusaders_maps, 1),   
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=3,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="Complete a game of Little Crusaders on a Custom Level.",
-                        data={
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=1,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In Little Crusaders, be promoted to the rank of Count.",
-                        data={
-                            "STAGE": (self.little_crusaders_maps, 1),   
-                        },
-                        is_time_consuming=False,
-                        is_difficult=True,
-                        weight=2,
-                    )
-                )
-            
-            templates.append(
-                GameObjectiveTemplate(
-                    label="In Little Crusaders, eat all the Knights in a single round.",
-                        data={
-                            "STAGE": (self.little_crusaders_maps, 1),   
-                        },
-                        is_time_consuming=False,
-                        is_difficult=False,
-                        weight=2,
-                    )
-                )
-    
-    if "Zombie Massacre" in self.worlds:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Zombie Massacre on STAGE.",
+                    label="Complete a game of SDNL on STAGE",
                     data={
-                        "STAGE": (self.zombie_massacre_maps, 1),   
+                        "STAGE": (self.sdnl_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=3,
-                )
-            )
-        
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Zombie Massacre on a Custom Level.",
-                    data={
-                    },
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of SDNL on a Custom Level",
+                    data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In SDNL, either place 1st or win with your team",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="In SDNL, get 5 kills in total before the end of the match",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+            ])
+
+        if "Virus" in self.worlds and "GWEnabled" in self.multiplayer:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete a game of Virus on STAGE",
+                    data={
+                        "STAGE": (self.virus_maps, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Virus on a Custom Level",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In Virus, survive a round without getting infected",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="In Virus, infect 3 survivors in total before the end of the match",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
                 )
-            )
-        
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Zombie Massacre on STAGE as the ROLE.",
+            ])
+
+        if "Little Crusaders" in self.worlds and "GWEnabled" in self.multiplayer:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete a game of Little Crusaders on STAGE",
+                    data={
+                        "STAGE": (self.little_crusaders_maps, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Little Crusaders on a Custom Level",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In Little Crusaders, be promoted to the rank of Count",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="In Little Crusaders, eat all the Knights in a single round",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+            ])
+
+        if "Zombie Massacre" in self.worlds:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete a game of Zombie Massacre on STAGE",
                     data={
                         "STAGE": (self.zombie_massacre_maps, 1),
-                        "ROLE": (self.zombie_massacre_roles, 1),   
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Zombie Massacre on a Custom Level",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Zombie Massacre on STAGE as the ROLE",
+                    data={
+                        "STAGE": (self.zombie_massacre_maps, 1),
+                        "ROLE": (self.zombie_massacre_roles, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
-                )
-            )
-
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Zombie Massacre on STAGE without dying once.",
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a game of Zombie Massacre on STAGE without dying once",
                     data={
-                        "STAGE": (self.zombie_massacre_maps, 1),   
+                        "STAGE": (self.zombie_massacre_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=True,
                     weight=2,
-                )
-            )
+                ),
+            ])
 
-    if "Accelerate" in self.worlds:
-        templates.append(
-            GameObjectiveTemplate(
-                label="Complete a game of Accelerate on STAGE.",
+        if "Accelerate" in self.worlds:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Complete a game of Accelerate on STAGE",
                     data={
-                        "STAGE": (self.accelerate_maps, 1),   
+                        "STAGE": (self.accelerate_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=3,
                 )
             )
-        if "GWEnabled" in self.multiplayer:
-            templates.append(
-            GameObjectiveTemplate(
-                label="In Accelerate, place 1st with at least 2 other players in the match.",
-                    data={
-                    },
-                    is_time_consuming=False,
-                    is_difficult=True,
-                    weight=2,
-                )
-            )
 
-            templates.append(
-            GameObjectiveTemplate(
-                label="In Accelerate, attack a player or defend against an attack.",
-                    data={
-                    },
-                    is_time_consuming=False,
-                    is_difficult=False,
-                    weight=2,
-                )
-            )
+            if "GWEnabled" in self.multiplayer:
+                templates.extend([
+                    GameObjectiveTemplate(
+                        label="In Accelerate, place 1st with at least 2 other players in the match",
+                        data=dict(),
+                        is_time_consuming=False,
+                        is_difficult=True,
+                        weight=2,
+                    ),
+                    GameObjectiveTemplate(
+                        label="In Accelerate, attack a player or defend against an attack",
+                        data=dict(),
+                        is_time_consuming=False,
+                        is_difficult=False,
+                        weight=2,
+                    ),
+                ])
+
+        return templates
 
     @property
     def multiplayer(self):
-        return sorted(self.archipelago_options.tower_unite_multiplayer.value)
+        return sorted(self.archipelago_options.tower_unite_multiplayer_content.value)
 
     @property
     def activities(self):
-        return sorted(self.archipelago_options.plaza_activities.value)
+        return sorted(self.archipelago_options.tower_unite_plaza_activities.value)
 
     @property
     def worlds(self):
-        return sorted(self.archipelago_options.game_worlds.value)
+        return sorted(self.archipelago_options.tower_unite_game_worlds.value)
     
     @staticmethod
     def casino() -> List[str]:
@@ -614,12 +513,12 @@ class TowerUniteGame(Game):
             "Roulette",
             "Blackjack",
             "Silver Saddles",
-            #"Double or Nothing",
+            # "Double or Nothing",
             "Spin to Win",
-            #"KENO",
-            #"Grand Quest",
-            #"Triple Diamonds",
-            #"Wheel of Money",
+            # "KENO",
+            # "Grand Quest",
+            # "Triple Diamonds",
+            # "Wheel of Money",
             "Planet Bingo",
             "Video Poker",
             "Video Blackjack",
@@ -668,12 +567,12 @@ class TowerUniteGame(Game):
         ]
     
     @staticmethod
-    def dark_voyage_range() -> List[str]:
-        return (100 * range(40, 60))
+    def dark_voyage_range() -> range:
+        return range(4000, 6001, 100)
 
     @staticmethod
-    def dark_voyage_multi_range() -> List[str]:
-        return (100 * range(80, 120))
+    def dark_voyage_multi_range() -> range:
+        return range(8000, 12001, 100)
 
     @staticmethod
     def boardwalk() -> List[str]:
@@ -709,8 +608,8 @@ class TowerUniteGame(Game):
         ]
 
     @staticmethod
-    def fishing_range() -> List[str]:
-        return range(5, 20)
+    def fishing_range() -> range:
+        return range(5, 21)
     
     @staticmethod
     def minigolf_maps() -> List[str]:
@@ -818,13 +717,14 @@ class TowerUniteGame(Game):
             "Bedzoom",
         ]
 
+
 # Archipelago Options
-class TowerUniteMultiplayer(OptionSet):
+class TowerUniteMultiplayerContent(OptionSet):
     """
-    Indicates if the player wants to include multiplayer content when generating objectives.
+    Indicates what type of Multiplayer Content the player wants to include when generating objectives.
     """
 
-    display_name = "Tower Unite Multiplayer"
+    display_name = "Tower Unite Multiplayer Content"
     valid_keys = [
         "PAEnabled",
         "GWEnabled",
@@ -832,12 +732,13 @@ class TowerUniteMultiplayer(OptionSet):
 
     default = valid_keys
 
-class PlazaActivities(OptionSet):
+
+class TowerUnitePlazaActivities(OptionSet):
     """
-    Indicates which Plaza activities the player wants to include when generating objectives.
+    Indicates which Plaza Activities the player wants to include when generating objectives.
     """
 
-    display_name = "Plaza Activities"
+    display_name = "Tower Unite Plaza Activities"
     valid_keys = [
         "Casino",
         "Arcade",
@@ -853,12 +754,13 @@ class PlazaActivities(OptionSet):
 
     default = valid_keys
 
-class GameWorlds(OptionSet):
+
+class TowerUniteGameWorlds(OptionSet):
     """
     Indicates which Game Worlds the player wants to include when generating objectives.
     """
 
-    display_name = "Game Worlds"
+    display_name = "Tower Unite Game Worlds"
     valid_keys = [
         "Minigolf",
         "Ball Race",
