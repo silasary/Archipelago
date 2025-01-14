@@ -133,7 +133,7 @@ class TrackManiaTurboGame(Game):
         tracks: List[str] = list()
 
         for i in range(1, 201):
-            tracks.append(f"#{str(i).zfill(3)}")
+            tracks.append(f"#{str(i).zfill(2)}")
 
         return tracks
 
