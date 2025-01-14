@@ -27,7 +27,7 @@ class PowerWashSimulatorGame(Game):
         KeymastersKeepGamePlatforms.PS4,
         KeymastersKeepGamePlatforms.PS5,
         KeymastersKeepGamePlatforms.SW,
-        #KeymastersKeepGamePlatforms.VR,
+        KeymastersKeepGamePlatforms.VR,
         KeymastersKeepGamePlatforms.XONE,
         KeymastersKeepGamePlatforms.XSX,
     ]
@@ -321,7 +321,8 @@ class PowerWashSimulatorGame(Game):
 
         return jobs
 
-#Archipelago Options
+
+# Archipelago Options
 class PowerWashSimulatorDLCOwned(OptionSet):
     """
     Indicates which PowerWash Simulator DLC the player owns, if any.

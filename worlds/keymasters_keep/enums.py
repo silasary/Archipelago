@@ -115,6 +115,7 @@ class KeymastersKeepGamePlatforms(enum.Enum):
     VECT = "VECT"  # General Consumer Electric Vectrex
     VIC = "VIC"  # Commodore VIC 20
     VITA = "VITA"  # Sony PlayStation Vita
+    VR = "VR"  # Virtual Reality
     VS = "VS"  # Nintendo VS. System
     VVS = "VVS"  # V-Tech V-Smile
     VSP = "VSP"  # V-Tech V-Smile Pocket
