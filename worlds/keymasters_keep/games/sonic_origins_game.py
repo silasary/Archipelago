@@ -48,7 +48,16 @@ class SonicOriginsGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=29,
+            ),
+            GameObjectiveTemplate(
+                label="Complete all Acts in Death Egg Zone as CHARACTER",
+                data={
+                    "CHARACTER": (self.characters_no_knuckles, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete all Acts in STAGE as CHARACTER",
@@ -58,7 +67,7 @@ class SonicOriginsGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=10,
             ),
         ]
 
@@ -72,7 +81,7 @@ class SonicOriginsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=30,
                 ),
                 GameObjectiveTemplate(
                     label="Get S rank on MISSION",
@@ -81,7 +90,7 @@ class SonicOriginsGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=10,
                 ),
             ])
 
@@ -118,6 +127,14 @@ class SonicOriginsGame(Game):
 
         if self.has_plus_expansion_pack:
             characters.extend(self.characters_plus_expansion_pack)
+
+        return characters
+
+    def characters_no_knuckles(self) -> List[str]:
+        characters = self.characters()
+
+        if "Knuckles" in characters:
+            characters.remove("Knuckles")
 
         return characters
 
@@ -174,7 +191,6 @@ class SonicOriginsGame(Game):
             "Sandopolis Zone",
             "Lava Reef Zone",
             "Sky Sanctuary Zone",
-            "Death Egg Zone",
         ]
 
     @staticmethod
