@@ -327,11 +327,12 @@ class RealmOfTheMadGodGame(Game):
         return sorted(dungeons)
 
     def dungeons(self) -> List[str]:
-        dungeons = self.dungeons()[:]
+        dungeons = self.dungeons_with_pots()[:]
+
         dungeons.extend(self.dungeons_potless)
+
         if bool(self.archipelago_options.include_time_consuming_objectives.value):
             dungeons.extend(self.dungeons_rare_potless)
-
 
         return sorted(dungeons)
 
