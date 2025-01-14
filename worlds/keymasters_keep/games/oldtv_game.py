@@ -41,7 +41,7 @@ class OldTVGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Reach FREQUENCY",
+                label="Reach FREQUENCY Frequency",
                 data={
                     "FREQUENCY": (self.frequencies, 1),
                 },
