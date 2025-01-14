@@ -31,7 +31,7 @@ class OldTVGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Lose to a COLOR colored word in CONTINENT",
+                label="Lose to a COLOR-colored word in CONTINENT",
                 data={
                     "COLOR": (self.colors, 1),
                     "CONTINENT": (self.continents, 1),
@@ -69,7 +69,7 @@ class OldTVGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Encounter a COLOR colored OTHER",
+                label="Encounter a COLOR-colored OTHER",
                 data={
                     "COLOR": (self.colors, 1),
                     "OTHER": (self.colors, 1),
