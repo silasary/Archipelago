@@ -222,11 +222,6 @@ class RealmOfTheMadGodGame(Game):
     def dungeons_base(self) -> List[str]:
         return [
             "The Realm",
-            "a Pirate Cave",
-            "a Forest Maze",
-            "a Spider Den",
-            "a Forbidden Jungle",
-            "The Hive",
             "a Snake Pit",
             "a Sprite World",
             "The Cave of a Thousand Treasures",
@@ -263,10 +258,25 @@ class RealmOfTheMadGodGame(Game):
         ]
 
     @functools.cached_property
+    def dungeons_potless(self) -> List[str]:
+        return [
+            "a Pirate Cave",
+            "a Forest Maze",
+            "a Spider Den",
+            "a Forbidden Jungle",
+            "The Hive",            
+        ]
+    
+    @functools.cached_property
     def dungeons_rare(self) -> List[str]:
         return [
-            "a Candyland Hunting Grounds ",
+            "a Candyland Hunting Grounds",
             "The Machine",
+        ]
+
+    @functools.cached_property
+    def dungeons_rare_potless(self) -> List[str]:
+        return [
             "The Beachzone",
         ]
 
@@ -302,7 +312,7 @@ class RealmOfTheMadGodGame(Game):
             "Forax",
         ]
 
-    def dungeons(self) -> List[str]:
+    def dungeons_with_pots(self) -> List[str]:
         dungeons = self.dungeons_base[:]
 
         if bool(self.archipelago_options.include_time_consuming_objectives.value):
@@ -313,6 +323,15 @@ class RealmOfTheMadGodGame(Game):
             dungeons.extend(self.dungeons_endgame)
         if self.has_dungeons_aliens:
             dungeons.extend(self.dungeons_aliens)
+
+        return sorted(dungeons)
+
+    def dungeons(self) -> List[str]:
+        dungeons = self.dungeons()[:]
+        dungeons.extend(self.dungeons_potless)
+        if bool(self.archipelago_options.include_time_consuming_objectives.value):
+            dungeons.extend(self.dungeons_rare_potless)
+
 
         return sorted(dungeons)
 
@@ -333,7 +352,7 @@ class RealmOfTheMadGodGame(Game):
         ]
 
     def potion_drops(self) -> List[str]:
-        potion_drops: List[str] = self.dungeons()[:]
+        potion_drops: List[str] = self.dungeons_with_pots()[:]
 
         potion_drops.extend(self.advanced_biomes())
         potion_drops.extend(self.advanced_biomes())
