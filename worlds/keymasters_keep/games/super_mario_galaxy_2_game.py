@@ -14,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class SuperMarioGalaxy2ArchipelagoOptions:
-    super_mario_galaxy_2_gamemode: SuperMarioGalaxy2Gamemode
+    super_mario_galaxy_2_game_modes: SuperMarioGalaxy2GameModes
 
 
 class SuperMarioGalaxy2Game(Game):
@@ -44,200 +44,196 @@ class SuperMarioGalaxy2Game(Game):
             GameObjectiveTemplate(
                 label="Beat the level without collecting Star Bits or Coins",
                 data=dict(),
-                is_difficult=True,
             ),
 
             GameObjectiveTemplate(
                 label="Beat the level without any jumps",
                 data=dict(),
-                is_difficult=True,
             ),
 
             GameObjectiveTemplate(
                 label="Beat the level without spinning (except for Launch Stars)",
                 data=dict(),
-                is_difficult=True,
             ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         templates: List[GameObjectiveTemplate] = list()
         
-        if "Power Star Hunt" in self.gamemode:
+        if "Power Star Hunt" in self.game_modes:
             templates.extend([
                 GameObjectiveTemplate(
-                label="In World 1, complete LEVEL",
-                data={"LEVEL": (self.world_1_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 1, complete LEVEL",
+                    data={"LEVEL": (self.world_1_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 2, complete LEVEL",
-                data={"LEVEL": (self.world_2_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 2, complete LEVEL",
+                    data={"LEVEL": (self.world_2_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 3, complete LEVEL",
-                data={"LEVEL": (self.world_3_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 3, complete LEVEL",
+                    data={"LEVEL": (self.world_3_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 4, complete LEVEL",
-                data={"LEVEL": (self.world_4_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 4, complete LEVEL",
+                    data={"LEVEL": (self.world_4_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 5, complete LEVEL",
-                data={"LEVEL": (self.world_5_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 5, complete LEVEL",
+                    data={"LEVEL": (self.world_5_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 5, complete Squizzard's Daredevil Run (Star 3) in Slipsand Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
+                    label="In World 5, complete Squizzard's Daredevil Run (Star 3) in Slipsand Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World 5, complete The Star in the Sinking Swamp (Star 3) in Boo Moon Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
+                    label="In World 5, complete The Star in the Sinking Swamp (Star 3) in Boo Moon Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World 6, complete LEVEL",
-                data={"LEVEL": (self.world_6_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 6, complete LEVEL",
+                    data={"LEVEL": (self.world_6_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 6, complete A Stroll Down Rolling Lane (Star 2) in Melty Monster Galaxy",
-                data=dict(),
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=2,
-            ),
+                    label="In World 6, complete A Stroll Down Rolling Lane (Star 2) in Melty Monster Galaxy",
+                    data=dict(),
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World 6, complete The Adventure of the Purple Coins (Star 2) in Clockwork Ruins Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
+                    label="In World 6, complete The Adventure of the Purple Coins (Star 2) in Clockwork Ruins Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World 6, complete Bowser's Fortified Fortress (Star 1) in Bowser's Galaxy Generator",
-                data=dict(),
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=2,
-            ),
+                    label="In World 6, complete Bowser's Fortified Fortress (Star 1) in Bowser's Galaxy Generator",
+                    data=dict(),
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World S, complete LEVEL",
-                data={"LEVEL": (self.world_s_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World S, complete LEVEL",
+                    data={"LEVEL": (self.world_s_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World S, complete Cosmic Clone Wall Jumpers (Star 2) in Flip-Out Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
+                    label="In World S, complete Cosmic Clone Wall Jumpers (Star 2) in Flip-Out Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World S, complete LEVEL",
-                data={"LEVEL": (self.world_s_hard_levels, 1)},
-                is_time_consuming=True,
-                is_difficult=True,
-                weight=2,
-            )
-        ])
+                    label="In World S, complete LEVEL",
+                    data={"LEVEL": (self.world_s_hard_levels, 1)},
+                    is_time_consuming=True,
+                    is_difficult=True,
+                    weight=2,
+                )
+            ])
         
-        if "Green Star Hunt" in self.gamemode:
+        if "Green Star Hunt" in self.game_modes:
             templates.extend([
                 GameObjectiveTemplate(
-                label="In World 1, find LEVEL",
-                data={"LEVEL": (self.world_1_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 1, find LEVEL",
+                    data={"LEVEL": (self.world_1_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 2, find LEVEL",
-                data={"LEVEL": (self.world_2_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 2, find LEVEL",
+                    data={"LEVEL": (self.world_2_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 3, find LEVEL",
-                data={"LEVEL": (self.world_3_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 3, find LEVEL",
+                    data={"LEVEL": (self.world_3_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 4, find LEVEL",
-                data={"LEVEL": (self.world_4_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 4, find LEVEL",
+                    data={"LEVEL": (self.world_4_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 5, find LEVEL",
-                data={"LEVEL": (self.world_5_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 5, find LEVEL",
+                    data={"LEVEL": (self.world_5_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World 5, find Green Star 1 in Boo Moon Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
+                    label="In World 5, find Green Star 1 in Boo Moon Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
                 GameObjectiveTemplate(
-                label="In World 6, find LEVEL",
-                data={"LEVEL": (self.world_6_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World 6, find LEVEL",
+                    data={"LEVEL": (self.world_6_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World S, find LEVEL",
-                data={"LEVEL": (self.world_s_green_levels, 1)},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
+                    label="In World S, find LEVEL",
+                    data={"LEVEL": (self.world_s_green_levels, 1)},
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
                 GameObjectiveTemplate(
-                label="In World S, find Green Star 2 in Flip-Out Galaxy",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
-        ])
+                    label="In World S, find Green Star 2 in Flip-Out Galaxy",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
+            ])
 
         return templates
-            
-        
+
     @property
-    def gamemode(self):
-        return sorted(self.archipelago_options.super_mario_galaxy_2_gamemode.value)
+    def game_modes(self):
+        return sorted(self.archipelago_options.super_mario_galaxy_2_game_modes.value)
 
     @staticmethod
     def actions() -> List[str]:
@@ -556,13 +552,14 @@ class SuperMarioGalaxy2Game(Game):
             "Green Star 1 in Flip-Out Galaxy",
         ]
 
+
 # Archipelago Options
-class SuperMarioGalaxy2Gamemode(OptionSet):
+class SuperMarioGalaxy2GameModes(OptionSet):
     """
-    Indicates which gamemodes the player wants to include when generating objectives.
+    Indicates which Super Mario Galaxy 2 Game Modes the player wants to include when generating objectives.
     """
 
-    display_name = "Super Mario Galaxy 2 Gamemodes"
+    display_name = "Super Mario Galaxy 2 Game Modes"
     valid_keys = [
         "Power Star Hunt",
         "Green Star Hunt",
