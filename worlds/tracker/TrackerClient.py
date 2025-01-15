@@ -37,7 +37,7 @@ if not sys.stdout:  # to make sure sm varia's "i'm working" dots don't break UT 
 
 logger = logging.getLogger("Client")
 
-UT_VERSION = "v0.1.15"
+UT_VERSION = "v0.1.15.1"
 DEBUG = False
 ITEMS_HANDLING = 0b111
 REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "ut_can_gen_without_yaml", False)}
@@ -535,10 +535,11 @@ class TrackerGameContext(CommonContext):
             elif cmd == 'RoomUpdate':
                 updateTracker(self)
             elif cmd == 'SetReply':
-                key = str(self.slot)+"_"+str(self.team)+"_"+(self.tracker_world.map_page_setting_key if self.tracker_world.map_page_setting_key else UT_MAP_TAB_KEY)
-                if "key" in args and args["key"] == key:
-                    self.load_map(None)
-                    updateTracker(self)
+                if self.ui is not None and getattr(self.multiworld.worlds[self.player_id], "tracker_world", None):
+                    key = str(self.slot)+"_"+str(self.team)+"_"+(self.tracker_world.map_page_setting_key if self.tracker_world.map_page_setting_key else UT_MAP_TAB_KEY)
+                    if "key" in args and args["key"] == key:
+                        self.load_map(None)
+                        updateTracker(self)
         except Exception as e:
             e.args= e.args+("This is likely caused by UT being out of date",)
             raise e
