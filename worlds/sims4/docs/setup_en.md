@@ -18,4 +18,5 @@
   * If you dont know how to do so you can use this [tutorial](https://jamesturner.yt/disablepacks) by James Turner
 - Open the archipelago launcher and run The Sims 4 client and connect to the server.
 - Start The Sims 4 and make a new save
+  * Make sure to enable script mods under game options -> Other -> Script Mods Allowed (The mod will not work without it)
   * You can use an existing save but its better to use a new save as this mod will reset your sims' skills on connect
