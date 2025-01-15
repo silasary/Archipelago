@@ -104,6 +104,7 @@ class SimsContext(CommonContext):
         super().__init__(server_address, password)
         self.syncing = False
         self.goal = None
+        self.career = None
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
@@ -121,6 +122,7 @@ class SimsContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             self.goal = args["slot_data"]["goal"]
+            self.career = args["slot_data"]["career"]
             if '@' in self.server_address:
                 payload = {
                     'cmd': "Connected",
@@ -128,6 +130,8 @@ class SimsContext(CommonContext):
                     'port': self.server_address.split(':')[3],
                     'name': self.slot_info[self.slot].name,
                     'seed_name': self.seed_name,
+                    'goal': self.goal,
+                    'career': self.career
                 }
                 print_json(payload, 'connection_status.json', self)
             else:
@@ -137,6 +141,8 @@ class SimsContext(CommonContext):
                     'port': self.server_address.split(':')[2],
                     'name': self.slot_info[self.slot].name,
                     'seed_name': self.seed_name,
+                    'goal': self.goal,
+                    'career': self.career
                 }
                 print_json(payload, 'connection_status.json', self)
 
