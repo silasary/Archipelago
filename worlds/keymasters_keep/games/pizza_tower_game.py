@@ -58,7 +58,7 @@ class PizzaTowerGame(Game):
             GameObjectiveTemplate(
                 label="Collect the Treasure in LEVEL as CHARACTER",
                 data={
-                    "LEVEL": (self.levels, 1),
+                    "LEVEL": (self.levels_no_tower, 1),
                     "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=False,
@@ -69,7 +69,7 @@ class PizzaTowerGame(Game):
                 label="Find Secret SECRET in LEVEL as CHARACTER",
                 data={
                     "SECRET": (self.secret_range, 1),
-                    "LEVEL": (self.levels, 1),
+                    "LEVEL": (self.levels_no_tower, 1),
                     "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=False,
@@ -80,7 +80,7 @@ class PizzaTowerGame(Game):
                 label="Complete Chef Task TASK in LEVEL as CHARACTER",
                 data={
                     "TASK": (self.task_range, 1),
-                    "LEVEL": (self.levels, 1),
+                    "LEVEL": (self.levels_no_tower, 1),
                     "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=True,
@@ -90,7 +90,7 @@ class PizzaTowerGame(Game):
             GameObjectiveTemplate(
                 label="S-Rank LEVEL as CHARACTER",
                 data={
-                    "LEVEL": (self.levels, 1),
+                    "LEVEL": (self.levels_no_tower, 1),
                     "CHARACTER": (self.characters, 1),
                 },
                 is_time_consuming=False,
@@ -143,6 +143,14 @@ class PizzaTowerGame(Game):
             "WAR",
             "Wasteyard",
         ]
+
+    def levels_no_tower(self) -> List[str]:
+        levels: List[str] = self.levels()
+
+        if "The Crumbling Tower of Pizza" in levels:
+            levels.remove("The Crumbling Tower of Pizza")
+
+        return levels
 
     @staticmethod
     def characters() -> List[str]:
