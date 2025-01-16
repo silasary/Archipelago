@@ -223,6 +223,10 @@ class CytusIIGame(Game):
     def has_dlc_nora(self) -> bool:
         return "Nora" in self.dlc_owned
 
+    @property
+    def has_dlc_miku_extend_2025(self) -> bool:
+        return "Miku Extend 2025" in self.dlc_owned
+
     @functools.cached_property
     def songs_base(self) -> List[str]:
         return [
@@ -576,6 +580,8 @@ class CytusIIGame(Game):
             "[Miku] 魔法みたいなミュージック！",
             "[Miku] ラッキー☆オーブ",
             "[Miku] Venus di Ujung Jari",
+            "[Miku] Highlight",
+            "[Miku] Plaything",
         ]
 
     @functools.cached_property
@@ -999,6 +1005,16 @@ class CytusIIGame(Game):
             "[Ivy] The Last Illusion",
         ]
 
+    @functools.cached_property
+    def songs_miku_extend_2025(self) -> List[str]:
+        return [
+            "[Miku] imaginary love story",
+            "[Miku] Intergalactic Bound",
+            "[Miku] M@GICAL☆CURE! LOVE♥SHOT!",
+            "[Miku] Miku Fiesta",
+            "[Miku] Thousand Little Voices",
+        ]
+
     def songs(self) -> List[str]:
         songs: List[str] = self.songs_base[:]
 
@@ -1076,6 +1092,8 @@ class CytusIIGame(Game):
             songs.extend(self.songs_box_a)
         if self.has_dlc_capso:
             songs.extend(self.songs_capso)
+        if self.has_dlc_miku_extend_2025:
+            songs.extend(self.songs_miku_extend_2025)
 
         return sorted(songs)
 
@@ -1133,6 +1151,7 @@ class CytusIIDLCOwned(OptionSet):
         "Rin",
         "Aroma",
         "Nora",
+        "Miku Extend 2025",
     ]
 
     default = valid_keys
