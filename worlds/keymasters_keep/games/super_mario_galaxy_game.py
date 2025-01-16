@@ -34,22 +34,18 @@ class SuperMarioGalaxyGame(Game):
                 label="Play as Luigi",
                 data=dict(),
             ),
-
             GameObjectiveTemplate(
                 label="Beat the level without JUMP",
                 data={"JUMP": (self.actions, 1)},
             ),
-
             GameObjectiveTemplate(
                 label="Beat the level without collecting Star Bits or Coins",
                 data=dict(),
             ),
-
             GameObjectiveTemplate(
                 label="Beat the level without any jumps",
                 data=dict(),
             ),
-
             GameObjectiveTemplate(
                 label="Beat the level without spinning (except for Launch Stars)",
                 data=dict(),
@@ -63,177 +59,155 @@ class SuperMarioGalaxyGame(Game):
                 data={"LEVEL": (self.terrace_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
             GameObjectiveTemplate(
                 label="In the Terrace, complete The Honeyhive's Purple Coins (Star 5) in Honeyhive Galaxy",
                 data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Terrace, complete Rocky Road in Sweet Sweet Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Fountain, complete LEVEL",
                 data={"LEVEL": (self.fountain_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Fountain, complete A Very Sticky Situation in Sling Pod Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Kitchen, complete LEVEL",
                 data={"LEVEL": (self.kitchen_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
-                GameObjectiveTemplate(
+            GameObjectiveTemplate(
                 label="In the Kitchen, complete Bouldergeist's Daredevil Run (Star 4) in Ghostly Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Kitchen, complete Giant Ell Outbreak in Drip Drop Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Bedroom, complete LEVEL",
                 data={"LEVEL": (self.bedroom_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
             GameObjectiveTemplate(
                 label="In the Bedroom, complete Purple Coins on the Summit (Star 5) in Freezeflame Galaxy",
                 data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Bedroom, complete Bigmouth's Gold Bait in Bigmouth Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Engine Room, complete LEVEL",
                 data={"LEVEL": (self.engine_room_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
             GameObjectiveTemplate(
                 label="In the Engine Room, complete Purple Coins by the Seaside (Star 5) in Sea Slide Galaxy",
                 data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Engine Room, complete Choosing a Favorite Snack in Sand Spiral Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Garden, complete LEVEL",
                 data={"LEVEL": (self.garden_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
-
             GameObjectiveTemplate(
                 label="In the Garden, complete Ghost Ship Daredevil Run (Star 4) in Deep Dark Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Garden, complete Battlestation's Purple Coins (Star 5) in Dreadnought Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Garden, complete Lava Spire Daredevil Run (Star 4) in Melty Molten Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Garden, complete Star Bunnies in the Snow in Snow Cap Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="In the Gate, complete LEVEL",
                 data={"LEVEL": (self.gateway_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),
-
             GameObjectiveTemplate(
                 label="Next to the Gate, complete Racing the Spooky Speedster in Boo's Boneyard Galaxy",
                 data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=1,
             ),
-
             GameObjectiveTemplate(
                 label="At the Planet of Trials, complete LEVEL",
                 data={"LEVEL": (self.planet_of_trials_levels, 1)},
                 is_time_consuming=False,
                 is_difficult=True,
-                weight=2,
+                weight=3,
             ),
-
             GameObjectiveTemplate(
                 label="Beat either The Fate of the Universe in Bowser's Galaxy Reactor or The Star Festival in Grand Finale Galaxy",
                 data=dict(),
@@ -397,3 +371,4 @@ class SuperMarioGalaxyGame(Game):
         ]
 
 # Archipelago Options
+# ...

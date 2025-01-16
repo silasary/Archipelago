@@ -102,14 +102,14 @@ class SuperMarioGalaxy2Game(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World 5, complete The Star in the Sinking Swamp (Star 3) in Boo Moon Galaxy",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World 6, complete LEVEL",
@@ -123,21 +123,21 @@ class SuperMarioGalaxy2Game(Game):
                     data=dict(),
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World 6, complete The Adventure of the Purple Coins (Star 2) in Clockwork Ruins Galaxy",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World 6, complete Bowser's Fortified Fortress (Star 1) in Bowser's Galaxy Generator",
                     data=dict(),
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World S, complete LEVEL",
@@ -151,7 +151,7 @@ class SuperMarioGalaxy2Game(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World S, complete LEVEL",
@@ -204,7 +204,7 @@ class SuperMarioGalaxy2Game(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In World 6, find LEVEL",
@@ -225,7 +225,7 @@ class SuperMarioGalaxy2Game(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=2,
+                    weight=1,
                 ),
             ])
 
