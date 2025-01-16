@@ -39,6 +39,31 @@ class ForzaHorizon5Game(Game):
                     "DIFFICULTY": (self.drivatar_difficulties, 1),
                 },
             ),
+            GameObjectiveTemplate(
+                label="Set Camera View to CAMERA",
+                data={
+                    "CAMERA": (self.cameras, 1),
+                },
+            ),
+            GameObjectiveTemplate(
+                label="Set Driving Assists Difficulty to DIFFICULTY",
+                data={
+                    "DIFFICULTY": (self.assists, 1),
+                },
+            ),
+            GameObjectiveTemplate(
+                label="ASSIST",
+                data={
+                    "ASSIST": (self.assists_single, 1),
+                },
+            ),
+            GameObjectiveTemplate(
+                label="ASSIST and set Drivatar Difficulty to DIFFICULTY",
+                data={
+                    "ASSIST": (self.assists_single, 1),
+                    "DIFFICULTY": (self.drivatar_difficulties, 1),
+                },
+            ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
@@ -47,7 +72,7 @@ class ForzaHorizon5Game(Game):
                 label="Finish PLACEMENT on TRACK with a car from the following brand: BRAND",
                 data={
                     "PLACEMENT": (self.race_placements, 1),
-                    "TRACK": (self.tracks, 1),
+                    "TRACK": (self.tracks_including_long, 1),
                     "BRAND": (self.car_brands, 1),
                 },
                 is_time_consuming=False,
@@ -58,7 +83,7 @@ class ForzaHorizon5Game(Game):
                 label="Finish PLACEMENT on TRACK with a car from the following class: CLASS",
                 data={
                     "PLACEMENT": (self.race_placements, 1),
-                    "TRACK": (self.tracks, 1),
+                    "TRACK": (self.tracks_including_long, 1),
                     "CLASS": (self.car_classes, 1),
                 },
                 is_time_consuming=False,
@@ -69,7 +94,7 @@ class ForzaHorizon5Game(Game):
                 label="Finish PLACEMENT on TRACK with a car from the following type: TYPE",
                 data={
                     "PLACEMENT": (self.race_placements, 1),
-                    "TRACK": (self.tracks, 1),
+                    "TRACK": (self.tracks_including_long, 1),
                     "TYPE": (self.car_types, 1),
                 },
                 is_time_consuming=False,
@@ -134,6 +159,54 @@ class ForzaHorizon5Game(Game):
                 data={
                     "STAR": (self.star_amount_range, 1),
                     "STORY": (self.stories, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Pull off the following Skills: SKILLS",
+                data={
+                    "SKILLS": (self.skills, 3),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Pull off the following Skills: SKILLS",
+                data={
+                    "SKILLS": (self.skills, 5),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Post a clean time on the Rivals leaderboard for TRACK with CLASS car",
+                data={
+                    "TRACK": (self.tracks_including_long, 1),
+                    "CLASS": (self.car_classes_alternate, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Play a round of ONLINE",
+                data={
+                    "ONLINE": (self.online_modes, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Play the EVENTLAB EventLab Blueprint on page PAGE of the TAB tab",
+                data={
+                    "EVENTLAB": (self.eventlab, 1),
+                    "PAGE": (self.eventlab_page_range, 1),
+                    "TAB": (self.eventlab_tabs, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
@@ -338,7 +411,6 @@ class ForzaHorizon5Game(Game):
             "Forest Falls Hazard Sprint",
             "Forest Gorge Hazard Sprint",
             "Ice Canyon Hazard Sprint",
-            "Hot Wheels Goliath",
         ]
 
     @functools.cached_property
@@ -371,7 +443,6 @@ class ForzaHorizon5Game(Game):
             "The Apex Run",
             "Raptor Race!",
             "Desafio",
-            "Horizon Badlands Goliath",
         ]
 
     def tracks(self) -> List[str]:
@@ -388,6 +459,41 @@ class ForzaHorizon5Game(Game):
             tracks.extend(self.tracks_rally_adventure)
 
         return sorted(tracks)
+
+    @functools.cached_property
+    def tracks_long_base(self) -> List[str]:
+        return [
+            "The Goliath",
+            "The Colossus",
+            "The Gauntlet",
+            "The Titan",
+            "The Marathon",
+        ]
+
+    @functools.cached_property
+    def tracks_long_hot_wheels(self) -> List[str]:
+        return [
+            "Hot Wheels Goliath",
+        ]
+
+    @functools.cached_property
+    def tracks_long_rally_adventure(self) -> List[str]:
+        return [
+            "Horizon Badlands Goliath",
+        ]
+
+    def tracks_long(self) -> List[str]:
+        tracks: List[str] = self.tracks_long_base[:]
+
+        if self.has_dlc_hot_wheels:
+            tracks.extend(self.tracks_long_hot_wheels)
+        if self.has_dlc_rally_adventure:
+            tracks.extend(self.tracks_long_rally_adventure)
+
+        return sorted(tracks)
+
+    def tracks_including_long(self) -> List[str]:
+        return sorted(self.tracks() + self.tracks_long())
 
     @functools.cached_property
     def pr_stunts_base(self) -> List[str]:
@@ -950,6 +1056,18 @@ class ForzaHorizon5Game(Game):
         ]
 
     @staticmethod
+    def car_classes_alternate() -> List[str]:
+        return [
+            "an X Class",
+            "an S2 Class",
+            "an S1 Class",
+            "an A Class",
+            "a B Class",
+            "a C Class",
+            "a D Class",
+        ]
+
+    @staticmethod
     def car_types() -> List[str]:
         return [
             "Buggies",
@@ -991,6 +1109,146 @@ class ForzaHorizon5Game(Game):
             "Vintage Racers",
         ]
 
+    @functools.cached_property
+    def skills_standard(self) -> List[str]:
+        return [
+            "Air",
+            "Great Air",
+            "Awesome Air",
+            "Ultimate Air",
+            "Burnout",
+            "Great Burnout",
+            "Awesome Burnout",
+            "Ultimate Burnout",
+            "Clean Racing",
+            "Great Clean Racing",
+            "Awesome Clean Racing",
+            "Ultimate Clean Racing",
+            "Drafting",
+            "Great Drafting",
+            "Awesome Drafting",
+            "Ultimate Drafting",
+            "Drift",
+            "Great Drift",
+            "Awesome Drift",
+            "Ultimate Drift",
+            "E-Drift",
+            "Great E-Drift",
+            "Awesome E-Drift",
+            "Ultimate E-Drift",
+            "J-Turn",
+            "Great J-Turn",
+            "Awesome J-Turn",
+            "Ultimate J-Turn",
+            "Near-Miss",
+            "Great Near-Miss",
+            "Awesome Near-Miss",
+            "Ultimate Near-Miss",
+            "One-Eighty",
+            "Great One-Eighty",
+            "Awesome One-Eighty",
+            "Ultimate One-Eighty",
+            "Pass",
+            "Great Pass",
+            "Awesome Pass",
+            "Ultimate Pass",
+            "Skill Chain",
+            "Great Skill Chain",
+            "Awesome Skill Chain",
+            "Ultimate Skill Chain",
+            "Speed",
+            "Great Speed",
+            "Awesome Speed",
+            "Ultimate Speed",
+            "Trading Paint",
+            "Two Wheels",
+            "Great Two Wheels",
+            "Awesome Two Wheels",
+            "Ultimate Two Wheels",
+            "Wreckage",
+            "Great Wreckage",
+            "Awesome Wreckage",
+            "Ultimate Wreckage",
+        ]
+
+    @functools.cached_property
+    def skills_combo(self) -> List[str]:
+        return [
+            "Airborne Pass",
+            "Barrel Roll",
+            "Clean Start",
+            "Crash Landing",
+            "Daredevil",
+            "Drift Tap",
+            "Ebisu Style",
+            "Hard Charger",
+            "Kangaroo",
+            "Lucky Escape",
+            "Showoff",
+            "Sideswipe",
+            "Slingshot",
+            "Stuntman",
+            "Threading the Needle",
+            "Triple Pass",
+            "Wrecking Ball",
+        ]
+
+    @functools.cached_property
+    def skills_wreck(self) -> List[str]:
+        return [
+            "Ant Food",
+            "Basurero",
+            "Bonus Barrel",
+            "Cart Wheels",
+            "Feat of Clay",
+            "Fruit Salad",
+            "Give It Charge",
+            "Goooaaalll!!!",
+            "Keep It Up",
+            "Landscaping",
+            "Lumberjack",
+            "Road Open",
+            "Skillboard",
+            "Smactus",
+            "Spike!",
+            "Throwing Shade",
+            "Wrong Number",
+            "¡Pop!",
+        ]
+
+    @functools.cached_property
+    def skills_hot_wheels(self) -> List[str]:
+        return [
+            "Corkscrew",
+            "Ultimate Corkscrew",
+            "G-Forza",
+            "Great G-Forza",
+            "Awesome G-Forza",
+            "Ultimate G-Forza",
+            "Hot Wheels G-Forza",
+            "Speed Boost",
+            "Loop-de-Loop",
+            "Great Loop-de-Loop",
+            "Awesome Loop-de-Loop",
+            "Ultimate Loop-de-Loop",
+            "Hot Wheels Speed",
+            "Hot Wheels Drift",
+            "Hot Wheels E-Drift",
+            "Hot Wheels Air",
+        ]
+
+    def skills(self) -> List[str]:
+        skills: List[str] = sorted(
+            self.skills_standard
+            + self.skills_combo
+            + self.skills_wreck
+        )
+
+        if self.has_dlc_hot_wheels:
+            skills.extend(self.skills_hot_wheels)
+
+        return sorted(skills)
+
     @staticmethod
     def drivatar_difficulties() -> List[str]:
         return [
@@ -1017,6 +1275,80 @@ class ForzaHorizon5Game(Game):
     @staticmethod
     def star_amount_range() -> range:
         return range(1, 4)
+
+    @staticmethod
+    def online_modes() -> List[str]:
+        return [
+            "Hide & Seek",
+            "The Eliminator",
+            "Horizon Super7",
+            "Horizon Arcade",
+            "Playground Games",
+        ]
+
+    @staticmethod
+    def eventlab() -> List[str]:
+        return [
+            "1st",
+            "2nd",
+            "3rd",
+            "4th",
+            "5th",
+            "6th",
+            "7th",
+            "8th",
+            "9th",
+            "10th",
+            "11th",
+            "12th",
+            "13th",
+            "14th",
+            "15th",
+        ]
+
+    @staticmethod
+    def eventlab_page_range() -> range:
+        return range(1, 6)
+
+    @staticmethod
+    def eventlab_tabs() -> List[str]:
+        return [
+            "PG Editor's Choice",
+            # "All-Time Greats",
+            # "Trending Today",
+            # "Best of the Month",
+        ]
+
+    @staticmethod
+    def cameras() -> List[str]:
+        return [
+            "BUMPER",
+            "BONNET",
+            "COCKPIT",
+            "DRIVER",
+            "CHASE NEAR",
+            "CHASE FAR",
+        ]
+
+    @staticmethod
+    def assists() -> List[str]:
+        return [
+            "EASY",
+            "MEDIUM",
+            "HARD",
+            "ULTIMATE",
+        ]
+
+    @staticmethod
+    def assists_single() -> List[str]:
+        return [
+            "Turn Rewind off",
+            "Set Damage & Tire Wear to Simulation",
+            "Turn Driving Line off",
+            "Set Shifting to Manual",
+            "Set Shifting to Manual W/ Clutch",
+            "Turn Stability Control off",
+        ]
 
 
 # Archipelago Options

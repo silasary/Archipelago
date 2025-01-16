@@ -57,6 +57,13 @@ class ForzaHorizon4Game(Game):
                     "ASSIST": (self.assists_single, 1),
                 },
             ),
+            GameObjectiveTemplate(
+                label="ASSIST and set Drivatar Difficulty to DIFFICULTY",
+                data={
+                    "ASSIST": (self.assists_single, 1),
+                    "DIFFICULTY": (self.drivatar_difficulties, 1),
+                },
+            ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
