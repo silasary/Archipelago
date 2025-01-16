@@ -46,7 +46,7 @@ class FourteenMinesweeperVariantsGame(Game):
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        templates = [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Complete SIZE VARIANT board",
                 data={
@@ -68,6 +68,7 @@ class FourteenMinesweeperVariantsGame(Game):
                 weight=1,
             ),
         ]
+
         if self.include_combinations_and_bonus_variants:
             templates.extend([
                 GameObjectiveTemplate(
