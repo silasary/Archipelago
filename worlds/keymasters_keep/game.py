@@ -45,14 +45,25 @@ class Game(metaclass=AutoGameRegister):
 
     should_autoregister: bool = True  # Development flag. Used to prevent AutoGameRegister from registering the game
 
+    include_time_consuming_objectives: bool = False  # Set automatically based on player options
+    include_difficult_objectives: bool = False  # Set automatically based on player options
+
     archipelago_options: Any  # Archipelago options dataclass (for access)
 
     random: Random  # Random instance
 
     options_cls: Type = None  # Archipelago options type
 
-    def __init__(self, random: Random = None, archipelago_options: Any = None) -> None:
+    def __init__(
+        self,
+        random: Random = None,
+        include_time_consuming_objectives: bool = False,
+        include_difficult_objectives: bool = False,
+        archipelago_options: Any = None
+    ) -> None:
         self.random = random or Random()
+        self.include_time_consuming_objectives = include_time_consuming_objectives
+        self.include_difficult_objectives = include_difficult_objectives
         self.archipelago_options = archipelago_options
 
     @property
