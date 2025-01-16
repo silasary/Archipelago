@@ -96,6 +96,35 @@ class OldTVGame(Game):
                 is_difficult=True,
                 weight=1,
             ),
+            GameObjectiveTemplate(
+                label="Lose to MECHANIC D10 time(s) in Saturn",
+                data={
+                    "MECHANIC": (self.saturn_mechanics, 1),
+                    "D10": (self.d10_range, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Encounter a COLOR-colored OTHER in Saturn",
+                data={
+                    "COLOR": (self.saturn_colors, 1),
+                    "OTHER": (self.saturn_colors, 1),
+                },
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Reach channel D10 with a language you do not know",
+                data={
+                    "D10": (self.d10_range, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=2,
+            ),
         ]
 
     @staticmethod
@@ -110,6 +139,19 @@ class OldTVGame(Game):
         ]
 
     @staticmethod
+    def saturn_colors() -> List[str]:
+        return [
+            "Cyan",
+            "Blue",
+            "Green",
+            "Red",
+            "Yellow",
+            "Purple",
+            "Pink",
+            "Orange,"
+        ]
+
+    @staticmethod
     def mechanics() -> List[str]:
         return [
             "Colored Background",
@@ -117,6 +159,19 @@ class OldTVGame(Game):
             "Reversed Controls",
             "Lost Connection",
             "Upside Down",
+            "Scrambled",
+        ]
+
+    @staticmethod
+    def saturn_mechanics() -> List[str]:
+        return [
+            "Colored Background",
+            "Don't Switch",
+            "Reversed Controls",
+            "Lost Connection",
+            "Upside Down",
+            "Scrambled",
+            "Equals",
         ]
 
     @staticmethod
