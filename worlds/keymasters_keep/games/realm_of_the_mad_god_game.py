@@ -315,7 +315,7 @@ class RealmOfTheMadGodGame(Game):
     def dungeons_with_pots(self) -> List[str]:
         dungeons = self.dungeons_base[:]
 
-        if bool(self.archipelago_options.include_time_consuming_objectives.value):
+        if self.include_time_consuming_objectives:
             dungeons.extend(self.dungeons_rare)
         if self.has_dungeons_lategame:
             dungeons.extend(self.dungeons_lategame)
@@ -331,7 +331,7 @@ class RealmOfTheMadGodGame(Game):
 
         dungeons.extend(self.dungeons_potless)
 
-        if bool(self.archipelago_options.include_time_consuming_objectives.value):
+        if self.include_time_consuming_objectives:
             dungeons.extend(self.dungeons_rare_potless)
 
         return sorted(dungeons)

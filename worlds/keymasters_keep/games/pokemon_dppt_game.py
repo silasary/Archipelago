@@ -584,7 +584,7 @@ class PokemonDPPtGame(Game):
 
     @property
     def time_consuming(self) -> bool:
-        if (self.archipelago_options.include_time_consuming_objectives.value
+        if (self.include_time_consuming_objectives
             and "Pokémon Diamond, Pearl, and Platinum Versions (NDS)"
                 not in self.archipelago_options.excluded_games_time_consuming_objectives):
             return True
@@ -594,7 +594,7 @@ class PokemonDPPtGame(Game):
     # Unused
     # @property
     # def difficult(self) -> bool:
-    #     if (self.archipelago_options.include_difficult_objectives.value
+    #     if (self.include_time_consuming_objectives
     #         and "Pokémon Diamond, Pearl, and Platinum Versions (NDS)"
     #             not in self.archipelago_options.excluded_games_difficult_objectives):
     #         return True
