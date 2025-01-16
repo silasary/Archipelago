@@ -376,7 +376,6 @@ def set_rules(sims4_world: "Sims4World"):
                                and state.has(SkillNames.base_skill_charisma, player, count=4))
     # Writer
     elif options.career.value == options.career.option_writer:
-        set_rule(world.get_location(CareerNames.base_career_writer_3, player),)
         set_rule(world.get_location(CareerNames.base_career_writer_4, player),
                  lambda state: state.has(SkillNames.base_skill_writing, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_writer_5, player),
