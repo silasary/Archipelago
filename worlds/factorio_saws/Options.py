@@ -56,7 +56,7 @@ class CraftSanity(NamedRange):
     display_name = "CraftSanity"
     default = 0
     range_start = 0
-    range_end = 70
+    range_end = 99
     special_range_names = {
         "disabled": 0
     }

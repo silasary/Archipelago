@@ -391,8 +391,9 @@ def get_rocket_requirements(silo_recipe: Optional[Recipe], part_recipe: Recipe,
     if silo_recipe:
         for ingredient in silo_recipe.ingredients:
             techs |= recursively_get_unlocking_technologies(ingredient)
-    for ingredient in part_recipe.ingredients:
-        techs |= recursively_get_unlocking_technologies(ingredient)
+    if part_recipe:
+        for ingredient in part_recipe.ingredients:
+            techs |= recursively_get_unlocking_technologies(ingredient)
     if cargo_landing_pad_recipe:
         for ingredient in cargo_landing_pad_recipe.ingredients:
             techs |= recursively_get_unlocking_technologies(ingredient)

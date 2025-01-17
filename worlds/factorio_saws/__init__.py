@@ -152,7 +152,7 @@ class Factorio(World):
             location_pool.extend(location_pools[pack])
         try:
             science_location_names = random.sample(location_pool, location_count)
-            craftsanity_location_names = random.sample(craftsanity_locations, craftsanity_count)
+            craftsanity_location_names = random.sample([craft for craft in craftsanity_locations if self.options.silo != Silo.option_spawn or craft not in ["Craft rocket-silo", "Craft cargo-landing-pad"]], craftsanity_count)
 
         except ValueError as e:
             # should be "ValueError: Sample larger than population or is negative"
@@ -294,7 +294,8 @@ class Factorio(World):
             # if location.crafted_item != recipe.name:
             #     print(location.crafted_item + ": " + recipe.name)
             location.access_rule = lambda state, recipe=recipe: \
-                state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies}, player)
+                state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies if technology.name != "rocket-silo" or self.options.silo != Silo.option_spawn}, player)
+
 
         for location in self.science_locations:
             Rules.set_rule(location, lambda state, ingredients=frozenset(location.ingredients):
@@ -325,6 +326,46 @@ class Factorio(World):
             if not self.multiworld.get_all_state(True).has(tech_name, player):
                 print(tech_name)
         self.multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
+
+        if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
+            victory_tech_names_r = get_rocket_requirements(silo_recipe, None, None, None)
+            if self.options.silo == Silo.option_spawn:
+                victory_tech_names_r -= {"rocket-silo"}
+            else:
+                victory_tech_names_r |= {"rocket-silo"}
+            self.get_location("Craft rocket-silo").access_rule = lambda state: all(state.has(technology, player)
+                                                                                   for technology in
+                                                                                   victory_tech_names_r)
+
+        if "Craft rocket-part" in self.multiworld.regions.location_cache[self.player]:
+            victory_tech_names_p = get_rocket_requirements(silo_recipe, part_recipe, None, None)
+            if self.options.silo == Silo.option_spawn:
+                victory_tech_names_p -= {"rocket-silo"}
+            else:
+                victory_tech_names_p |= {"rocket-silo"}
+            self.get_location("Craft rocket-part").access_rule = lambda state: all(state.has(technology, player)
+                                                                                   for technology in
+                                                                                   victory_tech_names_p)
+
+        if "Craft satellite" in self.multiworld.regions.location_cache[self.player]:
+            victory_tech_names_s = get_rocket_requirements(None, None, satellite_recipe, None)
+            if self.options.silo == Silo.option_spawn:
+                victory_tech_names_s -= {"rocket-silo"}
+            else:
+                victory_tech_names_s |= {"rocket-silo"}
+            self.get_location("Craft satellite").access_rule = lambda state: all(state.has(technology, player)
+                                                                                   for technology in
+                                                                                   victory_tech_names_s)
+
+        if "Craft cargo-landing-pad" in self.multiworld.regions.location_cache[self.player]:
+            victory_tech_names_c = get_rocket_requirements(None, None, None, cargo_pad_recipe)
+            if self.options.silo == Silo.option_spawn:
+                victory_tech_names_c -= {"rocket-silo"}
+            else:
+                victory_tech_names_c |= {"rocket-silo"}
+            self.get_location("Craft cargo-landing-pad").access_rule = lambda state: all(state.has(technology, player)
+                                                                                   for technology in
+                                                                                   victory_tech_names_c)
 
     def get_recipe(self, name: str) -> Recipe:
         return self.custom_recipes[name] if name in self.custom_recipes \
