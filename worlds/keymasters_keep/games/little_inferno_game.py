@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import functools
 from typing import List
 
 from dataclasses import dataclass
@@ -12,9 +11,11 @@ from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
 
+
 @dataclass
 class LittleInfernoArchipelagoOptions:
     little_inferno_dlc_owned: LittleInfernoDLCOwned
+
 
 class LittleInfernoGame(Game):
     name = "Little Inferno"
@@ -365,7 +366,8 @@ class LittleInfernoGame(Game):
             "Broken Teleporter",
             "Yule Log Delivery Subscription",
         ]
-    
+
+
 # Archipelago Options
 class LittleInfernoDLCOwned(OptionSet):
     """
