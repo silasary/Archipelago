@@ -4,6 +4,8 @@ from typing import List
 
 from dataclasses import dataclass
 
+from Options import Toggle
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
@@ -12,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class PlantsVSZombiesArchipelagoOptions:
-    pass
+    plants_vs_zombies_include_adventure_mode: PlantsVsZombiesIncludeAdventureMode
 
 
 class PlantsVSZombiesGame(Game):
@@ -43,7 +45,9 @@ class PlantsVSZombiesGame(Game):
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        return [
+        templates: List[GameObjectiveTemplate] = list()
+        
+        templates.extend([
             GameObjectiveTemplate(
                 label="Complete the following Minigame: MINIGAME",
                 data={
@@ -51,16 +55,7 @@ class PlantsVSZombiesGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=5,
-            ),
-            GameObjectiveTemplate(
-                label="Complete ADVENTURE in Adventure Mode",
-                data={
-                    "ADVENTURE": (self.adventure, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=4,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete the following Vasebreaker level: VASEBREAKER",
@@ -85,21 +80,65 @@ class PlantsVSZombiesGame(Game):
                 data={
                     "ACHIEVEMENT": (self.achievements, 1),
                 },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Complete SURVIVAL",
+                data={
+                    "SURVIVAL": (self.survival, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="In the Zen Garden, ZENGARDEN",
+                data={
+                    "ZENGARDEN": (self.zen_garden, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Reach a Streak of RANGE in ENDLESSPUZZLE",
+                data={
+                    "RANGE": (self.endless_puzzle_range, 1),
+                    "ENDLESSPUZZLE": (self.endless_puzzle, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Reach Wave WAVE in ENDLESS",
+                label="Complete FLAGS Flags in Survival: Endless",
                 data={
-                    "WAVE": (self.endless_range, 1),
-                    "ENDLESS": (self.endless, 1),
+                    "FLAGS": (self.endless_range, 1),
                 },
-                is_time_consuming=False,
-                is_difficult=True,
+                is_time_consuming=True,
+                is_difficult=False,
                 weight=1,
             ),
-        ]
+        ])
+        if self.include_adventure_mode:
+            templates.append(
+                GameObjectiveTemplate(
+                    label="Complete ADVENTURE in Adventure Mode",
+                    data={
+                        "ADVENTURE": (self.adventure, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+            )
+        return templates
+
+    @property
+    def include_adventure_mode(self) -> bool:
+        return bool(self.archipelago_options.plants_vs_zombies_include_adventure_mode.value)
 
     @staticmethod
     def minigames() -> List[str]:
@@ -167,7 +206,6 @@ class PlantsVSZombiesGame(Game):
             "Survival: Pool (Hard)",
             "Survival: Fog (Hard)",
             "Survival: Roof (Hard)",
-            "Survival: Roof (Hard)",
         ]
 
     @staticmethod
@@ -228,39 +266,34 @@ class PlantsVSZombiesGame(Game):
     @staticmethod
     def achievements() -> List[str]:
         return [
-            "Ask Me About Mustache Mode",
-            "Better Off Dead",
-            "Beyond the Grave",
-            "China Shop",
-            "Cryptozombologist",
-            "Disco is Undead",
             "Don't Pea in the Pool",
-            "Explodonator",
             "Good Morning",
             "Grounded",
-            "Home Lawn Security",
-            "Immortal",
-            "Morticulturalist",
             "No Fungus Among Us",
-            "Nobel Peas Prize",
-            "Penny Pincher",
-            "Popcorn Party",
-            "Roll Some Heads",
-            "SPUDOW!",
             "Sunny Days",
-            "Towering Wisdom",
+        ]
+
+    @staticmethod
+    def zen_garden() -> List[str]:
+        return [
+            "make a plant go through it's next growth stage by using Fertilizer",
+            "make a plant happy by using Bug Spray or the Phonograph",
+            "give the Tree of Wisdom some tree food twice",
         ]
 
     @staticmethod
     def endless_range() -> range:
-        return range(1, 31)
+        return range(10, 21)
 
     @staticmethod
-    def endless() -> List[str]:
+    def endless_puzzle_range() -> range:
+        return range(3, 9)
+
+    @staticmethod
+    def endless_puzzle() -> List[str]:
         return [
             "I, Zombie Endless",
             "Vasebreaker Endless",
-            "Survival Endless",
         ]
 
     @staticmethod
@@ -318,4 +351,9 @@ class PlantsVSZombiesGame(Game):
         ]
 
 # Archipelago Options
-# ...
+class PlantsVsZombiesIncludeAdventureMode(Toggle):
+    """
+    Indicates whether to include Plants vs. Zombies's Adventure Mode when generating objectives.
+    """
+
+    display_name = "Plants vs. Zombies Include Adventure Mode"
