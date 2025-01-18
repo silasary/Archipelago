@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Set
+from typing import List
 
 from dataclasses import dataclass
 
@@ -11,21 +11,21 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class MegaMan1KeymastersKeepOptions:
+class MegaManKeymastersKeepOptions:
     pass
 
-class MegaMan1Game(Game):
+
+class MegaManGame(Game):
     # Initial implementation by Seafo
 
-    name = "Mega Man 1"  # Technically it should just be called "Mega Man" but the 1 distinguishes it as a specific game
+    name = "Mega Man"
     platform = KeymastersKeepGamePlatforms.NES
 
-    # platforms_other = [  # Not sure if the rereleases should be included
-    # ]
+    platforms_other = None
 
     is_adult_only_or_unrated = False
 
-    options_cls = MegaMan1KeymastersKeepOptions
+    options_cls = MegaManKeymastersKeepOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         constraints: List[GameObjectiveTemplate] = [
@@ -167,10 +167,12 @@ class MegaMan1Game(Game):
 
     def cut_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Super Arm",
             "using only Fire Storm",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "using only Rolling Cutter",
@@ -182,10 +184,12 @@ class MegaMan1Game(Game):
 
     def guts_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Hyper Bomb",
             "using only Fire Storm",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "using only Rolling Cutter",
@@ -196,11 +200,13 @@ class MegaMan1Game(Game):
 
     def ice_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
             "using only Hyper Bomb",
             "using only Thunder Beam",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "using only Fire Storm",
@@ -210,6 +216,7 @@ class MegaMan1Game(Game):
 
     def bomb_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
             "using only Fire Storm",
@@ -220,10 +227,12 @@ class MegaMan1Game(Game):
 
     def fire_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
             "using only Ice Slasher",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "",
@@ -235,9 +244,11 @@ class MegaMan1Game(Game):
 
     def elec_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "",
@@ -250,6 +261,7 @@ class MegaMan1Game(Game):
 
     def yellow_devil_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
             "using only Fire Storm",
@@ -260,10 +272,12 @@ class MegaMan1Game(Game):
 
     def copy_robot_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Fire Storm",
             "using only Thunder Beam",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "using only Rolling Cutter",
@@ -276,24 +290,31 @@ class MegaMan1Game(Game):
         weapons: List[str] = [
             "",
         ]
+
         if self.include_difficult_objectives:
-            weapons += [
+            weapons.extend([
                 "",
                 "using only the Mega Buster",
                 "without using the Mega Buster",
-            ]
+            ])
 
         return weapons
 
     def wily_machine_1_weapons(self) -> List[str]:
         weapons: List[str] = self.mm1_weapons()
+
         weapons.extend([
             "using only Rolling Cutter",
             "using only Fire Storm",
         ])
+
         if self.include_difficult_objectives:
             weapons.extend([
                 "using only Thunder Beam",
             ])
 
         return weapons
+
+
+# Archipelago Options
+# ...
