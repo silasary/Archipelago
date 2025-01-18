@@ -1,6 +1,6 @@
 # Keymaster's Keep Supported Games
 
-Keymaster's Keep currently supports 105 games (96 + 7 metagames + 2 modded games).
+Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded games).
 
 ### Metagames Supported
 * Archipelago Multiworld Randomizer (META)
