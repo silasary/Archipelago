@@ -122,6 +122,7 @@ class PlantsVSZombiesGame(Game):
                 weight=1,
             ),
         ])
+
         if self.include_adventure_mode:
             templates.append(
                 GameObjectiveTemplate(
@@ -134,6 +135,7 @@ class PlantsVSZombiesGame(Game):
                     weight=3,
                 ),
             )
+
         return templates
 
     @property
@@ -349,6 +351,7 @@ class PlantsVSZombiesGame(Game):
             "Cob Cannon",
             "Imitater",
         ]
+
 
 # Archipelago Options
 class PlantsVsZombiesIncludeAdventureMode(Toggle):
