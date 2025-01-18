@@ -2,7 +2,7 @@
 
 Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded games).
 
-### Metagames Supported
+### Metagames Supported (7)
 * Archipelago Multiworld Randomizer (META)
 * BizHawk Shuffler (META)
 * Custom (META)
@@ -11,7 +11,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * RetroAchievements (META)
 * Shiny Pokémon Hunt (META)
 
-### Games Supported
+### Games Supported (125)
 * 14 Minesweeper Variants (PC)
 * 14 Minesweeper Variants 2 (PC)
 * A Dance of Fire and Ice (PC + AND, IOS)
@@ -138,6 +138,6 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Warframe (PC + AND, IOS, PS4, PS5, SW, XONE, XSX)
 * Ys VIII: Lacrimosa of Dana (PC + PS4, PS5, SW, VITA)
 
-### Modded Games Supported
+### Modded Games Supported (2)
 * PlatinumQuest (PC)
 * Pokémon Platinum Map Randomizer (NDS)
