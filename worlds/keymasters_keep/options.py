@@ -6,6 +6,7 @@ from Options import (
     Choice,
     DefaultOnToggle,
     OptionGroup,
+    OptionList,
     OptionSet,
     PerGameCommonOptions,
     Range,
@@ -212,13 +213,15 @@ class GameMedleyPercentageChance(Range):
     default = 100
 
 
-class GameMedleyGameSelection(OptionSet):
+class GameMedleyGameSelection(OptionList):
     """
     Defines the game pool that will be used to generate Game Medley trials.
 
     Only game names originally listed in 'game_selection', 'metagame_selection' and 'modded_game_selection' are accepted.
 
     You are allowed to place games that already appear in other selection options here.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
 
     If this is left empty, all games from other selection options will be used as a default.
     """
@@ -233,11 +236,13 @@ class GameMedleyGameSelection(OptionSet):
     default = list()
 
 
-class MetagameSelection(OptionSet):
+class MetagameSelection(OptionList):
     """
     Defines the metagame pool to select from.
 
     All supported metagames are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name: str = "Metagame Selection"
@@ -246,11 +251,13 @@ class MetagameSelection(OptionSet):
     default = sorted(AutoGameRegister.metagames.keys())
 
 
-class GameSelection(OptionSet):
+class GameSelection(OptionList):
     """
     Defines the game pool to select from.
 
     All supported games are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name: str = "Game Selection"
@@ -259,11 +266,13 @@ class GameSelection(OptionSet):
     default = sorted(AutoGameRegister.games.keys())
 
 
-class ModdedGameSelection(OptionSet):
+class ModdedGameSelection(OptionList):
     """
     Defines the modded game pool to select from.
 
     All supported modded games are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name: str = "Modded Game Selection"
