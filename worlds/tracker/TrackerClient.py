@@ -172,7 +172,6 @@ class TrackerGameContext(CommonContext):
     gen_error = None
     output_format = "Both"
     hide_excluded = False
-    tracker_failed = False
     re_gen_passthrough = None
     cached_multiworlds: List[MultiWorld] = []
     cached_slot_data: List[Dict[str, Any]] = []
@@ -257,6 +256,10 @@ class TrackerGameContext(CommonContext):
     def clear_page(self):
         if self.tracker_page is not None:
             self.tracker_page.resetData()
+
+    def set_page(self, line: str):
+        if self.tracker_page is not None:
+            self.tracker_page.data = [{"text": line}]
 
     def log_to_tab(self, line: str, sort: bool = False):
         if self.tracker_page is not None:
@@ -473,47 +476,49 @@ class TrackerGameContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         try:
             if cmd == 'Connected':
-                if self.launch_multiworld is None:
-                    self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch", False)
-                    return
                 self.game = args["slot_info"][str(args["slot"])][1]
                 slot_name = args["slot_info"][str(args["slot"])][0]
                 if getattr(AutoWorld.AutoWorldRegister.world_types[self.game],"disable_ut",False):
                     self.log_to_tab("World Author has requested UT be disabled on this world, please respect their decision")
                     return
-                if slot_name in self.launch_multiworld.world_name_lookup:
-                    internal_id = self.launch_multiworld.world_name_lookup[slot_name]
-                    if self.launch_multiworld.worlds[internal_id].game == self.game:
-                        self.multiworld = self.launch_multiworld
-                        self.player_id = internal_id
-                        self.regen_slots(self.multiworld.worlds[self.player_id],args["slot_data"])
-                    elif self.launch_multiworld.worlds[internal_id].game == "Archipelago":
-                        connected_cls = AutoWorld.AutoWorldRegister.world_types[self.game]
-                        if not self.regen_slots(connected_cls,args["slot_data"]):
-                            raise "TODO: add error - something went very wrong with interpret_slot_data"
-                    else:
-                        world_dict = {name: self.launch_multiworld.worlds[slot].game for name, slot in self.launch_multiworld.world_name_lookup.items()}
-                        tb = f"Tried to match game '{args['slot_info'][str(args['slot'])][1]}'" + \
-                            f" to slot name '{args['slot_info'][str(args['slot'])][0]}'" + \
-                            f" with known slots {world_dict}"
-                        self.gen_error = tb
-                        logger.error(tb)
-                        return
+                # first check if we don't need a yaml
+                if getattr(AutoWorld.AutoWorldRegister.world_types[self.game], "ut_can_gen_without_yaml", False):
+                    with tempfile.TemporaryDirectory() as tempdir:
+                        self.write_empty_yaml(self.game, slot_name, tempdir)
+                        self.player_id = 1
+                        slot_data = args["slot_data"]
+                        world = None
+                        temp_isd = inspect.getattr_static(AutoWorld.AutoWorldRegister.world_types[self.game], "interpret_slot_data", None)
+                        if isinstance(temp_isd,(staticmethod,classmethod)) and callable(temp_isd):
+                            world = AutoWorld.AutoWorldRegister.world_types[self.game]
+                        else:
+                            self.re_gen_passthrough = {self.game: slot_data}
+                            self.run_generator(args["slot_data"],tempdir)
+                            world = self.multiworld.worlds[self.player_id]
+                        self.regen_slots(world,slot_data,tempdir)
                 else:
-                    if getattr(AutoWorld.AutoWorldRegister.world_types[self.game], "ut_can_gen_without_yaml", False):
-                        with tempfile.TemporaryDirectory() as tempdir:
-                            self.write_empty_yaml(self.game, slot_name, tempdir)
-                            self.player_id = 1
-                            slot_data = args["slot_data"]
-                            world = None
-                            temp_isd = inspect.getattr_static(AutoWorld.AutoWorldRegister.world_types[self.game], "interpret_slot_data", None)
-                            if isinstance(temp_isd,(staticmethod,classmethod)) and callable(temp_isd):
-                                world = AutoWorld.AutoWorldRegister.world_types[self.game]
-                            else:
-                                self.re_gen_passthrough = {self.game: slot_data}
-                                self.run_generator(args["slot_data"],tempdir)
-                                world = self.multiworld.worlds[self.player_id]
-                            self.regen_slots(world,slot_data,tempdir)
+                    if self.launch_multiworld is None:
+                        self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch", False)
+                        return
+
+                    if slot_name in self.launch_multiworld.world_name_lookup:
+                        internal_id = self.launch_multiworld.world_name_lookup[slot_name]
+                        if self.launch_multiworld.worlds[internal_id].game == self.game:
+                            self.multiworld = self.launch_multiworld
+                            self.player_id = internal_id
+                            self.regen_slots(self.multiworld.worlds[self.player_id],args["slot_data"])
+                        elif self.launch_multiworld.worlds[internal_id].game == "Archipelago":
+                            connected_cls = AutoWorld.AutoWorldRegister.world_types[self.game]
+                            if not self.regen_slots(connected_cls,args["slot_data"]):
+                                raise "TODO: add error - something went very wrong with interpret_slot_data"
+                        else:
+                            world_dict = {name: self.launch_multiworld.worlds[slot].game for name, slot in self.launch_multiworld.world_name_lookup.items()}
+                            tb = f"Tried to match game '{args['slot_info'][str(args['slot'])][1]}'" + \
+                                f" to slot name '{args['slot_info'][str(args['slot'])][0]}'" + \
+                                f" with known slots {world_dict}"
+                            self.gen_error = tb
+                            logger.error(tb)
+                            return
                     else:
                         self.log_to_tab(f"Player's Yaml not in tracker's list. Known players: {list(self.launch_multiworld.world_name_lookup.keys())}", False)
                         return
@@ -563,6 +568,7 @@ class TrackerGameContext(CommonContext):
             self.manual_items.clear()
             self.ignored_locations.clear()
             self.location_alias_map = {}
+            self.set_page("Connect to a slot to start tracking!")
 
         await super().disconnect(allow_autoreconnect)
 
@@ -635,6 +641,7 @@ class TrackerGameContext(CommonContext):
                     slot: game if game not in REGEN_WORLDS else "Archipelago"
                     for slot, game in g_args.game.items()
                     }
+                # TODO empty out generic options for slots we moved to "Archipelago"
                 self.launch_multiworld = self.TMain(g_args, seed)
                 self.multiworld = self.launch_multiworld
 
@@ -785,12 +792,9 @@ def load_json(pack, path):
     return json.loads(pkgutil.get_data(pack, path).decode('utf-8-sig'))
 
 def updateTracker(ctx: TrackerGameContext) -> CurrentTrackerState:
-    if ctx.tracker_failed:
-        return #just return and don't bug the player
     if ctx.player_id is None or ctx.multiworld is None:
         logger.error("Player YAML not installed or Generator failed")
-        ctx.log_to_tab("Check Player YAMLs for error", False)
-        ctx.tracker_failed = True
+        ctx.set_page(f"Check Player YAMLs for error; Tracker {UT_VERSION} for AP version {__version__}")
         return
 
     state = CollectionState(ctx.multiworld)
