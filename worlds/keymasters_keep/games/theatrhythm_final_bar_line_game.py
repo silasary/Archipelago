@@ -642,7 +642,7 @@ class TheatrhythmFinalBarLineGame(Game):
             "Shield of the King - Theme of EPISODE GLADIOLUS (15)",
             "EPISODE IGNIS - The Main Theme (15)",
             "Home Sweet Home - Theme of EPISODE PROMPTO (15)",
-            "Dance of the Silver and Red (15)",
+            "Dance of the Silver and Crimson (15)",
         ]
 
     @functools.cached_property
