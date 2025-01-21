@@ -550,7 +550,7 @@ class MarioKart8Game(Game):
             "N64 Choco Mountain (Golden Dash)",
             "Wii Coconut Mall (Golden Dash)",
             "Tour Tokyo Blur (Lucky Cat)",
-            "DS Shroom Rdige (Lucky Cat)",
+            "DS Shroom Ridge (Lucky Cat)",
             "GBA Sky Garden (Lucky Cat)",
             "Ninja Hideaway (Lucky Cat)",
             "Tour New York Minute (Turnip)",
