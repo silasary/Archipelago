@@ -20,9 +20,11 @@ class KeymastersKeepGamePlatforms(enum.Enum):
     BA = "BA"  # Bally Astrocade
     BB = "BB"  # BlackBerry
     BBCM = "BBCM"  # BBC Micro
+    BOARD = "BOARD"  # Board Game (Physical)
     BREW = "BREW"  # Qualcomm BREW
     C64 = "C64"  # Commodore 64
     C128 = "C128"  # Commodore 128
+    CARD = "CARD"  # Card Game (Physical)
     CD32 = "CD32"  # Amiga CD32
     CDI = "CDI"  # Philips CD-i
     CDTV = "CDTV"  # Commodore CDTV
