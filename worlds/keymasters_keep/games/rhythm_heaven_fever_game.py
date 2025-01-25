@@ -4,6 +4,8 @@ from typing import List
 
 from dataclasses import dataclass
 
+from Options import Toggle
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
@@ -12,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class RhythmHeavenFeverArchipelagoOptions:
-    pass
+    rhythm_heaven_fever_perfects_enabled: RhythmHeavenFeverPerfectsEnabled
 
 
 class RhythmHeavenFeverGame(Game):
@@ -36,27 +38,32 @@ class RhythmHeavenFeverGame(Game):
                 label="Get RESULT in LEVEL",
                 data={
                     "RESULT": (self.results, 1),
-                    "LEVEL": (self.levels + "Night Walk", 1),
+                    "LEVEL": (self.levels, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=5,
             ),
         ]
-        if self.allow_perfect:
+
+        if self.perfects_enabled:
             templates.extend([
                 GameObjectiveTemplate(
-                    label="Get RESULT in LEVEL",
+                    label="Get Perfect in LEVEL",
                     data={
-                        "RESULT": (self.results + "Perfect", 1),
-                        "LEVEL": (self.levels, 1),
+                        "LEVEL": (self.levels_without_night_walk, 1),
                     },
                     is_time_consuming=True,
                     is_difficult=True,
                     weight=1,
                 ),
             ])
+
         return templates
+
+    @property
+    def perfects_enabled(self) -> bool:
+        return bool(self.archipelago_options.rhythm_heaven_fever_perfects_enabled.value)
 
     @staticmethod
     def results() -> List[str]:
@@ -118,22 +125,22 @@ class RhythmHeavenFeverGame(Game):
             "Packing Pests 2",
             "Karate Man 2",
             "Remix 10",
+            "Night Walk",
         ]
-        
-    @property
-    def allow_perfect(self) -> bool:
-        return "True" in self.archipelago_options.allow_perfects.value
+
+    def levels_without_night_walk(self) -> List[str]:
+        levels: List[str] = self.levels()[:]
+
+        if "Night Walk" in levels:
+            levels.remove("Night Walk")
+
+        return levels
+
 
 # Archipelago Options
-class RhythmHeavenFeverPerfectsEnabled(OptionSet):
+class RhythmHeavenFeverPerfectsEnabled(Toggle):
     """
-    Allows the player to choose whether they want to have to get Perfect grades, done by waiting for the game to offer the opportunity to do so.
+    Indicates whether the player wants to have to get Rhthym Heaven Fever Perfect grades included in their objectives.
     """
 
-    display_name = "Allow Perfects"
-    valid_keys = [
-        "True",
-        "False",
-    ]
-
-    default = "False"
+    display_name = "Rhthym Heaven Fever Perfects Enabled"
