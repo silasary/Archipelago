@@ -8,339 +8,381 @@ from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
-##############################
-## Created by ManNamedGarbo ##
-##############################
+
+
 @dataclass
 class BackpackBattlesArchipelagoOptions:
     pass
 
+
 class BackpackBattlesGame(Game):
+    ##############################
+    ## Created by ManNamedGarbo ##
+    ##############################
+
     name = "Backpack Battles"
     platform = KeymastersKeepGamePlatforms.PC
 
-    platforms_other = []
+    platforms_other = None
 
     is_adult_only_or_unrated = False
 
     options_cls = BackpackBattlesArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return []
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Craft RANGERRECIPE in a match",
-                data={"RANGERRECIPE": (self.rangerrecipe(), 1)},
+                label="Craft RECIPE in a match",
+                data={
+                    "RECIPE": (self.rangerrecipe, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
             ),              
             GameObjectiveTemplate(
-                label="Craft REAPERRECIPE in a match",
-                data={"REAPERRECIPE": (self.reaperrecipe(), 1)},
+                label="Craft RECIPE in a match",
+                data={
+                    "RECIPE": (self.reaperrecipe, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
             ),               
             GameObjectiveTemplate(
-                label="Craft BERSERKERRECIPE in a match",
-                data={"BERSERKERRECIPE": (self.berserkerrecipe(), 1)},
+                label="Craft RECIPE in a match",
+                data={
+                    "RECIPE": (self.berserkerrecipe, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
             ),              
             GameObjectiveTemplate(
-                label="Craft PYROMANCERRECIPE in a match",
-                data={"PYROMANCERRECIPE": (self.pyromancerrecipe(), 1)},
+                label="Craft RECIPE in a match",
+                data={
+                    "RECIPE": (self.pyromancerrecipe, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=4,
             ),               
             GameObjectiveTemplate(
-                label="Craft NEUTRALRECIPE in a match",
-                data={"NEUTRALRECIPE": (self.neutralrecipe(), 1)},
+                label="Craft RECIPE in a match",
+                data={
+                    "RECIPE": (self.neutralrecipe, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=7,
             ),            
             GameObjectiveTemplate(
                 label="Might Need a Loan for That - Purchase an item worth more 12 or more gold",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),            
             GameObjectiveTemplate(
                 label="Empty Pockets - Spend gold until you reach 0 remaining in the shop",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),            
             GameObjectiveTemplate(
-                label="Win a Ranked Match as CLASSES",
-                data={"CLASSES": (self.classes(), 1)},
+                label="Win a Ranked Match as CLASS",
+                data={
+                    "CLASS": (self.classes, 1)
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),           
             GameObjectiveTemplate(
-                label="Win a Casual Match as CLASSES",
-                data={"CLASSES": (self.classes(), 1)},
+                label="Win a Casual Match as CLASS",
+                data={
+                    "CLASS": (self.classes, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),           
             GameObjectiveTemplate(
                 label="Deadly Ego - Enter Sudden Death and Win the Match",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),           
             GameObjectiveTemplate(
                 label="Consistent Hoarder - Obtain 3 of a single bag type",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),           
             GameObjectiveTemplate(
                 label="Rising Power - Gain RANDOMRANGE of any buff at the end of a round",
-                data={"RANDOMRANGE": (self.randomrange(), 1)},
+                data={
+                    "RANDOMRANGE": (self.randomrange, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),           
             GameObjectiveTemplate(
                 label="Woe Upon Ye - Inflict RANDOMRANGE of any debuff at the end of a round",
-                data={"RANDOMRANGE": (self.randomrange(), 1)},
+                data={
+                    "RANDOMRANGE": (self.randomrange, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),                     
             GameObjectiveTemplate(
                 label="You Call That a Fight? - Win a Round with at least 50% Health remaining",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ), 
             GameObjectiveTemplate(
                 label="Not Even Close - Win a Round with less than 10% Health remaining",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),                
             GameObjectiveTemplate(
-                label="I Can Do It Better! - Create any Class Recipe as an opposing class.",
-                data={},
+                label="I Can Do It Better! - Create any Class Recipe as an opposing class",
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),           
             GameObjectiveTemplate(
-                label="Suited Up - Wear at least a Helmet, Chest, Glove, and Boot item inside your backpack at once.",
-                data={},
+                label="Suited Up - Wear at least a Helmet, Chest, Glove, and Boot item inside your backpack at once",
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="No Rest Allowed - Reach 3.0 Stamina Consumption in your backpack at once.",
-                data={},
+                label="No Rest Allowed - Reach 3.0 Stamina Consumption in your backpack at once",
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),           
             GameObjectiveTemplate(
                 label="Truly Crafty - Have at least 3 unique crafted items in your backpack at once (Non-Potion)",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),           
             GameObjectiveTemplate(
                 label="Alchemist - Have 4 unique potions in a potion's bag",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Weapons Master - Fill a Stamina Bag with 3 Unique Weapons",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="Swift Battle - Defeat an enemy before Fatigue phase",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="Jack of All Trades - Win a game as each Class",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="Tense Yet Alive - Survive Sudden Death with only one life remaining",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),               
             GameObjectiveTemplate(
                 label="Indomiatable - Survive Sudden Death without losing a round",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="I'm Just Better! - Win 10 rounds against the same class (Across any number of Matches)",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="Doppelganger - Win 3 rounds against the someone using the same Starting bag (Across any number of Matches)",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),   
             GameObjectiveTemplate(
                 label="Big Number Funny - Equip Just Stats and More Stats in the same Backpack",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ), 
             GameObjectiveTemplate(
                 label="Not again... - With a maximum sized Backpack completely filled with items, Shuffle your Backpack", # I'm not sorry for this. You've know you've done it at least once before.
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),    
             GameObjectiveTemplate(
                 label="Archaeologist - Have a Shovel dig up SMALLRANGE items total",
-                data={"SMALLRANGE": (self.smallrange(), 1)},
+                data={
+                    "SMALLRANGE": (self.smallrange, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),    
             GameObjectiveTemplate(
                 label="Special Dig - Have a Shovel dig up an item of RARITY rarity",
-                data={"RARITY": (self.rarity(), 1)},
+                data={
+                    "RARITY": (self.rarity, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),    
             GameObjectiveTemplate(
                 label="Frugal Shopper - Have a Customer Card and Piggy Bank equipped for more than 3 rounds",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),    
             GameObjectiveTemplate(
-                label="Artisan - Craft any two of the following recipes and equip them at the same time; ANYRECIPE",
-                data={"ANYRECIPE": (self.anyrecipe(), 3)},
+                label="Artisan - Craft any two of the following recipes and equip them at the same time: RECIPES",
+                data={
+                    "RECIPES": (self.anyrecipe, 3)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),    
             GameObjectiveTemplate(
                 label="Shiny! - Upgrade a GEMSTONE to a higher tier",
-                data={"GEMSTONE": (self.gemstone(), 1)},
+                data={
+                    "GEMSTONE": (self.gemstones, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),    
             GameObjectiveTemplate(
                 label="Fire Sale - Buy SMALLRANGE Items on Sale from the Shop across any amount of matches",
-                data={"SMALLRANGE": (self.smallrange(), 1)},
+                data={
+                    "SMALLRANGE": (self.smallrange, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),    
             GameObjectiveTemplate(
                 label="There are some who call him... - As a Reaper, find Tim",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ), 
             GameObjectiveTemplate(
-                label="As a Berserker, craft two of the following; BERSERKERRECIPE",
-                data={"BERSERKERRECIPE": (self.berserkerrecipe(), 3)},
+                label="As a Berserker, craft two of the following: RECIPES",
+                data={
+                    "RECIPES": (self.berserkerrecipe, 3)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="As a Reaper, craft two of the following; REAPERRECIPE",
-                data={"REAPERRECIPE": (self.reaperrecipe(), 3)},
+                label="As a Reaper, craft two of the following: RECIPES",
+                data={
+                    "RECIPES": (self.reaperrecipe, 3)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="As a Pyromancer, craft two of the following; PYROMANCERRECIPE",
-                data={"PYROMANCERRECIPE": (self.pyromancerrecipe(), 3)},
+                label="As a Pyromancer, craft two of the following: RECIPES",
+                data={
+                    "RECIPES": (self.pyromancerrecipe, 3)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="As a Ranger, craft two of the following; RANGERRECIPE",
-                data={"RANGERRECIPE": (self.rangerrecipe(), 3)},
+                label="As a Ranger, craft two of the following: RECIPES",
+                data={
+                    "RECIPES": (self.rangerrecipe, 3)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Scared to Get Hurt? - Equip at least 5 Armor items in your Backpack at once",
-                data={}
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Picky Assassin - Craft one of Each Dagger in a single match",
-                data={}
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Why... - Sell any Subclass Item",
-                data={}
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Gamba! - Play a Match using the Random Class option",
-                data={}
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Pandora's Bag - Play a Match as CLASSES while using the Sack of Surprises option",
-                data={"CLASSES": (self.classes(), 1)},
+                label="Pandora's Bag - Play a Match as CLASS while using the Sack of Surprises option",
+                data={
+                    "CLASS": (self.classes, 1)
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
@@ -375,7 +417,7 @@ class BackpackBattlesGame(Game):
         ]
 
     @staticmethod
-    def GEMSTONE() -> List[str]:
+    def gemstones() -> List[str]:
         return [
             "Amethyst",
             "Emerald",
@@ -437,7 +479,7 @@ class BackpackBattlesGame(Game):
             "Shell Totem",
             "Thornbloom",
             "Stone Golem",
-            "Prismatic Sword"
+            "Prismatic Sword",
         ]
 
     @staticmethod
@@ -469,8 +511,7 @@ class BackpackBattlesGame(Game):
             "Strong Demonic Flask",
             "Ruby Chonk",
             "Ice Dragon",
-        ]        
-
+        ]
         
     @staticmethod
     def berserkerrecipe() -> List[str]:
@@ -522,4 +563,6 @@ class BackpackBattlesGame(Game):
             + self.neutralrecipe()
         )
 
+
 # Archipelago Options
+# ...

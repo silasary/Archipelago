@@ -8,232 +8,290 @@ from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
-################################################
-## Created by ManNamedGarbo and TheBreadstick ##
-################################################
+
+
 @dataclass
 class GTFOArchipelagoOptions:
-    Pass
+    pass
+
 
 class GTFOGame(Game):
+    ################################################
+    ## Created by ManNamedGarbo and TheBreadstick ##
+    ################################################
+
     name = "GTFO"
     platform = KeymastersKeepGamePlatforms.PC
 
-    platforms_other = []
+    platforms_other = None
 
     is_adult_only_or_unrated = False
 
     options_cls = GTFOArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return []
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
                 label="Complete EASYMISSION using only WEAPONCATEGORY",
-                data={"EASYMISSION": (self.easymissions(), 1), "WEAPONCATEGORY": (self.weaponcategories(), 1)},
+                data={
+                    "EASYMISSION": (self.easymissions, 1),
+                    "WEAPONCATEGORY": (self.weaponcategories, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete HARDMISSION without letting your weapons reach 0%",
-                data={"HARDMISSION": (self.hardmissions(), 1)},
+                data={
+                    "HARDMISSION": (self.hardmissions, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Kill UNIQUESPECIAL using SPECIALWEAPON",
-                data={"UNIQUESPECIAL": (self.uniqueweapons(), 1), "SPECIALWEAPON": (self.specialweapons(), 1)},
+                data={
+                    "UNIQUESPECIAL": (self.uniquespecials, 1),
+                    "SPECIALWEAPON": (self.specialweapons, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Kill COMMONSPECIAL using MAINWEAPON",
-                data={"COMMONSPECIAL": (self.commonSpecials(), 1), "MAINWEAPON": (self.mainweapons(), 1)},
+                data={
+                    "COMMONSPECIAL": (self.commonspecials, 1),
+                    "MAINWEAPON": (self.mainweapons, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
                 label="Use exclusively WEAPONCATEGORIES weapons to complete a mission",
-                data ={"WEAPONCATEGORIES": (self.weaponcategories(), 1)},
+                data={
+                    "WEAPONCATEGORIES": (self.weaponcategories, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Encounter an Immortal",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Loot at least 2 ARTIFACTS artifacts in a single mission",
-                data={"ARTIFACTS": (self.artifactlevels(), 1)},
+                data={
+                    "ARTIFACTS": (self.artifactlevels, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Equip an ARTIFACTLEVEL with any one of the following traits ARTIFACTTRAITS",
-                data={"ARTIFACTLEVEL": (self.artifactlevels(), 1), "ARTIFACTTRAITS": (self.artifacttraits(), 3)},
+                data={
+                    "ARTIFACTLEVEL": (self.artifactlevels, 1),
+                    "ARTIFACTTRAITS": (self.artifacttraits, 3),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Use CONSUMABLES on a scout and survive the horde",
-                data={"CONSUMABLES": (self.consumables(), 1)},
+                data={
+                    "CONSUMABLES": (self.consumables, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Kill a Scout using MELEEWEAPON",
-                data={"MELEEWEAPON": (self.meleeweapons(), 1)},
+                data={
+                    "MELEEWEAPON": (self.meleeweapons, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
-                # https://www.youtube.com/watch?v=gLcWf3GJP8k <- Good luck lol, just saying it's possible.
             ),
             GameObjectiveTemplate(
                 label="Have TOOLS run completely out of charge then get it back up to 100% in a single mission",
-                data={"TOOLS": (self.tools(), 1)},
+                data={
+                    "TOOLS": (self.tools, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Throw a rave to COMMONSPECIALS using the Long Range Flashlight",
-                data={"COMMONSPECIALS": (self.commonSpecials(), 1)},
+                data={
+                    "COMMONSPECIALS": (self.commonspecials, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Clear a bloody door horde using TOOLS",
-                data={"TOOLS": (self.tools(), 1)},
+                data={
+                    "TOOLS": (self.tools, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete AMISSION using the following loadout: MAINWEAPON | SPECIALWEAPON | TOOL | MELEEWEAPON",
-                data={"AMISSION": (self.a_missions(), 1), "MAINWEAPON": (self.mainweapons(), 1), "SPECIALWEAPON": (self.specialweapons(), 1), "TOOLS": (self.tools(), 1), "MELEEWEAPON": (self.meleeweapons(), 1)},
+                data={
+                    "AMISSION": (self.a_missions, 1),
+                    "MAINWEAPON": (self.mainweapons, 1),
+                    "SPECIALWEAPON": (self.specialweapons, 1),
+                    "TOOL": (self.tools, 1),
+                    "MELEEWEAPON": (self.meleeweapons, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Find and use up 2 of either CONSUMABLE inside CMISSION",
-                data={"CONSUMABLE": (self.consumables(), 2), "CMISSION": (self.c_missions(), 1)},
+                data={
+                    "CONSUMABLE": (self.consumables, 2),
+                    "CMISSION": (self.c_missions, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Successfully clear EASYALARMCLASS with your flashlight off",
-                data={"EASYALARMCLASS": (self.easyalarmclasses(), 1)},
+                data={
+                    "EASYALARMCLASS": (self.easyalarmclass, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Successfully clear HARDALARMCLASS without closing any doors",
-                data={"HARDALARMCLASS": (self.hardalarmclass(), 1)},
+                data={
+                    "HARDALARMCLASS": (self.hardalarmclass, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Clear out a ALARMTYPES without anyone going down",
-                data={"ALARMTYPES": (self.alarmtypes(), 1)},
+                data={
+                    "ALARMTYPES": (self.alarmtypes, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="For the duration of a EASYALARMCLASS , Communicate only through pings",
-                data={"EASYALARMCLASS": (self.easyalarmclass(), 1)},
+                label="For the duration of a EASYALARMCLASS, Communicate only through pings",
+                data={
+                    "EASYALARMCLASS": (self.easyalarmclass, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Land a 360 headshot on COMMONSPECIALS using a sniper",
-                data={"COMMONUNIQUE": (self.commonSpecials(), 1)},
+                data={
+                    "COMMONSPECIALS": (self.commonspecials, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete SECONDARYOBJECTIVES",
-                data={"SECONDARYOBJECTIVES": (self.secondaryobjectives(), 1)},
+                data={
+                    "SECONDARYOBJECTIVES": (self.secondaryobjectives, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete OVERLOADOBJECTIVES",
-                data={"OVERLOADOBJECTIVES": (self.overloadobjectives(), 1)},
+                data={
+                    "OVERLOADOBJECTIVES": (self.overloadobjectives, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Take damage from Falling",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete any Prisoner Efficiency Objective",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Reach Maximum Infection level",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="With a RANDOMARTIFACT Equipped, complete any mission",
-                data={"RANDOMARTIFACT": (self.artifactlevels(), 1)},
+                label="With a RANDOMARTIFACT Artifact equipped, complete any mission",
+                data={
+                    "RANDOMARTIFACT": (self.artifactlevels, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
                 label="Enter the ??? Dimension",
-                data={},
+                data=dict(),
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
                 label="Immobilize COMMONSPECIALS using C-Foam",
-                data={},
+                data={
+                    "COMMONSPECIALS": (self.commonspecials, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete any level in under 30 minutes",
-                data={},
+                data=dict(),
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
-            ),            
+            ),
         ]    
 
     @staticmethod
@@ -310,7 +368,7 @@ class GTFOGame(Game):
             "R7D1",
             "R7D2",
             "R2D1",
-            "R2D2", #kekw 
+            "R2D2",
             "R3D1",            
         ]
 
@@ -368,7 +426,7 @@ class GTFOGame(Game):
             "R2C1",
             "R2C2",
             "R2D1",
-            "R2D2", #kekw
+            "R2D2",
             "R2E1",
         ]
         
@@ -642,7 +700,7 @@ class GTFOGame(Game):
         ]
 
     @staticmethod
-    def commonSpecials() -> List[str]:
+    def commonspecials() -> List[str]:
         return [
             "Scout",
             "Giant",
@@ -651,7 +709,7 @@ class GTFOGame(Game):
         ]
 
     @staticmethod
-    def uniqueSpecials() -> List[str]:
+    def uniquespecials() -> List[str]:
         return [
             "Big Charger",
             "Charger Scout",
@@ -673,7 +731,7 @@ class GTFOGame(Game):
 
     @staticmethod
     def easyalarmclass() -> List[str]:
-        return[
+        return [
             "Class II",
             "Class III",
             "Class IV",
@@ -687,6 +745,7 @@ class GTFOGame(Game):
             "Class VII",
             "Class VIII",
         ]
+
     @staticmethod
     def artifacttraits() -> List[str]:
         return [
@@ -698,7 +757,7 @@ class GTFOGame(Game):
             "Supply Efficiency",
             "Infection Resist",
             "Main Ammo",
-            "Special Ammo" ,
+            "Special Ammo",
             "Tool Ammo",
             "Regen Cap",
             "C-Foam Portion",
@@ -749,11 +808,13 @@ class GTFOGame(Game):
             + self.rundown7()
             + self.rundown8()
         )
+
     def easymissions(self) -> List[str]:
         return sorted(
             self.a_missions()
             + self.b_missions()
         )
+
     def hardmissions(self) -> List[str]:
         return sorted(
             self.c_missions()
@@ -761,24 +822,7 @@ class GTFOGame(Game):
             + self.e_missions()
         )
 
-# Archipelago Options
-#class GTFOBosses(Toggle):
-#    """
-#    Indicates whether you want the Tank, Mother and Kraken bosses included in your objectives list.
-#    """
-#
-#    display_name = "GTFO Bosses as Challenges"
-#    default = False
-#    
-#class ExtremelyPainful(Toggle):
-#    """
-#    Indicates whether you wish to enable challenges that could be considered Extreme, even beyond a normal level of masochism. This include things such as completing Prisoner Efficiency objectives or Completing 'Hard' alarms with specific limitations. You have been warned if you enable these.
-#    """
-#
-#    display_name = "GTFO Extremely Painful Challenges"
-#    default = False
-#    
-### I'm not actually sure how to make these options work? I want it to disable the challenges involving the lists "Bosses", "hardalarms", "SecondaryObjectives", and "OverloadObjectives" when disabled, but allow those challenges when enabled. These are beyond just your standard is_difficult or not, as they can be an unreasonable step higher.
-### If you could help by fixing this up, feel free. I'd like to learn how I could do this. -Garbo
-### Currently commenting out these lines as I believe they break in their current form.
 
+# Archipelago Options
+## Future: Include Bosses?
+## Future: Include Painful?
