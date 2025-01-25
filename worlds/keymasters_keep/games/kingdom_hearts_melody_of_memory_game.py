@@ -43,7 +43,7 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        objectives: List[GameObjectiveTemplate] = [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Complete SONG on DIFFICULTY difficulty",
                 data={
@@ -66,8 +66,8 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
             ),
         ]
 
-        if self.includes_world_tour:
-            objectives.append(
+        if self.include_world_tour:
+            templates.append(
                 GameObjectiveTemplate(
                     label="Complete all songs in WORLD",
                     data={
@@ -78,7 +78,8 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
                     weight=2,
                 )
             )
-            objectives.append(
+
+            templates.append(
                 GameObjectiveTemplate(
                     label="Complete all songs in WORLD, gaining at least COUNT Stars",
                     data={
@@ -91,10 +92,10 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
                 )
             )
 
-        return objectives
+        return templates
 
     @property
-    def includes_world_tour(self) -> bool:
+    def include_world_tour(self) -> bool:
         return bool(self.archipelago_options.kingdom_hearts_melody_of_memory_include_world_tour.value)
 
     @staticmethod
@@ -375,7 +376,6 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
 
 
 # Archipelago Options
-
 class MelodyOfMemoryIncludeWorldTour(DefaultOnToggle):
     """
     Indicates whether the player wants to include World Tour objectives
