@@ -66,7 +66,7 @@ class Sims4World(World):
 
         count_to_fill = count_to_fill - len(pool)
 
-        for item_name in self.multiworld.random.choices(sorted(filler_set), k=count_to_fill):
+        for item_name in self.random.choices(sorted(filler_set), k=count_to_fill):
             item = self.create_item(item_name)
             item.classification = item.classification
             pool.append(item)
