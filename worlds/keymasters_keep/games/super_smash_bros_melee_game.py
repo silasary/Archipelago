@@ -15,9 +15,8 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class SuperSmashBrosMeleeArchipelagoOptions:
-    super_smash_bros_melee_include_unlockable_content: SuperSmashBrosMeleeIncludeUnlockableContent
-    super_smash_bros_melee_include_glitched_characters: SuperSmashBrosMeleeIncludeGlitchedCharacters
     super_smash_bros_melee_include_multi_man_melee: SuperSmashBrosMeleeIncludeMultiManMelee
+    super_smash_bros_melee_include_playable_master_hand: SuperSmashBrosMeleeIncludePlayableMasterHand
 
 
 class SuperSmashBrosMeleeGame(Game):
@@ -33,26 +32,67 @@ class SuperSmashBrosMeleeGame(Game):
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
             GameObjectiveTemplate(
-                label="Set the CPU Levels to LEVELS when applicable",
+                label="Pick CHARACTER for events (when applicable)",
+                data={
+                    "CHARACTER": (self.characters, 1)
+                },
+            ),
+            GameObjectiveTemplate(
+                label="Set all CPU Levels to LEVEL (when applicable)",
+                data={
+                    "LEVEL": (self.cpu_levels, 1)
+                },
+            ),
+            GameObjectiveTemplate(
+                label="Set the CPU Levels to LEVELS (when applicable)",
                 data={
                     "LEVELS": (self.cpu_levels, 3)
                 },
+            ),
+            GameObjectiveTemplate(
+                label="Hit an opponent over 400 meters (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Finish Break the Targets in under 1 minute (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Play with competitive rules: 4 Stocks, No Items (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Play with all items active (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Play with only Pokeball items set to High (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Play with only 3 Stocks in Singleplayer Mode (when applicable)",
+                data=dict(),
+            ),
+            GameObjectiveTemplate(
+                label="Don't Continue (when applicable)",
+                data=dict(),
             ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
-                label="Win a Vs. Melee TYPE with CHARACTER against OPPONENT in STAGE",
+                label="Win a Vs. Melee TYPE with CHARACTER against OPPONENT CPU Level LEVEL in STAGE",
                 data={
                     "TYPE": (self.match_types, 1),
                     "CHARACTER": (self.characters, 1),
                     "OPPONENT": (self.characters_no_glitched, 1),
+                    "LEVEL": (self.cpu_levels, 1),
                     "STAGE": (self.stages, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Win a Vs. Special Melee MODE TYPE with CHARACTER against OPPONENT in STAGE",
@@ -68,11 +108,11 @@ class SuperSmashBrosMeleeGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Win a Vs. Melee Free For All TYPE with CHARACTER against OPPONENT in STAGE",
+                label="Win a Vs. Melee Free For All TYPE with CHARACTER against OPPONENTS in STAGE",
                 data={
                     "TYPE": (self.match_types, 1),
                     "CHARACTER": (self.characters, 1),
-                    "OPPONENT": (self.characters_no_glitched, 3),
+                    "OPPONENTS": (self.characters_no_glitched, 3),
                     "STAGE": (self.stages, 1),
                 },
                 is_time_consuming=False,
@@ -80,16 +120,28 @@ class SuperSmashBrosMeleeGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Win a Vs. Melee Team Battle TYPE with CHARACTER against OPPONENT in STAGE",
+                label="Win a Vs. Melee Team Battle TYPE with a team of CHARACTERS against OPPONENTS in STAGE",
                 data={
                     "TYPE": (self.match_types, 1),
-                    "CHARACTER": (self.characters, 1),
-                    "OPPONENT": (self.characters_no_glitched, 3),
+                    "CHARACTERS": (self.characters, 2),
+                    "OPPONENTS": (self.characters_no_glitched, 2),
                     "STAGE": (self.stages, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=5,
+                weight=2,
+            ),
+            GameObjectiveTemplate(
+                label="Win a Vs. Melee Team Battle TYPE with CHARACTER against OPPONENTS in STAGE",
+                data={
+                    "TYPE": (self.match_types, 1),
+                    "CHARACTER": (self.characters, 1),
+                    "OPPONENTS": (self.characters_no_glitched, 3),
+                    "STAGE": (self.stages, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Complete MODE with CHARACTER in DIFFICULTY difficulty",
@@ -110,7 +162,7 @@ class SuperSmashBrosMeleeGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Complete the following Event: EVENT",
@@ -120,6 +172,33 @@ class SuperSmashBrosMeleeGame(Game):
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=3,
+            ),
+            GameObjectiveTemplate(
+                label="Collect COUNT Trophies",
+                data={
+                    "COUNT": (self.trophy_count_range, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Collect COUNT different Trophies",
+                data={
+                    "COUNT": (self.trophy_different_count_range, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Collect COUNT different Bonuses",
+                data={
+                    "COUNT": (self.bonus_count_range, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
             ),
         ]
 
@@ -133,23 +212,19 @@ class SuperSmashBrosMeleeGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=2,
                 )
             )
 
         return templates
 
     @property
-    def include_unlockable_content(self) -> bool:
-        return bool(self.archipelago_options.super_smash_bros_melee_include_unlockable_content.value)
-
-    @property
-    def include_glitched_characters(self) -> bool:
-        return bool(self.archipelago_options.super_smash_bros_melee_include_glitched_characters.value)
-
-    @property
     def include_multi_man_melee(self) -> bool:
         return bool(self.archipelago_options.super_smash_bros_melee_include_multi_man_melee.value)
+
+    @property
+    def include_playable_master_hand(self) -> bool:
+        return bool(self.archipelago_options.super_smash_bros_melee_include_playable_master_hand.value)
 
     @functools.cached_property
     def characters_base(self) -> List[str]:
@@ -168,11 +243,6 @@ class SuperSmashBrosMeleeGame(Game):
             "Peach",
             "Ice Climbers",
             "Zelda/Sheik",
-        ]
-
-    @functools.cached_property
-    def characters_unlockable(self) -> List[str]:
-        return [
             "Luigi",
             "Jigglypuff",
             "Mewtwo",
@@ -195,19 +265,13 @@ class SuperSmashBrosMeleeGame(Game):
     def characters(self) -> List[str]:
         characters: List[str] = self.characters_base[:]
 
-        if self.include_unlockable_content:
-            characters.extend(self.characters_unlockable)
-
-        if self.include_glitched_characters:
+        if self.include_playable_master_hand:
             characters.extend(self.characters_glitched)
 
         return sorted(characters)
 
     def characters_no_glitched(self) -> List[str]:
         characters: List[str] = self.characters_base[:]
-
-        if self.include_unlockable_content:
-            characters.extend(self.characters_unlockable)
 
         return sorted(characters)
 
@@ -232,11 +296,6 @@ class SuperSmashBrosMeleeGame(Game):
             "Rainbow Cruise",
             "Yoshi's Island",
             "Yoshi's Story",
-        ]
-
-    @functools.cached_property
-    def stages_unlockable(self) -> List[str]:
-        return [
             "Brinstar Depths",
             "Fourside",
             "Big Blue",
@@ -252,9 +311,6 @@ class SuperSmashBrosMeleeGame(Game):
 
     def stages(self) -> List[str]:
         stages: List[str] = self.stages_base[:]
-
-        if self.include_unlockable_content:
-            stages.extend(self.stages_unlockable)
 
         return sorted(stages)
 
@@ -373,8 +429,6 @@ class SuperSmashBrosMeleeGame(Game):
             "100-Man",
             "3-Minute",
             "15-Minute",
-            "Endless",
-            "Cruel",
         ]
 
     @staticmethod
@@ -387,27 +441,31 @@ class SuperSmashBrosMeleeGame(Game):
             "Very Hard",
         ]
 
+    @staticmethod
+    def trophy_count_range() -> range:
+        return range(10, 31)
+
+    @staticmethod
+    def trophy_different_count_range() -> range:
+        return range(5, 11)
+
+    @staticmethod
+    def bonus_count_range() -> range:
+        return range(5, 11)
+
 
 # Archipelago Options
-class SuperSmashBrosMeleeIncludeUnlockableContent(Toggle):
-    """
-    Indicates whether to include unlockable content when generating Super Smash Bros. Melee objectives.
-    """
-
-    display_name = "Super Smash Bros. Melee Include Unlockable Content"
-
-
-class SuperSmashBrosMeleeIncludeGlitchedCharacters(Toggle):
-    """
-    Indicates whether to include glitched characters when generating Super Smash Bros. Melee objectives.
-    """
-
-    display_name = "Super Smash Bros. Melee Include Glitched Characters"
-
-
 class SuperSmashBrosMeleeIncludeMultiManMelee(Toggle):
     """
     Indicates whether to include Multi-Man Melee Super Smash Bros. Melee objectives.
     """
 
     display_name = "Super Smash Bros. Melee Include Multi-Man Melee"
+
+
+class SuperSmashBrosMeleeIncludePlayableMasterHand(Toggle):
+    """
+    Indicates whether to include Playable Master Hand when generating Super Smash Bros. Melee objectives.
+    """
+
+    display_name = "Super Smash Bros. Melee Include Playable Master Hand"
