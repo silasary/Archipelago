@@ -50,7 +50,7 @@ class SuperSmashBrosMeleeGame(Game):
                 },
             ),
             GameObjectiveTemplate(
-                label="Hit an opponent over 400 meters (when applicable)",
+                label="Hit an opponent over 400 meters in Home-Run Contest (when applicable)",
                 data=dict(),
             ),
             GameObjectiveTemplate(
