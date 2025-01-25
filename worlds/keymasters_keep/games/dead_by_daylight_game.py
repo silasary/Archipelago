@@ -1,11 +1,15 @@
 from __future__ import annotations
+
 from typing import List
 from dataclasses import dataclass
 
 from Options import OptionSet
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
+
 from ..enums import KeymastersKeepGamePlatforms
+
 
 @dataclass
 class DeadByDaylightArchipelagoOptions:
@@ -19,10 +23,10 @@ class DeadByDaylightGame(Game):
 
     platforms_other = [
         KeymastersKeepGamePlatforms.PS4,
-        KeymastersKeepGamePlatforms.XONE,
-        KeymastersKeepGamePlatforms.XSX,
         KeymastersKeepGamePlatforms.PS5,
         KeymastersKeepGamePlatforms.SW,
+        KeymastersKeepGamePlatforms.XONE,
+        KeymastersKeepGamePlatforms.XSX,
     ]
 
     is_adult_only_or_unrated = True
@@ -49,31 +53,31 @@ class DeadByDaylightGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="As KILLERSOWNED earn Merciless Killer",
+                label="As KILLER earn Merciless Killer",
                 data={
-                    "KILLERSOWNED": (self.killers, 1),
+                    "KILLER": (self.killers, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=5,
             ),
             GameObjectiveTemplate(
-                label="As KILLERSOWNED sacrifice 2 Survivors without any addons",
+                label="As KILLER sacrifice 2 Survivors without any addons",
                 data={
-                    "KILLERSOWNED": (self.killers, 1),
+                    "KILLER": (self.killers, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2,
+                weight=5,
             ),
             GameObjectiveTemplate(
-                label="As KILLERSOWNED down every Survivor at least once before using your power",
+                label="As KILLER down every Survivor at least once before using your power",
                 data={
-                    "KILLERSOWNED": (self.killers, 1),
+                    "KILLER": (self.killers, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=2,
+                weight=5,
             ),
             GameObjectiveTemplate(
                 label="Grab 2 Survivors either from off a generator or out of a locker",
@@ -83,22 +87,22 @@ class DeadByDaylightGame(Game):
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Complete MEDIUM Generators by yourself",
+                label="Complete COUNT Generators by yourself",
                 data={
-                    "MEDIUM": (self.medium_range, 1),
+                    "COUNT": (self.medium_range, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
                 weight=2,
             ),
             GameObjectiveTemplate(
-                label="Heal MEDIUM other Survivors",
+                label="Heal COUNT other Survivors",
                 data={
-                    "MEDIUM": (self.medium_range, 1),
+                    "COUNT": (self.medium_range, 1),
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=3,
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Escape 2 games in a row",
@@ -108,13 +112,13 @@ class DeadByDaylightGame(Game):
                 weight=1,
             ),
             GameObjectiveTemplate(
-                label="Using only SURVIVORSOWNED's perks, escape",
+                label="Using only SURVIVOR's perks, escape",
                 data={
-                    "SURVIVORSOWNED": (self.survivors_all, 1),
+                    "SURVIVOR": (self.survivors, 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1,
+                weight=10,
             ),
         ]
 
@@ -125,43 +129,107 @@ class DeadByDaylightGame(Game):
         return sorted(self.archipelago_options.dead_by_daylight_survivors.value)
 
     @staticmethod
-    def survivors_all() -> List[str]:
-        return [
-            "Laurie", "Ace", "Bill", "Feng Min", "David", "Quentin", "Tapp", "Kate", "Adam", "Jeff",
-            "Jane", "Ash", "Nancy", "Steve", "Yui", "Zarina", "Cheryl", "Felix", "Elodie", "Yun-Jin",
-            "Jill", "Leon", "Mikaela", "Jonah", "Yoichi", "Haddie", "Ada", "Rebecca", "Vittorio", "Thalita",
-            "Renato", "Gabriel", "Nicolas", "Ellen", "Alan", "Sable", "Aestri", "Lara", "Trevor"
-        ]
-
-    @staticmethod
-    def killers_all() -> List[str]:
-        return [
-            "Trapper", "Wraith", "Hillbilly", "Nurse", "Huntress", "Michael Myers", "Hag", "Doctor",
-            "Leatherface", "Freddy Krueger", "Amanda Young", "Clown", "Spirit", "Legion", "Plague", "Ghost Face",
-            "Demogorgan", "Oni", "Deathslinger", "Pyramid Head", "Blight", "Twins", "Trickster", "Nemesis",
-            "Pinhead", "Artist", "Sadako", "Dredge", "Albert Wesker", "Knight", "Skull Merchant", "Singularity",
-            "Xenomorph", "Chucky", "Unknown", "Vecna", "Dracula", "Houndmaster",
-        ]
-
-    @staticmethod
     def medium_range() -> range:
-        return range(2, 3)
+        return range(2, 4)
 
 
-# Archipelago Options using OptionSet
+# Archipelago Options
 class DeadByDaylightKillers(OptionSet):
     """
-    Indicates which Killers the player has access to.
+    Indicates which Dead by Daylight Killers the player has access to.
     """
+
     display_name = "Dead By Daylight Killers Unlocked"
-    valid_keys = DeadByDaylightGame().killers_all()
+    valid_keys = [
+        "Trapper",
+        "Wraith",
+        "Hillbilly",
+        "Nurse",
+        "Huntress",
+        "Michael Myers",
+        "Hag",
+        "Doctor",
+        "Leatherface",
+        "Freddy Krueger",
+        "Amanda Young",
+        "Clown",
+        "Spirit",
+        "Legion",
+        "Plague",
+        "Ghost Face",
+        "Demogorgan",
+        "Oni",
+        "Deathslinger",
+        "Pyramid Head",
+        "Blight",
+        "Twins",
+        "Trickster",
+        "Nemesis",
+        "Pinhead",
+        "Artist",
+        "Sadako",
+        "Dredge",
+        "Albert Wesker",
+        "Knight",
+        "Skull Merchant",
+        "Singularity",
+        "Xenomorph",
+        "Chucky",
+        "Unknown",
+        "Vecna",
+        "Dracula",
+        "Houndmaster",
+    ]
+
     default = valid_keys
 
 
 class DeadByDaylightSurvivors(OptionSet):
     """
-    Indicates which Survivors the player has access to, thus what perks they also have access to.
+    Indicates which Dead by Daylight Survivors the player has access to.
     """
+
     display_name = "Dead By Daylight Survivors Unlocked"
-    valid_keys = DeadByDaylightGame().survivors_all()
+    valid_keys = [
+        "Laurie",
+        "Ace",
+        "Bill",
+        "Feng Min",
+        "David",
+        "Quentin",
+        "Tapp",
+        "Kate",
+        "Adam",
+        "Jeff",
+        "Jane",
+        "Ash",
+        "Nancy",
+        "Steve",
+        "Yui",
+        "Zarina",
+        "Cheryl",
+        "Felix",
+        "Elodie",
+        "Yun-Jin",
+        "Jill",
+        "Leon",
+        "Mikaela",
+        "Jonah",
+        "Yoichi",
+        "Haddie",
+        "Ada",
+        "Rebecca",
+        "Vittorio",
+        "Thalita",
+        "Renato",
+        "Gabriel",
+        "Nicolas",
+        "Ellen",
+        "Alan",
+        "Sable",
+        "Aestri",
+        "Lara",
+        "Trevor",
+    ]
+
     default = valid_keys
