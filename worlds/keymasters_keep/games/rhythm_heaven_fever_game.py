@@ -31,25 +31,38 @@ class RhythmHeavenFeverGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        return [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Get RESULT in LEVEL",
                 data={
                     "RESULT": (self.results, 1),
-                    "LEVEL": (self.levels, 1),
+                    "LEVEL": (self.levels + "Night Walk", 1),
                 },
                 is_time_consuming=False,
                 is_difficult=False,
                 weight=1,
             ),
         ]
+        if self.allow_perfect:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Get RESULT in LEVEL",
+                    data={
+                        "RESULT": (self.results + "Perfect", 1),
+                        "LEVEL": (self.levels, 1),
+                    },
+                    is_time_consuming=True,
+                    is_difficult=True,
+                    weight=1,
+                ),
+            ])
+        return templates
 
     @staticmethod
     def results() -> List[str]:
         return [
             "OK or better",
-            "Great or better",
-            "Perfect",
+            "Superb or better",
         ]
 
     @staticmethod
@@ -105,8 +118,22 @@ class RhythmHeavenFeverGame(Game):
             "Packing Pests 2",
             "Karate Man 2",
             "Remix 10",
-            "Night Walk",
         ]
+        
+    @property
+    def allow_perfect(self) -> bool:
+        return "True" in self.archipelago_options.allow_perfects.value
 
 # Archipelago Options
-# ...
+class RhythmHeavenFeverPerfectsEnabled(OptionSet):
+    """
+    Allows the player to choose whether they want to have to get Perfect grades, done by waiting for the game to offer the opportunity to do so.
+    """
+
+    display_name = "Allow Perfects"
+    valid_keys = [
+        "True",
+        "False",
+    ]
+
+    default = "False"
