@@ -105,7 +105,7 @@ class SporeGame(Game):
                 GameObjectiveTemplate(
                     label="Complete the Space stage",
                     data=dict(),
-                    is_time_consuming=True,
+                    is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
                 ),
@@ -114,7 +114,7 @@ class SporeGame(Game):
                     data={
                         "BADGE": (self.badges, 1),
                     },
-                    is_time_consuming=True,
+                    is_time_consuming=False,
                     is_difficult=False,
                     weight=1,
                 ),
@@ -124,7 +124,7 @@ class SporeGame(Game):
                         "LEVEL": (self.badge_level_range, 1),
                         "BADGE": (self.badges_multiple, 1),
                     },
-                    is_time_consuming=True,
+                    is_time_consuming=False,
                     is_difficult=False,
                     weight=1,
                 ),
@@ -311,7 +311,7 @@ class SporeGame(Game):
     def adventures(self) -> List[str]:
         adventures: List[str] = self.adventures_base[:]
 
-        if len(self.space_exclusive_missions) and "Space" in self.stages and self.include_time_consuming_objectives:
+        if len(self.space_exclusive_missions) and "Space" in self.stages:
             adventures.extend(self.space_exclusive_missions)
         if len(self.sporecast_exclusive_missions):
             adventures.extend(self.sporecast_exclusive_missions)
