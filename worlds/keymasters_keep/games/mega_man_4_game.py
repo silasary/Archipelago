@@ -14,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class MegaMan4KeymastersKeepOptions:
-    mega_man_4_latest_stages: MegaMan4WilyStages
+    mega_man_4_latest_stages: MegaMan4LatestStages
 
 
 class MegaMan4Game(Game):
@@ -55,7 +55,7 @@ class MegaMan4Game(Game):
         return constraints
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        objectives: List[GameObjectiveTemplate] = [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Defeat Bright Man CONDITION",
                 data={
@@ -153,7 +153,7 @@ class MegaMan4Game(Game):
         ]
 
         if self.include_cossack_stages:
-            objectives.extend([
+            templates.extend([
                 GameObjectiveTemplate(
                     label="Defeat Mothraya CONDITION",
                     data={
@@ -193,7 +193,7 @@ class MegaMan4Game(Game):
             ])
 
         if self.include_wily_stages:
-            objectives.extend([
+            templates.extend([
                 GameObjectiveTemplate(
                     label="Defeat Metall Daddy CONDITION",
                     data={
@@ -232,17 +232,15 @@ class MegaMan4Game(Game):
                 ),
             ])
 
-        return objectives
+        return templates
 
     @property
     def include_cossack_stages(self) -> bool:
-        if self.archipelago_options.mega_man_4_latest_stages.value >= 1:
-            return True
+        return self.archipelago_options.mega_man_4_latest_stages.value >= 1
 
     @property
     def include_wily_stages(self) -> bool:
-        if self.archipelago_options.mega_man_4_latest_stages.value >= 2:
-            return True
+        return self.archipelago_options.mega_man_4_latest_stages.value >= 2
 
     @staticmethod
     def mm4_weapons() -> List[str]:
@@ -256,9 +254,7 @@ class MegaMan4Game(Game):
     def bright_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm4_weapons()
 
-        weapons.extend([
-            "using only Rain Flush",
-        ])
+        weapons.append("using only Rain Flush")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -274,9 +270,7 @@ class MegaMan4Game(Game):
     def toad_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm4_weapons()
 
-        weapons.extend([
-            "using only Drill Bomb",
-        ])
+        weapons.append("using only Drill Bomb")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -290,9 +284,7 @@ class MegaMan4Game(Game):
     def drill_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm4_weapons()
 
-        weapons.extend([
-            "using only Dive Missile",
-        ])
+        weapons.append("using only Dive Missile")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -344,9 +336,7 @@ class MegaMan4Game(Game):
     def dust_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm4_weapons()
 
-        weapons.extend([
-            "using only Ring Boomerang",
-        ])
+        weapons.append("using only Ring Boomerang")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -406,7 +396,7 @@ class MegaMan4Game(Game):
 
         return weapons
 
-    @staticmethod  # Will not be static if any of these methods are labeled 'difficult'
+    @staticmethod
     def square_machine_weapons() -> List[str]:
         weapons: List[str] = [
             "",
@@ -443,9 +433,7 @@ class MegaMan4Game(Game):
         ]
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Ring Boomerang",
-            ])
+            weapons.append("using only Ring Boomerang")
 
         return weapons
 
@@ -475,7 +463,7 @@ class MegaMan4Game(Game):
 
         return weapons
 
-    @staticmethod  # Will not be static if any of these methods are labeled 'difficult'
+    @staticmethod
     def wily_machine_4_weapons() -> List[str]:
         weapons: List[str] = [
             "",
@@ -494,16 +482,15 @@ class MegaMan4Game(Game):
         ]
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Ring Boomerang",
-            ])
+            weapons.append("using only Ring Boomerang")
 
         return weapons
 
 
-class MegaMan4WilyStages(Choice):
+# Archipelago Options
+class MegaMan4LatestStages(Choice):
     """
-    Determines the latest wave of stages that may have trial objectives.
+    Determines the latest wave of Mega Man 4 stages that may have trial objectives.
     """
 
     display_name = "Mega Man 4 Latest Stages"

@@ -55,7 +55,7 @@ class MegaMan2Game(Game):
         return constraints
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        objectives: List[GameObjectiveTemplate] = [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Defeat Metal Man CONDITION",
                 data={
@@ -132,7 +132,7 @@ class MegaMan2Game(Game):
         ]
 
         if self.include_wily_stages:
-            objectives += [
+            templates.extend([
                 GameObjectiveTemplate(
                     label="Defeat Mecha Dragon CONDITION",
                     data={
@@ -183,13 +183,13 @@ class MegaMan2Game(Game):
                     is_difficult=False,
                     weight=5,
                 ),
-            ]
+            ])
 
-        return objectives
+        return templates
 
     @property
     def include_wily_stages(self) -> bool:
-        return self.archipelago_options.mega_man_2_wily_stages.value
+        return bool(self.archipelago_options.mega_man_2_wily_stages.value)
 
     @staticmethod
     def mm2_weapons() -> List[str]:
@@ -202,14 +202,10 @@ class MegaMan2Game(Game):
     def metal_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm2_weapons()
 
-        weapons.extend([
-            "using only Quick Boomerang",
-        ])
+        weapons.append("using only Quick Boomerang")
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Atomic Fire",
-            ])
+            weapons.append("using only Atomic Fire")
 
         if self.include_wily_stages:
             weapons.append("using only Metal Blade")
@@ -240,9 +236,7 @@ class MegaMan2Game(Game):
     def quick_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm2_weapons()
 
-        weapons.extend([
-            "using only Atomic Fire",
-        ])
+        weapons.append("using only Atomic Fire")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -262,9 +256,7 @@ class MegaMan2Game(Game):
         ])
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Atomic Fire",
-            ])
+            weapons.append("using only Atomic Fire")
 
         return weapons
 
@@ -289,9 +281,7 @@ class MegaMan2Game(Game):
         ])
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Air Shooter",
-            ])
+            weapons.append("using only Air Shooter")
 
         return weapons
 
@@ -315,9 +305,7 @@ class MegaMan2Game(Game):
         ])
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Atomic Fire",
-            ])
+            weapons.append("using only Atomic Fire")
 
         return weapons
 
@@ -331,9 +319,7 @@ class MegaMan2Game(Game):
         ])
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Atomic Fire",
-            ])
+            weapons.append("using only Atomic Fire")
 
         return weapons
 
@@ -356,16 +342,15 @@ class MegaMan2Game(Game):
     def wily_machine_2_weapons(self) -> List[str]:
         weapons: List[str] = self.mm2_weapons()
 
-        weapons.extend([
-            "using only Metal Blade",
-        ])
+        weapons.append("using only Metal Blade")
 
         return weapons
 
 
+# Archipelago Options
 class MegaMan2WilyStages(DefaultOnToggle):
     """
-    If enabled, objectives that require you to enter the Wily Stages may be included.
+    If enabled, Mega Man 2 objectives that require you to enter the Wily Stages may be included.
     """
 
     display_name = "Mega Man 2 Wily Stages"

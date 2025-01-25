@@ -14,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class MegaMan3KeymastersKeepOptions:
-    mega_man_3_latest_stages: MegaMan3WilyStages
+    mega_man_3_latest_stages: MegaMan3LatestStages
 
 
 class MegaMan3Game(Game):
@@ -55,7 +55,7 @@ class MegaMan3Game(Game):
         return constraints
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        objectives: List[GameObjectiveTemplate] = [
+        templates: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Defeat Needle Man CONDITION",
                 data={
@@ -140,7 +140,7 @@ class MegaMan3Game(Game):
         ]
 
         if self.include_doc_robot_stages:
-            objectives.extend([
+            templates.extend([
                 GameObjectiveTemplate(
                     label="Defeat Doc Robot (Metal Man) CONDITION",
                     data={
@@ -216,7 +216,7 @@ class MegaMan3Game(Game):
             ])
 
         if self.include_wily_stages:
-            objectives.extend([
+            templates.extend([
                 GameObjectiveTemplate(
                     label="Defeat Break Man",
                     data=dict(),
@@ -271,17 +271,15 @@ class MegaMan3Game(Game):
                 ),
             ])
 
-        return objectives
+        return templates
 
     @property
     def include_doc_robot_stages(self) -> bool:
-        if self.archipelago_options.mega_man_3_latest_stages.value >= 1:
-            return True
+        return self.archipelago_options.mega_man_3_latest_stages.value >= 1
 
     @property
     def include_wily_stages(self) -> bool:
-        if self.archipelago_options.mega_man_3_latest_stages.value >= 2:
-            return True
+        return self.archipelago_options.mega_man_3_latest_stages.value >= 2
 
     @staticmethod
     def mm3_weapons() -> List[str]:
@@ -312,9 +310,7 @@ class MegaMan3Game(Game):
     def magnet_man_weapons(self) -> List[str]:
         weapons: List[str] = self.mm3_weapons()
 
-        weapons.extend([
-            "using only Spark Shock",
-        ])
+        weapons.append("using only Spark Shock")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -359,9 +355,7 @@ class MegaMan3Game(Game):
         weapons: List[str] = self.mm3_weapons()
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Spark Shock",
-            ])
+            weapons.append("using only Spark Shock")
 
         return weapons
 
@@ -395,9 +389,7 @@ class MegaMan3Game(Game):
         ]
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Hard Knuckle",
-            ])
+            weapons.append("using only Hard Knuckle")
 
         if self.include_wily_stages:
             weapons.append("using only Spark Shock")
@@ -435,13 +427,11 @@ class MegaMan3Game(Game):
         ]
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Magnet Missile",
-            ])
+            weapons.append("using only Magnet Missile")
 
         return weapons
 
-    @staticmethod  # Will not be static if any of these methods are labeled 'difficult'
+    @staticmethod
     def doc_metal_weapons() -> List[str]:
         weapons: List[str] = [
             "",
@@ -458,9 +448,7 @@ class MegaMan3Game(Game):
     def doc_quick_weapons(self) -> List[str]:
         weapons: List[str] = self.mm3_weapons()
 
-        weapons.extend([
-            "using only Gemini Laser",
-        ])
+        weapons.append("using only Gemini Laser")
 
         if self.include_difficult_objectives:
             weapons.extend([
@@ -492,23 +480,17 @@ class MegaMan3Game(Game):
     def doc_crash_weapons(self) -> List[str]:
         weapons: List[str] = self.mm3_weapons()
 
-        weapons.extend([
-            "using only Hard Knuckle",
-        ])
+        weapons.append("using only Hard Knuckle")
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Spark Shock",
-            ])
+            weapons.append("using only Spark Shock")
 
         return weapons
 
     def doc_flash_weapons(self) -> List[str]:
         weapons: List[str] = self.mm3_weapons()
 
-        weapons.extend([
-            "using only Gemini Laser",
-        ])
+        weapons.append("using only Gemini Laser")
 
         return weapons
 
@@ -523,9 +505,7 @@ class MegaMan3Game(Game):
         ]
 
         if self.include_difficult_objectives:
-            weapons.extend([
-                "using only Hard Knuckle",
-            ])
+            weapons.append("using only Hard Knuckle")
 
         return weapons
 
@@ -562,7 +542,7 @@ class MegaMan3Game(Game):
 
         return weapons
 
-    @staticmethod  # Will not be static if any of these methods are labeled 'difficult'
+    @staticmethod
     def yellow_devil_mk_ii_weapons() -> List[str]:
         weapons: List[str] = [
             "",
@@ -601,7 +581,7 @@ class MegaMan3Game(Game):
 
         return weapons
 
-    @staticmethod  # Will not be static if any of these methods are labeled 'difficult'
+    @staticmethod
     def gamma_weapons() -> List[str]:
         weapons: List[str] = [
             "",
@@ -614,10 +594,10 @@ class MegaMan3Game(Game):
 
         return weapons
 
-
-class MegaMan3WilyStages(Choice):
+# Archipelago Options
+class MegaMan3LatestStages(Choice):
     """
-    Determines the latest wave of stages that may have trial objectives.
+    Determines the latest wave of Mega Man 3 stages that may have trial objectives.
     """
 
     display_name = "Mega Man 3 Latest Stages"
