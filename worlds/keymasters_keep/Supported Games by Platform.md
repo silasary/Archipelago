@@ -1,10 +1,11 @@
 # Keymaster's Keep Supported Games by Platform
 
-Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded games).
+Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded games).
 
-### Android (17)
+### Android (19)
 * A Dance of Fire and Ice
 * Bloons TD 6
+* Crush Crush
 * Cytus II
 * DemonCrawl
 * Dungeon Defenders
@@ -19,11 +20,13 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Project Sekai: Colorful Stage
 * Super Hexagon
 * Vampire Survivors
+* Voez
 * Warframe
 
-### Apple iOS (18)
+### Apple iOS (20)
 * A Dance of Fire and Ice
 * Bloons TD 6
+* Crush Crush
 * Cytus II
 * Dungeon Defenders
 * Ensemble Stars!! Music
@@ -39,13 +42,18 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Super Hexagon
 * The Binding of Isaac: Rebirth
 * Vampire Survivors
+* Voez
 * Warframe
 
 ### Arcade (1)
 * Persona 4 Arena Ultimax
 
-### Metagame (7)
+### Card Game (Physical) (1)
+* Legendary - A Marvel Deck Building Game
+
+### Metagame (8)
 * Archipelago Multiworld Randomizer
+* Artwork
 * BizHawk Shuffler
 * Custom
 * Game Backlog
@@ -53,7 +61,8 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * RetroAchievements
 * Shiny Pokémon Hunt
 
-### Microsoft Xbox (2)
+### Microsoft Xbox (3)
+* Harry Potter: Quidditch World Cup
 * Shadow The Hedgehog
 * Star Wars: Battlefront II (Classic)
 
@@ -73,11 +82,12 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Rock Band 2
 * Rock Band 3
 
-### Microsoft Xbox One (34)
+### Microsoft Xbox One (38)
 * Bloons TD 6
 * Cuphead
 * DJMax Respect V
 * Dark Souls: Remastered
+* Dead By Daylight
 * Deep Rock Galactic
 * Descenders
 * Diablo II: Resurrected
@@ -90,6 +100,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Just Shapes & Beats
 * Kingdom Hearts III
 * Kingdom Hearts: Melody of Memory
+* MONSTER HUNTER RISE
 * Mages of Mystralia
 * Neon White
 * Ori and the Will of the Wisps
@@ -98,9 +109,11 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * PowerWash Simulator
 * Rimworld
 * Rock Band 4
+* Rock of Ages 2: Bigger & Boulder
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
+* Stellaris
 * Tetris Effect: Connected
 * The Binding of Isaac: Rebirth
 * Tony Hawk's Pro Skater 1+2
@@ -109,8 +122,9 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Vampire Survivors
 * Warframe
 
-### Microsoft Xbox Series X/S (22)
+### Microsoft Xbox Series X/S (24)
 * DJMax Respect V
+* Dead By Daylight
 * Deep Rock Galactic
 * Diablo II: Resurrected
 * ELDEN RING
@@ -119,6 +133,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Forza Horizon 5
 * GUILTY GEAR -STRIVE-
 * Layers of Fear (2023)
+* MONSTER HUNTER RISE
 * Marvel Rivals
 * Neon White
 * Ori and the Will of the Wisps
@@ -152,20 +167,28 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Pokémon Platinum Map Randomizer
 * Rock Band 3
 
-### Nintendo Entertainment System (1)
+### Nintendo Entertainment System (4)
 * Mega Man
+* Mega Man 2
+* Mega Man 3
+* Mega Man 4
 
-### Nintendo Game Boy Advance (1)
+### Nintendo Game Boy Advance (2)
+* Harry Potter: Quidditch World Cup
 * Pokémon Ruby, Sapphire, and Emerald Versions
 
-### Nintendo GameCube (2)
+### Nintendo GameCube (4)
+* Harry Potter: Quidditch World Cup
 * Shadow The Hedgehog
+* Super Mario Sunshine
 * Super Smash Bros. Melee
 
-### Nintendo Switch (47)
+### Nintendo Switch (54)
 * Arcaea
+* Crush Crush
 * Cuphead
 * Dark Souls: Remastered
+* Dead By Daylight
 * Descenders
 * Diablo II: Resurrected
 * Disney Music Parade Encore
@@ -180,6 +203,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Kingdom Hearts: Melody of Memory
 * Kirby's Return to Dream Land
 * Little Inferno
+* MONSTER HUNTER RISE
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Mario Kart 8
@@ -196,18 +220,22 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Pizza Tower
 * Placid Plastic Duck Simulator
 * PowerWash Simulator
+* Rock of Ages 2: Bigger & Boulder
 * Salt and Sacrifice
 * Shovel Knight Dig
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
 * Super Mario Galaxy
+* Super Mario Sunshine
+* Super Smash Bros. Ultimate
 * Tetris Effect: Connected
 * The Binding of Isaac: Rebirth
 * Theatrhythm: Final Bar Line
 * Tony Hawk's Pro Skater 1+2
 * Trombone Champ
 * Vampire Survivors
+* Voez
 * Warframe
 * Ys VIII: Lacrimosa of Dana
 
@@ -240,19 +268,22 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 ### Nokia N-GAGE (1)
 * Guitar Hero World Tour
 
-### PC (91)
+### PC (100)
 * 14 Minesweeper Variants
 * 14 Minesweeper Variants 2
 * A Dance of Fire and Ice
 * Anger Foot
 * Awaria
+* Backpack Battles
 * BattleBlock Theater
 * Bloons TD 6
 * Creeper World 3: Arc Eternal
 * Creeper World 4
+* Crush Crush
 * Cuphead
 * DJMax Respect V
 * Dark Souls: Remastered
+* Dead By Daylight
 * Deep Rock Galactic
 * DemonCrawl
 * Descenders
@@ -266,11 +297,13 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Forza Horizon 4
 * Forza Horizon 5
 * Frogger (1997)
+* GTFO
 * GUILTY GEAR -STRIVE-
 * Guild Wars 2
 * Guitar Hero III: Legends of Rock
 * Guitar Hero World Tour
 * Halls of Torment
+* Harry Potter: Quidditch World Cup
 * Hollow Knight
 * HoloCure: Save the Fans!
 * I Was a Teenage Exocolonist
@@ -281,6 +314,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Layers of Fear (2023)
 * League of Legends
 * Little Inferno
+* MONSTER HUNTER RISE
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Marvel Rivals
@@ -305,14 +339,17 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Realm of the Mad God
 * Rhythm Doctor
 * Rimworld
+* Rock of Ages 2: Bigger & Boulder
 * Salt and Sacrifice
 * Shovel Knight Dig
 * Sins of a Solar Empire II
 * Smite 2
 * Sonic Mania
 * Sonic Origins
+* Spore
 * Spyro Reignited Trilogy
 * Star Wars: Battlefront II (Classic)
+* Stellaris
 * Street Fighter 6
 * Super Hexagon
 * Tetris Effect: Connected
@@ -343,12 +380,13 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Frogger (1997)
 * Re-Volt
 
-### Sony PlayStation 2 (10)
+### Sony PlayStation 2 (11)
 * Guitar Hero
 * Guitar Hero 5
 * Guitar Hero II
 * Guitar Hero III: Legends of Rock
 * Guitar Hero World Tour
+* Harry Potter: Quidditch World Cup
 * NiGHTS into Dreams...
 * Rock Band
 * Rock Band 2
@@ -369,10 +407,11 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Rock Band 2
 * Rock Band 3
 
-### Sony PlayStation 4 (38)
+### Sony PlayStation 4 (42)
 * Bloons TD 6
 * Cuphead
 * Dark Souls: Remastered
+* Dead By Daylight
 * Deep Rock Galactic
 * Descenders
 * Diablo II: Resurrected
@@ -385,6 +424,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Just Shapes & Beats
 * Kingdom Hearts III
 * Kingdom Hearts: Melody of Memory
+* MONSTER HUNTER RISE
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Neon White
@@ -394,10 +434,12 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * PowerWash Simulator
 * Rimworld
 * Rock Band 4
+* Rock of Ages 2: Bigger & Boulder
 * Salt and Sacrifice
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
+* Stellaris
 * Street Fighter 6
 * Tetris Effect: Connected
 * The Binding of Isaac: Rebirth
@@ -409,7 +451,8 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * Warframe
 * Ys VIII: Lacrimosa of Dana
 
-### Sony PlayStation 5 (22)
+### Sony PlayStation 5 (24)
+* Dead By Daylight
 * Deep Rock Galactic
 * Diablo II: Resurrected
 * ELDEN RING
@@ -418,6 +461,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 * GUILTY GEAR -STRIVE-
 * I Was a Teenage Exocolonist
 * Layers of Fear (2023)
+* MONSTER HUNTER RISE
 * Marvel Rivals
 * Neon White
 * Placid Plastic Duck Simulator
@@ -443,4 +487,7 @@ Keymaster's Keep currently supports 134 games (125 + 7 metagames + 2 modded game
 
 ### Virtual Reality (1)
 * PowerWash Simulator
+
+### Web Browser (1)
+* Crush Crush
 
