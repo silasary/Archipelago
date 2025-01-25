@@ -140,7 +140,7 @@ class RhythmHeavenFeverGame(Game):
 # Archipelago Options
 class RhythmHeavenFeverPerfectsEnabled(Toggle):
     """
-    Indicates whether the player wants to have to get Rhthym Heaven Fever Perfect grades included in their objectives.
+    Indicates whether the player wants to have to get Rhythm Heaven Fever Perfect grades included in their objectives.
     """
 
-    display_name = "Rhthym Heaven Fever Perfects Enabled"
+    display_name = "Rhythm Heaven Fever Perfects Enabled"
