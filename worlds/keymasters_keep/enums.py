@@ -343,7 +343,7 @@ class KeymastersKeepLocations(enum.Enum):
     THE_ENCHANTED_GATEWAY_UNLOCK = "Unlock: The Enchanted Gateway"
     THE_ENCHANTED_PASSAGE_TRIAL = "Along the Enchanted Passage: TRIAL_NAME"
     THE_ENCHANTED_PASSAGE_UNLOCK = "Unlock: The Enchanted Passage"
-    THE_ENIGMATIC_PORTAL_TRIAL = "Beyond the Enigmatic Portal : TRIAL_NAME"
+    THE_ENIGMATIC_PORTAL_TRIAL = "Beyond the Enigmatic Portal: TRIAL_NAME"
     THE_ENIGMATIC_PORTAL_UNLOCK = "Unlock: The Enigmatic Portal"
     THE_ENIGMATIC_THRESHOLD_TRIAL = "Beyond the Enigmatic Threshold: TRIAL_NAME"
     THE_ENIGMATIC_THRESHOLD_UNLOCK = "Unlock: The Enigmatic Threshold"
