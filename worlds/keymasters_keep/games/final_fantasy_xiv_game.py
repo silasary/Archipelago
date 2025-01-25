@@ -50,6 +50,44 @@ class FinalFantasyXIVGame(Game):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         objective_list = list()
         
+        # What percentage of the pool of possible objectives should each content type represent?
+        battle_content_frequency = 0.35
+        pvp_content_frequency = 0.2
+        doh_dol_content_frequency = 0.25
+        side_content_frequency = 0.2
+
+        # What percentage of their parent content type should each objective type represent?
+        # Each section should add up to 1.
+        # Battle Content:
+        fate_objective_frequency = 0.05
+        guildhest_objective_frequency = 0.05
+        treasure_hunt_objective_frequency = 0.05
+        the_hunt_objective_frequency = 0.05
+        dungeon_objective_Frequency = 0.15
+        trial_objective_frequency = 0.15
+        extreme_trial_objective_frequency = 0.03
+        normal_raid_objective_frequency = 0.15
+        savage_raid_objective_frequency = 0.03
+        alliance_raid_objective_frequency = 0.05
+        chaotic_alliance_raid_objective_frequency = 0.01
+        deep_dungeon_objective_frequency = 0.04
+        variant_dungeon_objective_frequency = 0.08
+        adventuring_foray_objective_frequency = 0.05
+        limited_job_objective_frequency = 0.06
+        # PvP Content:
+        crystalline_conflict_objective_frequency = 0.5
+        frontline_objective_frequency = 0.4
+        rival_wings_objective_frequency = 0.1
+        # DoH/DoL Content:
+        gathering_objective_frequency = 0.3
+        fishing_objective_frequency = 0.2
+        crafting_objective_frequency = 0.5
+        # Side Content:
+        jumping_puzzle_objective_frequency = 0.22
+        gold_saucer_objective_frequency = 0.22
+        triple_triad_objective_frequency = 0.55
+        minigame_objective_frequency = 0.01
+
         # Objectives are determined entirely by what the player opts in to from their
         # configuration file. However, some types will be added as defaults if no valid
         # keys are provided to pick from.
@@ -64,7 +102,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=self.dynamic_weight(battle_content_frequency, fate_objective_frequency, 0.6),
                 ),
                 GameObjectiveTemplate(
                     label="Complete one FATE with gold credit in each zone: ZONE (Optional choice of jobs: JOBS)",
@@ -74,7 +112,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, fate_objective_frequency, 0.35),
                 ),
             ]
 
@@ -88,7 +126,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=True,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, fate_objective_frequency, 0.05),
                     ),
                 ]
 
@@ -102,7 +140,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, guildhest_objective_frequency, 1),
                 ),
             ]
 
@@ -116,7 +154,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(side_content_frequency, jumping_puzzle_objective_frequency, 0.9),
                     ),
                 ]
             
@@ -127,21 +165,21 @@ class FinalFantasyXIVGame(Game):
                         data=dict(),
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=2,
+                        weight=self.dynamic_weight(side_content_frequency, jumping_puzzle_objective_frequency, 0.1),
                     ),
                 ]
         
         if "Treasure Hunt" in self.content_types_allowed:
             objective_list += [
                 GameObjectiveTemplate(
-                    label="Deciper a MAP and claim its treasure (Optional choice of jobs: JOBS)",
+                    label="Decipher a MAP and claim its treasure (Optional choice of jobs: JOBS)",
                     data={
                         "MAP": (self.treasure_hunt_maps, 1),
                         "JOBS": (self.combat_jobs, 2),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(battle_content_frequency, treasure_hunt_objective_frequency, 0.7),
                 ),
                 GameObjectiveTemplate(
                     label="Enter the Treasure Dungeon 'DUNGEON' and clear at least one chamber for its reward (Optional choice of jobs: JOBS)",
@@ -151,7 +189,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, treasure_hunt_objective_frequency, 0.25),
                 ),
             ]
 
@@ -165,7 +203,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=True,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, treasure_hunt_objective_frequency, 0.05),
                     ),
                 ]
 
@@ -178,7 +216,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=4,
+                    weight=self.dynamic_weight(battle_content_frequency, the_hunt_objective_frequency, 0.85),
                 ),
             ]
 
@@ -191,7 +229,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=True,
                         is_difficult=True,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, the_hunt_objective_frequency, 0.15),
                     ),
                 ]
         
@@ -205,7 +243,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=4,
+                    weight=self.dynamic_weight(battle_content_frequency, dungeon_objective_Frequency, 1),
                 ),
             ]
         
@@ -219,7 +257,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=self.dynamic_weight(battle_content_frequency, trial_objective_frequency, 1),
                 ),
             ]
 
@@ -233,7 +271,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, extreme_trial_objective_frequency, 1),
                 ),
             ]
 
@@ -247,7 +285,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=self.dynamic_weight(battle_content_frequency, normal_raid_objective_frequency, 1),
                 ),
             ]
 
@@ -261,7 +299,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, savage_raid_objective_frequency, 1),
                 ),
             ]
 
@@ -275,7 +313,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(battle_content_frequency, alliance_raid_objective_frequency, 1),
                 ),
             ]
 
@@ -289,42 +327,64 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, chaotic_alliance_raid_objective_frequency, 1),
                 ),
             ]
         
         if "Deep Dungeons" in self.content_types_allowed:
             objective_list += [
                 GameObjectiveTemplate(
-                    label="Complete COUNT unique sets of floors in DEEPDUNGEON solo (Prior saves allowed, optional choice of jobs: JOBS)",
+                    label="Complete NUM unique sets of floors in DEEPDUNGEON (Prior saves allowed, optional choice of jobs: JOBS)",
                     data={
-                        "COUNT": (self.deep_dungeon_floor_range, 1),
+                        "NUM": (self.deep_dungeon_floor_range, 1),
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOBS": (self.combat_jobs, 2),
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(battle_content_frequency, deep_dungeon_objective_frequency, 0.3),
                 ),
                 GameObjectiveTemplate(
-                    label="Obtain 3 Accursed Hoard from a single set of floors in DEEPDUNGEON solo (Prior saves allowed, optional choice of jobs: JOBS)",
+                    label="Obtain NUM Accursed Hoard from a single set of floors in DEEPDUNGEON (Prior saves allowed, optional choice of jobs: JOBS)",
+                    data={
+                        "NUM": (self.deep_dungeon_hoard_count, 1),
+                        "DEEPDUNGEON": (self.deep_dungeons, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(battle_content_frequency, deep_dungeon_objective_frequency, 0.2),
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a single set of floors in DEEPDUNGEON without triggering any floor traps (Prior saves allowed, optional choice of jobs: JOBS)",
                     data={
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOBS": (self.combat_jobs, 2),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(battle_content_frequency, deep_dungeon_objective_frequency, 0.2),
                 ),
                 GameObjectiveTemplate(
-                    label="Complete a single set of floors in DEEPDUNGEON solo without triggering any floor traps (Prior saves allowed, optional choice of jobs: JOBS)",
+                    label="Defeat NUM enemies in DEEPDUNGEON (Prior saves allowed, optional choice of jobs: JOBS)",
+                    data={
+                        "NUM": (self.deep_dungeon_kill_count, 1),
+                        "DEEPDUNGEON": (self.deep_dungeons, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(battle_content_frequency, deep_dungeon_objective_frequency, 0.2),
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a single set of floors in DEEPDUNGEON within 30 minutes (Prior saves allowed, optional choice of jobs: JOBS)",
                     data={
                         "DEEPDUNGEON": (self.deep_dungeons, 1),
                         "JOBS": (self.combat_jobs, 2),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(battle_content_frequency, deep_dungeon_objective_frequency, 0.1),
                 ),
             ]
 
@@ -338,7 +398,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(battle_content_frequency, variant_dungeon_objective_frequency, 1),
                 ),
             ]
         
@@ -353,7 +413,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=2,
+                        weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.3),
                     ),
                     GameObjectiveTemplate(
                         label="Complete the Happy Bunny elemental conflict at Eureka FATE and uncover a QUALITY coffer (Optional choice of jobs: JOBS)",
@@ -364,7 +424,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.15),
                     ),
                 ]
 
@@ -378,21 +438,21 @@ class FinalFantasyXIVGame(Game):
                             },
                             is_time_consuming=True,
                             is_difficult=False,
-                            weight=1,
+                            weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.05),
                         ),
                     ]
 
             if self.has_shadowbringers:
                 objective_list += [
                     GameObjectiveTemplate(
-                        label="Complete the FATE at LOC (Optional choice of jobs: JOBS)",
+                        label="Complete the Skirmish at LOC (Optional choice of jobs: JOBS)",
                         data={
                             "LOC": (self.bozja_fates, 1),
                             "JOBS": (self.combat_jobs, 2),
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=2,
+                        weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.3),
                     ),
                     GameObjectiveTemplate(
                         label="Complete the Critical Engagement at LOC (Optional choice of jobs: JOBS)",
@@ -402,7 +462,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.15),
                     ),
                 ]
 
@@ -416,7 +476,7 @@ class FinalFantasyXIVGame(Game):
                             },
                             is_time_consuming=True,
                             is_difficult=True,
-                            weight=1,
+                            weight=self.dynamic_weight(battle_content_frequency, adventuring_foray_objective_frequency, 0.05),
                         ),
                     ]
 
@@ -431,7 +491,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=3,
+                        weight=self.dynamic_weight(battle_content_frequency, limited_job_objective_frequency, 0.8),
                     ),
                     GameObjectiveTemplate(
                         label="In Masked Carnivale, complete the Weekly DIFF Target stage, satisfying all completion requirements within the TIME Completion Time",
@@ -441,7 +501,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(battle_content_frequency, limited_job_objective_frequency, 0.2),
                     ),
                 ]
         
@@ -455,7 +515,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, gathering_objective_frequency, 0.35),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in at least one of each collectable at the highest tier of collectability to a Collectable Appraiser: ITEMS",
@@ -464,7 +524,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, gathering_objective_frequency, 0.15),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM to the Firmament Resource Inspector",
@@ -474,7 +534,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, gathering_objective_frequency, 0.25),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM to the Firmament Resource Inspector",
@@ -484,7 +544,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, gathering_objective_frequency, 0.2),
                 ),
                 GameObjectiveTemplate(
                     label="Defeat the following enemies with the Aetheromatic Auger in the Diadem: ENEMIES",
@@ -493,7 +553,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, gathering_objective_frequency, 0.05),
                 ),
             ]
 
@@ -507,7 +567,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, fishing_objective_frequency, 0.3),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in at least one of each collectable at the highest tier of collectability to a Collectable Appraiser: ITEMS",
@@ -516,7 +576,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, fishing_objective_frequency, 0.15),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM to the Firmament Resource Inspector",
@@ -526,7 +586,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, fishing_objective_frequency, 0.3),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM to the Firmament Resource Inspector",
@@ -536,7 +596,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, fishing_objective_frequency, 0.2),
                 ),
             ]
 
@@ -549,7 +609,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=True,
                         is_difficult=True,
-                        weight=1,
+                        weight=self.dynamic_weight(doh_dol_content_frequency, fishing_objective_frequency, 0.05),
                     ),
                 ]
 
@@ -563,16 +623,16 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, crafting_objective_frequency, 0.35),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in at least one of each collectable at the highest tier of collectability to a Collectable Appraiser: ITEMS",
                     data={
-                        "ITEMS": (self.crafting_collectables, 6),
+                        "ITEMS": (self.crafting_collectables, 4),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, crafting_objective_frequency, 0.15),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM at the highest tier of collectability to the Firmament Collectable Appraiser",
@@ -582,7 +642,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, crafting_objective_frequency, 0.3),
                 ),
                 GameObjectiveTemplate(
                     label="Turn in COUNTx ITEM at the highest tier of collectability to the Firmament Collectable Appraiser",
@@ -592,7 +652,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(doh_dol_content_frequency, crafting_objective_frequency, 0.2),
                 ),
             ]
 
@@ -606,7 +666,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(pvp_content_frequency, crystalline_conflict_objective_frequency, 0.4),
                 ),
                 GameObjectiveTemplate(
                     label="Win COUNT Crystalline Conflict matches (Optional choice of jobs: JOBS)",
@@ -616,7 +676,27 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=self.dynamic_weight(pvp_content_frequency, crystalline_conflict_objective_frequency, 0.1),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT kills in a Crystalline Conflict match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_kill_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=self.dynamic_weight(pvp_content_frequency, crystalline_conflict_objective_frequency, 0.15),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT assists in a Crystalline Conflict match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_assist_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(pvp_content_frequency, crystalline_conflict_objective_frequency, 0.35),
                 ),
             ]
 
@@ -629,7 +709,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(pvp_content_frequency, frontline_objective_frequency, 0.4),
                 ),
                 GameObjectiveTemplate(
                     label="Win a Frontline match (Optional choice of jobs: JOBS)",
@@ -638,7 +718,27 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(pvp_content_frequency, frontline_objective_frequency, 0.1),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT kills in a Frontline match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_kill_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=self.dynamic_weight(pvp_content_frequency, frontline_objective_frequency, 0.15),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT assists in a Frontline match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_assist_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(pvp_content_frequency, frontline_objective_frequency, 0.35),
                 ),
             ]
 
@@ -651,7 +751,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(pvp_content_frequency, rival_wings_objective_frequency, 0.4),
                 ),
                 GameObjectiveTemplate(
                     label="Win a Rival Wings match (Optional choice of jobs: JOBS)",
@@ -660,7 +760,27 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(pvp_content_frequency, rival_wings_objective_frequency, 0.1),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT kills in a Rival Wings match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_kill_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=self.dynamic_weight(pvp_content_frequency, rival_wings_objective_frequency, 0.15),
+                ),
+                GameObjectiveTemplate(
+                    label="Score COUNT assists in a Rival Wings match (Optional choice of jobs: JOBS)",
+                    data={
+                        "COUNT": (self.pvp_assist_counts, 1),
+                        "JOBS": (self.combat_jobs, 2),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(pvp_content_frequency, rival_wings_objective_frequency, 0.35),
                 ),
             ]
 
@@ -673,7 +793,7 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.15),
                 ),
                 GameObjectiveTemplate(
                     label="Successfully complete COUNT GATEs in the Gold Saucer",
@@ -682,72 +802,89 @@ class FinalFantasyXIVGame(Game):
                     },
                     is_time_consuming=True,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.2),
                 ),
                 GameObjectiveTemplate(
                     label="Claim a Small Item from The Moogle's Paw machine in the Gold Saucer",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.1),
                 ),
                 GameObjectiveTemplate(
                     label="Earn a 'BRUTAL!!!' rating on the Cuff-a-Cur machine in the Gold Saucer",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.1),
                 ),
                 GameObjectiveTemplate(
                     label="Earn a 'PULVERIZING!!!' rating on the Crystal Tower Striker machine in the Gold Saucer",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.1),
                 ),
                 GameObjectiveTemplate(
                     label="Score 5+ points on the Monster Toss machine in the Gold Saucer",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.05),
                 ),
                 GameObjectiveTemplate(
                     label="Participate in a Chocobo Race Duty Finder match",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.2),
                 ),
                 GameObjectiveTemplate(
                     label="Place 1st in a Chocobo Race Duty Finder match",
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=True,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, gold_saucer_objective_frequency, 0.1),
                 ),
             ]
 
         if "Triple Triad" in self.content_types_allowed:
             objective_list += [
                 GameObjectiveTemplate(
-                    label="Defeat the following opponents in a Triple Triad match: OPPONENTS",
+                    label="Defeat OPPONENT in a Triple Triad match",
                     data={
-                        "OPPONENTS": (self.triple_triad, 3),
+                        "OPPONENT": (self.triple_triad_opponents, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=self.dynamic_weight(side_content_frequency, triple_triad_objective_frequency, 0.2),
                 ),
                 GameObjectiveTemplate(
-                    label="Obtain a RARITY-Star or better Triple Triad card reward from COUNT unique NPC opponents of your choice",
+                    label="Defeat the following opponents in a Triple Triad match: OPPONENTS",
                     data={
-                        "RARITY": (self.triple_triad_rarity_range, 1),
-                        "COUNT": (self.triple_triad_range, 1),
+                        "OPPONENTS": (self.triple_triad_opponents, 3),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=self.dynamic_weight(side_content_frequency, triple_triad_objective_frequency, 0.1),
+                ),
+                GameObjectiveTemplate(
+                    label="Obtain the CARDFROMOPPONENT",
+                    data={
+                        "CARDFROMOPPONENT": (self.triple_triad_card_from_opponent_common, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(side_content_frequency, triple_triad_objective_frequency, 0.4),
+                ),
+                GameObjectiveTemplate(
+                    label="Obtain the CARDFROMOPPONENT",
+                    data={
+                        "CARDFROMOPPONENT": (self.triple_triad_card_from_opponent_rare, 1),
+                    },
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=self.dynamic_weight(side_content_frequency, triple_triad_objective_frequency, 0.3),
                 ),
             ]
 
@@ -761,7 +898,7 @@ class FinalFantasyXIVGame(Game):
                         },
                         is_time_consuming=False,
                         is_difficult=False,
-                        weight=1,
+                        weight=self.dynamic_weight(side_content_frequency, minigame_objective_frequency, 1),
                     ),
                 ]
         
@@ -819,12 +956,23 @@ class FinalFantasyXIVGame(Game):
         return self.archipelago_options.final_fantasy_xiv_content_types_allowed.value
 
     @property
+    def content_types_total(self) -> int:
+        return len(self.archipelago_options.final_fantasy_xiv_content_types_allowed.valid_keys)
+
+    @property
     def playable_jobs(self) -> Set[str]:
         return self.archipelago_options.final_fantasy_xiv_playable_jobs.value
 
     @property
     def unreasonable_tasks_enabled(self) -> bool:
         return "Unreasonable Tasks" in self.content_types_allowed
+
+    @property
+    def total_weight(self) -> int:
+        return (len(self.content_types_allowed) * self.content_types_total * 2)
+
+    def dynamic_weight(self, content_frequency, objective_type_frequency, objective_frequency) -> int:
+        return int(self.total_weight * content_frequency * objective_type_frequency * objective_frequency)
 
     def combat_jobs(self) -> List[str]:
         combat_jobs = [
@@ -882,7 +1030,7 @@ class FinalFantasyXIVGame(Game):
             combat_jobs.extend(dawntrail_jobs)
 
         # Remove any jobs that the player has not enabled in their config.
-        jobs = [x for x in combat_jobs if x in self.playable_jobs]
+        jobs = [job for job in combat_jobs if job in self.playable_jobs]
 
         if len(jobs) == 0:
             # The player didn't enable any jobs in their configuration, so
@@ -1938,6 +2086,14 @@ class FinalFantasyXIVGame(Game):
     def deep_dungeon_floor_range() -> range:
         return range(1,4)
 
+    @staticmethod
+    def deep_dungeon_hoard_count() -> range:
+        return range(1,4)
+
+    @staticmethod
+    def deep_dungeon_kill_count() -> range:
+        return range(35,61)
+
     def deep_dungeons(self) -> List[str]:
         deep_dungeons = ["Palace of the Dead"]
 
@@ -2532,33 +2688,37 @@ class FinalFantasyXIVGame(Game):
         fishing_collectables = list()
 
         heavensward_fishing_collectables = [
-            "Glacier Core",
             "Icepick",
-            "Whilom Catfish",
-            "Sorcerer Fish",
-            "Bubble Eye",
-            "Dravanian Squeaker",
-            "Warmwater Bichir",
             "Noontide Oscar",
             "Weston Bowfin",
             "Illuminati Perch",
             "Moogle Spirit",
             "Dravanian Smelt",
             "Vampiric Tapestry",
-            "Thunderbolt Eel",
-            "Tiny Axolotl",
-            "Capelin",
-            "Loosetongue",
-            "Barreleye",
             "Stupendemys",
-            "Amber Salamander",
         ]
+
+        heavensward_timed_fishing_collectables = [
+            "Glacier Core", # Weather
+            "Whilom Catfish", # Weather
+            "Sorcerer Fish", # Time
+            "Bubble Eye", # Time
+            "Dravanian Squeaker", # Time
+            "Warmwater Bichir", # Time
+            "Thunderbolt Eel", # Time
+            "Tiny Axolotl", # Time
+            "Capelin", # Time
+            "Loosetongue", # Time
+            "Barreleye", # Weather
+            "Amber Salamander", # Time
+        ]
+
+        heavensward_unreasonable_fishing_collectables = []
 
         stormblood_fishing_collectables = [
             "Velodyna Grass Carp",
             "Butterfly Fish",
             "Yanxian Koi",
-            "Killifish",
             "Mitsukuri Shark",
             "Silken Sunfish",
             "Eternal Eye",
@@ -2570,14 +2730,21 @@ class FinalFantasyXIVGame(Game):
             "Tao Bitterling",
             "Samurai Fish",
             "Daio Squid",
-            "Seraphim",
             "Ala Mhigan Ribbon",
-            "Wraithfish",
-            "Swordfish",
-            "Deemster",
-            "Silken Koi",
-            "Sculptor",
-            "Hak Bitterling",
+        ]
+
+        stormblood_timed_fishing_collectables = [
+            "Killifish", # Weather
+            "Seraphim", # Time
+            "Deemster", # Weather
+            "Silken Koi", # Weather
+        ]
+
+        stormblood_unreasonable_fishing_collectables = [
+            "Wraithfish", # Time + Weather
+            "Swordfish", # Time + Weather
+            "Sculptor", # Time + Weather
+            "Hak Bitterling", # Time + Weather
         ]
 
         shadowbringers_fishing_collectables = [
@@ -2590,17 +2757,23 @@ class FinalFantasyXIVGame(Game):
             "Elder Pixie",
             "Viis Ear",
             "Blue Mountain Bubble",
-            "Diamond Pipira",
             "Eryops",
             "Winged Hatchetfish",
             "Pancake Octopus",
             "Ondo Harpoon",
-            "Aapoak",
-            "Darkdweller",
-            "Toadhead",
-            "Thorned Lizard",
-            "Henodus",
-            "Platinum Guppy",
+        ]
+
+        shadowbringers_timed_fishing_collectables = [
+            "Diamond Pipira", # Time
+            "Toadhead", # Weather
+            "Platinum Guppy", # Weather
+        ]
+
+        shadowbringers_unreasonable_fishing_collectables = [
+            "Aapoak", # Time + Weather
+            "Darkdweller", # Time + Weather
+            "Thorned Lizard", # Time + Weather
+            "Henodus", # Time + Weather
         ]
 
         endwalker_fishing_collectables = [
@@ -2618,12 +2791,18 @@ class FinalFantasyXIVGame(Game):
             "Banana Eel",
             "Echinos",
             "Foun Myhk",
-            "Phallaina",
-            "Mangar",
-            "Lunar Deathworm",
-            "Basilosaurus",
-            "Red Drum",
-            "Labyrinthos Tilapia",
+        ]
+
+        endwalker_timed_fishing_collectables = [
+            "Phallaina", # Time
+            "Mangar", # Weather
+            "Lunar Deathworm", # Weather
+            "Basilosaurus", # Weather
+        ]
+
+        endwalker_unreasonable_fishing_collectables = [
+            "Red Drum", # Time + Weather
+            "Labyrinthos Tilapia", # Time + Weather
         ]
 
         dawntrail_fishing_collectables = [
@@ -2639,28 +2818,63 @@ class FinalFantasyXIVGame(Game):
             "Iq Rrax Crab",
             "Goldgrouper",
             "Zorgor Condor",
-            "Copper Shark",
             "Hydro Louvar",
             "Cloud Wasp",
-            "Chain Shark",
-            "Yellow Peacock Bass",
-            "Urqofrog",
         ]
+
+        dawntrail_timed_fishing_collectables = [
+            "Copper Shark", # Weather
+            "Chain Shark", # Time
+            "Yellow Peacock Bass", # Time
+            "Urqofrog", # Time
+        ]
+
+        dawntrail_unreasonable_fishing_collectables = []
 
         if self.has_heavensward:
             fishing_collectables.extend(heavensward_fishing_collectables)
+            
+            if self.include_time_consuming_objectives:
+                fishing_collectables.extend(heavensward_timed_fishing_collectables)
+
+            if self.unreasonable_tasks_enabled:
+                fishing_collectables.extend(heavensward_unreasonable_fishing_collectables)
 
         if self.has_stormblood:
             fishing_collectables.extend(stormblood_fishing_collectables)
 
+            if self.include_time_consuming_objectives:
+                fishing_collectables.extend(stormblood_timed_fishing_collectables)
+
+            if self.unreasonable_tasks_enabled:
+                fishing_collectables.extend(stormblood_unreasonable_fishing_collectables)
+
         if self.has_shadowbringers:
             fishing_collectables.extend(shadowbringers_fishing_collectables)
+
+            if self.include_time_consuming_objectives:
+                fishing_collectables.extend(shadowbringers_timed_fishing_collectables)
+
+            if self.unreasonable_tasks_enabled:
+                fishing_collectables.extend(shadowbringers_unreasonable_fishing_collectables)
 
         if self.has_endwalker:
             fishing_collectables.extend(endwalker_fishing_collectables)
 
+            if self.include_time_consuming_objectives:
+                fishing_collectables.extend(endwalker_timed_fishing_collectables)
+
+            if self.unreasonable_tasks_enabled:
+                fishing_collectables.extend(endwalker_unreasonable_fishing_collectables)
+
         if self.has_dawntrail:
             fishing_collectables.extend(dawntrail_fishing_collectables)
+
+            if self.include_time_consuming_objectives:
+                fishing_collectables.extend(dawntrail_timed_fishing_collectables)
+
+            if self.unreasonable_tasks_enabled:
+                fishing_collectables.extend(dawntrail_unreasonable_fishing_collectables)
 
         return sorted(fishing_collectables)
 
@@ -3750,6 +3964,14 @@ class FinalFantasyXIVGame(Game):
         return range(1,6)
     
     @staticmethod
+    def pvp_kill_counts() -> range:
+        return range(2,6)
+
+    @staticmethod
+    def pvp_assist_counts() -> range:
+        return range(5,11)
+
+    @staticmethod
     def gate_count() -> range:
         return range(3,7)
 
@@ -3765,16 +3987,8 @@ class FinalFantasyXIVGame(Game):
 
         return sorted(gates)
 
-    @staticmethod
-    def triple_triad_range() -> range:
-        return range(2,6)
-
-    @staticmethod
-    def triple_triad_rarity_range() -> range:
-        return range(1,5)
-
-    def triple_triad(self) -> List[str]:
-        triple_triad = [
+    def triple_triad_opponents(self) -> List[str]:
+        opponents = [
             "Memeroon",
             "Jonas of the Three Spades",
             "Maisenta",
@@ -3820,7 +4034,7 @@ class FinalFantasyXIVGame(Game):
             "Hall Overseer",
         ]
 
-        heavensward_triple_triad = [
+        heavensward_opponents = [
             "Marcechamp",
             "Marielle",
             "Midnight Dew",
@@ -3842,7 +4056,7 @@ class FinalFantasyXIVGame(Game):
             "Mordyn",
         ]
 
-        stormblood_triple_triad = [
+        stormblood_opponents = [
             "Ercanbald",
             "Kotokaze",
             "Kaizan",
@@ -3868,7 +4082,7 @@ class FinalFantasyXIVGame(Game):
             "Ironworks Hand",
         ]
 
-        shadowbringers_triple_triad = [
+        shadowbringers_opponents = [
             "Glynard",
             "Gyuf Uin",
             "Hargra",
@@ -3888,7 +4102,7 @@ class FinalFantasyXIVGame(Game):
             "Sladkey",
         ]
 
-        endwalker_triple_triad = [
+        endwalker_opponents = [
             "Aiglephine",
             "Qetanur",
             "Worldly Imperial",
@@ -3905,7 +4119,7 @@ class FinalFantasyXIVGame(Game):
             "Maillart",
         ]
 
-        dawntrail_triple_triad = [
+        dawntrail_opponents = [
             "Nyikweni",
             "Wopli",
             "Warsowok",
@@ -3919,21 +4133,403 @@ class FinalFantasyXIVGame(Game):
         ]
 
         if self.has_heavensward:
-            triple_triad.extend(heavensward_triple_triad)
+            opponents.extend(heavensward_opponents)
 
         if self.has_stormblood:
-            triple_triad.extend(stormblood_triple_triad)
+            opponents.extend(stormblood_opponents)
 
         if self.has_shadowbringers:
-            triple_triad.extend(shadowbringers_triple_triad)
+            opponents.extend(shadowbringers_opponents)
 
         if self.has_endwalker:
-            triple_triad.extend(endwalker_triple_triad)
+            opponents.extend(endwalker_opponents)
 
         if self.has_dawntrail:
-            triple_triad.extend(dawntrail_triple_triad)
+            opponents.extend(dawntrail_opponents)
 
-        return sorted(triple_triad)
+        return sorted(opponents)
+
+    def triple_triad_card_from_opponent_common(self) -> List[str]:
+        cards = list()
+
+        one_star_cards = [
+            "Tonberry Triple Triad card from Memeroon",
+            "Spriggan Triple Triad card from Triple Triad Master",
+            "Pudding Triple Triad card from Roger",
+            "Coblyn Triple Triad card from Maisenta or Wymond",
+            "Morbol Triple Triad card from Roger",
+            "Ahriman Triple Triad card from Ourdilic",
+            "Goobbue Triple Triad card from Mother Miounne or Aurifort Of The Three Clubs",
+            "Chocobo Triple Triad card from Guhtwint of the Three Diamonds",
+            "Amalj'aa Triple Triad card from Memeroon",
+            "Ixal Triple Triad card from Joellaut or Jonas Of The Three Spades",
+            "Sylph Triple Triad card from Maisenta",
+            "Sahagin Triple Triad card from Baderon",
+            "Moogle Triple Triad card from Trachtoum or Jonas Of The Three Spades",
+            "Apkallu Triple Triad card from Wyra 'Greenhands' Lyehga",
+            "Colibri Triple Triad card from Flichoirel The Lordling",
+        ]
+
+        two_star_cards = [
+            "Siren Triple Triad card from Mimidoa",
+            "Ultros & Typhon Triple Triad card from Helmhart",
+            "Demon Wall Triple Triad card from Buscarron",
+            "Succubus Triple Triad card from Piralnaut",
+            "Chimera Triple Triad card from Fufulupa",
+            "Blue Dragon Triple Triad card from Ourdilic",
+            "Scarface Bugaal Ja Triple Triad card from Aurifort Of The Three Clubs or Guhtwint Of The Three Diamonds",
+            "Momodi Modi Triple Triad card from Momodi",
+            "Baderon Tenfingers Triple Triad card from Baderon",
+            "Mother Miounne Triple Triad card from Mother Miounne",
+            "Rhitahtyn sas Arvina Triple Triad card from Indolent Imperial",
+            "Biggs & Wedge Triple Triad card from Mimidoa or Sezul Totoloc",
+            "Gerolt Triple Triad card from Rowena or Helmhart",
+            "Frixio Triple Triad card from Piralnaut or Marcette",
+            "Mutamix Bubblypots Triple Triad card from F'hobhas",
+            "Memeroon Triple Triad card from Memeroon",
+            "Lost Lamb Triple Triad card from Prideful Stag",
+            "Magitek Colossus Triple Triad card from Hall Overseer",
+        ]
+
+        three_star_cards = [
+            "Behemoth Triple Triad card from Ourdilic or Sezul Totoloc",
+            "Ifrit Triple Triad card from Swift",
+            "Titan Triple Triad card from Trachtoum or Landenel",
+            "Garuda Triple Triad card from Marcette",
+            "Good King Moggle Mog XII Triple Triad card from Vorsaile Heuloix",
+            "Raya-O-Senna & A-Ruhn-Senna Triple Triad card from Buscarron",
+            "Godbert Manderville Triple Triad card from Hab, King Elmer III, or Ruhtwyda Of The Three Hearts",
+            "Thancred Triple Triad card from Fufulupa or Hab",
+            "Nero tol Scaeva Triple Triad card from Indolent Imperial",
+            "Papalymo & Yda Triple Triad card from Vorsaile Heuloix or Buscarron",
+            "Y'shtola Triple Triad card from R'ashaht Rhiki or Gegeruju",
+            "Urianger Triple Triad card from Ruhtwyda Of The Three Hearts",
+            "Brendt, Brennan, & Bremondt Triple Triad card from Nell Half-full",
+        ]
+
+        heavensward_one_star_cards = [
+            "Gaelicat Triple Triad card from Noes",
+            "Deepeye Triple Triad card from Dominiac",
+        ]
+
+        heavensward_two_star_cards = [
+            "Vanu Vanu Triple Triad card from Mogmill",
+            "Gnath Triple Triad card from Mogmill",
+            "Yugiri Mistwalker Triple Triad card from Yellow Moon",
+            "Fat Chocobo Triple Triad card from Vath Deftarm",
+            "Archaeornis Triple Triad card from Elaisse",
+            "Paissa Triple Triad card from Laniaitte",
+            "Dhalmel Triple Triad card from Laniaitte",
+            "Bandersnatch Triple Triad card from Voracious Vath",
+            "Crawler Triple Triad card from Seika",
+            "Poroggo Triple Triad card from Seika",
+            "Honoroit Triple Triad card from House Fortemps Manservant",
+            "Lolorito Nanarito Triple Triad card from Wymond",
+            "Gibrillont Triple Triad card from Elaisse",
+            "Laniaitte de Haillenarte Triple Triad card from Marielle",
+            "Rhoswen Triple Triad card from O'kalkaya",
+            "Carvallain de Gorgagne Triple Triad card from Mordyn",   
+        ]
+
+        heavensward_three_star_cards = [
+            "Good King Moggle Mog XII Triple Triad card from Vorsaile Heuloix or Master Mogzin",
+            "Griffin Triple Triad card from Dominiac",
+            "Estinien Triple Triad card from Gibrillont",
+            "Lucia goe Junius Triple Triad card from Wawalago",
+            "Ysayle Triple Triad card from Marcechamp",
+            "Hilda Triple Triad card from Idle Imperial",
+            "Matoya Triple Triad card from Midnight Dew",
+            "Count Edmont de Fortemps Triple Triad card from Marielle",
+            "Byblos Triple Triad card from Mero Roggo",
+            "Vedrfolnir Triple Triad card from Mogmill",
+            "Coeurlregina Triple Triad card from Voracious Vath or Vath Deftarm",
+            "Belladonna Triple Triad card from Midnight Dew",
+            "Echidna Triple Triad card from Redbill Storeboy",
+            "Pipin Tarupin Triple Triad card from Swift",
+            "Moglin Triple Triad card from Mogmill",
+            "Roundrox Triple Triad card from Tapklix or Seika",
+            "Brachiosaur Triple Triad card from Linu Vali",
+            "Darkscale Triple Triad card from Master Mogzin",
+            "Kraken Triple Triad card from Mordyn",
+            "Vicegerent to the Warden Triple Triad card from Yayake",
+            "Manxome Molaa Ja Ja Triple Triad card from Memeroon",
+            "Ferdiad Triple Triad card from Redbill Storeboy",
+            "Calcabrina Triple Triad card from Mero Roggo",
+            "Kuribu Triple Triad card from Noes",
+            "Phlegethon Triple Triad card from Klynthota",
+            "Artoirel de Fortemps Triple Triad card from House Fortemps Manservant",
+            "Emmanellain de Fortemps Triple Triad card from House Fortemps Manservant",
+            "Kal Myhk Triple Triad card from Master Mogzin",
+            "Waukkeon Triple Triad card from Linu Vali",
+            "Curator Triple Triad card from Idle Imperial",
+            "Mistbeard Triple Triad card from O'kalkaya",
+            "Strix Triple Triad card from Mero Roggo",
+            "Tozol Huatotl Triple Triad card from Sezul Totoloc",
+            "Alexander Prime Triple Triad card from Tapklix",
+        ]
+
+        stormblood_one_star_cards = [
+            "Namazu Triple Triad card from Gyoei",
+            "Koja Triple Triad card from Masatsuchi",
+            "Wanyudo & Katasharin Triple Triad card from Ushiogi",
+            "Karakuri Hanya Triple Triad card from Hokushin",
+        ]
+
+        stormblood_two_star_cards = [
+            "Kojin Triple Triad card from Tsuzura",
+            "Ananta Triple Triad card from Garima",
+            "M'naago Triple Triad card from Ercanbald",
+            "Kotokaze Triple Triad card from Kotokaze",
+            "Qiqirn Meateater Triple Triad card from Garima",
+            "Ango Triple Triad card from Isobe",
+            "Tansui Triple Triad card from Yusui",
+            "Hatamoto Triple Triad card from ushiogi",
+            "Yukinko Triple Triad card from Botan",
+            "Dvergr Triple Triad card from Hetsukaze",
+            "Ejika Tsunjika Triple Triad card from Hetsukaze",
+        ]
+
+        stormblood_three_star_cards = [
+            "Griffin Triple Triad card from Dominiac or Ercanbald",
+            "Mammoth Triple Triad card from Munglig, Nigen, or Ogodei",
+            "Phoebad Triple Triad card from Umber Torrent",
+            "Grynewaht Triple Triad card from Imperial Deserter",
+            "Rasho Triple Triad card from Kaizan",
+            "Cirina Triple Triad card from Nigen",
+            "Magnai Triple Triad card from Ogodei",
+            "Sadu Triple Triad card from Munglig",
+            "Fordola rem Lupis Triple Triad card from Imperial Deserter",
+            "Rofocale Triple Triad card from Hanagasa",
+            "Arenvald Lentinus Triple Triad card from Umber Torrent",
+            "Lupin Triple Triad card from Masatsuchi",
+            "Hiruko Triple Triad card from Ushiogi",
+            "Happy Bunny Triple Triad card from Botan",
+            "Louhi Triple Triad card from Botan",
+            "Asahi sas Brutus Triple Triad card from Hachinan",
+            "Pazuzu Triple Triad card from Botan",
+            "Penthesilea Triple Triad card from Hetsukaze",
+            "Alpha Triple Triad card from Ironworks Hand",
+            "Provenance Watcher Triple Triad card from Hetsukaze",
+        ]
+
+        shadowbringers_one_star_cards = [
+            "Amaro Triple Triad card from Glynard",
+            "Evil Weapon Triple Triad card from Drery",
+            "Lord and Lady Chai Triple Triad card from Ibenart",
+            "Porxie Triple Triad card from Eo Sigun",
+            "Qitari Triple Triad card from Redard",
+            "Dwarf Triple Triad card from Cobleva",
+        ]
+
+        shadowbringers_two_star_cards = [
+            "Gigatender Triple Triad card from Drery",
+            "Feo Ul Triple Triad card from Gyuf Uin",
+            "Runar Triple Triad card from Hargra",
+            "Grenoldt Triple Triad card from Saushs Koal",
+            "Nu Mou Triple Triad card from Eo Sigun",
+            "Rolling Tankard Triple Triad card from Cobleva",
+        ]
+
+        shadowbringers_three_star_cards = [
+            "Lyna Triple Triad card from Lamlyn",
+            "Jongleurs of Eulmore Triple Triad card from Grewenn",
+            "Batsquatch Triple Triad card from Redard",
+            "Dawon Triple Triad card from Arsieu",
+            "Adrammelech Triple Triad card from Arsieu",
+            "Azulmagia Triple Triad card from Droyn",
+            "Siegfried Triple Triad card from Droyn",
+            "4th-make Shemhazai Triple Triad card from Sladkey",
+            "4th-make Cuchulainn Triple Triad card from Sladkey",
+        ]
+
+        endwalker_one_star_cards = [
+            "Troll Triple Triad card from Aiglephine",
+            "Pisaca Triple Triad card from Qetanur",
+            "Hippo Cart Triple Triad card from Ghasa",
+            "Dreamingway Triple Triad card from Gamingway",
+            "Okuri Chochin Triple Triad card from Tokimori",
+        ]
+
+        endwalker_two_star_cards = [
+            "Arkasodara Triple Triad card from Mehryde",
+            "Loporrit Triple Triad card from Cheatingway",
+            "Argos Triple Triad card from Cheatingway",
+            "Geryon the Steer Triple Triad card from Kilfufu",
+        ]
+
+        endwalker_three_star_cards = [
+            "Fourchenault Leveilleur Triple Triad card from Celia",
+            "Rhalgr Triple Triad card from Prudence",
+            "Azeyma Triple Triad card from Prudence",
+            "Proto-Carbuncle Triple Triad card from Ruissenaud",
+            "Nophica Triple Triad card from Ylaire",
+            "Althyk Triple Triad card from Ylaire",
+            "Nymeia Triple Triad card from Ylaire",
+            "Thaliak Triple Triad card from Maillart",
+            "Llymlaen Triple Triad card from Maillart",
+        ]
+
+        dawntrail_one_star_cards = [
+            "Pelupelu Triple Triad card from Nyikweni",
+            "Alpaca Triple Triad card from Wopli",
+        ]
+
+        dawntrail_two_star_cards = [
+            "Moblin Triple Triad card from Warsowok",
+            "Branchbearer Triple Triad card from Br'uk Noq'",
+            "Rroneek Triple Triad card from Luwyawa",
+            "Sentry R8 Triple Triad card from Uataaye",
+            "Outrunner Triple Triad card from Larisa",
+        ]
+
+        dawntrail_three_star_cards = [
+            "Gulool Ja Ja Triple Triad card from Gavoll Ja",
+            "Ark Angel TT Triple Triad card from Pawkukwe",
+            "Ark Angel GK Triple Triad card from Pawkukwe",
+            "Ark Angel HM Triple Triad card from Miitso",
+            "Ark Angel EV Triple Triad card from Miitso",
+        ]
+
+        cards.extend(one_star_cards)
+        cards.extend(two_star_cards)
+        cards.extend(three_star_cards)
+
+        if self.has_heavensward:
+            cards.extend(heavensward_one_star_cards)
+            cards.extend(heavensward_two_star_cards)
+            cards.extend(heavensward_three_star_cards)
+
+        if self.has_stormblood:
+            cards.extend(stormblood_one_star_cards)
+            cards.extend(stormblood_two_star_cards)
+            cards.extend(stormblood_three_star_cards)
+
+        if self.has_shadowbringers:
+            cards.extend(shadowbringers_one_star_cards)
+            cards.extend(shadowbringers_two_star_cards)
+            cards.extend(shadowbringers_three_star_cards)
+
+        if self.has_endwalker:
+            cards.extend(endwalker_one_star_cards)
+            cards.extend(endwalker_two_star_cards)
+            cards.extend(endwalker_three_star_cards)
+
+        if self.has_dawntrail:
+            cards.extend(dawntrail_one_star_cards)
+            cards.extend(dawntrail_two_star_cards)
+            cards.extend(dawntrail_three_star_cards)
+
+        return sorted(cards)
+
+    def triple_triad_card_from_opponent_rare(self) -> List[str]:
+        cards = list()
+
+        four_star_cards = [
+            "Odin Triple Triad card from Landenel",
+            "Ramuh Triple Triad card from Vorsaile Heuloix",
+            "Leviathan Triple Triad card from R'ashaht Rhiki",
+            "Minfilia Triple Triad card from Gegeruju",
+            "Cid Garlond Triple Triad card from Sezul Totoloc",
+            "Alphinaud & Alisaie Triple Triad card from Swift or Joellaut",
+            "Louisoix Leveilleur Triple Triad card from Rowena",
+            "Nael van Darnus Triple Triad card from Flichoirel The Lordling",
+        ]
+
+        five_star_cards = [
+            "Bahamut Triple Triad card from King Elmer III",
+            "Hildibrand & Nashu Mhakaracca Triple Triad card from Hab",
+            "Gaius van Baelsar Triple Triad card from Indolent Imperial",
+            "Merlwyb Bloefhiswyn Triple Triad card from Mordyn, O'kalkaya, or R'ashaht Rhiki",
+            "Kan-E-Senna Triple Triad card from Vorsaile Heuloix",
+            "Raubahn Aldynn Triple Triad card from Swift",
+            "Onion Knight Triple Triad card from Lewena",
+            "Bartz Klauser Triple Triad card from Lewena",
+            "Terra Branford Triple Triad card from Lewena or Hall Overseer",
+        ]
+
+        heavensward_four_star_cards = [
+            "Aymeric Triple Triad card from Yayake",
+            "Ravana Triple Triad card from Vath Deftarm",
+            "Bismarck Triple Triad card from Linu Vali",
+            "Xande Triple Triad card from Klynthota",
+            "Brute Justice Triple Triad card from Tapklix",
+            "Unei & Doga Triple Triad card from Klynthota",
+            "Tiamat Triple Triad card from Idle Imperial",
+            "Calofisteri Triple Triad card from Redbill Storeboy",
+            "Diabolos Hollow Triple Triad card from Redbill Storeboy",
+        ]
+
+        heavensward_five_star_cards = [
+            "Regula van Hydrus Triple Triad card from Idle Imperial",
+            "Cloud of Darkness Triple Triad card from Klynthota",
+            "Hraesvelgr Triple Triad card from Master Mogzin",
+        ]
+
+        stormblood_four_star_cards = [
+            "Shinryu Triple Triad card from Ironworks Hand",
+            "Yotsuyu Triple Triad card from Imperial Deserter",
+            "Argath Thadalfus Triple Triad card from Hanagasa",
+            "Hancock Triple Triad card from Kikimo",
+            "Great Gold Whisker Triple Triad card from Gyoei",
+        ]
+
+        stormblood_five_star_cards = [
+            "Zenos yae Galvus Triple Triad card from Hachinan",
+            "Hien Triple Triad card from Kiuka",
+            "Hisui & Kurenai Triple Triad card from Isobe",
+            "Yiazmat Triple Triad card from Hanagasa",
+            "Omega Triple Triad card from Ironworks Hand",
+            "Yojimbo & Daigoro Triple Triad card from Hokushin",
+            "Ultima, the High Seraph Triple Triad card from Hanagasa",
+            "Stormblood Alphinaud & Alisaie Triple Triad card from Mero Roggo",
+        ]
+
+        shadowbringers_four_star_cards = [
+            "Shadowbringers Y'shtola Triple Triad card from Hargra",
+            "Ran'jit Triple Triad card from Grewenn",
+            "Sapphire Weapon Triple Triad card from Furtive Former Imperial",
+            "Ryne Triple Triad card from Lewto-Sue",
+            "Gaia Triple Triad card from Lewto-Sue",
+        ]
+
+        shadowbringers_five_star_cards = []
+
+        endwalker_four_star_cards = [
+            "Quintus van Cinna Triple Triad card from Worldly Imperial",
+            "Endwalker Alphinaud & Alisaie Triple Triad card from Celia",
+            "Themis Triple Triad card from Ruissenaud",
+        ]
+
+        endwalker_five_star_cards = []
+
+        dawntrail_four_star_cards = []
+
+        dawntrail_five_star_cards = []
+
+        cards.extend(four_star_cards)
+        cards.extend(five_star_cards)
+
+        if self.has_heavensward:
+            cards.extend(heavensward_four_star_cards)
+            cards.extend(heavensward_five_star_cards)
+
+        if self.has_stormblood:
+            cards.extend(stormblood_four_star_cards)
+            cards.extend(stormblood_five_star_cards)
+
+        if self.has_shadowbringers:
+            cards.extend(shadowbringers_four_star_cards)
+            cards.extend(shadowbringers_five_star_cards)
+
+        if self.has_endwalker:
+            cards.extend(endwalker_four_star_cards)
+            cards.extend(endwalker_five_star_cards)
+
+        if self.has_dawntrail:
+            cards.extend(dawntrail_four_star_cards)
+            cards.extend(dawntrail_five_star_cards)
+
+        return sorted(cards)
 
     @staticmethod
     def high_low_range() -> range:
@@ -4010,6 +4606,8 @@ class FinalFantasyXIVPlayableJobs(OptionSet):
     It is recommended to only enable jobs which are of a sufficient level to participate in content of
     the latest expansion that will be allowed, or that can be leveled to that point over the course
     of your game.
+
+    Combat objectives expect a minimum of two non-limited combat jobs to be enabled.
     """
 
     display_name = "Final Fantasy XIV Playable Jobs"
