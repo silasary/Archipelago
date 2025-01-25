@@ -23,7 +23,6 @@ class RetroAchievementsGame(Game):
 
     platforms_other = None
 
-    is_metagame = True
     is_adult_only_or_unrated = False
 
     options_cls = RetroAchievementsArchipelagoOptions

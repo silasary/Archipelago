@@ -178,18 +178,10 @@ class GameObjectiveGenerator:
 
         game_name: str
         for game_name in allowable_games:
-            in_games: bool = game_name in AutoGameRegister.games
-            in_metagames: bool = game_name in AutoGameRegister.metagames
-            in_modded_games: bool = game_name in AutoGameRegister.modded_games
-
-            if not in_games and not in_metagames and not in_modded_games:
+            if game_name not in AutoGameRegister.games:
                 continue
 
-            game: Type[Game] = AutoGameRegister.games.get(
-                game_name, AutoGameRegister.metagames.get(
-                    game_name, AutoGameRegister.modded_games.get(game_name)
-                )
-            )
+            game: Type[Game] = AutoGameRegister.games[game_name]
 
             game_instance: Game = game(archipelago_options=self.archipelago_options)
 

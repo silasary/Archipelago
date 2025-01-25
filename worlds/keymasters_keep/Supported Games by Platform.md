@@ -1,6 +1,6 @@
 # Keymaster's Keep Supported Games by Platform
 
-Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded games).
+Keymaster's Keep currently supports 151 games
 
 ### Android (19)
 * A Dance of Fire and Ice
@@ -148,6 +148,10 @@ Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded game
 * Vampire Survivors
 * Warframe
 
+### Modded Game (2)
+* PlatinumQuest
+* Pokémon Platinum Map Randomizer
+
 ### Nintendo 3DS (2)
 * Hyrule Warriors: Definitive Edition
 * The Binding of Isaac: Rebirth
@@ -159,12 +163,11 @@ Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded game
 * Mario Party 3
 * Re-Volt
 
-### Nintendo DS (6)
+### Nintendo DS (5)
 * Advance Wars: Days of Ruin
 * Lego Rock Band
 * Plants vs. Zombies
 * Pokémon Diamond, Pearl, and Platinum Versions
-* Pokémon Platinum Map Randomizer
 * Rock Band 3
 
 ### Nintendo Entertainment System (4)
@@ -268,7 +271,7 @@ Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded game
 ### Nokia N-GAGE (1)
 * Guitar Hero World Tour
 
-### PC (100)
+### PC (99)
 * 14 Minesweeper Variants
 * 14 Minesweeper Variants 2
 * A Dance of Fire and Ice
@@ -332,7 +335,6 @@ Keymaster's Keep currently supports 151 games (141 + 8 metagames + 2 modded game
 * Pizza Tower
 * Placid Plastic Duck Simulator
 * Plants vs. Zombies
-* PlatinumQuest
 * PowerWash Simulator
 * Rabbit & Steel
 * Re-Volt

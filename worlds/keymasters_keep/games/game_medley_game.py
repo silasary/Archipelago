@@ -22,7 +22,6 @@ class GameMedleyGame(Game):
 
     platforms_other = None
 
-    is_metagame = True
     is_adult_only_or_unrated = False
 
     should_autoregister = False

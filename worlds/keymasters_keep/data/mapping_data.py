@@ -278,6 +278,7 @@ label_mapping: Dict[Any, str] = {
     KeymastersKeepGamePlatforms.MART: "Fujitsu FM Towns Marty",
     KeymastersKeepGamePlatforms.MCD: "Sega Mega CD",
     KeymastersKeepGamePlatforms.META: "Metagame",
+    KeymastersKeepGamePlatforms.MOD: "Modded Game",
     KeymastersKeepGamePlatforms.MSX: "MSX",
     KeymastersKeepGamePlatforms.MSX2: "MSX2, MSX2+, MSX TurboR",
     KeymastersKeepGamePlatforms.N64: "Nintendo 64",

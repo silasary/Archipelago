@@ -17,11 +17,10 @@ class PokemonPlatinumMapRandomizerArchipelagoOptions:
 
 class PokemonPlatinumMapRandomizerGame(Game):
     name = "Pokémon Platinum Map Randomizer"
-    platform = KeymastersKeepGamePlatforms.NDS
+    platform = KeymastersKeepGamePlatforms.MOD
 
     platforms_other = None
 
-    is_modded_game = True
     is_adult_only_or_unrated = False
 
     options_cls = PokemonPlatinumMapRandomizerArchipelagoOptions

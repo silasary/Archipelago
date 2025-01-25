@@ -20,11 +20,10 @@ class PlatinumQuestArchipelagoOptions:
 
 class PlatinumQuestGame(Game):
     name = "PlatinumQuest"
-    platform = KeymastersKeepGamePlatforms.PC
+    platform = KeymastersKeepGamePlatforms.MOD
 
     platforms_other = None
 
-    is_modded_game = True
     is_adult_only_or_unrated = False
 
     options_cls = PlatinumQuestArchipelagoOptions

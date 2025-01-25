@@ -137,8 +137,6 @@ class KeymastersKeepWorld(World):
     lock_magic_keys_minimum: int
     magic_keys_required: int
     magic_keys_total: int
-    metagame_selection: List[str]
-    modded_game_selection: List[str]
     selected_areas: List[KeymastersKeepRegions]
     selected_magic_keys: List[KeymastersKeepItems]
     unlocked_areas: int
@@ -238,8 +236,6 @@ class KeymastersKeepWorld(World):
         self.game_medley_game_selection = list(self.options.game_medley_game_selection.value)
 
         self.game_selection = list(self.options.game_selection.value)
-        self.metagame_selection = list(self.options.metagame_selection.value)
-        self.modded_game_selection = list(self.options.modded_game_selection.value)
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
         self.include_modern_console_games = bool(self.options.include_modern_console_games)
@@ -610,11 +606,7 @@ class KeymastersKeepWorld(World):
             self.area_trials[area] = self.random.sample(possible_trials, trial_count)
 
     def _generate_game_objective_data(self) -> None:
-        game_selection: List[str] = sorted(
-            self.game_selection[:]
-            + self.metagame_selection[:]
-            + self.modded_game_selection[:]
-        )
+        game_selection: List[str] = sorted(self.game_selection[:])
 
         generator: GameObjectiveGenerator = GameObjectiveGenerator(
             game_selection,

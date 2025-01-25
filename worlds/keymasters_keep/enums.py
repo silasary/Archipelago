@@ -63,6 +63,7 @@ class KeymastersKeepGamePlatforms(enum.Enum):
     MART = "MART"  # Fujitsu FM Towns Marty
     MCD = "MCD"  # Sega Mega CD
     META = "META"  # Metagame
+    MOD = "MOD"  # Modded Game
     MSX = "MSX"  # MSX
     MSX2 = "MSX2"  # MSX2, MSX2+, MSX TurboR
     N64 = "N64"  # Nintendo 64

@@ -28,8 +28,6 @@ class ArtworkGame(Game):
 
     platforms_other = None
 
-    is_metagame = True
-
     options_cls = ArtworkArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:

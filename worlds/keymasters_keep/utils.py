@@ -8,28 +8,13 @@ from .games import AutoGameRegister
 
 def generate_docs_supported_games() -> None:
     count_games: int = len(AutoGameRegister.games)
-    count_metagames: int = len(AutoGameRegister.metagames)
-    count_modded_games: int = len(AutoGameRegister.modded_games)
-
-    count_total: int = count_games + count_metagames + count_modded_games
 
     with open("worlds/keymasters_keep/Supported Games.md", "w", encoding="utf-8") as f:
         f.truncate(0)
 
         f.write("# Keymaster's Keep Supported Games\n\n")
 
-        f.write(
-            f"Keymaster's Keep currently supports {count_total} games "
-            f"({count_games} + {count_metagames} metagames + {count_modded_games} modded games).\n\n"
-        )
-
-        f.write(f"### Metagames Supported ({count_metagames})\n")
-
-        game: str
-        for game in sorted(AutoGameRegister.metagames.keys()):
-            f.write(f"* {game}\n")
-
-        f.write("\n")
+        f.write(f"Keymaster's Keep currently supports {count_games} games\n\n")
 
         f.write(f"### Games Supported ({count_games})\n")
 
@@ -37,21 +22,9 @@ def generate_docs_supported_games() -> None:
         for game in sorted(AutoGameRegister.games.keys()):
             f.write(f"* {game}\n")
 
-        f.write("\n")
-
-        f.write(f"### Modded Games Supported ({count_modded_games})\n")
-
-        game: str
-        for game in sorted(AutoGameRegister.modded_games.keys()):
-            f.write(f"* {game}\n")
-
 
 def generate_docs_supported_games_by_platform() -> None:
     count_games: int = len(AutoGameRegister.games)
-    count_metagames: int = len(AutoGameRegister.metagames)
-    count_modded_games: int = len(AutoGameRegister.modded_games)
-
-    count_total: int = count_games + count_metagames + count_modded_games
 
     games_by_platform: Dict[KeymastersKeepGamePlatforms, List[str]] = dict()
 
@@ -60,9 +33,6 @@ def generate_docs_supported_games_by_platform() -> None:
         games_by_platform[item] = list()
 
     games: Dict[str, Type[Game]] = AutoGameRegister.games
-
-    games.update(AutoGameRegister.metagames)
-    games.update(AutoGameRegister.modded_games)
 
     game: Type[Game]
     for game in games.values():
@@ -92,10 +62,7 @@ def generate_docs_supported_games_by_platform() -> None:
 
         f.write("# Keymaster's Keep Supported Games by Platform\n\n")
 
-        f.write(
-            f"Keymaster's Keep currently supports {count_total} games "
-            f"({count_games} + {count_metagames} metagames + {count_modded_games} modded games).\n\n"
-        )
+        f.write(f"Keymaster's Keep currently supports {count_games} games\n\n")
 
         platform_label: str
         for platform_label in sorted(platform_labels.keys()):
