@@ -4,6 +4,8 @@ from typing import List
 
 from dataclasses import dataclass
 
+from Options import DefaultOnToggle
+
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
@@ -12,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class KingdomHeartsMelodyOfMemoryArchipelagoOptions:
-    pass
+    kingdom_hearts_melody_of_memory_include_world_tour: MelodyOfMemoryIncludeWorldTour
 
 
 class KingdomHeartsMelodyOfMemoryGame(Game):
@@ -41,7 +43,7 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        return [
+        objectives: List[GameObjectiveTemplate] = [
             GameObjectiveTemplate(
                 label="Complete SONG on DIFFICULTY difficulty",
                 data={
@@ -62,26 +64,38 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
                 is_difficult=False,
                 weight=2,
             ),
-            GameObjectiveTemplate(
-                label="Complete all songs in WORLD",
-                data={
-                    "WORLD": (self.world_modes, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Complete all songs in WORLD, gaining at least COUNT Stars",
-                data={
-                    "WORLD": (self.world_modes, 1),
-                    "COUNT": (self.star_count_range, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
         ]
+
+        if self.includes_world_tour:
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Complete all songs in WORLD",
+                    data={
+                        "WORLD": (self.world_modes, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                )
+            )
+            objectives.append(
+                GameObjectiveTemplate(
+                    label="Complete all songs in WORLD, gaining at least COUNT Stars",
+                    data={
+                        "WORLD": (self.world_modes, 1),
+                        "COUNT": (self.star_count_range, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
+
+        return objectives
+
+    @property
+    def includes_world_tour(self) -> bool:
+        return bool(self.archipelago_options.kingdom_hearts_melody_of_memory_include_world_tour.value)
 
     @staticmethod
     def songs() -> List[str]:
@@ -361,4 +375,10 @@ class KingdomHeartsMelodyOfMemoryGame(Game):
 
 
 # Archipelago Options
-# ...
+
+class MelodyOfMemoryIncludeWorldTour(DefaultOnToggle):
+    """
+    Indicates whether the player wants to include World Tour objectives
+    """
+
+    display_name = "Kingdom Hearts Melody of Memory Include World Tour"
