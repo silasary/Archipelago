@@ -11,6 +11,7 @@ from ..game_objective_template import GameObjectiveTemplate
 
 from ..enums import KeymastersKeepGamePlatforms
 
+
 @dataclass
 class GuildWars2ArchipelagoOptions:
     guild_wars_2_storylines_owned: GuildWars2StorylinesOwned

@@ -4,8 +4,6 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet
-
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
 
