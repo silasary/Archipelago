@@ -50,7 +50,7 @@ class TrackManiaUnitedForeverGame(Game):
                 label="Obtain a Gold medal on TRACK",
                 data={"TRACK": (self.tracks, 1)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
@@ -78,7 +78,7 @@ class TrackManiaUnitedForeverGame(Game):
                 label="Obtain Gold medals on TRACKS",
                 data={"TRACKS": (self.tracks, 3)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(

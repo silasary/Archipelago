@@ -50,7 +50,7 @@ class TrackMania2Game(Game):
                 label="Obtain a Gold medal on TRACK",
                 data={"TRACK": (self.tracks, 1)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
@@ -78,7 +78,7 @@ class TrackMania2Game(Game):
                 label="Obtain Gold medals on TRACKS",
                 data={"TRACKS": (self.tracks, 3)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
@@ -106,7 +106,7 @@ class TrackMania2Game(Game):
                 label="Finish the COLOR tracks of the ENVIRONMENT campaign and get at least 3 Gold medals",
                 data={"COLOR": (self.track_colors, 1), "ENVIRONMENT": (self.environments, 1)},
                 is_time_consuming=False,
-                is_difficult=True,
+                is_difficult=False,
                 weight=1,
             ),
             GameObjectiveTemplate(
