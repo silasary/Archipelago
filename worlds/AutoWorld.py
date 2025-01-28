@@ -10,10 +10,10 @@ from collections.abc import Iterable
 from enum import Enum
 from random import Random
 from dataclasses import make_dataclass
-from typing import (Any, Callable, ClassVar, Dict, FrozenSet, List, Mapping, Optional, Set, TextIO, Tuple,
+from typing import (Any, Callable, ClassVar, Dict, FrozenSet, Iterable, List, Mapping, Optional, Set, TextIO, Tuple,
                     TYPE_CHECKING, Type, Union)
 
-from Options import item_and_loc_options, OptionGroup, PerGameCommonOptions
+from Options import item_and_loc_options, ItemsAccessibility, OptionGroup, PerGameCommonOptions
 from BaseClasses import CollectionState
 
 if TYPE_CHECKING:
@@ -37,7 +37,10 @@ class AutoWorldRegister(type):
         # lazy loading + caching to minimize runtime cost
         if cls.__settings is None:
             from settings import get_settings
-            cls.__settings = get_settings()[cls.settings_key]
+            try:
+                cls.__settings = get_settings()[cls.settings_key]
+            except AttributeError:
+                return None
         return cls.__settings
 
     @classmethod
@@ -369,7 +372,7 @@ class World(metaclass=AutoWorldRegister):
 
     # overridable methods that get called by Main.py, sorted by execution order
     # can also be implemented as a classmethod and called "stage_<original_name>",
-    # in that case the MultiWorld object is passed as an argument, and it gets called once for the entire multiworld.
+    # in that case the MultiWorld object is passed as the first argument, and it gets called once for the entire multiworld.
     # An example of this can be found in alttp as stage_pre_fill
 
     @classmethod
@@ -400,6 +403,10 @@ class World(metaclass=AutoWorldRegister):
 
     def set_rules(self) -> None:
         """Method for setting the rules on the World's regions and locations."""
+        pass
+
+    def connect_entrances(self) -> None:
+        """Method to finalize the source and target regions of the World's entrances"""
         pass
 
     def generate_basic(self) -> None:
@@ -507,6 +514,7 @@ class World(metaclass=AutoWorldRegister):
         group = cls(multiworld, new_player_id)
         group.options = cls.options_dataclass(**{option_key: option.from_any(option.default)
                                                  for option_key, option in cls.options_dataclass.type_hints.items()})
+        group.options.accessibility = ItemsAccessibility(ItemsAccessibility.option_items)
 
         return group
 
@@ -557,11 +565,23 @@ class World(metaclass=AutoWorldRegister):
     def get_location(self, location_name: str) -> "Location":
         return self.multiworld.get_location(location_name, self.player)
 
+    def get_locations(self) -> "Iterable[Location]":
+        return self.multiworld.get_locations(self.player)
+
     def get_entrance(self, entrance_name: str) -> "Entrance":
         return self.multiworld.get_entrance(entrance_name, self.player)
 
+    def get_entrances(self) -> "Iterable[Entrance]":
+        return self.multiworld.get_entrances(self.player)
+
     def get_region(self, region_name: str) -> "Region":
         return self.multiworld.get_region(region_name, self.player)
+
+    def get_regions(self) -> "Iterable[Region]":
+        return self.multiworld.get_regions(self.player)
+
+    def push_precollected(self, item: Item) -> None:
+        self.multiworld.push_precollected(item)
 
     @property
     def player_name(self) -> str:
