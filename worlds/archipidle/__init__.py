@@ -33,7 +33,7 @@ class ArchipIDLEWorld(World):
     """
     game = "ArchipIDLE"
     topology_present = False
-    status = Status.enabled if (datetime.now().month == 4) else Status.hidden_enabled
+    status = Status.enabled if (datetime.now().month == 4) else Status.hidden_enabled  # Only visible during April
     web = ArchipIDLEWebWorld()
 
     item_name_to_id = {}

@@ -230,7 +230,7 @@ class MultiWorld():
             world_type = AutoWorld.AutoWorldRegister.world_types[self.game[player]]
             if world_type.status == AutoWorld.Status.soft_disabled:
                 logging.warning(f"Player {player} is playing {world_type.game}, "
-                                f"which is currently considered to be unstable."
+                                f"which is currently considered to be unstable. "
                                 f"Issues may occur as a result.")
             self.worlds[player] = world_type(self, player)
             options_dataclass: typing.Type[Options.PerGameCommonOptions] = world_type.options_dataclass
