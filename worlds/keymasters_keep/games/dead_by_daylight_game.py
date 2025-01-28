@@ -191,6 +191,11 @@ class DeadByDaylightSurvivors(OptionSet):
 
     display_name = "Dead By Daylight Survivors Unlocked"
     valid_keys = [
+        "Dwight",
+        "Meg",
+        "Claudette",
+        "Jake",
+        "Nea",
         "Laurie",
         "Ace",
         "Bill",
