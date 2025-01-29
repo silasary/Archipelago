@@ -370,6 +370,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
         "Sid Meier's Civilization VI",
         "Simon Tatham's Portable Puzzle Collection",
         "Sly Cooper and the Thievius Raccoonus",
+        "SM64 Romhacks",
         "Sonic Adventure DX",
         "Soul Blazer",
         "Spelunker",
@@ -404,6 +405,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
         "Yooka-Laylee",
         "Yu-Gi-Oh! Dungeon Dice Monsters",
         "Yu-Gi-Oh! Forbidden Memories",
+        "Zelda II: The Adventure of Link",
     ]
 
     default = valid_keys
@@ -424,6 +426,7 @@ class ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection(OptionSet):
         "HuniePop",
         "HuniePop 2: Double Date",
         "Kindergarten 2",
+        "Quake",
         "Resident Evil 2 (Remake)",
         "Resident Evil 3 (Remake)",
         "The Guardian Legend",
