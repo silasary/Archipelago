@@ -320,7 +320,7 @@ class SlayTheSpireDownfallCharacters(OptionSet):
         "The Slime Boss",
         "The Guardian",
         "The Hexaghost",
-        "The Automation",
+        "The Automaton",
         "The Champ",
         "The Collector",
         "The Gremlins",
