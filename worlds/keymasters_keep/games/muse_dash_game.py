@@ -116,8 +116,8 @@ class MuseDashGame(Game):
         return "Muse Plus" in self.dlc_owned
 
     @property
-    def has_dlc_msr_anthology(self) -> bool:
-        return "MSR Anthology" in self.dlc_owned
+    def has_dlc_msr_anthology_vol_1(self) -> bool:
+        return "MSR Anthology Vol.01" in self.dlc_owned
 
     @property
     def has_dlc_maimai_dx_limited_time_suite(self) -> bool:
@@ -138,6 +138,10 @@ class MuseDashGame(Game):
     @property
     def has_dlc_chunithm_course_muse(self) -> bool:
         return "CHUNITHM COURSE MUSE" in self.dlc_owned
+
+    @property
+    def has_dlc_msr_anthology_vol_2(self) -> bool:
+        return "MSR Anthology Vol.02" in self.dlc_owned
 
     @staticmethod
     def characters() -> List[str]:
@@ -763,7 +767,7 @@ class MuseDashGame(Game):
         ]
 
     @functools.cached_property
-    def songs_dlc_msr_anthology(self) -> List[str]:
+    def songs_dlc_msr_anthology_vol_1(self) -> List[str]:
         return [
             "Boiling Blood",
             "ManiFesto：",
@@ -836,13 +840,26 @@ class MuseDashGame(Game):
             "Spider's Thread",
         ]
 
+    @functools.cached_property
+    def songs_dlc_msr_anthology_vol_2(self) -> List[str]:
+        return [
+            "Break Through the Dome",
+            "Here in Vernal Terrene",
+            "Everything's Alright",
+            "Operation Ashring",
+            "Misty Memory (Day Version)",
+            "Arsonist",
+            "Operation Deepness",
+            "ALL!!!",
+        ]
+
     def songs(self) -> List[str]:
         songs = self.songs_base[:]
 
         if self.has_dlc_muse_plus:
             songs.extend(self.songs_dlc_muse_plus)
-        if self.has_dlc_msr_anthology:
-            songs.extend(self.songs_dlc_msr_anthology)
+        if self.has_dlc_msr_anthology_vol_1:
+            songs.extend(self.songs_dlc_msr_anthology_vol_1)
         if self.has_dlc_maimai_dx_limited_time_suite:
             songs.extend(self.songs_dlc_maimai_dx_limited_time_suite)
         if self.has_dlc_neon_abyss:
@@ -853,6 +870,8 @@ class MuseDashGame(Game):
             songs.extend(self.songs_dlc_rin_lens_mirrorland)
         if self.has_dlc_chunithm_course_muse:
             songs.extend(self.songs_dlc_chunithm_course_muse)
+        if self.has_dlc_msr_anthology_vol_2:
+            songs.extend(self.songs_dlc_msr_anthology_vol_2)
 
         return sorted(songs)
 
@@ -884,12 +903,13 @@ class MuseDashDLCOwned(OptionSet):
     display_name = "Muse Dash DLC Owned"
     valid_keys = [
         "Muse Plus",
-        "MSR Anthology",
+        "MSR Anthology Vol.01",
         "maimai DX Limited-time Suite",
         "Neon Abyss",
         "Miku in Museland",
         "Rin-Len's Mirrorland",
         "CHUNITHM COURSE MUSE",
+        "MSR Anthology Vol.02",
     ]
 
     default = valid_keys
