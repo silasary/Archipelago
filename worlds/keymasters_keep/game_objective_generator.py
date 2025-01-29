@@ -1,7 +1,7 @@
 import logging
 
 from random import Random
-from typing import Any, List, Tuple, Type, Union
+from typing import Any, List, Set, Tuple, Type, Union
 
 from .enums import KeymastersKeepGamePlatforms
 
@@ -97,6 +97,7 @@ class GameObjectiveGenerator:
                     game_selection[i] = GameMedleyGame
 
         data: GameObjectiveGeneratorData = list()
+        objectives_in_use: Set[str] = set()
 
         i: int
         count: int
@@ -114,10 +115,12 @@ class GameObjectiveGenerator:
 
                 optional_constraints: List[str]
                 objectives: List[str]
-                optional_constraints, objectives = game.generate_objectives(
+
+                optional_constraints, objectives, objectives_in_use = game.generate_objectives(
                     count=count,
                     include_difficult=include_difficult,
                     include_time_consuming=include_time_consuming,
+                    objectives_in_use=objectives_in_use,
                 )
 
                 data.append((game, optional_constraints, objectives))
@@ -135,7 +138,7 @@ class GameObjectiveGenerator:
                     random=random,
                     include_time_consuming_objectives=include_time_consuming,
                     include_difficult_objectives=include_difficult,
-                    archipelago_options=self.archipelago_options
+                    archipelago_options=self.archipelago_options,
                 )
 
                 # This appears to completely ignore the passed 'include_difficult' value, but in reality, a game that
@@ -150,10 +153,11 @@ class GameObjectiveGenerator:
 
                 optional_constraints: List[str]
                 objectives: List[str]
-                optional_constraints, objectives = game.generate_objectives(
+                optional_constraints, objectives, objectives_in_use = game.generate_objectives(
                     count=count,
                     include_difficult=include_difficult,
                     include_time_consuming=include_time_consuming,
+                    objectives_in_use=objectives_in_use,
                 )
 
                 data.append((game, optional_constraints, objectives))
@@ -166,7 +170,7 @@ class GameObjectiveGenerator:
         include_adult_only_or_unrated_games: bool,
         include_modern_console_games: bool,
         include_difficult_objectives: bool,
-        include_time_consuming_objectives: bool
+        include_time_consuming_objectives: bool,
     ) -> List[Type[Game]]:
         filtered_games: List[Type[Game]] = list()
 

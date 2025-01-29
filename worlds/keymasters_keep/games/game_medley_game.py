@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List, Tuple, Type
+from typing import Any, List, Set, Tuple, Type
 
 from dataclasses import dataclass
 from random import Random
@@ -36,13 +36,13 @@ class GameMedleyGame(Game):
         include_time_consuming_objectives: bool = False,
         include_difficult_objectives: bool = False,
         archipelago_options: Any = None,
-        game_selection: List[Type[Game]] = None
+        game_selection: List[Type[Game]] = None,
     ) -> None:
         super().__init__(
             random=random,
             include_time_consuming_objectives=include_time_consuming_objectives,
             include_difficult_objectives=include_difficult_objectives,
-            archipelago_options=archipelago_options
+            archipelago_options=archipelago_options,
         )
 
         self.game_selection = game_selection
@@ -58,32 +58,59 @@ class GameMedleyGame(Game):
         count: int = 1,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
-    ) -> Tuple[List[str], List[str]]:
+        objectives_in_use: Set[str] = None,
+    ) -> Tuple[List[str], List[str], Set[str]]:
+        objectives_in_use = objectives_in_use or set()
+
         optional_constraints: List[str] = list()
         objectives: List[str] = list()
 
-        for _ in range(count):
+        passes_templates: int = 0
+
+        while len(objectives) < count:
+            passes_templates += 1
+
             game: Type[Game] = self.random.choice(self.game_selection)
             game_instance: Game = game(random=self.random, archipelago_options=self.archipelago_options)
 
-            templates: List[GameObjectiveTemplate] = game_instance.filter_game_objective_templates(
+            filtered_templates: List[GameObjectiveTemplate] = game_instance.filter_game_objective_templates(
                 include_difficult=include_difficult,
                 include_time_consuming=include_time_consuming,
             )
 
-            if not len(templates):
-                templates = game_instance.game_objective_templates()
+            if not len(filtered_templates):
+                filtered_templates = game_instance.game_objective_templates()
 
-            weights: List[int] = [template.weight for template in templates]
+            weights: List[int] = [template.weight for template in filtered_templates]
 
-            objective_template: GameObjectiveTemplate = self.random.choices(templates, weights=weights)[0]
+            template: GameObjectiveTemplate = self.random.choices(filtered_templates, weights=weights, k=1)[0]
 
-            objective: str = objective_template.generate_game_objective(self.random)
-            objective = f"{game.name} -> {objective}"
+            passes: int = 0
 
-            objectives.append(objective)
+            while True:
+                passes += 1
 
-        return optional_constraints, objectives
+                objective: str = template.generate_game_objective(self.random)
+
+                if objective not in objectives_in_use:
+                    objective = f"{game.name} -> {objective}"
+
+                    objectives.append(objective)
+                    objectives_in_use.add(objective)
+
+                    break
+
+                if passes_templates > 50:
+                    objective = f"{game.name} -> {objective}"
+                    objectives.append(objective)
+
+                    break
+
+                if passes > 10:
+                    break
+
+        return optional_constraints, objectives, objectives_in_use
+
 
 # Archipelago Options
 # ...
