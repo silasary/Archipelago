@@ -15,6 +15,7 @@ from ..enums import KeymastersKeepGamePlatforms
 @dataclass
 class PaperballArchipelagoOptions:
     paperball_dlc_owned: PaperballDLCOwned
+    paperball_included_modes: PaperballIncludedModes
     paperball_included_medal_mode_worlds: PaperballIncludedMedalModeWorlds
     paperball_included_courses: PaperballIncludedCourses
 
@@ -35,101 +36,156 @@ class PaperballGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        return [
-            GameObjectiveTemplate(
-                label="Complete STAGE with a MEDAL medal",
-                data={
-                    "STAGE": (self.stages, 1),
-                    "MEDAL": (self.medals, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=6,
-            ),
-            GameObjectiveTemplate(
-                label="Complete STAGE with a Platinum medal",
-                data={
-                    "STAGE": (self.stages, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=3,
-            ),
-            GameObjectiveTemplate(
-                label="Complete STAGES with at least 1 MEDAL medal",
-                data={
-                    "STAGES": (self.stages, 3),
-                    "MEDAL": (self.medals, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=4,
-            ),
-            GameObjectiveTemplate(
-                label="Complete STAGES with at least 1 Platinum medal",
-                data={
-                    "STAGES": (self.stages, 3),
-                },
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Complete STAGES with at least 1 MEDAL medal",
-                data={
-                    "STAGES": (self.stages, 5),
-                    "MEDAL": (self.medals, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=3,
-            ),
-            GameObjectiveTemplate(
-                label="Complete STAGES with at least 1 Platinum medal",
-                data={
-                    "STAGES": (self.stages, 5),
-                },
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Complete COURSE in MODE mode",
-                data={
-                    "COURSE": (self.courses, 1),
-                    "MODE": (self.modes, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=4,
-            ),
-            GameObjectiveTemplate(
-                label="Complete COURSE with Encore Stages in MODE mode",
-                data={
-                    "COURSE": (self.courses, 1),
-                    "MODE": (self.modes, 1),
-                },
-                is_time_consuming=False,
-                is_difficult=True,
-                weight=2,
-            ),
-            GameObjectiveTemplate(
-                label="Complete 10 Stages in Mad Shuffle mode",
-                data=dict(),
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1,
-            ),
-            GameObjectiveTemplate(
-                label="Complete COUNT Stages in Mad Shuffle mode",
-                data={
-                    "COUNT": (self.stage_counts, 1),
-                },
-                is_time_consuming=True,
-                is_difficult=False,
-                weight=2,
-            ),
-        ]
+        templates: List[GameObjectiveTemplate] = list()
+
+        if "Medal" in self.included_modes:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete STAGE with a MEDAL medal",
+                    data={
+                        "STAGE": (self.stages, 1),
+                        "MEDAL": (self.medals, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=6,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete STAGE with a Platinum medal",
+                    data={
+                        "STAGE": (self.stages, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete STAGES with at least 1 MEDAL medal",
+                    data={
+                        "STAGES": (self.stages, 3),
+                        "MEDAL": (self.medals, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=4,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete STAGES with at least 1 Platinum medal",
+                    data={
+                        "STAGES": (self.stages, 3),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete STAGES with at least 1 MEDAL medal",
+                    data={
+                        "STAGES": (self.stages, 5),
+                        "MEDAL": (self.medals, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=3,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete STAGES with at least 1 Platinum medal",
+                    data={
+                        "STAGES": (self.stages, 5),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=1,
+                ),
+            ])
+
+        if "Arcade" in self.included_modes:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete COURSE in Arcade mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete COURSE with Encore Stages in Arcade mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=1,
+                ),
+            ])
+
+        if "Blitz" in self.included_modes:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete COURSE in Blitz mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete COURSE with Encore Stages in Blitz mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=1,
+                ),
+            ])
+
+        if "Rush" in self.included_modes:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete COURSE in Rush mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete COURSE with Encore Stages in Rush mode",
+                    data={
+                        "COURSE": (self.courses, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=True,
+                    weight=1,
+                ),
+            ])
+
+        if "Mad Shuffle" in self.included_modes:
+            templates.extend([
+                GameObjectiveTemplate(
+                    label="Complete 10 Stages in Mad Shuffle mode",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="Complete COUNT Stages in Mad Shuffle mode",
+                    data={
+                        "COUNT": (self.stage_counts, 1),
+                    },
+                    is_time_consuming=True,
+                    is_difficult=False,
+                    weight=2,
+                ),
+            ])
+
+        return templates
 
     @property
     def dlc_owned(self) -> Set[str]:
@@ -148,11 +204,15 @@ class PaperballGame(Game):
         return "Cherry Sky Pack" in self.dlc_owned
 
     @property
-    def included_medal_mode_worlds(self) -> Set[str]:
+    def included_modes(self) -> List[str]:
+        return sorted(self.archipelago_options.paperball_included_modes.value)
+
+    @property
+    def included_medal_mode_worlds(self) -> List[str]:
         return sorted(self.archipelago_options.paperball_included_medal_mode_worlds.value)
 
     @property
-    def included_courses(self) -> Set[str]:
+    def included_courses(self) -> List[str]:
         return sorted(self.archipelago_options.paperball_included_courses.value)
 
     def stages(self) -> List[str]:
@@ -473,6 +533,23 @@ class PaperballDLCOwned(OptionSet):
         "Secret Spy Pack",
         "Deep Sea Pack",
         "Cherry Sky Pack",
+    ]
+
+    default = valid_keys
+
+
+class PaperballIncludedModes(OptionSet):
+    """
+    Indicates which modes the player wants to include in their Paperball runs.
+    """
+
+    display_name = "Paperball Included Modes"
+    valid_keys = [
+        "Arcade",
+        "Blitz",
+        "Medal",
+        "Rush",
+        "Mad Shuffle",
     ]
 
     default = valid_keys
