@@ -14,9 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 @dataclass
 class GodEaterResurrectionArchipelagoOptions:
-    god_eater_resurrection_included_missions: (
-        GodEaterResurrectionIncludedMissions
-    )
+    god_eater_resurrection_included_missions: GodEaterResurrectionIncludedMissions
 
 
 class GodEaterResurrection(Game):
