@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional, Tuple
 
+from kivy.core.clipboard import Clipboard
+
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
@@ -645,7 +647,18 @@ class TrialGameLabel(Label):
 
 
 class TrialLabel(Label):
-    pass
+    trial_objective: str
+
+    def __init__(self, **kwargs) -> None:
+        self.trial_objective = kwargs.pop("trial_objective", None)
+        super().__init__(**kwargs)
+
+    def on_touch_down(self, touch) -> bool:
+        if self.collide_point(*touch.pos) and touch.button == "right":
+            Clipboard.copy(self.trial_objective)
+            return True
+
+        return super().on_touch_down(touch)
 
 
 class AvailableTrialLayout(BoxLayout):
@@ -702,6 +715,7 @@ class AvailableTrialLayout(BoxLayout):
             height="40dp",
             halign="left",
             valign="middle",
+            trial_objective=trial_objective,
         )
 
         trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
@@ -837,6 +851,7 @@ class AvailableGoalTrialLayout(BoxLayout):
             height="40dp",
             halign="left",
             valign="middle",
+            trial_objective=trial_objective,
         )
 
         trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
@@ -1087,6 +1102,7 @@ class CompletedGoalTrialLayout(BoxLayout):
             height="40dp",
             halign="left",
             valign="middle",
+            trial_objective=trial_objective,
         )
 
         trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
@@ -1132,6 +1148,7 @@ class CompletedTrialLayout(BoxLayout):
             height="40dp",
             halign="left",
             valign="middle",
+            trial_objective=trial_objective,
         )
 
         trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
