@@ -531,10 +531,10 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_comedy, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_funny, player),
                  lambda state: state.has(SkillNames.base_skill_comedy, player, count=4)
-                               and (state.has(SkillNames.base_skill_guitar, player, count=1)
-                                    or state.has(SkillNames.base_skill_violin, player, count=1)))
+                               and state.can_reach_location(world.get_location(CareerNames.base_career_entertainer_5B, player)))
         set_rule(world.get_location(AspirationNames.base_aspiration_joke_star, player),
-                 lambda state: state.has(SkillNames.base_skill_comedy, player, count=8))
+                 lambda state: state.has(SkillNames.base_skill_comedy, player, count=8)
+                               and state.can_reach_location(world.get_location(CareerNames.base_career_entertainer_5B, player)))
     elif options.goal.value == options.goal.option_friend_of_the_world:
         set_rule(world.get_location(AspirationNames.base_aspiration_well_liked, player),
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=2))
