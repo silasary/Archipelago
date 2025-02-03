@@ -498,7 +498,8 @@ def set_rules(sims4_world: "Sims4World"):
         set_rule(world.get_location(AspirationNames.base_aspiration_technically_adept, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_computer_geek, player),
-                 lambda state: state.has(SkillNames.base_skill_programming, player, count=1))
+                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_tech_guru_3, player))
+                               and state.has(SkillNames.base_skill_programming, player, count=5))
         set_rule(world.get_location(AspirationNames.base_aspiration_computer_whiz, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=2)
                                and state.has(SkillNames.base_skill_video_gaming, player, count=1))
