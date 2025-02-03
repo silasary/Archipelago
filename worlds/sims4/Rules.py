@@ -471,10 +471,10 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(AspirationNames.base_aspiration_beverage_boss, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=5)
-                               and state.has(SkillNames.base_skill_cooking, player, count=2))
+                               and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_6B, player)))
         set_rule(world.get_location(AspirationNames.base_aspiration_master_mixologist, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=8)
-                               and state.has(SkillNames.base_skill_cooking, player, count=2))
+                               and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_6B, player)))
     elif options.goal.value == options.goal.option_renaissance_sim:
         set_rule(world.get_location(AspirationNames.base_aspiration_prudent_student, player),
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=1))
