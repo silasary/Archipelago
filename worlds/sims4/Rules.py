@@ -464,10 +464,8 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=3))
         set_rule(world.get_location(AspirationNames.base_aspiration_master_chef, player),
                  lambda state: (state.has(SkillNames.base_skill_gourmet, player, count=4)
-                                and state.has(SkillNames.base_skill_cooking, player, count=6))
-                               or (state.has(SkillNames.base_skill_gourmet, player, count=3)
-                                   and state.has(SkillNames.base_skill_mixology, player, count=5)
-                                   and state.has(SkillNames.base_skill_charisma, player, count=2)))
+                        and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_8A, player))
+                        or state.can_reach_location(world.get_location(CareerNames.base_career_culinary_8B, player))))
     elif options.goal.value == options.goal.option_master_mixologist:
         set_rule(world.get_location(AspirationNames.base_aspiration_electric_mixer, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=2))
