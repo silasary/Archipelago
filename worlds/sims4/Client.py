@@ -155,7 +155,7 @@ class SimsContext(CommonContext):
                 'cmd': 'ReceivedItems',
                 'items': [self.item_names.lookup_in_game(item.item) for item in args['items']],
                 'item_ids': [item.item for item in args["items"]],
-                'locations': [self.location_names.lookup_in_slot(location.location, player.id) for location, player in args['items']],
+                'locations': [self.location_names.lookup_in_slot(location.location, player.player) for location, player in args['items']],
                 'players': [self.player_names[player.player] for player in args["items"]],
                 'index': args["index"]
             }
