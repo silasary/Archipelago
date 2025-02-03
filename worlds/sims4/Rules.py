@@ -492,7 +492,8 @@ def set_rules(sims4_world: "Sims4World"):
         set_rule(world.get_location(AspirationNames.base_aspiration_rocket_scientist, player),
                  lambda state: state.has(SkillNames.base_skill_handiness, player, count=3))
         set_rule(world.get_location(AspirationNames.base_aspiration_nerd_brain, player),
-                 lambda state: state.has(SkillNames.base_skill_logic, player, count=8))
+                 lambda state: state.has(SkillNames.base_skill_logic, player, count=8)
+                               and state.has(SkillNames.base_skill_handiness, player, count=3))
     elif options.goal.value == options.goal.option_computer_whiz:
         set_rule(world.get_location(AspirationNames.base_aspiration_technically_adept, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=1))
