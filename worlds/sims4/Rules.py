@@ -485,6 +485,8 @@ def set_rules(sims4_world: "Sims4World"):
         set_rule(world.get_location(AspirationNames.base_aspiration_renaissance_sim, player),
                  lambda state: count_skills_over(6, state, player) >= 6)
     elif options.goal.value == options.goal.option_nerd_brain:
+        set_rule(world.get_location(AspirationNames.base_aspiration_prudent_student, player),
+                 lambda state: state.has(SkillNames.base_skill_logic, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_erudite, player),
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=4))
         set_rule(world.get_location(AspirationNames.base_aspiration_rocket_scientist, player),
