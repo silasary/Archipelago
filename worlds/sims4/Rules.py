@@ -445,10 +445,10 @@ def set_rules(sims4_world: "Sims4World"):
                                or state.has(SkillNames.base_skill_piano, player, count=8))
     elif options.goal.value == options.goal.option_public_enemy:
         set_rule(world.get_location(AspirationNames.base_aspiration_criminal_mind, player),
-                 lambda state: state.has(SkillNames.base_skill_mischief, player, count=1))
+                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_criminal_4, player)))
         set_rule(world.get_location(AspirationNames.base_aspiration_public_enemy, player),
-                 lambda state: state.has(SkillNames.base_skill_mischief, player, count=6)
-                               and state.has(SkillNames.base_skill_programming, player, count=2))
+                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_criminal_8B, player))
+                               or state.can_reach_location(world.get_location(CareerNames.base_career_criminal_8A, player)))
 
     elif options.goal.value == options.goal.option_chief_of_mischief:
         set_rule(world.get_location(AspirationNames.base_aspiration_artful_trickster, player),
