@@ -23,16 +23,16 @@ class MonsterRancher2DXGame(Game):
     platform = KeymastersKeepGamePlatforms.PC
 
     platforms_other = [
-        KeymastersKeepGamePlatforms.SW,
         KeymastersKeepGamePlatforms.IOS,
-        KeymastersKeepGamePlatforms.PS1
+        KeymastersKeepGamePlatforms.PS1,
+        KeymastersKeepGamePlatforms.SW,
     ]
 
     is_adult_only_or_unrated = False
     options_cls = MonsterRancher2DXArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return []
+        return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         tech_functions: Dict[str, Callable[[], List[str]]] = {
@@ -78,70 +78,92 @@ class MonsterRancher2DXGame(Game):
         objectives = [
             GameObjectiveTemplate(
                 label="Win the following tournaments with a MONSTER: TOURNAMENT",
-                data={"TOURNAMENT": (self.tournaments, range(1, 5)), "MONSTER": (self.monsters, 1)},
+                data={
+                    "TOURNAMENT": (self.tournaments, range(1, 5)),
+                    "MONSTER": (self.monsters, 1),
+                },
                 is_time_consuming=False,  # Can be, luck of the draw
                 is_difficult=False,
-                weight=10
+                weight=10,
             ),
             GameObjectiveTemplate(
                 label="Win the TOURNAMENT with a Sueki Suezo",
-                data={"TOURNAMENT": (self.sueki_tournaments, 1)},
+                data={
+                    "TOURNAMENT": (self.sueki_tournaments, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=1
+                weight=1,
             ),
             GameObjectiveTemplate(
                 label="Defeat the Boss Monster at the end of an Errantry to ERR_DEST with a MONSTER",
-                data={"ERR_DEST": (self.errantries, 1), "MONSTER": (self.monsters, 1)},
+                data={
+                    "ERR_DEST": (self.errantries, 1),
+                    "MONSTER": (self.monsters, 1),
+                },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=4
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Go on an expedition to EXPEDITION",
-                data={"EXPEDITION": (self.expeditions, 1)},
+                data={
+                    "EXPEDITION": (self.expeditions, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="Complete NUM jobs in the Town",
-                data={"NUM": ((lambda: list(range(5, 26))), 1)},
+                data={
+                    "NUM": ((lambda: list(range(5, 26))), 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2
+                weight=2,
             ),
             GameObjectiveTemplate(
                 label="Raise a MONSTER until it dies from natural causes",
-                data={"MONSTER": (self.monsters, 1)},
+                data={
+                    "MONSTER": (self.monsters, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=5
+                weight=5,
             ),
             GameObjectiveTemplate(
                 label="Cocoon a Worm MODIFIER",
-                data={"MODIFIER": ((lambda: ["", "", "into a Beaclon"]), 1)},
+                data={
+                    "MODIFIER": ((lambda: ["", "", "into a Beaclon"]), 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=4
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Obtain a ITEM",
-                data={"ITEM": (self.nonshop_items, 1)},
+                data={
+                    "ITEM": (self.nonshop_items, 1),
+                },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=2
-            )
+                weight=2,
+            ),
         ]
 
         for monster, tech_function in tech_functions.items():
-            objectives.append(GameObjectiveTemplate(
-                label=f"Obtain two of the following techs on a {monster} main breed: TECHS",
-                data={"TECHS": (tech_function, range(3, min(5, len(tech_function())) + 1))},
-                is_time_consuming=False,
-                is_difficult=False,
-                weight=1
-            ))
+            objectives.append(
+                GameObjectiveTemplate(
+                    label=f"Obtain two of the following techs on a {monster} main breed: TECHS",
+                    data={
+                        "TECHS": (tech_function, range(3, min(5, len(tech_function())) + 1)),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                )
+            )
 
         return objectives
 
