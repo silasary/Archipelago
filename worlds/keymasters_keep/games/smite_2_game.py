@@ -108,6 +108,16 @@ class Smite2Game(Game):
                 weight=6,
             ),
             GameObjectiveTemplate(
+                label="Win a game with GOD, having built ITEMS",
+                data={
+                    "GOD": (self.gods, 1),
+                    "ITEMS": (self.items, 3)
+                },
+                is_time_consuming=True,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
                 label="Win a game with GOD while only using Strength Items",
                 data={
                     "GOD": (self.gods, 1)
@@ -126,25 +136,78 @@ class Smite2Game(Game):
                 weight=5,
             ),
             GameObjectiveTemplate(
-                label="Win a game with GOD, having built HYBRID",
+                label="Win a game with GOD while only using Hybrid Items",
                 data={
-                    "GOD": (self.gods, 1),
-                    "HYBRID": (self.hybrid, 1)
+                    "GOD": (self.gods, 1)
                 },
                 is_time_consuming=True,
                 is_difficult=False,
-                weight=6,
+                weight=5,
             ),
             GameObjectiveTemplate(
-                label="Win a game, having built all of STRENGTH, INTELLIGENCE and HYBRID",
+                label="Win a game with GOD while only using Attack Speed items",
                 data={
-                    "STRENGTH": (self.strength, 1),
-                    "INTELLIGENCE": (self.intelligence, 1),
-                    "HYBRID": (self.hybrid, 1)
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD while only using Protection items",
+                data={
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD while only using Cooldown Reduction items",
+                data={
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD while only using Max Health items",
+                data={
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD while only using Max Mana items",
+                data={
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD while only using Penetration items",
+                data={
+                    "GOD": (self.gods, 1)
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game with GOD with the following Build: STARTER, ITEMS",
+                data={
+                    "GOD": (self.gods, 1),
+                    "STARTER": (self.items_starter, 1),
+                    "ITEMS": (self.items, 6)
                 },
                 is_time_consuming=True,
                 is_difficult=True,
-                weight=2,
+                weight=3,
             ),
             GameObjectiveTemplate(
                 label="In a Conquest game, kill the Gold Fury 3 times to receive the Gold Fury Soul",
@@ -195,6 +258,34 @@ class Smite2Game(Game):
                 is_time_consuming=True,
                 is_difficult=True,
                 weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Hold 3 buffs at one time in JUNGLE with GOD",
+                data={
+                    "JUNGLE": (self.jungles, 1),
+                    "GOD": (self.gods, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=True,
+                weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Destroy a structure in Joust while under the effect of the Lost Knight Buff with GOD",
+                data={
+                    "GOD": (self.gods, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=4,
+            ),
+            GameObjectiveTemplate(
+                label="Win a game of Asssault using a TYPE God",
+                data={
+                    "TYPE": (self.damage_types, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=5,
             ),
         ]
 
@@ -316,71 +407,114 @@ class Smite2Game(Game):
     @staticmethod
     def items() -> List[str]:
         return [
-            "Brawler's Ruin",
-            "Avenging Blade",
-            "Hydra's Lament",
-            "Devourer's Gauntlet",
-            "Transcendence",
-            "Jotunns Revenge",
-            "Oath Sworn Spear",
-            "Sun-Beam Bow",
-            "Bloodforge",
-            "Titan's Bane",
-            "Relic Dagger",
-            "Serrated Edge",
-            "Bragi's Harp",
-            "Qin's Blade",
-            "Shield Splitter",
-            "The Executioner",
-            "The Reaper",
-            "Hastened Fatalis",
+            "Amanita Charm",
             "Avatar's Parashu",
-            "Tekko-Gaki",
-            "Demon Blade",
-            "The Crusher",
-            "Pendulum Blade",
-            "Heartseeker",
+            "Avenging Blade",
+            "Berserker's Shield",
+            "Blood Bound Book",
+            "Bloodforge",
+            "Book of Thoth",
+            "Bracer of the Abyss",
+            "Bragi's Harp",
+            "Brawler's Ruin",
+            "Breastplate of Valor",
+            "Chronos Pendant",
+            "Circe's Hexstone",
             "Death Metal",
             "Deathbringer",
-            "Musashi's Dual Swords",
-            "Golden Blade",
-            "Eye of the Storm",
-            "Void Shield",
-            "Shifter's Shield",
-            "Triton's Conch",
-            "Book of Thoth",
-            "Divine Ruin",
-            "Chronos Pendant",
-            "Obsidian Shard",
-            "Lifebinder",
-            "Polynomicon",
-            "Spear of Desolation",
-            "Rod of Asclepius",
-            "Gem of Isolation",
-            "Soul Gem",
-            "Blood Bound Book",
-            "Jade Sceptor",
-            "Bracer of the Abyss",
-            "Gem of Focus",
-            "The Cosmic Horror",
+            "Demon Blade",
             "Demonic Grip",
-            "Typhon's Fang",
-            "Sceptor of Dominion",
-            "Dreamer's Idol",
-            "Necronomicon",
-            "Totem of Death",
-            "World Stone",
-            "Death Metal",
+            "Devourer's Gauntlet",
+            "Divine Ruin",
             "Doom Orb",
-            "Staff of Myrddin",
-            "Soul Reaver",
-            "Rod of Tahuti",
-            "Wish-Granting Pearl",
-            "Sphere of Negation",
-            "Helm of Radiance",
-            "Void Stone",
+            "Dreamer's Idol",
+            "Eros' Bow",
+            "Eye of Providence",
+            "Eye of the Storm",
+            "Gauntlet of Thebes",
+            "Gem of Focus",
+            "Gem of Isolation",
+            "Genji's Guard",
+            "Gladiator's Shield",
+            "Glorious Pridwen",
+            "Golden Blade",
+            "Hastened Fatalis",
+            "Heartseeker",
             "Helm of Darkness",
+            "Helm of Radiance",
+            "Hide of the Nemean Lion",
+            "Hussar's Wings",
+            "Hydra's Lament",
+            "Jade Sceptor",
+            "Jotunns Revenge",
             "Lernaean Bow",
+            "Leviathan's Hide",
+            "Lifebinder",
+            "Musashi's Dual Swords",
+            "Mystical Mail",
+            "Necronomicon",
+            "Oath Sworn Spear",
+            "Obsidian Shard",
+            "Odysseus' Bow",
+            "Oni Hunter's Garb",
+            "Pendulum Blade",
+            "Pharaoh's Curse",
+            "Phoenix Feather",
+            "Polynomicon",
+            "Prophetic Cloak",
+            "Qin's Blade",
+            "Relic Dagger",
+            "Rod of Asclepius",
+            "Rod of Tahuti",
+            "Ruinous Ankh",
+            "Sceptor of Dominion",
+            "Serrated Edge",
+            "Shield of the Phoenix",
+            "Shield Splitter",
+            "Shifter's Shield",
+            "Shogun's Ofuda",
+            "Soul Gem",
+            "Soul Reaver",
+            "Spear of Desolation",
+            "Spectral Armor",
+            "Sphere of Negation",
+            "Spirit Robe",
+            "Staff of Myrddin",
+            "Stampede",
+            "Stone of Binding",
+            "Sun-Beam Bow",
+            "Talisman of Protection",
+            "Tekko-Gaki",
+            "The Cosmic Horror",
+            "The Crusher",
+            "The Executioner",
+            "The Reaper",
+            "Titan's Bane",
+            "Totem of Death",
+            "Transcendence",
+            "Triton's Conch",
+            "Typhon's Fang",
+            "Void Shield",
+            "Void Stone",
+            "Wish-Granting Pearl",
+            "World Stone",
+            "Yogi's Necklace",
+        ]
+
+    @staticmethod
+    def items_starter() -> List[str]:
+        return [
+            "Bluestone Pendant",
+            "Bumba's Cudgel",
+            "Bumba's Golden Dagger",
+            "Conduit Gem",
+            "Death's Toll",
+            "Gilded Arrow",
+            "Leather Cowl",
+            "Sands of Time",
+            "Selflessness",
+            "War Flag",
+            "Warrior's Axe",
         ]
 
     @staticmethod
@@ -513,6 +647,21 @@ class Smite2Game(Game):
             "Conquest",
             "Arena",
             "Assault",
+            "Joust",
+        ]
+
+    @staticmethod
+    def damage_types() -> List[str]:
+        return [
+            "Physical",
+            "Magical",
+        ]
+
+    @staticmethod
+    def jungles() -> List[str]:
+        return [
+            "Conquest",
+            "Arena",
             "Joust",
         ]
 
