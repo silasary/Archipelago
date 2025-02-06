@@ -37,7 +37,7 @@ if not sys.stdout:  # to make sure sm varia's "i'm working" dots don't break UT 
 
 logger = logging.getLogger("Client")
 
-UT_VERSION = "v0.1.15.1"
+UT_VERSION = "v0.1.16 RC1"
 DEBUG = False
 ITEMS_HANDLING = 0b111
 REGEN_WORLDS = {name for name, world in AutoWorld.AutoWorldRegister.world_types.items() if getattr(world, "ut_can_gen_without_yaml", False)}
@@ -153,6 +153,10 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         self.ctx.ignored_locations.clear()
         updateTracker(self.ctx)
         logger.info("Reset ignored locations.")
+    
+    def _cmd_toggle_auto_tab(self):
+        """Toggle the auto map tabbing function"""
+        self.ctx.auto_tab = not self.ctx.auto_tab
 
 
 class TrackerGameContext(CommonContext):
@@ -166,6 +170,7 @@ class TrackerGameContext(CommonContext):
     coord_dict: Dict[str, List] = {}
     map_page_coords_func = None
     watcher_task = None
+    auto_tab = True
     update_callback: Optional[Callable[[List[str]], bool]] = None
     region_callback: Optional[Callable[[List[str]], bool]] = None
     events_callback: Optional[Callable[[List[str]], bool]] = None
@@ -215,7 +220,7 @@ class TrackerGameContext(CommonContext):
         if map_id is None:
             key = str(self.slot)+"_"+str(self.team)+"_"+(self.tracker_world.map_page_setting_key if self.tracker_world.map_page_setting_key else UT_MAP_TAB_KEY)
             map_id = self.tracker_world.map_page_index(self.stored_data.get(key,""))
-            if map_id < 0 or map_id >= len(self.maps):
+            if not self.auto_tab or map_id < 0 or map_id >= len(self.maps):
                 return #special case, don't load a new map
         m=None
         if isinstance(map_id,str) and not map_id.isdecimal():
@@ -546,7 +551,7 @@ class TrackerGameContext(CommonContext):
                         self.load_map(None)
                         updateTracker(self)
         except Exception as e:
-            e.args= e.args+("This is likely caused by UT being out of date",)
+            e.args= e.args+("This is likely a UT error, make sure you have the correct tracker.apworld version and no duplicates","Then try to reproduce with the debug launcher and post in the Discord channel")
             raise e
 
     def write_empty_yaml(self, game, player_name, tempdir):
