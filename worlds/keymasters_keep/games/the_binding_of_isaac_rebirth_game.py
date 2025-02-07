@@ -16,6 +16,7 @@ from ..enums import KeymastersKeepGamePlatforms
 @dataclass
 class TheBindingOfIsaacRebirthArchipelagoOptions:
     the_binding_of_isaac_rebirth_dlc_owned: TheBindingOfIsaacRebirthDLCsOwned
+    the_binding_of_isaac_rebirth_characters: TheBindingOfIsaacRebirthCharacters
 
 
 class TheBindingOfIsaacRebirthGame(Game):
@@ -242,6 +243,10 @@ class TheBindingOfIsaacRebirthGame(Game):
     def has_repentance(self) -> bool:
         return "Repentance" in self.dlc_owned
 
+    @property
+    def character_pool(self) -> List[str]:
+        return sorted(self.archipelago_options.the_binding_of_isaac_rebirth_characters)
+
     @functools.cached_property
     def characters_base(self) -> List[str]:
         return [
@@ -297,16 +302,29 @@ class TheBindingOfIsaacRebirthGame(Game):
         ]
 
     def characters(self) -> List[str]:
-        characters: List[str] = self.characters_base[:]
+        characters: List[str] = list()
+        character_pool = self.character_pool
+
+        for character in self.characters_base:
+            if character in character_pool:
+                characters.append(character)
 
         if self.has_afterbirth:
-            characters.extend(self.characters_afterbirth)
-        if self.has_afterbirth_plus:
-            characters.extend(self.characters_afterbirth_plus)
-        if self.has_repentance:
-            characters.extend(self.characters_repentance)
+            for character in self.characters_afterbirth:
+                if character in character_pool:
+                    characters.append(character)
 
-        return characters
+        if self.has_afterbirth_plus:
+            for character in self.characters_afterbirth_plus:
+                if character in character_pool:
+                    characters.append(character)
+
+        if self.has_repentance:
+            for character in self.characters_repentance:
+                if character in character_pool:
+                    characters.append(character)
+
+        return sorted(characters)
 
     @functools.cached_property
     def bosses_base(self) -> List[str]:
@@ -1296,6 +1314,54 @@ class TheBindingOfIsaacRebirthDLCsOwned(OptionSet):
         "Afterbirth",
         "Afterbirth+",
         "Repentance",
+    ]
+
+    default = valid_keys
+
+
+class TheBindingOfIsaacRebirthCharacters(OptionSet):
+    """
+    Indicates which The Binding of Isaac: Rebirth characters can be selected when generating objectives.
+
+    All characters are listed but the DLC Owned option still takes precedence.
+    """
+
+    display_name = "The Binding of Isaac: Rebirth Characters"
+    valid_keys = [
+        "Isaac",
+        "Magdalene",
+        "Cain",
+        "Judas",
+        "???",
+        "Eve",
+        "Samson",
+        "Azazel",
+        "Lazarus",
+        "Eden",
+        "The Lost",
+        "Lilith",
+        "Keeper",
+        "Apollyon",
+        "The Forgotten",
+        "Bethany",
+        "Jacob and Esau",
+        "Tainted Isaac",
+        "Tainted Magdalene",
+        "Tainted Cain",
+        "Tainted Judas",
+        "Tainted ???",
+        "Tainted Eve",
+        "Tainted Samson",
+        "Tainted Azazel",
+        "Tainted Lazarus",
+        "Tainted Eden",
+        "Tainted Lost",
+        "Tainted Lilith",
+        "Tainted Keeper",
+        "Tainted Apollyon",
+        "Tainted Forgotten",
+        "Tainted Bethany",
+        "Tainted Jacob",
     ]
 
     default = valid_keys
