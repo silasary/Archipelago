@@ -21,9 +21,7 @@ class DemoncrawlGame(Game):
     name = "DemonCrawl"
     platform = KeymastersKeepGamePlatforms.PC
 
-    platforms_other = [
-        KeymastersKeepGamePlatforms.AND,
-    ]
+    platforms_other = None
 
     is_adult_only_or_unrated = False
 
