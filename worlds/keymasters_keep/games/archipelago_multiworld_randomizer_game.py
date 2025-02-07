@@ -4,7 +4,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet
+from Options import OptionList, OptionSet
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -200,11 +200,13 @@ class ArchipelagoMultiworldRandomizerGame(Game):
 
 
 # Archipelago Options
-class ArchipelagoMultiworldRandomizerSupportedGameSelection(OptionSet):
+class ArchipelagoMultiworldRandomizerSupportedGameSelection(OptionList):
     """
     Defines which supported APWorlds to select from.
 
     All games are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name = "Archipelago Multiworld Randomizer Supported Game Selection"
@@ -285,11 +287,13 @@ class ArchipelagoMultiworldRandomizerSupportedGameSelection(OptionSet):
     default = valid_keys
 
 
-class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
+class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionList):
     """
     Defines which unsupported APWorlds to select from.
 
     All games are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name = "Archipelago Multiworld Randomizer Unsupported Game Selection"
@@ -458,11 +462,13 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionSet):
     default = valid_keys
 
 
-class ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection(OptionSet):
+class ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection(OptionList):
     """
     Defines which adult-only or unrated APWorlds to select from (if adult-only and unrated games are allowed).
 
     All games are listed. Remove the ones you don't own or want to play.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name = "Archipelago Multiworld Randomizer Adult-Only or Unrated Game Selection"
@@ -484,11 +490,13 @@ class ArchipelagoMultiworldRandomizerAdultOnlyOrUnratedGameSelection(OptionSet):
     default = valid_keys
 
 
-class ArchipelagoMultiworldRandomizerCustomGameSelection(OptionSet):
+class ArchipelagoMultiworldRandomizerCustomGameSelection(OptionList):
     """
     Defines which custom APWorlds to select from.
 
     Use this to add APWorlds that are not in the supported or unsupported lists.
+
+    You are allowed to add the same game multiple times here. This will act as a weighted pool.
     """
 
     display_name = "Archipelago Multiworld Randomizer Custom Game Selection"
