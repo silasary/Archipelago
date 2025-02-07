@@ -19,6 +19,7 @@ class SporeArchipelagoOptions:
     spore_stages: SporeStages
     spore_space_exclusive_missions: SporeSpaceExclusiveMissions
     spore_sporecast_exclusive_missions: SporeSporecastExclusiveMissions
+    spore_custom_galactic_adventures: SporeCustomGalacticAdventures
 
 
 class SporeGame(Game):
@@ -54,7 +55,7 @@ class SporeGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=1,
+                    weight=3,
                 ),
             )
 
@@ -68,7 +69,7 @@ class SporeGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=3,
                 ),
             )
 
@@ -107,7 +108,7 @@ class SporeGame(Game):
                     data=dict(),
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=2,
+                    weight=1,
                 ),
                 GameObjectiveTemplate(
                     label="In the Space stage, get the BADGE badge",
@@ -139,7 +140,7 @@ class SporeGame(Game):
                     },
                     is_time_consuming=False,
                     is_difficult=False,
-                    weight=3,
+                    weight=4,
                 ),
             )
 
@@ -160,6 +161,10 @@ class SporeGame(Game):
     @property
     def sporecast_exclusive_missions(self) -> List[str]:
         return sorted(self.archipelago_options.spore_sporecast_exclusive_missions.value)
+
+    @property
+    def custom_galactic_adventures(self) -> List[str]:
+        return sorted(self.archipelago_options.spore_custom_galactic_adventures.value)
 
     @staticmethod
     def difficulties() -> List[str]:
@@ -315,6 +320,8 @@ class SporeGame(Game):
             adventures.extend(self.space_exclusive_missions)
         if len(self.sporecast_exclusive_missions):
             adventures.extend(self.sporecast_exclusive_missions)
+        if len(self.custom_galactic_adventures):
+            adventures.extend(self.custom_galactic_adventures)
 
         return sorted(adventures)
 
@@ -404,3 +411,12 @@ class SporeSporecastExclusiveMissions(OptionSet):
     ]
 
     default = valid_keys
+
+
+class SporeCustomGalacticAdventures(OptionSet):
+    """
+    Indicates which custom Spore Galactic Adventures to include when generating objectives.
+    """
+
+    display_name = "Spore Custom Galactic Adventures"
+    default = list()
