@@ -41,6 +41,10 @@ class ShadowTheHedgehogGame(Game):
                 label="Don't use Special Weapon Containers",
                 data=dict(),
             ),
+            GameObjectiveTemplate(
+                label="A-rank every level",
+                data=dict(),
+            ),
         ]
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
@@ -55,7 +59,7 @@ class ShadowTheHedgehogGame(Game):
                 weight=4,
             ),
             GameObjectiveTemplate(
-                label="Get an A Rank on STAGE's Hero Mission",
+                label="Complete STAGE's Hero Mission",
                 data={
                     "STAGE": (self.stages_hero, 1),
                 },
@@ -64,7 +68,7 @@ class ShadowTheHedgehogGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Get an A Rank on STAGE's Neutral Mission",
+                label="Complete STAGE's Neutral Mission",
                 data={
                     "STAGE": (self.stages_neutral, 1),
                 },
@@ -73,7 +77,7 @@ class ShadowTheHedgehogGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Get an A Rank on STAGE's Dark Mission",
+                label="Complete STAGE's Dark Mission",
                 data={
                     "STAGE": (self.stages_dark, 1),
                 },
@@ -82,7 +86,7 @@ class ShadowTheHedgehogGame(Game):
                 weight=3,
             ),
             GameObjectiveTemplate(
-                label="Defeat BOSS and earn an A Rank",
+                label="Defeat BOSS",
                 data={
                     "BOSS": (self.bosses, 1),
                 },
