@@ -58,8 +58,13 @@ class GameMedleyGame(Game):
         count: int = 1,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
+        excluded_games_time_consuming: List[str] = None,
+        excluded_games_difficult: List[str] = None,
         objectives_in_use: Set[str] = None,
     ) -> Tuple[List[str], List[str], Set[str]]:
+        excluded_games_time_consuming = excluded_games_time_consuming or list()
+        excluded_games_difficult = excluded_games_difficult or list()
+
         objectives_in_use = objectives_in_use or set()
 
         optional_constraints: List[str] = list()
@@ -71,7 +76,29 @@ class GameMedleyGame(Game):
             passes_templates += 1
 
             game: Type[Game] = self.random.choice(self.game_selection)
-            game_instance: Game = game(random=self.random, archipelago_options=self.archipelago_options)
+
+            is_in_time_consuming_exclusions: bool = game.game_name_with_platforms() in excluded_games_time_consuming
+            include_time_consuming = include_time_consuming and not is_in_time_consuming_exclusions
+
+            is_in_difficult_exclusions: bool = game.game_name_with_platforms() in excluded_games_difficult
+            include_difficult = include_difficult and not is_in_difficult_exclusions
+
+            game_instance: Game = game(
+                random=self.random,
+                include_time_consuming_objectives=include_time_consuming,
+                include_difficult_objectives=include_difficult,
+                archipelago_options=self.archipelago_options,
+            )
+
+            # This appears to completely ignore the passed 'include_difficult' value, but in reality, a game that
+            # only implements difficult objectives would already be filtered out in the constructor when
+            # 'include_difficult' is False, so we are only forcing it on when it's in the excluded list.
+            if game_instance.only_has_difficult_objectives and not include_difficult:
+                include_difficult = True
+
+            # Same as above, but for time-consuming objectives
+            if game_instance.only_has_time_consuming_objectives and not include_time_consuming:
+                include_time_consuming = True
 
             filtered_templates: List[GameObjectiveTemplate] = game_instance.filter_game_objective_templates(
                 include_difficult=include_difficult,

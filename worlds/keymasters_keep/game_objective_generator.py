@@ -120,6 +120,8 @@ class GameObjectiveGenerator:
                     count=count,
                     include_difficult=include_difficult,
                     include_time_consuming=include_time_consuming,
+                    excluded_games_time_consuming=excluded_games_time_consuming,
+                    excluded_games_difficult=excluded_games_difficult,
                     objectives_in_use=objectives_in_use,
                 )
 
