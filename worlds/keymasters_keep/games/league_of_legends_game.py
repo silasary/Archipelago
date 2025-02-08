@@ -423,20 +423,14 @@ class LeagueOfLegendsGame(Game):
             "Zoe",
             "Zyra",
         ]
-        
-    @staticmethod
-    def champions_boots() -> List[str]:
 
-        champions = LeagueOfLegendsGame().champions()
+    def champions_boots(self) -> List[str]:
+        champions: List[str] = self.champions()
 
-        champion_list = []
-        legless = ["Cassiopeia"]
-
-        for champion in champions:
-            if champion not in legless:
-                champion_list.append(champion)
+        if "Cassiopeia" in champions:
+            champions.remove("Cassiopeia")
             
-        return champion_list
+        return champions
 
 
 # Archipelago Options
