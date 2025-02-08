@@ -245,7 +245,7 @@ class TheBindingOfIsaacRebirthGame(Game):
 
     @property
     def character_pool(self) -> List[str]:
-        return sorted(self.archipelago_options.the_binding_of_isaac_rebirth_characters)
+        return sorted(self.archipelago_options.the_binding_of_isaac_rebirth_characters.value)
 
     @functools.cached_property
     def characters_base(self) -> List[str]:
