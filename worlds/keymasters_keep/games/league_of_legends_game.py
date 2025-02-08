@@ -75,7 +75,7 @@ class LeagueOfLegendsGame(Game):
             GameObjectiveTemplate(
                 label="Win a match with CHAMPION with the following boots equipped: BOOT",
                 data={
-                    "CHAMPION": (self.champions, 1),
+                    "CHAMPION": (self.champions_boots, 1),
                     "BOOT": (self.boots, 1),
                 },
                 is_time_consuming=True,
@@ -423,6 +423,20 @@ class LeagueOfLegendsGame(Game):
             "Zoe",
             "Zyra",
         ]
+        
+    @staticmethod
+    def champions_boots() -> List[str]:
+
+        champions = LeagueOfLegendsGame().champions()
+
+        champion_list = []
+        legless = ["Cassiopeia"]
+
+        for champion in champions:
+            if champion not in legless:
+                champion_list.append(champion)
+            
+        return champion_list
 
 
 # Archipelago Options
