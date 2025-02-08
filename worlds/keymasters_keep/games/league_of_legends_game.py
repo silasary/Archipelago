@@ -252,7 +252,7 @@ class LeagueOfLegendsGame(Game):
         ]
 
     def champions(self) -> List[str]:
-        return sorted(self.archipelago_options.league_of_legends_champions_owned)
+        return sorted(self.archipelago_options.league_of_legends_champions_owned.value)
 
     def champions_boots(self) -> List[str]:
         champions: List[str] = self.champions()

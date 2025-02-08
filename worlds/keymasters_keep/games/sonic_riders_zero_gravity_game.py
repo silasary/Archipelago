@@ -422,7 +422,7 @@ class SonicRidersZeroGravityGame(Game):
 
     @property
     def modes(self) -> List[str]:
-        return sorted(self.archipelago_options.sonic_riders_modes)
+        return sorted(self.archipelago_options.sonic_riders_modes.value)
 
     @functools.cached_property
     def characters_speed(self) -> List[str]:
