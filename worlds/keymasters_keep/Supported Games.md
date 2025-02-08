@@ -1,8 +1,8 @@
 # Keymaster's Keep Supported Games
 
-Keymaster's Keep currently supports 169 games
+Keymaster's Keep currently supports 176 games
 
-### Games Supported (169)
+### Games Supported (176)
 * 14 Minesweeper Variants (PC)
 * 14 Minesweeper Variants 2 (PC)
 * A Dance of Fire and Ice (PC + AND, IOS)
@@ -33,7 +33,7 @@ Keymaster's Keep currently supports 169 games
 * Deadlock (PC)
 * Deemo -Reborn- (PC + AND, IOS, PS4, SW)
 * Deep Rock Galactic (PC + PS4, PS5, XONE, XSX)
-* DemonCrawl (PC + AND)
+* DemonCrawl (PC)
 * Descenders (PC + PS4, SW, XONE)
 * Destiny 2 (PC + PS4, PS5, XONE, XSX)
 * Diablo II: Resurrected (PC + PS4, PS5, SW, XONE, XSX)
@@ -42,6 +42,7 @@ Keymaster's Keep currently supports 169 games
 * ELDEN RING (PC + PS4, PS5, XONE, XSX)
 * Ensemble Stars!! Music (AND + IOS, PC)
 * Enter the Gungeon (PC + PS4, SW, XONE)
+* FTL: Multiverse (MOD)
 * Final Fantasy XIV (PC + PS4, PS5, XSX)
 * Final Fantasy XVI (PC + PS5)
 * Fire Emblem: Three Houses (SW)
@@ -91,6 +92,7 @@ Keymaster's Keep currently supports 169 games
 * Mega Man 2 (NES)
 * Mega Man 3 (NES)
 * Mega Man 4 (NES)
+* Monster Rancher 2 DX (PC + IOS, PS1, SW)
 * Muse Dash (PC + AND, IOS, SW)
 * Mythos: Sudoku (PC)
 * Neon White (PC + PS4, PS5, SW, XONE, XSX)
@@ -138,6 +140,8 @@ Keymaster's Keep currently supports 169 games
 * Smite 2 (PC)
 * Sonic Mania (PC + PS4, SW, XONE)
 * Sonic Origins (PC + PS4, PS5, SW, XONE, XSX)
+* Sonic Riders (GC + PC, PS2, XBOX)
+* Sonic Riders: Zero Gravity (WII + PS2)
 * Spore (PC)
 * Spyro Reignited Trilogy (PC + PS4, SW, XONE)
 * Star Wars: Battlefront II (Classic) (PC + PS2, PSP, XBOX)
@@ -151,6 +155,7 @@ Keymaster's Keep currently supports 169 games
 * Super Smash Bros. Ultimate (SW)
 * Synthetik: Legion Rising (PC)
 * Tetris Effect: Connected (PC + PS4, PS5, SW, XONE, XSX)
+* The Bazaar (PC + AND, IOS)
 * The Binding of Isaac: Rebirth (PC + 3DS, IOS, PS4, SW, VITA, WIIU, XONE)
 * The Elder Scrolls V: Skyrim - Special Edition (PC + PS4, PS5, XONE, XSX)
 * Theatrhythm: Final Bar Line (SW + PS4)
@@ -171,4 +176,6 @@ Keymaster's Keep currently supports 169 games
 * Voez (SW + AND, IOS)
 * WEBFISHING (PC)
 * Warframe (PC + AND, IOS, PS4, PS5, SW, XONE, XSX)
+* Wayfinder (PC + PS5)
 * Ys VIII: Lacrimosa of Dana (PC + PS4, PS5, SW, VITA)
+* Zuma Deluxe (PC + PS3, X360, XBOX, XONE)
