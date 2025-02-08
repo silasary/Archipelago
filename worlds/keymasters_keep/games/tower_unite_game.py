@@ -20,7 +20,7 @@ class TowerUniteArchipelagoOptions:
 
 
 class TowerUniteGame(Game):
-    # Implementation based on game version 0.18.5.1
+    # Implementation based on game version 0.18.7.0
     name = "Tower Unite"
     platform = KeymastersKeepGamePlatforms.PC
 
@@ -81,7 +81,7 @@ class TowerUniteGame(Game):
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=2,
-                )
+                ),
             ])
 
             if "PAEnabled" in self.multiplayer:
@@ -463,17 +463,33 @@ class TowerUniteGame(Game):
             ])
 
         if "Accelerate" in self.worlds:
-            templates.append(
+            templates.extend([
                 GameObjectiveTemplate(
-                    label="Complete a game of Accelerate on STAGE",
+                    label="Complete a Normal Race of Accelerate on STAGE",
                     data={
                         "STAGE": (self.accelerate_maps, 1),
                     },
                     is_time_consuming=False,
                     is_difficult=False,
                     weight=3,
-                )
-            )
+                ),
+                GameObjectiveTemplate(
+                    label="Complete a Mirror Mode Race of Accelerate on STAGE",
+                    data={
+                        "STAGE": (self.accelerate_maps, 1),
+                    },
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=1,
+                ),
+                GameObjectiveTemplate(
+                    label="In Accelerate, take a unit route at least once",
+                    data=dict(),
+                    is_time_consuming=False,
+                    is_difficult=False,
+                    weight=2,
+                ),
+            ])
 
             if "GWEnabled" in self.multiplayer:
                 templates.extend([
@@ -564,6 +580,7 @@ class TowerUniteGame(Game):
             "Newton's Apples",
             "Meteoroid Mania!",
             "Stack 'Em",
+            "Corn of the Dead",
         ]
     
     @staticmethod
@@ -583,6 +600,7 @@ class TowerUniteGame(Game):
             "Splash Blasterz",
             "Roll and Race",
             "Typing Derby",
+            "The Shooting Gallery",
         ]
 
     @staticmethod
@@ -656,6 +674,7 @@ class TowerUniteGame(Game):
             "Decommision",
             "Frostbite",
             "Meadows",
+            "Lookout",
         ]
 
     @staticmethod
