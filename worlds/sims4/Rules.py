@@ -445,10 +445,10 @@ def set_rules(sims4_world: "Sims4World"):
                                or state.has(SkillNames.base_skill_piano, player, count=8))
     elif options.goal.value == options.goal.option_public_enemy:
         set_rule(world.get_location(AspirationNames.base_aspiration_criminal_mind, player),
-                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_criminal_4, player)))
+                 lambda state: state.has(SkillNames.base_skill_mischief, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_public_enemy, player),
-                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_criminal_8B, player))
-                               or state.can_reach_location(world.get_location(CareerNames.base_career_criminal_8A, player)))
+                 lambda state: state.has(SkillNames.base_skill_mischief, player, count=6)
+                               and state.has(SkillNames.base_skill_programming, player, count=2))
 
     elif options.goal.value == options.goal.option_chief_of_mischief:
         set_rule(world.get_location(AspirationNames.base_aspiration_artful_trickster, player),
@@ -464,17 +464,19 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=3))
         set_rule(world.get_location(AspirationNames.base_aspiration_master_chef, player),
                  lambda state: (state.has(SkillNames.base_skill_gourmet, player, count=4)
-                        and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_8A, player))
-                        or state.can_reach_location(world.get_location(CareerNames.base_career_culinary_8B, player))))
+                                and state.has(SkillNames.base_skill_cooking, player, count=6))
+                               or (state.has(SkillNames.base_skill_gourmet, player, count=3)
+                                   and state.has(SkillNames.base_skill_mixology, player, count=5)
+                                   and state.has(SkillNames.base_skill_charisma, player, count=2)))
     elif options.goal.value == options.goal.option_master_mixologist:
         set_rule(world.get_location(AspirationNames.base_aspiration_electric_mixer, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(AspirationNames.base_aspiration_beverage_boss, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=5)
-                               and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_6B, player)))
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
         set_rule(world.get_location(AspirationNames.base_aspiration_master_mixologist, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=8)
-                               and state.can_reach_location(world.get_location(CareerNames.base_career_culinary_6B, player)))
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
     elif options.goal.value == options.goal.option_renaissance_sim:
         set_rule(world.get_location(AspirationNames.base_aspiration_prudent_student, player),
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=1))
@@ -498,11 +500,11 @@ def set_rules(sims4_world: "Sims4World"):
         set_rule(world.get_location(AspirationNames.base_aspiration_technically_adept, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_computer_geek, player),
-                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_tech_guru_3, player))
+                 lambda state: state.can_reach_location(world.get_location(CareerNames.base_career_tech_guru_3, player), player)
                                and state.has(SkillNames.base_skill_programming, player, count=5))
         set_rule(world.get_location(AspirationNames.base_aspiration_computer_whiz, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=5)
-                               and state.can_reach_location(world.get_location(CareerNames.base_career_tech_guru_5, player)))
+                               and state.can_reach_location(world.get_location(CareerNames.base_career_tech_guru_5, player), player))
     elif options.goal.value == options.goal.option_serial_romantic:
         set_rule(world.get_location(AspirationNames.base_aspiration_up_to_date, player),
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=2))
@@ -531,10 +533,10 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_comedy, player, count=1))
         set_rule(world.get_location(AspirationNames.base_aspiration_funny, player),
                  lambda state: state.has(SkillNames.base_skill_comedy, player, count=4)
-                               and state.can_reach_location(world.get_location(CareerNames.base_career_entertainer_5B, player)))
+                               and (state.has(SkillNames.base_skill_guitar, player, count=1)
+                                    or state.has(SkillNames.base_skill_violin, player, count=1)))
         set_rule(world.get_location(AspirationNames.base_aspiration_joke_star, player),
-                 lambda state: state.has(SkillNames.base_skill_comedy, player, count=8)
-                               and state.can_reach_location(world.get_location(CareerNames.base_career_entertainer_5B, player)))
+                 lambda state: state.has(SkillNames.base_skill_comedy, player, count=8))
     elif options.goal.value == options.goal.option_friend_of_the_world:
         set_rule(world.get_location(AspirationNames.base_aspiration_well_liked, player),
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=2))
