@@ -167,28 +167,36 @@ def set_rules(sims4_world: "Sims4World"):
                                and state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_7A, player),
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=4)
-                               and state.has(SkillNames.base_skill_gourmet, player, count=0))
+                               and state.has(SkillNames.base_skill_gourmet, player, count=0)
+                               and state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_8A, player),
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=6)
-                               and state.has(SkillNames.base_skill_gourmet, player, count=4))
+                               and state.has(SkillNames.base_skill_gourmet, player, count=4)
+                               and state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_9A, player),
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=6)
-                               and state.has(SkillNames.base_skill_gourmet, player, count=4))
+                               and state.has(SkillNames.base_skill_gourmet, player, count=4)
+                               and state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_10A, player),
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=8)
-                               and state.has(SkillNames.base_skill_gourmet, player, count=6))
+                               and state.has(SkillNames.base_skill_gourmet, player, count=6)
+                               and state.has(SkillNames.base_skill_mixology, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_7B, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=3)
-                               and state.has(SkillNames.base_skill_charisma, player, count=0))
+                               and state.has(SkillNames.base_skill_charisma, player, count=0)
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_8B, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=5)
-                               and state.has(SkillNames.base_skill_charisma, player, count=2))
+                               and state.has(SkillNames.base_skill_charisma, player, count=2)
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_9B, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=6)
-                               and state.has(SkillNames.base_skill_charisma, player, count=4))
+                               and state.has(SkillNames.base_skill_charisma, player, count=4)
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_culinary_10B, player),
                  lambda state: state.has(SkillNames.base_skill_mixology, player, count=8)
-                               and state.has(SkillNames.base_skill_charisma, player, count=6))
+                               and state.has(SkillNames.base_skill_charisma, player, count=6)
+                               and state.has(SkillNames.base_skill_cooking, player, count=2))
     # Entertainer
     elif options.career.value == options.career.option_entertainer:
         set_rule(world.get_location(CareerNames.base_career_entertainer_5A, player),
