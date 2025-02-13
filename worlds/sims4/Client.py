@@ -8,6 +8,8 @@ import Utils
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, CommonContext, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
 
+from pathlib import Path
+
 # Gets the sims 4 mods folder
 if Utils.is_windows:
     # https://stackoverflow.com/questions/6227590/finding-the-users-my-documents-path/30924555#
@@ -20,8 +22,7 @@ if Utils.is_windows:
     ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
     Path = os.path.expanduser(rf'{buf.value}\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
 else:
-    Path = os.path.expanduser(r'~\Documents\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
-
+    Path = Path.home() / "Documents" / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
