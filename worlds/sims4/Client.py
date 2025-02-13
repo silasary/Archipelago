@@ -20,9 +20,11 @@ if Utils.is_windows:
 
     buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
     ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
-    mod_data_path = os.path.expanduser(rf'{buf.value}\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
+    documents_path = Path(buf.value)
 else:
-    mod_data_path = Path.home() / "Documents" / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
+    documents_path = Path.home() / "Documents"
+
+mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
