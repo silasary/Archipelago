@@ -20,16 +20,16 @@ if Utils.is_windows:
 
     buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
     ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
-    Path = os.path.expanduser(rf'{buf.value}\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
+    mod_data_path = os.path.expanduser(rf'{buf.value}\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
 else:
-    Path = Path.home() / "Documents" / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
+    mod_data_path = Path.home() / "Documents" / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
 
 def print_json(obj: object, name: str, ctx: SimsContext):
-    full_path = os.path.join(Path, name)
-    if not os.path.exists(Path):
+    full_path = os.path.join(mod_data_path, name)
+    if not os.path.exists(mod_data_path):
         ctx.gui_error(title="Sims 4 files not found.",
                       text=f"Could not find sims 4 mod files, make sure you installed the mod correctly and have ran sims 4.")
     else:
@@ -41,7 +41,7 @@ mtime = None
 
 def load_json(name):
     global mtime
-    full_path = os.path.join(Path, name)
+    full_path = os.path.join(mod_data_path, name)
     if os.path.isfile(full_path):
         next_mtime = os.path.getmtime(full_path)
         if mtime != next_mtime:
@@ -82,12 +82,12 @@ class SimsCommandProcessor(ClientCommandProcessor):
     def _cmd_set_path(self, sims_4_mods_path: str = ''):
         """Set the file path to the Sims 4 mods folder manually (if automatic detection fails)"""
         p = sims_4_mods_path
-        global Path
+        global mod_data_path
         if p == '':
             self.output('no path inputed')
         elif os.path.exists(os.path.join(p, 'mod_data', 's4ap')):
             self.output('Sims 4 mods folder found')
-            Path = p
+            mod_data_path = p
         else:
             self.ctx.gui_error(title='Sims 4 mods folder not found',
                                text=f'Make sure the file path you inputed is correct.')
