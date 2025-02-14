@@ -447,7 +447,7 @@ class SuperSmashBrosUltimateGame(Game):
             "Peach's Castle 64",
             "Kongo Jungle 64",
             "Hyrule Castle 64",
-            "Supper Happy Tree 64",
+            "Super Happy Tree 64",
             "Dream Land 64",
             "Saffron City 64",
             "Mushroom Kingdom 64",
