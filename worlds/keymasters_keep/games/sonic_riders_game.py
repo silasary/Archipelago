@@ -431,7 +431,6 @@ class SonicRidersGame(Game):
             "Fastest",
             "Turbo Star",
             "Speed Balancer",
-            "Access",
             "Beginner",
             "Accelerator",
             "Trap Gear",
@@ -472,6 +471,7 @@ class SonicRidersGame(Game):
             "Advantage-S",
             "Cover-S",
             "Magic Carpet",
+            "Access",
         ]
 
     @functools.cached_property
@@ -491,6 +491,7 @@ class SonicRidersGame(Game):
             "Magic Carpet",
             "Air Broom",
             "Grinder",
+            "Access",
         ]
 
     def extreme_gear_sonic(self) -> List[str]:
@@ -624,9 +625,9 @@ class SonicRidersGame(Game):
 
     def extreme_gear_nights(self) -> List[str]:
         gear: List[str] = [
-            "Advantage-S",
-            "Magic Carpet",
-            "Night Sky",
+            "Advantage-F",
+            "Air Broom",
+            "Grinder",
         ]
 
         gear.extend(self.extreme_gear_boards)
@@ -643,7 +644,7 @@ class SonicRidersGame(Game):
         gear.extend(self.extreme_gear_boards)
         gear.extend(self.extreme_gear_bikes)
         gear.extend(self.extreme_gear_skates)
-        gear.extend(self.extreme_gear_speed)
+        gear.extend(self.extreme_gear_power)
 
         return sorted(gear)
 
@@ -663,6 +664,7 @@ class SonicRidersGame(Game):
             "E-gearG",
             "Magic Carpet",
             "Air Broom",
+            "Access",
         ]
 
         gear.extend(self.extreme_gear_boards)
@@ -673,6 +675,7 @@ class SonicRidersGame(Game):
         gear: List[str] = [
             "E-gearR",
             "Magic Carpet",
+            "Access",
         ]
 
         gear.extend(self.extreme_gear_boards)
