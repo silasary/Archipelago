@@ -32,7 +32,7 @@ class SynthetikLegionRisingGame(Game):
                 data=dict(),
             ),
             GameObjectiveTemplate(
-                label="Instead of VR Chambers, survive the Armageddon Chamber.",
+                label="Instead of VR Chambers, survive the Armageddon Chamber",
                 data=dict(),
             ),
             GameObjectiveTemplate(
@@ -53,7 +53,7 @@ class SynthetikLegionRisingGame(Game):
                 data=dict(),
             ),
             GameObjectiveTemplate(
-                label="You must take two starting items. Trash both at the start of the run.",
+                label="You must take two starting items. Trash both at the start of the run",
                 data=dict(),
             ),
             GameObjectiveTemplate(
