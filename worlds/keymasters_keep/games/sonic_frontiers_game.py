@@ -11,7 +11,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class SonicFrontiersKeymastersKeepOptions:
+class SonicFrontiersArchipelagoOptions:
     pass
 
 
@@ -29,7 +29,7 @@ class SonicFrontiersGame(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = SonicFrontiersKeymastersKeepOptions
+    options_cls = SonicFrontiersArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

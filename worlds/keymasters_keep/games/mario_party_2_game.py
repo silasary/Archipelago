@@ -11,7 +11,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class MarioParty2KeymastersKeepOptions:
+class MarioParty2ArchipelagoOptions:
     pass
 
 
@@ -28,7 +28,7 @@ class MarioParty2Game(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = MarioParty2KeymastersKeepOptions
+    options_cls = MarioParty2ArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

@@ -13,7 +13,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class MegaMan4KeymastersKeepOptions:
+class MegaMan4ArchipelagoOptions:
     mega_man_4_latest_stages: MegaMan4LatestStages
 
 
@@ -27,7 +27,7 @@ class MegaMan4Game(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = MegaMan4KeymastersKeepOptions
+    options_cls = MegaMan4ArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         constraints: List[GameObjectiveTemplate] = [

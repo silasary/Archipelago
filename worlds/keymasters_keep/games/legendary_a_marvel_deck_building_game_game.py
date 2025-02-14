@@ -14,7 +14,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class LegendaryAMarvelDeckBuildingGameOptions:
+class LegendaryAMarvelDeckBuildingGameArchipelagoOptions:
     legendary_a_marvel_deck_building_game_sets_expansions_owned: LegendaryAMarvelDeckBuildingGameSetsExpansionsOwned
 
 
@@ -26,7 +26,7 @@ class LegendaryAMarvelDeckBuildingGameGame(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = LegendaryAMarvelDeckBuildingGameOptions
+    options_cls = LegendaryAMarvelDeckBuildingGameArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [

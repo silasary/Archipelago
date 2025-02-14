@@ -13,7 +13,7 @@ from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
-class PokemonDPPtKeymastersKeepOptions:
+class PokemonDPPtArchipelagoOptions:
     pokemon_dppt_owned_games: PokemonDPPtOwnedGames
     pokemon_dppt_objectives: PokemonDPPtObjectives
     pokemon_dppt_daily_encounters: PokemonDPPtDailyEncounters
@@ -28,7 +28,7 @@ class PokemonDPPtGame(Game):
 
     is_adult_only_or_unrated = False
 
-    options_cls = PokemonDPPtKeymastersKeepOptions
+    options_cls = PokemonDPPtArchipelagoOptions
 
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return [
