@@ -18,7 +18,7 @@ class AeonsEndArchipelagoOptions:
     aeons_end_expansions_owned: AeonsEndExpansionsOwned
 
 
-class RetroAchievementsGame(Game):
+class AeonsEndGame(Game):
     name = "Aeon's End"
     platform = KeymastersKeepGamePlatforms.CARD
 
