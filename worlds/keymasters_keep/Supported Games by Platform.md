@@ -1,8 +1,8 @@
 # Keymaster's Keep Supported Games by Platform
 
-Keymaster's Keep currently supports 176 games
+Keymaster's Keep currently supports 184 games
 
-### Android (22)
+### Android (24)
 * A Dance of Fire and Ice
 * Balatro
 * Bloons TD 6
@@ -12,9 +12,11 @@ Keymaster's Keep currently supports 176 games
 * Dungeon Defenders
 * Ensemble Stars!! Music
 * Halls of Torment
+* Hotline Miami
 * Insaniquarium Deluxe
 * Little Inferno
 * Muse Dash
+* One Deck Dungeon
 * Plants vs. Zombies
 * Plants vs. Zombies 2: It's About Time
 * Plants vs. Zombies: Heroes
@@ -26,8 +28,9 @@ Keymaster's Keep currently supports 176 games
 * Voez
 * Warframe
 
-### Apple iOS (25)
+### Apple iOS (28)
 * A Dance of Fire and Ice
+* Aeon's End
 * Balatro
 * Bloons TD 6
 * Crush Crush
@@ -36,10 +39,12 @@ Keymaster's Keep currently supports 176 games
 * Dungeon Defenders
 * Ensemble Stars!! Music
 * Halls of Torment
+* Hotline Miami
 * Insaniquarium Deluxe
 * Little Inferno
 * Monster Rancher 2 DX
 * Muse Dash
+* One Deck Dungeon
 * Plants vs. Zombies
 * Plants vs. Zombies 2: It's About Time
 * Plants vs. Zombies: Heroes
@@ -56,7 +61,11 @@ Keymaster's Keep currently supports 176 games
 ### Arcade (1)
 * Persona 4 Arena Ultimax
 
-### Card Game (Physical) (1)
+### Board Game (Physical) (1)
+* One Deck Dungeon
+
+### Card Game (Physical) (2)
+* Aeon's End
 * Legendary - A Marvel Deck Building Game
 
 ### Metagame (8)
@@ -76,7 +85,7 @@ Keymaster's Keep currently supports 176 games
 * Star Wars: Battlefront II (Classic)
 * Zuma Deluxe
 
-### Microsoft Xbox 360 (15)
+### Microsoft Xbox 360 (16)
 * BattleBlock Theater
 * Dungeon Defenders
 * Guitar Hero 5
@@ -84,6 +93,7 @@ Keymaster's Keep currently supports 176 games
 * Guitar Hero III: Legends of Rock
 * Guitar Hero World Tour
 * Guitar Hero: Warriors of Rock
+* Left 4 Dead 2
 * Lego Rock Band
 * NiGHTS into Dreams...
 * Persona 4 Arena Ultimax
@@ -93,7 +103,7 @@ Keymaster's Keep currently supports 176 games
 * Rock Band 3
 * Zuma Deluxe
 
-### Microsoft Xbox One (44)
+### Microsoft Xbox One (47)
 * Bloons TD 6
 * Cuphead
 * DJMax Respect V
@@ -109,11 +119,13 @@ Keymaster's Keep currently supports 176 games
 * Forza Horizon 5
 * GUILTY GEAR -STRIVE-
 * Hollow Knight
+* Hotline Miami
 * Just Shapes & Beats
 * Kingdom Hearts III
 * Kingdom Hearts: Melody of Memory
 * MONSTER HUNTER RISE
 * Mages of Mystralia
+* Mega Man 11
 * Neon White
 * Octodad: Dadliest Catch
 * Ori and the Will of the Wisps
@@ -125,6 +137,7 @@ Keymaster's Keep currently supports 176 games
 * Rock Band 4
 * Rock of Ages 2: Bigger & Boulder
 * Slay the Spire
+* Sonic Frontiers
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
@@ -139,7 +152,7 @@ Keymaster's Keep currently supports 176 games
 * Warframe
 * Zuma Deluxe
 
-### Microsoft Xbox Series X/S (28)
+### Microsoft Xbox Series X/S (30)
 * Balatro
 * DJMax Respect V
 * Dead By Daylight
@@ -151,6 +164,7 @@ Keymaster's Keep currently supports 176 games
 * Forza Horizon 4
 * Forza Horizon 5
 * GUILTY GEAR -STRIVE-
+* Hotline Miami
 * Layers of Fear (2023)
 * MONSTER HUNTER RISE
 * Marvel Rivals
@@ -160,6 +174,7 @@ Keymaster's Keep currently supports 176 games
 * Placid Plastic Duck Simulator
 * PowerWash Simulator
 * Shovel Knight Dig
+* Sonic Frontiers
 * Sonic Origins
 * Street Fighter 6
 * Tetris Effect: Connected
@@ -169,8 +184,9 @@ Keymaster's Keep currently supports 176 games
 * Vampire Survivors
 * Warframe
 
-### Modded Game (4)
+### Modded Game (5)
 * FTL: Multiverse
+* Minecraft MCParks Server
 * PlatinumQuest
 * Pokémon Platinum Map Randomizer
 * Universal Studios Experience (Minecraft Bedrock)
@@ -210,7 +226,7 @@ Keymaster's Keep currently supports 176 games
 * Super Mario Sunshine
 * Super Smash Bros. Melee
 
-### Nintendo Switch (62)
+### Nintendo Switch (66)
 * Arcaea
 * Balatro
 * Caveblazers
@@ -227,6 +243,7 @@ Keymaster's Keep currently supports 176 games
 * Fire Emblem: Three Houses
 * GUILTY GEAR -STRIVE-
 * Hollow Knight
+* Hotline Miami
 * Hyrule Warriors: Definitive Edition
 * I Was a Teenage Exocolonist
 * Just Shapes & Beats
@@ -241,10 +258,12 @@ Keymaster's Keep currently supports 176 games
 * Mario Party
 * Mario Party 2
 * Mario Party 3
+* Mega Man 11
 * Monster Rancher 2 DX
 * Muse Dash
 * Neon White
 * Octodad: Dadliest Catch
+* One Deck Dungeon
 * Ori and the Will of the Wisps
 * Overwatch 2
 * Paperball
@@ -258,6 +277,7 @@ Keymaster's Keep currently supports 176 games
 * Salt and Sacrifice
 * Shovel Knight Dig
 * Slay the Spire
+* Sonic Frontiers
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
@@ -305,10 +325,11 @@ Keymaster's Keep currently supports 176 games
 ### Nokia N-GAGE (1)
 * Guitar Hero World Tour
 
-### PC (121)
+### PC (128)
 * 14 Minesweeper Variants
 * 14 Minesweeper Variants 2
 * A Dance of Fire and Ice
+* Aeon's End
 * Anger Foot
 * Awaria
 * Backpack Battles
@@ -351,6 +372,7 @@ Keymaster's Keep currently supports 176 games
 * Harry Potter: Quidditch World Cup
 * Hollow Knight
 * HoloCure: Save the Fans!
+* Hotline Miami
 * Hyperspace Dogfights
 * I Was a Teenage Exocolonist
 * Insaniquarium Deluxe
@@ -359,12 +381,14 @@ Keymaster's Keep currently supports 176 games
 * Kingdom Hearts: Melody of Memory
 * Layers of Fear (2023)
 * League of Legends
+* Left 4 Dead 2
 * Lethal Company
 * Little Inferno
 * MONSTER HUNTER RISE
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
 * Marvel Rivals
+* Mega Man 11
 * Monster Rancher 2 DX
 * Muse Dash
 * Mythos: Sudoku
@@ -372,6 +396,7 @@ Keymaster's Keep currently supports 176 games
 * NiGHTS into Dreams...
 * Octodad: Dadliest Catch
 * OldTV
+* One Deck Dungeon
 * OpenRCT2
 * Ori and the Will of the Wisps
 * Overwatch 2
@@ -395,6 +420,7 @@ Keymaster's Keep currently supports 176 games
 * Sins of a Solar Empire II
 * Slay the Spire
 * Smite 2
+* Sonic Frontiers
 * Sonic Mania
 * Sonic Origins
 * Sonic Riders
@@ -409,6 +435,7 @@ Keymaster's Keep currently supports 176 games
 * The Bazaar
 * The Binding of Isaac: Rebirth
 * The Elder Scrolls V: Skyrim - Special Edition
+* The Void Rains Upon Her Heart
 * Tony Hawk's Pro Skater 1+2
 * Touhou Kanjuden: Legacy of Lunatic Kingdom
 * Tower Tactics: Liberation
@@ -454,12 +481,13 @@ Keymaster's Keep currently supports 176 games
 * Sonic Riders: Zero Gravity
 * Star Wars: Battlefront II (Classic)
 
-### Sony PlayStation 3 (13)
+### Sony PlayStation 3 (14)
 * Dungeon Defenders
 * Guitar Hero 5
 * Guitar Hero III: Legends of Rock
 * Guitar Hero World Tour
 * Guitar Hero: Warriors of Rock
+* Hotline Miami
 * Lego Rock Band
 * NiGHTS into Dreams...
 * Persona 4 Arena Ultimax
@@ -469,7 +497,7 @@ Keymaster's Keep currently supports 176 games
 * Rock Band 3
 * Zuma Deluxe
 
-### Sony PlayStation 4 (49)
+### Sony PlayStation 4 (52)
 * Bloons TD 6
 * Cuphead
 * Dark Souls: Remastered
@@ -485,6 +513,7 @@ Keymaster's Keep currently supports 176 games
 * GUILTY GEAR -STRIVE-
 * God Eater Resurrection
 * Hollow Knight
+* Hotline Miami
 * I Was a Teenage Exocolonist
 * Just Shapes & Beats
 * Kingdom Hearts III
@@ -492,6 +521,7 @@ Keymaster's Keep currently supports 176 games
 * MONSTER HUNTER RISE
 * Made in Abyss: Binary Star Falling into Darkness
 * Mages of Mystralia
+* Mega Man 11
 * Neon White
 * Octodad: Dadliest Catch
 * Overwatch 2
@@ -504,6 +534,7 @@ Keymaster's Keep currently supports 176 games
 * Rock of Ages 2: Bigger & Boulder
 * Salt and Sacrifice
 * Slay the Spire
+* Sonic Frontiers
 * Sonic Mania
 * Sonic Origins
 * Spyro Reignited Trilogy
@@ -520,7 +551,7 @@ Keymaster's Keep currently supports 176 games
 * Warframe
 * Ys VIII: Lacrimosa of Dana
 
-### Sony PlayStation 5 (29)
+### Sony PlayStation 5 (31)
 * Balatro
 * Dead By Daylight
 * Deep Rock Galactic
@@ -530,6 +561,7 @@ Keymaster's Keep currently supports 176 games
 * Final Fantasy XIV
 * Final Fantasy XVI
 * GUILTY GEAR -STRIVE-
+* Hotline Miami
 * I Was a Teenage Exocolonist
 * Layers of Fear (2023)
 * MONSTER HUNTER RISE
@@ -540,6 +572,7 @@ Keymaster's Keep currently supports 176 games
 * PowerWash Simulator
 * Salt and Sacrifice
 * Shovel Knight Dig
+* Sonic Frontiers
 * Sonic Origins
 * Street Fighter 6
 * Tetris Effect: Connected
@@ -554,8 +587,9 @@ Keymaster's Keep currently supports 176 games
 ### Sony PlayStation Portable (1)
 * Star Wars: Battlefront II (Classic)
 
-### Sony PlayStation Vita (4)
+### Sony PlayStation Vita (5)
 * God Eater Resurrection
+* Hotline Miami
 * Plants vs. Zombies
 * The Binding of Isaac: Rebirth
 * Ys VIII: Lacrimosa of Dana
