@@ -299,6 +299,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionList):
     display_name = "Archipelago Multiworld Randomizer Unsupported Game Selection"
 
     valid_keys = [
+        "A Difficult Game About Climbing",
         "A Robot Named Fight!",
         "ActRaiser",
         "Against the Storm",
@@ -318,6 +319,7 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionList):
         "Castlevania: Symphony of the Night",
         "Castlevania: Legacy of Darkness",
         "Castlevania: Circle of the Moon",
+        "Cat Quest",
         "Cavern of Dreams",
         "Cave Story",
         "Celeste",
@@ -363,12 +365,14 @@ class ArchipelagoMultiworldRandomizerUnsupportedGameSelection(OptionList):
         "Into the Breach",
         "Ittle Dew 2+",
         "Jak and Daxter: The Precursor Legacy",
+        "Jigsaw",
         "Keep Talking and Nobody Explodes",
         "KINGDOM HEARTS Birth by Sleep FINAL MIX",
         "KINGDOM HEARTS 358/2 Days",
         "KINGDOM HEARTS Chain of Memories",
         "KINGDOM HEARTS Re:Chain of Memories",
         "Kirby 64: The Crystal Shards",
+        "Kirby Super Star",
         "League of Legends",
         "Lethal Company",
         "Lil Gator Game",
