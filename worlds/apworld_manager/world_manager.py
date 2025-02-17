@@ -1,0 +1,238 @@
+import importlib
+import unittest
+import base64
+from kivymd.app import MDApp
+from kivy.lang import Builder
+from kivy.properties import ObjectProperty, StringProperty
+# from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.uix.recycleview import RecycleView
+from kivy.uix.gridlayout import GridLayout
+from kivy.config import Config
+from kivy.uix.dropdown import DropDown
+from kivymd.uix.button import MDFlatButton, MDRaisedButton
+from kivymd.uix.boxlayout import MDBoxLayout
+from collections import defaultdict
+from dataclasses import dataclass
+import hashlib
+import packaging.version
+import requests
+import json
+import os
+import shutil
+import typing
+import zipfile
+from Utils import title_sorted
+from worlds import AutoWorldRegister, WorldSource
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+# Config.set('graphics', 'width', '1600')
+Config.write()
+
+ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
+
+class CustomDropDown(DropDown):
+    pass
+
+
+@dataclass
+class ApWorldVersion:
+    blessed: bool
+
+@dataclass
+class ApWorldMetadataAllVersions:
+    name: str
+    developers: list[str]
+    installed_version: typing.Optional[str]
+    versions: dict[str, ApWorldVersion]
+
+from enum import Enum
+
+
+class RemoteWorldSource(Enum):
+    SOURCE_CODE = 0
+    LOCAL = 1
+    REMOTE_BLESSED = 2
+    REMOTE = 3
+
+@dataclass
+class ApWorldMetadata:
+    source: RemoteWorldSource
+    data: dict[str, typing.Any]
+    is_in_cache = False
+    # source: WorldSource
+    # TODO: .validate()
+
+    @property
+    def id(self) -> str:
+        return self.data['metadata']['id']
+
+    @property
+    def name(self) -> str:
+        return self.data['metadata']['game']
+
+    @property
+    def world_version(self) -> str:
+        return self.data['metadata']['world_version']
+
+    @property
+    def source_url(self) -> str:
+        return self.data['source_url']
+
+class Repository:
+    def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
+        self.path = path
+        self.index_json = None
+        self.world_source = world_source
+        self.apworld_cache_path = apworld_cache_path
+        self.worlds: typing.List[ApWorldMetadata] = []
+
+    def refresh(self):
+        self.get_repository_json()
+
+    def get_repository_json(self):
+        if self.world_source == RemoteWorldSource.REMOTE or self.world_source == RemoteWorldSource.REMOTE_BLESSED:
+            response = requests.get(self.path)
+            self.index_json = response.json()
+
+            self.worlds = [
+                ApWorldMetadata(self.world_source, world) for world in self.index_json['worlds']
+            ]
+            for world in self.worlds:
+                world.data['source_url'] = self.path
+
+        elif self.world_source == RemoteWorldSource.LOCAL:
+            self.worlds = []
+            for file in os.listdir(self.path):
+                path = os.path.join(self.path, file)
+
+                try:
+                    with open(path, 'rb') as f:
+                        hash_sha256 = hashlib.sha256(f.read()).hexdigest()
+                    metadata_str = zipfile.ZipFile(path).read('metadata.json')
+                    metadata = json.loads(metadata_str)
+                    metadata = {
+                        'metadata': metadata,
+                        'hash_sha256': hash_sha256,
+                        'size': os.path.getsize(path),
+                        'source_url': self.path,
+                    }
+                    world = ApWorldMetadata(self.world_source, metadata)
+                    self.worlds.append(world)
+                except Exception as e:
+                    continue
+
+                cache_dir = os.path.join(self.apworld_cache_path, hash_sha256)
+                if not os.path.exists(cache_dir):
+                    os.mkdir(cache_dir)
+                world_cache_path = os.path.join(cache_dir, file)
+                json_cache_path = os.path.join(cache_dir, 'metadata.json')
+                if not os.path.exists(world_cache_path) or not os.path.exists(json_cache_path):
+                    json.dump(metadata, open(json_cache_path, 'w'))
+                    shutil.copyfile(path, world_cache_path)
+                    print(f"Copied {file} to cache")
+                    # TODO: Log this
+                world.is_in_cache = True
+
+        else:
+            assert False
+
+        self.worlds.sort(key = lambda x: x.name)
+
+class GithubRepository(Repository):
+    def __init__(self, world_source: RemoteWorldSource, url: str, apworld_cache_path) -> None:
+        super().__init__(world_source, url, apworld_cache_path)
+        if url.startswith("https://github.com"):
+            url = url.replace("https://github.com", "https://api.github.com/repos")
+        if url.endswith("/"):
+            url = url[:-1]
+        self.url = url
+
+
+    def get_repository_json(self):
+        self.worlds = []
+        # response = requests.get(f"{self.url}/contents/README.md")
+        # readme = response.json()
+        # description = readme['content']
+        # if readme['encoding'] == 'base64':
+        #     description = base64.b64decode(description).decode('utf-8')
+
+        response = requests.get(f"{self.url}/releases")
+        releases = response.json()
+        if isinstance(releases, dict) and 'message' in releases:
+            print(f"Error getting releases from {self.url}: {releases['message']}")
+            return
+        for release in releases:
+            tag = release['tag_name']
+            for asset in release['assets']:
+                if asset['name'].endswith('.apworld'):
+                    world_id = asset['name'].replace('.apworld', '')
+                    world = {}
+                    world['metadata'] = {
+                        'id': world_id,
+                        'game': '',
+                        'world_version': tag.replace('v', ''),
+                        'description': '',
+                    }
+                    world['source_url'] = asset['browser_download_url']
+                    self.worlds.append(ApWorldMetadata(self.world_source, world))
+        response = requests.get(f"{self.url}/releases/tags/{tag}")
+        self.index_json = response.json()
+
+        # for world in self.worlds:
+        #     world.data['source_url'] = self.url
+
+from Utils import cache_path
+
+class RepositoryManager:
+    def __init__(self) -> None:
+        self.all_known_package_ids: typing.Set[str] = set()
+        self.repositories: typing.List[Repository] = []
+        self.local_packages_by_id: typing.Dict[str, ApWorldMetadata] = {}
+        self.packages_by_id_version: typing.DefaultDict[str, typing.Dict[str, ApWorldMetadata]] = defaultdict(dict)
+        self.apworld_cache_path = cache_path("apworlds")
+        os.makedirs(self.apworld_cache_path, exist_ok=True)
+
+    def add_local_dir(self, path: str):
+        self.repositories.append(Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path))
+
+    def add_remote_repository(self, url: str, blessed: bool = False) -> None:
+        self.repositories.append(Repository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
+
+    def add_github_repository(self, url: str, blessed: bool = False) -> None:
+        """This is not recommended for general use, as it will bump against the github api rate limit.  But it's useful for testing."""
+        self.repositories.append(GithubRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
+
+    def refresh(self):
+        self.packages_by_id_version.clear()
+        for repo in self.repositories:
+            repo.refresh()
+            if repo.world_source == RemoteWorldSource.LOCAL:
+                for world in repo.worlds:
+                    self.all_known_package_ids.add(world.id)
+                    self.local_packages_by_id[world.id] = world
+            else:
+                for world in repo.worlds:
+                    self.all_known_package_ids.add(world.id)
+                    self.packages_by_id_version[world.id][world.world_version] = world
+
+
+import asyncio
+
+
+if __name__ == '__main__':
+    local_dir = './worlds_test_dir'
+
+    repositories = RepositoryManager()
+    if os.path.exists(local_dir):
+        repositories.add_local_dir(local_dir)
+    repositories.add_remote_repository('https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/index.json')
+    repositories.add_github_repository('https://github.com/DeamonHunter/ArchipelagoMuseDash/')
+    repositories.add_github_repository('https://github.com/doshyw/CelesteArchipelago')
+    # Comment this out to test refresh from nothing
+    repositories.refresh()
+    from .md_app import WorldManagerApp
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    app = WorldManagerApp(repositories)
+
+    loop.run_until_complete(app.async_run())
+    loop.close()

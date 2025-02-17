@@ -1,4 +1,4 @@
-    
+
 # TODO: handle data
 # TODO: handle clients
 # TODO: handle yaml templates
@@ -9,10 +9,11 @@ import platform
 import sys
 import zipfile
 from pathlib import Path
+import Utils
 
 if __name__ == "__main__":
-    sys.path.remove(os.path.dirname(__file__))
-    ap_root = os.path.normpath(os.path.join(os.path.dirname(__file__), os.pardir))
+    # sys.path.remove(os.path.dirname(__file__))
+    ap_root = os.path.normpath(os.path.dirname(Utils.__file__))
     os.chdir(ap_root)
     sys.path.append(ap_root)
 
@@ -20,7 +21,9 @@ from worlds.AutoWorld import AutoWorldRegister, World
 
 METADATA_KEYS = [
     "game",
-    "world_version",    
+    "world_version",
+    "minimum_ap_version",
+    "maximum_ap_version",
     # license
     # description
     # maintainers
@@ -28,15 +31,17 @@ METADATA_KEYS = [
 
 def create_world_meta(world_key, world_type, is_frozen):
     metadata = {}
+    metadata["compatible_version"] = 6
     for key in METADATA_KEYS:
-        metadata[key] = getattr(world_type, key)
+        if hasattr(world_type, key):
+            metadata[key] = getattr(world_type, key)
     if world_type.__doc__ != World.__doc__:
         metadata["description"] = world_type.__doc__.strip()
     metadata["id"] = world_key
     metadata["frozen"] = is_frozen
     if is_frozen:
         metadata["arch"] = platform.machine()
-        metadata["os"] = platform.system() # TODO: linux 
+        metadata["os"] = platform.system() # TODO: linux
         metadata["pyversion"] = f"{sys.version_info[0]}.{sys.version_info[1]}"
     else:
         metadata["arch"] = "any"
@@ -47,7 +52,7 @@ def create_world_meta(world_key, world_type, is_frozen):
 def export_world(libfolder, world_type, output_dir, is_frozen):
     world_key = os.path.split(os.path.dirname(world_type.__file__))[1]
     world_directory = libfolder / "worlds" / world_key
-    
+
     metadata = create_world_meta(world_key, world_type, is_frozen)
 
     arch = metadata["arch"]
@@ -60,8 +65,10 @@ def export_world(libfolder, world_type, output_dir, is_frozen):
                             compresslevel=9) as zf:
         for path in world_directory.rglob("*.*"):
             relative_path = os.path.join(*path.parts[path.parts.index("worlds")+1:])
+            if '__pycache__' in path.parts:
+                continue
             zf.write(path, relative_path)
-        zf.writestr("metadata.json", json.dumps(metadata, indent=4))
+        zf.writestr("archipelago.json", json.dumps(metadata, indent=4))
     return output_name
 
 if __name__ == "__main__":
@@ -71,7 +78,6 @@ if __name__ == "__main__":
     parser.add_argument("world_name", help="World to be exported.", type=str)
     parser.add_argument("output_dir", help="Export directory.", type=Path, default=ap_root_path / "worlds", nargs='?')
     args = parser.parse_args()
-    
+
     output = export_world(ap_root_path, AutoWorldRegister.world_types[args.world_name], args.output_dir, is_frozen=False)
     print(f"Output to {output}")
-    
