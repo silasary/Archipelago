@@ -11,6 +11,7 @@ import typing
 import zipfile
 from worlds import AutoWorldRegister
 from enum import Enum
+from Utils import Version, cache_path
 
 ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
 
@@ -163,6 +164,7 @@ class GithubRepository(Repository):
                         'description': '',
                     }
                     world['source_url'] = asset['browser_download_url']
+                    world['size'] = asset['size']
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
@@ -170,12 +172,9 @@ class GithubRepository(Repository):
         # for world in self.worlds:
         #     world.data['source_url'] = self.url
 
-from Utils import Version, cache_path, tuplize_version
-
 class RepositoryManager:
     def __init__(self) -> None:
         self.all_known_package_ids: typing.Set[str] = set()
-        self.highest_seen_versions: typing.Dict[str, str] = {}
         self.repositories: typing.List[Repository] = []
         self.local_packages_by_id: typing.Dict[str, ApWorldMetadata] = {}
         self.packages_by_id_version: typing.DefaultDict[str, typing.Dict[str, ApWorldMetadata]] = defaultdict(dict)
