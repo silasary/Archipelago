@@ -33,6 +33,8 @@ Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
 
+ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
+
 class CustomDropDown(DropDown):
     pass
 

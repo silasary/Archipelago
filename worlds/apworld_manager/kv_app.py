@@ -127,28 +127,28 @@ def launch():
         remote = repositories.packages_by_id_version.get(file.stem)
         local_version = manifest_data.setdefault("world_version", Version(0, 0, 0))
         description = "Placeholder text"
+        data = {"title": name, "installed": True, "manifest": manifest_data}
         if not remote:
             description = "No remote data available"
         else:
             highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-            manifest_data["latest_version"] = highest_remote_version
-            manifest_data['update_available'] = highest_remote_version.version_tuple > local_version
-            if manifest_data['update_available']:
+            data["latest_version"] = highest_remote_version
+            data['update_available'] = highest_remote_version.version_tuple > local_version
+            if data['update_available']:
                 description = "Update available"
             else:
                 description = "Up to date"
-
-        data = {"title": name, "description": description, "manifest": manifest_data, "installed": True}
+        data["description"] = description
         apworlds.append(data)
 
-    for world in repositories.all_known_package_ids:
+    for world in sorted(repositories.all_known_package_ids):
         if world in installed:
             continue
         remote = repositories.packages_by_id_version.get(world)
         if not remote:
             continue
         highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-        data = {"title": f'{world}.apworld', "description": "Available to install", "manifest": {"latest_version": highest_remote_version, "update_available": True}, "installed": False}
+        data = {"title": highest_remote_version.data['game'] or f'{world}.apworld', "description": "Available to install", "manifest": {"latest_version": highest_remote_version, "update_available": True}, "installed": False}
         apworlds.append(data)
 
     app = DirectoryApp(apworlds=apworlds)

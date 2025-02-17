@@ -1,11 +1,11 @@
 from typing import ClassVar, List
 from settings import Group
-from worlds.LauncherComponents import Component, Type, components
+from worlds.LauncherComponents import Component, Type, components, launch_subprocess
 
 from worlds.AutoWorld import World
 
 class ManagerSettings(Group):
-    repositories: dict = {}
+    repositories: dict = {"https://raw.githubusercontent.com/silasary/apworlds/refs/heads/main/index.json": True}
 
 class RepoWorld(World):
     settings: ClassVar[ManagerSettings]
@@ -19,6 +19,6 @@ class RepoWorld(World):
 
 def launch_client():
     from .kv_app import launch
-    launch()
+    launch_subprocess(launch, name="APManager")
 
 components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL))

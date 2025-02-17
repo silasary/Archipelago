@@ -9,11 +9,8 @@ import os
 import shutil
 import typing
 import zipfile
-from worlds import AutoWorldRegister
 from enum import Enum
 from Utils import Version, cache_path
-
-ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
 
 
 
