@@ -79,7 +79,10 @@ def launch():
     class ApworldDetails(TabbedPanelItem):
         def __init__(self, details, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.add_widget(Label(text=str(details)))
+            contents = BoxLayout(orientation="vertical")
+            contents.add_widget(Label(text=details["title"], size_hint=(1, 0.1)))
+            contents.add_widget(Label(text=str(details)))
+            self.add_widget(contents)
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
         details = DictProperty({"title": "game name", "description": "short description"})
@@ -122,7 +125,7 @@ def launch():
             # continue
         manifest_data = container.get_manifest()
         remote = repositories.packages_by_id_version.get(file.stem)
-        local_version = manifest_data.get("world_version", Version(0, 0, 0))
+        local_version = manifest_data.setdefault("world_version", Version(0, 0, 0))
         description = "Placeholder text"
         if not remote:
             description = "No remote data available"
@@ -145,7 +148,7 @@ def launch():
         if not remote:
             continue
         highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-        data = {"title": world, "description": "Available to install", "manifest": {"latest_version": highest_remote_version, "update_available": True}, "installed": False}
+        data = {"title": f'{world}.apworld', "description": "Available to install", "manifest": {"latest_version": highest_remote_version, "update_available": True}, "installed": False}
         apworlds.append(data)
 
     app = DirectoryApp(apworlds=apworlds)

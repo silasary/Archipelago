@@ -1,4 +1,4 @@
-# from kivymd.uix.boxlayout import MDBoxLayout
+import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
@@ -195,15 +195,21 @@ class RepositoryManager:
             else:
                 self.add_local_dir(repo)
 
-    def add_local_dir(self, path: str):
-        self.repositories.append(Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path))
+    def add_local_dir(self, path: str) -> Repository:
+        repo = Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path)
+        self.repositories.append(repo)
+        return repo
 
-    def add_remote_repository(self, url: str, blessed: bool = False) -> None:
-        self.repositories.append(Repository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
+    def add_remote_repository(self, url: str, blessed: bool = False) -> Repository:
+        repo = Repository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path)
+        self.repositories.append(repo)
+        return repo
 
-    def add_github_repository(self, url: str, blessed: bool = False) -> None:
+    def add_github_repository(self, url: str, blessed: bool = False) -> GithubRepository:
         """This is not recommended for general use, as it will bump against the github api rate limit.  But it's useful for testing."""
-        self.repositories.append(GithubRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path))
+        repo = GithubRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path)
+        self.repositories.append(repo)
+        return repo
 
     def refresh(self):
         self.packages_by_id_version.clear()
@@ -217,8 +223,6 @@ class RepositoryManager:
                 for world in repo.worlds:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
-
-import asyncio
 
 
 if __name__ == '__main__':

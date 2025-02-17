@@ -18,7 +18,7 @@ class RepoWorld(World):
     location_name_to_id = {}
 
 def launch_client():
-    from .apworld_directory import launch
+    from .kv_app import launch
     launch()
 
 components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL))
