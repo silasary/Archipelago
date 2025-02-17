@@ -33,6 +33,8 @@ Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
 
+class CustomDropDown(DropDown):
+    pass
 
 class MainLayout(GridLayout):
 

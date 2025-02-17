@@ -1,11 +1,15 @@
+from typing import ClassVar, List
+from settings import Group
 from worlds.LauncherComponents import Component, Type, components
 
 from worlds.AutoWorld import World
 
+class ManagerSettings(Group):
+    repositories: dict = {}
 
 class RepoWorld(World):
-    # settings: ClassVar[ManagerSettings]
-    # settings_key = "apworld_manager"
+    settings: ClassVar[ManagerSettings]
+    settings_key = "apworld_manager"
 
     # to make auto world register happy so we can register our settings
     game = "APWorld Manager"

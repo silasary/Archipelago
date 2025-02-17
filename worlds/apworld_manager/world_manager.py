@@ -1,36 +1,19 @@
-import importlib
-import unittest
-import base64
-from kivymd.app import MDApp
-from kivy.lang import Builder
-from kivy.properties import ObjectProperty, StringProperty
 # from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.uix.recycleview import RecycleView
-from kivy.uix.gridlayout import GridLayout
-from kivy.config import Config
-from kivy.uix.dropdown import DropDown
-from kivymd.uix.button import MDFlatButton, MDRaisedButton
-from kivymd.uix.boxlayout import MDBoxLayout
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
-import packaging.version
+import re
 import requests
 import json
 import os
 import shutil
 import typing
 import zipfile
-from Utils import title_sorted
-from worlds import AutoWorldRegister, WorldSource
-Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
-# Config.set('graphics', 'width', '1600')
-Config.write()
+from worlds import AutoWorldRegister
+from enum import Enum
 
 ap_worlds = {w.zip_path.name.replace('.apworld', ''):w for n, w in AutoWorldRegister.world_types.items() if w.zip_path is not None}
 
-class CustomDropDown(DropDown):
-    pass
 
 
 @dataclass
@@ -44,7 +27,6 @@ class ApWorldMetadataAllVersions:
     installed_version: typing.Optional[str]
     versions: dict[str, ApWorldVersion]
 
-from enum import Enum
 
 
 class RemoteWorldSource(Enum):
@@ -72,6 +54,14 @@ class ApWorldMetadata:
     @property
     def world_version(self) -> str:
         return self.data['metadata']['world_version']
+
+    @property
+    def version_tuple(self) -> tuple[int, int, int]:
+        version_match = re.match(r'(\d+)\.(\d+)(?:\.(\d+))?', self.world_version)
+        if not version_match:
+            return (0, 0, 0)
+        major, minor, patch = version_match.groups()
+        return Version(int(major), int(minor), int(patch or 0))
 
     @property
     def source_url(self) -> str:
@@ -180,16 +170,30 @@ class GithubRepository(Repository):
         # for world in self.worlds:
         #     world.data['source_url'] = self.url
 
-from Utils import cache_path
+from Utils import Version, cache_path, tuplize_version
 
 class RepositoryManager:
     def __init__(self) -> None:
         self.all_known_package_ids: typing.Set[str] = set()
+        self.highest_seen_versions: typing.Dict[str, str] = {}
         self.repositories: typing.List[Repository] = []
         self.local_packages_by_id: typing.Dict[str, ApWorldMetadata] = {}
         self.packages_by_id_version: typing.DefaultDict[str, typing.Dict[str, ApWorldMetadata]] = defaultdict(dict)
         self.apworld_cache_path = cache_path("apworlds")
         os.makedirs(self.apworld_cache_path, exist_ok=True)
+
+    def load_repos_from_settings(self):
+        from . import RepoWorld
+        for repo, enabled in RepoWorld.settings.repositories.items():
+            if not enabled:
+                continue
+
+            if repo.startswith("https://github.com/"):
+                self.add_github_repository(repo)
+            elif repo.startswith("https://"):
+                self.add_remote_repository(repo)
+            else:
+                self.add_local_dir(repo)
 
     def add_local_dir(self, path: str):
         self.repositories.append(Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path))
@@ -214,7 +218,6 @@ class RepositoryManager:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
 
-
 import asyncio
 
 
@@ -222,11 +225,13 @@ if __name__ == '__main__':
     local_dir = './worlds_test_dir'
 
     repositories = RepositoryManager()
+    repositories.load_repos_from_settings()
+
     if os.path.exists(local_dir):
         repositories.add_local_dir(local_dir)
     repositories.add_remote_repository('https://raw.githubusercontent.com/zig-for/Archipelago/zig/apworld_manager/PackageLib/index.json')
     repositories.add_github_repository('https://github.com/DeamonHunter/ArchipelagoMuseDash/')
-    repositories.add_github_repository('https://github.com/doshyw/CelesteArchipelago')
+    repositories.add_github_repository('https://github.com/Rurusachi/Archipelago')
     # Comment this out to test refresh from nothing
     repositories.refresh()
     from .md_app import WorldManagerApp
