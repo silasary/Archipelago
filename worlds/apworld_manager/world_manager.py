@@ -148,6 +148,9 @@ class GithubRepository(Repository):
         if isinstance(releases, dict) and 'message' in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
             return
+        if not releases:
+            print(f"No releases found for {self.url}")
+            return
         for release in releases:
             tag = release['tag_name']
             for asset in release['assets']:
