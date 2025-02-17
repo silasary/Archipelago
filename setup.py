@@ -373,7 +373,7 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
         os.makedirs(self.buildfolder / "Players" / "Templates", exist_ok=True)
         from Options import generate_yaml_templates
         from worlds.AutoWorld import AutoWorldRegister
-        from worlds.ExportWorld import export_world
+        from worlds.apworld_manager.ExportWorld import export_world
         assert not non_apworlds - set(AutoWorldRegister.world_types), \
             f"Unknown world {non_apworlds - set(AutoWorldRegister.world_types)} designated for .apworld"
         folders_to_remove: List[str] = []
