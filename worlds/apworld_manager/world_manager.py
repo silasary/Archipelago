@@ -2,6 +2,7 @@ import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import pathlib
 import re
 import requests
 import json
@@ -95,7 +96,7 @@ class Repository:
                 try:
                     with open(path, 'rb') as f:
                         hash_sha256 = hashlib.sha256(f.read()).hexdigest()
-                    metadata_str = zipfile.ZipFile(path).read('metadata.json')
+                    metadata_str = zipfile.ZipFile(path).read('archipelago.json')
                     metadata = json.loads(metadata_str)
                     metadata = {
                         'metadata': metadata,
@@ -112,7 +113,7 @@ class Repository:
                 if not os.path.exists(cache_dir):
                     os.mkdir(cache_dir)
                 world_cache_path = os.path.join(cache_dir, file)
-                json_cache_path = os.path.join(cache_dir, 'metadata.json')
+                json_cache_path = os.path.join(cache_dir, 'archipelago.json')
                 if not os.path.exists(world_cache_path) or not os.path.exists(json_cache_path):
                     json.dump(metadata, open(json_cache_path, 'w'))
                     shutil.copyfile(path, world_cache_path)
@@ -133,6 +134,7 @@ class GithubRepository(Repository):
         if url.endswith("/"):
             url = url[:-1]
         self.url = url
+        os.makedirs(os.path.join(apworld_cache_path, "github"), exist_ok=True)
 
 
     def get_repository_json(self):
@@ -143,11 +145,23 @@ class GithubRepository(Repository):
         # if readme['encoding'] == 'base64':
         #     description = base64.b64decode(description).decode('utf-8')
 
-        response = requests.get(f"{self.url}/releases")
+
+        releases_endpoint_url = f"{self.url}/releases"
+        endpoint_sha = hashlib.sha256(releases_endpoint_url.encode()).hexdigest()
+        cached_request = pathlib.Path(self.apworld_cache_path, "github", f'{endpoint_sha}.json')
+
+        response = requests.get(releases_endpoint_url)
         releases = response.json()
+
         if isinstance(releases, dict) and 'message' in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
-            return
+            if cached_request.exists():
+                releases = json.load(cached_request.open())
+            else:
+                return
+        else:
+            with cached_request.open('w') as f:
+                json.dump(releases, f)
         if not releases:
             print(f"No releases found for {self.url}")
             return
