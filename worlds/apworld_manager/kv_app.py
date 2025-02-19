@@ -1,7 +1,9 @@
 import re
-from Utils import Version, tuplize_version
+import packaging
+from Utils import Version
 from worlds.Files import InvalidDataError
-from .world_manager import RepositoryManager
+from .world_manager import RepositoryManager, parse_version
+from worlds.LauncherComponents import install_apworld
 
 
 def launch():
@@ -33,16 +35,16 @@ def launch():
     kv = """
 <ApworldDirectoryWindow>:
     tab_width: root.width / 2
-    default_tab_text: "Directory"
+    default_tab_text: "APWorlds"
 
 <ApworldDirectoryItem>
     Button:
         on_press: root.switch_to_detail()
         text: root.details["title"]
-        size_hint: .3, 1
+        size_hint: .7, 1
     Label:
         text: root.details["description"]
-        size_hint: .7, 1
+        size_hint: .3, 1
 
 <RV>:
     viewclass: 'ApworldDirectoryItem'
@@ -52,9 +54,17 @@ def launch():
         height: self.minimum_height
         orientation: 'vertical'
 
-# <ApworldDetails>:
-#     Label:
-#         id: text
+<ApworldDetails>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.details["title"]
+            size_hint: 1, 0.1
+        Button:
+            text: root.latest_text
+            size_hint: 1, 0.1
+            on_press: root.download_latest()
+
 """
     Builder.load_string(kv)
 
@@ -78,11 +88,23 @@ def launch():
 
     class ApworldDetails(TabbedPanelItem):
         def __init__(self, details, *args, **kwargs):
+            self.details = details
             super().__init__(*args, **kwargs)
-            contents = BoxLayout(orientation="vertical")
-            contents.add_widget(Label(text=details["title"], size_hint=(1, 0.1)))
-            contents.add_widget(Label(text=str(details)))
-            self.add_widget(contents)
+
+        def download_latest(self):
+            print("Downloading latest version")
+            path = repositories.download_remote_world(self.details["latest_version"])
+            install_apworld(path)
+            app.apworlds = refresh_apworld_table()
+
+        @property
+        def latest_text(self):
+            if self.details["installed"] and self.details["update_available"]:
+                return f"Update available: {self.details['latest_version'].world_version}"
+            elif self.details["installed"]:
+                return "Up to date"
+            else:
+                return f"Install {self.details['latest_version'].world_version}"
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
         details = DictProperty({"title": "game name", "description": "short description"})
@@ -102,57 +124,68 @@ def launch():
             super().__init__(**kwargs)
             self.data = data
 
+    class VersionView(RecycleView):
+        def __init__(self, data, **kwargs):
+            super().__init__(**kwargs)
+            self.data = data
+
     repositories = RepositoryManager()
     repositories.load_repos_from_settings()
     repositories.refresh()
 
-    from worlds import AutoWorld, world_sources
-    register = AutoWorld.AutoWorldRegister
-    apworlds = []
-    installed = set()
-    for name, world in register.world_types.items():
-        file = world.zip_path
-        if not file:
-            # data = {"title": name, "description": world.__doc__ if False else "Placeholder text", "metadata": {"game": None}}
-            # apworlds.append(data)
-            continue
-        container = APWorldContainer(file)
-        installed.add(file.stem)
-        try:
-            container.read()
-        except InvalidDataError as e:
-            print(f"Error reading {file}: {e}")
-            # continue
-        manifest_data = container.get_manifest()
-        remote = repositories.packages_by_id_version.get(file.stem)
-        local_version = manifest_data.setdefault("world_version", Version(0, 0, 0))
-        description = "Placeholder text"
-        data = {"title": name, "installed": True, "manifest": manifest_data}
-        if not remote:
-            description = "No remote data available"
-        else:
-            highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-            data["latest_version"] = highest_remote_version
-            data['update_available'] = highest_remote_version.version_tuple > local_version
-            if data['update_available']:
-                description = "Update available"
+    def refresh_apworld_table():
+        from worlds import AutoWorld
+        register = AutoWorld.AutoWorldRegister
+        apworlds = []
+        installed = set()
+        for name, world in register.world_types.items():
+            file = world.zip_path
+            if not file:
+                # data = {"title": name, "description": world.__doc__ if False else "Placeholder text", "metadata": {"game": None}}
+                # apworlds.append(data)
+                continue
+            container = APWorldContainer(file)
+            installed.add(file.stem)
+            try:
+                container.read()
+            except InvalidDataError as e:
+                print(f"Error reading {file}: {e}")
+                # continue
+            manifest_data = container.get_manifest()
+            remote = repositories.packages_by_id_version.get(file.stem)
+            local_version = manifest_data.setdefault("world_version", "0.0.0")
+            description = "Placeholder text"
+            data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote}
+            if not remote:
+                description = "No remote data available"
             else:
-                description = "Up to date"
-        data["description"] = description
-        apworlds.append(data)
+                highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
+                data["latest_version"] = highest_remote_version
+                data['update_available'] = parse_version(highest_remote_version.world_version) > parse_version(local_version)
+                if data['update_available']:
+                    description = "Update available"
+                else:
+                    description = "Up to date"
+            data["description"] = description
+            apworlds.append(data)
 
-    for world in sorted(repositories.all_known_package_ids):
-        if world in installed:
-            continue
-        remote = repositories.packages_by_id_version.get(world)
-        if not remote:
-            continue
-        highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-        data = {"title": highest_remote_version.data['game'] or f'{world}.apworld', "description": "Available to install", "manifest": {"latest_version": highest_remote_version, "update_available": True}, "installed": False}
-        apworlds.append(data)
+        for world in sorted(repositories.all_known_package_ids):
+            if world in installed:
+                continue
+            remote = repositories.packages_by_id_version.get(world)
+            if not remote:
+                continue
+            highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
+            data = {"title": highest_remote_version.name or f'{world}.apworld', "description": "Available to install", "latest_version": highest_remote_version, "update_available": True, "manifest": {}, "installed": False}
+            apworlds.append(data)
+        return apworlds
+
+    apworlds = refresh_apworld_table()
 
     app = DirectoryApp(apworlds=apworlds)
     app.run()
+
+
 
 
 if __name__ == '__main__':

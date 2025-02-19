@@ -11,8 +11,10 @@ import shutil
 import typing
 import zipfile
 from enum import Enum
-from Utils import Version, cache_path
+from Utils import cache_path
 
+import Utils
+from packaging.version import Version, VERSION_PATTERN, InvalidVersion
 
 
 @dataclass
@@ -56,15 +58,16 @@ class ApWorldMetadata:
 
     @property
     def version_tuple(self) -> tuple[int, int, int]:
-        version_match = re.match(r'(\d+)\.(\d+)(?:\.(\d+))?', self.world_version)
-        if not version_match:
-            return (0, 0, 0)
-        major, minor, patch = version_match.groups()
-        return Version(int(major), int(minor), int(patch or 0))
+        v = parse_version(self.world_version)
+        return Utils.Version(v.major, v.minor, v.micro)
 
     @property
     def source_url(self) -> str:
         return self.data['source_url']
+
+    @property
+    def download_url(self) -> str:
+        return self.data['world']
 
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
@@ -150,8 +153,11 @@ class GithubRepository(Repository):
         endpoint_sha = hashlib.sha256(releases_endpoint_url.encode()).hexdigest()
         cached_request = pathlib.Path(self.apworld_cache_path, "github", f'{endpoint_sha}.json')
 
-        response = requests.get(releases_endpoint_url)
-        releases = response.json()
+        if cached_request.exists():
+            releases = json.load(cached_request.open())
+        else:
+            response = requests.get(releases_endpoint_url)
+            releases = response.json()
 
         if isinstance(releases, dict) and 'message' in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
@@ -177,14 +183,13 @@ class GithubRepository(Repository):
                         'world_version': tag.replace('v', ''),
                         'description': '',
                     }
-                    world['source_url'] = asset['browser_download_url']
+                    world['source_url'] = self.url
+                    world['world'] = asset['browser_download_url']
                     world['size'] = asset['size']
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
 
-        # for world in self.worlds:
-        #     world.data['source_url'] = self.url
 
 class RepositoryManager:
     def __init__(self) -> None:
@@ -236,6 +241,40 @@ class RepositoryManager:
                 for world in repo.worlds:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
+
+    def download_remote_world(self, world: ApWorldMetadata) -> str:
+        path = os.path.join(self.apworld_cache_path, f"{world.id}-{world.world_version}.apworld")
+        if os.path.exists(path):
+            return path
+        response = requests.get(world.download_url)
+        with open(path, 'wb') as f:
+            f.write(response.content)
+        try:
+            metadata_str = zipfile.ZipFile(path).read('archipelago.json')
+            metadata = json.loads(metadata_str)
+        except KeyError:
+            print("No archipelago.json in ", path)
+            metadata = {
+                    "version": 6,
+                    "compatible_version": 5,
+                    'game': world.name,
+                    'id': world.id,
+                    'world_version_full': world.world_version,
+                    'world_version': world.version_tuple.as_simple_string(),
+                    'description': '',
+            }
+            with zipfile.ZipFile(path, 'a') as zf:
+                zf.writestr("archipelago.json", json.dumps(metadata, indent=4))
+        return path
+
+def parse_version(version: str) -> Version:
+    try:
+        return Version(version)
+    except InvalidVersion as e:
+        simple = re.search(VERSION_PATTERN, version, re.VERBOSE | re.IGNORECASE)
+        if simple:
+            return Version(simple.group(0))
+        return Version(f"0.0.0+{version}")
 
 
 if __name__ == '__main__':

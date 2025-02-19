@@ -2,33 +2,20 @@
 # Unfortunately, this isn't useful because KivyMD isn't bundled in frozen yet.
 
 
-import importlib
-import unittest
-import base64
 from kivymd.app import MDApp
-from kivy.lang import Builder
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import StringProperty
 # from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.uix.recycleview import RecycleView
 from kivy.uix.gridlayout import GridLayout
 from kivy.config import Config
 from kivy.uix.dropdown import DropDown
-from kivymd.uix.button import MDFlatButton, MDRaisedButton
+from kivymd.uix.button import MDRaisedButton
 from kivymd.uix.boxlayout import MDBoxLayout
-from collections import defaultdict
-from dataclasses import dataclass
-import hashlib
 import packaging.version
-import requests
-import json
 import os
-import shutil
-import typing
-import zipfile
 from Utils import title_sorted
 from worlds import AutoWorldRegister, WorldSource
 
-from .world_manager import RepositoryManager, ap_worlds
+from .world_manager import ApWorldMetadata, RepositoryManager
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 # Config.set('graphics', 'width', '1600')
 Config.write()
@@ -49,7 +36,6 @@ from kivymd.uix.screen import MDScreen
 from kivy.metrics import dp
 
 from kivymd.uix.list import OneLineAvatarIconListItem
-from kivymd.uix.list import OneLineAvatarListItem
 
 from kivymd.uix.list import OneLineListItem
 
@@ -77,7 +63,7 @@ class WorldManagerApp(MDApp):
         self.descriptions = {}
         self.installed_version = {}
         for world_id in self.repositories.all_known_package_ids:
-            available_versions = {}
+            available_versions: dict[str, ApWorldMetadata] = {}
             self.available_versions[world_id] = available_versions
             world_name = world_id
 
@@ -142,23 +128,7 @@ class WorldManagerApp(MDApp):
             max_version = max(available_versions, key=packaging.version.parse)
             source = available_versions[max_version]
             print(f"Downloading {world_name} {max_version}")
-            path = os.path.join(self.repositories.apworld_cache_path, f'{world_id}_{max_version}.apworld')
-            with open(path, 'wb') as f:
-                response = requests.get(source.source_url)
-                f.write(response.content)
-            try:
-                metadata_str = zipfile.ZipFile(path).read('metadata.json')
-                metadata = json.loads(metadata_str)
-            except KeyError:
-                print("No metadata.json in ", path)
-                metadata = {
-                        'id': world_id,
-                        'game': world_name,
-                        'world_version': max_version,
-                        'description': '',
-                }
-                with zipfile.ZipFile(path, 'a') as zf:
-                    zf.writestr("metadata.json", json.dumps(metadata, indent=4))
+            path = self.repositories.download_remote_world(source)
             print("Testing")
             loader = WorldSource(path, True, False)
             if world_id in AutoWorldRegister.world_types:

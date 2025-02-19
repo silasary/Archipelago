@@ -12,7 +12,6 @@ from pathlib import Path
 import Utils
 
 if __name__ == "__main__":
-    # sys.path.remove(os.path.dirname(__file__))
     ap_root = os.path.normpath(os.path.dirname(Utils.__file__))
     os.chdir(ap_root)
     sys.path.append(ap_root)
