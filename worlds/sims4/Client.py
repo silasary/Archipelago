@@ -25,7 +25,25 @@ if Utils.is_windows:
 else:
     documents_path = Path.home() / "Documents"
 
-mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
+sims_folder_names = [
+    "The Sims 4",        # English
+    "Los Sims 4",        # Spanish
+    "Les Sims 4",        # French
+    "Die Sims 4",        # German
+    "De Sims 4",         # Dutch
+]
+
+ea_path = documents_path / "Electronic Arts"
+
+for folder_name in sims_folder_names:
+    sims_path = ea_path / folder_name
+    if sims_path.exists():  # Check if the folder exists
+        break
+else:
+    sims_path = ea_path / "The Sims 4"  # Default fallback if none exist
+
+
+mod_data_path = sims_path / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
