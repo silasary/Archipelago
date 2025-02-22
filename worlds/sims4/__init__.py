@@ -1,5 +1,5 @@
 import typing
-from typing import Mapping, Any
+from typing import Mapping, Any, ClassVar
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
 from .Locations import location_table, Sims4Location, skill_locations_table
@@ -11,6 +11,8 @@ from .Rules import set_rules
 from worlds.AutoWorld import World, WebWorld
 from ..LauncherComponents import Component, components, Type
 from multiprocessing import Process
+import settings
+from pathlib import Path
 
 def run_client():
     from worlds.sims4.Client import main
@@ -19,6 +21,14 @@ def run_client():
 
 
 components.append(Component("The Sims 4 Client", func=run_client, component_type=Type.CLIENT))
+
+
+class Sims4Settings(settings.Group):
+    class ModsFolder(settings.UserFolderPath):
+        """Path to the Sims 4 Mods folder"""
+        description = "the folder your Sims 4 mods are installed to"
+
+    mods_folder: ModsFolder = ModsFolder(Path.home() / "Documents" / "Electronic Arts" / "The Sims 4" / "Mods")
 
 
 class Sims4APWeb(WebWorld):
@@ -125,5 +135,7 @@ class Sims4World(World):
 
     options_dataclass = Sims4Options
     options: Sims4Options
+
+    settings: ClassVar[Sims4Settings]
 
     set_rules = set_rules
