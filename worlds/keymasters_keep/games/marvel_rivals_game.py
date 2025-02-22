@@ -48,7 +48,7 @@ class MarvelRivalsGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Win a Convoy match on MAP as HERO",
@@ -58,7 +58,7 @@ class MarvelRivalsGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Win a Convergence match on MAP as HERO",
@@ -68,12 +68,22 @@ class MarvelRivalsGame(Game):
                 },
                 is_time_consuming=False,
                 is_difficult=False,
-                weight=3,
+                weight=4,
             ),
             GameObjectiveTemplate(
                 label="Win a Conquest match on MAP as HERO",
                 data={
                     "MAP": (self.maps_conquest, 1),
+                    "HERO": (self.heroes, 1),
+                },
+                is_time_consuming=False,
+                is_difficult=False,
+                weight=1,
+            ),
+            GameObjectiveTemplate(
+                label="Win a Doom Match on MAP as HERO",
+                data={
+                    "MAP": (self.maps_doom_match, 1),
                     "HERO": (self.heroes, 1),
                 },
                 is_time_consuming=False,
@@ -144,12 +154,19 @@ class MarvelRivalsGame(Game):
             "Intergalactic Empire of Wakanda: Hall of Djalia",
             "Klyntar: Symbiotic Surface",
             "Tokyo 2099: Shin-Shibuya",
+            "Empire of Eternal Night: Central Park",
         ]
 
     @staticmethod
     def maps_conquest() -> List[str]:
         return [
             "Tokyo 2099: Warped Ninomaru",
+        ]
+
+    @staticmethod
+    def maps_doom_match() -> List[str]:
+        return [
+            "Empire of Eternal Night: Sanctum Sanctorum",
         ]
 
     @staticmethod
@@ -165,6 +182,7 @@ class MarvelRivalsGame(Game):
             "Hawkeye",
             "Hela",
             "Hulk",
+            "Human Torch",
             "Invisible Woman",
             "Iron Fist",
             "Iron Man",
@@ -186,6 +204,7 @@ class MarvelRivalsGame(Game):
             "Star-Lord",
             "Storm",
             "The Punisher",
+            "The Thing",
             "Thor",
             "Venom",
             "Winter Soldier",
