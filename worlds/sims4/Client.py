@@ -12,18 +12,8 @@ from MultiServer import mark_raw
 from pathlib import Path
 
 # Gets the sims 4 mods folder
-if Utils.is_windows:
-    # https://stackoverflow.com/questions/6227590/finding-the-users-my-documents-path/30924555#
-    import ctypes.wintypes
 
-    CSIDL_PERSONAL = 5  # My Documents
-    SHGFP_TYPE_CURRENT = 0  # Get current, not default value
-
-    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
-    ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
-    documents_path = Path(buf.value)
-else:
-    documents_path = Path.home() / "Documents"
+documents_path = Path.home() / "Documents"
 
 mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
