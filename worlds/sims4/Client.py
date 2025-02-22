@@ -128,28 +128,16 @@ class SimsContext(CommonContext):
             self.goal = args["slot_data"]["goal"]
             self.career = args["slot_data"]["career"]
             url = urllib.parse.urlparse(self.server_address)
-            if '@' in self.server_address:
-                payload = {
-                    'cmd': "Connected",
-                    'host': url.hostname,
-                    'port': url.port,
-                    'name': self.slot_info[self.slot].name,
-                    'seed_name': self.seed_name,
-                    'goal': self.goal,
-                    'career': self.career
-                }
-                print_json(payload, 'connection_status.json', self)
-            else:
-                payload = {
-                    'cmd': "Connected",
-                    'host': url.hostname,
-                    'port': url.port,
-                    'name': self.slot_info[self.slot].name,
-                    'seed_name': self.seed_name,
-                    'goal': self.goal,
-                    'career': self.career
-                }
-                print_json(payload, 'connection_status.json', self)
+            payload = {
+                'cmd': "Connected",
+                'host': url.hostname,
+                'port': url.port,
+                'name': self.slot_info[self.slot].name,
+                'seed_name': self.seed_name,
+                'goal': self.goal,
+                'career': self.career
+            }
+            print_json(payload, 'connection_status.json', self)
 
 
         elif cmd == "RoomInfo":
