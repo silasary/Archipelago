@@ -11,11 +11,17 @@ from MultiServer import mark_raw
 
 from pathlib import Path
 
+from . import Sims4World
+
 # Gets the sims 4 mods folder
 
-documents_path = Path.home() / "Documents"
+if Sims4World.settings.mods_folder.exists():
+    mod_data_path = Path(Sims4World.settings.mods_folder) / "mod_data" / "s4ap"
 
-mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
+
+# documents_path = Path.home() / "Documents"
+#
+# mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
