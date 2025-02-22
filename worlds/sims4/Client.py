@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import urllib.parse
 
 import Utils
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, CommonContext, server_loop, logger, ClientStatus
@@ -126,11 +127,12 @@ class SimsContext(CommonContext):
         if cmd == "Connected":
             self.goal = args["slot_data"]["goal"]
             self.career = args["slot_data"]["career"]
+            url = urllib.parse.urlparse(self.server_address)
             if '@' in self.server_address:
                 payload = {
                     'cmd': "Connected",
-                    'host': self.server_address.split(':')[2].split('@')[1].replace('//', ''),
-                    'port': self.server_address.split(':')[3],
+                    'host': url.hostname,
+                    'port': url.port,
                     'name': self.slot_info[self.slot].name,
                     'seed_name': self.seed_name,
                     'goal': self.goal,
@@ -140,8 +142,8 @@ class SimsContext(CommonContext):
             else:
                 payload = {
                     'cmd': "Connected",
-                    'host': self.server_address.split(':')[1].replace('//', ''),
-                    'port': self.server_address.split(':')[2],
+                    'host': url.hostname,
+                    'port': url.port,
                     'name': self.slot_info[self.slot].name,
                     'seed_name': self.seed_name,
                     'goal': self.goal,
