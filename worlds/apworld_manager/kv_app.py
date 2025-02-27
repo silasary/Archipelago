@@ -141,9 +141,10 @@ def launch():
         for name, world in register.world_types.items():
             file = world.zip_path
             if not file:
-                # data = {"title": name, "description": world.__doc__ if False else "Placeholder text", "metadata": {"game": None}}
+                # data = {"title": name, "description": "Unpacked World", "metadata": {"game": None}}
                 # apworlds.append(data)
                 continue
+
             container = APWorldContainer(file)
             installed.add(file.stem)
             try:

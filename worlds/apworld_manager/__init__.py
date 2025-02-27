@@ -8,8 +8,12 @@ class ManagerSettings(Group):
     repositories: dict = {"https://raw.githubusercontent.com/silasary/apworlds/refs/heads/main/index.json": True}
 
 class RepoWorld(World):
+    """
+    Package manager for Archipelago Worlds
+    """
     settings: ClassVar[ManagerSettings]
     settings_key = "apworld_manager"
+    world_version = "0.0.1"
 
     # to make auto world register happy so we can register our settings
     game = "APWorld Manager"

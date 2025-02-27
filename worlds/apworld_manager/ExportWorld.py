@@ -34,7 +34,7 @@ def create_world_meta(world_key, world_type, is_frozen):
     for key in METADATA_KEYS:
         if hasattr(world_type, key):
             metadata[key] = getattr(world_type, key)
-    if world_type.__doc__ != World.__doc__:
+    if world_type.__doc__ != World.__doc__ and world_type.__doc__ is not None:
         metadata["description"] = world_type.__doc__.strip()
     metadata["id"] = world_key
     metadata["frozen"] = is_frozen
@@ -56,7 +56,10 @@ def export_world(libfolder, world_type, output_dir, is_frozen):
 
     arch = metadata["arch"]
     os_type = metadata["os"]
-    base_file_name = f"{world_key}-{arch}-{os_type}-py{metadata['pyversion']}-{metadata['world_version']}"
+    if arch == "any" and os_type == "any" and metadata["pyversion"] == "any":
+        base_file_name = f"{world_key}-{metadata['world_version']}"
+    else:
+        base_file_name = f"{world_key}-{arch}-{os_type}-py{metadata['pyversion']}-{metadata['world_version']}"
     world_file_name = f"{base_file_name}.apworld"
 
     output_name = output_dir / world_file_name
@@ -75,7 +78,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser("simple_example")
     parser.add_argument("world_name", help="World to be exported.", type=str)
-    parser.add_argument("output_dir", help="Export directory.", type=Path, default=ap_root_path / "worlds", nargs='?')
+    parser.add_argument("output_dir", help="Export directory.", type=Path, default=ap_root_path / "custom_worlds", nargs='?')
     args = parser.parse_args()
 
     output = export_world(ap_root_path, AutoWorldRegister.world_types[args.world_name], args.output_dir, is_frozen=False)
