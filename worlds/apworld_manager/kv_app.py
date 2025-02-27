@@ -159,14 +159,19 @@ def launch():
             data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote}
             if not remote:
                 description = "No remote data available"
+                data['sort'] = -1
             else:
                 highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
                 data["latest_version"] = highest_remote_version
-                data['update_available'] = parse_version(highest_remote_version.world_version) > parse_version(local_version)
+                v_local = parse_version(local_version)
+                v_remote = parse_version(highest_remote_version.world_version)
+                data['update_available'] = v_remote > v_local
                 if data['update_available']:
-                    description = "Update available"
+                    description = f"Update available: {v_local} -> {v_remote}"
+                    data['sort'] = 1
                 else:
                     description = "Up to date"
+                    data['sort'] = 1
             data["description"] = description
             apworlds.append(data)
 
@@ -177,8 +182,17 @@ def launch():
             if not remote:
                 continue
             highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-            data = {"title": highest_remote_version.name or f'{world}.apworld', "description": "Available to install", "latest_version": highest_remote_version, "update_available": True, "manifest": {}, "installed": False}
+            data = {
+                "title": highest_remote_version.name or f'{world}.apworld',
+                "description": "Available to install",
+                "latest_version": highest_remote_version,
+                "update_available": True,
+                "manifest": {},
+                "installed": False,
+                "sort": 0,
+                }
             apworlds.append(data)
+        apworlds.sort(key=lambda x: x['sort'], reverse=True)
         return apworlds
 
     apworlds = refresh_apworld_table()
