@@ -5,7 +5,11 @@ from worlds.LauncherComponents import Component, Type, components, launch_subpro
 from worlds.AutoWorld import World
 
 class ManagerSettings(Group):
+    """
+    repositories: A list of Repository URLs and whether they're enabled or not.
+    github_token: A github Personal Access Token with the `repo` scope to allow for more requests to the GitHub API. This lets you avoid rate limits if you use GitHub repos."""
     repositories: dict = {"https://raw.githubusercontent.com/silasary/apworlds/refs/heads/main/index.json": True}
+    github_token: str = ""
 
 class RepoWorld(World):
     """

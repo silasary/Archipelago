@@ -153,11 +153,14 @@ class GithubRepository(Repository):
         endpoint_sha = hashlib.sha256(releases_endpoint_url.encode()).hexdigest()
         cached_request = pathlib.Path(self.apworld_cache_path, "github", f'{endpoint_sha}.json')
 
-        if cached_request.exists():
-            releases = json.load(cached_request.open())
+        from . import RepoWorld
+        gh_token = RepoWorld.settings.github_token or os.environ.get('GITHUB_TOKEN')
+        if not gh_token:
+            headers = {}
         else:
-            response = requests.get(releases_endpoint_url)
-            releases = response.json()
+            headers = {"Authorization": f"Bearer {gh_token}"}
+        response = requests.get(releases_endpoint_url, headers=headers)
+        releases = response.json()
 
         if isinstance(releases, dict) and 'message' in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
