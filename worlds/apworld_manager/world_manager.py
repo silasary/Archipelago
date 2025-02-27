@@ -175,7 +175,8 @@ class GithubRepository(Repository):
             tag = release['tag_name']
             for asset in release['assets']:
                 if asset['name'].endswith('.apworld'):
-                    world_id = asset['name'].replace('.apworld', '')
+                    world_id = asset['name'].replace('.apworld', '').replace(tag, '').rstrip('-_')
+
                     world = {}
                     world['metadata'] = {
                         'id': world_id,
