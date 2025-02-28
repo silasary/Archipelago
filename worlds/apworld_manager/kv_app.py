@@ -1,6 +1,3 @@
-import re
-import packaging
-from Utils import Version
 from worlds.Files import InvalidDataError
 from .world_manager import RepositoryManager, parse_version
 from worlds.LauncherComponents import install_apworld

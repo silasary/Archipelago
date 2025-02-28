@@ -1,4 +1,4 @@
-from typing import ClassVar, List
+from typing import ClassVar
 from settings import Group
 from worlds.LauncherComponents import Component, Type, components, launch_subprocess
 

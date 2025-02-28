@@ -14,7 +14,7 @@ from enum import Enum
 from Utils import cache_path
 
 import Utils
-from packaging.version import Version, VERSION_PATTERN, InvalidVersion
+from ._vendor.packaging.version import Version, VERSION_PATTERN, InvalidVersion
 
 
 @dataclass
