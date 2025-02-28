@@ -1,3 +1,4 @@
+import hashlib
 from worlds.Files import InvalidDataError
 from .world_manager import RepositoryManager, parse_version
 from worlds.LauncherComponents import install_apworld
@@ -152,6 +153,11 @@ def launch():
             manifest_data = container.get_manifest()
             remote = repositories.packages_by_id_version.get(file.stem)
             local_version = manifest_data.setdefault("world_version", "0.0.0")
+            if local_version == "0.0.0":
+                with open(file, 'rb') as f:
+                    hash = hashlib.sha256(f.read()).hexdigest()
+                if local := repositories.find_release_by_hash(hash):
+                    local_version = local.world_version
             description = "Placeholder text"
             data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote}
             if not remote:
