@@ -3,7 +3,6 @@ from worlds.Files import InvalidDataError
 from .world_manager import RepositoryManager, parse_version
 from worlds.LauncherComponents import install_apworld
 
-
 def launch():
     from kvui import (
         App,
@@ -72,6 +71,8 @@ def launch():
         def __init__(self, *args, apworlds={}, **kwargs):
             super().__init__(*args, **kwargs)
             self.apworlds = apworlds
+            from . import RepoWorld
+            self.title = f'APWorld Manager {RepoWorld.world_version}'
 
         def build(self):
             window = ApworldDirectoryWindow()
