@@ -175,6 +175,7 @@ class GithubRepository(Repository):
         else:
             with cached_request.open('w') as f:
                 json.dump(releases, f)
+        self.release_json = releases
         if not releases:
             print(f"No releases found for {self.url}")
             return
