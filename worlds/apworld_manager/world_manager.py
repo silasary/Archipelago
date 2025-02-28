@@ -69,6 +69,10 @@ class ApWorldMetadata:
     def download_url(self) -> str:
         return self.data['world']
 
+    @property
+    def created_at(self) -> str:
+        return self.data['metadata'].get('created_at')
+
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
         self.path = path
@@ -186,6 +190,7 @@ class GithubRepository(Repository):
                         'game': '',
                         'world_version': tag.replace('v', ''),
                         'description': '',
+                        'created_at': release.get('created_at') or release.get('published_at'),
                     }
                     world['source_url'] = self.url
                     world['world'] = asset['browser_download_url']
