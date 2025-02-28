@@ -252,7 +252,7 @@ class RepositoryManager:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
 
-    def download_remote_world(self, world: ApWorldMetadata, add_missing_metadata: True) -> str:
+    def download_remote_world(self, world: ApWorldMetadata, add_missing_metadata: bool = True) -> str:
         path = os.path.join(self.apworld_cache_path, f"{world.id}-{world.world_version}.apworld")
         if not os.path.exists(path):
             response = requests.get(world.download_url)
