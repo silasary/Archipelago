@@ -397,6 +397,9 @@ sims4_aspiration_milestones = {
         AspirationNames.base_aspiration_well_liked,
         AspirationNames.base_aspiration_super_friend,
         AspirationNames.base_aspiration_friend_of_the_world,
+    ),
+    "neighborly_advisor": (
+        AspirationNames.base_aspiration_neighborly_advisor,
     )
 }
 
