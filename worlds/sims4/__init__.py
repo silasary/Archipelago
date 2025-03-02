@@ -112,7 +112,7 @@ class Sims4World(World):
 
     game: str = "The Sims 4"
     topology_present = False
-    web = Sims4APWeb()
+    web = Sims4Web()
 
     item_name_to_id = {data["name"]: item_id for item_id, data in Items.item_table.items()}
     location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
