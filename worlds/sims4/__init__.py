@@ -21,7 +21,7 @@ def run_client():
 components.append(Component("The Sims 4 Client", func=run_client, component_type=Type.CLIENT))
 
 
-class Sims4APWeb(WebWorld):
+class Sims4Web(WebWorld):
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
         "A guide to setting up The Sims 4 for MultiWorld.",
