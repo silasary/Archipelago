@@ -3,32 +3,32 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import urllib.parse
 
 import Utils
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, CommonContext, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
 
+from pathlib import Path
+
+from . import Sims4World
+
 # Gets the sims 4 mods folder
-if Utils.is_windows:
-    # https://stackoverflow.com/questions/6227590/finding-the-users-my-documents-path/30924555#
-    import ctypes.wintypes
 
-    CSIDL_PERSONAL = 5  # My Documents
-    SHGFP_TYPE_CURRENT = 0  # Get current, not default value
+if Sims4World.settings.mods_folder.exists():
+    mod_data_path = Path(Sims4World.settings.mods_folder) / "mod_data" / "s4ap"
 
-    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
-    ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
-    Path = os.path.expanduser(rf'{buf.value}\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
-else:
-    Path = os.path.expanduser(r'~\Documents\Electronic Arts\The Sims 4\Mods\mod_data\s4ap')
 
+# documents_path = Path.home() / "Documents"
+#
+# mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
 
 # reads and prints json files
 
 
 def print_json(obj: object, name: str, ctx: SimsContext):
-    full_path = os.path.join(Path, name)
-    if not os.path.exists(Path):
+    full_path = os.path.join(mod_data_path, name)
+    if not os.path.exists(mod_data_path):
         ctx.gui_error(title="Sims 4 files not found.",
                       text=f"Could not find sims 4 mod files, make sure you installed the mod correctly and have ran sims 4.")
     else:
@@ -40,7 +40,7 @@ mtime = None
 
 def load_json(name):
     global mtime
-    full_path = os.path.join(Path, name)
+    full_path = os.path.join(mod_data_path, name)
     if os.path.isfile(full_path):
         next_mtime = os.path.getmtime(full_path)
         if mtime != next_mtime:
@@ -81,12 +81,12 @@ class SimsCommandProcessor(ClientCommandProcessor):
     def _cmd_set_path(self, sims_4_mods_path: str = ''):
         """Set the file path to the Sims 4 mods folder manually (if automatic detection fails)"""
         p = sims_4_mods_path
-        global Path
+        global mod_data_path
         if p == '':
             self.output('no path inputed')
         elif os.path.exists(os.path.join(p, 'mod_data', 's4ap')):
             self.output('Sims 4 mods folder found')
-            Path = p
+            mod_data_path = p
         else:
             self.ctx.gui_error(title='Sims 4 mods folder not found',
                                text=f'Make sure the file path you inputed is correct.')
@@ -123,28 +123,17 @@ class SimsContext(CommonContext):
         if cmd == "Connected":
             self.goal = args["slot_data"]["goal"]
             self.career = args["slot_data"]["career"]
-            if '@' in self.server_address:
-                payload = {
-                    'cmd': "Connected",
-                    'host': self.server_address.split(':')[2].split('@')[1].replace('//', ''),
-                    'port': self.server_address.split(':')[3],
-                    'name': self.slot_info[self.slot].name,
-                    'seed_name': self.seed_name,
-                    'goal': self.goal,
-                    'career': self.career
-                }
-                print_json(payload, 'connection_status.json', self)
-            else:
-                payload = {
-                    'cmd': "Connected",
-                    'host': self.server_address.split(':')[1].replace('//', ''),
-                    'port': self.server_address.split(':')[2],
-                    'name': self.slot_info[self.slot].name,
-                    'seed_name': self.seed_name,
-                    'goal': self.goal,
-                    'career': self.career
-                }
-                print_json(payload, 'connection_status.json', self)
+            url = urllib.parse.urlparse(self.server_address)
+            payload = {
+                'cmd': "Connected",
+                'host': url.hostname,
+                'port': url.port,
+                'name': self.slot_info[self.slot].name,
+                'seed_name': self.seed_name,
+                'goal': self.goal,
+                'career': self.career
+            }
+            print_json(payload, 'connection_status.json', self)
 
 
         elif cmd == "RoomInfo":
@@ -224,7 +213,7 @@ def main():
 
     import colorama
 
-    colorama.init()
+    colorama.just_fix_windows_console()
 
     asyncio.run(_main())
     colorama.deinit()
