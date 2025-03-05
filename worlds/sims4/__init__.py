@@ -116,7 +116,12 @@ class Sims4World(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         slot_data = {
             "goal": self.options.goal.current_key,
-            "career": self.options.career.current_key
+            "career": self.options.career.current_key,
+            "expansion_packs": self.options.expansion_packs.value,
+            "game_packs": self.options.game_packs.value,
+            "stuff_packs": self.options.stuff_packs.value,
+            "cas_kits": self.options.cas_kits.value,
+            "build_kits": self.options.build_kits.value
         }
         return slot_data
 
