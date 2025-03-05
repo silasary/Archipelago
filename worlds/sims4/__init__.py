@@ -1,5 +1,5 @@
 import typing
-from typing import Mapping, Any, ClassVar
+from typing import Mapping, Any, ClassVar, Dict
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
 from .Locations import location_table, Sims4Location, skill_locations_table
@@ -139,3 +139,9 @@ class Sims4World(World):
     settings: ClassVar[Sims4Settings]
 
     set_rules = set_rules
+    
+    # for UT, not called in standard generation
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]):
+		# returns slot data to be used in UT regen
+		return slot_data
