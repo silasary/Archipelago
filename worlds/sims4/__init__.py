@@ -145,6 +145,8 @@ class Sims4World(World):
 
     set_rules = set_rules
     
+    ut_can_gen_without_yaml = True
+    
     # for UT, not called in standard generation
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]):
