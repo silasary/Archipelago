@@ -21826,18 +21826,9 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
         secondary_index=8,
         difficulty=3
     ),
-    "Vaan's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2500,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="0",
-        secondary_index=9,
-        difficulty=3
-    ),
     "Ashe's Starting Items (1)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2501,
+        address=FF12OW_BASE_ID + 2500,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21845,7 +21836,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (2)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2502,
+        address=FF12OW_BASE_ID + 2501,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21854,7 +21845,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (3)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2503,
+        address=FF12OW_BASE_ID + 2502,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21863,7 +21854,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (4)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2504,
+        address=FF12OW_BASE_ID + 2503,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21872,7 +21863,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (5)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2505,
+        address=FF12OW_BASE_ID + 2504,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21881,7 +21872,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (6)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2506,
+        address=FF12OW_BASE_ID + 2505,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21890,7 +21881,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (7)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2507,
+        address=FF12OW_BASE_ID + 2506,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21899,7 +21890,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (8)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2508,
+        address=FF12OW_BASE_ID + 2507,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
@@ -21908,25 +21899,16 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Ashe's Starting Items (9)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2509,
+        address=FF12OW_BASE_ID + 2508,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="1",
         secondary_index=8,
         difficulty=3
     ),
-    "Ashe's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2510,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="1",
-        secondary_index=9,
-        difficulty=3
-    ),
     "Fran's Starting Items (1)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2511,
+        address=FF12OW_BASE_ID + 2509,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21934,7 +21916,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (2)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2512,
+        address=FF12OW_BASE_ID + 2510,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21943,7 +21925,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (3)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2513,
+        address=FF12OW_BASE_ID + 2511,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21952,7 +21934,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (4)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2514,
+        address=FF12OW_BASE_ID + 2512,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21961,7 +21943,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (5)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2515,
+        address=FF12OW_BASE_ID + 2513,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21970,7 +21952,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (6)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2516,
+        address=FF12OW_BASE_ID + 2514,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21979,7 +21961,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (7)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2517,
+        address=FF12OW_BASE_ID + 2515,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21988,7 +21970,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (8)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2518,
+        address=FF12OW_BASE_ID + 2516,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
@@ -21997,25 +21979,16 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Fran's Starting Items (9)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2519,
+        address=FF12OW_BASE_ID + 2517,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="2",
         secondary_index=8,
         difficulty=3
     ),
-    "Fran's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2520,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="2",
-        secondary_index=9,
-        difficulty=3
-    ),
     "Balthier's Starting Items (1)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2521,
+        address=FF12OW_BASE_ID + 2518,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22023,7 +21996,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (2)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2522,
+        address=FF12OW_BASE_ID + 2519,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22032,7 +22005,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (3)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2523,
+        address=FF12OW_BASE_ID + 2520,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22041,7 +22014,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (4)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2524,
+        address=FF12OW_BASE_ID + 2521,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22050,7 +22023,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (5)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2525,
+        address=FF12OW_BASE_ID + 2522,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22059,7 +22032,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (6)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2526,
+        address=FF12OW_BASE_ID + 2523,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22068,7 +22041,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (7)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2527,
+        address=FF12OW_BASE_ID + 2524,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22077,7 +22050,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (8)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2528,
+        address=FF12OW_BASE_ID + 2525,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
@@ -22086,25 +22059,16 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Balthier's Starting Items (9)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2529,
+        address=FF12OW_BASE_ID + 2526,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="3",
         secondary_index=8,
         difficulty=3
     ),
-    "Balthier's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2530,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="3",
-        secondary_index=9,
-        difficulty=3
-    ),
     "Basch's Starting Items (1)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2531,
+        address=FF12OW_BASE_ID + 2527,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22112,7 +22076,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (2)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2532,
+        address=FF12OW_BASE_ID + 2528,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22121,7 +22085,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (3)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2533,
+        address=FF12OW_BASE_ID + 2529,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22130,7 +22094,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (4)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2534,
+        address=FF12OW_BASE_ID + 2530,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22139,7 +22103,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (5)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2535,
+        address=FF12OW_BASE_ID + 2531,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22148,7 +22112,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (6)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2536,
+        address=FF12OW_BASE_ID + 2532,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22157,7 +22121,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (7)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2537,
+        address=FF12OW_BASE_ID + 2533,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22166,7 +22130,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (8)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2538,
+        address=FF12OW_BASE_ID + 2534,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
@@ -22175,25 +22139,16 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Basch's Starting Items (9)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2539,
+        address=FF12OW_BASE_ID + 2535,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="4",
         secondary_index=8,
         difficulty=3
     ),
-    "Basch's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2540,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="4",
-        secondary_index=9,
-        difficulty=3
-    ),
     "Penelo's Starting Items (1)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2541,
+        address=FF12OW_BASE_ID + 2536,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22201,7 +22156,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (2)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2542,
+        address=FF12OW_BASE_ID + 2537,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22210,7 +22165,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (3)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2543,
+        address=FF12OW_BASE_ID + 2538,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22219,7 +22174,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (4)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2544,
+        address=FF12OW_BASE_ID + 2539,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22228,7 +22183,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (5)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2545,
+        address=FF12OW_BASE_ID + 2540,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22237,7 +22192,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (6)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2546,
+        address=FF12OW_BASE_ID + 2541,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22246,7 +22201,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (7)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2547,
+        address=FF12OW_BASE_ID + 2542,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22255,7 +22210,7 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (8)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2548,
+        address=FF12OW_BASE_ID + 2543,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
@@ -22264,20 +22219,11 @@ location_data_table: Dict[str, FF12OpenWorldLocationData] = {
     ),
     "Penelo's Starting Items (9)": FF12OpenWorldLocationData(
         region="Ivalice",
-        address=FF12OW_BASE_ID + 2549,
+        address=FF12OW_BASE_ID + 2544,
         classification=LocationProgressType.DEFAULT,
         type="inventory",
         str_id="5",
         secondary_index=8,
-        difficulty=3
-    ),
-    "Penelo's Starting Items (10)": FF12OpenWorldLocationData(
-        region="Ivalice",
-        address=FF12OW_BASE_ID + 2550,
-        classification=LocationProgressType.DEFAULT,
-        type="inventory",
-        str_id="5",
-        secondary_index=9,
         difficulty=3
     ),
 }
