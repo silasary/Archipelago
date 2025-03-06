@@ -189,7 +189,7 @@ class GithubRepository(Repository):
                     world['metadata'] = {
                         'id': world_id,
                         'game': '',
-                        'world_version': tag.replace('v', ''),
+                        'world_version': tag,
                         'description': '',
                         'created_at': release.get('created_at') or release.get('published_at'),
                     }
@@ -286,6 +286,8 @@ class RepositoryManager:
         return None
 
 def parse_version(version: str) -> Version:
+    if version.startswith("v"):
+        version = version[1:]
     try:
         return Version(version)
     except InvalidVersion as e:
