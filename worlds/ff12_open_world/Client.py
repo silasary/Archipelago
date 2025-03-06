@@ -1,8 +1,10 @@
+import os
 import time
 from typing import List
 
 import ModuleUpdate
 from BaseClasses import ItemClassification
+from Utils import async_start
 
 ModuleUpdate.update()
 
@@ -62,35 +64,6 @@ class FF12OpenWorldCommandProcessor(ClientCommandProcessor):
             logger.info("Failed to set process by ID.")
             logger.info(e)
 
-    def _cmd_debug_info(self):
-        """Prints debug information."""
-        try:
-            logger.info("Current Map ID: " + str(self.ctx.get_current_map()))
-            logger.info("Current State: " + str(self.ctx.get_current_game_state()))
-            logger.info("Party: " + str([c for c in range(6) if self.ctx.is_chara_in_party(c)]))
-            logger.info("Items: " + str(
-                [item + ": " + str(self.ctx.get_item_count(item)) for item in item_data_table.keys() if
-                 self.ctx.has_item_in_game(item)]))
-            logger.info("Missing: " + str(
-                [item for item in item_data_table.keys() if
-                 self.ctx.get_item_count(item) < self.ctx.get_expected_items(item) and
-                 item_data_table[item].classification & ItemClassification.progression]))
-            pass
-        except Exception as e:
-            if self.ff12connected:
-                self.ff12connected = False
-            logger.info(e)
-
-    def _cmd_check_missing_items(self):
-        """Check for missing items."""
-        try:
-            # Create a task for checking missing items
-            asyncio.create_task(self.ctx.check_missing_items())
-        except Exception as e:
-            if self.ff12connected:
-                self.ff12connected = False
-            logger.info(e)
-
 
 # Copied from KH2 Client
 class FF12OpenWorldContext(CommonContext):
@@ -103,16 +76,15 @@ class FF12OpenWorldContext(CommonContext):
 
         self.last_big_batch_time = None
         self.ff12_items_received: List[NetworkItem] = []
-        self.prev_map_and_time = None
         self.sending: List[int] = []
         self.ff12slotdata = None
         self.server_connected = False
         self.ff12connected = False
         # hooked object
         self.ff12 = None
-        self.check_loc_task = None
-        self.give_items_task = None
         self.item_lock = asyncio.Lock()
+        if "localappdata" in os.environ:
+            self.game_communication_path = os.path.expandvars(r"%localappdata%\FF12OpenWorldAP")
 
     async def get_username(self):
         if not self.auth:
@@ -218,6 +190,10 @@ class FF12OpenWorldContext(CommonContext):
             self.server_connected = True
             asyncio.create_task(self.send_msgs([{'cmd': 'Sync'}]))
 
+        if cmd in {"RoomInfo"}:
+            if not os.path.exists(self.game_communication_path):
+                os.makedirs(self.game_communication_path)
+
     def find_game(self):
         if not self.ff12connected:
             try:
@@ -228,31 +204,6 @@ class FF12OpenWorldContext(CommonContext):
                 if self.ff12connected:
                     self.ff12connected = False
                 logger.info("Game is not open (Try running the client as an admin).")
-                logger.info(e)
-
-    def get_current_map(self) -> int:
-        return self.ff12_read_short(0x20454C4)
-
-    def is_in_game(self) -> bool:
-        # Check if the game has been on this map for more than 0.25 seconds
-        self.prev_map_and_time = self.prev_map_and_time or (self.get_current_map(), time.time())
-
-        if (self.prev_map_and_time[0] != self.get_current_map() or
-                self.get_current_map() <= 12 or # Main Menus
-                self.get_current_map() == 274 or # Initial Nalbina Fortress Map
-                self.get_current_game_state() != 0):
-            self.prev_map_and_time = (self.get_current_map(), time.time())
-            return False
-        else:
-            return time.time() - self.prev_map_and_time[1] > 0.25
-
-    def get_current_game_state(self) -> int:
-        # 0 - Field
-        # 1 - Dialog/Cutscene
-        # 4 - Menu
-        # 5 - Load Screen
-        pointer1 = self.ff12_read_int(0x01E5FFE0)
-        return self.ff12_read_byte(pointer1 + 0x3A, False)
 
     def get_party_address(self) -> int:
         return self.ff12_read_int(0x02D9F190) + 0x08
@@ -266,25 +217,11 @@ class FF12OpenWorldContext(CommonContext):
     def get_item_index(self) -> int:
         return self.ff12_read_int(self.get_save_data_address() + 0x696, use_base=False)
 
-    def set_item_index(self, index):
-        self.ff12_write_int(self.get_save_data_address() + 0x696, index, use_base=False)
-
     def get_item_add_id(self) -> int:
         return self.ff12_read_short(self.get_save_data_address() + 0x69A, use_base=False)
 
     def get_item_add_count(self) -> int:
         return self.ff12_read_int(self.get_save_data_address() + 0x69C, use_base=False)
-
-    def set_item_add_id(self, item_id: int) -> None:
-        if item_id >= FF12OW_BASE_ID + 98304:  # Gil
-            self.ff12_write_short(self.get_save_data_address() + 0x69A,
-                                  0xFFFE, use_base=False)
-        else:
-            self.ff12_write_short(self.get_save_data_address() + 0x69A,
-                                  item_id - FF12OW_BASE_ID, use_base=False)
-
-    def set_item_add_count(self, count: int) -> None:
-        self.ff12_write_int(self.get_save_data_address() + 0x69C, count, use_base=False)
 
     def is_chara_in_party(self, chara) -> bool:
         return self.ff12_read_bit(self.get_party_address() + chara * 0x1C8, 4, False)
@@ -377,54 +314,45 @@ class FF12OpenWorldContext(CommonContext):
             return darklor_flag
 
     async def check_locations(self):
-        last_end_time = time.time()
-        while not self.exit_event.is_set() and self.ff12connected and self.server_connected:
-            if time.time() - last_end_time < 0.5:
-                await asyncio.sleep(0.1)
-                continue
-            try:
-                self.sending.clear()
-                index = 0
-                for location_name, data in location_data_table.items():
-                    index += 1
-                    # Do not check in menus
-                    if not self.is_in_game():
-                        break
-                    if data.address in self.locations_checked:
+        try:
+            self.sending.clear()
+            index = 0
+            for location_name, data in location_data_table.items():
+                index += 1
+                if data.address in self.locations_checked:
+                    continue
+                if data.type == "inventory":
+                    if self.is_chara_in_party(int(data.str_id)):
+                        self.sending.append(data.address)
+                elif data.type == "reward":
+                    if self.is_reward_met(location_name, data):
+                        self.sending.append(data.address)
+                elif data.type == "treasure":
+                    treasures: list[str] = self.ff12slotdata["treasures"]
+                    if location_name not in treasures:
                         continue
-                    if data.type == "inventory":
-                        if self.is_chara_in_party(int(data.str_id)):
-                            self.sending.append(data.address)
-                    elif data.type == "reward":
-                        if self.is_reward_met(location_name, data):
-                            self.sending.append(data.address)
-                    elif data.type == "treasure":
-                        treasures: list[str] = self.ff12slotdata["treasures"]
-                        if location_name not in treasures:
-                            continue
-                        treasure_index = treasures.index(location_name)
-                        byte_index = treasure_index // 8
-                        bit_index = treasure_index % 8
-                        if self.ff12_read_bit(self.get_save_data_address() + 0x14B4 + byte_index, bit_index, False):
-                            self.sending.append(data.address)
+                    treasure_index = treasures.index(location_name)
+                    byte_index = treasure_index // 8
+                    bit_index = treasure_index % 8
+                    if self.ff12_read_bit(self.get_save_data_address() + 0x14B4 + byte_index, bit_index, False):
+                        self.sending.append(data.address)
 
-                self.locations_checked |= set(self.sending)
+            self.locations_checked |= set(self.sending)
 
-                # Victory, Final Boss
-                if self.ff12_read_byte(self.get_save_data_address() + 0xA2E, False) >= 2 \
-                        and not self.finished_game:
-                    await self.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-                    self.finished_game = True
+            # Victory, Final Boss
+            if self.ff12_read_byte(self.get_save_data_address() + 0xA2E, False) >= 2 \
+                    and not self.finished_game:
+                await self.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                self.finished_game = True
 
-                if len(self.sending) > 0:
-                    message = [{"cmd": 'LocationChecks', "locations": self.sending}]
-                    await self.send_msgs(message)
+            if len(self.sending) > 0:
+                message = [{"cmd": 'LocationChecks', "locations": self.sending}]
+                await self.send_msgs(message)
 
-            except Exception as e:
-                if self.ff12connected:
-                    self.ff12connected = False
-                logger.info(e)
-            last_end_time = time.time()
+        except Exception as e:
+            if self.ff12connected:
+                self.ff12connected = False
+            logger.info(e)
 
     def is_reward_met(self, location_name: str, location_data: FF12OpenWorldLocationData):
         if location_data.str_id == "9000" or \
@@ -788,230 +716,17 @@ class FF12OpenWorldContext(CommonContext):
             self.ff12_read_byte(self.get_save_data_address() + 0xb15, False),
             self.ff12_read_byte(self.get_save_data_address() + 0xb16, False))
 
-    def get_expected_items(self, item_name: str) -> int:
-        count = len([self.ff12_items_received[i] for i in range(len(self.ff12_items_received)) if
-                     self.ff12_items_received[i].item == item_data_table[item_name].code and i < self.get_item_index()])
-
-        # Limit key item types to 1 as they're stored as bits
-        item_id = item_data_table[item_name].code
-        if 0x8000 <= item_id < 0x9000:
-            count = min(count, 1)
-
-        if item_name == "Black Orb":
-            if self.ff12_read_bit(self.get_save_data_address() + 0x931, 0, False):
-                count -= 1
-            if self.ff12_read_bit(self.get_save_data_address() + 0x931, 1, False):
-                count -= 1
-            if self.ff12_read_bit(self.get_save_data_address() + 0x931, 2, False):
-                count -= 1
-            for i in range(0, 12):
-                count -= self.ff12_read_byte(self.get_save_data_address() + 0x960 + i, False)
-        if item_name == "Cactus Flower":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x68B, False) >= 3:
-                return 0
-        if item_name == "Tube Fuse":
-            if self.get_escape_progress() >= 0x141:
-                return 0
-        if item_name == "Ring of the Toad":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 10, False) >= 100:
-                return 0
-        if item_name == "Silent Urn":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 35, False) >= 100:
-                return 0
-        if item_name == "Medallion of Bravery":
-            # If in Nabudis, we can't rely on this check until the boss is beaten
-            if (not (0x1A5 <= self.get_current_map() <= 0x1BE) or
-                    self.ff12_read_byte(self.get_save_data_address() + 0xA0F, False) >= 2):
-                return 0
-        if item_name == "Medallion of Love":
-            # If in Nabudis, we can't rely on this check until the boss is beaten
-            if (not (0x1A5 <= self.get_current_map() <= 0x1BE) or
-                    self.ff12_read_byte(self.get_save_data_address() + 0xA10, False) >= 2):
-                return 0
-        if item_name == "Medallion of Might":
-            # If in Nabudis, we can't rely on this check until the boss is beaten
-            if (not (0x1A5 <= self.get_current_map() <= 0x1BE) or
-                    self.ff12_read_byte(self.get_save_data_address() + 0xA1A, False) >= 2):
-                return 0
-        if item_name == "Lusterless Medallion":
-            if (self.ff12_read_byte(self.get_save_data_address() + 0xA0F, False) >= 2 and
-                    self.ff12_read_byte(self.get_save_data_address() + 0xA10, False) >= 2):
-                return 0
-        if item_name == "Stone of the Condemner":
-            # If in Miriam, we can't rely on this check until the boss is beaten
-            if (not (0x251 <= self.get_current_map() <= 0x26C) or
-                    self.ff12_read_byte(self.get_save_data_address() + 0xA22, False) >= 2):
-                return 0
-        if item_name == "Errmonea Leaf":
-            # We can only rely on this check until the Enkelados hunt is completed
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 9, False) >= 100:
-                return 0
-        if item_name == "Rabbit's Tail":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 13, False) >= 100:
-                return 0
-        if item_name == "Ann's Letter":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x5A6, False) >= 7:
-                return 0
-        if item_name == "Serpentwyne Must":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 8, False) >= 100:
-                return 0
-        if item_name == "Dull Fragment":
-            if self.ff12_read_bit(self.get_save_data_address() + 0x406, 0, False):
-                return 0
-        if item_name == "Blackened Fragment":
-            if self.ff12_read_bit(self.get_save_data_address() + 0x406, 1, False):
-                return 0
-        if item_name == "Grimy Fragment":
-            if self.ff12_read_bit(self.get_save_data_address() + 0x406, 2, False):
-                return 0
-        if item_name == "Stolen Articles":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 34, False) >= 100:
-                return 0
-        if item_name == "Pilika's Diary":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x6FD, False) >= 4:
-                return 0
-        if item_name == "Ring of the Light":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 30, False) >= 90:
-                return 0
-        if item_name == "Viera Rucksack":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 20, False) >= 150:
-                return 0
-        if item_name == "Moonsilver Medallion":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 59, False) >= 30:
-                return 0
-        if item_name == "Broken Key":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 5, False) >= 120:
-                return 0
-        if item_name == "Wind Globe":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 53, False) >= 60:
-                return 0
-        if item_name == "Shelled Trophy":
-            if self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 71, False) >= 30:
-                return 0
-        if (item_name == "Sword of the Order" or
-                item_name == "Shadestone" or
-                item_name == "Sunstone" or
-                item_name == "Dragon Scale"):
-            return 0  # Can't rely on checking these for missing items
-        if item_data_table["Belias"].code <= item_data_table[item_name].code <= item_data_table["Second Board"].code:
-            return 0  # Not checking espers/second board
-        return max(count, 0)
-
     async def give_items(self):
-        last_end_time = time.time()
-        while not self.exit_event.is_set() and self.ff12connected and self.server_connected:
-            if time.time() - last_end_time < 0.5:
-                await asyncio.sleep(0.1)
-                continue
-            try:
-                start_index = self.get_item_index()
-                stop_index = len(self.ff12_items_received)
-                for index in range(start_index, stop_index):
-                    if not self.is_in_game():
-                        break
-                    item = self.ff12_items_received[index]
-                    await self.give_item(item.item, item_data_table[inv_item_table[item.item]].amount)
-                    self.set_item_index(index + 1)
-
-            except Exception as e:
-                if self.ff12connected:
-                    self.ff12connected = False
-                logger.info(e)
-            last_end_time = time.time()
-
-    async def give_item(self, item_id: int, count: int):
-        async with self.item_lock:
-            # If it's gil, handle it separately
-            if item_data_table[inv_item_table[item_id]].code >= item_data_table["1 Gil"].code:
-                current_gil = self.ff12_read_int(0x02044288)
-                self.ff12_write_int(0x02044288, current_gil + count)
-            else:
-                int_id = item_id - FF12OW_BASE_ID
-                current_count = self.get_item_count(inv_item_table[item_id])
-                # Limit to 99
-                new_count = min(current_count + count, 99)
-                if int_id < 0x1000:  # Normal items
-                    self.ff12_write_short(0x02097054 + int_id * 2, new_count)
-                elif int_id < 0x2000:  # Equipment
-                    self.ff12_write_short(0x020970D4 + (int_id - 0x1000) * 2, new_count)
-                elif 0x2000 <= int_id < 0x3000:  # Loot items
-                    self.ff12_write_short(0x0209741C + (int_id - 0x2000) * 2, new_count)
-                elif 0x8000 <= int_id < 0x9000:  # Key items
-                    byte_index = (int_id - 0x8000) // 8
-                    bit_index = (int_id - 0x8000) % 8
-                    self.ff12_write_bit(0x0209784C + byte_index, bit_index, True)
-                elif 0xC000 <= int_id < 0xD000:  # Espers
-                    byte_index = (int_id - 0xC000) // 8
-                    bit_index = (int_id - 0xC000) % 8
-                    self.ff12_write_bit(0x0209788C + byte_index, bit_index, True)
-                elif 0x3000 <= int_id < 0x4000:  # Magicks
-                    byte_index = (int_id - 0x3000) // 8
-                    bit_index = (int_id - 0x3000) % 8
-                    self.ff12_write_bit(0x0209781C + byte_index, bit_index, True)
-                elif 0x4000 <= int_id < 0x5000:  # Technicks
-                    byte_index = (int_id - 0x4000) // 8
-                    bit_index = (int_id - 0x4000) % 8
-                    self.ff12_write_bit(0x02097828 + byte_index, bit_index, True)
-                else:
-                    raise Exception("Invalid item ID when giving items: " + str(item_id))
-                self.add_to_sort(item_id)
-
-    def add_to_sort(self, item_id: int):
-        int_id = item_id - FF12OW_BASE_ID
-        if int_id < 0x1000:  # Normal items
-            sort_type = 0
-        elif int_id <= 0x10C7:  # Weapons
-            sort_type = 1
-        elif 0x10C8 <= int_id <= 0x1153:  # Armor
-            sort_type = 2
-        elif 0x1154 <= int_id <= 0x1183:  # Accessories
-            sort_type = 3
-        elif 0x1184 <= int_id <= 0x11A3:  # Ammo
-            sort_type = 4
-        elif 0x4000 <= int_id <= 0x4FFF:  # Tecknicks
-            sort_type = 5
-        elif 0x3000 <= int_id <= 0x3FFF:  # Magicks
-            sort_type = 6
-        elif 0x8000 <= int_id <= 0x8FFF:  # Key Items
-            sort_type = 7
-        elif 0x2000 <= int_id <= 0x2FFF:  # Loot
-            sort_type = 8
-        else:
-            return
-        sort_list = self.get_sort_list(sort_type)
-        if int_id not in sort_list:
-            sort_list.append(int_id)
-            self.set_sort_list(sort_type, sort_list)
-
-    def get_sort_list(self, type_index: int) -> List[int]:
-        sort_list = []
-        max_count = self.ff12_read_int(sort_count_addresses[type_index])
-        for i in range(0, max_count):
-            item_id = self.ff12_read_short(sort_start_addresses[type_index] + i * 2)
-            if item_id != 0xFFFF:
-                sort_list.append(item_id)
-            else:
-                break
-        return sort_list
-
-    def set_sort_list(self, type_index: int, sort_list: List[int]):
-        self.ff12_write_int(sort_count_addresses[type_index], len(sort_list))
-        for i in range(0, len(sort_list)):
-            self.ff12_write_short(sort_start_addresses[type_index] + i * 2, sort_list[i])
-
-    async def check_missing_items(self):
         try:
-            # Cannot check for missing items if not given all expected items
-            if self.get_item_index() < len(self.ff12_items_received):
-                return
-
-            for item in item_data_table.keys():
-                missing_count = self.get_expected_items(item) - self.get_item_count(item)
-                if (item_data_table[item].classification & ItemClassification.progression and
-                        missing_count > 0):
-                    logger.info("Adding missing item: " + str(missing_count) + " " + item)
-                    await self.give_item(item_data_table[item].code,
-                                         missing_count)
+            # Write obtained items to a txt file in the communication folder
+            with open(os.path.join(self.game_communication_path, "items_received.txt"), "w") as f:
+                for item in self.ff12_items_received:
+                    # Write the item ID and the amount of the item
+                    item_id = item.item - FF12OW_BASE_ID
+                    if item.item >= FF12OW_BASE_ID + 98304:  # Gil
+                        item_id = 0xFFFE
+                    item_count = item_data_table[inv_item_table[item.item]].amount
+                    f.write(f"{item_id}|{item_count}\n")
         except Exception as e:
             if self.ff12connected:
                 self.ff12connected = False
@@ -1030,26 +745,15 @@ class FF12OpenWorldContext(CommonContext):
         self.ui = FF12OpenWorldManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
-    def ff12_write_bit(self, byte_index: int, bit_index: int, value: bool,use_base=True):
-        byte = self.ff12_read_byte(byte_index, use_base)
-        if value:
-            byte |= 1 << bit_index
-        else:
-            byte &= ~(1 << bit_index)
-        self.ff12_write_byte(byte_index, byte, use_base)
-
 
 async def ff12_watcher(ctx: FF12OpenWorldContext):
     while not ctx.exit_event.is_set():
         try:
             if ctx.ff12connected and ctx.server_connected:
-                if ctx.check_loc_task is None or ctx.check_loc_task.done():
-                    ctx.check_loc_task = asyncio.create_task(ctx.check_locations())
-
-                if ctx.give_items_task is None or ctx.give_items_task.done():
-                    ctx.give_items_task = asyncio.create_task(ctx.give_items())
+                async_start(ctx.check_locations())
+                async_start(ctx.give_items())
             elif not ctx.ff12connected and ctx.server_connected:
-                logger.info("Game Connection lost. waiting 15 seconds until trying to reconnect.")
+                logger.info("Game Connection lost. Waiting 15 seconds until trying to reconnect.")
                 ctx.ff12 = None
                 while not ctx.ff12connected and ctx.server_connected:
                     await asyncio.sleep(15)
@@ -1058,14 +762,7 @@ async def ff12_watcher(ctx: FF12OpenWorldContext):
             if ctx.ff12connected:
                 ctx.ff12connected = False
             logger.info(e)
-        await asyncio.sleep(0.2)
-
-    if ctx.check_loc_task is not None:
-        ctx.check_loc_task.cancel()
-        ctx.check_loc_task = None
-    if ctx.give_items_task is not None:
-        ctx.give_items_task.cancel()
-        ctx.give_items_task = None
+        await asyncio.sleep(0.5)
 
 
 def launch():

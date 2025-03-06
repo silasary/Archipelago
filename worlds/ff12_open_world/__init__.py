@@ -26,7 +26,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.4.2"
+FF12OW_VERSION = "0.5.0"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -226,7 +226,7 @@ class FF12OpenWorldWorld(World):
                 return LocationProgressType.EXCLUDED
             if 0x90F9 <= int(location_data.str_id, 16) <= 0x90FE and not self.options.include_trophy_rare_games:
                 return LocationProgressType.EXCLUDED
-            if re.match(r"Hunt \d+:", location_name) and not self.options.include_hunt_rewards:
+            if re.search(r"Hunt \d+:", location_name) and not self.options.include_hunt_rewards:
                 return LocationProgressType.EXCLUDED
             if location_data.str_id == "916D" and not self.options.include_hunt_rewards:  # Flowering Cactoid
                 return LocationProgressType.EXCLUDED

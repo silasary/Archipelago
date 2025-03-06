@@ -102,7 +102,8 @@ rule_data_list: List[Callable[[CollectionState, int], bool]] = [
     state.has("Crescent Stone", player),  # Rule 35
     lambda state, player:
     (state.has("Ozmone Plain", player) and
-     state.has("Defeat Vossler", player)),  # Rule 36
+     state.has("Defeat Vossler", player) and
+     state.has("Dawn Shard", player)),  # Rule 36
     lambda state, player:
     (state.has("Tchita Uplands", player) and
      state.has("Sochen Cave Palace", player)),  # Rule 37
@@ -516,29 +517,32 @@ rule_data_list: List[Callable[[CollectionState, int], bool]] = [
     (state.has("Writ of Transit", player) and
      state.has("Systems Access Key", player)),  # Rule 155
     lambda state, player:
+    (state.has("Ozmone Plain", player) and
+     state.has("Defeat Vossler", player)),  # Rule 156
+    lambda state, player:
     (state.has("Barheim Key", player) or
-     state.has("Crescent Stone", player)),  # Rule 156
+     state.has("Crescent Stone", player)),  # Rule 157
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Bhujerba Aeropass", player, False)),  # Rule 157
+     state_has_aerodromes(state, "Bhujerba Aeropass", player, False)),  # Rule 158
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Nalbina Aeropass", player, False)),  # Rule 158
+     state_has_aerodromes(state, "Nalbina Aeropass", player, False)),  # Rule 159
     lambda state, player:
     (state_has_aerodromes(state, "Rabanastre Aeropass", player, False) and
-     state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 159
-    lambda state, player:
-    (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
      state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 160
     lambda state, player:
     (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
-     state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 161
+     state_has_aerodromes(state, "Archades Aeropass", player, False)),  # Rule 161
     lambda state, player:
-    (state_has_aerodromes(state, "Bhujerba Aeropass", player, False) and
+    (state_has_aerodromes(state, "Nalbina Aeropass", player, False) and
      state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 162
     lambda state, player:
-    (state_has_aerodromes(state, "Archades Aeropass", player, False) and
+    (state_has_aerodromes(state, "Bhujerba Aeropass", player, False) and
      state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 163
+    lambda state, player:
+    (state_has_aerodromes(state, "Archades Aeropass", player, False) and
+     state_has_aerodromes(state, "Balfonheim Aeropass", player, False)),  # Rule 164
 ]
 
 rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
@@ -3042,7 +3046,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Vaan's Starting Items (7)": rule_data_list[126],
     "Vaan's Starting Items (8)": rule_data_list[126],
     "Vaan's Starting Items (9)": rule_data_list[126],
-    "Vaan's Starting Items (10)": rule_data_list[126],
     "Ashe's Starting Items (1)": rule_data_list[127],
     "Ashe's Starting Items (2)": rule_data_list[127],
     "Ashe's Starting Items (3)": rule_data_list[127],
@@ -3052,7 +3055,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Ashe's Starting Items (7)": rule_data_list[127],
     "Ashe's Starting Items (8)": rule_data_list[127],
     "Ashe's Starting Items (9)": rule_data_list[127],
-    "Ashe's Starting Items (10)": rule_data_list[127],
     "Fran's Starting Items (1)": rule_data_list[128],
     "Fran's Starting Items (2)": rule_data_list[128],
     "Fran's Starting Items (3)": rule_data_list[128],
@@ -3062,7 +3064,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Fran's Starting Items (7)": rule_data_list[128],
     "Fran's Starting Items (8)": rule_data_list[128],
     "Fran's Starting Items (9)": rule_data_list[128],
-    "Fran's Starting Items (10)": rule_data_list[128],
     "Balthier's Starting Items (1)": rule_data_list[129],
     "Balthier's Starting Items (2)": rule_data_list[129],
     "Balthier's Starting Items (3)": rule_data_list[129],
@@ -3072,7 +3073,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Balthier's Starting Items (7)": rule_data_list[129],
     "Balthier's Starting Items (8)": rule_data_list[129],
     "Balthier's Starting Items (9)": rule_data_list[129],
-    "Balthier's Starting Items (10)": rule_data_list[129],
     "Basch's Starting Items (1)": rule_data_list[130],
     "Basch's Starting Items (2)": rule_data_list[130],
     "Basch's Starting Items (3)": rule_data_list[130],
@@ -3082,7 +3082,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Basch's Starting Items (7)": rule_data_list[130],
     "Basch's Starting Items (8)": rule_data_list[130],
     "Basch's Starting Items (9)": rule_data_list[130],
-    "Basch's Starting Items (10)": rule_data_list[130],
     "Penelo's Starting Items (1)": rule_data_list[131],
     "Penelo's Starting Items (2)": rule_data_list[131],
     "Penelo's Starting Items (3)": rule_data_list[131],
@@ -3092,7 +3091,6 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Penelo's Starting Items (7)": rule_data_list[131],
     "Penelo's Starting Items (8)": rule_data_list[131],
     "Penelo's Starting Items (9)": rule_data_list[131],
-    "Penelo's Starting Items (10)": rule_data_list[131],
     "Vaan Event (1)": rule_data_list[9],
     "Penelo Event (1)": rule_data_list[9],
     "Dreadnought Leviathan Unlock Event (1)": rule_data_list[132],
@@ -3211,7 +3209,7 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Abelisk - Reptilian Trophy Event (1)": rule_data_list[118],
     "Avenger - Vile Trophy Event (1)": rule_data_list[119],
     "Final Boss Victory Event (1)": rule_data_list[155],
-    "Great-chief Elder After Defeating Vossler Event (1)": rule_data_list[36],
+    "Great-chief Elder After Defeating Vossler Event (1)": rule_data_list[156],
     "Amal's Weaponry Shop Event (1)": rule_data_list[9],
     "Panamis's Protectives Shop Event (1)": rule_data_list[9],
     "Yugri's Magicks Shop Event (1)": rule_data_list[9],
@@ -3260,7 +3258,7 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Unlucky Merchant Shop Event (1)": rule_data_list[9],
     "Lohen Shop Event (1)": rule_data_list[9],
     "Arjie Shop Event (1)": rule_data_list[9],
-    "Burrough Shop Event (1)": rule_data_list[156],
+    "Burrough Shop Event (1)": rule_data_list[157],
     "Tetran Shop Event (1)": rule_data_list[34],
     "Garif Trader Shop Event (1)": rule_data_list[12],
     "Tetran Shop Event (2)": rule_data_list[12],
@@ -3270,12 +3268,12 @@ rule_data_table: Dict[str, Callable[[CollectionState, int], bool]] = {
     "Vendor of Goods Shop Event (1)": rule_data_list[3],
     "Stranded Merchant Shop Event (1)": rule_data_list[1],
     "Baknamy Shop Event (1)": rule_data_list[3],
-    "Storekeeper (Rabanastre <-> Bhujerba) Shop Event (1)": rule_data_list[157],
-    "Storekeeper (Rabanastre <-> Nalbina) Shop Event (1)": rule_data_list[158],
-    "Storekeeper (Rabanastre <-> Archades) Shop Event (1)": rule_data_list[159],
-    "Storekeeper (Nalbina <-> Archades) Shop Event (1)": rule_data_list[160],
-    "Storekeeper (Nalbina <-> Balfonheim) Shop Event (1)": rule_data_list[161],
-    "Storekeeper (Bhujerba <-> Balfonheim) Shop Event (1)": rule_data_list[162],
-    "Storekeeper (Archades <-> Balfonheim) Shop Event (1)": rule_data_list[163],
+    "Storekeeper (Rabanastre <-> Bhujerba) Shop Event (1)": rule_data_list[158],
+    "Storekeeper (Rabanastre <-> Nalbina) Shop Event (1)": rule_data_list[159],
+    "Storekeeper (Rabanastre <-> Archades) Shop Event (1)": rule_data_list[160],
+    "Storekeeper (Nalbina <-> Archades) Shop Event (1)": rule_data_list[161],
+    "Storekeeper (Nalbina <-> Balfonheim) Shop Event (1)": rule_data_list[162],
+    "Storekeeper (Bhujerba <-> Balfonheim) Shop Event (1)": rule_data_list[163],
+    "Storekeeper (Archades <-> Balfonheim) Shop Event (1)": rule_data_list[164],
     "Storekeeper (All) Shop Event (1)": rule_data_list[2],
 }
