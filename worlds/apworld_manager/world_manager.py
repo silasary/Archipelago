@@ -291,9 +291,10 @@ def parse_version(version: str) -> Version:
     try:
         return Version(version)
     except InvalidVersion as e:
-        simple = re.search(VERSION_PATTERN, version, re.VERBOSE | re.IGNORECASE)
-        if simple:
-            return Version(simple.group(0))
+        matches = list(re.finditer(VERSION_PATTERN, version, re.VERBOSE | re.IGNORECASE))
+        matches.sort(key=lambda x: len(x.group(0)), reverse=True)
+        if matches:
+            return Version(matches[0].group(0))
         return Version(f"0.0.0+{version}")
 
 
