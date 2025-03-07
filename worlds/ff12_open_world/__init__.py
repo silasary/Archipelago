@@ -26,7 +26,7 @@ def launch_client():
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
                             func=launch_client, component_type=Type.CLIENT))
 
-FF12OW_VERSION = "0.5.0"
+FF12OW_VERSION = "0.5.1"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
 
 
@@ -176,7 +176,7 @@ class FF12OpenWorldWorld(World):
             starting_inventory_names = [name for name, data in location_data_table.items()
                                         if data.type == "inventory" and int(data.str_id) == character]
             locations_to_add += self.multiworld.random.sample(starting_inventory_names,
-                                                              k=self.multiworld.random.randint(5, 10))
+                                                              k=self.multiworld.random.randint(5, 9))
 
         # Add first fixed index rewards.
         locations_to_add += [name for name, data in location_data_table.items()
