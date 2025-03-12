@@ -192,6 +192,7 @@ class GithubRepository(Repository):
                         'world_version': tag,
                         'description': '',
                         'created_at': release.get('created_at') or release.get('published_at'),
+                        'title': release.get('name'),
                     }
                     world['source_url'] = self.url
                     world['world'] = asset['browser_download_url']
