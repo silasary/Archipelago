@@ -1,12 +1,8 @@
 import os
-import time
 from typing import List
 
 import ModuleUpdate
-from BaseClasses import ItemClassification
 from Utils import async_start
-
-ModuleUpdate.update()
 
 import asyncio
 from pymem import pymem
@@ -16,6 +12,8 @@ from CommonClient import gui_enabled, logger, get_base_parser, CommonContext, se
 
 from .Items import FF12OW_BASE_ID, item_data_table, inv_item_table
 from .Locations import location_data_table, FF12OpenWorldLocationData
+
+ModuleUpdate.update()
 
 sort_start_addresses = [
     0x204FD4C,  # Items
@@ -124,12 +122,6 @@ class FF12OpenWorldContext(CommonContext):
     def ff12_story_address(self):
         return self.ff12.base_address
 
-    def ff12_write_byte(self, address, value,use_base=True):
-        if use_base:
-            return self.ff12.write_bytes(self.ff12.base_address + address, value.to_bytes(1, "little"), 1)
-        else:
-            return self.ff12.write_bytes(address, value.to_bytes(1, "little"), 1)
-
     def ff12_read_byte(self, address, use_base=True):
         if use_base:
             return int.from_bytes(self.ff12.read_bytes(self.ff12.base_address + address, 1), "little")
@@ -145,23 +137,11 @@ class FF12OpenWorldContext(CommonContext):
         else:
             return int.from_bytes(self.ff12.read_bytes(address, 2), "little")
 
-    def ff12_write_short(self, address, value, use_base=True):
-        if use_base:
-            return self.ff12.write_bytes(self.ff12.base_address + address, value.to_bytes(2, "little"), 2)
-        else:
-            return self.ff12.write_bytes(address, value.to_bytes(2, "little"), 2)
-
     def ff12_read_int(self, address, use_base=True):
         if use_base:
             return int.from_bytes(self.ff12.read_bytes(self.ff12.base_address + address, 4), "little")
         else:
             return int.from_bytes(self.ff12.read_bytes(address, 4), "little")
-
-    def ff12_write_int(self, address, value, use_base=True):
-        if use_base:
-            return self.ff12.write_bytes(self.ff12.base_address + address, value.to_bytes(4, "little"), 4)
-        else:
-            return self.ff12.write_bytes(address, value.to_bytes(4, "little"), 4)
 
     def on_package(self, cmd: str, args: dict):
 
@@ -200,7 +180,7 @@ class FF12OpenWorldContext(CommonContext):
                 self.ff12 = pymem.Pymem(process_name="FFXII_TZA")
                 logger.info("You are now auto-tracking")
                 self.ff12connected = True
-            except Exception as e:
+            except Exception:
                 if self.ff12connected:
                     self.ff12connected = False
                 logger.info("Game is not open (Try running the client as an admin).")
@@ -214,21 +194,15 @@ class FF12OpenWorldContext(CommonContext):
     def get_scenario_flag(self) -> int:
         return self.ff12_read_short(0x02044480)
 
-    def get_item_index(self) -> int:
-        return self.ff12_read_int(self.get_save_data_address() + 0x696, use_base=False)
-
-    def get_item_add_id(self) -> int:
-        return self.ff12_read_short(self.get_save_data_address() + 0x69A, use_base=False)
-
-    def get_item_add_count(self) -> int:
-        return self.ff12_read_int(self.get_save_data_address() + 0x69C, use_base=False)
-
     def is_chara_in_party(self, chara) -> bool:
         return self.ff12_read_bit(self.get_party_address() + chara * 0x1C8, 4, False)
 
     def get_item_count_received(self, item_name: str) -> int:
         return len([item for item in self.ff12_items_received[:self.get_item_index()] if
                     item.item == item_data_table[item_name].code])
+
+    def get_item_index(self) -> int:
+        return self.ff12_read_int(self.get_save_data_address() + 0x696, use_base=False)
 
     def has_item_received(self, item_name: str) -> bool:
         return self.get_item_count_received(item_name) > 0
@@ -313,7 +287,18 @@ class FF12OpenWorldContext(CommonContext):
         else:
             return darklor_flag
 
-    async def check_locations(self):
+    def get_current_map(self) -> int:
+        return self.ff12_read_short(0x20454C4)
+
+    def get_current_game_state(self) -> int:
+        # 0 - Field
+        # 1 - Dialog/Cutscene
+        # 4 - Menu
+        # 5 - Load Screen
+        pointer1 = self.ff12_read_int(0x01E5FFE0)
+        return self.ff12_read_byte(pointer1 + 0x3A, False)
+
+    async def ff12_check_locations(self):
         try:
             self.sending.clear()
             index = 0
@@ -321,11 +306,20 @@ class FF12OpenWorldContext(CommonContext):
                 index += 1
                 if data.address in self.locations_checked:
                     continue
+
+                # Check if the game is in a state where the location can be checked
+                map_id = self.get_current_map()
+                game_state = self.get_current_game_state()
+                scenario_flag = self.get_scenario_flag()
+                if (map_id == 0 or map_id > 0xFFFF or map_id <= 12 or
+                        map_id == 274 or game_state != 0 or scenario_flag < 45):
+                    break
+
                 if data.type == "inventory":
                     if self.is_chara_in_party(int(data.str_id)):
                         self.sending.append(data.address)
                 elif data.type == "reward":
-                    if self.is_reward_met(location_name, data):
+                    if self.is_reward_met(data):
                         self.sending.append(data.address)
                 elif data.type == "treasure":
                     treasures: list[str] = self.ff12slotdata["treasures"]
@@ -354,7 +348,7 @@ class FF12OpenWorldContext(CommonContext):
                 self.ff12connected = False
             logger.info(e)
 
-    def is_reward_met(self, location_name: str, location_data: FF12OpenWorldLocationData):
+    def is_reward_met(self, location_data: FF12OpenWorldLocationData):
         if location_data.str_id == "9000" or \
                 location_data.str_id == "916B" or \
                 location_data.str_id == "916C":  # Tomaj Checks
@@ -750,7 +744,7 @@ async def ff12_watcher(ctx: FF12OpenWorldContext):
     while not ctx.exit_event.is_set():
         try:
             if ctx.ff12connected and ctx.server_connected:
-                async_start(ctx.check_locations())
+                async_start(ctx.ff12_check_locations())
                 async_start(ctx.give_items())
             elif not ctx.ff12connected and ctx.server_connected:
                 logger.info("Game Connection lost. Waiting 15 seconds until trying to reconnect.")
@@ -766,8 +760,8 @@ async def ff12_watcher(ctx: FF12OpenWorldContext):
 
 
 def launch():
-    async def main(args):
-        ctx = FF12OpenWorldContext(args.connect, args.password)
+    async def main(args_in):
+        ctx = FF12OpenWorldContext(args_in.connect, args_in.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
         if gui_enabled:
             ctx.run_gui()
