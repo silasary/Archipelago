@@ -2,6 +2,7 @@ import hashlib
 from worlds.Files import InvalidDataError
 from .world_manager import RepositoryManager, parse_version
 from worlds.LauncherComponents import install_apworld
+from worlds import world_sources
 
 def launch():
     from kvui import (
@@ -162,8 +163,13 @@ def launch():
             description = "Placeholder text"
             data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote}
             if not remote:
-                description = "No remote data available"
-                data['sort'] = -1
+                source = [s for s in world_sources if s.path == str(file)]
+                if source and source[0].relative:
+                    description = "Bundled with AP"
+                    data['sort'] = -10
+                else:
+                    description = "No remote data available"
+                    data['sort'] = -9
             else:
                 highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
                 data["latest_version"] = highest_remote_version
@@ -195,6 +201,8 @@ def launch():
                 "installed": False,
                 "sort": 0,
                 }
+            if world.lower().startswith('manual_'):
+                data['sort'] = -5
             apworlds.append(data)
         apworlds.sort(key=lambda x: x['sort'], reverse=True)
         return apworlds
