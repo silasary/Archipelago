@@ -36,13 +36,20 @@ def launch():
     default_tab_text: "APWorlds"
 
 <ApworldDirectoryItem>
-    Button:
-        on_press: root.switch_to_detail()
+    Label:
         text: root.details["title"]
-        size_hint: .7, 1
+        size_hint: .5, 1
     Label:
         text: root.details["description"]
         size_hint: .3, 1
+    Button:
+        text: root.details["install_text"]
+        size_hint: .2, 1
+        on_press: root.download_latest()
+    Button:
+        text: "Details"
+        size_hint: .2, 1
+        on_press: root.switch_to_detail()
 
 <RV>:
     viewclass: 'ApworldDirectoryItem'
@@ -58,6 +65,9 @@ def launch():
         Label:
             text: root.details["title"]
             size_hint: 1, 0.1
+        # Label:
+        #     text: root.details["description"]
+        #     size_hint: 1, 0.1
         Button:
             text: root.latest_text
             size_hint: 1, 0.1
@@ -107,7 +117,7 @@ def launch():
                 return f"Install {self.details['latest_version'].world_version}"
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
-        details = DictProperty({"title": "game name", "description": "short description"})
+        details = DictProperty({"title": "game name", "description": "short description", "install_text": "N/A"})
 
         def refresh_view_attrs(self, rv, index, details):
             self.details = details
@@ -118,6 +128,13 @@ def launch():
             directory_window = App.get_running_app().root
             directory_window.add_widget(details_tab)
             directory_window.switch_to(details_tab)
+
+        def download_latest(self):
+            print("Downloading latest version")
+            path = repositories.download_remote_world(self.details["latest_version"])
+            install_apworld(path)
+            app.apworlds = refresh_apworld_table()
+
 
     class RV(RecycleView):
         def __init__(self, data, **kwargs):
@@ -161,7 +178,7 @@ def launch():
                 if local := repositories.find_release_by_hash(hash):
                     local_version = local.world_version
             description = "Placeholder text"
-            data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote}
+            data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote, 'update_available': False, 'install_text': '-'}
             if not remote:
                 source = [s for s in world_sources if s.path == str(file)]
                 if source and source[0].relative:
@@ -179,9 +196,11 @@ def launch():
                 if data['update_available']:
                     description = f"Update available: {v_local} -> {v_remote}"
                     data['sort'] = 1
+                    data['install_text'] = "Update"
                 else:
                     description = "Up to date"
                     data['sort'] = 1
+                    data['install_text'] = "-"
             data["description"] = description
             apworlds.append(data)
 
@@ -200,6 +219,7 @@ def launch():
                 "manifest": {},
                 "installed": False,
                 "sort": 0,
+                "install_text": "Install",
                 }
             if world.lower().startswith('manual_'):
                 data['sort'] = -5
