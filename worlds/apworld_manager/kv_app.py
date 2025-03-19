@@ -195,7 +195,7 @@ def launch():
                 data['update_available'] = v_remote > v_local
                 if data['update_available']:
                     description = f"Update available: {v_local} -> {v_remote}"
-                    data['sort'] = 1
+                    data['sort'] = 2
                     data['install_text'] = "Update"
                 else:
                     description = "Up to date"
