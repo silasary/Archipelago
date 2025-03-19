@@ -12,6 +12,12 @@ except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
 ```
 
+You'll also need to remove the "Tracker" tag from your context by resetting it back to {"AP"}
+```py
+class YourGameContext(SuperContext):
+    tags = {"AP"}
+```
+
 if you edit your GameManager at all, just use super().make_gui() to inheret UT's ui if it got loaded
 ```py
 def make_gui(self):
