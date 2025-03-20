@@ -143,6 +143,14 @@ class GithubRepository(Repository):
         self.url = url
         os.makedirs(os.path.join(apworld_cache_path, "github"), exist_ok=True)
 
+    def get_license(self):
+        data = self.fetch(self.url)
+        if data.get('license'):
+            license = data['license']['spdx_id']
+            if license == 'NOASSERTION':
+                return None
+            return license
+        return None
 
     def get_repository_json(self):
         self.worlds = []
@@ -157,14 +165,7 @@ class GithubRepository(Repository):
         endpoint_sha = hashlib.sha256(releases_endpoint_url.encode()).hexdigest()
         cached_request = pathlib.Path(self.apworld_cache_path, "github", f'{endpoint_sha}.json')
 
-        from . import RepoWorld
-        gh_token = RepoWorld.settings.github_token or os.environ.get('GITHUB_TOKEN')
-        if not gh_token:
-            headers = {}
-        else:
-            headers = {"Authorization": f"Bearer {gh_token}"}
-        response = requests.get(releases_endpoint_url, headers=headers)
-        releases = response.json()
+        releases = self.fetch(releases_endpoint_url)
 
         if isinstance(releases, dict) and 'message' in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
@@ -200,6 +201,17 @@ class GithubRepository(Repository):
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
+
+    def fetch(self, url):
+        from . import RepoWorld
+        gh_token = RepoWorld.settings.github_token or os.environ.get('GITHUB_TOKEN')
+        if not gh_token:
+            headers = {}
+        else:
+            headers = {"Authorization": f"Bearer {gh_token}"}
+        response = requests.get(url, headers=headers)
+        releases = response.json()
+        return releases
 
 
 class RepositoryManager:
