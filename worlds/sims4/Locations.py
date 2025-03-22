@@ -1356,3 +1356,61 @@ location_table = {
     **aspiration_locations_table,
     **ptj_locations_table,
 }
+
+location_name_groups: Dict[str, typing.Set[str]] = {
+    "Writing": {
+        "Writing Skill 2",
+        "Writing Skill 3",
+        "Writing Skill 4",
+        "Writing Skill 5",
+        "Writing Skill 6",
+        "Writing Skill 7",
+        "Writing Skill 8",
+        "Writing Skill 9",
+        "Writing Skill 10"
+    },
+    "Charisma": {
+        "Charisma Skill 2",
+        "Charisma Skill 3",
+        "Charisma Skill 4",
+        "Charisma Skill 5",
+        "Charisma Skill 6",
+        "Charisma Skill 7",
+        "Charisma Skill 8",
+        "Charisma Skill 9",
+        "Charisma Skill 10"
+    },
+    "Comedy": {
+        "Comedy Skill 2",
+        "Comedy Skill 3",
+        "Comedy Skill 4",
+        "Comedy Skill 5",
+        "Comedy Skill 6",
+        "Comedy Skill 7",
+        "Comedy Skill 8",
+        "Comedy Skill 9",
+        "Comedy Skill 10"
+    },
+    "Cooking": {
+        "Cooking Skill 2",
+        "Cooking Skill 3",
+        "Cooking Skill 4",
+        "Cooking Skill 5",
+        "Cooking Skill 6",
+        "Cooking Skill 7",
+        "Cooking Skill 8",
+        "Cooking Skill 9",
+        "Cooking Skill 10"
+    },
+    "Gourmet": {
+        "Gourmet Skill 2",
+        "Gourmet Skill 3",
+        "Gourmet Skill 4",
+        "Gourmet Skill 5",
+        "Gourmet Skill 6",
+        "Gourmet Skill 7",
+        "Gourmet Skill 8",
+        "Gourmet Skill 9",
+        "Gourmet Skill 10"
+    }
+}
