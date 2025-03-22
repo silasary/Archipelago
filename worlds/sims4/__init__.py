@@ -2,7 +2,7 @@ import typing
 from typing import Mapping, Any, ClassVar
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
-from .Locations import location_table, Sims4Location, skill_locations_table
+from .Locations import location_table, Sims4Location, skill_locations_table, location_name_groups
 from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
 from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
@@ -126,6 +126,8 @@ class Sims4World(World):
 
     item_name_to_id = {data["name"]: item_id for item_id, data in Items.item_table.items()}
     location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
+
+    location_name_groups = location_name_groups
 
     data_version = 0
     base_id = 0x73340001
