@@ -80,5 +80,32 @@ location_name_groups: Dict[str, Set[str]] = {
         "Trainer to the Stars (Athlete / Bodybuilder 8)"
         "Celebrity Bodybuilder (Athlete / Bodybuilder 9)"
         "Mr. / Mrs. Solar System (Athlete / Bodybuilder 10)"
+    },
+    "Business": {
+        "Office Assistant (Business 2)"
+        "Assistant to the Manager (Business 3)"
+        "Assistant Manager (Business 4)"
+        "Regional Manager (Business 5)"
+        "Senior Manager (Business 6)"
+        "Vice-President Manager (Business / Management 7)"
+        "President (Business / Management 8)"
+        "CEO (Business / Management 9)"
+        "Business Tycoon (Business / Management 10)"
+        "Future Trader (Business / Investor 7)"
+        "Hedge Fund Manager (Business / Investor 8)"
+        "Corporate Raider (Business / Investor 9)"
+        "Angel Investor (Business / Investor 10)"
+    },
+    "Management": {
+        "Vice-President Manager (Business / Management 7)"
+        "President (Business / Management 8)"
+        "CEO (Business / Management 9)"
+        "Business Tycoon (Business / Management 10)"
+    },
+    "Investor": {
+        "Future Trader (Business / Investor 7)"
+        "Hedge Fund Manager (Business / Investor 8)"
+        "Corporate Raider (Business / Investor 9)"
+        "Angel Investor (Business / Investor 10)"
     }
 }
