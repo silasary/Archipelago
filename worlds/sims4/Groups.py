@@ -353,5 +353,9 @@ item_name_groups: Dict[str, Set[str]] = {
         "Gourmet Skill"
         "Cooking Skill"
         "Mixology Skill"
+    },
+    "Computer": {
+        "Programming Skill",
+        "Video Gaming Skill"
     }
 }
