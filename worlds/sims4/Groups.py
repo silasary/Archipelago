@@ -111,14 +111,14 @@ location_name_groups: Dict[str, Set[str]] = {
     "Criminal": {
         "Petty Thief (Criminal 2)"
         "Ringleader (Criminal 3)"
-        "Felonious Monk (Criminal 4)"
+        "Felonius Monk (Criminal 4)"
         "Minor Crimelord (Criminal 5)"
         "The Muscle (Criminal / Boss 6)"
         "Getaway Driver (Criminal / Boss 7)"
         "Safe Cracker (Criminal / Boss 8)"
         "The Brains (Criminal / Boss 9)"
         "The Boss (Criminal / Boss 10)"
-        "Digithief (Criminal / Oracle 6)"
+        "DigiThief (Criminal / Oracle 6)"
         "Elite Hacker (Criminal / Oracle 7)"
         "An0nymous Ghost (Criminal / Oracle 8)"
         "Net Demon (Criminal / Oracle 9)"
@@ -132,10 +132,11 @@ location_name_groups: Dict[str, Set[str]] = {
         "The Boss (Criminal / Boss 10)"
     },
     "Oracle": {
-        "Digithief (Criminal / Oracle 6)"
+        "DigiThief (Criminal / Oracle 6)"
         "Elite Hacker (Criminal / Oracle 7)"
         "An0nymous Ghost (Criminal / Oracle 8)"
         "Net Demon (Criminal / Oracle 9)"
         "The Oracle (Criminal / Oracle 10"
+        "The Oracle (Criminal / Oracle 10)"
     }
 }
