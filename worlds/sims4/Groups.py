@@ -23,5 +23,29 @@ location_name_groups: Dict[str, Set[str]] = {
     "Guitar": {f"Guitar Skill {i}" for i in range(2,11)},
     "Music": {f"{instrument} Skill {level}"
               for instrument in ["Piano", "Violin", "Guitar"]
-              for level in range(1, 11)}
+              for level in range(1, 11)},
+    "Astronaut": {
+        "Module Cleaner (Astronaut 2)"
+        "Technician (Astronaut 3)"
+        "Command Center Lead (Astronaut 4)"
+        "Low-Orbit Specialist (Astronaut 5)"
+        "Space Cadet (Astronaut 6)"
+        "Astronaut (Astronaut 7)"
+        "Planet Patrol (Astronaut / Space Ranger 8)"
+        "Sheriff of the Stars (Astronaut / Space Ranger 9)"
+        "Space Ranger (Astronaut / Space Ranger 10)"
+        "Moon Mercenary (Astronaut / Interstellar Smuggler 8)"
+        "Alien Goods Trader (Astronaut / Interstellar Smuggler 9)"
+        "Interstellar Smuggler (Astronaut / Interstellar Smuggler 10)"
+    },
+    "Space Ranger": {
+        "Planet Patrol (Astronaut / Space Ranger 8)"
+        "Sheriff of the Stars (Astronaut / Space Ranger 9)"
+        "Space Ranger (Astronaut / Space Ranger 10)"
+    },
+    "Interstellar Smuggler": {
+        "Moon Mercenary (Astronaut / Interstellar Smuggler 8)"
+        "Alien Goods Trader (Astronaut / Interstellar Smuggler 9)"
+        "Interstellar Smuggler (Astronaut / Interstellar Smuggler 10)"
+    }
 }
