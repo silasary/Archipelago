@@ -107,5 +107,35 @@ location_name_groups: Dict[str, Set[str]] = {
         "Hedge Fund Manager (Business / Investor 8)"
         "Corporate Raider (Business / Investor 9)"
         "Angel Investor (Business / Investor 10)"
+    },
+    "Criminal": {
+        "Petty Thief (Criminal 2)"
+        "Ringleader (Criminal 3)"
+        "Felonious Monk (Criminal 4)"
+        "Minor Crimelord (Criminal 5)"
+        "The Muscle (Criminal / Crime Boss 6)"
+        "Getaway Driver (Criminal / Crime Boss 7)"
+        "Safe Cracker (Criminal / Crime Boss 8)"
+        "The Brains (Criminal / Crime Boss 9)"
+        "The Boss (Criminal / Crime Boss 10)"
+        "Digithief (Criminal / Oracle 6)"
+        "Elite Hacker (Criminal / Oracle 7)"
+        "An0nymous Ghost (Criminal / Oracle 8)"
+        "Net Demon (Criminal / Oracle 9)"
+        "The Oracle (Criminal / Oracle 10"
+    },
+    "Crime Boss": {
+        "The Muscle (Criminal / Crime Boss 6)"
+        "Getaway Driver (Criminal / Crime Boss 7)"
+        "Safe Cracker (Criminal / Crime Boss 8)"
+        "The Brains (Criminal / Crime Boss 9)"
+        "The Boss (Criminal / Crime Boss 10)"
+    },
+    "Oracle": {
+        "Digithief (Criminal / Oracle 6)"
+        "Elite Hacker (Criminal / Oracle 7)"
+        "An0nymous Ghost (Criminal / Oracle 8)"
+        "Net Demon (Criminal / Oracle 9)"
+        "The Oracle (Criminal / Oracle 10"
     }
 }
