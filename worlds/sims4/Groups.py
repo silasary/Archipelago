@@ -310,5 +310,35 @@ location_name_groups: Dict[str, Set[str]] = {
         "Independent Consultant (Tech Guru / Start-up Entrepreneur 8)"
         "Dot-Com Pioneer (Tech Guru / Start-up Entrepreneur 9)"
         "Start-up Genius (Tech Guru / Start-up Entrepreneur 10)"
+    },
+    "Writer": {
+        "Blogger (Writer 2)"
+        "Freelance Article Writer (Writer 3)"
+        "Advice Columnist (Writer 4)"
+        "Regular Contributor (Writer 5)"
+        "Short Story Writer (Writer / Author 6)"
+        "Novelist (Writer / Author 7)"
+        "Fan Favorite (Writer / Author 8)"
+        "Bestselling Author (Writer / Author 9)"
+        "Creator of Worlds (Writer / Author 10)"
+        "Page Two Journalist (Writer / Journalist 6)"
+        "Front Page Writer (Writer / Journalist 7)"
+        "Investigative Journalist (Writer / Journalist 8)"
+        "Editor-in-Chief (Writer / Journalist 9)"
+        "Scribe of History (Writer / Journalist 10)"
+    },
+    "Author": {
+        "Short Story Writer (Writer / Author 6)"
+        "Novelist (Writer / Author 7)"
+        "Fan Favorite (Writer / Author 8)"
+        "Bestselling Author (Writer / Author 9)"
+        "Creator of Worlds (Writer / Author 10)"
+    },
+    "Journalist": {
+        "Page Two Journalist (Writer / Journalist 6)"
+        "Front Page Writer (Writer / Journalist 7)"
+        "Investigative Journalist (Writer / Journalist 8)"
+        "Editor-in-Chief (Writer / Journalist 9)"
+        "Scribe of History (Writer / Journalist 10)"
     }
 }
