@@ -2,12 +2,13 @@ import typing
 from typing import Mapping, Any, ClassVar
 
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
-from .Locations import location_table, Sims4Location, skill_locations_table, location_name_groups
+from .Locations import location_table, Sims4Location, skill_locations_table
 from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
 from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
 from .Rules import set_rules
+from .Groups import location_name_groups
 from worlds.AutoWorld import World, WebWorld
 from ..LauncherComponents import Component, components, Type
 from multiprocessing import Process
