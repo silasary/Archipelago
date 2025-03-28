@@ -47,5 +47,38 @@ location_name_groups: Dict[str, Set[str]] = {
         "Moon Mercenary (Astronaut / Interstellar Smuggler 8)"
         "Alien Goods Trader (Astronaut / Interstellar Smuggler 9)"
         "Interstellar Smuggler (Astronaut / Interstellar Smuggler 10)"
+    },
+    "Athlete": {
+        "Locker Room Attendant (Athlete 2)"
+        "Team Mascot (Athlete 3)"
+        "Dance Team Captain (Athlete 4)"
+        "Minor Leaguer (Athlete / Professional Athlete 5)"
+        "Rookie (Athlete / Professional Athlete 6)"
+        "Starter (Athlete / Professional Athlete 7)"
+        "All-Star (Athlete / Professional Athlete 8)"
+        "MVP (Athlete / Professional Athlete 9)"
+        "Hall of Famer (Athlete / Professional Athlete 10)"
+        "Personal Trainer (Athlete / Bodybuilder 5)"
+        "Professional Bodybuilder (Athlete / Bodybuilder 6)"
+        "Champion Bodybuilder (Athlete / Bodybuilder 7)"
+        "Trainer to the Stars (Athlete / Bodybuilder 8)"
+        "Celebrity Bodybuilder (Athlete / Bodybuilder 9)"
+        "Mr. / Mrs. Solar System (Athlete / Bodybuilder 10)"
+    },
+    "Professional Athlete": {
+        "Minor Leaguer (Athlete / Professional Athlete 5)"
+        "Rookie (Athlete / Professional Athlete 6)"
+        "Starter (Athlete / Professional Athlete 7)"
+        "All-Star (Athlete / Professional Athlete 8)"
+        "MVP (Athlete / Professional Athlete 9)"
+        "Hall of Famer (Athlete / Professional Athlete 10)"
+    },
+    "Bodybuilder": {
+        "Personal Trainer (Athlete / Bodybuilder 5)"
+        "Professional Bodybuilder (Athlete / Bodybuilder 6)"
+        "Champion Bodybuilder (Athlete / Bodybuilder 7)"
+        "Trainer to the Stars (Athlete / Bodybuilder 8)"
+        "Celebrity Bodybuilder (Athlete / Bodybuilder 9)"
+        "Mr. / Mrs. Solar System (Athlete / Bodybuilder 10)"
     }
 }
