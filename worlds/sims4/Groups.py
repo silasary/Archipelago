@@ -342,3 +342,16 @@ location_name_groups: Dict[str, Set[str]] = {
         "Scribe of History (Writer / Journalist 10)"
     }
 }
+
+item_name_groups: Dict[str, Set[str]] = {
+    "Music": {
+        "Guitar Skill"
+        "Violin Skill"
+        "Piano Skill"
+    },
+    "Food": {
+        "Gourmet Skill"
+        "Cooking Skill"
+        "Mixology Skill"
+    }
+}
