@@ -227,5 +227,31 @@ location_name_groups: Dict[str, Set[str]] = {
         "Fine-Art Aficionado (Painter / Patron of the Arts 8)"
         "Composition Curator (Painter / Patron of the Arts 9)"
         "Patron of the Arts (Painter / Patron of the Arts 10)"
+    },
+    "Secret Agent": {
+        "Intelligence Researcher (Secret Agent 2)"
+        "Agent Handler (Secret Agent 3)"
+        "Field Agent (Secret Agent 4)"
+        "Lead Detective (Secret Agent 5)"
+        "Government Agent (Secret Agent 6)"
+        "Secret Agent (Secret Agent 7)"
+        "Spy Captain (Secret Agent / Diamond Agent 8)"
+        "Shadow Agent (Secret Agent / Diamond Agent 9)"
+        "Double Diamond Agent (Secret Agent / Diamond Agent 10)"
+        "Double Agent (Secret Agent / Villain 8)"
+        "[Redacted] (Secret Agent / Villain 9)"
+        "Supreme Villain (Secret Agent / Villain 10)"
+        "Triple Agent (Secret Agent / Villain 11)"
+    },
+    "Diamond Agent": {
+        "Spy Captain (Secret Agent / Diamond Agent 8)"
+        "Shadow Agent (Secret Agent / Diamond Agent 9)"
+        "Double Diamond Agent (Secret Agent / Diamond Agent 10)"
+    },
+    "Villain": {
+        "Double Agent (Secret Agent / Villain 8)"
+        "[Redacted] (Secret Agent / Villain 9)"
+        "Supreme Villain (Secret Agent / Villain 10)"
+        "Triple Agent (Secret Agent / Villain 11)"
     }
 }
