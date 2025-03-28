@@ -1358,114 +1358,23 @@ location_table = {
 }
 
 location_name_groups: Dict[str, typing.Set[str]] = {
-    "Writing": {
-        "Writing Skill 2",
-        "Writing Skill 3",
-        "Writing Skill 4",
-        "Writing Skill 5",
-        "Writing Skill 6",
-        "Writing Skill 7",
-        "Writing Skill 8",
-        "Writing Skill 9",
-        "Writing Skill 10"
-    },
-    "Charisma": {
-        "Charisma Skill 2",
-        "Charisma Skill 3",
-        "Charisma Skill 4",
-        "Charisma Skill 5",
-        "Charisma Skill 6",
-        "Charisma Skill 7",
-        "Charisma Skill 8",
-        "Charisma Skill 9",
-        "Charisma Skill 10"
-    },
-    "Comedy": {
-        "Comedy Skill 2",
-        "Comedy Skill 3",
-        "Comedy Skill 4",
-        "Comedy Skill 5",
-        "Comedy Skill 6",
-        "Comedy Skill 7",
-        "Comedy Skill 8",
-        "Comedy Skill 9",
-        "Comedy Skill 10"
-    },
-    "Cooking": {
-        "Cooking Skill 2",
-        "Cooking Skill 3",
-        "Cooking Skill 4",
-        "Cooking Skill 5",
-        "Cooking Skill 6",
-        "Cooking Skill 7",
-        "Cooking Skill 8",
-        "Cooking Skill 9",
-        "Cooking Skill 10"
-    },
-    "Gourmet": {
-        "Gourmet Skill 2",
-        "Gourmet Skill 3",
-        "Gourmet Skill 4",
-        "Gourmet Skill 5",
-        "Gourmet Skill 6",
-        "Gourmet Skill 7",
-        "Gourmet Skill 8",
-        "Gourmet Skill 9",
-        "Gourmet Skill 10"
-    },
-    "Fishing": {
-        "Fishing Skill 2",
-        "Fishing Skill 3",
-        "Fishing Skill 4",
-        "Fishing Skill 5",
-        "Fishing Skill 6",
-        "Fishing Skill 7",
-        "Fishing Skill 8",
-        "Fishing Skill 9",
-        "Fishing Skill 10"
-    },
-    "Fitness": {
-        "Fitness Skill 2",
-        "Fitness Skill 3",
-        "Fitness Skill 4",
-        "Fitness Skill 5",
-        "Fitness Skill 6",
-        "Fitness Skill 7",
-        "Fitness Skill 8",
-        "Fitness Skill 9",
-        "Fitness Skill 10"
-    },
-    "Gardening": {
-        "Gardening Skill 2",
-        "Gardening Skill 3",
-        "Gardening Skill 4",
-        "Gardening Skill 5",
-        "Gardening Skill 6",
-        "Gardening Skill 7",
-        "Gardening Skill 8",
-        "Gardening Skill 9",
-        "Gardening Skill 10"
-    },
-    "Handiness": {
-        "Handiness Skill 2",
-        "Handiness Skill 3",
-        "Handiness Skill 4",
-        "Handiness Skill 5",
-        "Handiness Skill 6",
-        "Handiness Skill 7",
-        "Handiness Skill 8",
-        "Handiness Skill 9",
-        "Handiness Skill 10"
-    },
-    "Logic": {
-        "Logic Skill 2",
-        "Logic Skill 3",
-        "Logic Skill 4",
-        "Logic Skill 5",
-        "Logic Skill 6",
-        "Logic Skill 7",
-        "Logic Skill 8",
-        "Logic Skill 9",
-        "Logic Skill 10"
-    }
+    "Writing": {f"Writing Skill {i}" for i in range(2, 11)},
+    "Charisma": {f"Charisma Skill {i}" for i in range(2, 11)},
+    "Comedy": {f"Comedy Skill {i}" for i in range(2, 11)},
+    "Cooking": {f"Cooking Skill {i}" for i in range(2, 11)},
+    "Gourmet": {f"Gourmet Skill {i}" for i in range(2, 11)},
+    "Fishing": {f"Fishing Skill {i}" for i in range(2, 11)},
+    "Fitness": {f"Fitness Skill {i}" for i in range(2, 11)},
+    "Gardening": {f"Gardening Skill {i}" for i in range(2, 11)},
+    "Handiness": {f"Handiness Skill {i}" for i in range(2, 11)},
+    "Logic": {f"Logic Skill {i}" for i in range(2, 11)},
+    "Mischief": {f"Mischief Skill {i}" for i in range(2, 11)},
+    "Mixology": {f"Mixology Skill {i}" for i in range(2, 11)},
+    "Painting": {f"Painting Skill {i}" for i in range(2, 11)},
+    "Piano": {f"Piano Skill {i}" for i in range(2, 11)},
+    "Programming": {f"Programming Skill {i}" for i in range(2, 11)},
+    "Rocket Science": {f"Rocket Science Skill {i}" for i in range(2, 11)},
+    "Video Gaming": {f"Video Gaming Skill {i}" for i in range(2, 11)},
+    "Violin": {f"Violin Skill {i}" for i in range(2, 11)},
+    "Photography": {f"Photography Skill {i}" for i in range(2,6)}
 }
