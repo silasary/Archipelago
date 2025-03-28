@@ -136,7 +136,36 @@ location_name_groups: Dict[str, Set[str]] = {
         "Elite Hacker (Criminal / Oracle 7)"
         "An0nymous Ghost (Criminal / Oracle 8)"
         "Net Demon (Criminal / Oracle 9)"
-        "The Oracle (Criminal / Oracle 10"
         "The Oracle (Criminal / Oracle 10)"
+    },
+    "Culinary": {
+        "Head Dishwasher (Culinary 2)"
+        "Caterer (Culinary 3)"
+        "Mixologist (Culinary 4)"
+        "Line Cook (Culinary 5)"
+        "Head Caterer (Culinary / Chef 6)"
+        "Pastry Chef (Culinary / Chef 7)"
+        "Sous Chef (Culinary / Chef 8)"
+        "Executive Chef (Culinary / Chef 9)"
+        "Celebrity Chef (Culinary / Chef 10)"
+        "Head Mixologist (Culinary / Mixologist 6)"
+        "Juice Boss (Culinary / Mixologist 7)"
+        "Chief Drink Operator (Culinary / Mixologist 8)"
+        "Drinkmaster (Culinary / Mixologist 9)"
+        "Celebrity Mixologist (Culinary / Mixologist 10)"
+    },
+    "Chef": {
+        "Head Caterer (Culinary / Chef 6)"
+        "Pastry Chef (Culinary / Chef 7)"
+        "Sous Chef (Culinary / Chef 8)"
+        "Executive Chef (Culinary / Chef 9)"
+        "Celebrity Chef (Culinary / Chef 10)"
+    },
+    "Mixologist": {
+        "Head Mixologist (Culinary / Mixologist 6)"
+        "Juice Boss (Culinary / Mixologist 7)"
+        "Chief Drink Operator (Culinary / Mixologist 8)"
+        "Drinkmaster (Culinary / Mixologist 9)"
+        "Celebrity Mixologist (Culinary / Mixologist 10)"
     }
 }
