@@ -283,5 +283,32 @@ location_name_groups: Dict[str, Set[str]] = {
         "Best-Self-Helper (Style Influencer / Trend Setter 8)"
         "It Sim (Style Influencer / Trend Setter 9)"
         "Icon O'Class (Style Influencer / Trend Setter 10)"
+    },
+    "Tech Guru": {
+        "Quality Assurance (Tech Guru 2)"
+        "Code Monkey (Tech Guru 3)"
+        "Ace Engineer (Tech Guru 4)"
+        "Project Manager (Tech Guru 5)"
+        "Development Captain (Tech Guru 6)"
+        "eSports Competitor (Tech Guru / eSport Gamer 7)"
+        "Pro Gamer (Tech Guru / eSport Gamer 8)"
+        "APM King / Queen (Tech Guru / eSport Gamer 9)"
+        "Champion Gamer (Tech Guru / eSport Gamer 10)"
+        "The Next Big Thing? (Tech Guru / Start-up Entrepreneur 7)"
+        "Independent Consultant (Tech Guru / Start-up Entrepreneur 8)"
+        "Dot-Com Pioneer (Tech Guru / Start-up Entrepreneur 9)"
+        "Start-up Genius (Tech Guru / Start-up Entrepreneur 10)"
+    },
+    "eSport Gamer": {
+        "eSports Competitor (Tech Guru / eSport Gamer 7)"
+        "Pro Gamer (Tech Guru / eSport Gamer 8)"
+        "APM King / Queen (Tech Guru / eSport Gamer 9)"
+        "Champion Gamer (Tech Guru / eSport Gamer 10)"
+    },
+    "Start-up Entrepreneur": {
+        "The Next Big Thing? (Tech Guru / Start-up Entrepreneur 7)"
+        "Independent Consultant (Tech Guru / Start-up Entrepreneur 8)"
+        "Dot-Com Pioneer (Tech Guru / Start-up Entrepreneur 9)"
+        "Start-up Genius (Tech Guru / Start-up Entrepreneur 10)"
     }
 }
