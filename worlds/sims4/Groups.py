@@ -200,5 +200,32 @@ location_name_groups: Dict[str, Set[str]] = {
         "Roast Master (Entertainer / Comedian 8)"
         "Stand Up Star (Entertainer / Comedian 9)"
         "Show Stopper (Entertainer / Comedian 10)"
+    },
+    "Painter": {
+        "Art Book Collator (Painter 2)"
+        "Hungry Artist (Painter 3)"
+        "Watercolor Dabbler (Painter 4)"
+        "Canvas Creator (Painter 5)"
+        "Imaginative Imagist (Painter 6)"
+        "Artist en Residence (Painter / Master of the Real 7)"
+        "Professional Painter (Painter / Master of the Real 8)"
+        "Illustrious Illustrator (Painter / Master of the Real 9)"
+        "Master of the Real (Painter / Master of the Real 10)"
+        "Color Theory Critic (Painter / Patron of the Arts 7)"
+        "Fine-Art Aficionado (Painter / Patron of the Arts 8)"
+        "Composition Curator (Painter / Patron of the Arts 9)"
+        "Patron of the Arts (Painter / Patron of the Arts 10)"
+    },
+    "Master of the Real": {
+        "Artist en Residence (Painter / Master of the Real 7)"
+        "Professional Painter (Painter / Master of the Real 8)"
+        "Illustrious Illustrator (Painter / Master of the Real 9)"
+        "Master of the Real (Painter / Master of the Real 10)"
+    },
+    "Patron of the Arts": {
+        "Color Theory Critic (Painter / Patron of the Arts 7)"
+        "Fine-Art Aficionado (Painter / Patron of the Arts 8)"
+        "Composition Curator (Painter / Patron of the Arts 9)"
+        "Patron of the Arts (Painter / Patron of the Arts 10)"
     }
 }
