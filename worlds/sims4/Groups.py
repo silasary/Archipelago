@@ -253,5 +253,35 @@ location_name_groups: Dict[str, Set[str]] = {
         "[Redacted] (Secret Agent / Villain 9)"
         "Supreme Villain (Secret Agent / Villain 10)"
         "Triple Agent (Secret Agent / Villain 11)"
+    },
+    "Style Influencer": {
+        "Consignment Commentator (Style Influencer 2)"
+        "Wearable Wordsmith (Style Influencer 3)"
+        "Ensemble Author (Style Influencer 4)"
+        "Culture Columnist (Style Influencer 5)"
+        "Dedicated Dresser (Style Influencer / Stylist 6)"
+        "Textile Tactician (Style Influencer / Stylist 7)"
+        "Wardrobe Wiz (Style Influencer / Stylist 8)"
+        "Make-Over Miracle Worker (Style Influencer / Stylist 9)"
+        "Persona Re-Imager (Style Influencer / Stylist 10)"
+        "Posh Profiler (Style Influencer / Trend Setter 6)"
+        "Fashion Figure (Style Influencer / Trend Setter 7)"
+        "Best-Self-Helper (Style Influencer / Trend Setter 8)"
+        "It Sim (Style Influencer / Trend Setter 9)"
+        "Icon O'Class (Style Influencer / Trend Setter 10)"
+    },
+    "Stylist": {
+        "Dedicated Dresser (Style Influencer / Stylist 6)"
+        "Textile Tactician (Style Influencer / Stylist 7)"
+        "Wardrobe Wiz (Style Influencer / Stylist 8)"
+        "Make-Over Miracle Worker (Style Influencer / Stylist 9)"
+        "Persona Re-Imager (Style Influencer / Stylist 10)"
+    },
+    "Trend Setter": {
+        "Posh Profiler (Style Influencer / Trend Setter 6)"
+        "Fashion Figure (Style Influencer / Trend Setter 7)"
+        "Best-Self-Helper (Style Influencer / Trend Setter 8)"
+        "It Sim (Style Influencer / Trend Setter 9)"
+        "Icon O'Class (Style Influencer / Trend Setter 10)"
     }
 }
