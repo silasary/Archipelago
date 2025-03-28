@@ -1412,5 +1412,38 @@ location_name_groups: Dict[str, typing.Set[str]] = {
         "Gourmet Skill 8",
         "Gourmet Skill 9",
         "Gourmet Skill 10"
+    },
+    "Fishing": {
+        "Fishing Skill 2",
+        "Fishing Skill 3",
+        "Fishing Skill 4",
+        "Fishing Skill 5",
+        "Fishing Skill 6",
+        "Fishing Skill 7",
+        "Fishing Skill 8",
+        "Fishing Skill 9",
+        "Fishing Skill 10"
+    },
+    "Fitness": {
+        "Fitness Skill 2",
+        "Fitness Skill 3",
+        "Fitness Skill 4",
+        "Fitness Skill 5",
+        "Fitness Skill 6",
+        "Fitness Skill 7",
+        "Fitness Skill 8",
+        "Fitness Skill 9",
+        "Fitness Skill 10"
+    },
+    "Gardening": {
+        "Gardening Skill 2",
+        "Gardening Skill 3",
+        "Gardening Skill 4",
+        "Gardening Skill 5",
+        "Gardening Skill 6",
+        "Gardening Skill 7",
+        "Gardening Skill 8",
+        "Gardening Skill 9",
+        "Gardening Skill 10"
     }
 }
