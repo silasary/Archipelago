@@ -167,5 +167,38 @@ location_name_groups: Dict[str, Set[str]] = {
         "Chief Drink Operator (Culinary / Mixologist 8)"
         "Drinkmaster (Culinary / Mixologist 9)"
         "Celebrity Mixologist (Culinary / Mixologist 10)"
+    },
+    "Entertainer": {
+        "Open Mic Seeker (Entertainer 2)"
+        "C-Lister (Entertainer 3)"
+        "Opening Act (Entertainer 4)"
+        "Jingle Jammer (Entertainer / Musician 5)"
+        "Serious Musician (Entertainer / Musician 6)"
+        "Professional Pianist (Entertainer / Musician 7)"
+        "Symphonic String Player (Entertainer / Musician 8)"
+        "Instrumental Wonder (Entertainer / Musician 9)"
+         "Concert Virtuoso (Entertainer / Musician 10)"
+        "Jokesmith (Entertainer / Comedian 5)"
+        "Solid Storyteller (Entertainer / Comedian 6)"
+        "Rising Comedian (Entertainer / Comedian 7)"
+        "Roast Master (Entertainer / Comedian 8)"
+        "Stand Up Star (Entertainer / Comedian 9)"
+         "Show Stopper (Entertainer / Comedian 10)"
+    },
+    "Musician": {
+        "Jingle Jammer (Entertainer / Musician 5)"
+        "Serious Musician (Entertainer / Musician 6)"
+        "Professional Pianist (Entertainer / Musician 7)"
+        "Symphonic String Player (Entertainer / Musician 8)"
+        "Instrumental Wonder (Entertainer / Musician 9)"
+        "Concert Virtuoso (Entertainer / Musician 10)"
+    },
+    "Comedian": {
+        "Jokesmith (Entertainer / Comedian 5)"
+        "Solid Storyteller (Entertainer / Comedian 6)"
+        "Rising Comedian (Entertainer / Comedian 7)"
+        "Roast Master (Entertainer / Comedian 8)"
+        "Stand Up Star (Entertainer / Comedian 9)"
+        "Show Stopper (Entertainer / Comedian 10)"
     }
 }
