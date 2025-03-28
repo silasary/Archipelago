@@ -1375,5 +1375,9 @@ location_name_groups: Dict[str, Set[str]] = {
     "Rocket Science": {f"Rocket Science Skill {i}" for i in range(2, 11)},
     "Video Gaming": {f"Video Gaming Skill {i}" for i in range(2, 11)},
     "Violin": {f"Violin Skill {i}" for i in range(2, 11)},
-    "Photography": {f"Photography Skill {i}" for i in range(2,6)}
+    "Photography": {f"Photography Skill {i}" for i in range(2,6)},
+    "Guitar": {f"Guitar Skill {i}" for i in range(2,11)},
+    "Music": {f"{instrument} Skill {level}"
+              for instrument in ["Piano", "Violin", "Guitar"]
+              for level in range(1, 11)}
 }
