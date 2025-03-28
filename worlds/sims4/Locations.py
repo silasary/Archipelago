@@ -1,5 +1,4 @@
-import typing
-from typing import Dict, NamedTuple, Optional
+from typing import Dict, NamedTuple, Optional, Set, TypedDict
 
 from BaseClasses import Location
 from .Names import SkillNames, CareerNames, AspirationNames
@@ -13,7 +12,7 @@ class Sims4Location(Location):
         self.event = not address
 
 
-class Sims4LocationDict(typing.TypedDict, total=False):
+class Sims4LocationDict(TypedDict, total=False):
     name: str
     category: str
     expansion: str
@@ -1357,7 +1356,7 @@ location_table = {
     **ptj_locations_table,
 }
 
-location_name_groups: Dict[str, typing.Set[str]] = {
+location_name_groups: Dict[str, Set[str]] = {
     "Writing": {f"Writing Skill {i}" for i in range(2, 11)},
     "Charisma": {f"Charisma Skill {i}" for i in range(2, 11)},
     "Comedy": {f"Comedy Skill {i}" for i in range(2, 11)},
