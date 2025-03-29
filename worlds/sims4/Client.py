@@ -115,6 +115,19 @@ class SimsContext(SuperContext):
         self.career = None
 
     def run_gui(self):
+        """Import kivy UI system and start running it as self.ui_task."""
+        from kvui import GameManager
+
+        class S4Manager(GameManager):
+            logging_pairs = [
+                ("Client", "Archipelago")
+            ]
+            base_title = "Archipelago The Sims 4 Client"
+
+        self.ui = S4Manager(self)
+        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+
+    def make_gui(self):
         ui = super().make_gui()
         ui.base_title = "Archipelago The Sims 4 Client"
         return ui
