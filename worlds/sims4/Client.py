@@ -170,7 +170,7 @@ async def game_watcher(ctx: SimsContext):
             json_data = load_json('locations_cached.json')
             if json_data is not None:
                 if "Locations" in json_data and json_data["Locations"] is not None and json_data["Seed"] == ctx.seed_name:
-                    locations_to_remove = []
+                    # locations_to_remove = []
                     for data in json_data["Locations"]:
                         for location_id in ctx.missing_locations:
                             location_current_name = ctx.location_names.lookup_in_game(location_id)
@@ -181,11 +181,11 @@ async def game_watcher(ctx: SimsContext):
                                     ctx.finished_game = True
                                 await SimsContext.send_msgs(ctx,
                                                             [{"cmd": "LocationChecks", "locations": [location_id]}])
-                                locations_to_remove.append(data)
+                                # locations_to_remove.append(data)
                                 break
-                    for loc in locations_to_remove:
-                        json_data["Locations"].remove(loc)
-                        print_json(json_data, 'locations_cached.json', ctx)
+                    # for loc in locations_to_remove:
+                    #     json_data["Locations"].remove(loc)
+                    #     print_json(json_data, 'locations_cached.json', ctx)
             json_data = load_json('sync.json')
             if json_data is not None:
                 if json_data:
