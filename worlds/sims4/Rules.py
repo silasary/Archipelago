@@ -444,9 +444,9 @@ def set_rules(sims4_world: "Sims4World"):
                                or state.has(SkillNames.base_skill_violin, player, count=2)
                                or state.has(SkillNames.base_skill_piano, player, count=2))
         set_rule(world.get_location(AspirationNames.base_aspiration_harmonious, player),
-                 lambda state: state.has(SkillNames.base_skill_guitar, player, count=4)
-                               or state.has(SkillNames.base_skill_violin, player, count=4)
-                               or state.has(SkillNames.base_skill_piano, player, count=4))
+                 lambda state: state.has(SkillNames.base_skill_guitar, player, count=6)
+                               or state.has(SkillNames.base_skill_violin, player, count=6)
+                               or state.has(SkillNames.base_skill_piano, player, count=6))
         set_rule(world.get_location(AspirationNames.base_aspiration_musical_genius, player),
                  lambda state: state.has(SkillNames.base_skill_guitar, player, count=8)
                                or state.has(SkillNames.base_skill_violin, player, count=8)
