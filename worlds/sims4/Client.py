@@ -6,8 +6,15 @@ import os
 import urllib.parse
 
 import Utils
-from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, CommonContext, server_loop, logger, ClientStatus
+from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
+
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as SuperContext
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as SuperContext
 
 from pathlib import Path
 
@@ -94,11 +101,12 @@ class SimsCommandProcessor(ClientCommandProcessor):
                 f'Could not find mod_data folder\nif the path you inputed is correct make sure you have enabled script mods in the sims 4 and run the game \nPath: {p}')
 
 
-class SimsContext(CommonContext):
+class SimsContext(SuperContext):
     game = 'The Sims 4'
     command_processor = SimsCommandProcessor
     items_handling = 0b111
     want_slot_data = True
+    tags = {"AP"}
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
@@ -203,6 +211,8 @@ def main():
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
         watcher_task = asyncio.create_task(game_watcher(ctx), name="GameWatcher")
 
+        if tracker_loaded:
+            ctx.run_generator()
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
