@@ -8,7 +8,7 @@ from .Options import Sims4Options
 from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
 from .Rules import set_rules
-from .Groups import location_name_groups
+from .Groups import location_name_groups, item_name_groups
 from worlds.AutoWorld import World, WebWorld
 from ..LauncherComponents import Component, components, Type
 from multiprocessing import Process
@@ -134,6 +134,7 @@ class Sims4World(World):
     location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
 
     location_name_groups = location_name_groups
+    item_name_groups = item_name_groups
 
     data_version = 0
     base_id = 0x73340001

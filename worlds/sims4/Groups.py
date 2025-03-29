@@ -24,6 +24,12 @@ location_name_groups: Dict[str, Set[str]] = {
     "Music": {f"{instrument} Skill {level}"
               for instrument in ["Piano", "Violin", "Guitar"]
               for level in range(1, 11)},
+    "Food": {f"{skill} Skill {level}"
+             for skill in ["Gourmet", "Cooking", "Mixology"]
+             for level in range(1,11)},
+    "Computer": {f"{skill} Skill {level}"
+                 for skill in ["Programming", "Video Gaming"]
+                 for level in range(1,11)},
     "Astronaut": {
         "Module Cleaner (Astronaut 2)"
         "Technician (Astronaut 3)"
@@ -340,5 +346,22 @@ location_name_groups: Dict[str, Set[str]] = {
         "Investigative Journalist (Writer / Journalist 8)"
         "Editor-in-Chief (Writer / Journalist 9)"
         "Scribe of History (Writer / Journalist 10)"
+    }
+}
+
+item_name_groups: Dict[str, Set[str]] = {
+    "Music": {
+        "Guitar Skill"
+        "Violin Skill"
+        "Piano Skill"
+    },
+    "Food": {
+        "Gourmet Skill"
+        "Cooking Skill"
+        "Mixology Skill"
+    },
+    "Computer": {
+        "Programming Skill",
+        "Video Gaming Skill"
     }
 }

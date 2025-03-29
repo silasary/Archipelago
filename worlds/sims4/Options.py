@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Choice, PerGameCommonOptions, OptionSet
+from Options import Choice, PerGameCommonOptions, OptionSet, Visibility
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
@@ -47,6 +47,7 @@ class Career(Choice):
 class ExpansionPacks(OptionSet):
     """List of Expansion Packs that will be included in the shuffling. (Not Yet Implemented)"""
     display_name = "expansion_packs"
+    visibility = Visibility.none
     valid_keys = {ExpansionNames.get_to_work, ExpansionNames.get_together, ExpansionNames.city_living,
                   ExpansionNames.cats_and_dogs, ExpansionNames.seasons, ExpansionNames.get_famous,
                   ExpansionNames.island_living, ExpansionNames.discover_university, ExpansionNames.eco_lifestyle,
@@ -57,6 +58,7 @@ class ExpansionPacks(OptionSet):
 class GamePacks(OptionSet):
     """List of Game Packs that will be included in the shuffling. (Not Yet Implemented)"""
     display_name = "game_packs"
+    visibility = Visibility.none
     valid_keys = {GamePackNames.outdoor_retreat, GamePackNames.spa_day, GamePackNames.dine_out,
                   GamePackNames.vampires, GamePackNames.parenthood, GamePackNames.jungle_adventure,
                   GamePackNames.stranger_ville, GamePackNames.realm_of_magic, GamePackNames.dream_home_decorator,
@@ -65,6 +67,7 @@ class GamePacks(OptionSet):
 class StuffPacks(OptionSet):
     """List of Stuff Packs that will be included in the shuffling. (Not Yet Implemented)"""
     display_name = "stuff_packs"
+    visibility = Visibility.none
     valid_keys = {StuffNames.luxury_party, StuffNames.perfect_patio, StuffNames.cool_kitchen,
                   StuffNames.spooky, StuffNames.movie_hangout, StuffNames.romantic_garden,
                   StuffNames.kids_room, StuffNames.backyard, StuffNames.vintage_glamour,
@@ -75,6 +78,7 @@ class StuffPacks(OptionSet):
 class CASKits(OptionSet):
     """List of CAS (Create a Sim) Kits that will be included in the shuffling. (Not Yet Implemented)"""
     display_name = "cas_kits"
+    visibility = Visibility.none
     valid_keys = {CASKitNames.throwback_fit, CASKitNames.fashion_street, CASKitNames.incheon_arrivals,
                   CASKitNames.modern_menswear, CASKitNames.carnaval_streetwear, CASKitNames.moonlight_chic,
                   CASKitNames.first_fits, CASKitNames.simtimates_collection, CASKitNames.grunge_revival,
@@ -84,6 +88,7 @@ class CASKits(OptionSet):
 class BuildKits(OptionSet):
     """List of Build Kits that will be included in the shuffling. (Not Yet Implemented)"""
     display_name = "build_kits"
+    visibility = Visibility.none
     valid_keys = {BuildKitNames.country_kitchen, BuildKitNames.courtyard_oasis, BuildKitNames.industrial_loft,
                   BuildKitNames.blooming_rooms, BuildKitNames.decor_to_the_max, BuildKitNames.little_campers,
                   BuildKitNames.desert_luxe, BuildKitNames.everyday_clutter, BuildKitNames.pastel_pop,
