@@ -16,7 +16,7 @@ import settings
 from pathlib import Path
 
 def run_client():
-    from worlds.sims4.Client import main
+    from .Client import main
     p = Process(target=main)
     p.start()
 
