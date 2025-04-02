@@ -3,6 +3,17 @@ from worlds.Files import InvalidDataError
 from .world_manager import RepositoryManager, parse_version
 from worlds.LauncherComponents import install_apworld
 from worlds import world_sources
+from enum import IntEnum
+
+class SortStages(IntEnum):
+    UPDATE_AVAILABLE = 2
+    INSTALLED = 1
+    DEFAULT = 0
+    AFTER_DARK = -4
+    MANUAL = -5
+    NO_REMOTE = -9
+    BUNDLED = -10
+
 
 def launch():
     from kvui import (
@@ -46,6 +57,7 @@ def launch():
         text: root.details["install_text"]
         size_hint: .2, 1
         on_press: root.download_latest()
+        disabled: root.details["install_text"] == "-"
     Button:
         text: "Details"
         size_hint: .2, 1
@@ -178,15 +190,23 @@ def launch():
                 if local := repositories.find_release_by_hash(hash):
                     local_version = local.world_version
             description = "Placeholder text"
-            data = {"title": name, "installed": True, "manifest": manifest_data, "remotes": remote, 'update_available': False, 'install_text': '-'}
+            data = {
+                "title": name,
+                "installed": True,
+                "manifest": manifest_data,
+                "remotes": remote,
+                'update_available': False,
+                'install_text': '-',
+                "after_dark": manifest_data.get("after_dark", False),
+            }
             if not remote:
                 source = [s for s in world_sources if s.path == str(file)]
                 if source and source[0].relative:
                     description = "Bundled with AP"
-                    data['sort'] = -10
+                    data['sort'] = SortStages.BUNDLED
                 else:
                     description = "No remote data available"
-                    data['sort'] = -9
+                    data['sort'] = SortStages.NO_REMOTE
             else:
                 highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
                 data["latest_version"] = highest_remote_version
@@ -195,11 +215,11 @@ def launch():
                 data['update_available'] = v_remote > v_local
                 if data['update_available']:
                     description = f"Update available: {v_local} -> {v_remote}"
-                    data['sort'] = 2
+                    data['sort'] = SortStages.UPDATE_AVAILABLE
                     data['install_text'] = "Update"
                 else:
                     description = "Up to date"
-                    data['sort'] = 1
+                    data['sort'] = SortStages.INSTALLED
                     data['install_text'] = "-"
             data["description"] = description
             apworlds.append(data)
@@ -218,11 +238,14 @@ def launch():
                 "update_available": True,
                 "manifest": {},
                 "installed": False,
-                "sort": 0,
+                "sort": SortStages.DEFAULT,
                 "install_text": "Install",
+                "after_dark": highest_remote_version.data['metadata'].get("after_dark", False),
                 }
+            if highest_remote_version.data['metadata'].get("after_dark", False):
+                data['sort'] = SortStages.AFTER_DARK
             if world.lower().startswith('manual_'):
-                data['sort'] = -5
+                data['sort'] = SortStages.MANUAL
             apworlds.append(data)
         apworlds.sort(key=lambda x: x['sort'], reverse=True)
         return apworlds
