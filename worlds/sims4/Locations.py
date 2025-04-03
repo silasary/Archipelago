@@ -1,4 +1,4 @@
-from typing import Dict, NamedTuple, Optional, Set, TypedDict
+from typing import Dict, NamedTuple, Optional, Set, TypedDict, Optional
 
 from BaseClasses import Location
 from .Names import SkillNames, CareerNames, AspirationNames
@@ -7,7 +7,7 @@ from .Names import SkillNames, CareerNames, AspirationNames
 class Sims4Location(Location):
     game: str = "The Sims 4"
 
-    def __init__(self, player: int, name: str, address: typing.Optional[int], parent):
+    def __init__(self, player: int, name: str, address: Optional[int], parent):
         super().__init__(player, name, address, parent)
         self.event = not address
 
