@@ -1,8 +1,8 @@
 import random
 from dataclasses import dataclass
 
-from Options import DeathLink, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
-    PerGameCommonOptions, Visibility
+from Options import DeathLinkMixin, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
+    PerGameCommonOptions, Visibility, StartInventoryPool
 from .names import LocationName
 import typing
 
@@ -164,8 +164,8 @@ class KirbyFlavor(OptionDict):
 
 
 @dataclass
-class K64Options(PerGameCommonOptions):
-    death_link: DeathLink
+class K64Options(PerGameCommonOptions, DeathLinkMixin):
+    start_inventory_from_pool: StartInventoryPool
     goal_speed: GoalSpeed
     split_power_combos: SplitPowerCombos
     stage_shuffle: LevelShuffle
