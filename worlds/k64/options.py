@@ -116,15 +116,15 @@ class KirbyFlavorPreset(Choice):
     display_name = "Kirby Flavor"
     option_default = 0
     option_bubblegum = 1
-    #option_cherry = 2
+    option_cherry = 2
     option_blueberry = 3
     option_lemon = 4
     option_kiwi = 5
     option_grape = 6
     option_chocolate = 7
     option_marshmallow = 8
-    #option_licorice = 9
-    #option_watermelon = 10
+    option_licorice = 9
+    option_watermelon = 10
     option_orange = 11
     option_lime = 12
     option_kusamochi = 16
@@ -138,8 +138,8 @@ class KirbyFlavorPreset(Choice):
     option_cheeseburger = 50
     option_rose = 27
     option_daisy = 28
-    option_violet = 29
-    option_lavender = 13
+    option_lavender = 29
+    option_lilac = 13
     option_blue_poppy = 32
     option_fuschia = 47
     option_canary = 22
@@ -147,7 +147,6 @@ class KirbyFlavorPreset(Choice):
     option_snow = 18
     option_ivory = 21
     option_chalk = 44
-    #option_ruby = x
     option_sapphire = 19
     option_emerald = 20
     option_gameboy = 45
@@ -156,11 +155,11 @@ class KirbyFlavorPreset(Choice):
     option_bright = 30
     option_ocean = 42
     option_miku = 14
-    #option_rin
-    #option_len
-    #option_luka
-    #option_meiko
-    #option_kaito
+    option_rin = 51
+    option_len = 52
+    option_luka = 53
+    option_meiko = 54
+    option_kaito = 55
     option_mirror = 46
     option_dedede = 33
     option_waddle_dee = 34
