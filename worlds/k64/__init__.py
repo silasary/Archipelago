@@ -13,6 +13,7 @@ from .client import K64Client
 from .options import K64Options
 from .rules import set_rules
 from typing import Dict, TextIO, Optional, List, Any, Mapping, ClassVar
+from io import BytesIO
 import os
 import math
 import threading
@@ -27,6 +28,35 @@ class K64Settings(settings.Group):
         description = "Kirby 64 - The Crystal Shards ROM File"
         copy_to = "Kirby 64 - The Crystal Shards (USA).z64"
         md5s = [K64UHASH]
+
+        # another day, another UserFilePath reimplementation
+        @classmethod
+        def validate(cls, path: str) -> None:
+            """Try to open and validate file against hashes"""
+            with open(path, "rb", buffering=0) as f:
+                if path.endswith(".n64"):
+                    # little endian, byteswap on the half
+                    byte_data = bytearray(f.read())
+                    for i in range(0, len(byte_data), 2):
+                        temp = byte_data[i]
+                        byte_data[i] = byte_data[i + 1]
+                        byte_data[i + 1] = temp
+                    f = BytesIO(byte_data)
+                elif path.endswith(".v64"):
+                    # byteswapped, byteswap on the word
+                    byte_data = bytearray(f.read())
+                    for i in range(0, len(byte_data), 4):
+                        temp = byte_data[i]
+                        byte_data[i] = byte_data[i + 3]
+                        byte_data[i + 1] = byte_data[i + 2]
+                        byte_data[i + 2] = byte_data[i + 1]
+                        byte_data[i + 3] = temp
+                    f = BytesIO(byte_data)
+                try:
+                    cls._validate_stream_hashes(f)
+                except ValueError:
+                    raise ValueError(f"File hash does not match for {path}")
+
 
     rom_file: RomFile = RomFile(RomFile.copy_to)
 
@@ -140,7 +170,8 @@ class K64World(World):
     def generate_output(self, output_directory: str):
         rom_path = ""
         try:
-            rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}{K64ProcedurePatch.patch_file_ending}")
+            rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
+                                                      f"{K64ProcedurePatch.patch_file_ending}")
             patch = K64ProcedurePatch(player=self.player, player_name=self.multiworld.player_name[self.player])
             patch_rom(self, self.player, patch)
             self.rom_name = patch.name
