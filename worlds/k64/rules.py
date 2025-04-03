@@ -136,7 +136,7 @@ def has_any_bomb(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.bomb, ItemName.bomb_bomb, ItemName.bomb_spark, ItemName.bomb_cutter,
                                  ItemName.burn_bomb, ItemName.ice_bomb, ItemName.stone_bomb, ItemName.needle_bomb],
                                 [["Bomb Ability"], ["Bomb Ability"], ["Bomb Ability", "Spark Ability"],
-                                 ["Bomb Ability", "Cutter Ability"],  ["Bomb Ability", "Burning Ability"],
+                                 ["Bomb Ability", "Cutter Ability"], ["Bomb Ability", "Burning Ability"],
                                  ["Bomb Ability", "Ice Ability"], ["Bomb Ability", "Stone Ability"],
                                  ["Bomb Ability", "Needle Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -148,7 +148,7 @@ def has_any_stone(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.stone, ItemName.stone_stone, ItemName.stone_spark, ItemName.stone_cutter,
                                  ItemName.burn_stone, ItemName.stone_ice, ItemName.stone_bomb, ItemName.stone_needle],
                                 [["Stone Ability"], ["Stone Ability"], ["Stone Ability", "Spark Ability"],
-                                 ["Stone Ability", "Cutter Ability"],  ["Stone Ability", "Burning Ability"],
+                                 ["Stone Ability", "Cutter Ability"], ["Stone Ability", "Burning Ability"],
                                  ["Stone Ability", "Ice Ability"], ["Stone Ability", "Bomb Ability"],
                                  ["Stone Ability", "Needle Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -158,9 +158,10 @@ def has_any_stone(state: "CollectionState", player: int):
 
 def has_any_needle(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.needle, ItemName.needle_needle, ItemName.needle_spark, ItemName.needle_cutter,
-                                 ItemName.burn_needle, ItemName.ice_needle, ItemName.needle_bomb, ItemName.stone_needle],
+                                 ItemName.burn_needle, ItemName.ice_needle, ItemName.needle_bomb,
+                                 ItemName.stone_needle],
                                 [["Needle Ability"], ["Needle Ability"], ["Needle Ability", "Spark Ability"],
-                                 ["Needle Ability", "Cutter Ability"],  ["Needle Ability", "Burning Ability"],
+                                 ["Needle Ability", "Cutter Ability"], ["Needle Ability", "Burning Ability"],
                                  ["Needle Ability", "Ice Ability"], ["Bomb Ability", "Needle Ability"],
                                  ["Stone Ability", "Needle Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -173,7 +174,7 @@ def has_any_ice(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.ice, ItemName.ice_ice, ItemName.ice_cutter,
                                  ItemName.burn_ice, ItemName.ice_needle, ItemName.ice_bomb, ItemName.stone_ice],
                                 [["Ice Ability"], ["Ice Ability"],
-                                 ["Ice Ability", "Cutter Ability"],  ["Ice Ability", "Burning Ability"],
+                                 ["Ice Ability", "Cutter Ability"], ["Ice Ability", "Burning Ability"],
                                  ["Needle Ability", "Ice Ability"], ["Bomb Ability", "Ice Ability"],
                                  ["Stone Ability", "Ice Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -185,7 +186,7 @@ def has_any_burn(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.burn, ItemName.burn_burn, ItemName.burn_spark, ItemName.burn_cutter,
                                  ItemName.burn_ice, ItemName.burn_needle, ItemName.burn_bomb, ItemName.burn_stone],
                                 [["Burning Ability"], ["Burning Ability"], ["Burning Ability", "Spark Ability"],
-                                 ["Burning Ability", "Cutter Ability"],  ["Ice Ability", "Burning Ability"],
+                                 ["Burning Ability", "Cutter Ability"], ["Ice Ability", "Burning Ability"],
                                  ["Needle Ability", "Burning Ability"], ["Bomb Ability", "Burning Ability"],
                                  ["Stone Ability", "Burning Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -197,7 +198,7 @@ def has_any_spark(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.spark, ItemName.spark_spark, ItemName.burn_spark, ItemName.spark_cutter,
                                  ItemName.ice_spark, ItemName.needle_spark, ItemName.bomb_spark, ItemName.stone_spark],
                                 [["Spark Ability"], ["Spark Ability"], ["Burning Ability", "Spark Ability"],
-                                 ["Spark Ability", "Cutter Ability"],  ["Ice Ability", "Spark Ability"],
+                                 ["Spark Ability", "Cutter Ability"], ["Ice Ability", "Spark Ability"],
                                  ["Needle Ability", "Spark Ability"], ["Bomb Ability", "Spark Ability"],
                                  ["Stone Ability", "Spark Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -207,9 +208,10 @@ def has_any_spark(state: "CollectionState", player: int):
 
 def has_any_cutter(state: "CollectionState", player: int):
     for specific, access in zip([ItemName.cutter, ItemName.cutter_cutter, ItemName.spark_cutter, ItemName.burn_cutter,
-                                 ItemName.ice_cutter, ItemName.needle_cutter, ItemName.bomb_cutter, ItemName.stone_cutter],
+                                 ItemName.ice_cutter, ItemName.needle_cutter, ItemName.bomb_cutter,
+                                 ItemName.stone_cutter],
                                 [["Cutter Ability"], ["Cutter Ability"], ["Cutter Ability", "Spark Ability"],
-                                 ["Cutter Ability", "Burning Ability"],  ["Ice Ability", "Cutter Ability"],
+                                 ["Cutter Ability", "Burning Ability"], ["Ice Ability", "Cutter Ability"],
                                  ["Needle Ability", "Cutter Ability"], ["Bomb Ability", "Cutter Ability"],
                                  ["Stone Ability", "Cutter Ability"]]):
         if state.has(specific, player) and state.has_all(access, player):
@@ -348,78 +350,60 @@ def has_king_dedede(state: "CollectionState", player: int):
 
 def set_rules(world: "K64World") -> None:
     # Level 1
-    set_rule(world.multiworld.get_location(LocationName.pop_star_1_s2, world.player),
-             lambda state: has_any_bomb(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.pop_star_3_s1, world.player),
+    set_rule(world.get_location(LocationName.pop_star_1_s2), lambda state: has_any_bomb(state, world.player))
+    set_rule(world.get_location(LocationName.pop_star_3_s1),
              lambda state: has_great_cutter(state, world.player, world.options.split_power_combos.value))
     # Level 2
     set_rule(world.get_location(LocationName.rock_star_1), lambda state: has_waddle_dee(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.rock_star_1_s3, world.player),
+    set_rule(world.get_location(LocationName.rock_star_1_s3),
              lambda state: has_geokinesis(state, world.player, world.options.split_power_combos.value)
-                           and has_waddle_dee(state, world.player))
+             and has_waddle_dee(state, world.player))
     set_rule(world.get_location(LocationName.rock_star_2), lambda state: has_king_dedede(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.rock_star_2_s3, world.player),
-             lambda state: has_king_dedede(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.rock_star_3_s1, world.player),
-             lambda state: has_any_stone(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.rock_star_4_s2, world.player),
-             lambda state: has_lightbulb(state, world.player, world.options.split_power_combos.value)
-                           and has_adeleine(state, world.player))
+    set_rule(world.get_location(LocationName.rock_star_2_s3), lambda state: has_king_dedede(state, world.player))
+    set_rule(world.get_location(LocationName.rock_star_3_s1), lambda state: has_any_stone(state, world.player))
+    set_rule(world.get_location(LocationName.rock_star_4_s2),
+             lambda state: has_lightbulb(state, world.player, world.options.split_power_combos.value))
     # Level 3
-    set_rule(world.multiworld.get_location(LocationName.aqua_star_1_s3, world.player),
+    set_rule(world.get_location(LocationName.aqua_star_1_s3),
              lambda state: has_exploding_snowman(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.aqua_star_2_s1, world.player),
+    set_rule(world.get_location(LocationName.aqua_star_2_s1),
              lambda state: has_volcano(state, world.player, world.options.split_power_combos.value))
     for location in (LocationName.aqua_star_2, LocationName.aqua_star_2_s2, LocationName.aqua_star_2_s3):
-        set_rule(world.multiworld.get_location(location, world.player),
-                 lambda state: has_waddle_dee(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.aqua_star_3_s1, world.player),
+        set_rule(world.get_location(location), lambda state: has_waddle_dee(state, world.player))
+    set_rule(world.get_location(LocationName.aqua_star_3_s1),
              lambda state: has_shurikens(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.aqua_star_3_s3, world.player),
+    set_rule(world.get_location(LocationName.aqua_star_3_s3),
              lambda state: has_stone_friends(state, world.player, world.options.split_power_combos.value))
     # Level 4
     for location in (LocationName.neo_star_2, LocationName.neo_star_2_s2, LocationName.neo_star_2_s3):
-        set_rule(world.multiworld.get_location(location, world.player),
-                 lambda state: has_waddle_dee(state, world.player))
-    add_rule(world.multiworld.get_location(LocationName.neo_star_2_s3, world.player),
+        set_rule(world.get_location(location), lambda state: has_waddle_dee(state, world.player))
+    add_rule(world.get_location(LocationName.neo_star_2_s3),
              lambda state: has_dynamite(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.neo_star_3_s1, world.player),
-             lambda state: has_any_needle(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.neo_star_3_s2, world.player),
-             lambda state: has_adeleine(state, world.player))
+    set_rule(world.get_location(LocationName.neo_star_3_s1), lambda state: has_any_needle(state, world.player))
+    set_rule(world.get_location(LocationName.neo_star_3_s2), lambda state: has_adeleine(state, world.player))
     for location in (LocationName.neo_star_4, LocationName.neo_star_4_s1,
                      LocationName.neo_star_4_s2, LocationName.neo_star_4_s3):
-        set_rule(world.multiworld.get_location(location, world.player),
-                 lambda state: has_king_dedede(state, world.player))
-    add_rule(world.multiworld.get_location(LocationName.neo_star_4_s2, world.player),
-             lambda state: has_any_ice(state, world.player))
+        set_rule(world.get_location(location), lambda state: has_king_dedede(state, world.player))
+    add_rule(world.get_location(LocationName.neo_star_4_s2), lambda state: has_any_ice(state, world.player))
     # Level 5
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_1_s1, world.player),
-             lambda state: has_waddle_dee(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_1_s2, world.player),
-             lambda state: has_any_burn(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_2_s3, world.player),
+    set_rule(world.get_location(LocationName.shiver_star_1_s1), lambda state: has_waddle_dee(state, world.player))
+    set_rule(world.get_location(LocationName.shiver_star_1_s2), lambda state: has_any_burn(state, world.player))
+    set_rule(world.get_location(LocationName.shiver_star_2_s3),
              lambda state: has_lightning_rod(state, world.player, world.options.split_power_combos.value))
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_3_s3, world.player),
-             lambda state: has_adeleine(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.shiver_star_4_s1, world.player),
+    set_rule(world.get_location(LocationName.shiver_star_3_s3), lambda state: has_adeleine(state, world.player))
+    set_rule(world.get_location(LocationName.shiver_star_4_s1),
              lambda state: has_drill(state, world.player, world.options.split_power_combos.value))
     for location in (LocationName.shiver_star_4, LocationName.shiver_star_4_s2, LocationName.shiver_star_4_s3):
-        set_rule(world.multiworld.get_location(location, world.player),
-                 lambda state: has_king_dedede(state, world.player))
+        set_rule(world.get_location(location), lambda state: has_king_dedede(state, world.player))
     # Level 6
-    set_rule(world.multiworld.get_location(LocationName.ripple_star_1_s3, world.player),
+    set_rule(world.get_location(LocationName.ripple_star_1_s3),
              lambda state: has_exploding_gordo(state, world.player, world.options.split_power_combos.value)
-                           and state.has_any([ItemName.bomb, ItemName.needle],
-                                             world.player))  # by default cannot carry enemy across
-    set_rule(world.multiworld.get_location(LocationName.ripple_star_2_s1, world.player),
-             lambda state: has_any_spark(state, world.player))
+             and state.has_any([ItemName.bomb, ItemName.needle], world.player))  # by default cannot carry enemy across
+    set_rule(world.get_location(LocationName.ripple_star_2_s1), lambda state: has_any_spark(state, world.player))
     for location in (LocationName.ripple_star_2, LocationName.ripple_star_2_s2, LocationName.ripple_star_2_s3):
-        set_rule(world.multiworld.get_location(location, world.player),
-                 lambda state: has_king_dedede(state, world.player))
-    add_rule(world.multiworld.get_location(LocationName.ripple_star_2_s3, world.player),
-             lambda state: has_any_cutter(state, world.player))
-    set_rule(world.multiworld.get_location(LocationName.ripple_star_3_s2, world.player),
+        set_rule(world.get_location(location), lambda state: has_king_dedede(state, world.player))
+    add_rule(world.get_location(LocationName.ripple_star_2_s3), lambda state: has_any_cutter(state, world.player))
+    set_rule(world.get_location(LocationName.ripple_star_3_s2),
              lambda state: has_fire_arrows(state, world.player, world.options.split_power_combos.value))
 
     # Crystal Requirements
@@ -428,3 +412,7 @@ def set_rules(world: "K64World") -> None:
                  lambda state, j=level: state.has(ItemName.crystal_shard, world.player, j))
         set_rule(world.multiworld.get_location(f"{LocationName.level_names[i]} - Boss Defeated", world.player),
                  lambda state, j=level: state.has(ItemName.crystal_shard, world.player, j))
+
+    # Friend Requirement
+    add_rule(world.get_entrance("To Level 7"), lambda state: state.has_all([ItemName.waddle_dee, ItemName.adeleine,
+                                                                            ItemName.king_dedede], world.player))
