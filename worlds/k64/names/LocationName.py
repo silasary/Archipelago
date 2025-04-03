@@ -110,6 +110,15 @@ level_names = {
     6: "Ripple Star"
 }
 
+level_max = {
+    1: 3,
+    2: 4,
+    3: 4,
+    4: 4,
+    5: 4,
+    6: 3
+}
+
 level_names_inverse = {level_names[idx]: idx for idx in level_names}
 
 boss_names = {

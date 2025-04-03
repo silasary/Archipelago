@@ -2,9 +2,17 @@ import random
 from dataclasses import dataclass
 
 from Options import DeathLinkMixin, Choice, Toggle, OptionDict, Range, PlandoBosses, DefaultOnToggle, \
-    PerGameCommonOptions, Visibility, StartInventoryPool
+    PerGameCommonOptions, Visibility, StartInventoryPool, PlandoConnections
 from .names import LocationName
 import typing
+
+
+class K64PlandoConnections(PlandoConnections):
+    display_name = "Plando Connections"
+    entrances = [f"{level} {i}"
+                 for idx, level in LocationName.level_names.items()
+                 for i in range(LocationName.level_max[idx])]
+    exits = entrances
 
 
 class GoalSpeed(Choice):
@@ -166,6 +174,7 @@ class KirbyFlavor(OptionDict):
 @dataclass
 class K64Options(PerGameCommonOptions, DeathLinkMixin):
     start_inventory_from_pool: StartInventoryPool
+    plando_connections: PlandoConnections
     goal_speed: GoalSpeed
     split_power_combos: SplitPowerCombos
     stage_shuffle: LevelShuffle

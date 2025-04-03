@@ -69,8 +69,8 @@ def generate_valid_levels(world: "K64World", enforce_world: bool) -> dict:
         for stage in range(len(default_levels[level]) - 1):
             possible_stages.append(default_levels[level][stage])
 
-    if world.multiworld.plando_connections[world.player]:
-        for connection in world.multiworld.plando_connections[world.player]:
+    if world.options.plando_connections:
+        for connection in world.options.plando_connections:
             try:
                 entrance_world, entrance_stage = connection.entrance.rsplit(" ", 1)
                 stage_world, stage_stage = connection.exit.rsplit(" ", 1)
