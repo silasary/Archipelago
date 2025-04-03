@@ -125,10 +125,6 @@ class K64World(World):
 
     def generate_basic(self) -> None:
         self.stage_shuffle_enabled = self.options.stage_shuffle.value > 0
-        goal_location = self.multiworld.get_location(LocationName.dark_star, self.player)
-        goal_location.place_locked_item(K64Item(ItemName.ribbons_crystal, ItemClassification.progression, None, self.player))
-        self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.ribbons_crystal,
-                                                                                    self.player)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         return {

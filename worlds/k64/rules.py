@@ -416,3 +416,6 @@ def set_rules(world: "K64World") -> None:
     # Friend Requirement
     add_rule(world.get_entrance("To Level 7"), lambda state: state.has_all([ItemName.waddle_dee, ItemName.adeleine,
                                                                             ItemName.king_dedede], world.player))
+
+    world.multiworld.completion_condition[world.player] = lambda state: state.has(ItemName.ribbons_crystal,
+                                                                                  world.player)
