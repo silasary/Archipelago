@@ -90,10 +90,7 @@ class K64World(World):
     def create_items(self) -> None:
         itempool = []
         itempool.extend([self.create_item(name) for name in copy_ability_table])
-        #itempool.extend([self.create_item(name) for name in friend_table])
-        # Friends aren't randomized yet
-        for name in friend_table:
-            self.multiworld.push_precollected(self.create_item(name))
+        itempool.extend([self.create_item(name) for name in friend_table])
         if self.options.split_power_combos:
             itempool.extend([self.create_item(name) for name in power_combo_table])
         required_percentage = self.options.required_crystals / 100.0
@@ -177,7 +174,6 @@ class K64World(World):
         value = super().collect(state, item)
 
         if not self.boss_requirements:
-            # 30 stages + menu should be enough to catch this from being done too early
             return value
 
         crystals = state.prog_items[self.player][ItemName.crystal_shard]
@@ -198,7 +194,6 @@ class K64World(World):
         value = super().remove(state, item)
 
         if not self.boss_requirements:
-            # 30 stages + menu should be enough to catch this from being done too early
             return value
 
         crystals = state.prog_items[self.player][ItemName.crystal_shard]

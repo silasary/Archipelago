@@ -25,8 +25,8 @@ copy_ability_table = {
 }
 
 friend_table = {
-    ItemName.adeleine:      ItemData(0x640100, True),
-    ItemName.waddle_dee:    ItemData(0x640101, True),
+    ItemName.waddle_dee:    ItemData(0x640100, True),
+    ItemName.adeleine:      ItemData(0x640101, True),
     ItemName.king_dedede:   ItemData(0x600102, True),
 }
 

@@ -113,6 +113,7 @@ K64_COPY_ABILITY = K64_SAVE_ADDRESS + 0x168
 K64_CRYSTAL_ADDRESS = K64_SAVE_ADDRESS + 0x170
 K64_RECV_INDEX = K64_SAVE_ADDRESS + 0x174
 K64_DEATHLINK_SET = K64_SAVE_ADDRESS + 0x17C
+K64_FRIENDS = K64_SAVE_ADDRESS + 0x180
 K64_KIRBY_LIVES = K64_SAVE_ADDRESS + 0x34C
 K64_KIRBY_HEALTH = K64_SAVE_ADDRESS + 0x350
 K64_KIRBY_LIVES_VISUAL = K64_SAVE_ADDRESS + 0x388
@@ -171,7 +172,6 @@ class K64Client(BizHawkClient):
         # all of the handling is in basepatch
         from worlds._bizhawk import write
         await write(ctx.bizhawk_ctx, [(K64_DEATHLINK_SET, int.to_bytes(1, 4, "big"), "RDRAM")])
-
 
     async def set_auth(self, ctx: BizHawkClientContext) -> None:
         if self.rom:
@@ -306,7 +306,7 @@ class K64Client(BizHawkClient):
             if item.item in ability_to_bit:
                 writes.append(self.interpret_copy_ability(struct.unpack(">Q", copy_ability)[0], item.item))
             elif item.item & 0x100:
-                pass
+                writes.append((K64_FRIENDS + (item.item & 0xF), int.to_bytes(1, 1, "little"), "RDRAM"))
             elif item.item == 0x640020:
                 # crystal shard
                 writes.append((K64_CRYSTAL_ADDRESS, struct.pack(">I", struct.unpack(">I", crystals)[0] + 1), "RDRAM"))
