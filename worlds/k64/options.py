@@ -120,19 +120,65 @@ class KirbyFlavorPreset(Choice):
     option_blueberry = 3
     option_lemon = 4
     option_kiwi = 5
-    #option_grape = 6
-    #option_chocolate = 7
-    #option_marshmallow = 8
+    option_grape = 6
+    option_chocolate = 7
+    option_marshmallow = 8
     #option_licorice = 9
     #option_watermelon = 10
-    #option_orange = 11
+    option_orange = 11
     option_lime = 12
-    option_lavender = 13
-    option_miku = 14
-    option_nostalgic = 15
     option_kusamochi = 16
+    option_citrus = 23
+    option_wafer = 24
+    option_ice = 25
+    option_cream = 26
+    option_snowcone = 31
+    option_cotton_candy = 48
+    option_chocomint = 49
+    option_cheeseburger = 50
+    option_rose = 27
+    option_daisy = 28
+    option_violet = 29
+    option_lavender = 13
+    option_blue_poppy = 32
+    option_fuschia = 47
+    option_canary = 22
+    option_carbon = 17
+    option_snow = 18
+    option_ivory = 21
+    option_chalk = 44
+    #option_ruby = x
+    option_sapphire = 19
+    option_emerald = 20
+    option_gameboy = 45
+    option_nostalgic = 15
+    option_halloween = 43
+    option_bright = 30
+    option_ocean = 42
+    option_miku = 14
+    #option_rin
+    #option_len
+    #option_luka
+    #option_meiko
+    #option_kaito
+    option_mirror = 46
+    option_dedede = 33
+    option_waddle_dee = 34
+    option_susie = 35
+    option_mogeko = 36
+    option_link = 37
+    option_callie = 38
+    option_marie = 39
+    option_pearl = 40
+    option_marina = 41
     option_custom = -1
     default = 0
+
+    @classmethod
+    def get_option_name(cls, value: int) -> str:
+        if value in (cls.option_meiko, cls.option_kaito):
+            return cls.name_lookup[value].upper()
+        return super().get_option_name(value)
 
     @classmethod
     def from_text(cls, text: str) -> Choice:
