@@ -153,6 +153,6 @@ class Sims4World(World):
     
     # for UT, not called in standard generation
     @staticmethod
-    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]):
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
 		# returns slot data to be used in UT regen
 		return slot_data
