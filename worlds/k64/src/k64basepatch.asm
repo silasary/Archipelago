@@ -58,8 +58,20 @@ jal     SetStartingStage
 .org 0x800B9568
 j       MarkStagesIncomplete
 nop
+.org 0x800E4550
+gEntitiesScaleXArray:
+
+.org 0x800E4710 
+gEntitiesScaleYArray:
+
+.org 0x800E48D0 
+gEntitiesScaleZArray:
 
 .headersize 0x800f61a0 - 0x7ec10 //; ovl2
+
+.org 0x800F8568
+j       DededeOverride
+nop
 
 //; Block Copy Abilities and Power Combos when flag isn't set
 .org 0x80127490
@@ -146,6 +158,10 @@ lw      t1, 0x6C70 (at)
 sub     t3, t1, t3
 bltz    t3, @@SkipFast
 nop
+lw      t3, 0x6C80 (at)
+li      t1, 0x01010100
+bnel     t1, t3, @@SkipFast
+nop
 addiu   t3, v0, 0x0064
 sw      t3, 0x6C78 (at)
 @@SkipFast:
@@ -220,12 +236,19 @@ jr      ra
 addiu   sp, sp, 0x10
 
 AllowFinalBoss:
-li      s2, 0x0001
 lui     at, 0x800D
+lw      s2, 0x6C80 (at)
+li      t5, 0x01010100
+beq     s2, t5, @@SetFalse
+li      s2, 0x0001
+@@Set:
 sw      s2, 0x6B94 (at)
 sw      s2, 0x6C78 (at)
 jr      ra
 nop
+@@SetFalse:
+li      s2, 0x0000
+beqz    s2, @@Set
 
 RedirectStage:
 lw      t5, 0xE500 (at)
@@ -278,6 +301,154 @@ sb      t3, 0x6BC0 (at)
 j       0x800A74D8
 nop
 
+//; future reference
+//; 8004A7C4 is the entity list
+//; first entry appears to always be a helper if one is on screen? (hopefully)
+//; entities can be linked together
+//; ex. cart waddle dee has the cart as the first entity, but is linked to the waddle dee entity that follows
+//; for now, we'll hardcode them and make something more scalable later
+
+BridgeDededeOverride: //; t1 replace with 4f
+lui     t1, 0x800D
+lb      t1, 0x6C80 (t1)
+bnez    t1, @@SetCorrect
+nop
+
+li      t1, 0x0000
+beqz    t1, @@Return
+nop
+@@SetCorrect:
+li      t1, 0x004F
+@@Return:
+sb      t1, 0x000C (v0)
+j       0x8021F100
+nop
+
+CeilingWaddleDeeOverride: //; t9 safe with exit set
+lui     t9, 0x800D
+lb      t9, 0x6C80 (t9)
+bnez    t9, @@SetCorrect
+nop
+li      t9, 0x0001
+bnez    t9, @@Return
+nop
+@@SetCorrect:
+li      t9, 0x0000
+@@Return:
+sb      t9, 0x000C (a2)
+j       0x8021FF78
+lb      t9, 0x0000 (a2)
+
+CartWaddleDeeOverride: //; t1 safe
+lui     t1, 0x800D
+lb      t1, 0x6C80 (t1)
+bnez    t1, @@Continue
+nop
+li      at, gEntitiesScaleXArray
+li      t1, 0x00000000
+sw      t1, 0x00F4 (at)
+li      at, gEntitiesScaleYArray
+sw      t1, 0x00F4 (at)
+li      at, gEntitiesScaleZArray
+sw      t1, 0x00F4 (at)
+j       0x80228450
+nop
+@@Continue:
+jal     0x80122F94
+sb      t9, 0x000C (v0)
+j       0x80228430
+
+RaftWaddleDeeOverride: //; t6 safe
+lui     t6, 0x800D
+lb      t6, 0x6C80 (t6)
+bnez    t6, @@Continue
+nop
+j       0x80228EE4
+nop
+@@Continue:
+sb      t9, 0x000C (v0)
+j       0x80228EE4
+nop
+
+SledWaddleDeeOverride: //; t7 safe
+lui     t7, 0x800D
+lb      t7, 0x6C80 (t7)
+bnez    t7, @@Continue
+nop
+j       0x8022857C
+nop
+@@Continue:
+sb      t4, 0x000C (v0)
+jal     0x800B1900
+lhu     a0, 0x0002 (a2)
+j       0x8022857C
+nop
+
+WallDededeOverride: //; t9 replace, final 50
+lui     t9, 0x800D
+lb      t9, 0x6C82 (t9)
+bnez    t9, @@SetCorrect
+nop
+li      t9, 0x0000
+beqz    t9, @@Return
+nop
+@@SetCorrect:
+li      t9, 0x0050
+@@Return:
+j       0x80222088
+nop
+
+DededeOverride: //; t6 free after first instruction
+lhu     v0, 0x0016 (t6)
+or      t6, r0, v0
+addi    t6, t6, -0x0008
+bnez    t6, @@Passthrough
+nop
+lui     t6, 0x800D
+lb      t6, 0x6C82 (t6)
+bnez    t6, @@Passthrough
+nop
+or      v0, r0, r0
+@@Passthrough:
+jr      ra
+nop
+
+MatchAdeleineOverride://; t4-t6 probably safe
+//; start by checking v0
+beqz    v0, @@ReturnFalse
+nop
+lui     t4, 0x800D
+lb      t4, 0x6C81 (t4)
+beqz    t4, @@ReturnFalse
+nop
+j       0x80220C00
+nop
+@@ReturnFalse:
+j       0x80220BF0
+nop
+
+PaintingAdeleineOverride://; t4 safe
+lui     t4, 0x800D
+lb      t4, 0x6C81 (t4)
+beqz    t4, @@ReturnFalse
+nop
+j       0x80221318
+nop
+@@ReturnFalse:
+j       0x80221308
+nop
+
+AdeleineOverride://; t9 safe
+bne     t8, r0, @@ReturnFalse
+lui     t9, 0x800D
+lb      t9, 0x6C81 (t9)
+beqz    t9, @@ReturnFalse
+nop
+j       0x8021F644
+nop
+@@ReturnFalse:
+j       0x8021F6C8
+nop
 
 .org 0x8011E1BC //; write our jump
 jal     CopyAbilityBlocker
@@ -313,6 +484,44 @@ bnez    v0, 0x801587BC
 
 .org 0x801D2C60
 b       0x801D2CD4 //; always spawn a crystal shard for friend miniboss
+
+.headersize 0x8021DF20 - 0x23E630 //; ovl19
+
+.org 0x8021F0F8
+j       BridgeDededeOverride
+//; don't care about nop here
+
+.org 0x8021F640
+j       AdeleineOverride
+
+.org 0x8021FF70
+j       CeilingWaddleDeeOverride
+//; don't care about nop here, just keep what's there
+
+.org 0x80220BE8
+j       MatchAdeleineOverride
+//; already followed by nop
+
+.org 0x802212F8
+j       PaintingAdeleineOverride
+//; already followed by nop
+
+.org 0x80222080
+j       WallDededeOverride
+sb      v1, 0x0017 (v0)
+
+.org 0x80228428
+j       CartWaddleDeeOverride
+nop
+
+.org 0x80228D70
+j       RaftWaddleDeeOverride
+nop
+
+.org 0x80228570
+j       SledWaddleDeeOverride
+nop
+nop
 
 .notice "Crystal Requirements: " + orga(CrystalRequirements)
 .notice "Slot Data: " + orga(SlotData)
