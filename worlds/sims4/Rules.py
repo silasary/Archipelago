@@ -374,7 +374,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=6)
                                and state.has(SkillNames.base_skill_video_gaming, player, count=8))
         set_rule(world.get_location(CareerNames.base_career_tech_guru_8B, player),
-                 lambda state: state.has(SkillNames.base_skill_programming, player, count=5)
+                 lambda state: state.has(SkillNames.base_skill_programming, player, count=6)
                                and state.has(SkillNames.base_skill_charisma, player, count=0))
         set_rule(world.get_location(CareerNames.base_career_tech_guru_9B, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=7)
