@@ -18,13 +18,14 @@ from .Events import event_data_table, FF12OpenWorldEventData
 from .RuleLogic import state_has_characters
 
 
-def launch_client():
+def launch_client(*args):
     from .Client import launch
-    launch_subprocess(launch, name="FF12 Open World Client")
+    launch_subprocess(launch, name="FF12 Open World Client", args=args)
 
 
 components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
-                            func=launch_client, component_type=Type.CLIENT))
+                            func=launch_client, component_type=Type.CLIENT,
+                            game_name="Final Fantasy 12 Open World", supports_uri=True))
 
 FF12OW_VERSION = "0.5.3"
 character_names = ["Vaan", "Ashe", "Fran", "Balthier", "Basch", "Penelo"]
