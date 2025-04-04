@@ -54,6 +54,8 @@ class FF12OpenWorldWorld(World):
     location_name_to_id = location_table
     item_name_to_id = item_table
 
+    ut_can_gen_without_yaml = True
+
     def __init__(self, world: MultiWorld, player: int):
         super().__init__(world, player)
         self.selected_treasures = []
