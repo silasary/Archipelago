@@ -13,6 +13,15 @@ from CommonClient import gui_enabled, logger, get_base_parser, CommonContext, se
 from .Items import FF12OW_BASE_ID, item_data_table, inv_item_table
 from .Locations import location_data_table, FF12OpenWorldLocationData
 
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext, TrackerCommandProcessor
+    CommonContext = TrackerGameContext
+    ClientCommandProcessor = TrackerCommandProcessor
+    tracker_loaded = True
+except ModuleNotFoundError:
+    pass
+
 ModuleUpdate.update()
 
 sort_start_addresses = [
@@ -68,6 +77,7 @@ class FF12OpenWorldContext(CommonContext):
     command_processor = FF12OpenWorldCommandProcessor
     game = "Final Fantasy 12 Open World"
     items_handling = 0b111  # Indicates you get items sent from other worlds.
+    tags = ["AP"]
 
     def __init__(self, server_address, password):
         super(FF12OpenWorldContext, self).__init__(server_address, password)
@@ -173,6 +183,8 @@ class FF12OpenWorldContext(CommonContext):
         if cmd in {"RoomInfo"}:
             if not os.path.exists(self.game_communication_path):
                 os.makedirs(self.game_communication_path)
+
+        super(FF12OpenWorldContext, self).on_package(cmd, args)
 
     def find_game(self):
         if not self.ff12connected:
@@ -726,18 +738,17 @@ class FF12OpenWorldContext(CommonContext):
                 self.ff12connected = False
             logger.info(e)
 
-    def run_gui(self):
+    def make_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
-        from kvui import GameManager
+        ui = super().make_gui()
 
-        class FF12OpenWorldManager(GameManager):
+        class FF12OpenWorldManager(ui):
             logging_pairs = [
                 ("Client", "Archipelago")
             ]
             base_title = "Archipelago FF12 Open World Client"
 
-        self.ui = FF12OpenWorldManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        return FF12OpenWorldManager
 
 
 async def ff12_watcher(ctx: FF12OpenWorldContext):
@@ -763,6 +774,8 @@ def launch():
     async def main(args_in):
         ctx = FF12OpenWorldContext(args_in.connect, args_in.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+        if tracker_loaded:
+            ctx.run_generator()
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
