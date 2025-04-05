@@ -10,7 +10,7 @@ from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dep
 from .Rules import set_rules
 from .Groups import location_name_groups, item_name_groups
 from worlds.AutoWorld import World, WebWorld
-from ..LauncherComponents import Component, components, Type
+from ..LauncherComponents import Component, components, Type, icon_paths
 from multiprocessing import Process
 import settings
 from pathlib import Path
@@ -21,7 +21,9 @@ def run_client():
     p.start()
 
 
-components.append(Component("The Sims 4 Client", func=run_client, component_type=Type.CLIENT))
+components.append(Component("The Sims 4 Client", func=run_client, component_type=Type.CLIENT, icon="plumbob"))
+
+icon_paths["plumbob"] = f"ap:{__name__}/icons/plumbob.png"
 
 
 class Sims4Settings(settings.Group):
