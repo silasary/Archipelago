@@ -28,7 +28,20 @@ class AspirationGoal(Choice):
 
 
 class Career(OptionSet):
-    """The careers that will be included in the shuffling."""
+    """The careers that will be included in the shuffling.
+    Valid Careers include:
+    - Astronaut
+    - Athlete
+    - Business
+    - Criminal
+    - Culinary
+    - Entertainer
+    - Painter
+    - Secret Agent
+    - Style Influencer
+    - Tech Guru
+    - Writer
+    Currently only Base Game Careers are supported. Part-Time Jobs are not yet able to be included in the shuffling."""
     display_name = "career"
     valid_keys = {"Astronaut", "Athlete", "Business", "Criminal", "Culinary", "Entertainer", "Painter",
                   "Secret Agent", "Style Influencer", "Tech Guru", "Writer"}
