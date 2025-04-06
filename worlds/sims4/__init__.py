@@ -51,6 +51,45 @@ class Sims4World(World):
     The Sims 4 focuses on creating and controlling a neighborhood of virtual people, called "Sims".
     """
 
+    game: str = "The Sims 4"
+    topology_present = False
+    web = Sims4Web()
+
+    item_name_to_id = {data["name"]: item_id for item_id, data in Items.item_table.items()}
+    location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
+
+    location_name_groups = location_name_groups
+    item_name_groups = item_name_groups
+
+    data_version = 0
+    base_id = 0x73340001
+    required_client_version = (0, 4, 0)
+
+    area_connections: typing.Dict[int, int]
+
+    options_dataclass = Sims4Options
+    options: Sims4Options
+
+    settings: ClassVar[Sims4Settings]
+
+    set_rules = set_rules
+
+    ut_can_gen_without_yaml = True
+    passthrough: Dict[str, Any]
+
+    def generate_early(self) -> None:
+
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if "The Sims 4" in self.multiworld.re_gen_passthrough:
+                self.passthrough = self.multiworld.re_gen_passthrough["The Sims 4"]
+                self.options.goal.value = self.passthrough["goal"]
+                self.options.career.value = self.passthrough["career"]
+                self.options.expansion_packs.value = self.passthrough["expansion_packs"]
+                self.options.game_packs.value = self.passthrough["game_packs"]
+                self.options.stuff_packs.value = self.passthrough["stuff_packs"]
+                self.options.cas_kits.value = self.passthrough["cas_kits"]
+                self.options.build_kits.value = self.passthrough["build_kits"]
+
     def create_item(self, name: str) -> Item:
         item_id: int = self.item_name_to_id[name]
 
@@ -128,45 +167,6 @@ class Sims4World(World):
         }
         return slot_data
 
-    def generate_early(self) -> None:
-
-        if hasattr(self.multiworld, "re_gen_passthrough"):
-            if "The Sims 4" in self.multiworld.re_gen_passthrough:
-                self.passthrough = self.multiworld.re_gen_passthrough["The Sims 4"]
-                self.options.goal.value = self.passthrough["goal"]
-                self.options.career.value = self.passthrough["career"]
-                self.options.expansion_packs.value = self.passthrough["expansion_packs"]
-                self.options.game_packs.value = self.passthrough["game_packs"]
-                self.options.stuff_packs.value = self.passthrough["stuff_packs"]
-                self.options.cas_kits.value = self.passthrough["cas_kits"]
-                self.options.build_kits.value = self.passthrough["build_kits"]
-
-    game: str = "The Sims 4"
-    topology_present = False
-    web = Sims4Web()
-
-    item_name_to_id = {data["name"]: item_id for item_id, data in Items.item_table.items()}
-    location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
-
-    location_name_groups = location_name_groups
-    item_name_groups = item_name_groups
-
-    data_version = 0
-    base_id = 0x73340001
-    required_client_version = (0, 4, 0)
-
-    area_connections: typing.Dict[int, int]
-
-    options_dataclass = Sims4Options
-    options: Sims4Options
-
-    settings: ClassVar[Sims4Settings]
-
-    set_rules = set_rules
-    
-    ut_can_gen_without_yaml = True
-    passthrough: Dict[str, Any]
-    
     # for UT, not called in standard generation
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
