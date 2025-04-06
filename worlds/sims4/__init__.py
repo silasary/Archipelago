@@ -80,8 +80,8 @@ class Sims4World(World):
         if hasattr(self.multiworld, "re_gen_passthrough"):
             if "The Sims 4" in self.multiworld.re_gen_passthrough:
                 self.passthrough = self.multiworld.re_gen_passthrough["The Sims 4"]
-                self.options.goal.value = self.passthrough["goal"]
-                self.options.career.value = self.passthrough["career"]
+                self.options.goal.value = self.passthrough["goal_value"]
+                self.options.career.value = self.passthrough["career_value"]
                 self.options.expansion_packs.value = self.passthrough["expansion_packs"]
                 self.options.game_packs.value = self.passthrough["game_packs"]
                 self.options.stuff_packs.value = self.passthrough["stuff_packs"]
@@ -157,9 +157,12 @@ class Sims4World(World):
         set_rules_(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
+        # slot_data = self.options.as_dict("goal", "career", "expansion_packs", "game_packs", "stuff_packs", "cas_kits", "build_kits")
         slot_data = {
             "goal": self.options.goal.current_key,
+            "goal_value": self.options.goal.value,
             "career": self.options.career.current_key,
+            "career_value": self.options.career.value,
             "expansion_packs": self.options.expansion_packs.value,
             "game_packs": self.options.game_packs.value,
             "stuff_packs": self.options.stuff_packs.value,
