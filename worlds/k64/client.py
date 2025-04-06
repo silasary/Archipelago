@@ -203,10 +203,10 @@ class K64Client(BizHawkClient):
         return True
 
     async def update_crystal_label(self, ctx: BizHawkClientContext):
-        from kvui import HovererableLabel
+        from kvui import TooltipLabel
 
         if not self.crystal_label:
-            self.crystal_label = HovererableLabel(text=f"")
+            self.crystal_label = TooltipLabel(text=f"")
             ctx.ui.connect_layout.add_widget(self.crystal_label)
 
         current_crystals = sum(1 for item in ctx.items_received if item.item == 0x640020)
