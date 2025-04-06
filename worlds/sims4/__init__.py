@@ -7,7 +7,7 @@ from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
 from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
-from .Rules import set_rules
+from .Rules import set_rules as set_rules_
 from .Groups import location_name_groups, item_name_groups
 from worlds.AutoWorld import World, WebWorld
 from ..LauncherComponents import Component, components, Type, icon_paths
@@ -153,7 +153,8 @@ class Sims4World(World):
             )
         self.multiworld.regions.append(menu)
 
-    set_rules = set_rules
+    def set_rules(self) -> None:
+        set_rules_(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         slot_data = {
