@@ -72,8 +72,6 @@ class Sims4World(World):
 
     settings: ClassVar[Sims4Settings]
 
-    set_rules = set_rules
-
     ut_can_gen_without_yaml = True
     passthrough: Dict[str, Any]
 
@@ -154,6 +152,8 @@ class Sims4World(World):
                 Sims4Location(self.player, skill_name, self.location_name_to_id.get(skill_name), menu)
             )
         self.multiworld.regions.append(menu)
+
+    set_rules = set_rules
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         slot_data = {
