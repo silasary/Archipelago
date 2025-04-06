@@ -128,6 +128,19 @@ class Sims4World(World):
         }
         return slot_data
 
+    def generate_early(self) -> None:
+
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if "The Sims 4" in self.multiworld.re_gen_passthrough:
+                self.passthrough = self.multiworld.re_gen_passthrough["The Sims 4"]
+                self.options.goal.value = self.passthrough["goal"]
+                self.options.career.value = self.passthrough["career"]
+                self.options.expansion_packs.value = self.passthrough["expansion_packs"]
+                self.options.game_packs.value = self.passthrough["game_packs"]
+                self.options.stuff_packs.value = self.passthrough["stuff_packs"]
+                self.options.cas_kits.value = self.passthrough["cas_kits"]
+                self.options.build_kits.value = self.passthrough["build_kits"]
+
     game: str = "The Sims 4"
     topology_present = False
     web = Sims4Web()
@@ -152,6 +165,7 @@ class Sims4World(World):
     set_rules = set_rules
     
     ut_can_gen_without_yaml = True
+    passthrough: Dict[str, Any]
     
     # for UT, not called in standard generation
     @staticmethod
