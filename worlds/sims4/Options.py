@@ -48,6 +48,7 @@ class Career(OptionSet):
                   CareerNames.base_career_criminal, CareerNames.base_career_culinary, CareerNames.base_career_entertainer,
                   CareerNames.base_career_painter, CareerNames.base_career_secret_agent, CareerNames.base_career_style_influencer,
                   CareerNames.base_career_tech_guru, CareerNames.base_career_writer}
+    default = sorted({CareerNames.base_career_athlete})
 
 
 class ExpansionPacks(OptionSet):
