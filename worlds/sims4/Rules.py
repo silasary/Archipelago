@@ -23,7 +23,7 @@ def set_rules(sims4_world: "Sims4World"):
     # Career Rules
 
     # Athlete
-    if "Athlete" in options.career:
+    if CareerNames.base_career_athlete in options.career:
         set_rule(world.get_location(CareerNames.base_career_athlete_4, player),
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=1)
                                and state.has(SkillNames.base_skill_fitness, player, count=1))
@@ -64,7 +64,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=6)
                                and state.has(SkillNames.base_skill_fitness, player, count=8))
     # Astronaut
-    if "Astronaut" in options.career:
+    if CareerNames.base_career_astronaut in options.career:
         set_rule(world.get_location(CareerNames.base_career_astronaut_4, player),
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_astronaut_5, player),
@@ -93,7 +93,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_rocket_science, player, count=2)
                                and state.has(SkillNames.base_skill_fitness, player, count=8))
     # Business
-    if "Business" in options.career:
+    if CareerNames.base_career_business in options.career:
         set_rule(world.get_location(CareerNames.base_career_business_5, player),
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_business_6, player),
@@ -123,7 +123,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_charisma, player, count=6)
                                and state.has(SkillNames.base_skill_logic, player, count=8))
     # Criminal
-    if "Criminal" in options.career:
+    if CareerNames.base_career_criminal in options.career:
         set_rule(world.get_location(CareerNames.base_career_criminal_4, player),
                  lambda state: state.has(SkillNames.base_skill_mischief, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_criminal_5, player),
@@ -155,7 +155,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_mischief, player, count=8)
                                and state.has(SkillNames.base_skill_programming, player, count=6))
     # Culinary
-    if "Culinary" in options.career:
+    if CareerNames.base_career_culinary in options.career:
         set_rule(world.get_location(CareerNames.base_career_culinary_5, player),
                  lambda state: state.has(SkillNames.base_skill_cooking, player, count=1)
                                and state.has(SkillNames.base_skill_mixology, player, count=1))
@@ -198,7 +198,7 @@ def set_rules(sims4_world: "Sims4World"):
                                and state.has(SkillNames.base_skill_charisma, player, count=6)
                                and state.has(SkillNames.base_skill_cooking, player, count=2))
     # Entertainer
-    if "Entertainer" in options.career:
+    if CareerNames.base_career_entertainer in options.career:
         set_rule(world.get_location(CareerNames.base_career_entertainer_5A, player),
                  lambda state: (state.has(SkillNames.base_skill_guitar, player, count=1)
                                 or state.has(SkillNames.base_skill_violin, player, count=1))
@@ -239,7 +239,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_comedy, player, count=8)
                                and state.has(SkillNames.base_skill_charisma, player, count=6))
     # Painter
-    if "Painter" in options.career:
+    if CareerNames.base_career_painter in options.career:
         set_rule(world.get_location(CareerNames.base_career_painter_4, player),
                  lambda state: state.has(SkillNames.base_skill_painting, player, count=2))
         set_rule(world.get_location(CareerNames.base_career_painter_5, player),
@@ -267,7 +267,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_painting, player, count=8)
                                and state.has(SkillNames.base_skill_charisma, player, count=4))
     # Secret Agent
-    if "Secret Agent" in options.career:
+    if CareerNames.base_career_secret_agent in options.career:
         set_rule(world.get_location(CareerNames.base_career_secret_agent_4, player),
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=1)
                                and state.has(SkillNames.base_skill_charisma, player, count=1))
@@ -301,7 +301,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_logic, player, count=8)
                                and state.has(SkillNames.base_skill_mischief, player, count=4))
     # Style Influencer
-    if "Style Influencer" in options.career:
+    if CareerNames.base_career_style_influencer in options.career:
         set_rule(world.get_location(CareerNames.base_career_style_influencer_4, player),
                  lambda state: state.has(SkillNames.base_skill_writing, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_style_influencer_5, player),
@@ -349,7 +349,7 @@ def set_rules(sims4_world: "Sims4World"):
                                and state.has(SkillNames.base_skill_charisma, player, count=6)
                                and state.has(SkillNames.base_skill_painting, player, count=5))
     # Tech Guru
-    if "Tech Guru" in options.career:
+    if CareerNames.base_career_tech_guru in options.career:
         set_rule(world.get_location(CareerNames.base_career_tech_guru_4, player),
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_tech_guru_5, player),
@@ -383,7 +383,7 @@ def set_rules(sims4_world: "Sims4World"):
                  lambda state: state.has(SkillNames.base_skill_programming, player, count=8)
                                and state.has(SkillNames.base_skill_charisma, player, count=4))
     # Writer
-    if "Writer" in options.career:
+    if CareerNames.base_career_writer in options.career:
         set_rule(world.get_location(CareerNames.base_career_writer_4, player),
                  lambda state: state.has(SkillNames.base_skill_writing, player, count=1))
         set_rule(world.get_location(CareerNames.base_career_writer_5, player),

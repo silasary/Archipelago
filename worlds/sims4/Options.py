@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from Options import Choice, PerGameCommonOptions, OptionSet, Visibility
+from .Names import CareerNames
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
@@ -43,8 +44,10 @@ class Career(OptionSet):
     - Writer
     Currently only Base Game Careers are supported. Part-Time Jobs are not yet able to be included in the shuffling."""
     display_name = "career"
-    valid_keys = {"Astronaut", "Athlete", "Business", "Criminal", "Culinary", "Entertainer", "Painter",
-                  "Secret Agent", "Style Influencer", "Tech Guru", "Writer"}
+    valid_keys = {CareerNames.base_career_astronaut, CareerNames.base_career_athlete, CareerNames.base_career_business,
+                  CareerNames.base_career_criminal, CareerNames.base_career_culinary, CareerNames.base_career_entertainer,
+                  CareerNames.base_career_painter, CareerNames.base_career_secret_agent, CareerNames.base_career_style_influencer,
+                  CareerNames.base_career_tech_guru, CareerNames.base_career_writer}
 
 
 class ExpansionPacks(OptionSet):
