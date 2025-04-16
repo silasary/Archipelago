@@ -2,6 +2,7 @@ import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import math
 import pathlib
 import re
 import requests
@@ -11,7 +12,7 @@ import shutil
 import typing
 import zipfile
 from enum import Enum
-from Utils import cache_path
+from Utils import cache_path, version_tuple
 
 import Utils
 from ._vendor.packaging.version import Version, VERSION_PATTERN, InvalidVersion
@@ -73,6 +74,20 @@ class ApWorldMetadata:
     def created_at(self) -> str:
         return self.data['metadata'].get('created_at')
 
+    @property
+    def minimum_ap_version(self) -> str:
+        v = self.data['metadata'].get('minimum_ap_version', (0, 0, 0))
+        if isinstance(v, str):
+            v = Utils.tuplize_version(v)
+        return v
+
+    @property
+    def maximum_ap_version(self) -> str:
+        v = self.data['metadata'].get('maximum_ap_version', (math.inf,))
+        if isinstance(v, str):
+            v = Utils.tuplize_version(v)
+        return v
+
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
         self.path = path
@@ -92,8 +107,11 @@ class Repository:
             self.worlds = [
                 ApWorldMetadata(self.world_source, world) for world in self.index_json['worlds']
             ]
-            for world in self.worlds:
+            for world in self.worlds.copy():
                 world.data['source_url'] = self.path
+                if world.minimum_ap_version > version_tuple or world.maximum_ap_version < version_tuple:
+                    self.worlds.remove(world)
+                    continue
 
         elif self.world_source == RemoteWorldSource.LOCAL:
             self.worlds = []
@@ -287,6 +305,11 @@ class RepositoryManager:
                         'world_version': world.version_tuple.as_simple_string(),
                         'description': '',
                 }
+                if world.data['metadata'].get('minimum_ap_version'):
+                    metadata['minimum_ap_version'] = world.data['metadata']['minimum_ap_version']
+                if world.data['metadata'].get('maximum_ap_version'):
+                    metadata['maximum_ap_version'] = world.data['metadata']['maximum_ap_version']
+
                 with zipfile.ZipFile(path, 'a') as zf:
                     zf.writestr("archipelago.json", json.dumps(metadata, indent=4))
         return path
