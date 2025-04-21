@@ -382,6 +382,8 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
                 folders_to_remove.append(entry)
         generate_yaml_templates(self.buildfolder / "Players" / "Templates", False)
         for worldname, worldtype in AutoWorldRegister.world_types.items():
+            if 'custom_worlds' in worldtype.__file__:
+                continue
             if worldname not in non_apworlds:
                 file_name = os.path.split(os.path.dirname(worldtype.__file__))[1]
                 world_directory = self.libfolder / "worlds" / file_name
@@ -647,6 +649,13 @@ cx_Freeze.setup(
         "bdist_appimage": {
            "build_folder": buildfolder,
         },
+        "bdist_mac": {
+            "custom_info_plist": "Info.plist",
+        },
+        "bdist_dmg": {
+            "applications_shortcut": True,
+            "volume_label": "Archipelago",
+        }
     },
     # override commands to get custom stuff in
     cmdclass={

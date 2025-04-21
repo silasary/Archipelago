@@ -357,6 +357,7 @@ def main(args: Optional[Union[argparse.Namespace, dict]] = None):
         args = {k: v for k, v in args._get_kwargs()}
     elif not args:
         args = {}
+    logging.info(f"Launcher args: {repr(args)}")
 
     path = args.get("Patch|Game|Component|url", None)
     if path is not None:
