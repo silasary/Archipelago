@@ -422,7 +422,7 @@ class KeymastersKeepWorld(World):
                 item: KeymastersKeepItem = self.create_item(KeymastersKeepItems.ARTIFACT_OF_RESOLVE.value)
 
                 if i >= self.artifacts_of_resolve_required:
-                    item.classification = ItemClassification.filler
+                    item.classification = ItemClassification.useful
 
                 item_pool.append(item)
 
