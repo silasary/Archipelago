@@ -9,9 +9,8 @@ def launch():
     from kvui import (
         Builder,
         RecycleDataViewBehavior,
-        RecycleView,
-        TabbedPanel,
-        TabbedPanelItem,
+        ClientTabs,
+        MDTabsItem,
         )
     from kivy.properties import DictProperty
 
@@ -26,8 +25,6 @@ def launch():
     from kivymd.uix.boxlayout import BoxLayout
     from kivymd.uix.label import MDLabel
     from kivymd.uix.recycleview import MDRecycleView
-    # from kivy.uix.recycleview.views import RecycleDataViewBehavior
-    # from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
     kv = """
 <ApworldDirectoryWindow>:
     tab_width: root.width / 2
