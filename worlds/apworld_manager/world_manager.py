@@ -2,6 +2,7 @@ import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import logging
 import math
 import pathlib
 import re
@@ -98,7 +99,10 @@ class Repository:
         self.worlds: typing.List[ApWorldMetadata] = []
 
     def refresh(self):
-        self.get_repository_json()
+        try:
+            self.get_repository_json()
+        except requests.exceptions.ConnectionError as e:
+            logging.exception(e)
 
     def get_repository_json(self):
         if self.world_source == RemoteWorldSource.REMOTE or self.world_source == RemoteWorldSource.REMOTE_BLESSED:

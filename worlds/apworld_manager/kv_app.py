@@ -6,16 +6,7 @@ from worlds.LauncherComponents import install_apworld
 
 
 def launch():
-    from kvui import (
-        App,
-        BoxLayout,
-        Builder,
-        Label,
-        RecycleDataViewBehavior,
-        RecycleView,
-        TabbedPanel,
-        TabbedPanelItem,
-        )
+    import kvui  # noqa
     from kivy.properties import DictProperty
 
     try:
@@ -23,14 +14,14 @@ def launch():
     except ImportError:
         from ._vendor.world_container import APWorldContainer
 
-    # from kivy.app import App
-    # from kivy.lang import Builder
+    from kivy.app import App
+    from kivy.lang import Builder
     # from kivy.properties import DictProperty
-    # from kivy.uix.boxlayout import BoxLayout
-    # from kivy.uix.label import Label
-    # from kivy.uix.recycleview import RecycleView
-    # from kivy.uix.recycleview.views import RecycleDataViewBehavior
-    # from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+    from kivy.uix.boxlayout import BoxLayout
+    from kivy.uix.label import Label
+    from kivy.uix.recycleview import RecycleView
+    from kivy.uix.recycleview.views import RecycleDataViewBehavior
+    from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
     kv = """
 <ApworldDirectoryWindow>:
     tab_width: root.width / 2
