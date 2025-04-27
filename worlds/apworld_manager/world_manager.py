@@ -11,12 +11,13 @@ import os
 import shutil
 import typing
 import zipfile
-from enum import Enum
+from enum import Enum, IntEnum
 from Utils import cache_path, version_tuple
 
 import Utils
+from worlds import world_sources
+from worlds.Files import InvalidDataError
 from ._vendor.packaging.version import Version, VERSION_PATTERN, InvalidVersion
-
 
 @dataclass
 class ApWorldVersion:
@@ -333,11 +334,113 @@ def parse_version(version: str) -> Version:
             return Version(matches[0].group(0))
         return Version(f"0.0.0+{version}")
 
+class SortStages(IntEnum):
+    UPDATE_AVAILABLE = 2
+    INSTALLED = 1
+    DEFAULT = 0
+    AFTER_DARK = -4
+    MANUAL = -5
+    NO_REMOTE = -9
+    BUNDLED = -10
+
+repositories = RepositoryManager()
+
+def refresh_apworld_table():
+        from worlds import AutoWorld
+        try:
+            from worlds.Files import APWorldContainer
+        except ImportError:
+            from ._vendor.world_container import APWorldContainer
+
+        register = AutoWorld.AutoWorldRegister
+        apworlds = []
+        installed = set()
+        for name, world in register.world_types.items():
+            file: pathlib.Path = world.zip_path
+            if not file:
+                # data = {"title": name, "description": "Unpacked World", "metadata": {"game": None}}
+                # apworlds.append(data)
+                continue
+
+            container = APWorldContainer(file)
+            installed.add(file.stem)
+            try:
+                container.read()
+            except InvalidDataError as e:
+                print(f"Error reading {file}: {e}")
+                # continue
+            manifest_data = container.get_manifest()
+            remote = repositories.packages_by_id_version.get(file.stem)
+            local_version = manifest_data.setdefault("world_version", "0.0.0")
+            if local_version == "0.0.0":
+                with open(file, 'rb') as f:
+                    hash = hashlib.sha256(f.read()).hexdigest()
+                if local := repositories.find_release_by_hash(hash):
+                    local_version = local.world_version
+            description = "Placeholder text"
+            data = {
+                "title": name,
+                "installed": True,
+                "manifest": manifest_data,
+                "remotes": remote,
+                'update_available': False,
+                'install_text': '-',
+                "after_dark": manifest_data.get("after_dark", False),
+            }
+            if not remote:
+                source = [s for s in world_sources if s.path == str(file)]
+                if source and source[0].relative:
+                    description = "Bundled with AP"
+                    data['sort'] = SortStages.BUNDLED
+                else:
+                    description = "No remote data available"
+                    data['sort'] = SortStages.NO_REMOTE
+            else:
+                highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
+                data["latest_version"] = highest_remote_version
+                v_local = parse_version(local_version)
+                v_remote = parse_version(highest_remote_version.world_version)
+                data['update_available'] = v_remote > v_local
+                if data['update_available']:
+                    description = f"Update available: {v_local} -> {v_remote}"
+                    data['sort'] = SortStages.UPDATE_AVAILABLE
+                    data['install_text'] = "Update"
+                else:
+                    description = "Up to date"
+                    data['sort'] = SortStages.INSTALLED
+                    data['install_text'] = "-"
+            data["description"] = description
+            apworlds.append(data)
+
+        for world in sorted(repositories.all_known_package_ids):
+            if world in installed:
+                continue
+            remote = repositories.packages_by_id_version.get(world)
+            if not remote:
+                continue
+            highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
+            data = {
+                "title": highest_remote_version.name or f'{world}.apworld',
+                "description": "Available to install",
+                "latest_version": highest_remote_version,
+                "update_available": True,
+                "manifest": {},
+                "installed": False,
+                "sort": SortStages.DEFAULT,
+                "install_text": "Install",
+                "after_dark": highest_remote_version.data['metadata'].get("after_dark", False),
+                }
+            if highest_remote_version.data['metadata'].get("after_dark", False):
+                data['sort'] = SortStages.AFTER_DARK
+            if world.lower().startswith('manual_'):
+                data['sort'] = SortStages.MANUAL
+            apworlds.append(data)
+        apworlds.sort(key=lambda x: x['sort'], reverse=True)
+        return apworlds
 
 if __name__ == '__main__':
     local_dir = './worlds_test_dir'
 
-    repositories = RepositoryManager()
     repositories.load_repos_from_settings()
 
     if os.path.exists(local_dir):
