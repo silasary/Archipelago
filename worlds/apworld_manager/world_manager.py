@@ -227,7 +227,7 @@ class GithubRepository(Repository):
 
     def fetch(self, url):
         from . import RepoWorld
-        gh_token = RepoWorld.settings.github_token or os.environ.get('GITHUB_TOKEN')
+        gh_token = RepoWorld.settings.github_token
         if not gh_token:
             headers = {}
         else:
