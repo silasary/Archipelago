@@ -1,18 +1,10 @@
-import hashlib
-from worlds.Files import InvalidDataError
-from worlds.apworld_manager.world_manager import SortStages
-from .world_manager import RepositoryManager, parse_version, refresh_apworld_table, repositories
+from .world_manager import refresh_apworld_table, repositories
 from worlds.LauncherComponents import install_apworld
 
 
 def launch():
     import kvui  # noqa
     from kivy.properties import DictProperty
-
-    try:
-        from worlds.Files import APWorldContainer
-    except ImportError:
-        from ._vendor.world_container import APWorldContainer
 
     from kivy.app import App
     from kivy.lang import Builder
