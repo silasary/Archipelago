@@ -391,14 +391,15 @@ def refresh_apworld_table():
                 'install_text': '-',
                 "after_dark": manifest_data.get("after_dark", False),
             }
-            if not remote:
-                source = [s for s in world_sources if s.path == str(file)]
-                if source and source[0].relative:
+            source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
+            if source and source[0].relative:
+                    # We can't update a frozen world right now
+                    # This will change when https://github.com/ArchipelagoMW/Archipelago/pull/4516 is merged
                     description = "Bundled with AP"
                     data['sort'] = SortStages.BUNDLED
-                else:
-                    description = "No remote data available"
-                    data['sort'] = SortStages.NO_REMOTE
+            elif not remote:
+                description = "No remote data available"
+                data['sort'] = SortStages.NO_REMOTE
             else:
                 highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
                 data["latest_version"] = highest_remote_version
