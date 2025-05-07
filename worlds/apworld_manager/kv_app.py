@@ -14,6 +14,30 @@ def launch():
     from kivy.uix.recycleview import RecycleView
     from kivy.uix.recycleview.views import RecycleDataViewBehavior
     from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+    from kivy.uix.popup import Popup
+    from kivy.core.window import Window
+
+    # I do not like this, but kivyMD messageboxes don't work with non-MD Apps, so we'll backport the original messagebox so install_apworld can use it
+    class MessageBox(Popup):
+        class MessageBoxLabel(Label):
+            def __init__(self, **kwargs):
+                super().__init__(**kwargs)
+                self._label.refresh()
+                self.size = self._label.texture.size
+                if self.width + 50 > Window.width:
+                    self.text_size[0] = Window.width - 50
+                    self._label.refresh()
+                    self.size = self._label.texture.size
+
+        def __init__(self, title, text, error=False, **kwargs):
+            label = MessageBox.MessageBoxLabel(text=text)
+            separator_color = [217 / 255, 129 / 255, 122 / 255, 1.] if error else [47 / 255., 167 / 255., 212 / 255, 1.]
+            super().__init__(title=title, content=label, size_hint=(None, None), width=max(100, int(label.width) + 40),
+                            separator_color=separator_color, **kwargs)
+            self.height += max(0, label.height - 18)
+
+    kvui.MessageBox = MessageBox
+
     kv = """
 <ApworldDirectoryWindow>:
     tab_width: root.width / 2
@@ -31,10 +55,10 @@ def launch():
         size_hint: .2, 1
         on_press: root.download_latest()
         disabled: root.details["install_text"] == "-"
-    Button:
-        text: "Details"
-        size_hint: .2, 1
-        on_press: root.switch_to_detail()
+    # Button:
+    #     text: "Details"
+    #     size_hint: .2, 1
+    #     on_press: root.switch_to_detail()
 
 <RV>:
     viewclass: 'ApworldDirectoryItem'
