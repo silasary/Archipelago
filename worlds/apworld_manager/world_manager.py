@@ -351,10 +351,7 @@ repositories = RepositoryManager()
 
 def refresh_apworld_table():
         from worlds import AutoWorld
-        try:
-            from worlds.Files import APWorldContainer
-        except ImportError:
-            from ._vendor.world_container import APWorldContainer
+        from .container import RepoWorldContainer
 
         register = AutoWorld.AutoWorldRegister
         apworlds = []
@@ -364,14 +361,15 @@ def refresh_apworld_table():
             if not file:
                 # data = {"title": name, "description": "Unpacked World", "metadata": {"game": None}}
                 # apworlds.append(data)
+                installed.add(world.__module__.split(".")[1])
                 continue
 
-            container = APWorldContainer(file)
+            container = RepoWorldContainer(file)
             installed.add(file.stem)
             try:
                 container.read()
             except InvalidDataError as e:
-                print(f"Error reading {file}: {e}")
+                print(f"Error reading manifest for {file}: {e}")
                 # continue
             manifest_data = container.get_manifest()
             remote = repositories.packages_by_id_version.get(file.stem)

@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-import abc
 import json
 import zipfile
-from enum import IntEnum
 import os
 import threading
 
-from typing import (ClassVar, Dict, List, Literal, Tuple, Any, Optional, Union, BinaryIO, overload, Sequence,
-                    TYPE_CHECKING)
+from typing import (ClassVar, Dict, Any, Optional, Union, BinaryIO, TYPE_CHECKING)
 
-import bsdiff4
 
 semaphore = threading.Semaphore(os.cpu_count() or 4)
 
