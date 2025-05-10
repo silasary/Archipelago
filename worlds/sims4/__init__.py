@@ -64,15 +64,15 @@ class Sims4World(World):
     def create_items(self) -> None:
         pool = []
 
-        count_to_fill = len(self.multiworld.get_unfilled_locations(self.player))
+        unfilled_locations = len(self.multiworld.get_unfilled_locations(self.player))
         for item in item_table.values():
             for i in range(item["count"]):
                 sims4_item = self.create_item(item["name"])
                 pool.append(sims4_item)
 
-        count_to_fill = count_to_fill - len(pool)
+        filler_needed = unfilled_locations - len(pool)
 
-        for item_name in self.random.choices(sorted(filler_set), k=count_to_fill):
+        for item_name in self.random.choices(sorted(filler_set), k=filler_needed):
             item = self.create_item(item_name)
             pool.append(item)
 
