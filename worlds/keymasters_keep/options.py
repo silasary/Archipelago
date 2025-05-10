@@ -209,9 +209,9 @@ class ShopsPercentageChance(Range):
     display_name: str = "Shops Percentage Chance"
 
     range_start: int = 5
-    range_end: int = 20
+    range_end: int = 50
 
-    default = 10
+    default = 20
 
 
 class ShopItemsMinimum(Range):
