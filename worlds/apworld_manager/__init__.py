@@ -19,7 +19,7 @@ class RepoWorld(World):
     """
     settings: ClassVar[ManagerSettings]
     settings_key = "apworld_manager"
-    world_version = "0.0.11"
+    world_version = "0.0.12"
 
     # to make auto world register happy so we can register our settings
     game = "APWorld Manager"
