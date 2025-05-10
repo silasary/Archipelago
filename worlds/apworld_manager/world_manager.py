@@ -415,6 +415,10 @@ def refresh_apworld_table():
             data["description"] = description
             apworlds.append(data)
 
+        from . import RepoWorld
+        show_after_dark = RepoWorld.settings.show_after_dark
+        show_manuals = RepoWorld.settings.show_manuals
+
         for world in sorted(repositories.all_known_package_ids):
             if world in installed:
                 continue
@@ -435,8 +439,12 @@ def refresh_apworld_table():
                 }
             if highest_remote_version.data['metadata'].get("after_dark", False):
                 data['sort'] = SortStages.AFTER_DARK
+                if not show_after_dark:
+                    continue
             if world.lower().startswith('manual_'):
                 data['sort'] = SortStages.MANUAL
+                if not show_manuals:
+                    continue
             apworlds.append(data)
         apworlds.sort(key=lambda x: x['sort'], reverse=True)
         return apworlds
