@@ -95,7 +95,7 @@ class Sims4World(World):
         chosen_careers = sorted(self.options.career.value)
         aspiration_key = self.options.goal.current_key
         for career_key in chosen_careers:
-            for career in sims4_careers[career_key.lower()]:
+            for career in sims4_careers[career_key.lower().replace(" ", "_")]:
                 menu.locations.append(
                     Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
         for aspiration in sims4_aspiration_milestones[aspiration_key]:
