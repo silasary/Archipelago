@@ -812,4 +812,255 @@ item_data: Dict[KeymastersKeepItems, KeymastersKeepItemData] = {
         classification=ItemClassification.progression,
         tags=(KeymastersKeepTags.GOAL,),
     ),
+    # Relics
+    KeymastersKeepItems.RELIC_ABYSSAL_KNOT: KeymastersKeepItemData(
+        archipelago_id=4000 + 0,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_ASHVINE_RING: KeymastersKeepItemData(
+        archipelago_id=4000 + 1,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_ASTRALGLEN_SPRIG: KeymastersKeepItemData(
+        archipelago_id=4000 + 2,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_BLOODROOT_BULB: KeymastersKeepItemData(
+        archipelago_id=4000 + 3,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_BOGMIRE_AMBER: KeymastersKeepItemData(
+        archipelago_id=4000 + 4,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_CELESTINE_STRAND: KeymastersKeepItemData(
+        archipelago_id=4000 + 5,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_CINDER_OF_THE_LOST: KeymastersKeepItemData(
+        archipelago_id=4000 + 6,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_CORALHEART_FRAGMENT: KeymastersKeepItemData(
+        archipelago_id=4000 + 7,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_DUSKWIND_FEATHER: KeymastersKeepItemData(
+        archipelago_id=4000 + 8,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_ECHOIRON_NAIL: KeymastersKeepItemData(
+        archipelago_id=4000 + 9,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_EMBERGLOW_PELLET: KeymastersKeepItemData(
+        archipelago_id=4000 + 10,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_FOGSEED_CAPSULE: KeymastersKeepItemData(
+        archipelago_id=4000 + 11,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_FROSTWREATH_SHARD: KeymastersKeepItemData(
+        archipelago_id=4000 + 12,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_GALECHIME_WHISTLE: KeymastersKeepItemData(
+        archipelago_id=4000 + 13,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_GLASSWING_BROOCH: KeymastersKeepItemData(
+        archipelago_id=4000 + 14,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_GLIMMERCOIL_SPRING: KeymastersKeepItemData(
+        archipelago_id=4000 + 15,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_GLOOMVINE_TENDRIL: KeymastersKeepItemData(
+        archipelago_id=4000 + 16,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_HEARTWOOD_CHIP: KeymastersKeepItemData(
+        archipelago_id=4000 + 17,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_HOURGLASS_OF_SHIFTING: KeymastersKeepItemData(
+        archipelago_id=4000 + 18,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_INK_OF_FORGOTTEN_RITES: KeymastersKeepItemData(
+        archipelago_id=4000 + 19,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_IRONROOT_SEED: KeymastersKeepItemData(
+        archipelago_id=4000 + 20,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_LUMINWEAVE_RIBBON: KeymastersKeepItemData(
+        archipelago_id=4000 + 21,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_MAELSTROM_SHARD: KeymastersKeepItemData(
+        archipelago_id=4000 + 22,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_MIRROR_OF_WHISPERS: KeymastersKeepItemData(
+        archipelago_id=4000 + 23,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_MISTBOUND_LANTERN: KeymastersKeepItemData(
+        archipelago_id=4000 + 24,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_MORROWMIST_DEWDROP: KeymastersKeepItemData(
+        archipelago_id=4000 + 25,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_NIGHTBLOOM_PETAL: KeymastersKeepItemData(
+        archipelago_id=4000 + 26,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_NIGHTCROWN_CIRCLET: KeymastersKeepItemData(
+        archipelago_id=4000 + 27,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_PATHFINDERS_SUNDIAL: KeymastersKeepItemData(
+        archipelago_id=4000 + 28,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_PHOENIX_LAMENT_SCALE: KeymastersKeepItemData(
+        archipelago_id=4000 + 29,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_QUARTZ_OF_MEMORYS_EDGE: KeymastersKeepItemData(
+        archipelago_id=4000 + 30,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_RESONANT_BONE_FLUTE: KeymastersKeepItemData(
+        archipelago_id=4000 + 31,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_RUNE_OF_SILENT_OATHS: KeymastersKeepItemData(
+        archipelago_id=4000 + 32,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SABLE_QUARTZ_BEAD: KeymastersKeepItemData(
+        archipelago_id=4000 + 33,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SANDS_OF_UNMAKING: KeymastersKeepItemData(
+        archipelago_id=4000 + 34,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SCALE_OF_THE_SKYBORN: KeymastersKeepItemData(
+        archipelago_id=4000 + 35,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SIGIL_OF_BROKEN_CHAINS: KeymastersKeepItemData(
+        archipelago_id=4000 + 36,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SIRENS_TEAR: KeymastersKeepItemData(
+        archipelago_id=4000 + 37,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_SOUL_PRISM: KeymastersKeepItemData(
+        archipelago_id=4000 + 38,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_STARMARK_LENS: KeymastersKeepItemData(
+        archipelago_id=4000 + 39,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_STORMSHACKLE_CHAIN: KeymastersKeepItemData(
+        archipelago_id=4000 + 40,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_TEMPESTS_HEART: KeymastersKeepItemData(
+        archipelago_id=4000 + 41,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_THORNMARROW_SPIKE: KeymastersKeepItemData(
+        archipelago_id=4000 + 42,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_THUNDERRIFT_SHARD: KeymastersKeepItemData(
+        archipelago_id=4000 + 43,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_VEIN_OF_NIGHTFIRE: KeymastersKeepItemData(
+        archipelago_id=4000 + 44,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_VEINSTONE_OF_ECHOING_LAMENT: KeymastersKeepItemData(
+        archipelago_id=4000 + 45,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_VOIDECHO_SPHERE: KeymastersKeepItemData(
+        archipelago_id=4000 + 46,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_VORTEX_PRISM: KeymastersKeepItemData(
+        archipelago_id=4000 + 47,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_WISP_OF_THE_WEEPING_WILLOW: KeymastersKeepItemData(
+        archipelago_id=4000 + 48,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
+    KeymastersKeepItems.RELIC_WYRMCOIL_RING: KeymastersKeepItemData(
+        archipelago_id=4000 + 49,
+        classification=ItemClassification.progression,
+        tags=(KeymastersKeepTags.RELICS,),
+    ),
 }

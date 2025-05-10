@@ -13,7 +13,7 @@ from kivy.uix.widget import Widget
 
 from ..client import KeymastersKeepContext
 
-from .client_gui_layouts import KeymastersKeepTabLayout, TrialsTabLayout, TrialsCompletedTabLayout
+from .client_gui_layouts import KeymastersKeepTabLayout, ShopsTabLayout, TrialsTabLayout, TrialsCompletedTabLayout
 
 from ..world import KeymastersKeepWorld
 
@@ -40,10 +40,12 @@ class KeymastersKeepManager(GameManager):
     keymasters_keep_tab_layout: KeymastersKeepTabLayout
     trials_tab_layout: TrialsTabLayout
     trials_completed_tab_layout: TrialsCompletedTabLayout
+    shops_tab_layout: ShopsTabLayout
 
     keymasters_keep_tab: Widget
     available_trials_tab: Widget
     completed_trials_tab: Widget
+    shops_tab: Widget
 
     def build(self) -> Layout:
         container: Layout = super().build()
@@ -57,6 +59,9 @@ class KeymastersKeepManager(GameManager):
         self.trials_completed_tab_layout = TrialsCompletedTabLayout(self.ctx)
         self.completed_trials_tab = self.add_client_tab("Completed Trials", self.trials_completed_tab_layout)
 
+        self.shops_tab_layout = ShopsTabLayout(self.ctx)
+        self.shops_tab = self.add_client_tab("Shops", self.shops_tab_layout)
+
         # Debugging
         # inspector.create_inspector(Window, container)
 
@@ -66,3 +71,4 @@ class KeymastersKeepManager(GameManager):
         self.keymasters_keep_tab_layout.update()
         self.trials_tab_layout.update()
         self.trials_completed_tab_layout.update()
+        self.shops_tab_layout.update()

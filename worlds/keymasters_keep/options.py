@@ -189,6 +189,85 @@ class AreaTrialsMaximum(Range):
     default = 7
 
 
+class Shops(Toggle):
+    """
+    If true, keep areas will have a chance to be replaced by a shop that will sell a handful of items.
+
+    The presence of shops will add Unique Relics to the item pool, which will need to be found to purchase items.
+    """
+
+    display_name: str = "Shops"
+
+
+class ShopsPercentageChance(Range):
+    """
+    Determines the percentage chance of a shop overriding a keep area when shops are enabled.
+
+    A maximum of 10 shops can exist in the keep at once.
+    """
+
+    display_name: str = "Shops Percentage Chance"
+
+    range_start: int = 5
+    range_end: int = 20
+
+    default = 10
+
+
+class ShopItemsMinimum(Range):
+    """
+    Determines the minimum amount of items that could be sold in a shop.
+
+    The amount of items sold in a shop will be a random number between this value and the maximum.
+    """
+
+    display_name: str = "Shop Items Minimum"
+
+    range_start: int = 1
+    range_end: int = 5
+
+    default = 2
+
+
+class ShopItemsMaximum(Range):
+    """
+    Determines the maximum amount of items that could be sold in a shop.
+
+    The amount of items sold in a shop will be a random number between the minimum and this value.
+    """
+
+    display_name: str = "Shop Items Maximum"
+
+    range_start: int = 1
+    range_end: int = 5
+
+    default = 5
+
+
+class ShopItemsProgressionPercentageChance(Range):
+    """
+    Determines the percentage chance of each item in a shop being a guaranteed progression item.
+
+    Since items are purchased with unique relics, it is recommended to set this value on the higher side. Each unique
+    relic will only be able to unlock a single item in the keep, so ideally, they are worth the trouble.
+    """
+
+    display_name: str = "Shop Items Progression Percentage Chance"
+
+    range_start: int = 0
+    range_end: int = 100
+
+    default = 100
+
+
+class ShopHints(Toggle):
+    """
+    If true, upon discovering a shop, hints will be generated for the items sold in that shop.
+    """
+
+    display_name: str = "Shop Hints"
+
+
 class GameMedleyMode(Toggle):
     """
     If true, a percentage of keep areas will feature Game Medley as their game, with each trial sourced randomly from
@@ -345,6 +424,12 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     lock_magic_keys_maximum: LockMagicKeysMaximum
     area_trials_minimum: AreaTrialsMinimum
     area_trials_maximum: AreaTrialsMaximum
+    shops: Shops
+    shops_percentage_chance: ShopsPercentageChance
+    shop_items_minimum: ShopItemsMinimum
+    shop_items_maximum: ShopItemsMaximum
+    shop_items_progression_percentage_chance: ShopItemsProgressionPercentageChance
+    shop_hints: ShopHints
     game_medley_mode: GameMedleyMode
     game_medley_percentage_chance: GameMedleyPercentageChance
     game_medley_game_selection: GameMedleyGameSelection
@@ -381,6 +466,12 @@ option_groups: typing.List[OptionGroup] = [
             LockMagicKeysMaximum,
             AreaTrialsMinimum,
             AreaTrialsMaximum,
+            Shops,
+            ShopsPercentageChance,
+            ShopItemsMinimum,
+            ShopItemsMaximum,
+            ShopItemsProgressionPercentageChance,
+            ShopHints,
         ],
     ),
     OptionGroup(

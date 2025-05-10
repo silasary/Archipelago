@@ -1,3 +1,5 @@
+import random
+
 from typing import Any, Dict, List, Optional, Tuple
 
 from kivy.core.clipboard import Clipboard
@@ -6,20 +8,32 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.widget import Widget
 
 from kivy.utils import escape_markup
 
 from ..client import KeymastersKeepContext
+from ..data.description_data import item_descriptions, unknown_item_descriptions
 from ..data.location_data import KeymastersKeepLocationData, location_data
 
 from ..data.mapping_data import (
     color_to_hex_codes,
+    item_classification_to_colors,
+    item_classification_to_rarities,
     key_item_to_colors,
     label_mapping,
     region_to_unlock_location_and_item,
+    shopkeeper_greetings,
 )
 
-from ..enums import KeymastersKeepGoals, KeymastersKeepItems, KeymastersKeepLocations, KeymastersKeepRegions
+from ..enums import (
+    KeymastersKeepGoals,
+    KeymastersKeepItems,
+    KeymastersKeepLocations,
+    KeymastersKeepRegions,
+    KeymastersKeepShops,
+    KeymastersKeepShopkeepers,
+)
 
 
 def key_to_markup_text(key: KeymastersKeepItems) -> str:
@@ -59,6 +73,7 @@ class KeepAreaLayout(BoxLayout):
     ctx: KeymastersKeepContext
 
     area: KeymastersKeepRegions
+    is_shop: bool
 
     unlock_button: Button
     locked_by_button: Button
@@ -74,6 +89,7 @@ class KeepAreaLayout(BoxLayout):
         self.ctx = ctx
 
         self.area = area
+        self.is_shop = area in ctx.shop_data
 
         self.unlock_button = Button(
             text="Locked",
@@ -137,30 +153,52 @@ class KeepAreaLayout(BoxLayout):
             self.unlock_button.disabled = True
             self.unlock_button.text = "Unlocked!"
 
-            game: str = self.ctx.area_games[self.area.value]
+            if self.is_shop:
+                shop: KeymastersKeepShops = self.ctx.shop_data[self.area]["shop"]
 
-            trial_count: int = len(self.ctx.area_trials[self.area])
+                shop_item_count: int = len(self.ctx.shop_data[self.area]["shop_items"])
 
-            trial_available_count: int = len(self.ctx.game_state["trials_available"][self.area])
-            trial_completed_count: int = trial_count - trial_available_count
+                shop_items_purchased_count: int = len(self.ctx.game_state["shop_items_purchased"][shop])
+                shop_items_available_count: int = shop_item_count - shop_items_purchased_count
 
-            label: str
-            if trial_available_count:
-                if not trial_completed_count:
-                    label = f"{trial_available_count} available trials"
+                label: str
+                if shop_items_available_count:
+                    if not shop_items_purchased_count:
+                        label = f"{shop_items_available_count} item(s) for sale"
+                    else:
+                        label = f"{shop_items_available_count} item(s) for sale ({shop_items_purchased_count} purchased)"
                 else:
-                    label = f"{trial_available_count} available trials ({trial_completed_count} complete)"
-            else:
-                label = f"Area complete!"
+                    label = f"Sold out!"
 
-            self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=00FA9A]{label}[/color]"
+                self.locked_by_button.text = f"[b]Shop:[/b]  {shop.value}    [color=00FA9A]{label}[/color]"
 
-            if trial_available_count:
-                self.locked_by_button.bind(
-                    on_press=lambda _: self.ctx.ui.tabs.switch_to(self.ctx.ui.available_trials_tab)
-                )
+                if shop_items_available_count:
+                    self.locked_by_button.bind(on_press=self.on_switch_to_shops_tab_click)
+                else:
+                    self.locked_by_button.bind(on_press=lambda _: None)
             else:
-                self.locked_by_button.bind(on_press=lambda _: None)
+                game: str = self.ctx.area_games[self.area.value]
+
+                trial_count: int = len(self.ctx.area_trials[self.area])
+
+                trial_available_count: int = len(self.ctx.game_state["trials_available"][self.area])
+                trial_completed_count: int = trial_count - trial_available_count
+
+                label: str
+                if trial_available_count:
+                    if not trial_completed_count:
+                        label = f"{trial_available_count} available trial(s)"
+                    else:
+                        label = f"{trial_available_count} available trial(s) ({trial_completed_count} complete)"
+                else:
+                    label = f"Area complete!"
+
+                self.locked_by_button.text = f"[b]Game:[/b]  {game}    [color=00FA9A]{label}[/color]"
+
+                if trial_available_count:
+                    self.locked_by_button.bind(on_press=self.on_switch_to_available_trials_tab_click)
+                else:
+                    self.locked_by_button.bind(on_press=lambda _: None)
         else:
             self.unlock_button.disabled = False
             self.unlock_button.text = "Unlock"
@@ -176,6 +214,19 @@ class KeepAreaLayout(BoxLayout):
         unlock_location_data: KeymastersKeepLocationData = location_data[unlock_location]
 
         self.ctx.complete_location(unlock_location_data.archipelago_id)
+
+        if self.ctx.shops and self.is_shop:
+            shop_item_location_ids: List[int] = [
+                data["location_data"].archipelago_id for data in self.ctx.shop_data[self.area]["shop_items"].values()
+            ]
+
+            self.ctx.create_hints_for(shop_item_location_ids)
+
+    def on_switch_to_available_trials_tab_click(self, _) -> None:
+        self.ctx.ui.available_trials_tab.on_release()
+
+    def on_switch_to_shops_tab_click(self, _) -> None:
+        self.ctx.ui.shops_tab.on_release()
 
 
 class KeepAreasLayout(ScrollView):
@@ -349,22 +400,37 @@ class SeedInformationGoalLayout(ScrollView):
         if self.ctx.game_medley_mode:
             game_medley_mode_label += f" ({self.ctx.game_medley_percentage_chance}% chance)"
 
+        label_text: str = (
+            f"Keep Areas: [color=00FA9A]{len(self.ctx.area_trials) + len(self.ctx.shop_data)}[/color]\n"
+            f"Magic Keys: [color=00FA9A]{self.ctx.magic_keys_total}[/color]\n"
+            f"Unlocked Areas: [color=00FA9A]{self.ctx.unlocked_areas}[/color]\n"
+            f"Lock Magic Keys (Minimum): [color=00FA9A]{self.ctx.lock_magic_keys_minimum}[/color]\n"
+            f"Lock Magic Keys (Maximum): [color=00FA9A]{self.ctx.lock_magic_keys_maximum}[/color]\n"
+            f"Area Trials (Minimum): [color=00FA9A]{self.ctx.area_trials_minimum}[/color]\n"
+            f"Area Trials (Maximum): [color=00FA9A]{self.ctx.area_trials_maximum}[/color]\n\n"
+            f"Shops: [color=00FA9A]{lm[self.ctx.shops]}[/color]\n"
+        )
+
+        if self.ctx.shops:
+            label_text += (
+                f"Shops Chance: [color=00FA9A]{self.ctx.shops_percentage_chance}%[/color]\n"
+                f"Shop Items (Minimum): [color=00FA9A]{self.ctx.shop_items_minimum}[/color]\n"
+                f"Shop Items (Maximum): [color=00FA9A]{self.ctx.shop_items_maximum}[/color]\n"
+                f"Shop Items Progression Chance: [color=00FA9A]{self.ctx.shop_items_progression_percentage_chance}%[/color]\n"
+                f"Shop Hints: [color=00FA9A]{lm[self.ctx.shop_hints]}[/color]\n\n"
+            )
+
+        label_text += (
+            f"Game Medley Mode: [color=00FA9A]{game_medley_mode_label}[/color]\n\n"
+            f"Include 18+ / Unrated Games: [color=00FA9A]{lm[self.ctx.include_adult_only_or_unrated_games]}[/color]\n"
+            f"Include Modern Console Games: [color=00FA9A]{lm[self.ctx.include_modern_console_games]}[/color]\n"
+            f"Include Difficult Objectives: [color=00FA9A]{lm[self.ctx.include_difficult_objectives]}[/color]\n"
+            f"Include Time Consuming Objectives: [color=00FA9A]{lm[self.ctx.include_time_consuming_objectives]}[/color]\n\n"
+            f"Hints Reveal Objectives: [color=00FA9A]{lm[self.ctx.hints_reveal_objectives]}[/color]"
+        )
+
         seed_information_content_label: Label = Label(
-            text=(
-                f"Keep Areas: [color=00FA9A]{len(self.ctx.area_trials)}[/color]\n"
-                f"Magic Keys: [color=00FA9A]{self.ctx.magic_keys_total}[/color]\n"
-                f"Unlocked Areas: [color=00FA9A]{self.ctx.unlocked_areas}[/color]\n"
-                f"Lock Magic Keys (Minimum): [color=00FA9A]{self.ctx.lock_magic_keys_minimum}[/color]\n"
-                f"Lock Magic Keys (Maximum): [color=00FA9A]{self.ctx.lock_magic_keys_maximum}[/color]\n"
-                f"Area Trials (Minimum): [color=00FA9A]{self.ctx.area_trials_minimum}[/color]\n"
-                f"Area Trials (Maximum): [color=00FA9A]{self.ctx.area_trials_maximum}[/color]\n\n"
-                f"Game Medley Mode: [color=00FA9A]{game_medley_mode_label}[/color]\n\n"
-                f"Include 18+ / Unrated Games: [color=00FA9A]{lm[self.ctx.include_adult_only_or_unrated_games]}[/color]\n"
-                f"Include Modern Console Games: [color=00FA9A]{lm[self.ctx.include_modern_console_games]}[/color]\n"
-                f"Include Difficult Objectives: [color=00FA9A]{lm[self.ctx.include_difficult_objectives]}[/color]\n"
-                f"Include Time Consuming Objectives: [color=00FA9A]{lm[self.ctx.include_time_consuming_objectives]}[/color]\n\n"
-                f"Hints Reveal Objectives: [color=00FA9A]{lm[self.ctx.hints_reveal_objectives]}[/color]"
-            ),
+            text=label_text,
             markup=True,
             size_hint_y=None,
             height="320dp",
@@ -993,6 +1059,9 @@ class AvailableTrialsLayout(ScrollView):
         area: KeymastersKeepRegions
         unlocked: bool
         for area, unlocked in self.ctx.game_state["areas_unlocked"].items():
+            if area in self.ctx.shop_data:
+                continue
+
             if unlocked:
                 at_least_one_unlocked_area = True
 
@@ -1385,3 +1454,407 @@ class TrialsCompletedTabLayout(BoxLayout):
             self.layout_content.add_widget(self.layout_content_completed_trials)
 
         self.layout_content_completed_trials.update()
+
+
+class ShopLabel(Label):
+    ctx: KeymastersKeepContext
+
+    shop: KeymastersKeepShops
+
+    def __init__(self, ctx: KeymastersKeepContext, shop: KeymastersKeepShops) -> None:
+        super().__init__(
+            text=f"[b]{shop.value}[/b]",
+            markup=True,
+            font_size="32dp",
+            size_hint_y=None,
+            height="70dp",
+            halign="left",
+            valign="bottom",
+        )
+
+        self.ctx = ctx
+        self.shop = shop
+
+        self.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "70dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+
+class ShopkeeperLabel(Label):
+    ctx: KeymastersKeepContext
+
+    shopkeeper: KeymastersKeepShopkeepers
+
+    def __init__(self, ctx: KeymastersKeepContext, shopkeeper: KeymastersKeepShopkeepers) -> None:
+        super().__init__(
+            text=f"[b]Shopkeeper:[/b] {shopkeeper.value}",
+            markup=True,
+            font_size="18dp",
+            size_hint_y=None,
+            height="30dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.ctx = ctx
+        self.shopkeeper = shopkeeper
+
+        self.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "30dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+
+class ShopkeeperGreetingLabel(Label):
+    ctx: KeymastersKeepContext
+
+    shopkeeper: KeymastersKeepShopkeepers
+
+    def __init__(self, ctx: KeymastersKeepContext, shopkeeper: KeymastersKeepShopkeepers) -> None:
+        super().__init__(
+            text=f"[color=888888]\"{shopkeeper_greetings[shopkeeper]}\"[/color]",
+            markup=True,
+            font_size="14dp",
+            size_hint_y=None,
+            height="40dp",
+            halign="left",
+            valign="top",
+        )
+
+        self.ctx = ctx
+        self.shopkeeper = shopkeeper
+
+        self.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "40dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+
+class ShopItemLayout(BoxLayout):
+    ctx: KeymastersKeepContext
+
+    shop: KeymastersKeepShops
+    shop_location_name: str
+    shop_item_data: Dict[str, Any]
+
+    shop_item_label: Label
+
+    item_text: str
+    item_description: str
+
+    purchase_button: Button
+
+    def __init__(
+        self,
+        ctx: KeymastersKeepContext,
+        shop: KeymastersKeepShops,
+        shop_location_name: str,
+        shop_item_data: Dict[str, Any],
+    ) -> None:
+        super().__init__(orientation="horizontal", size_hint_y=None, height="40dp", spacing="8dp")
+
+        self.ctx = ctx
+
+        self.shop = shop
+        self.shop_location_name = shop_location_name
+        self.shop_item_data = shop_item_data
+
+        self.purchase_button = Button(
+            text="Purchase",
+            width="100dp",
+            size_hint_x=None,
+            halign="left",
+            disabled=True,
+        )
+
+        self.purchase_button.bind(on_press=self.on_purchase_button_press)
+
+        self.add_widget(self.purchase_button)
+
+        self.item_text = f"[color={item_classification_to_colors[self.shop_item_data['item']['classification']]}][b]{self.shop_item_data['item']['name']}[/b][/color]    "
+        self.item_text += f"[b]Rarity:[/b] {item_classification_to_rarities[self.shop_item_data['item']['classification']]}    "
+
+        player_data: Dict[str, Any] = self.shop_item_data["item"]["player"]
+        self.item_text += f"[b]Original Owner:[/b] [color=EE00EE]{player_data['name']}[/color] of [color=6D8BE8]{player_data['game']}[/color]    "
+
+        self.item_text += f"[b]Price:[/b] 1x  [color=00FF7F]{self.shop_item_data['relic'].value}[/color]"
+
+        self.item_description: str = random.choice(unknown_item_descriptions)
+
+        if player_data["game"] in item_descriptions:
+            if self.shop_item_data["item"]["name"] in item_descriptions[player_data["game"]]:
+                self.item_description = item_descriptions[player_data["game"]][self.shop_item_data["item"]["name"]]
+
+        self.shop_item_label = Label(
+            text=f"{self.item_text}\n[color=bbbbbb]{self.item_description}[/color]",
+            markup=True,
+            size_hint_y=None,
+            height="40dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.shop_item_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        self.add_widget(self.shop_item_label)
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "40dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+    def on_purchase_button_press(self, _) -> None:
+        self.purchase_button.disabled = True
+        self.ctx.complete_location(self.shop_item_data["location_data"].archipelago_id)
+
+    def update(self):
+        if self.shop_item_data["relic"] not in self.ctx.game_state["relics"]:
+            return
+
+        shop_item_is_purchaseable: bool = self.ctx.game_state["relics"][self.shop_item_data["relic"]]
+        shop_item_was_purchased: bool = self.shop_item_data["location_data"].archipelago_id in self.ctx.game_state["shop_items_purchased"][self.shop]
+
+        if shop_item_was_purchased:
+            self.purchase_button.disabled = True
+            self.purchase_button.text = "Purchased!"
+
+            self.shop_item_label.text = f"[s]{self.item_text}\n[color=bbbbbb]{self.item_description}[/color][/s]"
+        elif shop_item_is_purchaseable:
+            self.purchase_button.disabled = False
+            self.purchase_button.text = "Purchase"
+
+            self.shop_item_label.text = f"{self.item_text}\n[color=bbbbbb]{self.item_description}[/color]"
+        else:
+            self.purchase_button.disabled = True
+            self.purchase_button.text = "Need Relic"
+
+            self.shop_item_label.text = f"{self.item_text}\n[color=bbbbbb]{self.item_description}[/color]"
+
+
+class ShopItemSpacer(Widget):
+    def __init__(self) -> None:
+        super().__init__(size_hint_y=None, height="8dp")
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "8dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+
+class ShopsLayout(ScrollView):
+    ctx: KeymastersKeepContext
+
+    layout: BoxLayout
+
+    no_shop_label: Label
+
+    shop_labels: Dict[Tuple[KeymastersKeepRegions, KeymastersKeepShops], ShopLabel]
+    shopkeeper_labels: Dict[KeymastersKeepShopkeepers, ShopkeeperLabel]
+    shopkeeper_greeting_labels: Dict[KeymastersKeepShopkeepers, ShopkeeperGreetingLabel]
+    shop_item_layouts: Dict[KeymastersKeepShops, List[ShopItemLayout]]
+    shop_item_spacers: Dict[KeymastersKeepShops, List[ShopItemSpacer]]
+
+    def __init__(
+        self,
+        ctx: KeymastersKeepContext,
+    ) -> None:
+        super().__init__(size_hint=(0.7, 1.0))
+
+        self.ctx = ctx
+
+        self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
+        self.layout.bind(minimum_height=self.layout.setter("height"))
+
+        self.shop_labels = dict()
+        self.shopkeeper_labels = dict()
+        self.shopkeeper_greeting_labels = dict()
+        self.shop_item_layouts = dict()
+        self.shop_item_spacers = dict()
+
+        no_shop_label_text: str = "No shops have been discovered yet. Unlock keep areas to uncover more!"
+
+        if not self.ctx.shops:
+            no_shop_label_text = "Shops are disabled for this seed. No shops will be found."
+
+        self.no_shop_label = Label(
+            text=no_shop_label_text,
+            font_size="18dp",
+            size_hint_y=None,
+            height="30dp",
+            halign="left",
+            valign="middle",
+        )
+
+        self.no_shop_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        self.layout.add_widget(self.no_shop_label)
+
+        area: KeymastersKeepRegions
+        data: Dict[str, Any]
+        for area, data in self.ctx.shop_data.items():
+            shop_label: ShopLabel = ShopLabel(self.ctx, data["shop"])
+            shop_label.hide()
+
+            self.layout.add_widget(shop_label)
+            self.shop_labels[area, data["shop"]] = shop_label
+
+            shopkeeper_label: ShopkeeperLabel = ShopkeeperLabel(self.ctx, data["shopkeeper"])
+            shopkeeper_label.hide()
+
+            self.layout.add_widget(shopkeeper_label)
+            self.shopkeeper_labels[data["shopkeeper"]] = shopkeeper_label
+
+            shopkeeper_greeting_label: ShopkeeperGreetingLabel = ShopkeeperGreetingLabel(self.ctx, data["shopkeeper"])
+            shopkeeper_greeting_label.hide()
+
+            self.layout.add_widget(shopkeeper_greeting_label)
+            self.shopkeeper_greeting_labels[data["shopkeeper"]] = shopkeeper_greeting_label
+
+            location_name: str
+            shop_item_data: Dict[str, Any]
+            for location_name, shop_item_data in data["shop_items"].items():
+                shop_item_layout: ShopItemLayout = ShopItemLayout(self.ctx, data["shop"], location_name, shop_item_data)
+                shop_item_layout.hide()
+
+                self.layout.add_widget(shop_item_layout)
+
+                if data["shop"] not in self.shop_item_layouts:
+                    self.shop_item_layouts[data["shop"]] = list()
+
+                self.shop_item_layouts[data["shop"]].append(shop_item_layout)
+
+                shop_item_spacer: ShopItemSpacer = ShopItemSpacer()
+                shop_item_spacer.hide()
+
+                self.layout.add_widget(shop_item_spacer)
+
+                if data["shop"] not in self.shop_item_spacers:
+                    self.shop_item_spacers[data["shop"]] = list()
+
+                self.shop_item_spacers[data["shop"]].append(shop_item_spacer)
+
+        self.add_widget(self.layout)
+
+    def update(self) -> None:
+        at_least_one_shop_discovered: bool = False
+
+        area: KeymastersKeepRegions
+        unlocked: bool
+        for area, unlocked in self.ctx.game_state["areas_unlocked"].items():
+            if area not in self.ctx.shop_data:
+                continue
+
+            if unlocked:
+                at_least_one_shop_discovered = True
+                break
+
+        if not at_least_one_shop_discovered:
+            self.no_shop_label.opacity = 1.0
+            self.no_shop_label.height = "30dp"
+            self.no_shop_label.disabled = False
+        else:
+            self.no_shop_label.opacity = 0.0
+            self.no_shop_label.height = "0dp"
+            self.no_shop_label.disabled = True
+
+        area: KeymastersKeepRegions
+        shop: KeymastersKeepShops
+        for area, shop in self.shop_labels:
+            unlocked: bool = self.ctx.game_state["areas_unlocked"][area]
+
+            if unlocked:
+                self.shop_labels[(area, shop)].show()
+                self.shopkeeper_labels[self.ctx.shop_data[area]["shopkeeper"]].show()
+                self.shopkeeper_greeting_labels[self.ctx.shop_data[area]["shopkeeper"]].show()
+
+                shop_item_layout: ShopItemLayout
+                for shop_item_layout in self.shop_item_layouts[shop]:
+                    shop_item_layout.update()
+                    shop_item_layout.show()
+
+                shop_item_spacer: ShopItemSpacer
+                for shop_item_spacer in self.shop_item_spacers[shop]:
+                    shop_item_spacer.show()
+            else:
+                self.shop_labels[(area, shop)].hide()
+                self.shopkeeper_labels[self.ctx.shop_data[area]["shopkeeper"]].hide()
+                self.shopkeeper_greeting_labels[self.ctx.shop_data[area]["shopkeeper"]].hide()
+
+                shop_item_layout: ShopItemLayout
+                for shop_item_layout in self.shop_item_layouts[shop]:
+                    shop_item_layout.hide()
+                    shop_item_layout.update()
+
+                shop_item_spacer: ShopItemSpacer
+                for shop_item_spacer in self.shop_item_spacers[shop]:
+                    shop_item_spacer.hide()
+
+
+class ShopsTabLayout(BoxLayout):
+    ctx: KeymastersKeepContext
+
+    layout_content: BoxLayout
+
+    layout_content_shops: ShopsLayout
+
+    layout_not_connected: BoxLayout
+
+    def __init__(self, ctx: KeymastersKeepContext) -> None:
+        super().__init__(orientation="vertical")
+
+        self.ctx = ctx
+
+        self.layout_not_connected = NotConnectedLayout(self.ctx)
+        self.add_widget(self.layout_not_connected)
+
+        self.layout_content = BoxLayout(orientation="horizontal", spacing="16dp", padding=["8dp", "0dp"])
+        self.add_widget(self.layout_content)
+
+        self.update()
+
+    def update(self) -> None:
+        if not self.ctx.is_game_state_initialized:
+            self.layout_not_connected.show()
+            self.layout_content.clear_widgets()
+
+            return
+
+        self.layout_not_connected.hide()
+
+        if not len(self.layout_content.children):
+            self.layout_content_shops = ShopsLayout(self.ctx)
+            self.layout_content.add_widget(self.layout_content_shops)
+
+        self.layout_content_shops.update()

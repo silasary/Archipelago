@@ -1,4 +1,5 @@
 import logging
+import math
 import settings
 
 from typing import Any, ClassVar, Dict, List, Optional, Set, Tuple, TextIO
@@ -18,13 +19,20 @@ from .data_funcs import (
 
 from .data.item_data import KeymastersKeepItemData, item_data
 from .data.location_data import KeymastersKeepLocationData, location_data
-from .data.mapping_data import region_to_trial_locations, region_to_unlock_location_and_item
+
+from .data.mapping_data import (
+    region_to_trial_locations,
+    region_to_unlock_location_and_item,
+    shop_to_shop_item_locations,
+)
 
 from .enums import (
     KeymastersKeepItems,
     KeymastersKeepGoals,
     KeymastersKeepLocations,
     KeymastersKeepRegions,
+    KeymastersKeepShops,
+    KeymastersKeepShopkeepers,
     KeymastersKeepTags,
 )
 
@@ -139,9 +147,18 @@ class KeymastersKeepWorld(World):
     magic_keys_total: int
     selected_areas: List[KeymastersKeepRegions]
     selected_magic_keys: List[KeymastersKeepItems]
+    shop_data: Dict[KeymastersKeepRegions, Any]
+    shop_hints: bool
+    shop_items_maximum: int
+    shop_items_minimum: int
+    shop_items_progression_percentage_chance: int
+    shops: bool
+    shops_percentage_chance: int
     unlocked_areas: int
     unused_magic_keys: Set[KeymastersKeepItems]
+    unused_relics: Set[KeymastersKeepItems]
     used_magic_keys: Set[KeymastersKeepItems]
+    used_relics: Set[KeymastersKeepItems]
 
     def generate_early(self) -> None:
         self.goal = id_to_goals()[self.options.goal.value]
@@ -200,12 +217,42 @@ class KeymastersKeepWorld(World):
                 "Using minimum value for maximum."
             )
 
+        self.shops = bool(self.options.shops)
+        self.shops_percentage_chance = self.options.shops_percentage_chance.value
+
+        self.shop_items_minimum = self.options.shop_items_minimum.value
+        self.shop_items_maximum = self.options.shop_items_maximum.value
+
+        if self.shop_items_minimum > self.shop_items_maximum:
+            self.shop_items_maximum = self.shop_items_minimum
+
+            logging.warning(
+                f"Keymaster's Keep: {self.player_name} has a minimum shop items value greater than the maximum. "
+                "Using minimum value for maximum."
+            )
+
+        self.shop_items_progression_percentage_chance = self.options.shop_items_progression_percentage_chance.value
+        self.shop_hints = bool(self.options.shop_hints)
+
         smallest_possible_trial_count: int = self.area_trials_minimum * self.keep_areas
+
+        shop_count: int = 0
+        smallest_possible_shop_item_count: int = 0
+
+        if self.shops:
+            shop_count = math.ceil((self.shops_percentage_chance / 100.0) * self.keep_areas)
+            smallest_possible_shop_item_count = self.shop_items_minimum * shop_count
+
+            smallest_possible_trial_count = self.area_trials_minimum * (self.keep_areas - shop_count)
+            smallest_possible_trial_count += smallest_possible_shop_item_count
 
         locations_needed: int = self.magic_keys_total
 
         if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
             locations_needed += self.artifacts_of_resolve_total
+
+        if self.shops:
+            locations_needed += 50  # We add unique relics to the pool when shops are enabled
 
         area_trials_range_modified: bool = False
 
@@ -219,6 +266,10 @@ class KeymastersKeepWorld(World):
                     self.area_trials_maximum = self.area_trials_minimum
 
                 smallest_possible_trial_count = self.area_trials_minimum * self.keep_areas
+
+                if self.shops:
+                    smallest_possible_trial_count = self.area_trials_minimum * (self.keep_areas - shop_count)
+                    smallest_possible_trial_count += smallest_possible_shop_item_count
 
                 if smallest_possible_trial_count >= locations_needed:
                     break
@@ -302,16 +353,48 @@ class KeymastersKeepWorld(World):
             region_area.connect(region_keymasters_keep)
 
             # Assign Trial Locations
-            trial: KeymastersKeepLocationData
-            for trial in self.area_trials[area]:
-                trial_location: KeymastersKeepLocation = KeymastersKeepLocation(
-                    self.player,
-                    trial.name,
-                    trial.archipelago_id,
-                    region_area,
-                )
+            if area in self.area_trials:
+                trial: KeymastersKeepLocationData
+                for trial in self.area_trials[area]:
+                    trial_location: KeymastersKeepLocation = KeymastersKeepLocation(
+                        self.player,
+                        trial.name,
+                        trial.archipelago_id,
+                        region_area,
+                    )
 
-                region_area.locations.append(trial_location)
+                    region_area.locations.append(trial_location)
+
+            # Handle Shops
+            if area in self.shop_data:
+                shop: KeymastersKeepShops = self.shop_data[area]["shop"]
+
+                region_shop_enum_item: KeymastersKeepRegions = KeymastersKeepRegions(f"Shop: {shop.value}")
+                region_shop: Region = Region(region_shop_enum_item.value, self.player, self.multiworld)
+
+                region_area.connect(region_shop)
+                region_shop.connect(region_area)
+
+                i: int
+                shop_item_data: Tuple[KeymastersKeepLocationData, KeymastersKeepItems]
+                for i, shop_item_data in enumerate(self.shop_data[area]["shop_items"]):
+                    data, relic = shop_item_data
+
+                    shop_item_location: KeymastersKeepLocation = KeymastersKeepLocation(
+                        self.player,
+                        data.name,
+                        data.archipelago_id,
+                        region_shop,
+                    )
+
+                    shop_item_location.access_rule = eval(access_rule_for([relic], self.player))
+
+                    region_shop.locations.append(shop_item_location)
+
+                    if self.random.randint(1, 100) <= self.shop_items_progression_percentage_chance:
+                        self.options.priority_locations.value.add(data.name)
+
+                self.multiworld.regions.append(region_shop)
 
             self.multiworld.regions.append(region_area)
 
@@ -407,6 +490,7 @@ class KeymastersKeepWorld(World):
         item_pool: List[KeymastersKeepItem] = list()
 
         # Magic Keys
+        magic_key: KeymastersKeepItems
         for magic_key in self.selected_magic_keys:
             item: KeymastersKeepItem = self.create_item(magic_key.value)
 
@@ -414,6 +498,17 @@ class KeymastersKeepWorld(World):
                 item.classification = ItemClassification.filler
 
             item_pool.append(item)
+
+        # Relics
+        if self.shops:
+            relic: KeymastersKeepItems
+            for relic in (self.unused_relics | self.used_relics):
+                item: KeymastersKeepItem = self.create_item(relic.value)
+
+                if relic in self.unused_relics:
+                    item.classification = ItemClassification.filler
+
+                item_pool.append(item)
 
         # Artifacts of Resolve
         if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
@@ -474,6 +569,13 @@ class KeymastersKeepWorld(World):
             "magic_keys_required": self.magic_keys_required,
             "magic_keys_total": self.magic_keys_total,
             "selected_magic_keys": [key.value for key in self.selected_magic_keys],
+            "shop_data": dict(),
+            "shop_hints": self.shop_hints,
+            "shop_items_maximum": self.shop_items_maximum,
+            "shop_items_minimum": self.shop_items_minimum,
+            "shop_items_progression_percentage_chance": self.shop_items_progression_percentage_chance,
+            "shops": self.shops,
+            "shops_percentage_chance": self.shops_percentage_chance,
             "unlocked_areas": self.unlocked_areas,
             "used_magic_keys": [key.value for key in self.used_magic_keys],
         }
@@ -487,22 +589,62 @@ class KeymastersKeepWorld(World):
 
             slot_data["lock_combinations"][area.value] = [key.value for key in keys]
 
+        if self.shops:
+            shop_area: KeymastersKeepRegions
+            shop_data: Dict[str, Any]
+            for shop_area, shop_data in self.shop_data.items():
+                slot_data["shop_data"][shop_area.value] = {
+                    "shop": shop_data["shop"].value,
+                    "shopkeeper": shop_data["shopkeeper"].value,
+                    "shop_items": dict(),
+                }
+
+                shop_item_data: Tuple[KeymastersKeepLocationData, KeymastersKeepItems]
+                for shop_item_data in shop_data["shop_items"]:
+                    data, relic = shop_item_data
+
+                    slot_data["shop_data"][shop_area.value]["shop_items"][data.name] = {
+                        "archipelago_id": data.archipelago_id,
+                        "relic": {"archipelago_id": item_data[relic].archipelago_id, "name": relic.value},
+                        "item": dict(),
+                    }
+
+                    location: KeymastersKeepLocation = self.get_location(data.name)
+
+                    slot_data["shop_data"][shop_area.value]["shop_items"][data.name]["item"]["name"] = (
+                        location.item.name
+                    )
+
+                    slot_data["shop_data"][shop_area.value]["shop_items"][data.name]["item"]["classification"] = (
+                        location.item.classification.value
+                    )
+
+                    slot_data["shop_data"][shop_area.value]["shop_items"][data.name]["item"]["player"] = (
+                        location.item.player
+                    )
+
         return slot_data
 
     def extend_hint_information(self, hint_data: Dict[int, Dict[int, str]]):
-        if not self.hints_reveal_objectives:
-            return
-
         data: Dict[int, str] = dict()
 
-        area: KeymastersKeepRegions
-        trial_locations: List[KeymastersKeepLocationData]
-        for area, trial_locations in self.area_trials.items():
-            trial_location: KeymastersKeepLocationData
-            for trial_location in trial_locations:
-                data[trial_location.archipelago_id] = (
-                    f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
-                )
+        if self.hints_reveal_objectives:
+            area: KeymastersKeepRegions
+            trial_locations: List[KeymastersKeepLocationData]
+            for area, trial_locations in self.area_trials.items():
+                trial_location: KeymastersKeepLocationData
+                for trial_location in trial_locations:
+                    data[trial_location.archipelago_id] = (
+                        f"{self.area_games[area.value]}: {self.area_trial_game_objectives[trial_location.name]}"
+                    )
+
+        if self.shops:
+            shop_area: KeymastersKeepRegions
+            shop_data: Dict[str, Any]
+            for shop_area, shop_data in self.shop_data.items():
+                shop_item_data: Tuple[KeymastersKeepLocationData, KeymastersKeepItems]
+                for shop_item_data in shop_data["shop_items"]:
+                    data[shop_item_data[0].archipelago_id] = f"{shop_area.value} - {shop_data['shop'].value}"
 
         hint_data[self.player] = data
 
@@ -518,6 +660,23 @@ class KeymastersKeepWorld(World):
                 continue
 
             spoiler_handle.write(f"\n    {area.value}: {', '.join(key.value for key in keys)}")
+
+        # Shops
+        if self.shops:
+            spoiler_handle.write("\n\nShops:")
+
+            shop_area: KeymastersKeepRegions
+            shop_data: Dict[str, Any]
+            for shop_area, shop_data in self.shop_data.items():
+                shop: KeymastersKeepShops = shop_data["shop"]
+                shopkeeper: KeymastersKeepShopkeepers = shop_data["shopkeeper"]
+
+                spoiler_handle.write(f"\n    {shop_area.value} - {shop.value} (Shopkeeper: {shopkeeper.value})")
+
+                shop_item_data: Tuple[KeymastersKeepLocationData, KeymastersKeepItems]
+                for shop_item_data in shop_data["shop_items"]:
+                    data, relic = shop_item_data
+                    spoiler_handle.write(f"\n        {data.name.split(' - ')[1]} - Cost: 1x {relic.value}")
 
         # Area Games
         spoiler_handle.write("\n\nArea Games:")
@@ -551,7 +710,7 @@ class KeymastersKeepWorld(World):
 
         area: KeymastersKeepRegions
         for area in KeymastersKeepRegions:
-            if area not in excluded_areas:
+            if area not in excluded_areas and not area.name.startswith("SHOP_"):
                 potential_areas.append(area)
 
         self.selected_areas = self.random.sample(potential_areas, self.keep_areas)
@@ -595,11 +754,70 @@ class KeymastersKeepWorld(World):
         self.used_magic_keys = used_keys
         self.unused_magic_keys = set(self.selected_magic_keys) - used_keys
 
+        # Determine Shop Areas
+        self.shop_data = dict()
+        self.area_shop_items = dict()
+
+        if self.shops:
+            self.used_relics = set()
+
+            shuffled_shops: List[KeymastersKeepShops] = list(KeymastersKeepShops)
+            self.random.shuffle(shuffled_shops)
+
+            shuffled_shopkeepers: List[KeymastersKeepShopkeepers] = list(KeymastersKeepShopkeepers)
+            self.random.shuffle(shuffled_shopkeepers)
+
+            shuffled_relics: List[KeymastersKeepItems] = list(KeymastersKeepItems)
+            shuffled_relics = [relic for relic in shuffled_relics if relic.name.startswith("RELIC_")]
+            self.random.shuffle(shuffled_relics)
+
+            shop_count: int = 0
+            relic_index: int = 0
+
+            i: int
+            area: KeymastersKeepRegions
+            for i, area in enumerate(self.selected_areas):
+                # Don't assign shops to the first 3 areas
+                if i < 3:
+                    continue
+
+                if self.random.randint(1, 100) <= self.shops_percentage_chance:
+                    self.shop_data[area] = {
+                        "shop": shuffled_shops[shop_count],
+                        "shopkeeper": shuffled_shopkeepers[shop_count],
+                        "shop_items": list(),
+                    }
+
+                    possible_shop_item_locations: List[KeymastersKeepLocationData] = location_data[
+                        shop_to_shop_item_locations[self.shop_data[area]["shop"]]
+                    ]
+
+                    shop_item_count: int = self.random.randint(self.shop_items_minimum, self.shop_items_maximum)
+
+                    shop_item_location_data: KeymastersKeepLocationData
+                    for shop_item_location_data in possible_shop_item_locations[:shop_item_count]:
+                        self.shop_data[area]["shop_items"].append(
+                            (shop_item_location_data, shuffled_relics[relic_index])
+                        )
+
+                        self.used_relics.add(shuffled_relics[relic_index])
+                        relic_index += 1
+
+                    shop_count += 1
+
+                if shop_count >= 10:
+                    break
+
+            self.unused_relics = set(shuffled_relics) - self.used_relics
+
         # Assign Trials to Areas
         self.area_trials = dict()
 
         area: KeymastersKeepRegions
         for area in self.selected_areas:
+            if area in self.shop_data:
+                continue
+
             possible_trials: List[KeymastersKeepLocationData] = location_data[region_to_trial_locations[area]]
             trial_count: int = self.random.randint(self.area_trials_minimum, self.area_trials_maximum)
 

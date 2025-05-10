@@ -1938,3 +1938,654 @@ for i in range(trial_count):
             tags=(KeymastersKeepTags.TRIALS, KeymastersKeepTags.TRIALS_THE_WHISPERING_DOOR),
         )
     )
+
+# Shop Items
+location_data[KeymastersKeepLocations.SHOP_ABYSSFORGE_CURIOS_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ABYSSFORGE_CURIOS_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ABYSSFORGE_CURIOS_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20000 + i,
+            region=KeymastersKeepRegions.SHOP_ABYSSFORGE_CURIOS,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ABYSSFORGE_CURIOS),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ARCANE_LANTERN_WORKSHOP_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ARCANE_LANTERN_WORKSHOP_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ARCANE_LANTERN_WORKSHOP_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20100 + i,
+            region=KeymastersKeepRegions.SHOP_ARCANE_LANTERN_WORKSHOP,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ARCANE_LANTERN_WORKSHOP),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ASTRAL_ECHO_ATELIER_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ASTRAL_ECHO_ATELIER_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ASTRAL_ECHO_ATELIER_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20200 + i,
+            region=KeymastersKeepRegions.SHOP_ASTRAL_ECHO_ATELIER,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ASTRAL_ECHO_ATELIER),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ASTRALGLOW_COLLECTION_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ASTRALGLOW_COLLECTION_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ASTRALGLOW_COLLECTION_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20300 + i,
+            region=KeymastersKeepRegions.SHOP_ASTRALGLOW_COLLECTION,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ASTRALGLOW_COLLECTION),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ASTRALHELM_ARMORY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ASTRALHELM_ARMORY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ASTRALHELM_ARMORY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20400 + i,
+            region=KeymastersKeepRegions.SHOP_ASTRALHELM_ARMORY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ASTRALHELM_ARMORY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_BLOODROSE_ATELIER_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_BLOODROSE_ATELIER_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_BLOODROSE_ATELIER_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20500 + i,
+            region=KeymastersKeepRegions.SHOP_BLOODROSE_ATELIER,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_BLOODROSE_ATELIER),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_CELESTIAL_CODEX_CURIOS_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_CELESTIAL_CODEX_CURIOS_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_CELESTIAL_CODEX_CURIOS_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20600 + i,
+            region=KeymastersKeepRegions.SHOP_CELESTIAL_CODEX_CURIOS,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_CELESTIAL_CODEX_CURIOS),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_DAWNSHARD_DEPOT_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_DAWNSHARD_DEPOT_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_DAWNSHARD_DEPOT_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20700 + i,
+            region=KeymastersKeepRegions.SHOP_DAWNSHARD_DEPOT,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_DAWNSHARD_DEPOT),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_DRAGONBONE_BAZAAR_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_DRAGONBONE_BAZAAR_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_DRAGONBONE_BAZAAR_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20800 + i,
+            region=KeymastersKeepRegions.SHOP_DRAGONBONE_BAZAAR,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_DRAGONBONE_BAZAAR),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_DREAMSHARD_COLLECTION_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_DREAMSHARD_COLLECTION_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_DREAMSHARD_COLLECTION_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=20900 + i,
+            region=KeymastersKeepRegions.SHOP_DREAMSHARD_COLLECTION,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_DREAMSHARD_COLLECTION),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_DREAMLIGHT_DEPOT_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_DREAMLIGHT_DEPOT_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_DREAMLIGHT_DEPOT_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21000 + i,
+            region=KeymastersKeepRegions.SHOP_DREAMLIGHT_DEPOT,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_DREAMLIGHT_DEPOT),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ECHOCHIME_PARLOR_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ECHOCHIME_PARLOR_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ECHOCHIME_PARLOR_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21100 + i,
+            region=KeymastersKeepRegions.SHOP_ECHOCHIME_PARLOR,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ECHOCHIME_PARLOR),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ECLIPSEGEAR_EMPORIUM_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ECLIPSEGEAR_EMPORIUM_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ECLIPSEGEAR_EMPORIUM_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21200 + i,
+            region=KeymastersKeepRegions.SHOP_ECLIPSEGEAR_EMPORIUM,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ECLIPSEGEAR_EMPORIUM),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_EMBERHEART_FORGE_AND_FINDS_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_EMBERHEART_FORGE_AND_FINDS_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_EMBERHEART_FORGE_AND_FINDS_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21300 + i,
+            region=KeymastersKeepRegions.SHOP_EMBERHEART_FORGE_AND_FINDS,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_EMBERHEART_FORGE_AND_FINDS),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_EMBERWING_EMPORIUM_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_EMBERWING_EMPORIUM_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_EMBERWING_EMPORIUM_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21400 + i,
+            region=KeymastersKeepRegions.SHOP_EMBERWING_EMPORIUM,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_EMBERWING_EMPORIUM),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_ETHERHOLLOW_COLLECTION_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_ETHERHOLLOW_COLLECTION_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_ETHERHOLLOW_COLLECTION_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21500 + i,
+            region=KeymastersKeepRegions.SHOP_ETHERHOLLOW_COLLECTION,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_ETHERHOLLOW_COLLECTION),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_FIRESONG_FORGE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_FIRESONG_FORGE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_FIRESONG_FORGE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21600 + i,
+            region=KeymastersKeepRegions.SHOP_FIRESONG_FORGE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_FIRESONG_FORGE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_FROSTLIGHT_CABINET_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_FROSTLIGHT_CABINET_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_FROSTLIGHT_CABINET_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21700 + i,
+            region=KeymastersKeepRegions.SHOP_FROSTLIGHT_CABINET,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_FROSTLIGHT_CABINET),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_FROSTWIND_FRONTIER_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_FROSTWIND_FRONTIER_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_FROSTWIND_FRONTIER_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21800 + i,
+            region=KeymastersKeepRegions.SHOP_FROSTWIND_FRONTIER,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_FROSTWIND_FRONTIER),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_IRONBLOOM_BAZAAR_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_IRONBLOOM_BAZAAR_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_IRONBLOOM_BAZAAR_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=21900 + i,
+            region=KeymastersKeepRegions.SHOP_IRONBLOOM_BAZAAR,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_IRONBLOOM_BAZAAR),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_IRONSHARD_ARMORY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_IRONSHARD_ARMORY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_IRONSHARD_ARMORY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22000 + i,
+            region=KeymastersKeepRegions.SHOP_IRONSHARD_ARMORY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_IRONSHARD_ARMORY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_LUMINSPIRE_WORKSHOP_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_LUMINSPIRE_WORKSHOP_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_LUMINSPIRE_WORKSHOP_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22100 + i,
+            region=KeymastersKeepRegions.SHOP_LUMINSPIRE_WORKSHOP,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_LUMINSPIRE_WORKSHOP),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_MOONLIT_RELIQUARY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_MOONLIT_RELIQUARY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_MOONLIT_RELIQUARY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22200 + i,
+            region=KeymastersKeepRegions.SHOP_MOONLIT_RELIQUARY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_MOONLIT_RELIQUARY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_MOONREIGN_PARLOR_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_MOONREIGN_PARLOR_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_MOONREIGN_PARLOR_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22300 + i,
+            region=KeymastersKeepRegions.SHOP_MOONREIGN_PARLOR,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_MOONREIGN_PARLOR),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_MOONSTONE_MARKET_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_MOONSTONE_MARKET_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_MOONSTONE_MARKET_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22400 + i,
+            region=KeymastersKeepRegions.SHOP_MOONSTONE_MARKET,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_MOONSTONE_MARKET),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_MYTHRIL_MIRROR_MARKET_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_MYTHRIL_MIRROR_MARKET_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_MYTHRIL_MIRROR_MARKET_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22500 + i,
+            region=KeymastersKeepRegions.SHOP_MYTHRIL_MIRROR_MARKET,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_MYTHRIL_MIRROR_MARKET),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_NETHERGLOW_WORKSHOP_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_NETHERGLOW_WORKSHOP_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_NETHERGLOW_WORKSHOP_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22600 + i,
+            region=KeymastersKeepRegions.SHOP_NETHERGLOW_WORKSHOP,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_NETHERGLOW_WORKSHOP),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_NIGHTSPIRE_NOOK_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_NIGHTSPIRE_NOOK_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_NIGHTSPIRE_NOOK_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22700 + i,
+            region=KeymastersKeepRegions.SHOP_NIGHTSPIRE_NOOK,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_NIGHTSPIRE_NOOK),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_OBSIDIANFLARE_OUTPOST_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_OBSIDIANFLARE_OUTPOST_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_OBSIDIANFLARE_OUTPOST_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22800 + i,
+            region=KeymastersKeepRegions.SHOP_OBSIDIANFLARE_OUTPOST,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_OBSIDIANFLARE_OUTPOST),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_OPALINE_RELIQUARY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_OPALINE_RELIQUARY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_OPALINE_RELIQUARY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=22900 + i,
+            region=KeymastersKeepRegions.SHOP_OPALINE_RELIQUARY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_OPALINE_RELIQUARY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_RADIANTCORE_GALLERY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_RADIANTCORE_GALLERY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_RADIANTCORE_GALLERY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23000 + i,
+            region=KeymastersKeepRegions.SHOP_RADIANTCORE_GALLERY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_RADIANTCORE_GALLERY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_RUNEBOUND_REPOSITORY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_RUNEBOUND_REPOSITORY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_RUNEBOUND_REPOSITORY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23100 + i,
+            region=KeymastersKeepRegions.SHOP_RUNEBOUND_REPOSITORY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_RUNEBOUND_REPOSITORY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_RUNEBROOK_EXCHANGE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_RUNEBROOK_EXCHANGE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_RUNEBROOK_EXCHANGE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23200 + i,
+            region=KeymastersKeepRegions.SHOP_RUNEBROOK_EXCHANGE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_RUNEBROOK_EXCHANGE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_RUNECROWN_BOUTIQUE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_RUNECROWN_BOUTIQUE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_RUNECROWN_BOUTIQUE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23300 + i,
+            region=KeymastersKeepRegions.SHOP_RUNECROWN_BOUTIQUE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_RUNECROWN_BOUTIQUE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SHADEWOOD_TROVE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SHADEWOOD_TROVE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SHADEWOOD_TROVE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23400 + i,
+            region=KeymastersKeepRegions.SHOP_SHADEWOOD_TROVE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SHADEWOOD_TROVE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SHADOWMANTLE_MARKET_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SHADOWMANTLE_MARKET_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SHADOWMANTLE_MARKET_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23500 + i,
+            region=KeymastersKeepRegions.SHOP_SHADOWMANTLE_MARKET,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SHADOWMANTLE_MARKET),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SHATTERSTONE_TROVE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SHATTERSTONE_TROVE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SHATTERSTONE_TROVE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23600 + i,
+            region=KeymastersKeepRegions.SHOP_SHATTERSTONE_TROVE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SHATTERSTONE_TROVE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SILVERDAWN_SUNDRIES_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SILVERDAWN_SUNDRIES_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SILVERDAWN_SUNDRIES_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23700 + i,
+            region=KeymastersKeepRegions.SHOP_SILVERDAWN_SUNDRIES,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SILVERDAWN_SUNDRIES),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SILVERQUARTZ_EXCHANGE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SILVERQUARTZ_EXCHANGE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SILVERQUARTZ_EXCHANGE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23800 + i,
+            region=KeymastersKeepRegions.SHOP_SILVERQUARTZ_EXCHANGE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SILVERQUARTZ_EXCHANGE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SPIRITCHIME_BOUTIQUE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SPIRITCHIME_BOUTIQUE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SPIRITCHIME_BOUTIQUE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=23900 + i,
+            region=KeymastersKeepRegions.SHOP_SPIRITCHIME_BOUTIQUE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SPIRITCHIME_BOUTIQUE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_STARBOUND_STUDIO_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_STARBOUND_STUDIO_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_STARBOUND_STUDIO_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24000 + i,
+            region=KeymastersKeepRegions.SHOP_STARBOUND_STUDIO,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_STARBOUND_STUDIO),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_STARROOT_REPOSITORY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_STARROOT_REPOSITORY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_STARROOT_REPOSITORY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24100 + i,
+            region=KeymastersKeepRegions.SHOP_STARROOT_REPOSITORY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_STARROOT_REPOSITORY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_STARWEAVE_ARMORY_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_STARWEAVE_ARMORY_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_STARWEAVE_ARMORY_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24200 + i,
+            region=KeymastersKeepRegions.SHOP_STARWEAVE_ARMORY,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_STARWEAVE_ARMORY),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_STORMHOLLOW_GEARWORKS_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_STORMHOLLOW_GEARWORKS_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_STORMHOLLOW_GEARWORKS_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24300 + i,
+            region=KeymastersKeepRegions.SHOP_STORMHOLLOW_GEARWORKS,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_STORMHOLLOW_GEARWORKS),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_SUNFORGE_SUNDRIES_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_SUNFORGE_SUNDRIES_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_SUNFORGE_SUNDRIES_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24400 + i,
+            region=KeymastersKeepRegions.SHOP_SUNFORGE_SUNDRIES,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_SUNFORGE_SUNDRIES),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_THORNBLOOM_CRAFTWORKS_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_THORNBLOOM_CRAFTWORKS_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_THORNBLOOM_CRAFTWORKS_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24500 + i,
+            region=KeymastersKeepRegions.SHOP_THORNBLOOM_CRAFTWORKS,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_THORNBLOOM_CRAFTWORKS),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_THORNVALE_WORKSHOP_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_THORNVALE_WORKSHOP_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_THORNVALE_WORKSHOP_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24600 + i,
+            region=KeymastersKeepRegions.SHOP_THORNVALE_WORKSHOP,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_THORNVALE_WORKSHOP),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_THUNDERSHARD_TROVE_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_THUNDERSHARD_TROVE_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_THUNDERSHARD_TROVE_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24700 + i,
+            region=KeymastersKeepRegions.SHOP_THUNDERSHARD_TROVE,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_THUNDERSHARD_TROVE),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_VINEWHISPER_VAULT_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_VINEWHISPER_VAULT_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_VINEWHISPER_VAULT_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24800 + i,
+            region=KeymastersKeepRegions.SHOP_VINEWHISPER_VAULT,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_VINEWHISPER_VAULT),
+        )
+    )
+
+location_data[KeymastersKeepLocations.SHOP_VOIDSPIRE_VAULT_ITEM] = list()
+
+i: int
+for i in range(5):
+    location_data[KeymastersKeepLocations.SHOP_VOIDSPIRE_VAULT_ITEM].append(
+        KeymastersKeepLocationData(
+            name=KeymastersKeepLocations.SHOP_VOIDSPIRE_VAULT_ITEM.value.replace("ITEM_NUMBER", str(i + 1)),
+            archipelago_id=24900 + i,
+            region=KeymastersKeepRegions.SHOP_VOIDSPIRE_VAULT,
+            tags=(KeymastersKeepTags.SHOP_ITEM, KeymastersKeepTags.SHOP_VOIDSPIRE_VAULT),
+        )
+    )

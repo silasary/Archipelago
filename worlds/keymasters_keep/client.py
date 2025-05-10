@@ -7,13 +7,22 @@ import Utils
 
 from typing import Any, Dict, List, Optional, Set
 
+from BaseClasses import ItemClassification
+
 from .data.item_data import KeymastersKeepItemData
 from .data.location_data import KeymastersKeepLocationData
 from .data.mapping_data import region_to_unlock_location_and_item
 
 from .data_funcs import item_names_to_id, location_names_to_id, id_to_items, id_to_item_data, id_to_location_data
 
-from .enums import KeymastersKeepGoals, KeymastersKeepItems, KeymastersKeepRegions, KeymastersKeepTags
+from .enums import (
+    KeymastersKeepGoals,
+    KeymastersKeepItems,
+    KeymastersKeepRegions,
+    KeymastersKeepShops,
+    KeymastersKeepShopkeepers,
+    KeymastersKeepTags,
+)
 
 
 class KeymastersKeepCommandProcessor(CommonClient.ClientCommandProcessor):
@@ -50,6 +59,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     goal_game: str
     goal_game_optional_constraints: List[str]
     goal_trial_game_objective: str
+    hint_creation_queue: collections.deque
     hints_reveal_objectives: bool
     include_adult_only_or_unrated_games: bool
     include_difficult_objectives: bool
@@ -62,6 +72,13 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     magic_keys_required: int
     magic_keys_total: int
     selected_magic_keys: List[KeymastersKeepItems]
+    shop_data: Dict[str, Dict[str, Any]]
+    shop_hints: bool
+    shop_items_minimum: int
+    shop_items_maximum: int
+    shop_items_progression_percentage_chance: int
+    shops: bool
+    shops_percentage_chance: int
     unlocked_areas: int
     used_magic_keys: List[KeymastersKeepItems]
 
@@ -77,6 +94,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         self.is_game_state_initialized = False
 
         self.completed_locations_queue = collections.deque()
+        self.hint_creation_queue = collections.deque()
 
         self.goal_completed = False
 
@@ -100,6 +118,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         self.is_game_state_initialized = False
 
         self.completed_locations_queue = collections.deque()
+        self.hint_creation_queue = collections.deque()
 
         self.goal_completed = False
 
@@ -165,6 +184,45 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
             self.selected_magic_keys = [KeymastersKeepItems(key) for key in _args["slot_data"]["selected_magic_keys"]]
 
+            self.shop_data = dict()
+
+            area: str
+            data: Dict[str, Any]
+            for area, data in _args["slot_data"]["shop_data"].items():
+                self.shop_data[KeymastersKeepRegions(area)] = {
+                    "shop": KeymastersKeepShops(data["shop"]),
+                    "shopkeeper": KeymastersKeepShopkeepers(data["shopkeeper"]),
+                    "shop_items": dict(),
+                }
+
+                location_name: str
+                item_data: Any
+                for location_name, item_data in data["shop_items"].items():
+                    self.shop_data[KeymastersKeepRegions(area)]["shop_items"][location_name] = {
+                        "location_data": self.id_to_location_data[item_data["archipelago_id"]],
+                        "relic": KeymastersKeepItems(item_data["relic"]["name"]),
+                        "relic_data": self.id_to_item_data[item_data["relic"]["archipelago_id"]],
+                        "item": {
+                            "name": item_data["item"]["name"],
+                            "classification": ItemClassification(item_data["item"]["classification"]),
+                            "player": {
+                                "name": self.player_names[item_data["item"]["player"]],
+                                "game": self.slot_info[item_data["item"]["player"]].game,
+                            }
+                        }
+                    }
+
+            self.shop_hints = _args["slot_data"]["shop_hints"]
+            self.shop_items_minimum = _args["slot_data"]["shop_items_minimum"]
+            self.shop_items_maximum = _args["slot_data"]["shop_items_maximum"]
+
+            self.shop_items_progression_percentage_chance = _args["slot_data"][
+                "shop_items_progression_percentage_chance"
+            ]
+
+            self.shops = _args["slot_data"]["shops"]
+            self.shops_percentage_chance = _args["slot_data"]["shops_percentage_chance"]
+
             self.unlocked_areas = _args["slot_data"]["unlocked_areas"]
             self.used_magic_keys = [KeymastersKeepItems(key) for key in _args["slot_data"]["used_magic_keys"]]
 
@@ -190,6 +248,12 @@ class KeymastersKeepContext(CommonClient.CommonContext):
                 self._update_game_state()
                 self.ui.update_tabs()
 
+    def create_hints_for(self, location_ids: List[int]) -> None:
+        if self.shops and self.shop_hints:
+            location_id: int
+            for location_id in location_ids:
+                self.hint_creation_queue.append(location_id)
+
     def complete_location(self, location_id: int) -> None:
         self.completed_locations_queue.append(location_id)
 
@@ -210,6 +274,22 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
             # Network Operations
             if self.server and self.slot:
+                # Create Hints
+                hints_to_create: List[int] = list()
+
+                while len(self.hint_creation_queue) > 0:
+                    location_id: int = self.hint_creation_queue.popleft()
+                    hints_to_create.append(location_id)
+
+                if hints_to_create:
+                    await self.send_msgs([
+                        {
+                            "cmd": "LocationScouts",
+                            "locations": hints_to_create,
+                            "create_as_hint": 2,
+                        }
+                    ])
+
                 # Send Checked Locations
                 checked_location_ids: List[int] = list()
 
@@ -243,6 +323,8 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             "goal_challenge_chamber_unlocked": False,
             "magic_keys": dict(),
             "magic_keys_received": 0,
+            "relics": dict(),
+            "shop_items_purchased": dict(),
             "trials_available": dict(),
             "trial_count": 0,
             "trial_count_total": 0,
@@ -266,6 +348,16 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             key: KeymastersKeepItems = KeymastersKeepItems(key_label)
             game_state["magic_keys"][key] = False
 
+        # Relics
+        if self.shops:
+            relics: List[KeymastersKeepItems] = [
+                item for item in list(KeymastersKeepItems) if item.name.startswith("RELIC_")
+            ]
+
+            relic: KeymastersKeepItems
+            for relic in relics:
+                game_state["relics"][relic] = False
+
         # Areas
         area: KeymastersKeepRegions
         keys: Optional[List[KeymastersKeepItems]]
@@ -285,6 +377,13 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
             game_state["trial_count_total"] += 1
 
+        # Shop Items Purchased
+        if self.shops:
+            data: Dict[str, Any]
+            for data in self.shop_data.values():
+                shop: KeymastersKeepShops = data["shop"]
+                game_state["shop_items_purchased"][shop] = list()
+
         return game_state
 
     def _update_game_state(self) -> None:
@@ -292,6 +391,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         door_unlocks_received: List[KeymastersKeepItems] = list()
         magic_key_count: int = 0
         magic_keys_received: List[KeymastersKeepItems] = list()
+        relics_received: List[KeymastersKeepItems] = list()
         trial_count: int = 0
 
         network_item: NetUtils.NetworkItem
@@ -303,6 +403,9 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             if KeymastersKeepTags.KEYS in data.tags:
                 magic_keys_received.append(item)
                 magic_key_count += 1
+            # Relics
+            elif KeymastersKeepTags.RELICS in data.tags:
+                relics_received.append(item)
             # Goal Challenge Chamber Unlock
             elif item == KeymastersKeepItems.UNLOCK_THE_KEYMASTERS_CHALLENGE_CHAMBER:
                 self.game_state["goal_challenge_chamber_unlocked"] = True
@@ -328,6 +431,13 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         for key in magic_keys_received:
             if key in self.game_state["magic_keys"]:
                 self.game_state["magic_keys"][key] = True
+
+        # Relics
+        if self.shops:
+            relic: KeymastersKeepItems
+            for relic in relics_received:
+                if relic in self.game_state["relics"]:
+                    self.game_state["relics"][relic] = True
 
         # Areas Locked By
         filtered_areas_locked_by: Dict[KeymastersKeepRegions, Optional[List[KeymastersKeepItems]]] = dict()
@@ -358,7 +468,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         area: KeymastersKeepRegions
         trials: List[KeymastersKeepLocationData]
         for area, trials in self.area_trials.items():
-            available_trials: List[KeymastersKeepLocationData] = list()
+            available_trials: List[int] = list()
 
             trial: KeymastersKeepLocationData
             for trial in self.area_trials[area]:
@@ -370,6 +480,19 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.game_state["trials_available"][area] = available_trials
 
         self.game_state["trial_count"] = trial_count
+
+        # Shop Items Purchased
+        if self.shops:
+            data: Dict[str, Any]
+            for data in self.shop_data.values():
+                shop: KeymastersKeepShops = data["shop"]
+                purchased_items: List[int] = list()
+
+                for item_name, item_data in data["shop_items"].items():
+                    if item_data["location_data"].archipelago_id in self.location_ids_checked:
+                        purchased_items.append(item_data["location_data"].archipelago_id)
+
+                self.game_state["shop_items_purchased"][shop] = purchased_items
 
 
 def main() -> None:
