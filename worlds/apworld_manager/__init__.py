@@ -10,7 +10,7 @@ class ManagerSettings(Group):
     github_token: A github Personal Access Token with the `repo` scope to allow for more requests to the GitHub API. This lets you avoid rate limits if you use GitHub repos."""
     repositories: dict = {"https://raw.githubusercontent.com/silasary/apworlds/refs/heads/main/index.json": True}
     github_token: str = ""
-    show_after_dark: bool = True
+    show_after_dark: bool = False
     show_manuals: bool = True
 
 class RepoWorld(World):
