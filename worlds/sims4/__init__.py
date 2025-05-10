@@ -92,11 +92,12 @@ class Sims4World(World):
 
     def create_regions(self):
         menu = self.create_region("Menu", locations=None, exits=None)
-        career_key = self.options.career.current_key
+        chosen_careers = sorted(self.options.career.value)
         aspiration_key = self.options.goal.current_key
-        for career in sims4_careers[career_key]:
-            menu.locations.append(
-                Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
+        for career_key in chosen_careers:
+            for career in sims4_careers[career_key.lower()]:
+                menu.locations.append(
+                    Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
         for aspiration in sims4_aspiration_milestones[aspiration_key]:
             menu.locations.append(
                 Sims4Location(self.player, aspiration, self.location_name_to_id.get(aspiration), menu)
@@ -111,7 +112,7 @@ class Sims4World(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         slot_data = {
             "goal": self.options.goal.current_key,
-            "career": self.options.career.current_key,
+            "career": self.options.career.value,
             "expansion_packs": self.options.expansion_packs.value,
             "game_packs": self.options.game_packs.value,
             "stuff_packs": self.options.stuff_packs.value,
