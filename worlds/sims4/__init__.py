@@ -62,16 +62,9 @@ class Sims4World(World):
         return Sims4Item(event, ItemClassification.progression, None, self.player)
 
     def create_items(self) -> None:
-        career_key = self.options.career.current_key
-        aspiration_key = self.options.goal.current_key
-
         pool = []
 
-        count_to_fill = (
-            len(sims4_careers[career_key]) +
-            len(sims4_aspiration_milestones[aspiration_key]) +
-            len(skill_locations_table)
-        )
+        count_to_fill = len(self.multiworld.get_unfilled_locations(self.player))
         for item in item_table.values():
             for i in range(item["count"]):
                 sims4_item = self.create_item(item["name"])
@@ -81,7 +74,6 @@ class Sims4World(World):
 
         for item_name in self.random.choices(sorted(filler_set), k=count_to_fill):
             item = self.create_item(item_name)
-            item.classification = item.classification
             pool.append(item)
 
         self.multiworld.itempool += pool
