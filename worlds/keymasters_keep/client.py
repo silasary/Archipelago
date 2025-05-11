@@ -186,42 +186,44 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
             self.shop_data = dict()
 
-            area: str
-            data: Dict[str, Any]
-            for area, data in _args["slot_data"]["shop_data"].items():
-                self.shop_data[KeymastersKeepRegions(area)] = {
-                    "shop": KeymastersKeepShops(data["shop"]),
-                    "shopkeeper": KeymastersKeepShopkeepers(data["shopkeeper"]),
-                    "shop_items": dict(),
-                }
-
-                location_name: str
-                item_data: Any
-                for location_name, item_data in data["shop_items"].items():
-                    self.shop_data[KeymastersKeepRegions(area)]["shop_items"][location_name] = {
-                        "location_data": self.id_to_location_data[item_data["archipelago_id"]],
-                        "relic": KeymastersKeepItems(item_data["relic"]["name"]),
-                        "relic_data": self.id_to_item_data[item_data["relic"]["archipelago_id"]],
-                        "item": {
-                            "name": item_data["item"]["name"],
-                            "classification": ItemClassification(item_data["item"]["classification"]),
-                            "player": {
-                                "name": self.player_names[item_data["item"]["player"]],
-                                "game": self.slot_info[item_data["item"]["player"]].game,
-                            }
-                        }
+            if "shop_data" in _args["slot_data"]:
+                area: str
+                data: Dict[str, Any]
+                for area, data in _args["slot_data"]["shop_data"].items():
+                    self.shop_data[KeymastersKeepRegions(area)] = {
+                        "shop": KeymastersKeepShops(data["shop"]),
+                        "shopkeeper": KeymastersKeepShopkeepers(data["shopkeeper"]),
+                        "shop_items": dict(),
                     }
 
-            self.shop_hints = _args["slot_data"]["shop_hints"]
-            self.shop_items_minimum = _args["slot_data"]["shop_items_minimum"]
-            self.shop_items_maximum = _args["slot_data"]["shop_items_maximum"]
+                    location_name: str
+                    item_data: Any
+                    for location_name, item_data in data["shop_items"].items():
+                        self.shop_data[KeymastersKeepRegions(area)]["shop_items"][location_name] = {
+                            "location_data": self.id_to_location_data[item_data["archipelago_id"]],
+                            "relic": KeymastersKeepItems(item_data["relic"]["name"]),
+                            "relic_data": self.id_to_item_data[item_data["relic"]["archipelago_id"]],
+                            "item": {
+                                "name": item_data["item"]["name"],
+                                "classification": ItemClassification(item_data["item"]["classification"]),
+                                "player": {
+                                    "name": self.player_names[item_data["item"]["player"]],
+                                    "game": self.slot_info[item_data["item"]["player"]].game,
+                                }
+                            }
+                        }
 
-            self.shop_items_progression_percentage_chance = _args["slot_data"][
-                "shop_items_progression_percentage_chance"
-            ]
+            self.shop_hints = _args["slot_data"].get("shop_hints", False)
+            self.shop_items_minimum = _args["slot_data"].get("shop_items_minimum", 2)
+            self.shop_items_maximum = _args["slot_data"].get("shop_items_maximum", 5)
 
-            self.shops = _args["slot_data"]["shops"]
-            self.shops_percentage_chance = _args["slot_data"]["shops_percentage_chance"]
+            self.shop_items_progression_percentage_chance = _args["slot_data"].get(
+                "shop_items_progression_percentage_chance",
+                100
+            )
+
+            self.shops = _args["slot_data"].get("shops", False)
+            self.shops_percentage_chance = _args["slot_data"].get("shops_percentage_chance", 20)
 
             self.unlocked_areas = _args["slot_data"]["unlocked_areas"]
             self.used_magic_keys = [KeymastersKeepItems(key) for key in _args["slot_data"]["used_magic_keys"]]
