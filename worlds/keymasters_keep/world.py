@@ -217,7 +217,7 @@ class KeymastersKeepWorld(World):
                 "Using minimum value for maximum."
             )
 
-        self.shops = bool(self.options.shops)
+        self.shops = bool(self.options.shops_)
         self.shops_percentage_chance = self.options.shops_percentage_chance.value
 
         self.shop_items_minimum = self.options.shop_items_minimum.value

@@ -194,6 +194,8 @@ class Shops(Toggle):
     If true, keep areas will have a chance to be replaced by a shop that will sell a handful of items.
 
     The presence of shops will add Unique Relics to the item pool, which will need to be found to purchase items.
+
+    Yes, the option is named "shops_". Thank you, ALTTP!
     """
 
     display_name: str = "Shops"
@@ -424,7 +426,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     lock_magic_keys_maximum: LockMagicKeysMaximum
     area_trials_minimum: AreaTrialsMinimum
     area_trials_maximum: AreaTrialsMaximum
-    shops: Shops
+    shops_: Shops
     shops_percentage_chance: ShopsPercentageChance
     shop_items_minimum: ShopItemsMinimum
     shop_items_maximum: ShopItemsMaximum
