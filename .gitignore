@@ -202,3 +202,14 @@ minecraft_versions.json
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
+## Sims specific files
+
+Releases/*
+Releases
+sims4-switch-upstream.sh
+fuzz.py
+ee.py
+filefile.py
+worlds/sims4/s4ap_0.1.11b_Messages.txt
+worlds/sims4/items-testing-please-ignore-me.json
