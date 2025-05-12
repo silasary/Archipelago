@@ -349,7 +349,8 @@ class SortStages(IntEnum):
 
 repositories = RepositoryManager()
 
-def refresh_apworld_table():
+def refresh_apworld_table() -> list[dict[str, typing.Any]]:
+        """Refresh the list of available APWorlds from the repositories."""
         from worlds import AutoWorld
         from .container import RepoWorldContainer
 

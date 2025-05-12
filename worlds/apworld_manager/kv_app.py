@@ -88,15 +88,18 @@ def launch():
     class DirectoryApp(App):
         tab_count = 1  # kvui for some reason monkeypatches tab_length to require this,,
 
-        def __init__(self, *args, apworlds={}, **kwargs):
+        def __init__(self, *args, apworlds: list = None, **kwargs):
             super().__init__(*args, **kwargs)
+            if apworlds is None:
+                apworlds = refresh_apworld_table()
             self.apworlds = apworlds
             from . import RepoWorld
             self.title = f'APWorld Manager {RepoWorld.world_version}'
 
         def build(self):
             window = ApworldDirectoryWindow()
-            window.default_tab_content = RV(self.apworlds)
+            self.rv = window.default_tab_content = RV(self.apworlds)
+            self.apworlds = self.rv.data
             return window
 
     class ApworldDirectoryWindow(TabbedPanel):
@@ -142,8 +145,9 @@ def launch():
             print("Downloading latest version")
             path = repositories.download_remote_world(self.details["latest_version"])
             install_apworld(path)
-            app.apworlds = refresh_apworld_table()
-
+            app.apworlds.clear()
+            app.apworlds.extend(refresh_apworld_table())
+            app.root.default_tab_content.refresh_from_data()
 
     class RV(RecycleView):
         def __init__(self, data, **kwargs):
