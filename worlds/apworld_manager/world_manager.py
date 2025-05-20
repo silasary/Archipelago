@@ -20,6 +20,9 @@ from worlds import world_sources
 from worlds.Files import InvalidDataError
 from ._vendor.packaging.version import Version, VERSION_PATTERN, InvalidVersion
 
+class GithubRateLimitExceeded(Exception):
+    pass
+
 @dataclass
 class ApWorldVersion:
     blessed: bool
@@ -166,7 +169,8 @@ class GithubRepository(Repository):
         self.url = url
         os.makedirs(os.path.join(apworld_cache_path, "github"), exist_ok=True)
 
-    def get_license(self):
+    def get_license(self) -> typing.Optional[str]:
+        """Get the license for this repository."""
         data = self.fetch(self.url)
         if data.get('license'):
             license = data['license']['spdx_id']
@@ -194,6 +198,8 @@ class GithubRepository(Repository):
             print(f"Error getting releases from {self.url}: {releases['message']}")
             if cached_request.exists():
                 releases = json.load(cached_request.open())
+            elif releases['message'].startswith("API rate limit exceeded for"):
+                raise GithubRateLimitExceeded(releases['message'])
             else:
                 return
         else:
