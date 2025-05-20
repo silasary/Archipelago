@@ -1,4 +1,5 @@
-from .world_manager import refresh_apworld_table, repositories
+import os
+from .world_manager import SortStages, refresh_apworld_table, repositories
 from worlds.LauncherComponents import install_apworld
 
 
@@ -116,6 +117,8 @@ def launch():
         def download_latest(self):
             print("Downloading latest version")
             path = repositories.download_remote_world(self.details["latest_version"])
+            if self.details['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
+                os.remove(self.details["path"])
             install_apworld(path)
             app.apworlds = refresh_apworld_table()
 

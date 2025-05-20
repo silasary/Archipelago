@@ -5,13 +5,14 @@ from worlds.LauncherComponents import Component, Type, components, launch_subpro
 from worlds.AutoWorld import World
 
 class ManagerSettings(Group):
-    """
-    repositories: A list of Repository URLs and whether they're enabled or not.
-    github_token: A github Personal Access Token with the `repo` scope to allow for more requests to the GitHub API. This lets you avoid rate limits if you use GitHub repos."""
     repositories: dict = {"https://raw.githubusercontent.com/silasary/apworlds/refs/heads/main/index.json": True}
+    "A list of Repository URLs and whether they're enabled or not."
     github_token: str = ""
+    "A GitHub token to use for authentication when accessing private repositories.  Use this if you're encountering rate limits."
     show_after_dark: bool = False
+    "Show non-installed After Dark games."
     show_manuals: bool = True
+    "Show non-installed Manuals."
 
 class RepoWorld(World):
     """

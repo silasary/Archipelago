@@ -80,18 +80,26 @@ class ApWorldMetadata:
         return self.data['metadata'].get('created_at')
 
     @property
-    def minimum_ap_version(self) -> str:
+    def minimum_ap_version(self) -> tuple[int, int, int]:
         v = self.data['metadata'].get('minimum_ap_version', (0, 0, 0))
         if isinstance(v, str):
             v = Utils.tuplize_version(v)
         return v
 
     @property
-    def maximum_ap_version(self) -> str:
+    def maximum_ap_version(self) -> tuple[int, int, int]:
         v = self.data['metadata'].get('maximum_ap_version', (math.inf,))
         if isinstance(v, str):
             v = Utils.tuplize_version(v)
         return v
+
+    @property
+    def after_dark(self) -> bool:
+        return self.data['metadata'].get('after_dark', False) or self.data['metadata'].get('flags', {}).get('after_dark', False)
+
+    @property
+    def unready(self) -> bool:
+        return self.data['metadata'].get('flags', {}).get('unready', False)
 
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
@@ -333,6 +341,8 @@ class RepositoryManager:
         return None
 
 def parse_version(version: str) -> Version:
+    if isinstance(version, tuple):
+        version = '.'.join(str(x) for x in version)
     if version.startswith("v"):
         version = version[1:]
     try:
@@ -345,7 +355,8 @@ def parse_version(version: str) -> Version:
         return Version(f"0.0.0+{version}")
 
 class SortStages(IntEnum):
-    UPDATE_AVAILABLE = 2
+    UPDATE_AVAILABLE = 3
+    BUNDLED_BUT_UPDATABLE = 2
     INSTALLED = 1
     DEFAULT = 0
     AFTER_DARK = -4
@@ -386,6 +397,9 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                     hash = hashlib.sha256(f.read()).hexdigest()
                 if local := repositories.find_release_by_hash(hash):
                     local_version = local.world_version
+            if local_version == "0.0.0":
+                if local := getattr(world, "world_version", None):
+                    local_version = local
             description = "Placeholder text"
             data = {
                 "title": name,
@@ -395,13 +409,24 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                 'update_available': False,
                 'install_text': '-',
                 "after_dark": manifest_data.get("after_dark", False),
+                "file": file,
             }
             source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
             if source and source[0].relative:
-                    # We can't update a frozen world right now
-                    # This will change when https://github.com/ArchipelagoMW/Archipelago/pull/4516 is merged
-                    description = "Bundled with AP"
-                    data['sort'] = SortStages.BUNDLED
+                # We can't update a frozen world right now
+                # This will change when https://github.com/ArchipelagoMW/Archipelago/pull/4516 is merged
+                description = "Bundled with AP"
+                data['sort'] = SortStages.BUNDLED
+                if local_version != "0.0.0" and remote:
+                    highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
+                    data["latest_version"] = highest_remote_version
+                    v_local = parse_version(local_version)
+                    v_remote = parse_version(highest_remote_version.world_version)
+                    data['update_available'] = v_remote > v_local
+                    if data['update_available']:
+                        description = f"Update available: {v_local} -> {v_remote}"
+                        data['sort'] = SortStages.BUNDLED_BUT_UPDATABLE
+                        data['install_text'] = "Unbundle and Update"
             elif not remote:
                 description = "No remote data available"
                 data['sort'] = SortStages.NO_REMOTE
@@ -443,6 +468,7 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                 "sort": SortStages.DEFAULT,
                 "install_text": "Install",
                 "after_dark": highest_remote_version.data['metadata'].get("after_dark", False),
+                "file": None,
                 }
             if highest_remote_version.data['metadata'].get("after_dark", False):
                 data['sort'] = SortStages.AFTER_DARK
