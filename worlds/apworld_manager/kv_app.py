@@ -148,6 +148,9 @@ def launch():
             print("Downloading latest version")
             path = repositories.download_remote_world(self.details["latest_version"])
             install_apworld(path)
+            if self.details['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
+                os.remove(self.details["file"])
+
             app.apworlds.clear()
             app.apworlds.extend(refresh_apworld_table())
             app.root.default_tab_content.refresh_from_data()

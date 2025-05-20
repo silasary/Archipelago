@@ -20,15 +20,15 @@ class RepoWorldContainer(APWorldContainer):
 
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         manifest = super().read_contents(opened_zipfile)
-        for string_key in ("github", "author", "description"):
+        for string_key in ("github", "author", "description", "world_version_full"):
             if string_key in manifest:
                 setattr(self, string_key, manifest[string_key])
         return manifest
 
     def get_manifest(self) -> Dict[str, Any]:
         manifest = super().get_manifest()
-        for string_key in ("github", "author", "description"):
-            string = getattr(self, string_key)
+        for string_key in ("github", "author", "description", "world_version_full"):
+            string = getattr(self, string_key, None)
             if string:
                 manifest[string_key] = string
         return manifest

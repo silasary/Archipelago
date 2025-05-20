@@ -389,9 +389,14 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
             except InvalidDataError as e:
                 print(f"Error reading manifest for {file}: {e}")
                 # continue
+            except FileNotFoundError as e:
+                print(f"Error reading manifest for {file}: {e}")
+                continue
             manifest_data = container.get_manifest()
             remote = repositories.packages_by_id_version.get(file.stem)
-            local_version = manifest_data.setdefault("world_version", "0.0.0")
+            local_version = manifest_data.get("world_version_full", "")
+            if not local_version:
+                local_version = manifest_data.setdefault("world_version", "0.0.0")
             if local_version == "0.0.0":
                 with open(file, 'rb') as f:
                     hash = hashlib.sha256(f.read()).hexdigest()
