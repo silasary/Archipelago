@@ -120,7 +120,9 @@ def launch():
             if self.details['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
                 os.remove(self.details["path"])
             install_apworld(path)
-            app.apworlds = refresh_apworld_table()
+            app.apworlds.clear()
+            app.apworlds.extend(refresh_apworld_table())
+            app.root.default_tab_content.refresh_from_data()
 
         @property
         def latest_text(self):
