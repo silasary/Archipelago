@@ -1,4 +1,4 @@
-from typing import Dict, NamedTuple, Optional, Set, TypedDict, Optional
+from typing import NamedTuple, Optional, TypedDict, Optional
 
 from BaseClasses import Location
 from .Names import SkillNames, CareerNames, AspirationNames
@@ -23,7 +23,7 @@ class Sims4LocationData(NamedTuple):
     code: Optional[int] = None
 
 
-skill_locations_table: Dict[int, Sims4LocationDict] = {
+skill_locations_table: dict[int, Sims4LocationDict] = {
     0x73341002: {'name': f"{SkillNames.base_skill_comedy} 2",
                  'category': "Skills",
                  'expansion': "base"},

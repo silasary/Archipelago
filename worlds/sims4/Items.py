@@ -1,16 +1,17 @@
 from BaseClasses import Item, ItemClassification
 from .Names import SkillNames, JunkNames, UsefulNames
+from typing import TypedDict, NamedTuple
 import typing
 
 
-class ItemDict(typing.TypedDict):
+class ItemDict(TypedDict):
     classification: ItemClassification
     count: int
     name: str
     tech_type: str
 
 
-class ItemData(typing.NamedTuple):
+class ItemData(NamedTuple):
     code: typing.Optional[int]
     progression: bool
 
@@ -19,7 +20,7 @@ class Sims4Item(Item):
     game: str = "The Sims 4"
 
 
-skills_table: typing.Dict[int, ItemDict] = {
+skills_table: dict[int, ItemDict] = {
     0x73340001: {'classification': ItemClassification.progression,
                  'count': 8,
                  'name': SkillNames.base_skill_comedy,
@@ -130,7 +131,7 @@ item_table = {
     **skills_table
 }
 
-filler_set: typing.Set[str] = set()
+filler_set: set[str] = set()
 
 for item_id, item_data in junk_table.items():
     item_name = item_data["name"]
