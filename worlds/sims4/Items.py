@@ -1,6 +1,7 @@
 from typing import TypedDict, NamedTuple, Optional
 
 from BaseClasses import Item, ItemClassification
+
 from .Names import SkillNames, JunkNames, UsefulNames
 
 class ItemDict(TypedDict):
