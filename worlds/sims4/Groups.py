@@ -1,6 +1,4 @@
-from typing import Dict, Set
-
-location_name_groups: Dict[str, Set[str]] = {
+location_name_groups: dict[str, set[str]] = {
     "Writing": {f"Writing Skill {i}" for i in range(2, 11)},
     "Charisma": {f"Charisma Skill {i}" for i in range(2, 11)},
     "Comedy": {f"Comedy Skill {i}" for i in range(2, 11)},
@@ -349,7 +347,7 @@ location_name_groups: Dict[str, Set[str]] = {
     }
 }
 
-item_name_groups: Dict[str, Set[str]] = {
+item_name_groups: dict[str, set[str]] = {
     "Music": {
         "Guitar Skill",
         "Violin Skill",
