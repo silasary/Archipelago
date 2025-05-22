@@ -1,4 +1,4 @@
-from typing import NamedTuple, Optional, TypedDict, Optional
+from typing import NamedTuple, TypedDict, Optional
 
 from BaseClasses import Location
 from .Names import SkillNames, CareerNames, AspirationNames
