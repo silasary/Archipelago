@@ -54,7 +54,7 @@ class Sims4World(World):
     The Sims 4 focuses on creating and controlling a neighborhood of virtual people, called "Sims".
     """
 
-    game: str = "The Sims 4"
+    game = "The Sims 4"
     topology_present = False
     web = Sims4Web()
 
