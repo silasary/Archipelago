@@ -1,7 +1,6 @@
 from BaseClasses import Item, ItemClassification
 from .Names import SkillNames, JunkNames, UsefulNames
-from typing import TypedDict, NamedTuple
-import typing
+from typing import TypedDict, NamedTuple, Optional
 
 
 class ItemDict(TypedDict):
@@ -12,7 +11,7 @@ class ItemDict(TypedDict):
 
 
 class ItemData(NamedTuple):
-    code: typing.Optional[int]
+    code: Optional[int]
     progression: bool
 
 
