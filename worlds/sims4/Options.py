@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 from Options import Choice, PerGameCommonOptions, OptionSet, StartInventoryPool, Visibility
+
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
