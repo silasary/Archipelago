@@ -5,7 +5,6 @@ import json
 import os
 import urllib.parse
 
-import Utils
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
 
