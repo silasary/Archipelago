@@ -68,7 +68,7 @@ class Sims4World(World):
     base_id = 0x73340001
     required_client_version = (0, 4, 0)
 
-    area_connections: typing.Dict[int, int]
+    area_connections: dict[int, int]
 
     options_dataclass = Sims4Options
     options: Sims4Options
@@ -76,7 +76,7 @@ class Sims4World(World):
     settings: ClassVar[Sims4Settings]
 
     ut_can_gen_without_yaml = True
-    passthrough: Dict[str, Any]
+    passthrough: dict[str, Any]
 
     def generate_early(self) -> None:
 
