@@ -1,6 +1,7 @@
 from typing import NamedTuple, TypedDict, Optional
 
 from BaseClasses import Location
+
 from .Names import SkillNames, CareerNames, AspirationNames
 
 
