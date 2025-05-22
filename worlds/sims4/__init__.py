@@ -1,7 +1,15 @@
-import typing
+# standard lib imports
 from typing import Mapping, Any, ClassVar, Dict
+from pathlib import Path
+from multiprocessing import Process
 
+# ap imports
+import settings
 from BaseClasses import Tutorial, Item, ItemClassification, Region, Entrance
+from worlds.AutoWorld import World, WebWorld
+from ..LauncherComponents import Component, components, Type, icon_paths
+
+# TS4 specific imports
 from .Locations import location_table, Sims4Location, skill_locations_table
 from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
@@ -9,11 +17,6 @@ from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dep
     sims4_regions
 from .Rules import set_rules as set_rules_
 from .Groups import location_name_groups, item_name_groups
-from worlds.AutoWorld import World, WebWorld
-from ..LauncherComponents import Component, components, Type, icon_paths
-from multiprocessing import Process
-import settings
-from pathlib import Path
 
 def run_client():
     from .Client import main
