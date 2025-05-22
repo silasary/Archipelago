@@ -4,6 +4,7 @@ import asyncio
 import json
 import os
 import urllib.parse
+from pathlib import Path
 
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
@@ -14,8 +15,6 @@ try:
     tracker_loaded = True
 except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
-
-from pathlib import Path
 
 from . import Sims4World
 
