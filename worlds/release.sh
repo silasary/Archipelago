@@ -15,4 +15,4 @@ EXCLUDES=(
 )
 
 # Create the zip file in the versioned release folder
-zip -r releases/${VERSION}/sims4.apworld sims4 -x "${EXCLUDES[@]}"
+zip -r ../releases/${VERSION}/sims4.apworld sims4 -x "${EXCLUDES[@]}"
