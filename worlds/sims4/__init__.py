@@ -15,7 +15,7 @@ from .Items import item_table, skills_table, Sims4Item, junk_table, filler_set
 from .Options import Sims4Options
 from .Regions import sims4_careers, sims4_aspiration_milestones, sims4_skill_dependencies, \
     sims4_regions
-from .Rules import set_rules as set_rules_
+from .Rules import set_rules as ts4_set_rules
 from .Groups import location_name_groups, item_name_groups
 
 def run_client():
@@ -157,7 +157,7 @@ class Sims4World(World):
         self.multiworld.regions.append(menu)
 
     def set_rules(self) -> None:
-        set_rules_(self)
+        ts4_set_rules(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         # slot_data = self.options.as_dict("goal", "career", "expansion_packs", "game_packs", "stuff_packs", "cas_kits", "build_kits")
