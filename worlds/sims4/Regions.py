@@ -1,4 +1,4 @@
-from worlds.sims4.Names import SkillNames, CareerNames, AspirationNames
+from .Names import SkillNames, CareerNames, AspirationNames
 
 sims4_regions = {
     "Menu": [
