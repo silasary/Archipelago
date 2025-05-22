@@ -58,8 +58,8 @@ class Sims4World(World):
     topology_present = False
     web = Sims4Web()
 
-    item_name_to_id = {data["name"]: item_id for item_id, data in Items.item_table.items()}
-    location_name_to_id = {data["name"]: loc_id for loc_id, data in Locations.location_table.items()}
+    item_name_to_id = {data["name"]: item_id for item_id, data in item_table.items()}
+    location_name_to_id = {data["name"]: loc_id for loc_id, data in location_table.items()}
 
     location_name_groups = location_name_groups
     item_name_groups = item_name_groups
