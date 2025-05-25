@@ -63,7 +63,7 @@ class ApWorldMetadata:
         return self.data['metadata']['world_version']
 
     @property
-    def version_tuple(self) -> tuple[int, int, int]:
+    def version_tuple(self) -> Utils.Version:
         v = parse_version(self.world_version)
         return Utils.Version(v.major, v.minor, v.micro)
 
@@ -95,11 +95,11 @@ class ApWorldMetadata:
 
     @property
     def after_dark(self) -> bool:
-        return self.data['metadata'].get('after_dark', False) or self.data['metadata'].get('flags', {}).get('after_dark', False)
+        return self.data['metadata'].get('after_dark', False) or 'after_dark' in self.data['metadata'].get('flags', [])
 
     @property
     def unready(self) -> bool:
-        return self.data['metadata'].get('flags', {}).get('unready', False)
+        return 'unready' in self.data['metadata'].get('flags', [])
 
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
@@ -343,6 +343,9 @@ class RepositoryManager:
 def parse_version(version: str) -> Version:
     if isinstance(version, tuple):
         version = '.'.join(str(x) for x in version)
+    if not isinstance(version, str):
+        # logging.warning(f"parse_version called with non-string: {version} ({type(version)})")
+        version = str(version)
     if version.startswith("v"):
         version = version[1:]
     try:
@@ -472,10 +475,10 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                 "installed": False,
                 "sort": SortStages.DEFAULT,
                 "install_text": "Install",
-                "after_dark": highest_remote_version.data['metadata'].get("after_dark", False),
+                "after_dark": highest_remote_version.after_dark,
                 "file": None,
                 }
-            if highest_remote_version.data['metadata'].get("after_dark", False):
+            if highest_remote_version.after_dark:
                 data['sort'] = SortStages.AFTER_DARK
                 if not show_after_dark:
                     continue
@@ -483,6 +486,9 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                 data['sort'] = SortStages.MANUAL
                 if not show_manuals:
                     continue
+            if highest_remote_version.unready:
+                # These are always hidden while uninstalled
+                continue
             apworlds.append(data)
         apworlds.sort(key=lambda x: x['sort'], reverse=True)
         return apworlds
