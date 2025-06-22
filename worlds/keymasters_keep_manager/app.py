@@ -190,41 +190,45 @@ class KeymastersKeepManager(App):
 
         repository: str
         for repository in repositories:
-            url = f"https://api.github.com/repos/{repository}/git/trees/main?recursive=1"
+            branch: str
+            for branch in ["main", "master"]:
+                url = f"https://api.github.com/repos/{repository}/git/trees/{branch}?recursive=1"
 
-            try:
-                response: requests.Response = requests.get(url)
+                try:
+                    response: requests.Response = requests.get(url)
 
-                if response.status_code == 200:
-                    data: Dict[str, Any] = response.json()
+                    if response.status_code == 200:
+                        data: Dict[str, Any] = response.json()
 
-                    file_entry: Dict[str, Any]
-                    for file_entry in data.get("tree", list()):
-                        file_name: str = file_entry["path"].split("/")[-1]
+                        file_entry: Dict[str, Any]
+                        for file_entry in data.get("tree", list()):
+                            file_name: str = file_entry["path"].split("/")[-1]
 
-                        if file_name.endswith(".py") and file_name != "__init__.py":
-                            file_key: str = f"{file_name} - {repository}"
+                            if file_name.endswith(".py") and file_name != "__init__.py":
+                                file_key: str = f"{file_name} - {repository}"
 
-                            remote_game_implementation_files[file_key] = {
-                                "name": file_name,
-                                "repository": repository,
-                                "path": file_entry["path"],
-                                "hash": file_entry["sha"],
-                            }
+                                remote_game_implementation_files[file_key] = {
+                                    "name": file_name,
+                                    "repository": repository,
+                                    "path": file_entry["path"],
+                                    "hash": file_entry["sha"],
+                                }
 
-                            download_urls[file_key] = f"https://raw.githubusercontent.com/{repository}/main/{file_entry['path']}"
+                                download_urls[file_key] = f"https://raw.githubusercontent.com/{repository}/{branch}/{file_entry['path']}"
 
-                            state: str = "Not Installed"
+                                state: str = "Not Installed"
 
-                            if file_name in local_game_implementation_files:
-                                if local_game_implementation_files[file_name] == file_entry["sha"]:
-                                    state = "Installed - Matches"
-                                else:
-                                    state = "Installed - Differs"
+                                if file_name in local_game_implementation_files:
+                                    if local_game_implementation_files[file_name] == file_entry["sha"]:
+                                        state = "Installed - Matches"
+                                    else:
+                                        state = "Installed - Differs"
 
-                            states[file_key] = state
-            except Exception:
-                continue
+                                states[file_key] = state
+
+                        break
+                except Exception:
+                    continue
 
         self.data = {
             "local": local_game_implementation_files,
