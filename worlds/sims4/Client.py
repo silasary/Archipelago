@@ -49,6 +49,8 @@ def load_json(name):
                     return json.load(f)
             except json.JSONDecodeError:
                 return None
+            except PermissionError:
+                return None
         else:
             return None
     else:
