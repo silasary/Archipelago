@@ -149,11 +149,13 @@ class Sims4World(World):
             menu.locations.append(
                 Sims4Location(self.player, aspiration, self.location_name_to_id.get(aspiration), menu)
             )
+        used_dlc = set(self.options.expansion_packs.value | self.options.game_packs.value | self.options.stuff_packs.value)
         for skill in skill_locations_table.values():
             skill_name = skill["name"]
-            menu.locations.append(
-                Sims4Location(self.player, skill_name, self.location_name_to_id.get(skill_name), menu)
-            )
+            if skill_name['expansion'] == 'base' or skill_name['expansion'] in used_dlc:
+                menu.locations.append(
+                    Sims4Location(self.player, skill_name, self.location_name_to_id.get(skill_name), menu)
+                )
         self.multiworld.regions.append(menu)
 
     def set_rules(self) -> None:
