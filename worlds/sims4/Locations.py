@@ -690,41 +690,37 @@ skill_locations_table: dict[int, Sims4LocationDict] = {
     0x73341150: {'name': f"{SkillNames.gt_djmixing_skill} 10",
                     'category': "Skills",
                     'expansion': ExpansionNames.get_together},
-    0x73341152: {'name': f"{SkillNames.cl_singing_skill} 2",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341153: {'name': f"{SkillNames.cl_singing_skill} 3",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341154: {'name': f"{SkillNames.cl_singing_skill} 4",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341155: {'name': f"{SkillNames.cl_singing_skill} 5",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341156: {'name': f"{SkillNames.cl_singing_skill} 6",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341157: {'name': f"{SkillNames.cl_singing_skill} 7",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341158: {'name': f"{SkillNames.cl_singing_skill} 8",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x73341159: {'name': f"{SkillNames.cl_singing_skill} 9",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x7334115A: {'name': f"{SkillNames.cl_singing_skill} 10",
-                    'category': "Skills",
-                    'expansion': ExpansionNames.city_living},
-    0x7334115C: {'name': f"{SkillNames.vamp_vampirelore_skill} 2",
-                 'category': "Skills",
-                 'expansion': GamePackNames.vampires},
-    0x7334115D: {'name': f"{SkillNames.vamp_vampirelore_skill} 3",
-                 'category': "Skills",
-                    'expansion': GamePackNames.vampires},
-
 }
+
+def add_skill_location(skill_name: str, expansion: str, max_level: int) -> int:
+    start_id = max(skill_locations_table.keys()) or 0x73341000
+    for level in range(2, max_level + 1):
+        skill_id = start_id + level
+        skill_locations_table[skill_id] = {
+            "name": f"{skill_name} {level}",
+            "category": "Skills",
+            "expansion": expansion
+        }
+    return skill_id
+# todo: migrate existing skills to this function
+add_skill_location(SkillNames.cl_singing_skill, ExpansionNames.city_living, 10)
+add_skill_location(SkillNames.vamp_pipeorgan_skill, GamePackNames.vampires, 10)
+add_skill_location(SkillNames.vamp_vampirelore_skill, GamePackNames.vampires, 15)
+add_skill_location(SkillNames.bns_bowling_skill, StuffNames.bowling_night, 5)
+add_skill_location(SkillNames.ph_parenting_skill, GamePackNames.parenthood, 10)
+add_skill_location(SkillNames.cnd_pettraining_skill, ExpansionNames.cats_and_dogs, 5)
+add_skill_location(SkillNames.cnd_veterinarian_skill, ExpansionNames.cats_and_dogs, 10)
+add_skill_location(SkillNames.ja_archaeology_skill, GamePackNames.jungle_adventure, 10)
+add_skill_location(SkillNames.ja_sevadoradianculture_skill, GamePackNames.jungle_adventure, 5)
+add_skill_location(SkillNames.se_flowerarranging_skill, ExpansionNames.seasons, 10)
+add_skill_location(SkillNames.gf_acting_skill, ExpansionNames.get_famous, 10)
+add_skill_location(SkillNames.gf_mediaproduction_skill, ExpansionNames.get_famous, 5)
+add_skill_location(SkillNames.du_researchanddebate_skill, ExpansionNames.discover_university, 10)
+add_skill_location(SkillNames.du_robotics_skill, ExpansionNames.discover_university, 10)
+
+
+del add_skill_location
+
 
 careers_locations_table = {
 
