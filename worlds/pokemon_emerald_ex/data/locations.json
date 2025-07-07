@@ -4278,7 +4278,3201 @@
     "tags": [],
     "category": "POKEDEX"
   },
-
+  "POKEDEX_REWARD_0387": {
+    "label": "Pokedex - Turtwig",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0388": {
+    "label": "Pokedex - Grotle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0389": {
+    "label": "Pokedex - Torterra",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0390": {
+    "label": "Pokedex - Chimchar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0391": {
+    "label": "Pokedex - Monferno",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0392": {
+    "label": "Pokedex - Infernape",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0393": {
+    "label": "Pokedex - Piplup",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0394": {
+    "label": "Pokedex - Prinplup",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0395": {
+    "label": "Pokedex - Empoleon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0396": {
+    "label": "Pokedex - Starly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0397": {
+    "label": "Pokedex - Staravia",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0398": {
+    "label": "Pokedex - Staraptor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0399": {
+    "label": "Pokedex - Bidoof",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0400": {
+    "label": "Pokedex - Bibarel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0401": {
+    "label": "Pokedex - Kricketot",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0402": {
+    "label": "Pokedex - Kricketune",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0403": {
+    "label": "Pokedex - Shinx",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0404": {
+    "label": "Pokedex - Luxio",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0405": {
+    "label": "Pokedex - Luxray",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0406": {
+    "label": "Pokedex - Budew",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0407": {
+    "label": "Pokedex - Roserade",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0408": {
+    "label": "Pokedex - Cranidos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0409": {
+    "label": "Pokedex - Rampardos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0410": {
+    "label": "Pokedex - Shieldon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0411": {
+    "label": "Pokedex - Bastiodon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0412": {
+    "label": "Pokedex - Burmy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0413": {
+    "label": "Pokedex - Wormadam",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0414": {
+    "label": "Pokedex - Mothim",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0415": {
+    "label": "Pokedex - Combee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0416": {
+    "label": "Pokedex - Vespiquen",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0417": {
+    "label": "Pokedex - Pachirisu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0418": {
+    "label": "Pokedex - Buizel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0419": {
+    "label": "Pokedex - Floatzel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0420": {
+    "label": "Pokedex - Cherubi",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0421": {
+    "label": "Pokedex - Cherrim",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0422": {
+    "label": "Pokedex - Shellos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0423": {
+    "label": "Pokedex - Gastrodon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0424": {
+    "label": "Pokedex - Ambipom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0425": {
+    "label": "Pokedex - Drifloon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0426": {
+    "label": "Pokedex - Drifblim",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0427": {
+    "label": "Pokedex - Buneary",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0428": {
+    "label": "Pokedex - Lopunny",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0429": {
+    "label": "Pokedex - Mismagius",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0430": {
+    "label": "Pokedex - Honchkrow",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0431": {
+    "label": "Pokedex - Glameow",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0432": {
+    "label": "Pokedex - Purugly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0433": {
+    "label": "Pokedex - Chingling",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0434": {
+    "label": "Pokedex - Stunky",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0435": {
+    "label": "Pokedex - Skuntank",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0436": {
+    "label": "Pokedex - Bronzor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0437": {
+    "label": "Pokedex - Bronzong",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0438": {
+    "label": "Pokedex - Bonsly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0439": {
+    "label": "Pokedex - MimeJr",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0440": {
+    "label": "Pokedex - Happiny",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0441": {
+    "label": "Pokedex - Chatot",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0442": {
+    "label": "Pokedex - Spiritomb",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0443": {
+    "label": "Pokedex - Gible",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0444": {
+    "label": "Pokedex - Gabite",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0445": {
+    "label": "Pokedex - Garchomp",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0446": {
+    "label": "Pokedex - Munchlax",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0447": {
+    "label": "Pokedex - Riolu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0448": {
+    "label": "Pokedex - Lucario",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0449": {
+    "label": "Pokedex - Hippopotas",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0450": {
+    "label": "Pokedex - Hippowdon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0451": {
+    "label": "Pokedex - Skorupi",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0452": {
+    "label": "Pokedex - Drapion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0453": {
+    "label": "Pokedex - Croagunk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0454": {
+    "label": "Pokedex - Toxicroak",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0455": {
+    "label": "Pokedex - Carnivine",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0456": {
+    "label": "Pokedex - Finneon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0457": {
+    "label": "Pokedex - Lumineon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0458": {
+    "label": "Pokedex - Mantyke",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0459": {
+    "label": "Pokedex - Snover",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0460": {
+    "label": "Pokedex - Abomasnow",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0461": {
+    "label": "Pokedex - Weavile",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0462": {
+    "label": "Pokedex - Magnezone",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0463": {
+    "label": "Pokedex - Lickilicky",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0464": {
+    "label": "Pokedex - Rhyperior",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0465": {
+    "label": "Pokedex - Tangrowth",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0466": {
+    "label": "Pokedex - Electivire",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0467": {
+    "label": "Pokedex - Magmortar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0468": {
+    "label": "Pokedex - Togekiss",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0469": {
+    "label": "Pokedex - Yanmega",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0470": {
+    "label": "Pokedex - Leafeon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0471": {
+    "label": "Pokedex - Glaceon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0472": {
+    "label": "Pokedex - Gliscor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0473": {
+    "label": "Pokedex - Mamoswine",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0474": {
+    "label": "Pokedex - PorygonZ",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0475": {
+    "label": "Pokedex - Gallade",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0476": {
+    "label": "Pokedex - Probopass",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0477": {
+    "label": "Pokedex - Dusknoir",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0478": {
+    "label": "Pokedex - Froslass",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0479": {
+    "label": "Pokedex - Rotom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0480": {
+    "label": "Pokedex - Uxie",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0481": {
+    "label": "Pokedex - Mesprit",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0482": {
+    "label": "Pokedex - Azelf",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0483": {
+    "label": "Pokedex - Dialga",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0484": {
+    "label": "Pokedex - Palkia",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0485": {
+    "label": "Pokedex - Heatran",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0486": {
+    "label": "Pokedex - Regigigas",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0487": {
+    "label": "Pokedex - Giratina",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0488": {
+    "label": "Pokedex - Cresselia",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0489": {
+    "label": "Pokedex - Phione",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0490": {
+    "label": "Pokedex - Manaphy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0491": {
+    "label": "Pokedex - Darkrai",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0492": {
+    "label": "Pokedex - Shaymin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0493": {
+    "label": "Pokedex - Arceus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0494": {
+    "label": "Pokedex - Victini",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0495": {
+    "label": "Pokedex - Snivy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0496": {
+    "label": "Pokedex - Servine",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0497": {
+    "label": "Pokedex - Serperior",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0498": {
+    "label": "Pokedex - Tepig",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0499": {
+    "label": "Pokedex - Pignite",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0500": {
+    "label": "Pokedex - Emboar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0501": {
+    "label": "Pokedex - Oshawott",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0502": {
+    "label": "Pokedex - Dewott",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0503": {
+    "label": "Pokedex - Samurott",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0504": {
+    "label": "Pokedex - Patrat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0505": {
+    "label": "Pokedex - Watchog",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0506": {
+    "label": "Pokedex - Lillipup",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0507": {
+    "label": "Pokedex - Herdier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0508": {
+    "label": "Pokedex - Stoutland",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0509": {
+    "label": "Pokedex - Purrloin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0510": {
+    "label": "Pokedex - Liepard",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0511": {
+    "label": "Pokedex - Pansage",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0512": {
+    "label": "Pokedex - Simisage",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0513": {
+    "label": "Pokedex - Pansear",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0514": {
+    "label": "Pokedex - Simisear",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0515": {
+    "label": "Pokedex - Panpour",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0516": {
+    "label": "Pokedex - Simipour",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0517": {
+    "label": "Pokedex - Munna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0518": {
+    "label": "Pokedex - Musharna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0519": {
+    "label": "Pokedex - Pidove",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0520": {
+    "label": "Pokedex - Tranquill",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0521": {
+    "label": "Pokedex - Unfezant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0522": {
+    "label": "Pokedex - Blitzle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0523": {
+    "label": "Pokedex - Zebstrika",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0524": {
+    "label": "Pokedex - Roggenrola",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0525": {
+    "label": "Pokedex - Boldore",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0526": {
+    "label": "Pokedex - Gigalith",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0527": {
+    "label": "Pokedex - Woobat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0528": {
+    "label": "Pokedex - Swoobat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0529": {
+    "label": "Pokedex - Drilbur",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0530": {
+    "label": "Pokedex - Excadrill",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0531": {
+    "label": "Pokedex - Audino",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0532": {
+    "label": "Pokedex - Timburr",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0533": {
+    "label": "Pokedex - Gurdurr",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0534": {
+    "label": "Pokedex - Conkeldurr",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0535": {
+    "label": "Pokedex - Tympole",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0536": {
+    "label": "Pokedex - Palpitoad",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0537": {
+    "label": "Pokedex - Seismitoad",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0538": {
+    "label": "Pokedex - Throh",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0539": {
+    "label": "Pokedex - Sawk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0540": {
+    "label": "Pokedex - Sewaddle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0541": {
+    "label": "Pokedex - Swadloon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0542": {
+    "label": "Pokedex - Leavanny",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0543": {
+    "label": "Pokedex - Venipede",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0544": {
+    "label": "Pokedex - Whirlipede",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0545": {
+    "label": "Pokedex - Scolipede",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0546": {
+    "label": "Pokedex - Cottonee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0547": {
+    "label": "Pokedex - Whimsicott",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0548": {
+    "label": "Pokedex - Petilil",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0549": {
+    "label": "Pokedex - Lilligant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0550": {
+    "label": "Pokedex - Basculin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0551": {
+    "label": "Pokedex - Sandile",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0552": {
+    "label": "Pokedex - Krokorok",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0553": {
+    "label": "Pokedex - Krookodile",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0554": {
+    "label": "Pokedex - Darumaka",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0555": {
+    "label": "Pokedex - Darmanitan",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0556": {
+    "label": "Pokedex - Maractus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0557": {
+    "label": "Pokedex - Dwebble",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0558": {
+    "label": "Pokedex - Crustle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0559": {
+    "label": "Pokedex - Scraggy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0560": {
+    "label": "Pokedex - Scrafty",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0561": {
+    "label": "Pokedex - Sigilyph",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0562": {
+    "label": "Pokedex - Yamask",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0563": {
+    "label": "Pokedex - Cofagrigus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0564": {
+    "label": "Pokedex - Tirtouga",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0565": {
+    "label": "Pokedex - Carracosta",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0566": {
+    "label": "Pokedex - Archen",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0567": {
+    "label": "Pokedex - Archeops",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0568": {
+    "label": "Pokedex - Trubbish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0569": {
+    "label": "Pokedex - Garbodor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0570": {
+    "label": "Pokedex - Zorua",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0571": {
+    "label": "Pokedex - Zoroark",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0572": {
+    "label": "Pokedex - Minccino",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0573": {
+    "label": "Pokedex - Cinccino",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0574": {
+    "label": "Pokedex - Gothita",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0575": {
+    "label": "Pokedex - Gothorita",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0576": {
+    "label": "Pokedex - Gothitelle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0577": {
+    "label": "Pokedex - Solosis",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0578": {
+    "label": "Pokedex - Duosion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0579": {
+    "label": "Pokedex - Reuniclus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0580": {
+    "label": "Pokedex - Ducklett",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0581": {
+    "label": "Pokedex - Swanna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0582": {
+    "label": "Pokedex - Vanillite",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0583": {
+    "label": "Pokedex - Vanillish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0584": {
+    "label": "Pokedex - Vanilluxe",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0585": {
+    "label": "Pokedex - Deerling",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0586": {
+    "label": "Pokedex - Sawsbuck",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0587": {
+    "label": "Pokedex - Emolga",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0588": {
+    "label": "Pokedex - Karrablast",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0589": {
+    "label": "Pokedex - Escavalier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0590": {
+    "label": "Pokedex - Foongus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0591": {
+    "label": "Pokedex - Amoonguss",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0592": {
+    "label": "Pokedex - Frillish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0593": {
+    "label": "Pokedex - Jellicent",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0594": {
+    "label": "Pokedex - Alomomola",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0595": {
+    "label": "Pokedex - Joltik",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0596": {
+    "label": "Pokedex - Galvantula",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0597": {
+    "label": "Pokedex - Ferroseed",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0598": {
+    "label": "Pokedex - Ferrothorn",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0599": {
+    "label": "Pokedex - Klink",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0600": {
+    "label": "Pokedex - Klang",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0601": {
+    "label": "Pokedex - Klinklang",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0602": {
+    "label": "Pokedex - Tynamo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0603": {
+    "label": "Pokedex - Eelektrik",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0604": {
+    "label": "Pokedex - Eelektross",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0605": {
+    "label": "Pokedex - Elgyem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0606": {
+    "label": "Pokedex - Beheeyem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0607": {
+    "label": "Pokedex - Litwick",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0608": {
+    "label": "Pokedex - Lampent",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0609": {
+    "label": "Pokedex - Chandelure",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0610": {
+    "label": "Pokedex - Axew",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0611": {
+    "label": "Pokedex - Fraxure",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0612": {
+    "label": "Pokedex - Haxorus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0613": {
+    "label": "Pokedex - Cubchoo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0614": {
+    "label": "Pokedex - Beartic",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0615": {
+    "label": "Pokedex - Cryogonal",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0616": {
+    "label": "Pokedex - Shelmet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0617": {
+    "label": "Pokedex - Accelgor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0618": {
+    "label": "Pokedex - Stunfisk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0619": {
+    "label": "Pokedex - Mienfoo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0620": {
+    "label": "Pokedex - Mienshao",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0621": {
+    "label": "Pokedex - Druddigon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0622": {
+    "label": "Pokedex - Golett",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0623": {
+    "label": "Pokedex - Golurk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0624": {
+    "label": "Pokedex - Pawniard",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0625": {
+    "label": "Pokedex - Bisharp",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0626": {
+    "label": "Pokedex - Bouffalant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0627": {
+    "label": "Pokedex - Rufflet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0628": {
+    "label": "Pokedex - Braviary",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0629": {
+    "label": "Pokedex - Vullaby",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0630": {
+    "label": "Pokedex - Mandibuzz",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0631": {
+    "label": "Pokedex - Heatmor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0632": {
+    "label": "Pokedex - Durant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0633": {
+    "label": "Pokedex - Deino",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0634": {
+    "label": "Pokedex - Zweilous",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0635": {
+    "label": "Pokedex - Hydreigon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0636": {
+    "label": "Pokedex - Larvesta",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0637": {
+    "label": "Pokedex - Volcarona",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0638": {
+    "label": "Pokedex - Cobalion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0639": {
+    "label": "Pokedex - Terrakion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0640": {
+    "label": "Pokedex - Virizion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0641": {
+    "label": "Pokedex - Tornadus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0642": {
+    "label": "Pokedex - Thundurus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0643": {
+    "label": "Pokedex - Reshiram",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0644": {
+    "label": "Pokedex - Zekrom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0645": {
+    "label": "Pokedex - Landorus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0646": {
+    "label": "Pokedex - Kyurem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0647": {
+    "label": "Pokedex - Keldeo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0648": {
+    "label": "Pokedex - Meloetta",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0649": {
+    "label": "Pokedex - Genesect",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0650": {
+    "label": "Pokedex - Chespin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0651": {
+    "label": "Pokedex - Quilladin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0652": {
+    "label": "Pokedex - Chesnaught",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0653": {
+    "label": "Pokedex - Fennekin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0654": {
+    "label": "Pokedex - Braixen",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0655": {
+    "label": "Pokedex - Delphox",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0656": {
+    "label": "Pokedex - Froakie",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0657": {
+    "label": "Pokedex - Frogadier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0658": {
+    "label": "Pokedex - Greninja",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0659": {
+    "label": "Pokedex - Bunnelby",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0660": {
+    "label": "Pokedex - Diggersby",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0661": {
+    "label": "Pokedex - Fletchling",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0662": {
+    "label": "Pokedex - Fletchinder",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0663": {
+    "label": "Pokedex - Talonflame",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0664": {
+    "label": "Pokedex - Scatterbug",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0665": {
+    "label": "Pokedex - Spewpa",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0666": {
+    "label": "Pokedex - Vivillon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0667": {
+    "label": "Pokedex - Litleo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0668": {
+    "label": "Pokedex - Pyroar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0669": {
+    "label": "Pokedex - Flabebe",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0670": {
+    "label": "Pokedex - Floette",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0671": {
+    "label": "Pokedex - Florges",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0672": {
+    "label": "Pokedex - Skiddo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0673": {
+    "label": "Pokedex - Gogoat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0674": {
+    "label": "Pokedex - Pancham",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0675": {
+    "label": "Pokedex - Pangoro",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0676": {
+    "label": "Pokedex - Furfrou",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0677": {
+    "label": "Pokedex - Espurr",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0678": {
+    "label": "Pokedex - Meowstic",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0679": {
+    "label": "Pokedex - Honedge",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0680": {
+    "label": "Pokedex - Doublade",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0681": {
+    "label": "Pokedex - Aegislash",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0682": {
+    "label": "Pokedex - Spritzee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0683": {
+    "label": "Pokedex - Aromatisse",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0684": {
+    "label": "Pokedex - Swirlix",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0685": {
+    "label": "Pokedex - Slurpuff",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0686": {
+    "label": "Pokedex - Inkay",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0687": {
+    "label": "Pokedex - Malamar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0688": {
+    "label": "Pokedex - Binacle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0689": {
+    "label": "Pokedex - Barbaracle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0690": {
+    "label": "Pokedex - Skrelp",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0691": {
+    "label": "Pokedex - Dragalge",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0692": {
+    "label": "Pokedex - Clauncher",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0693": {
+    "label": "Pokedex - Clawitzer",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0694": {
+    "label": "Pokedex - Helioptile",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0695": {
+    "label": "Pokedex - Heliolisk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0696": {
+    "label": "Pokedex - Tyrunt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0697": {
+    "label": "Pokedex - Tyrantrum",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0698": {
+    "label": "Pokedex - Amaura",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0699": {
+    "label": "Pokedex - Aurorus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0700": {
+    "label": "Pokedex - Sylveon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0701": {
+    "label": "Pokedex - Hawlucha",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0702": {
+    "label": "Pokedex - Dedenne",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0703": {
+    "label": "Pokedex - Carbink",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0704": {
+    "label": "Pokedex - Goomy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0705": {
+    "label": "Pokedex - Sliggoo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0706": {
+    "label": "Pokedex - Goodra",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0707": {
+    "label": "Pokedex - Klefki",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0708": {
+    "label": "Pokedex - Phantump",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0709": {
+    "label": "Pokedex - Trevenant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0710": {
+    "label": "Pokedex - Pumpkaboo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0711": {
+    "label": "Pokedex - Gourgeist",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0712": {
+    "label": "Pokedex - Bergmite",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0713": {
+    "label": "Pokedex - Avalugg",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0714": {
+    "label": "Pokedex - Noibat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0715": {
+    "label": "Pokedex - Noivern",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0716": {
+    "label": "Pokedex - Xerneas",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0717": {
+    "label": "Pokedex - Yveltal",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0718": {
+    "label": "Pokedex - Zygarde",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0719": {
+    "label": "Pokedex - Diancie",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0720": {
+    "label": "Pokedex - Hoopa",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0721": {
+    "label": "Pokedex - Volcanion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0722": {
+    "label": "Pokedex - Rowlet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0723": {
+    "label": "Pokedex - Dartrix",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0724": {
+    "label": "Pokedex - Decidueye",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0725": {
+    "label": "Pokedex - Litten",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0726": {
+    "label": "Pokedex - Torracat",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0727": {
+    "label": "Pokedex - Incineroar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0728": {
+    "label": "Pokedex - Popplio",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0729": {
+    "label": "Pokedex - Brionne",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0730": {
+    "label": "Pokedex - Primarina",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0731": {
+    "label": "Pokedex - Pikipek",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0732": {
+    "label": "Pokedex - Trumbeak",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0733": {
+    "label": "Pokedex - Toucannon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0734": {
+    "label": "Pokedex - Yungoos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0735": {
+    "label": "Pokedex - Gumshoos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0736": {
+    "label": "Pokedex - Grubbin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0737": {
+    "label": "Pokedex - Charjabug",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0738": {
+    "label": "Pokedex - Vikavolt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0739": {
+    "label": "Pokedex - Crabrawler",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0740": {
+    "label": "Pokedex - Crabominable",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0741": {
+    "label": "Pokedex - Oricorio",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0742": {
+    "label": "Pokedex - Cutiefly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0743": {
+    "label": "Pokedex - Ribombee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0744": {
+    "label": "Pokedex - Rockruff",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0745": {
+    "label": "Pokedex - Lycanroc",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0746": {
+    "label": "Pokedex - Wishiwashi",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0747": {
+    "label": "Pokedex - Mareanie",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0748": {
+    "label": "Pokedex - Toxapex",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0749": {
+    "label": "Pokedex - Mudbray",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0750": {
+    "label": "Pokedex - Mudsdale",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0751": {
+    "label": "Pokedex - Dewpider",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0752": {
+    "label": "Pokedex - Araquanid",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0753": {
+    "label": "Pokedex - Fomantis",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0754": {
+    "label": "Pokedex - Lurantis",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0755": {
+    "label": "Pokedex - Morelull",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0756": {
+    "label": "Pokedex - Shiinotic",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0757": {
+    "label": "Pokedex - Salandit",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0758": {
+    "label": "Pokedex - Salazzle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0759": {
+    "label": "Pokedex - Stufful",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0760": {
+    "label": "Pokedex - Bewear",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0761": {
+    "label": "Pokedex - Bounsweet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0762": {
+    "label": "Pokedex - Steenee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0763": {
+    "label": "Pokedex - Tsareena",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0764": {
+    "label": "Pokedex - Comfey",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0765": {
+    "label": "Pokedex - Oranguru",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0766": {
+    "label": "Pokedex - Passimian",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0767": {
+    "label": "Pokedex - Wimpod",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0768": {
+    "label": "Pokedex - Golisopod",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0769": {
+    "label": "Pokedex - Sandygast",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0770": {
+    "label": "Pokedex - Palossand",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0771": {
+    "label": "Pokedex - Pyukumuku",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0772": {
+    "label": "Pokedex - TypeNull",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0773": {
+    "label": "Pokedex - Silvally",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0774": {
+    "label": "Pokedex - Minior",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0775": {
+    "label": "Pokedex - Komala",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0776": {
+    "label": "Pokedex - Turtonator",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0777": {
+    "label": "Pokedex - Togedemaru",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0778": {
+    "label": "Pokedex - Mimikyu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0779": {
+    "label": "Pokedex - Bruxish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0780": {
+    "label": "Pokedex - Drampa",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0781": {
+    "label": "Pokedex - Dhelmise",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0782": {
+    "label": "Pokedex - JangmoO",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0783": {
+    "label": "Pokedex - HakamoO",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0784": {
+    "label": "Pokedex - KommoO",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0785": {
+    "label": "Pokedex - TapuKoko",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0786": {
+    "label": "Pokedex - TapuLele",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0787": {
+    "label": "Pokedex - TapuBulu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0788": {
+    "label": "Pokedex - TapuFini",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0789": {
+    "label": "Pokedex - Cosmog",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0790": {
+    "label": "Pokedex - Cosmoem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0791": {
+    "label": "Pokedex - Solgaleo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0792": {
+    "label": "Pokedex - Lunala",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0793": {
+    "label": "Pokedex - Nihilego",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0794": {
+    "label": "Pokedex - Buzzwole",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0795": {
+    "label": "Pokedex - Pheromosa",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0796": {
+    "label": "Pokedex - Xurkitree",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0797": {
+    "label": "Pokedex - Celesteela",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0798": {
+    "label": "Pokedex - Kartana",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0799": {
+    "label": "Pokedex - Guzzlord",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0800": {
+    "label": "Pokedex - Necrozma",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0801": {
+    "label": "Pokedex - Magearna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0802": {
+    "label": "Pokedex - Marshadow",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0803": {
+    "label": "Pokedex - Poipole",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0804": {
+    "label": "Pokedex - Naganadel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0805": {
+    "label": "Pokedex - Stakataka",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0806": {
+    "label": "Pokedex - Blacephalon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0807": {
+    "label": "Pokedex - Zeraora",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0808": {
+    "label": "Pokedex - Meltan",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0809": {
+    "label": "Pokedex - Melmetal",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0810": {
+    "label": "Pokedex - Grookey",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0811": {
+    "label": "Pokedex - Thwackey",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0812": {
+    "label": "Pokedex - Rillaboom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0813": {
+    "label": "Pokedex - Scorbunny",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0814": {
+    "label": "Pokedex - Raboot",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0815": {
+    "label": "Pokedex - Cinderace",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0816": {
+    "label": "Pokedex - Sobble",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0817": {
+    "label": "Pokedex - Drizzile",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0818": {
+    "label": "Pokedex - Inteleon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0819": {
+    "label": "Pokedex - Skwovet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0820": {
+    "label": "Pokedex - Greedent",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0821": {
+    "label": "Pokedex - Rookidee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0822": {
+    "label": "Pokedex - Corvisquire",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0823": {
+    "label": "Pokedex - Corviknight",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0824": {
+    "label": "Pokedex - Blipbug",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0825": {
+    "label": "Pokedex - Dottler",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0826": {
+    "label": "Pokedex - Orbeetle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0827": {
+    "label": "Pokedex - Nickit",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0828": {
+    "label": "Pokedex - Thievul",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0829": {
+    "label": "Pokedex - Gossifleur",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0830": {
+    "label": "Pokedex - Eldegoss",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0831": {
+    "label": "Pokedex - Wooloo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0832": {
+    "label": "Pokedex - Dubwool",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0833": {
+    "label": "Pokedex - Chewtle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0834": {
+    "label": "Pokedex - Drednaw",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0835": {
+    "label": "Pokedex - Yamper",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0836": {
+    "label": "Pokedex - Boltund",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0837": {
+    "label": "Pokedex - Rolycoly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0838": {
+    "label": "Pokedex - Carkol",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0839": {
+    "label": "Pokedex - Coalossal",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0840": {
+    "label": "Pokedex - Applin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0841": {
+    "label": "Pokedex - Flapple",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0842": {
+    "label": "Pokedex - Appletun",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0843": {
+    "label": "Pokedex - Silicobra",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0844": {
+    "label": "Pokedex - Sandaconda",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0845": {
+    "label": "Pokedex - Cramorant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0846": {
+    "label": "Pokedex - Arrokuda",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0847": {
+    "label": "Pokedex - Barraskewda",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0848": {
+    "label": "Pokedex - Toxel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0849": {
+    "label": "Pokedex - Toxtricity",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0850": {
+    "label": "Pokedex - Sizzlipede",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0851": {
+    "label": "Pokedex - Centiskorch",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0852": {
+    "label": "Pokedex - Clobbopus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0853": {
+    "label": "Pokedex - Grapploct",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0854": {
+    "label": "Pokedex - Sinistea",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0855": {
+    "label": "Pokedex - Polteageist",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0856": {
+    "label": "Pokedex - Hatenna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0857": {
+    "label": "Pokedex - Hattrem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0858": {
+    "label": "Pokedex - Hatterene",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0859": {
+    "label": "Pokedex - Impidimp",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0860": {
+    "label": "Pokedex - Morgrem",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0861": {
+    "label": "Pokedex - Grimmsnarl",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0862": {
+    "label": "Pokedex - Obstagoon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0863": {
+    "label": "Pokedex - Perrserker",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0864": {
+    "label": "Pokedex - Cursola",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0865": {
+    "label": "Pokedex - Sirfetchd",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0866": {
+    "label": "Pokedex - MrRime",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0867": {
+    "label": "Pokedex - Runerigus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0868": {
+    "label": "Pokedex - Milcery",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0869": {
+    "label": "Pokedex - Alcremie",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0870": {
+    "label": "Pokedex - Falinks",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0871": {
+    "label": "Pokedex - Pincurchin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0872": {
+    "label": "Pokedex - Snom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0873": {
+    "label": "Pokedex - Frosmoth",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0874": {
+    "label": "Pokedex - Stonjourner",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0875": {
+    "label": "Pokedex - Eiscue",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0876": {
+    "label": "Pokedex - Indeedee",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0877": {
+    "label": "Pokedex - Morpeko",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0878": {
+    "label": "Pokedex - Cufant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0879": {
+    "label": "Pokedex - Copperajah",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0880": {
+    "label": "Pokedex - Dracozolt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0881": {
+    "label": "Pokedex - Arctozolt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0882": {
+    "label": "Pokedex - Dracovish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0883": {
+    "label": "Pokedex - Arctovish",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0884": {
+    "label": "Pokedex - Duraludon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0885": {
+    "label": "Pokedex - Dreepy",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0886": {
+    "label": "Pokedex - Drakloak",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0887": {
+    "label": "Pokedex - Dragapult",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0888": {
+    "label": "Pokedex - Zacian",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0889": {
+    "label": "Pokedex - Zamazenta",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0890": {
+    "label": "Pokedex - Eternatus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0891": {
+    "label": "Pokedex - Kubfu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0892": {
+    "label": "Pokedex - Urshifu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0893": {
+    "label": "Pokedex - Zarude",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0894": {
+    "label": "Pokedex - Regieleki",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0895": {
+    "label": "Pokedex - Regidrago",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0896": {
+    "label": "Pokedex - Glastrier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0897": {
+    "label": "Pokedex - Spectrier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0898": {
+    "label": "Pokedex - Calyrex",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0899": {
+    "label": "Pokedex - Wyrdeer",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0900": {
+    "label": "Pokedex - Kleavor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0901": {
+    "label": "Pokedex - Ursaluna",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0902": {
+    "label": "Pokedex - Basculegion",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0903": {
+    "label": "Pokedex - Sneasler",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0904": {
+    "label": "Pokedex - Overqwil",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0905": {
+    "label": "Pokedex - Enamorus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0906": {
+    "label": "Pokedex - Sprigatito",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0907": {
+    "label": "Pokedex - Floragato",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0908": {
+    "label": "Pokedex - Meowscarada",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0909": {
+    "label": "Pokedex - Fuecoco",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0910": {
+    "label": "Pokedex - Crocalor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0911": {
+    "label": "Pokedex - Skeledirge",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0912": {
+    "label": "Pokedex - Quaxly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0913": {
+    "label": "Pokedex - Quaxwell",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0914": {
+    "label": "Pokedex - Quaquaval",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0915": {
+    "label": "Pokedex - Lechonk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0916": {
+    "label": "Pokedex - Oinkologne",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0917": {
+    "label": "Pokedex - Tarountula",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0918": {
+    "label": "Pokedex - Spidops",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0919": {
+    "label": "Pokedex - Nymble",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0920": {
+    "label": "Pokedex - Lokix",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0921": {
+    "label": "Pokedex - Pawmi",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0922": {
+    "label": "Pokedex - Pawmo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0923": {
+    "label": "Pokedex - Pawmot",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0924": {
+    "label": "Pokedex - Tandemaus",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0925": {
+    "label": "Pokedex - Maushold",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0926": {
+    "label": "Pokedex - Fidough",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0927": {
+    "label": "Pokedex - Dachsbun",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0928": {
+    "label": "Pokedex - Smoliv",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0929": {
+    "label": "Pokedex - Dolliv",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0930": {
+    "label": "Pokedex - Arboliva",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0931": {
+    "label": "Pokedex - Squawkabilly",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0932": {
+    "label": "Pokedex - Nacli",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0933": {
+    "label": "Pokedex - Naclstack",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0934": {
+    "label": "Pokedex - Garganacl",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0935": {
+    "label": "Pokedex - Charcadet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0936": {
+    "label": "Pokedex - Armarouge",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0937": {
+    "label": "Pokedex - Ceruledge",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0938": {
+    "label": "Pokedex - Tadbulb",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0939": {
+    "label": "Pokedex - Bellibolt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0940": {
+    "label": "Pokedex - Wattrel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0941": {
+    "label": "Pokedex - Kilowattrel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0942": {
+    "label": "Pokedex - Maschiff",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0943": {
+    "label": "Pokedex - Mabosstiff",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0944": {
+    "label": "Pokedex - Shroodle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0945": {
+    "label": "Pokedex - Grafaiai",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0946": {
+    "label": "Pokedex - Bramblin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0947": {
+    "label": "Pokedex - Brambleghast",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0948": {
+    "label": "Pokedex - Toedscool",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0949": {
+    "label": "Pokedex - Toedscruel",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0950": {
+    "label": "Pokedex - Klawf",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0951": {
+    "label": "Pokedex - Capsakid",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0952": {
+    "label": "Pokedex - Scovillain",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0953": {
+    "label": "Pokedex - Rellor",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0954": {
+    "label": "Pokedex - Rabsca",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0955": {
+    "label": "Pokedex - Flittle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0956": {
+    "label": "Pokedex - Espathra",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0957": {
+    "label": "Pokedex - Tinkatink",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0958": {
+    "label": "Pokedex - Tinkatuff",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0959": {
+    "label": "Pokedex - Tinkaton",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0960": {
+    "label": "Pokedex - Wiglett",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0961": {
+    "label": "Pokedex - Wugtrio",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0962": {
+    "label": "Pokedex - Bombirdier",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0963": {
+    "label": "Pokedex - Finizen",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0964": {
+    "label": "Pokedex - Palafin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0965": {
+    "label": "Pokedex - Varoom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0966": {
+    "label": "Pokedex - Revavroom",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0967": {
+    "label": "Pokedex - Cyclizar",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0968": {
+    "label": "Pokedex - Orthworm",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0969": {
+    "label": "Pokedex - Glimmet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0970": {
+    "label": "Pokedex - Glimmora",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0971": {
+    "label": "Pokedex - Greavard",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0972": {
+    "label": "Pokedex - Houndstone",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0973": {
+    "label": "Pokedex - Flamigo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0974": {
+    "label": "Pokedex - Cetoddle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0975": {
+    "label": "Pokedex - Cetitan",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0976": {
+    "label": "Pokedex - Veluza",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0977": {
+    "label": "Pokedex - Dondozo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0978": {
+    "label": "Pokedex - Tatsugiri",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0979": {
+    "label": "Pokedex - Annihilape",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0980": {
+    "label": "Pokedex - Clodsire",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0981": {
+    "label": "Pokedex - Farigiraf",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0982": {
+    "label": "Pokedex - Dudunsparce",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0983": {
+    "label": "Pokedex - Kingambit",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0984": {
+    "label": "Pokedex - GreatTusk",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0985": {
+    "label": "Pokedex - ScreamTail",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0986": {
+    "label": "Pokedex - BruteBonnet",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0987": {
+    "label": "Pokedex - FlutterMane",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0988": {
+    "label": "Pokedex - SlitherWing",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0989": {
+    "label": "Pokedex - SandyShocks",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0990": {
+    "label": "Pokedex - IronTreads",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0991": {
+    "label": "Pokedex - IronBundle",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0992": {
+    "label": "Pokedex - IronHands",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0993": {
+    "label": "Pokedex - IronJugulis",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0994": {
+    "label": "Pokedex - IronMoth",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0995": {
+    "label": "Pokedex - IronThorns",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0996": {
+    "label": "Pokedex - Frigibax",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0997": {
+    "label": "Pokedex - Arctibax",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0998": {
+    "label": "Pokedex - Baxcalibur",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_0999": {
+    "label": "Pokedex - Gimmighoul",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1000": {
+    "label": "Pokedex - Gholdengo",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1001": {
+    "label": "Pokedex - WoChien",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1002": {
+    "label": "Pokedex - ChienPao",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1003": {
+    "label": "Pokedex - TingLu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1004": {
+    "label": "Pokedex - ChiYu",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1005": {
+    "label": "Pokedex - RoaringMoon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1006": {
+    "label": "Pokedex - IronValiant",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1007": {
+    "label": "Pokedex - Koraidon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1008": {
+    "label": "Pokedex - Miraidon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1009": {
+    "label": "Pokedex - WalkingWake",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1010": {
+    "label": "Pokedex - IronLeaves",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1011": {
+    "label": "Pokedex - Dipplin",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1012": {
+    "label": "Pokedex - Poltchageist",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1013": {
+    "label": "Pokedex - Sinistcha",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1014": {
+    "label": "Pokedex - Okidogi",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1015": {
+    "label": "Pokedex - Munkidori",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1016": {
+    "label": "Pokedex - Fezandipiti",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1017": {
+    "label": "Pokedex - Ogerpon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1018": {
+    "label": "Pokedex - Archaludon",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1019": {
+    "label": "Pokedex - Hydrapple",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1020": {
+    "label": "Pokedex - GougingFire",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1021": {
+    "label": "Pokedex - RagingBolt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1022": {
+    "label": "Pokedex - IronBoulder",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1023": {
+    "label": "Pokedex - IronCrown",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1024": {
+    "label": "Pokedex - Terapagos",
+    "tags": [],
+    "category": "POKEDEX"
+  },
+  "POKEDEX_REWARD_1025": {
+    "label": "Pokedex - Pecharunt",
+    "tags": [],
+    "category": "POKEDEX"
+  },
   "TRAINER_AARON_REWARD": {
     "label": "Route 134 - Dragon Tamer Aaron",
     "tags": [],
