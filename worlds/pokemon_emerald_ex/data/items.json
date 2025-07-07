@@ -143,25 +143,25 @@
     "tags": ["Unique"],
     "modern_id": 728
   },
-  "ITEM_ROOM_1_KEY": {
+  "ITEM_KEY_TO_ROOM_1": {
     "label": "Room 1 Key",
     "classification": "PROGRESSION",
     "tags": ["Unique"],
     "modern_id": 730
   },
-  "ITEM_ROOM_2_KEY": {
+  "ITEM_KEY_TO_ROOM_2": {
     "label": "Room 2 Key",
     "classification": "PROGRESSION",
     "tags": ["Unique"],
     "modern_id": 731
   },
-  "ITEM_ROOM_4_KEY": {
+  "ITEM_KEY_TO_ROOM_4": {
     "label": "Room 4 Key",
     "classification": "PROGRESSION",
     "tags": ["Unique"],
     "modern_id": 732
   },
-  "ITEM_ROOM_6_KEY": {
+  "ITEM_KEY_TO_ROOM_6": {
     "label": "Room 6 Key",
     "classification": "PROGRESSION",
     "tags": ["Unique"],

@@ -96,9 +96,9 @@ CAVE_EVENT_NAME_TO_ID = {
 
 
 class PokemonEmeraldProcedurePatch(APProcedurePatch, APTokenMixin):
-    game = "Pokemon Emerald"
+    game = "Pokemon Emerald Expansion"
     hash = "605b89b67018abcea91e693a4dd25be3"
-    patch_file_ending = ".apemerald"
+    patch_file_ending = ".apemeraldex"
     result_file_ending = ".gba"
 
     procedure = [
@@ -709,11 +709,13 @@ def _set_species_info(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedu
         patch.write_token(APTokenTypes.WRITE, species.address + 8, struct.pack("<B", species.catch_rate))
 
         if easter_egg[0] == 3:
-            patch.write_token(APTokenTypes.WRITE, species.address + 22, struct.pack("<B", easter_egg[1]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 23, struct.pack("<B", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 24, struct.pack("<B", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 25, struct.pack("<B", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 26, struct.pack("<B", easter_egg[1]))
         else:
-            patch.write_token(APTokenTypes.WRITE, species.address + 22, struct.pack("<B", species.abilities[0]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 23, struct.pack("<B", species.abilities[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 24, struct.pack("<B", species.abilities[0]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 25, struct.pack("<B", species.abilities[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 26, struct.pack("<B", species.abilities[2]))
 
         for i, learnset_move in enumerate(species.learnset):
             level_move = learnset_move.level << 9 | learnset_move.move_id

@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 
 
-EXPECTED_ROM_NAME = "pokemon emerald version / APEX 1"
+EXPECTED_ROM_NAME = "pokemon emerald ex / AP 1"
 
 DEFEATED_WALLACE_FLAG = data.constants["TRAINER_FLAGS_START"] + data.constants["TRAINER_WALLACE"]
 DEFEATED_STEVEN_FLAG = data.constants["TRAINER_FLAGS_START"] + data.constants["TRAINER_STEVEN"]
@@ -168,7 +168,7 @@ class PokemonEmeraldExClient(BizHawkClient):
             # Check ROM name/patch version
             rom_name_bytes = ((await bizhawk.read(ctx.bizhawk_ctx, [(0x108, 32, "ROM")]))[0])
             rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
-            if not rom_name.startswith("pokemon emerald version"):
+            if not rom_name.startswith("pokemon emerald ex"):
                 return False
             if rom_name == "pokemon emerald version":
                 logger.info("ERROR: You appear to be running an unpatched version of Pokemon Emerald. "

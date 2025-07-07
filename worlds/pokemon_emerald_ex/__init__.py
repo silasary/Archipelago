@@ -14,7 +14,7 @@ from Options import OptionError, Toggle
 import settings
 from worlds.AutoWorld import WebWorld, World
 
-from .client import PokemonEmeraldClient  # Unused, but required to register with BizHawkClient
+from .client import PokemonEmeraldExClient  # Unused, but required to register with BizHawkClient
 from .data import LEGENDARY_POKEMON, MapData, SpeciesData, TrainerData, LocationCategory, data as emerald_data
 from .groups import ITEM_GROUPS, LOCATION_GROUPS
 from .items import PokemonEmeraldItem, create_item_label_to_code_map, get_item_classification, offset_item_value
@@ -26,13 +26,13 @@ from .options import (Goal, DarkCavesRequireFlash, HmRequirements, ItemPoolType,
 from .pokemon import (get_random_move, get_species_id_by_label, randomize_abilities, randomize_learnsets,
                       randomize_legendary_encounters, randomize_misc_pokemon, randomize_starters,
                       randomize_tm_hm_compatibility,randomize_types, randomize_wild_encounters)
-from .rom import PokemonEmeraldProcedurePatch, write_tokens 
+from .rom import PokemonEmeraldProcedurePatch, write_tokens
 from .util import get_encounter_type_label
 
 
-class PokemonEmeraldWebWorld(WebWorld):
+class PokemonEmeraldExWebWorld(WebWorld):
     """
-    Webhost info for Pokemon Emerald
+    Webhost info for Pokemon Emerald Expansion
     """
     theme = "ocean"
 
@@ -45,25 +45,7 @@ class PokemonEmeraldWebWorld(WebWorld):
         ["Zunawe"]
     )
 
-    setup_es = Tutorial(
-        "Guía de configuración para Multiworld",
-        "Una guía para jugar Pokémon Emerald en Archipelago",
-        "Español",
-        "setup_es.md",
-        "setup/es",
-        ["nachocua"]
-    )
-    
-    setup_sv = Tutorial(
-        "Multivärld Installations Guide",
-        "En guide för att kunna spela Pokémon Emerald med Archipelago.",
-        "Svenska",
-        "setup_sv.md",
-        "setup/sv",
-        ["Tsukino"]
-    )
-
-    tutorials = [setup_en, setup_es, setup_sv]
+    tutorials = [setup_en]
     option_groups = OPTION_GROUPS
 
 
@@ -77,14 +59,14 @@ class PokemonEmeraldSettings(settings.Group):
     rom_file: PokemonEmeraldRomFile = PokemonEmeraldRomFile(PokemonEmeraldRomFile.copy_to)
 
 
-class PokemonEmeraldWorld(World):
+class PokemonEmeraldExpansionWorld(World):
     """
-    Pokémon Emerald is the definitive Gen III Pokémon game and one of the most beloved in the franchise.
+    Pokémon Emerald Expansion is the definitive Gen IX Pokémon game on the Gameboy Advance.
     Catch, train, and battle Pokémon, explore the Hoenn region, thwart the plots
     of Team Magma and Team Aqua, challenge gyms, and become the Pokémon champion!
     """
-    game = "Pokemon Emerald"
-    web = PokemonEmeraldWebWorld()
+    game = "Pokemon Emerald Expansion"
+    web = PokemonEmeraldExWebWorld()
     topology_present = True
 
     settings_key = "pokemon_emerald_settings"
@@ -119,7 +101,7 @@ class PokemonEmeraldWorld(World):
     modified_trainers: List[TrainerData]
 
     def __init__(self, multiworld, player):
-        super(PokemonEmeraldWorld, self).__init__(multiworld, player)
+        super(PokemonEmeraldExpansionWorld, self).__init__(multiworld, player)
         self.badge_shuffle_info = None
         self.hm_shuffle_info = None
         self.free_fly_location_id = 0

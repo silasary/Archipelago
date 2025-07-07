@@ -221,6 +221,13 @@ class EvolutionMethodEnum(IntEnum):
     FRIENDSHIP = 9
     FRIENDSHIP_DAY = 10
     FRIENDSHIP_NIGHT = 11
+    ###
+    TRADE = 12
+    SPLIT_FROM_EVO = 13
+    SCRIPT_TRIGGER = 14
+    LEVEL_BATTLE_ONLY = 15
+    BATTLE_END = 16
+    SPIN = 17
 
 
 class EvolutionData(NamedTuple):
@@ -248,7 +255,7 @@ class SpeciesData:
     catch_rate: int
     friendship: int
     learnset: List[LearnsetMove]
-    tm_hm_compatibility: int
+    tm_hm_compatibility: list[int]  # This is an array of u16s now
     learnset_address: int
     address: int
 
@@ -441,6 +448,9 @@ def _init() -> None:
 
         # Locations
         for location_name in region_json["locations"]:
+            if location_name not in extracted_data["locations"]:
+                print(f"Location [{location_name}] not found in extracted data")
+                continue
             if location_name in claimed_locations:
                 raise AssertionError(f"Location [{location_name}] was claimed by multiple regions")
 
@@ -569,13 +579,15 @@ def _init() -> None:
             species_data["catch_rate"],
             species_data["friendship"],
             learnset,
-            int(species_data["tmhm_learnset"], 16),
+            [move_id for move_id in species_data["tmhm_learnset"]],
             species_data["learnset"]["address"],
             species_data["address"]
         )
 
     for species in data.species.values():
         for evolution in species.evolutions:
+            if evolution.species_id not in data.species:
+                continue  # DunDunDunsparce
             data.species[evolution.species_id].pre_evolution = species.species_id
 
     # Replace default item for dex entry locations based on evo stage of species
@@ -601,7 +613,7 @@ def _init() -> None:
                 pre_evolution = data.species[pre_evolution].pre_evolution
             default_item = evo_stage_to_ball_map[evo_stage]
 
-        dex_location_name = f"POKEDEX_REWARD_{str(species.national_dex_number).zfill(3)}"
+        dex_location_name = f"POKEDEX_REWARD_{str(species.national_dex_number).zfill(4)}"
         data.locations[dex_location_name] = LocationData(
             data.locations[dex_location_name].name,
             data.locations[dex_location_name].label,
