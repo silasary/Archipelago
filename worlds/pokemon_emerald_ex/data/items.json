@@ -790,6 +790,114 @@
     "tags": ["Evolution Stone"],
     "modern_id": 85
   },
+  "ITEM_ICE_STONE": {
+    "label": "Ice Stone",
+    "classification": "USEFUL",
+    "tags": ["Evolution Stone"],
+    "modern_id": null
+  },
+  "ITEM_SHINY_STONE": {
+    "label": "Shiny Stone",
+    "classification": "USEFUL",
+    "tags": ["Evolution Stone"],
+    "modern_id": null
+  },
+  "ITEM_DUSK_STONE": {
+    "label": "Dusk Stone",
+    "classification": "USEFUL",
+    "tags": ["Evolution Stone"],
+    "modern_id": null
+  },
+  "ITEM_DAWN_STONE": {
+    "label": "Dawn Stone",
+    "classification": "USEFUL",
+    "tags": ["Evolution Stone"],
+    "modern_id": null
+  },
+  "ITEM_SWEET_APPLE": {
+    "label": "Sweet Apple",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_TART_APPLE": {
+    "label": "Tart Apple",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_CRACKED_POT": {
+    "label": "Cracked Pot",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_CHIPPED_POT": {
+    "label": "Chipped Pot",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_BLACK_AUGURITE": {
+    "label": "Black Augurite",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_LINKING_CORD": {
+    "label": "Linking Cord",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_PEAT_BLOCK": {
+    "label": "Peat Block",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_BERSERK_GENE": {
+    "label": "Berserk Gene",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_AUSPICIOUS_ARMOR": {
+    "label": "Auspicious Armor",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_MALICIOUS_ARMOR": {
+    "label": "Malicious Armor",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_SYRUPY_APPLE": {
+    "label": "Syrupy Apple",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_UNREMARKABLE_TEACUP": {
+    "label": "Unremarkable Teacup",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_MASTERPIECE_TEACUP": {
+    "label": "Masterpiece Teacup",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
+  "ITEM_METAL_ALLOY": {
+    "label": "Metal Alloy",
+    "classification": "USEFUL",
+    "tags": ["Evolution Item"],
+    "modern_id": null
+  },
 
 
   "ITEM_TINY_MUSHROOM": {

@@ -107,7 +107,7 @@ def create_locations_by_category(world: "PokemonEmeraldWorld", regions: Dict[str
 
             location_id = offset_flag(location_data.flag)
             if location_data.flag == 0:  # Dexsanity location
-                national_dex_id = int(location_name[-3:])  # Location names are formatted POKEDEX_REWARD_###
+                national_dex_id = int(location_name[-4:])  # Location names are formatted POKEDEX_REWARD_###
 
                 # Don't create this pokedex location if player can't find it in the wild
                 if NATIONAL_ID_TO_SPECIES_ID[national_dex_id] in world.blacklisted_wilds:
@@ -177,7 +177,7 @@ def set_legendary_cave_entrances(world: "PokemonEmeraldWorld") -> None:
     terra_cave_location_location = world.multiworld.get_location("TERRA_CAVE_LOCATION", world.player)
     terra_cave_location_location.item = None
     terra_cave_location_location.place_locked_item(world.create_event(terra_cave_location_name))
-    
+
     marine_cave_location_name = world.random.choice([
         "MARINE_CAVE_ROUTE_105_1",
         "MARINE_CAVE_ROUTE_105_2",
