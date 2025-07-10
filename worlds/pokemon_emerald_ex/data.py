@@ -639,7 +639,7 @@ def _init() -> None:
         ))
 
     # TM moves
-    data.tmhm_moves = extracted_data["tmhm_moves"]
+    data.tmhm_moves = [] # extracted_data["tmhm_moves"]  # TODO: Redo TM/HM moves
     # Create ability data
     data.abilities = [
         AbilityData(data.constants[ability_data[0]], ability_data[1])

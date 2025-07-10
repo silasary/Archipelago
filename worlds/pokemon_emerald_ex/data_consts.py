@@ -1105,7 +1105,6 @@ all_abilities: list[tuple[str, str]] = [
     ("ABILITY_WHITE_SMOKE", "White Smoke"),
     ("ABILITY_PURE_POWER", "Pure Power"),
     ("ABILITY_SHELL_ARMOR", "Shell Armor"),
-    ("ABILITY_CACOPHONY", "Cacophony"),
     ("ABILITY_AIR_LOCK", "Air Lock"),
     ("ABILITY_TANGLED_FEET", "Tangled Feet"),
     ("ABILITY_MOTOR_DRIVE", "Motor Drive"),
@@ -2261,7 +2260,7 @@ all_legendary_pokemon: list[str] = [
     "SPECIES_PHEROMOSA",
     "SPECIES_XURKITREE",
     "SPECIES_CELESTEELA",
-    "SPECIES_KARTANAA",
+    "SPECIES_KARTANA",
     "SPECIES_GUZZLORD",
     "SPECIES_NECROZMA",
     "SPECIES_MAGEARNA",
@@ -2288,7 +2287,7 @@ all_legendary_pokemon: list[str] = [
     "SPECIES_WO_CHIEN",
     "SPECIES_CHIEN_PAO",
     "SPECIES_TING_LU",
-    "SPECIES_CHI-YU",
+    "SPECIES_CHI_YU",
     "SPECIES_KORAIDON",
     "SPECIES_MIRAIDON",
     "SPECIES_OKIDOGI",
@@ -2297,5 +2296,4 @@ all_legendary_pokemon: list[str] = [
     "SPECIES_OGERPON",
     "SPECIES_TERAPAGOS",
     "SPECIES_PECHARUNT",
-
 ]
