@@ -11,12 +11,12 @@ from .locations import PokemonEmeraldLocation
 from .options import DarkCavesRequireFlash, EliteFourRequirement, NormanRequirement, Goal
 
 if TYPE_CHECKING:
-    from . import PokemonEmeraldWorld
+    from . import PokemonEmeraldExpansionWorld
 
 
 # Rules are organized by town/route/dungeon and ordered approximately
 # by when you would first reach that place in a vanilla playthrough.
-def set_rules(world: "PokemonEmeraldWorld") -> None:
+def set_rules(world: "PokemonEmeraldExpansionWorld") -> None:
     hm_rules: Dict[str, Callable[[CollectionState], bool]] = {}
     for hm, badges in world.hm_requirements.items():
         if isinstance(badges, list):

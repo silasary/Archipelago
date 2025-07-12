@@ -216,6 +216,24 @@
     "modern_id": 720
   },
 
+  "ITEM_MEGA_RING": {
+    "label": "Mega Bracelet",
+    "classification": "USEFUL",
+    "tags": ["Battle Gimick", "Unique"],
+    "modern_id": null
+  },
+  "ITEM_Z_POWER_RING": {
+    "label": "Z Ring",
+    "classification": "USEFUL",
+    "tags": ["Battle Gimick", "Unique"],
+    "modern_id": null
+  },
+  "ITEM_DYNAMAX_BAND": {
+    "label": "Dynamax Band",
+    "classification": "USEFUL",
+    "tags": ["Battle Gimick", "Unique"],
+    "modern_id": null
+  },
 
   "ITEM_POWDER_JAR": {
     "label": "Powder Jar",

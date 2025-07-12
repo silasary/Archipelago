@@ -218,6 +218,21 @@
     "tags": [],
     "category": "ROD"
   },
+  "NPC_GIFT_RECEIVED_MEGA_RING": {
+    "label": "Route 118 - Mega Bracelet from Steven",
+    "tags": [],
+    "category": "KEY"
+  },
+  "NPC_GIFT_RECEIVED_Z_RING": {
+    "label": "Route 118 - Z Ring from Steven",
+    "tags": [],
+    "category": "KEY"
+  },
+  "NPC_GIFT_RECEIVED_DYNAMAX_BAND": {
+    "label": "Route 118 - Dynamax Band from Steven",
+    "tags": [],
+    "category": "KEY"
+  },
 
   "HIDDEN_ITEM_ARTISAN_CAVE_B1F_CALCIUM": {
     "label": "Artisan Cave B1F - Hidden Item 1",
@@ -1152,6 +1167,11 @@
   },
   "ITEM_ROUTE_114_RARE_CANDY": {
     "label": "Route 114 - Item Above Waterfall",
+    "tags": [],
+    "category": "OVERWORLD_ITEM"
+  },
+  "ITEM_ROUTE_114_LANETTE_LINKING_CORD": {
+    "label": "Route 114 - Item in Lanette's House",
     "tags": [],
     "category": "OVERWORLD_ITEM"
   },

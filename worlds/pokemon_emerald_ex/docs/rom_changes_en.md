@@ -95,6 +95,9 @@ friendship first, and no longer has any behavior related to the RTC
 - The woman who gives you the Soothe Bell in Slateport does not check friendship
 - When trading the Scanner with Captain Stern, you will receive both the Deep Sea Tooth and Deep Sea Scale
 
+- When you encounter Steven on Route 118, he will give you the Mega Bracelet, Z Ring, and Dynamax Bands.
+- Lanette's House on Route 114 is worth visiting.
+
 ## Misc
 
 - You can no longer try to switch bikes in the bike shop
