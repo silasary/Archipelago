@@ -1,4 +1,5 @@
 # Expansion Names
+base = "base"
 get_to_work = "Get to Work"
 get_together = "Get Together"
 city_living = "City Living"
