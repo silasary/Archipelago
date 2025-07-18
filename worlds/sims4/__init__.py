@@ -105,17 +105,25 @@ class Sims4World(World):
         career_key = self.options.career.current_key
         aspiration_key = self.options.goal.current_key
 
+        used_dlc = set(self.options.expansion_packs.value | self.options.game_packs.value | self.options.stuff_packs.value)
+
+        filtered_skill_locations = {
+            skill_id: skill for skill_id, skill in skill_locations_table.items()
+            if skill['expansion'] == 'base' or skill['expansion'] in used_dlc
+        }
+
         pool = []
 
         count_to_fill = (
             len(sims4_careers[career_key]) +
             len(sims4_aspiration_milestones[aspiration_key]) +
-            len(skill_locations_table)
+            len(filtered_skill_locations)
         )
         for item in item_table.values():
-            for i in range(item["count"]):
-                sims4_item = self.create_item(item["name"])
-                pool.append(sims4_item)
+            if item['expansion'] == 'base' or item['expansion'] in used_dlc:
+                for i in range(item["count"]):
+                    sims4_item = self.create_item(item["name"])
+                    pool.append(sims4_item)
 
         count_to_fill = count_to_fill - len(pool)
 
