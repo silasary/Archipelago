@@ -25,8 +25,11 @@ class Sims4Item(Item):
 skills_table: dict[int, ItemDict] = {}
 
 def add_skill(skill_name: str, expansion: str, max_level: int) -> int:
-    start_id = max(skills_table.keys()) or 0x7334001
-    skill_id = start_id
+    if skills_table:
+        skill_id = max(skills_table.keys()) + 1
+    else:
+        skill_id = 0x7334001
+
     skills_table[skill_id] = {
         "name": f"{skill_name}",
         "classification": ItemClassification.progression,
@@ -91,8 +94,8 @@ add_skill(SkillNames.lv_romance_skill, ExpansionNames.lovestruck, 10)
 add_skill(SkillNames.lnd_thanatology_skill, ExpansionNames.life_and_death, 5)
 add_skill(SkillNames.bnh_pottery_skill, ExpansionNames.business_and_hobbies, 10)
 add_skill(SkillNames.bnh_tattooing_skill, ExpansionNames.business_and_hobbies, 10)
-add_skill(SkillNames.ebn_apothecary_skill, ExpansionNames.enchanted_by_nature , 10)
-add_skill(SkillNames.ebn_natural_living_skill, ExpansionNames.enchanted_by_nature , 10)
+add_skill(SkillNames.ebn_apothecary_skill, ExpansionNames.enchanted_by_nature, 10)
+add_skill(SkillNames.ebn_natural_living_skill, ExpansionNames.enchanted_by_nature, 10)
 
 useful_table = {
     0x733400FF: {'classification': ItemClassification.useful,
