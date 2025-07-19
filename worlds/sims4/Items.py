@@ -10,6 +10,7 @@ class ItemDict(TypedDict):
     count: int
     name: str
     tech_type: str
+    expansion: str
 
 
 class ItemData(NamedTuple):
@@ -92,12 +93,13 @@ add_skill(SkillNames.bnh_pottery_skill, ExpansionNames.business_and_hobbies, 10)
 add_skill(SkillNames.bnh_tattooing_skill, ExpansionNames.business_and_hobbies, 10)
 add_skill(SkillNames.ebn_apothecary_skill, ExpansionNames.enchanted_by_nature , 10)
 add_skill(SkillNames.ebn_natural_living_skill, ExpansionNames.enchanted_by_nature , 10)
-    
+
 useful_table = {
     0x733400FF: {'classification': ItemClassification.useful,
                  'count': 4,
                  'name': UsefulNames.skill_gain_boost,
-                 'tech_type': 'Skill Gain Multiplier'}
+                 'tech_type': 'Skill Gain Multiplier',
+                 'expansion': 'base'},
 
 }
 
@@ -105,15 +107,18 @@ junk_table = {
     0x73340FFF: {'classification': ItemClassification.filler,
                  'count': 0,
                  'name': JunkNames.twothousand_simoleons,
-                 'tech_type': 'Simoleons'},
+                 'tech_type': 'Simoleons',
+                 'expansion': 'base'},
     0x73340FFE: {'classification': ItemClassification.filler,
                  'count': 0,
                  'name': JunkNames.fivethousand_simoleons,
-                 'tech_type': 'Simoleons'},
+                 'tech_type': 'Simoleons',
+                 'expansion': 'base'},
     0x73340FFD: {'classification': ItemClassification.filler,
                  'count': 0,
                  'name': JunkNames.career_performance_boost,
-                 'tech_type': 'Career Boost'},
+                 'tech_type': 'Career Boost',
+                 'expansion': 'base'},
 }
 
 
