@@ -55,7 +55,7 @@ VISITED_EVENTS = frozenset(BLACKLIST_OPTION_TO_VISITED_EVENT.values())
 
 
 class PokemonEmeraldLocation(Location):
-    game: str = "Pokemon Emerald"
+    game: str = "Pokemon Emerald Expansion"
     item_address: Optional[int]
     default_item_code: Optional[int]
     key: Optional[str]

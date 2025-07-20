@@ -9,7 +9,7 @@ from .data import BASE_OFFSET, data
 
 
 class PokemonEmeraldItem(Item):
-    game: str = "Pokemon Emerald"
+    game: str = "Pokemon Emerald Expansion"
     tags: FrozenSet[str]
 
     def __init__(self, name: str, classification: ItemClassification, code: Optional[int], player: int) -> None:
