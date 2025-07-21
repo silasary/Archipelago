@@ -76,15 +76,17 @@ def randomize_opponent_parties(world: "PokemonEmeraldWorld") -> None:
 
             new_species = world.random.choice(candidates)
 
-            if new_species.species_id not in per_species_tmhm_moves:
-                per_species_tmhm_moves[new_species.species_id] = sorted({
-                    world.modified_tmhm_moves[i]
-                    for i, is_compatible in enumerate(int_to_bool_array(new_species.tm_hm_compatibility))
-                    if is_compatible and world.modified_tmhm_moves[i] not in world.blacklisted_moves
-                })
+            # TODO: TM/HM compatibility
 
-            # TMs and HMs compatible with the species
-            tm_hm_movepool = per_species_tmhm_moves[new_species.species_id]
+            # if new_species.species_id not in per_species_tmhm_moves:
+            #     per_species_tmhm_moves[new_species.species_id] = sorted({
+            #         world.modified_tmhm_moves[i]
+            #         for i, is_compatible in enumerate(int_to_bool_array(new_species.tm_hm_compatibility))
+            #         if is_compatible and world.modified_tmhm_moves[i] not in world.blacklisted_moves
+            #     })
+
+            # # TMs and HMs compatible with the species
+            # tm_hm_movepool = per_species_tmhm_moves[new_species.species_id]
 
             # Moves the pokemon could have learned by now
             level_up_movepool = sorted({
@@ -98,17 +100,21 @@ def randomize_opponent_parties(world: "PokemonEmeraldWorld") -> None:
             else:
                 level_up_moves = world.random.sample(level_up_movepool, 4)
 
-            if len(tm_hm_movepool) < 4:
-                hm_moves = list(reversed(list(tm_hm_movepool[i] if i < len(tm_hm_movepool) else 0 for i in range(4))))
-            else:
-                hm_moves = world.random.sample(tm_hm_movepool, 4)
+            # if len(tm_hm_movepool) < 4:
+            #     hm_moves = list(reversed(list(tm_hm_movepool[i] if i < len(tm_hm_movepool) else 0 for i in range(4))))
+            # else:
+            #     hm_moves = world.random.sample(tm_hm_movepool, 4)
 
             # 25% chance to pick a move from TMs or HMs
             new_moves = (
-                hm_moves[0] if world.random.random() < 0.25 else level_up_moves[0],
-                hm_moves[1] if world.random.random() < 0.25 else level_up_moves[1],
-                hm_moves[2] if world.random.random() < 0.25 else level_up_moves[2],
-                hm_moves[3] if world.random.random() < 0.25 else level_up_moves[3]
+                # hm_moves[0] if world.random.random() < 0.25 else
+                level_up_moves[0],
+                # hm_moves[1] if world.random.random() < 0.25 else
+                level_up_moves[1],
+                # hm_moves[2] if world.random.random() < 0.25 else
+                level_up_moves[2],
+                # hm_moves[3] if world.random.random() < 0.25 else
+                level_up_moves[3]
             )
 
             new_party.append(pokemon._replace(species_id=new_species.species_id, moves=new_moves))

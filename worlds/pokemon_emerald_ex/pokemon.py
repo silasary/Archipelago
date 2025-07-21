@@ -389,7 +389,7 @@ def randomize_abilities(world: "PokemonEmeraldWorld") -> None:
     # Creating list of potential abilities
     ability_label_to_value = {ability.label.lower(): ability.ability_id for ability in data.abilities}
 
-    ability_blacklist_labels = {"cacophony"}  # Cacophony is defined and has a description, but no effect
+    ability_blacklist_labels = set()
     option_ability_blacklist = world.options.ability_blacklist.value
     if option_ability_blacklist is not None:
         ability_blacklist_labels |= {ability_label.lower() for ability_label in option_ability_blacklist}
@@ -420,7 +420,8 @@ def randomize_abilities(world: "PokemonEmeraldWorld") -> None:
                 # 0 is the value for "no ability"; species with only 1 ability have the other set to 0
                 new_abilities = (
                     0 if old_abilities[0] == 0 else world.random.choice(ability_whitelist),
-                    0 if old_abilities[1] == 0 else world.random.choice(ability_whitelist)
+                    0 if old_abilities[1] == 0 else world.random.choice(ability_whitelist),
+                    0 if old_abilities[2] == 0 else world.random.choice(ability_whitelist)
                 )
 
                 # Recursively modify the abilities of anything that evolves from this pokemon
@@ -445,7 +446,8 @@ def randomize_abilities(world: "PokemonEmeraldWorld") -> None:
             # 0 is the value for "no ability"; species with only 1 ability have the other set to 0
             new_abilities = (
                 0 if old_abilities[0] == 0 else world.random.choice(ability_whitelist),
-                0 if old_abilities[1] == 0 else world.random.choice(ability_whitelist)
+                0 if old_abilities[1] == 0 else world.random.choice(ability_whitelist),
+                0 if old_abilities[2] == 0 else world.random.choice(ability_whitelist)
             )
 
             species.abilities = new_abilities
