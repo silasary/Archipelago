@@ -265,25 +265,6 @@ class AbilityData(NamedTuple):
     label: str
 
 
-class TrainerPokemonDataTypeEnum(IntEnum):
-    NO_ITEM_DEFAULT_MOVES = 0
-    ITEM_DEFAULT_MOVES = 1
-    NO_ITEM_CUSTOM_MOVES = 2
-    ITEM_CUSTOM_MOVES = 3
-
-
-def _str_to_pokemon_data_type(string: str) -> TrainerPokemonDataTypeEnum:
-    if string == "NO_ITEM_DEFAULT_MOVES":
-        return TrainerPokemonDataTypeEnum.NO_ITEM_DEFAULT_MOVES
-    if string == "ITEM_DEFAULT_MOVES":
-        return TrainerPokemonDataTypeEnum.ITEM_DEFAULT_MOVES
-    if string == "NO_ITEM_CUSTOM_MOVES":
-        return TrainerPokemonDataTypeEnum.NO_ITEM_CUSTOM_MOVES
-    if string == "ITEM_CUSTOM_MOVES":
-        return TrainerPokemonDataTypeEnum.ITEM_CUSTOM_MOVES
-    raise ValueError(f"Unknown TrainerPokemonDataTypeEnum string: {string}")
-
-
 class TrainerPokemonData(NamedTuple):
     species_id: int
     level: int
@@ -292,7 +273,6 @@ class TrainerPokemonData(NamedTuple):
 
 class TrainerPartyData(NamedTuple):
     pokemon: List[TrainerPokemonData]
-    pokemon_data_type: TrainerPokemonDataTypeEnum
     address: int
 
 
@@ -656,16 +636,14 @@ def _init() -> None:
     # Create trainer data
     for i, trainer_json in enumerate(extracted_data["trainers"]):
         party_json = trainer_json["party"]
-        pokemon_data_type = _str_to_pokemon_data_type(trainer_json["data_type"])
         data.trainers.append(TrainerData(
             i,
             TrainerPartyData(
                 [TrainerPokemonData(
                     p["species"],
                     p["level"],
-                    (p["moves"][0], p["moves"][1], p["moves"][2], p["moves"][3]) if "moves" in p else None
+                    (p["moves"][0], p["moves"][1], p["moves"][2], p["moves"][3])
                 ) for p in party_json],
-                pokemon_data_type,
                 trainer_json["party_address"]
             ),
             trainer_json["address"],

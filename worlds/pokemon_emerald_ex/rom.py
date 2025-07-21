@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, Dict, List, Tuple
 from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes
 from settings import get_settings
 
-from .data import TrainerPokemonDataTypeEnum, BASE_OFFSET, data
+from .data import BASE_OFFSET, data
 from .items import reverse_offset_item_value
 from .options import (RandomizeWildPokemon, RandomizeTrainerParties, EliteFourRequirement, NormanRequirement,
                       MatchTrainerLevels)
@@ -701,61 +701,45 @@ def _set_species_info(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedu
         patch.write_token(APTokenTypes.WRITE, species.address + 8, struct.pack("<B", species.catch_rate))
 
         if easter_egg[0] == 3:
-            patch.write_token(APTokenTypes.WRITE, species.address + 24, struct.pack("<B", easter_egg[1]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 25, struct.pack("<B", easter_egg[1]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 26, struct.pack("<B", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x18, struct.pack("<H", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x1A, struct.pack("<H", easter_egg[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x1C, struct.pack("<H", easter_egg[1]))
         else:
-            patch.write_token(APTokenTypes.WRITE, species.address + 24, struct.pack("<B", species.abilities[0]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 25, struct.pack("<B", species.abilities[1]))
-            patch.write_token(APTokenTypes.WRITE, species.address + 26, struct.pack("<B", species.abilities[2]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x18, struct.pack("<H", species.abilities[0]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x1A, struct.pack("<H", species.abilities[1]))
+            patch.write_token(APTokenTypes.WRITE, species.address + 0x1C, struct.pack("<H", species.abilities[2]))
 
-        for i, learnset_move in enumerate(species.learnset):
-            level_move = learnset_move.level << 9 | learnset_move.move_id
-            if easter_egg[0] == 2:
-                level_move = learnset_move.level << 9 | easter_egg[1]
+        # for i, learnset_move in enumerate(species.learnset):
+        #     level_move = learnset_move.level << 9 | learnset_move.move_id
+        #     if easter_egg[0] == 2:
+        #         level_move = learnset_move.level << 9 | easter_egg[1]
 
-            patch.write_token(APTokenTypes.WRITE, species.learnset_address + (i * 2), struct.pack("<H", level_move))
+        #     patch.write_token(APTokenTypes.WRITE, species.learnset_address + (i * 2), struct.pack("<H", level_move))
 
 
 def _set_opponents(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch, easter_egg: Tuple[int, int]) -> None:
     for trainer in world.modified_trainers:
         party_address = trainer.party.address
 
-        pokemon_data_size: int
-        if trainer.party.pokemon_data_type in {TrainerPokemonDataTypeEnum.NO_ITEM_DEFAULT_MOVES, TrainerPokemonDataTypeEnum.ITEM_DEFAULT_MOVES}:
-            pokemon_data_size = 8
-        else:  # Custom Moves
-            pokemon_data_size = 16
+        pokemon_data_size: int = 36
 
         for i, pokemon in enumerate(trainer.party.pokemon):
             pokemon_address = party_address + (i * pokemon_data_size)
 
             # Replace species
-            patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x04, struct.pack("<H", pokemon.species_id))
+            patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x14, struct.pack("<H", pokemon.species_id))
 
             # Replace custom moves if applicable
-            if trainer.party.pokemon_data_type == TrainerPokemonDataTypeEnum.NO_ITEM_CUSTOM_MOVES:
-                if easter_egg[0] == 2:
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x06, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x08, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0A, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", easter_egg[1]))
-                else:
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x06, struct.pack("<H", pokemon.moves[0]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x08, struct.pack("<H", pokemon.moves[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0A, struct.pack("<H", pokemon.moves[2]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", pokemon.moves[3]))
-            elif trainer.party.pokemon_data_type == TrainerPokemonDataTypeEnum.ITEM_CUSTOM_MOVES:
-                if easter_egg[0] == 2:
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x08, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0A, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", easter_egg[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0E, struct.pack("<H", easter_egg[1]))
-                else:
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x08, struct.pack("<H", pokemon.moves[0]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0A, struct.pack("<H", pokemon.moves[1]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", pokemon.moves[2]))
-                    patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0E, struct.pack("<H", pokemon.moves[3]))
+            if easter_egg[0] == 2:
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", easter_egg[1]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0E, struct.pack("<H", easter_egg[1]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x10, struct.pack("<H", easter_egg[1]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x12, struct.pack("<H", easter_egg[1]))
+            else:
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0C, struct.pack("<H", pokemon.moves[0]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x0E, struct.pack("<H", pokemon.moves[1]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x10, struct.pack("<H", pokemon.moves[2]))
+                patch.write_token(APTokenTypes.WRITE, pokemon_address + 0x12, struct.pack("<H", pokemon.moves[3]))
 
 
 def _set_legendary_encounters(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch) -> None:
@@ -775,6 +759,7 @@ def _set_starters(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePa
 
 
 def _set_tm_moves(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch, easter_egg: Tuple[int, int]) -> None:
+    return # TODO: Randomize TM moves
     tmhm_list_address = data.rom_addresses["sTMHMMoves"]
 
     for i, move in enumerate(world.modified_tmhm_moves):
@@ -789,6 +774,7 @@ def _set_tm_moves(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePa
 
 
 def _set_tmhm_compatibility(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch) -> None:
+    return # TODO: Randomize TM/HM compatibility
     learnsets_address = data.rom_addresses["gTMHMLearnsets"]
 
     for species in world.modified_species.values():
@@ -800,6 +786,7 @@ def _set_tmhm_compatibility(world: "PokemonEmeraldWorld", patch: PokemonEmeraldP
 
 
 def _randomize_opponent_battle_type(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch) -> None:
+    return # TODO: Randomize opponent battle type
     probability = world.options.double_battle_chance.value / 100
 
     battle_type_map = {
@@ -827,6 +814,7 @@ def _randomize_opponent_battle_type(world: "PokemonEmeraldWorld", patch: Pokemon
 
 
 def _randomize_move_tutor_moves(world: "PokemonEmeraldWorld", patch: PokemonEmeraldProcedurePatch, easter_egg: Tuple[int, int]) -> None:
+    return # TODO: Randomize move tutor moves
     FORTREE_MOVE_TUTOR_INDEX = 24
 
     if easter_egg[0] == 2:

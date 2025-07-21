@@ -124,7 +124,7 @@ SHOAL_CAVE_MAPS = tuple(data.constants[map_name] for map_name in [
 
 
 class PokemonEmeraldExClient(BizHawkClient):
-    game = "Pokemon Emerald Ex"
+    game = "Pokemon Emerald Expansion"
     system = "GBA"
     patch_suffix = ".apemeraldex"
 
