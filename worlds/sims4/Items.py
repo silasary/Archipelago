@@ -1,9 +1,9 @@
 from typing import TypedDict, NamedTuple, Optional
 
 from BaseClasses import Item, ItemClassification
-from worlds.sims4.Names.DLC import ExpansionNames, GamePackNames, StuffNames
 
 from .Names import SkillNames, JunkNames, UsefulNames
+from .Names.DLC import ExpansionNames, GamePackNames, StuffNames
 
 class ItemDict(TypedDict):
     classification: ItemClassification
