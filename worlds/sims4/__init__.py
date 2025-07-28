@@ -102,35 +102,22 @@ class Sims4World(World):
         return Sims4Item(event, ItemClassification.progression, None, self.player)
 
     def create_items(self) -> None:
-        career_key = self.options.career.current_key
-        aspiration_key = self.options.goal.current_key
-
         used_dlc = set(self.options.expansion_packs.value | self.options.game_packs.value | self.options.stuff_packs.value)
-
-        filtered_skill_locations = {
-            skill_id: skill for skill_id, skill in skill_locations_table.items()
-            if skill['expansion'] == 'base' or skill['expansion'] in used_dlc
-        }
 
         pool = []
 
-        count_to_fill = (
-            len(sims4_careers[career_key]) +
-            len(sims4_aspiration_milestones[aspiration_key]) +
-            len(filtered_skill_locations)
-        )
-        for item in item_table.values():
-            if item['expansion'] == 'base' or item['expansion'] in used_dlc:
-                for i in range(item["count"]):
-                    sims4_item = self.create_item(item["name"])
+        for item_data in item_table.values():
+            if item_data['expansion'] == 'base' or item_data['expansion'] in used_dlc:
+                for i in range(item_data["count"]):
+                    sims4_item = self.create_item(item_data["name"])
                     pool.append(sims4_item)
 
-        count_to_fill = count_to_fill - len(pool)
+        count_to_fill = len(self.multiworld.get_unfilled_locations(self.player)) - len(pool)
 
-        for item_name in self.random.choices(sorted(filler_set), k=count_to_fill):
-            item = self.create_item(item_name)
-            item.classification = item.classification
-            pool.append(item)
+        for item in self.random.choices(sorted(filler_set), k=count_to_fill):
+            filler = self.create_item(item)
+            filler.classification = filler.classification
+            pool.append(filler)
 
         self.multiworld.itempool += pool
 
@@ -160,7 +147,7 @@ class Sims4World(World):
         used_dlc = set(self.options.expansion_packs.value | self.options.game_packs.value | self.options.stuff_packs.value)
         for skill in skill_locations_table.values():
             skill_name = skill["name"]
-            if skill_name['expansion'] == 'base' or skill_name['expansion'] in used_dlc:
+            if skill['expansion'] == 'base' or skill['expansion'] in used_dlc:
                 menu.locations.append(
                     Sims4Location(self.player, skill_name, self.location_name_to_id.get(skill_name), menu)
                 )

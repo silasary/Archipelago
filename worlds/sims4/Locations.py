@@ -28,7 +28,11 @@ class Sims4LocationData(NamedTuple):
 skill_locations_table: dict[int, Sims4LocationDict] = {}
 
 def add_skill_location(skill_name: str, expansion: str, max_level: int) -> int:
-    start_id = max(skill_locations_table.keys()) or 0x73341000
+    if skill_locations_table:
+        start_id = max(skill_locations_table.keys())
+    else:
+        start_id = 0x73341000
+
     for level in range(2, max_level + 1):
         skill_id = start_id + level
         skill_locations_table[skill_id] = {
@@ -58,11 +62,11 @@ add_skill_location(SkillNames.base_skill_rocket_science, ExpansionNames.base, 10
 add_skill_location(SkillNames.base_skill_video_gaming, ExpansionNames.base, 10)
 add_skill_location(SkillNames.base_skill_writing, ExpansionNames.base, 10)
 add_skill_location(SkillNames.base_skill_photography, ExpansionNames.base, 5)
-add_skill_location(SkillNames.or_herbalism_skill, ExpansionNames.base, 10)
-add_skill_location(SkillNames.gtw_baking_skill, ExpansionNames.base, 10)
-add_skill_location(SkillNames.sd_wellness_skill, ExpansionNames.base, 10)
-add_skill_location(SkillNames.gt_dancing_skill, ExpansionNames.base, 5)
-add_skill_location(SkillNames.gt_djmixing_skill, ExpansionNames.base, 10)
+add_skill_location(SkillNames.or_herbalism_skill, GamePackNames.outdoor_retreat, 10)
+add_skill_location(SkillNames.gtw_baking_skill, ExpansionNames.get_to_work, 10)
+add_skill_location(SkillNames.sd_wellness_skill, GamePackNames.spa_day, 10)
+add_skill_location(SkillNames.gt_dancing_skill, ExpansionNames.get_together, 5)
+add_skill_location(SkillNames.gt_djmixing_skill, ExpansionNames.get_together, 10)
 add_skill_location(SkillNames.cl_singing_skill, ExpansionNames.city_living, 10)
 add_skill_location(SkillNames.vamp_pipeorgan_skill, GamePackNames.vampires, 10)
 add_skill_location(SkillNames.vamp_vampirelore_skill, GamePackNames.vampires, 15)

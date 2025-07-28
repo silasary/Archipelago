@@ -33,7 +33,7 @@ def add_skill(skill_name: str, expansion: str, max_level: int) -> int:
     skills_table[skill_id] = {
         "name": f"{skill_name}",
         "classification": ItemClassification.progression,
-        "count": max_level,
+        "count": max_level - 2,
         "tech_type": "Skill",
         "expansion": expansion
         }
@@ -59,11 +59,11 @@ add_skill(SkillNames.base_skill_rocket_science, ExpansionNames.base, 10)
 add_skill(SkillNames.base_skill_video_gaming, ExpansionNames.base, 10)
 add_skill(SkillNames.base_skill_writing, ExpansionNames.base, 10)
 add_skill(SkillNames.base_skill_photography, ExpansionNames.base, 5)
-add_skill(SkillNames.or_herbalism_skill, ExpansionNames.base, 10)
-add_skill(SkillNames.gtw_baking_skill, ExpansionNames.base, 10)
-add_skill(SkillNames.sd_wellness_skill, ExpansionNames.base, 10)
-add_skill(SkillNames.gt_dancing_skill, ExpansionNames.base, 5)
-add_skill(SkillNames.gt_djmixing_skill, ExpansionNames.base, 10)
+add_skill(SkillNames.or_herbalism_skill, GamePackNames.outdoor_retreat, 10)
+add_skill(SkillNames.gtw_baking_skill, ExpansionNames.get_to_work, 10)
+add_skill(SkillNames.sd_wellness_skill, GamePackNames.spa_day, 10)
+add_skill(SkillNames.gt_dancing_skill, ExpansionNames.get_together, 5)
+add_skill(SkillNames.gt_djmixing_skill, ExpansionNames.get_together, 10)
 add_skill(SkillNames.cl_singing_skill, ExpansionNames.city_living, 10)
 add_skill(SkillNames.vamp_pipeorgan_skill, GamePackNames.vampires, 10)
 add_skill(SkillNames.vamp_vampirelore_skill, GamePackNames.vampires, 15)
