@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from Options import Choice, PerGameCommonOptions, OptionSet, StartInventoryPool, Visibility
 
+from .Names import CareerNames
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
 class AspirationGoal(Choice):
@@ -29,21 +30,27 @@ class AspirationGoal(Choice):
 
 
 
-class Career(Choice):
-    """The career that will be the only one included in the locations"""
+class Career(OptionSet):
+    """The careers that will be included in the shuffling.
+    Valid Careers include:
+    - Astronaut
+    - Athlete
+    - Business
+    - Criminal
+    - Culinary
+    - Entertainer
+    - Painter
+    - Secret Agent
+    - Style Influencer
+    - Tech Guru
+    - Writer
+    Currently only Base Game Careers are supported. Part-Time Jobs are not yet able to be included in the shuffling."""
     display_name = "career"
-    default = 1
-    option_astronaut = 0
-    option_athlete = 1
-    option_business = 2
-    option_criminal = 3
-    option_culinary = 4
-    option_entertainer = 5
-    option_painter = 6
-    option_secret_agent = 7
-    option_style_influencer = 8
-    option_tech_guru = 9
-    option_writer = 10
+    valid_keys = {CareerNames.base_career_astronaut, CareerNames.base_career_athlete, CareerNames.base_career_business,
+                  CareerNames.base_career_criminal, CareerNames.base_career_culinary, CareerNames.base_career_entertainer,
+                  CareerNames.base_career_painter, CareerNames.base_career_secret_agent, CareerNames.base_career_style_influencer,
+                  CareerNames.base_career_tech_guru, CareerNames.base_career_writer}
+    default = sorted({CareerNames.base_career_athlete})
 
 
 class ExpansionPacks(OptionSet):

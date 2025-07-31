@@ -102,26 +102,18 @@ class Sims4World(World):
         return Sims4Item(event, ItemClassification.progression, None, self.player)
 
     def create_items(self) -> None:
-        career_key = self.options.career.current_key
-        aspiration_key = self.options.goal.current_key
-
         pool = []
 
-        count_to_fill = (
-            len(sims4_careers[career_key]) +
-            len(sims4_aspiration_milestones[aspiration_key]) +
-            len(skill_locations_table)
-        )
+        unfilled_locations = len(self.multiworld.get_unfilled_locations(self.player))
         for item in item_table.values():
             for i in range(item["count"]):
                 sims4_item = self.create_item(item["name"])
                 pool.append(sims4_item)
 
-        count_to_fill = count_to_fill - len(pool)
+        filler_needed = unfilled_locations - len(pool)
 
-        for item_name in self.random.choices(sorted(filler_set), k=count_to_fill):
+        for item_name in self.random.choices(sorted(filler_set), k=filler_needed):
             item = self.create_item(item_name)
-            item.classification = item.classification
             pool.append(item)
 
         self.multiworld.itempool += pool
@@ -140,11 +132,12 @@ class Sims4World(World):
 
     def create_regions(self):
         menu = self.create_region("Menu", locations=None, exits=None)
-        career_key = self.options.career.current_key
+        chosen_careers = sorted(self.options.career.value)
         aspiration_key = self.options.goal.current_key
-        for career in sims4_careers[career_key]:
-            menu.locations.append(
-                Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
+        for career_key in chosen_careers:
+            for career in sims4_careers[career_key.lower().replace(" ", "_")]:
+                menu.locations.append(
+                    Sims4Location(self.player, career, self.location_name_to_id.get(career), menu))
         for aspiration in sims4_aspiration_milestones[aspiration_key]:
             menu.locations.append(
                 Sims4Location(self.player, aspiration, self.location_name_to_id.get(aspiration), menu)
@@ -163,9 +156,7 @@ class Sims4World(World):
         # slot_data = self.options.as_dict("goal", "career", "expansion_packs", "game_packs", "stuff_packs", "cas_kits", "build_kits")
         slot_data = {
             "goal": self.options.goal.current_key,
-            "goal_value": self.options.goal.value,
-            "career": self.options.career.current_key,
-            "career_value": self.options.career.value,
+            "career": self.options.career.value,
             "expansion_packs": self.options.expansion_packs.value,
             "game_packs": self.options.game_packs.value,
             "stuff_packs": self.options.stuff_packs.value,
