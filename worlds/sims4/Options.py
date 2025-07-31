@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from Options import Choice, PerGameCommonOptions, OptionSet, Visibility
+
+from Options import Choice, PerGameCommonOptions, OptionSet, StartInventoryPool, Visibility
+
 from .Names import CareerNames
 from .Names.DLC import ExpansionNames, GamePackNames, StuffNames, CASKitNames, BuildKitNames
 
@@ -113,3 +115,4 @@ class Sims4Options(PerGameCommonOptions):
     stuff_packs: StuffPacks
     cas_kits: CASKits
     build_kits: BuildKits
+    start_inventory_from_pool: StartInventoryPool

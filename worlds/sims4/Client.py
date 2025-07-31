@@ -4,8 +4,8 @@ import asyncio
 import json
 import os
 import urllib.parse
+from pathlib import Path
 
-import Utils
 from CommonClient import ClientCommandProcessor, gui_enabled, get_base_parser, server_loop, logger, ClientStatus
 from MultiServer import mark_raw
 
@@ -16,8 +16,6 @@ try:
 except ModuleNotFoundError:
     from CommonClient import CommonContext as SuperContext
 
-from pathlib import Path
-
 from . import Sims4World
 
 # Gets the sims 4 mods folder
@@ -25,13 +23,7 @@ from . import Sims4World
 if Sims4World.settings.mods_folder.exists():
     mod_data_path = Path(Sims4World.settings.mods_folder) / "mod_data" / "s4ap"
 
-
-# documents_path = Path.home() / "Documents"
-#
-# mod_data_path = documents_path / "Electronic Arts" / "The Sims 4" / "Mods" / "mod_data" / "s4ap"
-
 # reads and prints json files
-
 
 def print_json(obj: object, name: str, ctx: SimsContext):
     full_path = os.path.join(mod_data_path, name)
@@ -56,6 +48,8 @@ def load_json(name):
                 with open(full_path, 'r') as f:
                     return json.load(f)
             except json.JSONDecodeError:
+                return None
+            except PermissionError:
                 return None
         else:
             return None
@@ -93,7 +87,7 @@ class SimsCommandProcessor(ClientCommandProcessor):
             self.output('no path inputed')
         elif os.path.exists(os.path.join(p, 'mod_data', 's4ap')):
             self.output('Sims 4 mods folder found')
-            mod_data_path = p
+            mod_data_path = os.path.join(p, 'mod_data', 's4ap')
         else:
             self.ctx.gui_error(title='Sims 4 mods folder not found',
                                text=f'Make sure the file path you inputed is correct.')
@@ -120,6 +114,7 @@ class SimsContext(SuperContext):
         return ui
 
     def on_package(self, cmd: str, args: dict):
+        super().on_package(cmd, args)
         if cmd == "Connected":
             self.goal = args["slot_data"]["goal"]
             self.career = args["slot_data"]["career"]
@@ -169,6 +164,7 @@ async def game_watcher(ctx: SimsContext):
         if (ctx.server and ctx.slot) is not None:
             json_data = load_json('locations_cached.json')
             if json_data is not None:
+                locations_to_send = []
                 if "Locations" in json_data and json_data["Locations"] is not None and json_data["Seed"] == ctx.seed_name:
                     # locations_to_remove = []
                     for data in json_data["Locations"]:
@@ -179,13 +175,15 @@ async def game_watcher(ctx: SimsContext):
                                     await SimsContext.send_msgs(ctx, [
                                         {"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                                     ctx.finished_game = True
-                                await SimsContext.send_msgs(ctx,
-                                                            [{"cmd": "LocationChecks", "locations": [location_id]}])
+                                locations_to_send.append(location_id)
                                 # locations_to_remove.append(data)
                                 break
                     # for loc in locations_to_remove:
                     #     json_data["Locations"].remove(loc)
                     #     print_json(json_data, 'locations_cached.json', ctx)
+                if locations_to_send:
+                    locations_to_send = await SimsContext.send_msgs(ctx,
+                                            [{"cmd": "LocationChecks", "locations": locations_to_send}])
             json_data = load_json('sync.json')
             if json_data is not None:
                 if json_data:
