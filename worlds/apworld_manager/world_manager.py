@@ -235,6 +235,8 @@ class GithubRepository(Repository):
                     world['source_url'] = self.url
                     world['world'] = asset['browser_download_url']
                     world['size'] = asset['size']
+                    if release.get('prerelease'):
+                        world['metadata']['prerelease'] = release.get('prerelease')
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
