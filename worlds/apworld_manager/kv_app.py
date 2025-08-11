@@ -45,12 +45,27 @@ def launch():
     default_tab_text: "APWorlds"
 
 <ApworldDirectoryItem>
+    canvas.before:
+        Color:
+            rgba: 0.6, 0.6, 0.6, 1  # Light gray lines
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)  # Border around the row
     Label:
         text: root.details["title"]
         size_hint: .5, 1
+        canvas.before:
+            Color:
+                rgba: 0.6, 0.6, 0.6, 1
+            Line:
+                points: (self.right, self.y, self.right, self.top)  # Vertical separator
     Label:
         text: root.details["description"]
         size_hint: .3, 1
+        canvas.before:
+            Color:
+                rgba: 0.6, 0.6, 0.6, 1
+            Line:
+                points: (self.right, self.y, self.right, self.top)
     Button:
         text: root.details["install_text"]
         size_hint: .2, 1
@@ -63,6 +78,18 @@ def launch():
 
 <RV>:
     viewclass: 'ApworldDirectoryItem'
+    bar_width: 20
+    scroll_type: ['bars', 'content']  # Show both content scroll & bars
+    bar_color: 0.2, 0.6, 1, 1  # Bright blue active bar
+    bar_inactive_color: 0.2, 0.6, 1, 0.6  # Slightly faded when inactive
+    effect_cls: 'ScrollEffect'  # Keeps smooth scrolling
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 1, 0.4  # Background track color
+        RoundedRectangle:
+            pos: (self.width - self.bar_width, self.y)
+            size: (self.bar_width, self.height)
+            radius: [10,]  # Rounded ends for the track
     RecycleBoxLayout:
         default_size: root.width, dp(30)
         size_hint_y: None
