@@ -88,6 +88,7 @@ class FF12OpenWorldContext(CommonContext):
         self.ff12slotdata = None
         self.server_connected = False
         self.ff12connected = False
+        self.stored_map_id = 0
         # hooked object
         self.ff12 = None
         self.item_lock = asyncio.Lock()
@@ -354,6 +355,18 @@ class FF12OpenWorldContext(CommonContext):
             if len(self.sending) > 0:
                 message = [{"cmd": 'LocationChecks', "locations": self.sending}]
                 await self.send_msgs(message)
+            map_id = self.get_current_map()
+            if map_id != self.stored_map_id and map_id > 12 and map_id < 0xFFFF and map_id != 274:
+                # Send Bounce with new ID
+                self.stored_map_id = map_id
+                await self.send_msgs([{
+                    "cmd": "Bounce",
+                    "slots": [self.slot],
+                    "data": {
+                        "type": "MapUpdate",
+                        "mapId": map_id,
+                    },
+                }])
 
         except Exception as e:
             if self.ff12connected:
