@@ -89,6 +89,8 @@ class FF12OpenWorldContext(CommonContext):
         self.server_connected = False
         self.ff12connected = False
         self.stored_map_id = 0
+        self.hunt_progress = {}
+        self.hunt_progress_changed = False
         # hooked object
         self.ff12 = None
         self.item_lock = asyncio.Lock()
@@ -355,6 +357,8 @@ class FF12OpenWorldContext(CommonContext):
             if len(self.sending) > 0:
                 message = [{"cmd": 'LocationChecks', "locations": self.sending}]
                 await self.send_msgs(message)
+
+            # Poptracker stuff
             map_id = self.get_current_map()
             if map_id != self.stored_map_id and map_id > 12 and map_id < 0xFFFF and map_id != 274:
                 # Send Bounce with new ID
@@ -367,6 +371,20 @@ class FF12OpenWorldContext(CommonContext):
                         "mapId": map_id,
                     },
                 }])
+
+            if self.hunt_progress_changed:
+                self.hunt_progress_changed = False
+                await self.send_msgs(
+                    [
+                        {
+                            "cmd": "Set",
+                            "key": f"ffxiiow_hunts_{self.team}_{self.slot}",
+                            "default": {},
+                            "want_reply": False,
+                            "operations": [{"operation": "update", "value": self.hunt_progress}],
+                        }
+                    ]
+                )
 
         except Exception as e:
             if self.ff12connected:
@@ -441,95 +459,95 @@ class FF12OpenWorldContext(CommonContext):
         elif location_data.str_id == "918F":  # Cid 2 Boss
             return self.ff12_read_byte(self.get_save_data_address() + 0xA2A, False) >= 2
         elif location_data.str_id == "9003":  # Hunt 1
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 0, False) >= 70
+            return self.read_hunt_progress(0) >= 70
         elif location_data.str_id == "9004":  # Hunt 2
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 1, False) >= 70
+            return self.read_hunt_progress(1) >= 70
         elif location_data.str_id == "9005":  # Hunt 3
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 2, False) >= 90
+            return self.read_hunt_progress(2) >= 90
         elif location_data.str_id == "9006":  # Hunt 4
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 3, False) >= 100
+            return self.read_hunt_progress(3) >= 100
         elif location_data.str_id == "9007":  # Hunt 5
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 4, False) >= 90
+            return self.read_hunt_progress(4) >= 90
         elif location_data.str_id == "9008":  # Hunt 6
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 5, False) >= 100
+            return self.read_hunt_progress(5) >= 100
         elif location_data.str_id == "9009":  # Hunt 7
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 6, False) >= 100
+            return self.read_hunt_progress(6) >= 100
         elif location_data.str_id == "900A":  # Hunt 8
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 7, False) >= 100
+            return self.read_hunt_progress(7) >= 100
         elif location_data.str_id == "900B":  # Hunt 9
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 8, False) >= 100
+            return self.read_hunt_progress(8) >= 100
         elif location_data.str_id == "900C":  # Hunt 10
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 9, False) >= 100
+            return self.read_hunt_progress(9) >= 100
         elif location_data.str_id == "900D":  # Hunt 11
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 10, False) >= 100
+            return self.read_hunt_progress(10) >= 100
         elif location_data.str_id == "900E":  # Hunt 12
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 11, False) >= 100
+            return self.read_hunt_progress(11) >= 100
         elif location_data.str_id == "900F":  # Hunt 13
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 12, False) >= 90
+            return self.read_hunt_progress(12) >= 90
         elif location_data.str_id == "9010":  # Hunt 14
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 13, False) >= 100
+            return self.read_hunt_progress(13) >= 100
         elif location_data.str_id == "9011":  # Hunt 15
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 14, False) >= 100
+            return self.read_hunt_progress(14) >= 100
         elif location_data.str_id == "9012":  # Hunt 16
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 15, False) >= 90
+            return self.read_hunt_progress(15) >= 90
         elif location_data.str_id == "9013":  # Hunt 17
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 16, False) >= 50
+            return self.read_hunt_progress(16) >= 50
         elif location_data.str_id == "9014":  # Hunt 18
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 17, False) >= 50
+            return self.read_hunt_progress(17) >= 50
         elif location_data.str_id == "9015":  # Hunt 19
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 18, False) >= 100
+            return self.read_hunt_progress(18) >= 100
         elif location_data.str_id == "9016":  # Hunt 20
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 19, False) >= 150
+            return self.read_hunt_progress(19) >= 150
         elif location_data.str_id == "9017":  # Hunt 21
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 20, False) >= 150
+            return self.read_hunt_progress(20) >= 150
         elif location_data.str_id == "9018":  # Hunt 22
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 21, False) >= 150
+            return self.read_hunt_progress(21) >= 150
         elif location_data.str_id == "9019":  # Hunt 23
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 22, False) >= 150
+            return self.read_hunt_progress(22) >= 150
         elif location_data.str_id == "901A":  # Hunt 24
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 23, False) >= 50
+            return self.read_hunt_progress(23) >= 50
         elif location_data.str_id == "901B":  # Hunt 25
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 24, False) >= 50
+            return self.read_hunt_progress(24) >= 50
         elif location_data.str_id == "901C":  # Hunt 26
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 25, False) >= 90
+            return self.read_hunt_progress(25) >= 90
         elif location_data.str_id == "901D":  # Hunt 27
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 26, False) >= 90
+            return self.read_hunt_progress(26) >= 90
         elif location_data.str_id == "901E":  # Hunt 28
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 27, False) >= 90
+            return self.read_hunt_progress(27) >= 90
         elif location_data.str_id == "901F":  # Hunt 29
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 28, False) >= 100
+            return self.read_hunt_progress(28) >= 100
         elif location_data.str_id == "9020":  # Hunt 30
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 29, False) >= 100
+            return self.read_hunt_progress(29) >= 100
         elif location_data.str_id == "9021":  # Hunt 31
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 30, False) >= 90
+            return self.read_hunt_progress(30) >= 90
         elif location_data.str_id == "9022":  # Hunt 32
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 31, False) >= 150
+            return self.read_hunt_progress(31) >= 150
         elif location_data.str_id == "9023":  # Hunt 33
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 32, False) >= 100
+            return self.read_hunt_progress(32) >= 100
         elif location_data.str_id == "9024":  # Hunt 34
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 33, False) >= 90
+            return self.read_hunt_progress(33) >= 90
         elif location_data.str_id == "9025":  # Hunt 35
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 34, False) >= 100
+            return self.read_hunt_progress(34) >= 100
         elif location_data.str_id == "9026":  # Hunt 36
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 35, False) >= 100
+            return self.read_hunt_progress(35) >= 100
         elif location_data.str_id == "9027":  # Hunt 37
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 36, False) >= 90
+            return self.read_hunt_progress(36) >= 90
         elif location_data.str_id == "9028":  # Hunt 38
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 37, False) >= 110
+            return self.read_hunt_progress(37) >= 110
         elif location_data.str_id == "9029":  # Hunt 39
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 38, False) >= 50
+            return self.read_hunt_progress(38) >= 50
         elif location_data.str_id == "902A":  # Hunt 40
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 39, False) >= 130
+            return self.read_hunt_progress(39) >= 130
         elif location_data.str_id == "902B":  # Hunt 42
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 40, False) >= 100
+            return self.read_hunt_progress(40) >= 100
         elif location_data.str_id == "902C":  # Hunt 43
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 41, False) >= 150
+            return self.read_hunt_progress(41) >= 150
         elif location_data.str_id == "902D":  # Hunt 44
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 42, False) >= 100
+            return self.read_hunt_progress(42) >= 100
         elif location_data.str_id == "902E":  # Hunt 45
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 43, False) >= 100
+            return self.read_hunt_progress(43) >= 100
         elif location_data.str_id == "9122":  # Hunt 41
-            return self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + 44, False) >= 100
+            return self.read_hunt_progress(44) >= 100
         elif 0x902F <= int(location_data.str_id, 16) <= 0x903A:  # Clan Rank Rewards
             return (self.ff12_read_byte(self.get_save_data_address() + 0x418, False) >
                     int(location_data.str_id, 16) - 0x902F)
@@ -728,6 +746,14 @@ class FF12OpenWorldContext(CommonContext):
         elif 0x90FF <= int(location_data.str_id, 16) <= 0x911D:  # Hunt Club Outfitters
             outfitter_index = int(location_data.str_id, 16) - 0x90FF
             return self.ff12_read_byte(self.get_save_data_address() + 0xAF2 + outfitter_index, False) >= 1
+
+    def read_hunt_progress(self, hunt_id: int) -> int:
+        value = self.ff12_read_byte(self.get_save_data_address() + 0x1064 + 128 + hunt_id, False)
+        if self.hunt_progress.get(hunt_id) != value:
+            print("[Debug] Hunt Progress: Hunt %d: %d -> %d" % (hunt_id, self.hunt_progress.get(hunt_id, 0), value))
+            self.hunt_progress[hunt_id] = value
+            self.hunt_progress_changed = True
+        return value
 
     def get_max_trophies(self):
         return max(
