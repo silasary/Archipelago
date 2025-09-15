@@ -304,7 +304,7 @@ class RepositoryManager:
                     self.all_known_package_ids.add(world.id)
                     self.packages_by_id_version[world.id][world.world_version] = world
 
-    def download_remote_world(self, world: ApWorldMetadata, add_missing_metadata: bool = True) -> str:
+    def download_remote_world(self, world: ApWorldMetadata, add_missing_metadata: bool = False) -> str:
         world_version_pathsafe = world.world_version.replace('/', '_')
         path = os.path.join(self.apworld_cache_path, f"{world.id}-{world_version_pathsafe}.apworld")
         if not os.path.exists(path):
@@ -391,11 +391,11 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
             installed.add(file.stem)
             try:
                 container.read()
-            except InvalidDataError as e:
-                print(f"Error reading manifest for {file}: {e}")
+            except InvalidDataError:
+                # print(f"Error reading manifest for {file}: {e}")
                 # continue
-            except FileNotFoundError as e:
-                print(f"Error reading manifest for {file}: {e}")
+                pass
+            except FileNotFoundError:
                 continue
             manifest_data = container.get_manifest()
             remote = repositories.packages_by_id_version.get(file.stem)
