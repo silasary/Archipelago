@@ -1,9 +1,9 @@
-import os
-from .world_manager import SortStages, refresh_apworld_table, repositories
-from worlds.LauncherComponents import install_apworld
+
+from CommonClient import get_base_parser
+from .world_manager import SortStages, install_world, refresh_apworld_table, repositories
 
 
-def launch():
+def launch(*launch_args: str):
     import kvui  # noqa
     from kivy.properties import DictProperty
 
@@ -143,10 +143,7 @@ def launch():
 
         def download_latest(self):
             print("Downloading latest version")
-            path = repositories.download_remote_world(self.details["latest_version"])
-            if self.details['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
-                os.remove(self.details["path"])
-            install_apworld(path)
+            install_world(self.details)
             app.apworlds.clear()
             app.apworlds.extend(refresh_apworld_table())
             app.root.default_tab_content.refresh_from_data()
@@ -175,10 +172,7 @@ def launch():
 
         def download_latest(self):
             print("Downloading latest version")
-            path = repositories.download_remote_world(self.details["latest_version"])
-            install_apworld(path)
-            if self.details['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
-                os.remove(self.details["file"])
+            install_world(self.details)
 
             app.apworlds.clear()
             app.apworlds.extend(refresh_apworld_table())
@@ -200,6 +194,18 @@ def launch():
 
 
     apworlds = refresh_apworld_table()
+
+    parser = get_base_parser()
+    parser.add_argument("--update-all", action="store_true", help="Run in non-GUI mode to just install/update worlds then exit")
+
+    args, rest = parser.parse_known_args(launch_args)
+
+    if args.update_all:
+        for world in apworlds:
+            if world['sort'] == SortStages.UPDATE_AVAILABLE:
+                print(f"Updating {world['title']} to version {world['latest_version'].world_version}...")
+                install_world(world)
+        return
 
     app = DirectoryApp(apworlds=apworlds)
     app.run()

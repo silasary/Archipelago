@@ -28,8 +28,8 @@ class RepoWorld(World):
     item_name_to_id = {}
     location_name_to_id = {}
 
-def launch_client():
+def launch_client(*args: str) -> None:
     from .kv_app import launch
-    launch_subprocess(launch, name="APManager")
+    launch_subprocess(launch, name="APManager", args=args)
 
 components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL))

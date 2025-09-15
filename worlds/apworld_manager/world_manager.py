@@ -371,6 +371,14 @@ class SortStages(IntEnum):
 
 repositories = RepositoryManager()
 
+def install_world(world: dict[str, typing.Any]):
+    from worlds.LauncherComponents import install_apworld
+
+    path = repositories.download_remote_world(world["latest_version"])
+    install_apworld(path)
+    if world['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
+        os.remove(world["file"])
+
 def refresh_apworld_table() -> list[dict[str, typing.Any]]:
         """Refresh the list of available APWorlds from the repositories."""
         from worlds import AutoWorld
