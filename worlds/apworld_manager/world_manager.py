@@ -6,6 +6,7 @@ import logging
 import math
 import pathlib
 import re
+import time
 import requests
 import json
 import os
@@ -341,6 +342,21 @@ class RepositoryManager:
                 if world.data.get('hash_sha256') == hash_sha256:
                     return world
         return None
+
+    def cleanup_downloads(self):
+        expiry_in_months = 6
+        expiry_in_seconds = expiry_in_months * 30 * 24 * 60 * 60
+
+        for file in os.listdir(self.apworld_cache_path):
+            if file.endswith('.apworld'):
+                try:
+                    path = os.path.join(self.apworld_cache_path, file)
+                    mtime = os.path.getmtime(path)
+                    age = time.time() - mtime
+                    if age > expiry_in_seconds:
+                        os.remove(path)
+                except Exception as e:
+                    print(f"Error removing {file}: {e}")
 
 def parse_version(version: str) -> Version:
     if isinstance(version, tuple):

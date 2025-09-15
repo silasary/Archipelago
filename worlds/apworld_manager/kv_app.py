@@ -205,10 +205,13 @@ def launch(*launch_args: str):
             if world['sort'] == SortStages.UPDATE_AVAILABLE:
                 print(f"Updating {world['title']} to version {world['latest_version'].world_version}...")
                 install_world(world)
+        repositories.cleanup_downloads()
         return
 
     app = DirectoryApp(apworlds=apworlds)
     app.run()
+
+    repositories.cleanup_downloads()
 
 
 if __name__ == '__main__':
