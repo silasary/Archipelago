@@ -238,7 +238,12 @@ class GithubRepository(Repository):
                     world['size'] = asset['size']
                     if release.get('prerelease'):
                         world['metadata']['prerelease'] = release.get('prerelease')
+
+                    other_assets = {a['name']: a for a in release['assets'] if a != asset and not a['name'].endswith('.yaml')}
+                    if other_assets:
+                        world['other_assets'] = other_assets
                     self.worlds.append(ApWorldMetadata(self.world_source, world))
+
         response = requests.get(f"{self.url}/releases/tags/{tag}")
         self.index_json = response.json()
 
