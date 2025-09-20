@@ -5,7 +5,7 @@ import typing
 
 from schema import Schema, Optional, And, Or
 
-from Options import Choice, OptionDict, OptionSet, DefaultOnToggle, Range, DeathLink, Toggle, \
+from Options import Choice, OptionDict, OptionGroup, OptionSet, DefaultOnToggle, Range, DeathLink, Toggle, \
     StartInventoryPool, PerGameCommonOptions, NamedRange
 
 # schema helpers
@@ -269,7 +269,13 @@ class RecipeIngredientsOffset(Range):
 class FactorioStartItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
-    default = {"burner-mining-drill": 4, "stone-furnace": 4}
+    default = {"burner-mining-drill": 4, "stone-furnace": 4, "raw-fish": 50}
+    schema = Schema(
+        {
+            str: And(int, lambda n: n > 0,
+                     error="amount of starting items has to be a positive integer"),
+        }
+    )
 
 
 class FactorioFreeSampleBlacklist(OptionSet):
@@ -318,6 +324,11 @@ class AtomicRocketTrapCount(TrapCount):
     display_name = "Atomic Rocket Traps"
 
 
+class AtomicCliffRemoverTrapCount(TrapCount):
+    """Trap items that when received trigger an atomic rocket explosion on a random cliff.
+    Warning: there is no warning. The launch is instantaneous."""
+    display_name = "Atomic Cliff Remover Traps"
+
 class EvolutionTrapCount(TrapCount):
     """Trap items that when received increase the enemy evolution."""
     display_name = "Evolution Traps"
@@ -333,6 +344,9 @@ class EvolutionTrapIncrease(Range):
     default = 10
     range_end = 100
 
+class InventorySpillTrapCount(TrapCount):
+    """Trap items that when received trigger dropping your main inventory and trash inventory onto the ground."""
+    display_name = "Inventory Spill Traps"
 
 class FactorioWorldGen(OptionDict):
     """World Generation settings. Overview of options at https://wiki.factorio.com/Map_generator,
@@ -530,9 +544,44 @@ class FactorioOptions(PerGameCommonOptions):
     cluster_grenade_traps: ClusterGrenadeTrapCount
     artillery_traps: ArtilleryTrapCount
     atomic_rocket_traps: AtomicRocketTrapCount
+    atomic_cliff_remover_traps: AtomicCliffRemoverTrapCount
+    inventory_spill_traps: InventorySpillTrapCount
     attack_traps: AttackTrapCount
     evolution_traps: EvolutionTrapCount
     evolution_trap_increase: EvolutionTrapIncrease
     death_link: DeathLink
     energy_link: EnergyLink
     start_inventory_from_pool: StartInventoryPool
+
+option_groups: list[OptionGroup] = [
+    OptionGroup(
+        "Technologies",
+        [
+            TechTreeLayout,
+            Progressive,
+            MinTechCost,
+            MaxTechCost,
+            TechCostDistribution,
+            TechCostMix,
+            RampingTechCosts,
+            TechTreeInformation,
+            CraftSanity,
+        ]
+    ),
+    OptionGroup(
+        "Traps",
+        [
+            AttackTrapCount,
+            EvolutionTrapCount,
+            EvolutionTrapIncrease,
+            TeleportTrapCount,
+            GrenadeTrapCount,
+            ClusterGrenadeTrapCount,
+            ArtilleryTrapCount,
+            AtomicRocketTrapCount,
+            AtomicCliffRemoverTrapCount,
+            InventorySpillTrapCount,
+        ],
+        start_collapsed=True
+    ),
+]
