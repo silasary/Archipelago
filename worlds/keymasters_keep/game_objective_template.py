@@ -1,6 +1,8 @@
 from random import Random
 from typing import Any, Callable, Dict, List, Sequence, Tuple, Union
 
+from Options import OptionError
+
 
 GameObjectiveTemplateData = Dict[
     str,
@@ -39,9 +41,14 @@ class GameObjectiveTemplate:
             else:
                 k = collection[1]
 
+            evaluated_collection = collection[0]()
+            if not evaluated_collection:
+                raise OptionError(f"Game objective template {self.label} has no valid entries for {key}")
+            if isinstance(evaluated_collection, set):
+                evaluated_collection = list(evaluated_collection)
             game_objective = game_objective.replace(
                 key,
-                ", ".join(str(value) for value in random.sample(*(collection[0](), k)))
+                ", ".join(str(value) for value in random.sample(*(evaluated_collection, k)))
             )
 
         return game_objective
