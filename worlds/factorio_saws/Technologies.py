@@ -266,6 +266,12 @@ raw_recipes["mining-yumako"] = {
     "energy": 1,
     "category": "agriculture"
 }
+raw_recipes["mining-wood"] = {
+    "ingredients": {},
+    "products": {"wood": 1},
+    "energy": 1,
+    "category": "agriculture"
+}
 raw_recipes["wood-processing"]["category"] = "agriculture"
 
 for recipe_name, recipe_data in raw_recipes.items():
