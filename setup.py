@@ -371,18 +371,37 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
         os.makedirs(self.buildfolder / "Players" / "Templates", exist_ok=True)
         from Options import generate_yaml_templates
         from worlds.AutoWorld import AutoWorldRegister
-        from worlds.apworld_manager.ExportWorld import export_world
+        from worlds.Files import APWorldContainer
+        from Utils import version
         assert not non_apworlds - set(AutoWorldRegister.world_types), \
             f"Unknown world {non_apworlds - set(AutoWorldRegister.world_types)} designated for .apworld"
         folders_to_remove: list[str] = []
         generate_yaml_templates(self.buildfolder / "Players" / "Templates", False)
         for worldname, worldtype in AutoWorldRegister.world_types.items():
             if worldname not in non_apworlds:
-                export_world(libfolder=self.libfolder, world_type=worldtype, output_dir=self.libfolder / "worlds", is_frozen=True)
                 file_name = os.path.split(os.path.dirname(worldtype.__file__))[1]
-                folders_to_remove.append(file_name)
                 world_directory = self.libfolder / "worlds" / file_name
-                # Why doesn't this work any more?
+                if os.path.isfile(world_directory / "archipelago.json"):
+                    manifest = json.load(open(world_directory / "archipelago.json"))
+                else:
+                    manifest = {}
+                # this method creates an apworld that cannot be moved to a different OS or minor python version,
+                # which should be ok
+                zip_path = self.libfolder / "worlds" / (file_name + ".apworld")
+                apworld = APWorldContainer(str(zip_path))
+                apworld.minimum_ap_version = version
+                apworld.maximum_ap_version = version
+                apworld.game = worldtype.game
+                manifest.update(apworld.get_manifest())
+                apworld.manifest_path = f"{file_name}/archipelago.json"
+                with zipfile.ZipFile(zip_path, "x", zipfile.ZIP_DEFLATED,
+                                     compresslevel=9) as zf:
+                    for path in world_directory.rglob("*.*"):
+                        relative_path = os.path.join(*path.parts[path.parts.index("worlds")+1:])
+                        if not relative_path.endswith("archipelago.json"):
+                            zf.write(path, relative_path)
+                    zf.writestr(apworld.manifest_path, json.dumps(manifest))
+                    folders_to_remove.append(file_name)
                 shutil.rmtree(world_directory)
         shutil.copyfile("meta.yaml", self.buildfolder / "Players" / "Templates" / "meta.yaml")
         try:
