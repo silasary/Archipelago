@@ -115,7 +115,7 @@ def launch(*launch_args: str):
             Button:
                 text: root.tracker_text
                 size_hint: 1, 1
-                disabled: True
+                disabled: root.tracker_disabled
                 on_press: root.open_tracker()
         BoxLayout:
             orientation: 'horizontal'
@@ -167,6 +167,11 @@ def launch(*launch_args: str):
             app.apworlds.extend(refresh_apworld_table())
             app.root.default_tab_content.refresh_from_data()
 
+        def open_tracker(self):
+            import webbrowser
+            if self.details.get("tracker"):
+                webbrowser.open(self.details.get("tracker"))
+
         def open_release(self):
             import webbrowser
             if self.details['latest_version'].release_url:
@@ -186,10 +191,14 @@ def launch(*launch_args: str):
                 return "Up to date"
             else:
                 return f"Install {self.details['latest_version'].world_version}"
-            
+
         @property
         def tracker_text(self):
             return "Download Tracker" if self.details.get("tracker") else "(No tracker known)"
+
+        @property
+        def tracker_disabled(self):
+            return not self.details.get("tracker")
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
         details = DictProperty({"title": "game name", "description": "short description", "install_text": "N/A"})

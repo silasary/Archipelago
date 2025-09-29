@@ -76,7 +76,7 @@ class ApWorldMetadata:
     @property
     def download_url(self) -> str:
         return self.data['world']
-    
+
     @property
     def release_url(self) -> str:
         return self.data['metadata'].get('release_url', self.source_url.split('/releases')[0] if self.source_url and 'github.com' in self.source_url else None)
@@ -106,7 +106,7 @@ class ApWorldMetadata:
     @property
     def unready(self) -> bool:
         return 'unready' in self.data['metadata'].get('flags', [])
-    
+
     @property
     def world_description(self) -> str:
         return self.data['metadata'].get('description', '')
@@ -475,7 +475,7 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 'install_text': '-',
                 "after_dark": manifest_data.get("after_dark", False),
                 "file": file,
-                "description": "",
+                "description": description,
                 "sort": SortStages.DEFAULT,
                 "world_description": inspect.cleandoc(world.__doc__ or ""),
             }
