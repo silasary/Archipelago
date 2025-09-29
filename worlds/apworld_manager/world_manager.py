@@ -390,9 +390,22 @@ class SortStages(IntEnum):
     NO_REMOTE = -9
     BUNDLED = -10
 
+class WorldInfo(typing.TypedDict):
+    title: str
+    description: str
+    installed: bool
+    manifest: dict[str, typing.Any]
+    remotes: typing.Optional[dict[str, ApWorldMetadata]]
+    latest_version: typing.Optional[ApWorldMetadata]
+    update_available: bool
+    install_text: str
+    sort: SortStages
+    after_dark: bool
+    file: typing.Optional[pathlib.Path]
+
 repositories = RepositoryManager()
 
-def install_world(world: dict[str, typing.Any]):
+def install_world(world: WorldInfo) -> None:
     from worlds.LauncherComponents import install_apworld
 
     path = repositories.download_remote_world(world["latest_version"])
@@ -400,7 +413,7 @@ def install_world(world: dict[str, typing.Any]):
     if world['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
         os.remove(world["file"])
 
-def refresh_apworld_table() -> list[dict[str, typing.Any]]:
+def refresh_apworld_table() -> list[WorldInfo]:
         """Refresh the list of available APWorlds from the repositories."""
         from worlds import AutoWorld
         from .container import RepoWorldContainer
