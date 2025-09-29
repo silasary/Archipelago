@@ -390,7 +390,7 @@ def parse_version(version: str) -> Version:
         matches.sort(key=lambda x: len(x.group(0)), reverse=True)
         if matches:
             return Version(matches[0].group(0))
-        return Version(f"0.0.0+{version}")
+        return Version(f"0.0.0+{version.strip('_')}")
 
 class SortStages(IntEnum):
     UPDATE_AVAILABLE = 3
