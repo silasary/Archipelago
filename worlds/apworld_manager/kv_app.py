@@ -71,10 +71,10 @@ def launch(*launch_args: str):
         size_hint: .2, 1
         on_press: root.download_latest()
         disabled: root.details["install_text"] == "-"
-    # Button:
-    #     text: "Details"
-    #     size_hint: .2, 1
-    #     on_press: root.switch_to_detail()
+    Button:
+        text: "Details"
+        size_hint: .2, 1
+        on_press: root.switch_to_detail()
 
 <RV>:
     viewclass: 'ApworldDirectoryItem'
@@ -99,16 +99,35 @@ def launch(*launch_args: str):
 <ApworldDetails>:
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text: root.details["title"]
-            size_hint: 1, 0.1
         # Label:
-        #     text: root.details["description"]
+        #     text: root.details["title"]
         #     size_hint: 1, 0.1
-        Button:
-            text: root.latest_text
-            size_hint: 1, 0.1
-            on_press: root.download_latest()
+        Label:
+            text: root.details["world_description"]
+            size_hint: 1, 0.8
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            Button:
+                text: root.latest_text
+                size_hint: 1, 1
+                on_press: root.download_latest()
+            Button:
+                text: root.tracker_text
+                size_hint: 1, 1
+                disabled: True
+                on_press: root.open_tracker()
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.2
+            Button:
+                text: "View GitHub"
+                size_hint: 1, 1
+                on_press: root.open_release()
+            Button:
+                text: "View Wiki Page"
+                size_hint: 1, 1
+                on_press: root.open_wiki()
 
 """
     Builder.load_string(kv)
@@ -148,6 +167,17 @@ def launch(*launch_args: str):
             app.apworlds.extend(refresh_apworld_table())
             app.root.default_tab_content.refresh_from_data()
 
+        def open_release(self):
+            import webbrowser
+            if self.details['latest_version'].release_url:
+                webbrowser.open(self.details['latest_version'].release_url)
+            else:
+                webbrowser.open(self.details['latest_version'].download_url.split('/releases')[0])
+
+        def open_wiki(self):
+            import webbrowser
+            webbrowser.open(f'https://archipelago.miraheze.org/wiki/{self.details["title"]}')
+
         @property
         def latest_text(self):
             if self.details["installed"] and self.details["update_available"]:
@@ -156,6 +186,10 @@ def launch(*launch_args: str):
                 return "Up to date"
             else:
                 return f"Install {self.details['latest_version'].world_version}"
+            
+        @property
+        def tracker_text(self):
+            return "Download Tracker" if self.details.get("tracker") else "(No tracker known)"
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
         details = DictProperty({"title": "game name", "description": "short description", "install_text": "N/A"})

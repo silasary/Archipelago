@@ -2,6 +2,7 @@ import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
 import hashlib
+import inspect
 import logging
 import math
 import pathlib
@@ -75,6 +76,10 @@ class ApWorldMetadata:
     @property
     def download_url(self) -> str:
         return self.data['world']
+    
+    @property
+    def release_url(self) -> str:
+        return self.data['metadata'].get('release_url', self.source_url.split('/releases')[0] if self.source_url and 'github.com' in self.source_url else None)
 
     @property
     def created_at(self) -> str:
@@ -101,6 +106,10 @@ class ApWorldMetadata:
     @property
     def unready(self) -> bool:
         return 'unready' in self.data['metadata'].get('flags', [])
+    
+    @property
+    def world_description(self) -> str:
+        return self.data['metadata'].get('description', '')
 
 class Repository:
     def __init__(self, world_source: RemoteWorldSource, path: str, apworld_cache_path) -> None:
@@ -121,6 +130,8 @@ class Repository:
             response = requests.get(self.path)
             self.index_json = response.json()
 
+            meta: dict[str, dict[str, str]] = defaultdict(dict)
+            meta.update(self.index_json.get('meta', {}))
             self.worlds = [
                 ApWorldMetadata(self.world_source, world) for world in self.index_json['worlds']
             ]
@@ -129,6 +140,7 @@ class Repository:
                 if world.minimum_ap_version > version_tuple or world.maximum_ap_version < version_tuple:
                     self.worlds.remove(world)
                     continue
+                world.data['metadata'].update(meta.get(world.id, {}))
 
         elif self.world_source == RemoteWorldSource.LOCAL:
             self.worlds = []
@@ -402,6 +414,7 @@ class WorldInfo(typing.TypedDict):
     sort: SortStages
     after_dark: bool
     file: typing.Optional[pathlib.Path]
+    world_description: str
 
 repositories = RepositoryManager()
 
@@ -453,7 +466,7 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 if local := getattr(world, "world_version", None):
                     local_version = local
             description = "Placeholder text"
-            data = {
+            data: WorldInfo = {
                 "title": name,
                 "installed": True,
                 "manifest": manifest_data,
@@ -462,6 +475,9 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 'install_text': '-',
                 "after_dark": manifest_data.get("after_dark", False),
                 "file": file,
+                "description": "",
+                "sort": SortStages.DEFAULT,
+                "world_description": inspect.cleandoc(world.__doc__ or ""),
             }
             source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
             if source and source[0].relative:
@@ -524,6 +540,8 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 "install_text": "Install",
                 "after_dark": highest_remote_version.after_dark,
                 "file": None,
+                "remotes": {},
+                "world_description": highest_remote_version.world_description or "",
                 }
             if highest_remote_version.after_dark:
                 data['sort'] = SortStages.AFTER_DARK
