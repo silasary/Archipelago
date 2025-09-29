@@ -33,3 +33,4 @@ def launch_client(*args: str) -> None:
     launch_subprocess(launch, name="APManager", args=args)
 
 components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL))
+components.append(Component("worldman", None, func=launch_client, component_type=Type.HIDDEN))
