@@ -452,8 +452,6 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
             }
             source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
             if source and source[0].relative:
-                # We can't update a frozen world right now
-                # This will change when https://github.com/ArchipelagoMW/Archipelago/pull/4516 is merged
                 description = "Bundled with AP"
                 data['sort'] = SortStages.BUNDLED
                 if local_version != "0.0.0" and remote:
@@ -464,8 +462,13 @@ def refresh_apworld_table() -> list[dict[str, typing.Any]]:
                     data['update_available'] = v_remote > v_local
                     if data['update_available']:
                         description = f"Update available: {v_local} -> {v_remote}"
-                        data['sort'] = SortStages.BUNDLED_BUT_UPDATABLE
-                        data['install_text'] = "Unbundle and Update"
+                        if version_tuple < (0, 6, 4):
+                            # Before https://github.com/ArchipelagoMW/Archipelago/pull/4516, you couldn't have a world in both places
+                            data['sort'] = SortStages.BUNDLED_BUT_UPDATABLE
+                            data['install_text'] = "Unbundle and Update"
+                        else:
+                            data['sort'] = SortStages.UPDATE_AVAILABLE
+                            data['install_text'] = "Update"
             elif not remote:
                 description = "No remote data available"
                 data['sort'] = SortStages.NO_REMOTE
