@@ -169,8 +169,8 @@ def launch(*launch_args: str):
 
         def open_tracker(self):
             import webbrowser
-            if self.details.get("tracker"):
-                webbrowser.open(self.details.get("tracker"))
+            if self.tracker_url:
+                webbrowser.open(self.tracker_url)
 
         def open_release(self):
             import webbrowser
@@ -193,14 +193,18 @@ def launch(*launch_args: str):
                 return f"Install {self.details['latest_version'].world_version}"
 
         @property
+        def tracker_url(self):
+            return self.details.latest_version.data['metadata'].get('tracker', '')
+
+        @property
         def tracker_text(self):
             if self.details.latest_version.tracker_included:
                 return "Has Integrated Tracker"
-            return "Download Tracker" if self.details.get("tracker") else "(No tracker known)"
+            return "View Tracker" if self.tracker_url else "(No tracker known)"
 
         @property
         def tracker_disabled(self):
-            return not self.details.get("tracker")
+            return not self.tracker_url
 
     class ApworldDirectoryItem(RecycleDataViewBehavior, BoxLayout):
         details = DictProperty({"title": "game name", "description": "short description", "install_text": "N/A"})
