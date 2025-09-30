@@ -58,7 +58,7 @@ class ApWorldMetadata:
 
     @property
     def name(self) -> str:
-        return self.data['metadata']['game']
+        return self.data['metadata'].get('game', '')
 
     @property
     def world_version(self) -> str:
@@ -99,13 +99,23 @@ class ApWorldMetadata:
             v = Utils.tuplize_version(v)
         return v
 
+    def get_flag(self, flag: str) -> bool:
+        flags: list[str] | dict[str, bool] = self.data['metadata'].get('flags', [])
+        if isinstance(flags, dict):
+            return flags.get(flag, False)        
+        return flag in flags
+
     @property
     def after_dark(self) -> bool:
-        return self.data['metadata'].get('after_dark', False) or 'after_dark' in self.data['metadata'].get('flags', [])
+        return self.get_flag('after_dark')
 
     @property
     def unready(self) -> bool:
-        return 'unready' in self.data['metadata'].get('flags', [])
+        return self.get_flag('unready')
+
+    @property
+    def tracker_included(self) -> bool:
+        return self.get_flag('tracker_included')
 
     @property
     def world_description(self) -> str:

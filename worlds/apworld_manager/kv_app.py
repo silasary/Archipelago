@@ -194,6 +194,8 @@ def launch(*launch_args: str):
 
         @property
         def tracker_text(self):
+            if self.details.latest_version.tracker_included:
+                return "Has Integrated Tracker"
             return "Download Tracker" if self.details.get("tracker") else "(No tracker known)"
 
         @property
