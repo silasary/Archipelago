@@ -3,6 +3,8 @@ import logging
 from random import Random
 from typing import Any, List, Set, Tuple, Type, Union
 
+from Options import OptionError
+
 from .enums import KeymastersKeepGamePlatforms
 
 from .game import Game
@@ -190,6 +192,9 @@ class GameObjectiveGenerator:
             game: Type[Game] = AutoGameRegister.games[game_name]
 
             game_instance: Game = game(archipelago_options=self.archipelago_options)
+
+            if not game_instance.has_objectives:
+                raise OptionError(f"Game '{game_name}' was selected, but has no possible objectives.  Please double-check your yaml.")
 
             if not include_adult_only_or_unrated_games and game.is_adult_only_or_unrated:
                 continue

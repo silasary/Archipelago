@@ -73,6 +73,10 @@ class Game(metaclass=AutoGameRegister):
 
         return True
 
+    @property
+    def has_objectives(self) -> bool:
+        return bool(self.game_objective_templates())
+
     @abc.abstractmethod
     def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
         return list()

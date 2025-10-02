@@ -4,7 +4,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet
+from Options import OptionError, OptionSet
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -31,6 +31,9 @@ class CustomGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+        if not self.objectives():
+            raise OptionError("Custom (META) was selected, but custom_objective_list was empty.")
+
         return [
             GameObjectiveTemplate(
                 label="OBJECTIVE",

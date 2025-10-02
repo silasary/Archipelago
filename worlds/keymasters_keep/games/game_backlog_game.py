@@ -4,7 +4,7 @@ from typing import List
 
 from dataclasses import dataclass
 
-from Options import OptionSet
+from Options import OptionError, OptionSet
 
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
@@ -32,6 +32,11 @@ class GameBacklogGame(Game):
         return list()
 
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+        if not self.games():
+            raise OptionError("Game Backlog (META) was selected, but game_backlog_game_selection was empty.")
+        if not self.actions():
+            raise OptionError("Game Backlog (META) was selected, but game_backlog_actions was empty.")
+
         return [
             GameObjectiveTemplate(
                 label="ACTION GAME",
