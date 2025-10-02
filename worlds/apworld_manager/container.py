@@ -12,32 +12,37 @@ try:
 except ImportError:
     from ._vendor.world_container import APWorldContainer
 
+
+LITERAL_KEYS = ("github", "authors", "world_version_full", "tracker", "flags")
+
 class RepoWorldContainer(APWorldContainer):
     """A zipfile containing a world implementation."""
     github: str | None = None
-    author: str | None = None
-    description: str | None = None
 
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         try:
             manifest = super().read_contents(opened_zipfile)
         except KeyError:
             manifest = self.read_incorrect_contents(opened_zipfile)
-        for string_key in ("github", "author", "description", "world_version_full"):
-            if string_key in manifest:
-                setattr(self, string_key, manifest[string_key])
+        if 'poptracker' in manifest:
+            manifest['tracker'] = manifest.pop('poptracker')
+            del manifest['poptracker']
+        for lit_key in LITERAL_KEYS:
+            if lit_key in manifest:
+                setattr(self, lit_key, manifest[lit_key])
         return manifest
 
     def get_manifest(self) -> Dict[str, Any]:
         manifest = super().get_manifest()
-        for string_key in ("github", "author", "description", "world_version_full"):
-            string = getattr(self, string_key, None)
-            if string:
-                manifest[string_key] = string
+        for lit_key in LITERAL_KEYS:
+            value = getattr(self, lit_key, None)
+            if value is not None:
+                manifest[lit_key] = value
         return manifest
 
     def read_incorrect_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         """Read contents of the zipfile from an archipelago.json file in the subdirectory."""
+        # This isn't needed as of v7, but is currently kept for backwards compatibility with older installs.
         manifest = {}
         for file in opened_zipfile.namelist():
             if file.endswith("archipelago.json"):
