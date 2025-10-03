@@ -102,7 +102,7 @@ class ApWorldMetadata:
     def get_flag(self, flag: str) -> bool:
         flags: list[str] | dict[str, bool] = self.data['metadata'].get('flags', [])
         if isinstance(flags, dict):
-            return flags.get(flag, False)        
+            return flags.get(flag, False)
         return flag in flags
 
     @property
@@ -425,6 +425,7 @@ class WorldInfo(typing.TypedDict):
     after_dark: bool
     file: typing.Optional[pathlib.Path]
     world_description: str
+    installed_version: typing.Optional[str]
 
 repositories = RepositoryManager()
 
@@ -437,46 +438,57 @@ def install_world(world: WorldInfo) -> None:
         os.remove(world["file"])
 
 def refresh_apworld_table() -> list[WorldInfo]:
-        """Refresh the list of available APWorlds from the repositories."""
-        from worlds import AutoWorld
-        from .container import RepoWorldContainer
+    """Refresh the list of available APWorlds from the repositories."""
+    apworlds, installed = populate_installed_worlds()
+    apworlds.extend(populate_available_worlds(installed))
+    apworlds.sort(key=lambda x: x['sort'], reverse=True)
+    return apworlds
 
-        register = AutoWorld.AutoWorldRegister
-        apworlds = []
-        installed = set()
-        for name, world in register.world_types.items():
-            file: pathlib.Path = world.zip_path
-            if not file:
+def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
+    from worlds import AutoWorld
+    from .container import RepoWorldContainer
+
+    register = AutoWorld.AutoWorldRegister
+    apworlds = []
+    installed = set()
+    for name, world in register.world_types.items():
+        file: pathlib.Path = world.zip_path
+        if not file:
                 # data = {"title": name, "description": "Unpacked World", "metadata": {"game": None}}
                 # apworlds.append(data)
-                installed.add(world.__module__.split(".")[1])
-                continue
+            installed.add(world.__module__.split(".")[1])
+            continue
 
-            container = RepoWorldContainer(file)
-            installed.add(file.stem)
-            try:
-                container.read()
-            except InvalidDataError:
+        container = RepoWorldContainer(file)
+        installed.add(file.stem)
+        try:
+            container.read()
+        except InvalidDataError:
                 # print(f"Error reading manifest for {file}: {e}")
                 # continue
-                pass
-            except FileNotFoundError:
-                continue
-            manifest_data = container.get_manifest()
-            remote = repositories.packages_by_id_version.get(file.stem)
-            local_version = manifest_data.get("world_version_full", "")
-            if not local_version:
-                local_version = manifest_data.setdefault("world_version", "0.0.0")
-            if local_version == "0.0.0":
-                with open(file, 'rb') as f:
-                    hash = hashlib.sha256(f.read()).hexdigest()
-                if local := repositories.find_release_by_hash(hash):
-                    local_version = local.world_version
-            if local_version == "0.0.0":
-                if local := getattr(world, "world_version", None):
-                    local_version = local
-            description = "Placeholder text"
-            data: WorldInfo = {
+            pass
+        except FileNotFoundError:
+            continue
+        manifest_data = container.get_manifest()
+        remote = repositories.packages_by_id_version.get(file.stem)
+        local_version = manifest_data.get("world_version_full", "")
+        if local_version == "0.0.0":
+            with open(file, 'rb') as f:
+                hash = hashlib.sha256(f.read()).hexdigest()
+            if local := repositories.find_release_by_hash(hash):
+                local_version = local.world_version
+        if not local_version:
+            local_version = manifest_data.setdefault("world_version", "0.0.0")
+        if local_version == "0.0.0":
+            if local := getattr(world, "world_version", None):
+                local_version = local
+                if isinstance(local_version, Utils.Version):
+                    local_version = local_version.as_simple_string()
+        if not isinstance(local_version, str):
+            local_version = str(local_version)
+
+        description = "Placeholder text"
+        data: WorldInfo = {
                 "title": name,
                 "installed": True,
                 "manifest": manifest_data,
@@ -491,29 +503,11 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 "latest_version": None,
                 "installed_version": local_version,
             }
-            source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
-            if source and source[0].relative:
-                description = "Bundled with AP"
-                data['sort'] = SortStages.BUNDLED
-                if local_version != "0.0.0" and remote:
-                    highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
-                    data["latest_version"] = highest_remote_version
-                    v_local = parse_version(local_version)
-                    v_remote = parse_version(highest_remote_version.world_version)
-                    data['update_available'] = v_remote > v_local
-                    if data['update_available']:
-                        description = f"Update available: {v_local} -> {v_remote}"
-                        if version_tuple < (0, 6, 4):
-                            # Before https://github.com/ArchipelagoMW/Archipelago/pull/4516, you couldn't have a world in both places
-                            data['sort'] = SortStages.BUNDLED_BUT_UPDATABLE
-                            data['install_text'] = "Unbundle and Update"
-                        else:
-                            data['sort'] = SortStages.UPDATE_AVAILABLE
-                            data['install_text'] = "Update"
-            elif not remote:
-                description = "No remote data available"
-                data['sort'] = SortStages.NO_REMOTE
-            else:
+        source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
+        if source and source[0].relative:
+            description = "Bundled with AP"
+            data['sort'] = SortStages.BUNDLED
+            if local_version != "0.0.0" and remote:
                 highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
                 data["latest_version"] = highest_remote_version
                 v_local = parse_version(local_version)
@@ -521,27 +515,50 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 data['update_available'] = v_remote > v_local
                 if data['update_available']:
                     description = f"Update available: {v_local} -> {v_remote}"
-                    data['sort'] = SortStages.UPDATE_AVAILABLE
-                    data['install_text'] = "Update"
-                else:
-                    description = "Up to date"
-                    data['sort'] = SortStages.INSTALLED
-                    data['install_text'] = data['installed_version']
-            data["description"] = description
-            apworlds.append(data)
+                    if version_tuple < (0, 6, 4):
+                            # Before https://github.com/ArchipelagoMW/Archipelago/pull/4516, you couldn't have a world in both places
+                        data['sort'] = SortStages.BUNDLED_BUT_UPDATABLE
+                        data['install_text'] = "Unbundle and Update"
+                    else:
+                        data['sort'] = SortStages.UPDATE_AVAILABLE
+                        data['install_text'] = "Update"
+        elif not remote:
+            description = "No remote data available"
+            data['sort'] = SortStages.NO_REMOTE
+        else:
+            highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
+            data["latest_version"] = highest_remote_version
+            v_local = parse_version(local_version)
+            v_remote = parse_version(highest_remote_version.world_version)
+            data['update_available'] = v_remote > v_local
+            if data['update_available']:
+                description = f"Update available: {v_local} -> {v_remote}"
+                data['sort'] = SortStages.UPDATE_AVAILABLE
+                data['install_text'] = "Update"
+            else:
+                description = "Up to date"
+                data['sort'] = SortStages.INSTALLED
+                data['install_text'] = data['installed_version'] or '0.0.0'
+        data["description"] = description
+        apworlds.append(data)
+    return apworlds, installed
 
-        from . import RepoWorld
-        show_after_dark = RepoWorld.settings.show_after_dark
-        show_manuals = RepoWorld.settings.show_manuals
+def populate_available_worlds(installed) -> list[WorldInfo]:
+    from . import RepoWorld
 
-        for world in sorted(repositories.all_known_package_ids):
-            if world in installed:
-                continue
-            remote = repositories.packages_by_id_version.get(world)
-            if not remote:
-                continue
-            highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
-            data = {
+    apworlds: list[WorldInfo] = []
+
+    show_after_dark = RepoWorld.settings.show_after_dark
+    show_manuals = RepoWorld.settings.show_manuals
+
+    for world in sorted(repositories.all_known_package_ids):
+        if world in installed:
+            continue
+        remote = repositories.packages_by_id_version.get(world)
+        if not remote:
+            continue
+        highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
+        data: WorldInfo = {
                 "title": highest_remote_version.name or f'{world}.apworld',
                 "description": "Available to install",
                 "latest_version": highest_remote_version,
@@ -554,21 +571,21 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 "file": None,
                 "remotes": {},
                 "world_description": highest_remote_version.world_description or "",
+                "installed_version": None,
                 }
-            if highest_remote_version.after_dark:
-                data['sort'] = SortStages.AFTER_DARK
-                if not show_after_dark:
-                    continue
-            if world.lower().startswith('manual_'):
-                data['sort'] = SortStages.MANUAL
-                if not show_manuals:
-                    continue
-            if highest_remote_version.unready:
-                # These are always hidden while uninstalled
+        if highest_remote_version.after_dark:
+            data['sort'] = SortStages.AFTER_DARK
+            if not show_after_dark:
                 continue
-            apworlds.append(data)
-        apworlds.sort(key=lambda x: x['sort'], reverse=True)
-        return apworlds
+        if world.lower().startswith('manual_'):
+            data['sort'] = SortStages.MANUAL
+            if not show_manuals:
+                continue
+        if highest_remote_version.unready:
+                # These are always hidden while uninstalled
+            continue
+        apworlds.append(data)
+    return apworlds
 
 if __name__ == '__main__':
     local_dir = './worlds_test_dir'
