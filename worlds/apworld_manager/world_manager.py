@@ -1,6 +1,7 @@
 import asyncio
 from collections import defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 import hashlib
 import inspect
 import logging
@@ -437,11 +438,21 @@ def install_world(world: WorldInfo) -> None:
     if world['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
         os.remove(world["file"])
 
+
+@lru_cache
+def sort_title(title: str) -> str:
+    title = title.lower()
+    if title.startswith("the "):
+        title = title[4:]
+    elif title.startswith("a "):
+        title = title[2:]
+    return title
+
 def refresh_apworld_table() -> list[WorldInfo]:
     """Refresh the list of available APWorlds from the repositories."""
     apworlds, installed = populate_installed_worlds()
     apworlds.extend(populate_available_worlds(installed))
-    apworlds.sort(key=lambda x: x['sort'], reverse=True)
+    apworlds.sort(key=lambda x: (100 - x['sort'], sort_title(x['title'])), reverse=False)
     return apworlds
 
 def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
@@ -471,15 +482,15 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
             continue
         manifest_data = container.get_manifest()
         remote = repositories.packages_by_id_version.get(file.stem)
-        local_version = manifest_data.get("world_version_full", "")
-        if local_version == "0.0.0":
+        local_version = manifest_data.get("world_version_full", "0.0.0")
+        if not local_version or local_version == "0.0.0":
             with open(file, 'rb') as f:
                 hash = hashlib.sha256(f.read()).hexdigest()
             if local := repositories.find_release_by_hash(hash):
                 local_version = local.world_version
-        if not local_version:
+        if not local_version or local_version == "0.0.0":
             local_version = manifest_data.setdefault("world_version", "0.0.0")
-        if local_version == "0.0.0":
+        if not local_version or local_version == "0.0.0":
             if local := getattr(world, "world_version", None):
                 local_version = local
                 if isinstance(local_version, Utils.Version):
