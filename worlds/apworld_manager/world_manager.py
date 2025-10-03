@@ -365,7 +365,7 @@ class RepositoryManager:
 
     def find_release_by_hash(self, hash_sha256: str) -> typing.Optional[ApWorldMetadata]:
         for repo in self.repositories:
-            for world in repo.worlds:
+            for world in sorted(repo.worlds, key=lambda w: w.version_tuple, reverse=True):
                 if world.data.get('hash_sha256') == hash_sha256:
                     return world
         return None
