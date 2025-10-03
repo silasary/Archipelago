@@ -1,4 +1,5 @@
 
+import sys
 from CommonClient import get_base_parser
 from .world_manager import SortStages, install_world, refresh_apworld_table, repositories
 
@@ -70,7 +71,7 @@ def launch(*launch_args: str):
         text: root.details["install_text"]
         size_hint: .2, 1
         on_press: root.download_latest()
-        disabled: root.details["install_text"] == "-"
+        disabled: root.details["description"] == "Up to date"
     Button:
         text: "Details"
         size_hint: .2, 1
@@ -244,7 +245,11 @@ def launch(*launch_args: str):
 
     apworlds = refresh_apworld_table()
 
-    parser = get_base_parser()
+    import argparse
+    parser = argparse.ArgumentParser()
+    if sys.stdout:  # If terminal output exists, offer gui-less mode
+        parser.add_argument('--nogui', default=False, action='store_true', help="Turns off Client GUI.")
+
     parser.add_argument("--update-all", action="store_true", help="Run in non-GUI mode to just install/update worlds then exit")
 
     args, rest = parser.parse_known_args(launch_args)

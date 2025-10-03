@@ -488,6 +488,8 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 "description": description,
                 "sort": SortStages.DEFAULT,
                 "world_description": inspect.cleandoc(world.__doc__ or ""),
+                "latest_version": None,
+                "installed_version": local_version,
             }
             source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
             if source and source[0].relative:
@@ -524,7 +526,7 @@ def refresh_apworld_table() -> list[WorldInfo]:
                 else:
                     description = "Up to date"
                     data['sort'] = SortStages.INSTALLED
-                    data['install_text'] = "-"
+                    data['install_text'] = data['installed_version']
             data["description"] = description
             apworlds.append(data)
 
