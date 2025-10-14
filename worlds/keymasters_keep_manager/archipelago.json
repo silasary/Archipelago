@@ -1,5 +1,10 @@
 {
+    "authors": ["SerpentAI"],
+    "compatible_version": 7,
+    "flags": [],
     "game": "Keymaster's Keep Manager",
-    "world_version": "1.0.0",
-    "minimum_ap_version": "0.6.1"
+    "idgb_id": null,
+    "minimum_ap_version": "0.6.1",
+    "version": 7,
+    "world_version": "1.0.0"
 }
