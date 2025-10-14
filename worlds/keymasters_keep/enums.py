@@ -106,6 +106,7 @@ class KeymastersKeepGamePlatforms(enum.Enum):
     SMS = "SMS"  # Sega Master System
     SNES = "SNES"  # Super Nintendo Entertainment System
     SW = "SW"  # Nintendo Switch
+    SW2 = "SW2"  # Nintendo Switch 2
     SYM = "SYM"  # Symbian
     TD = "TD"  # NEC TurboDuo
     TG16 = "TG16"  # NEC TurboGrafx-16
