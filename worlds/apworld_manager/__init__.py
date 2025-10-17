@@ -25,7 +25,7 @@ class RepoWorld(World):
 
     # to make auto world register happy so we can register our settings
     game = "APWorld Manager"
-    world_version_str = "0.0.18"
+    world_version_str = "0.0.20"
     hidden = True
     item_name_to_id = {}
     location_name_to_id = {}

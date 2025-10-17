@@ -142,7 +142,10 @@ def launch(*launch_args: str):
                 apworlds = refresh_apworld_table()
             self.apworlds = apworlds
             from . import RepoWorld
-            self.title = f'APWorld Manager {RepoWorld.world_version_str}'
+            if hasattr(RepoWorld, 'world_version'):
+                self.title = f'APWorld Manager {RepoWorld.world_version}'
+            else:
+                self.title = f'APWorld Manager {RepoWorld.world_version_str}'
 
         def build(self):
             window = ApworldDirectoryWindow()
