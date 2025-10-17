@@ -488,19 +488,21 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
             continue
         manifest_data = container.get_manifest()
         remote = repositories.packages_by_id_version.get(file.stem)
-        local_version = manifest_data.get("world_version_full", "0.0.0")
+        local_version = "0.0.0"
+        with open(file, 'rb') as f:
+            hash = hashlib.sha256(f.read()).hexdigest()
+        if local := repositories.find_release_by_hash(hash):
+            local_version = local.world_version
+
         if not local_version or local_version == "0.0.0":
-            with open(file, 'rb') as f:
-                hash = hashlib.sha256(f.read()).hexdigest()
-            if local := repositories.find_release_by_hash(hash):
-                local_version = local.world_version
-        if not local_version or local_version == "0.0.0":
-            local_version = manifest_data.setdefault("world_version", "0.0.0")
+            local_version = manifest_data.setdefault("world_version_full", "0.0.0")
         if not local_version or local_version == "0.0.0":
             if local := getattr(world, "world_version", None):
                 local_version = local
                 if isinstance(local_version, Utils.Version):
                     local_version = local_version.as_simple_string()
+        if not local_version or local_version == "0.0.0":
+            local_version = manifest_data.setdefault("world_version", "0.0.0")
         if not isinstance(local_version, str):
             local_version = str(local_version)
 
