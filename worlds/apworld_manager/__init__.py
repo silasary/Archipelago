@@ -13,6 +13,8 @@ class ManagerSettings(Group):
     "Show non-installed After Dark games."
     show_manuals: bool = True
     "Show non-installed Manuals."
+    show_prereleases: bool = False
+    "Show prerelease versions of games."
 
 class RepoWorld(World):
     """

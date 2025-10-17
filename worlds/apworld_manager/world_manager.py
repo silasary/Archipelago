@@ -119,6 +119,10 @@ class ApWorldMetadata:
         return self.get_flag('tracker_included')
 
     @property
+    def is_prerelease(self) -> bool:
+        return self.get_flag('prerelease')
+
+    @property
     def world_description(self) -> str:
         return self.data['metadata'].get('description', '')
 
@@ -404,7 +408,8 @@ def parse_version(version: str) -> Version:
         return Version(f"0.0.0+{version.strip('_')}")
 
 class SortStages(IntEnum):
-    UPDATE_AVAILABLE = 3
+    UPDATE_AVAILABLE = 4
+    PRERELEASE_AVAILABLE = 3
     BUNDLED_BUT_UPDATABLE = 2
     INSTALLED = 1
     DEFAULT = 0
@@ -458,6 +463,7 @@ def refresh_apworld_table() -> list[WorldInfo]:
 def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
     from worlds import AutoWorld
     from .container import RepoWorldContainer
+    from . import RepoWorld
 
     register = AutoWorld.AutoWorldRegister
     apworlds = []
@@ -515,6 +521,11 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
                 "installed_version": local_version,
             }
         source = [s for s in world_sources if s.path == str(file) or s.path == str(file.name)]
+        local_remote = next((r for r in remote.values() if parse_version(r.world_version) == parse_version(local_version)), None) if remote else None
+        offer_prerelease = RepoWorld.settings.show_prereleases or (local_remote and local_remote.is_prerelease)
+        if remote and not offer_prerelease:
+            remote = {k: v for k, v in remote.items() if not v.is_prerelease}
+
         if source and source[0].relative:
             description = "Bundled with AP"
             data['sort'] = SortStages.BUNDLED
