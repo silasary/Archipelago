@@ -304,9 +304,6 @@ class Factorio(World):
         self.get_location("Rocket Launch").access_rule = lambda state: all(state.has(technology, player)
                                                                            for technology in
                                                                            victory_tech_names)
-        for tech_name in victory_tech_names:
-            if not self.multiworld.get_all_state(True).has(tech_name, player):
-                print(tech_name)
         self.multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
 
         if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
