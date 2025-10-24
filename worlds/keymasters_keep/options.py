@@ -1,12 +1,10 @@
 import typing
 
 from dataclasses import dataclass
-from schema import Schema, And
 
 from Options import (
     Choice,
     DefaultOnToggle,
-    OptionDict,
     OptionGroup,
     OptionList,
     OptionSet,
@@ -15,8 +13,6 @@ from Options import (
     StartInventoryPool,
     Toggle,
 )
-
-
 
 from .game import AutoGameRegister
 from .games import GameArchipelagoOptions
@@ -274,80 +270,6 @@ class ShopHints(Toggle):
     display_name: str = "Shop Hints"
 
 
-class Scrolls(Toggle):
-    """
-    If true, a percentage of filler items will be replaced by useful scrolls.
-
-    Scrolls are consumable items that can be used to alter the keep in various ways during play.
-    """
-
-    display_name: str = "Scrolls"
-
-
-class ScrollsPercentageChance(Range):
-    """
-    Determines the percentage chance of a filler item being replaced by a scroll.
-    """
-
-    display_name: str = "Scrolls Percentage Chance"
-
-    range_start: int = 0
-    range_end: int = 100
-
-    default = 10
-
-
-class ScrollsSuccessfulUsePercentageChance(Range):
-    """
-    Determines the percentage chance of a scroll being used successfully.
-
-    Scrolls are consumed regardless of the outcome of their use.
-    """
-
-    display_name: str = "Scrolls Successful Use Percentage Chance"
-
-    range_start: int = 1
-    range_end: int = 100
-
-    default = 50
-
-
-class ScrollProbabilityWeights(OptionDict):
-    """
-    Determines the probability weights that will be used when having to select a scroll to replace a filler item.
-
-    By default, the more impactful and / or powerful a scroll is, the less likely it is to be selected.
-    """
-
-    display_name: str = "Scroll Probability Weights"
-
-    default = {
-        "Scroll of Reflected Ordeals (Echoing)": 3,
-        "Scroll of Reflected Ordeals (Faded)": 6,
-        "Scroll of Reflected Ordeals (Resounding)": 1,
-        "Scroll of Shifting Challenges (Echoing)": 3,
-        "Scroll of Shifting Challenges (Faded)": 6,
-        "Scroll of Shifting Challenges (Resounding)": 1,
-        "Scroll of Spoils Foreseen (Echoing)": 6,
-        "Scroll of Spoils Foreseen (Faded)": 12,
-        "Scroll of Spoils Foreseen (Resounding)": 2,
-        "Scroll of the Keeper's Glance (Echoing)": 6,
-        "Scroll of the Keeper's Glance (Faded)": 12,
-        "Scroll of the Keeper's Glance (Resounding)": 2,
-        "Scroll of the Rewoven Seal (Echoing)": 6,
-        "Scroll of the Rewoven Seal (Faded)": 12,
-        "Scroll of the Rewoven Seal (Resounding)": 2,
-        "Scroll of the Rotating Ledger (Echoing)": 3,
-        "Scroll of the Rotating Ledger (Faded)": 6,
-        "Scroll of the Rotating Ledger (Resounding)": 1,
-        "Scroll of the Serpent's Gamble (Echoing)": 3,
-        "Scroll of the Serpent's Gamble (Faded)": 6,
-        "Scroll of the Serpent's Gamble (Resounding)": 1,
-    }
-
-    schema = Schema({str: And(int, lambda n: n >= 0)})
-
-
 class GameMedleyMode(Toggle):
     """
     If true, a percentage of keep areas will feature Game Medley as their game, with each trial sourced randomly from
@@ -510,10 +432,6 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     shop_items_maximum: ShopItemsMaximum
     shop_items_progression_percentage_chance: ShopItemsProgressionPercentageChance
     shop_hints: ShopHints
-    scrolls: Scrolls
-    scrolls_percentage_chance: ScrollsPercentageChance
-    scrolls_successful_use_percentage_chance: ScrollsSuccessfulUsePercentageChance
-    scroll_probability_weights: ScrollProbabilityWeights
     game_medley_mode: GameMedleyMode
     game_medley_percentage_chance: GameMedleyPercentageChance
     game_medley_game_selection: GameMedleyGameSelection
@@ -556,10 +474,6 @@ option_groups: typing.List[OptionGroup] = [
             ShopItemsMaximum,
             ShopItemsProgressionPercentageChance,
             ShopHints,
-            Scrolls,
-            ScrollsPercentageChance,
-            ScrollsSuccessfulUsePercentageChance,
-            ScrollProbabilityWeights,
         ],
     ),
     OptionGroup(
