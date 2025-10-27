@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, List, Set, Tuple, Type
-
 from dataclasses import dataclass
 from random import Random
-
-from ..game import Game
-from ..game_objective_template import GameObjectiveTemplate
+from typing import Any, List, Set, Tuple, Type
 
 from ..enums import KeymastersKeepGamePlatforms
+from ..game import Game
+from ..game_objective_template import GameObjectiveTemplate
 
 
 @dataclass
@@ -28,7 +26,7 @@ class GameMedleyGame(Game):
 
     options_cls = GameMedleyArchipelagoOptions
 
-    game_selection: List[Type[Game]]
+    game_selection: list[type[Game]]
 
     def __init__(
         self,
@@ -47,35 +45,35 @@ class GameMedleyGame(Game):
 
         self.game_selection = game_selection
 
-    def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return list()
+    def optional_game_constraint_templates(self) -> list[GameObjectiveTemplate]:
+        return []
 
-    def game_objective_templates(self) -> List[GameObjectiveTemplate]:
-        return list()
+    def game_objective_templates(self) -> list[GameObjectiveTemplate]:
+        return []
 
     def generate_objectives(
         self,
         count: int = 1,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
-        excluded_games_time_consuming: List[str] = None,
-        excluded_games_difficult: List[str] = None,
-        objectives_in_use: Set[str] = None,
-    ) -> Tuple[List[str], List[str], Set[str]]:
-        excluded_games_time_consuming = excluded_games_time_consuming or list()
-        excluded_games_difficult = excluded_games_difficult or list()
+        excluded_games_time_consuming: list[str] = None,
+        excluded_games_difficult: list[str] = None,
+        objectives_in_use: set[str] = None,
+    ) -> Tuple[list[str], list[str], set[str]]:
+        excluded_games_time_consuming = excluded_games_time_consuming or []
+        excluded_games_difficult = excluded_games_difficult or []
 
         objectives_in_use = objectives_in_use or set()
 
-        optional_constraints: List[str] = list()
-        objectives: List[str] = list()
+        optional_constraints: list[str] = []
+        objectives: list[str] = []
 
         passes_templates: int = 0
 
         while len(objectives) < count:
             passes_templates += 1
 
-            game: Type[Game] = self.random.choice(self.game_selection)
+            game: type[Game] = self.random.choice(self.game_selection)
 
             is_in_time_consuming_exclusions: bool = game.game_name_with_platforms() in excluded_games_time_consuming
             include_time_consuming = include_time_consuming and not is_in_time_consuming_exclusions

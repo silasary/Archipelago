@@ -532,4 +532,4 @@ def main(args: typing.Sequence[str] | None) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(None)
