@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-from typing import List
-
 from dataclasses import dataclass
 
 from Options import OptionError, OptionSet
 
+from ..enums import KeymastersKeepGamePlatforms
 from ..game import Game
 from ..game_objective_template import GameObjectiveTemplate
-
-from ..enums import KeymastersKeepGamePlatforms
 
 
 @dataclass
@@ -27,10 +24,10 @@ class CustomGame(Game):
 
     options_cls = CustomArchipelagoOptions
 
-    def optional_game_constraint_templates(self) -> List[GameObjectiveTemplate]:
-        return list()
+    def optional_game_constraint_templates(self) -> list[GameObjectiveTemplate]:
+        return []
 
-    def game_objective_templates(self) -> List[GameObjectiveTemplate]:
+    def game_objective_templates(self) -> list[GameObjectiveTemplate]:
         if not self.objectives():
             raise OptionError("Custom (META) was selected, but custom_objective_list was empty.")
 
@@ -44,7 +41,7 @@ class CustomGame(Game):
             ),
         ]
 
-    def objectives(self) -> List[str]:
+    def objectives(self) -> list[str]:
         return sorted(self.archipelago_options.custom_objective_list.value)
 
 

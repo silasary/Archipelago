@@ -1,5 +1,6 @@
 import asyncio
 import collections
+import typing
 
 import CommonClient
 import NetUtils
@@ -497,11 +498,18 @@ class KeymastersKeepContext(CommonClient.CommonContext):
                 self.game_state["shop_items_purchased"][shop] = purchased_items
 
 
-def main() -> None:
+def main(args: typing.Sequence[str] | None) -> None:
     Utils.init_logging("KeymastersKeepClient", exception_logger="Client")
+    parser = CommonClient.get_base_parser()
+    args, uri = parser.parse_known_args(args)
+
+    if uri and uri[0].startswith("archipelago://"):
+        args.url = uri[0]
+        CommonClient.handle_url_arg(args, parser)
+
 
     async def _main():
-        ctx: KeymastersKeepContext = KeymastersKeepContext(None, None)
+        ctx: KeymastersKeepContext = KeymastersKeepContext(args.connect, args.password)
 
         ctx.server_task = asyncio.create_task(CommonClient.server_loop(ctx), name="ServerLoop")
         ctx.controller_task = asyncio.create_task(ctx.controller(), name="KeymastersKeepController")
