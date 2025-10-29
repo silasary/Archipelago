@@ -498,7 +498,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
                 self.game_state["shop_items_purchased"][shop] = purchased_items
 
 
-def main(args: typing.Sequence[str] | None) -> None:
+def main(args: typing.Sequence[str] | None = None) -> None:
     Utils.init_logging("KeymastersKeepClient", exception_logger="Client")
     parser = CommonClient.get_base_parser()
     args, uri = parser.parse_known_args(args)
