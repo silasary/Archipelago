@@ -1,4 +1,5 @@
 import hashlib
+import os
 import pathlib
 
 import requests
@@ -240,4 +241,23 @@ class KeymastersKeepManager(App):
 
 
 def main() -> None:
+    games_path: str = user_path("keymasters_keep")
+
+    if not os.path.exists(games_path):
+        os.makedirs(games_path)
+
+    repositories_path: str = os.path.join(games_path, "repositories.txt")
+
+    if not os.path.exists(repositories_path):
+        with open(repositories_path, "w") as repositories_file:
+            repositories_file.writelines([
+                "SerpentAI/KeymastersKeepGames\n",
+                "SerpentAI/KeymastersKeepGameArchive",
+            ])
+
+    downloads_path: str = os.path.join(games_path, "downloads")
+
+    if not os.path.exists(downloads_path):
+        os.makedirs(downloads_path)
+
     KeymastersKeepManager().run()

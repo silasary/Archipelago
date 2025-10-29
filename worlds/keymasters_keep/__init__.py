@@ -31,3 +31,15 @@ LauncherComponents.components.append(
         supports_uri=True,
     )
 )
+
+def launch_manager() -> None:
+    from .manager.app import main
+    LauncherComponents.launch(main, name="KeymastersKeepManager")
+
+LauncherComponents.components.append(
+    LauncherComponents.Component(
+        "Keymaster's Keep Manager",
+        func=launch_manager,
+        component_type=LauncherComponents.Type.TOOL
+    )
+)
