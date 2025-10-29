@@ -4,6 +4,7 @@ import collections
 import logging
 import typing
 
+from Options import OptionError
 import Utils
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
@@ -133,7 +134,7 @@ class Factorio(World):
 
         except ValueError as e:
             # should be "ValueError: Sample larger than population or is negative"
-            raise Exception("Too many traps for too few locations. Either decrease the trap count, "
+            raise OptionError("Too many traps for too few locations. Either decrease the trap count, "
                             f"or increase the location count (higher max science pack). (Player {self.player})") from e
 
         self.science_locations = [FactorioScienceLocation(player, loc_name, self.location_name_to_id[loc_name], nauvis)
