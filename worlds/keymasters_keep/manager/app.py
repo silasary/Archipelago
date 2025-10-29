@@ -204,6 +204,8 @@ class KeymastersKeepManager(App):
                         file_entry: Dict[str, Any]
                         for file_entry in data.get("tree", list()):
                             file_name: str = file_entry["path"].split("/")[-1]
+                            if file_name.startswith(".") or file_entry["path"].startswith("."):
+                                continue
 
                             if file_name.endswith(".py") and file_name != "__init__.py":
                                 file_key: str = f"{file_name} - {repository}"
