@@ -1,0 +1,46 @@
+on:
+  push:
+    paths:
+      - "worlds/**/archipelago.json"
+    branches:
+      - "*"
+env:
+  world: ${{ github.ref_name }}
+
+name: Release APWorld
+jobs:
+  release-worlds:
+    name: Release Worlds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-subtests pytest-xdist
+          python ModuleUpdate.py --yes --force --append "WebHostLib/requirements.txt"
+          python Launcher.py --update_settings  # make sure host.yaml exists for tests
+          python Launcher.py "Build APWorlds"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Released Worlds
+          path: build/apworlds/${{ env.world }}.apworld
+      - name: Get Version Number
+        id: get_version
+        uses: mikefarah/yq@v4.45.1
+        with:
+          cmd: yq .world_version worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.world }}-${{ steps.get_version.outputs.result }}
+          name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
+          body: "Automated release of APWorld `${{ env.world }}` version `${{ steps.get_version.outputs.result }}`."
+          artifacts: build/apworlds/${{ env.world }}.apworld
+          makeLatest: true
