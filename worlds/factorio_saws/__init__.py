@@ -19,7 +19,7 @@ from .Technologies import base_tech_table, recipe_sources, base_technology_table
     all_product_sources, required_technologies, get_rocket_requirements, \
     progressive_technology_table, common_tech_table, tech_to_progressive_lookup, progressive_tech_table, \
     get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, \
-    fluids, stacking_items, valid_ingredients, progressive_rows, ignored_recipes
+    fluids, science_pack_pool_association, exclusion_list, progressive_rows, ignored_recipes
 
 
 def launch_client():
@@ -416,6 +416,51 @@ class FactorioSAWS(World):
             new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
         products = original.products
         category = self.get_category(original.category, liquids_used)
+        # empty barrel if we give a filled one
+        if "fluoroketone-cold" in new_ingredients:
+            products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
+            if category == "crafting-with-fluid" and "fluoroketone-hot" in products:
+                category = "chemistry"
+        elif "fluoroketone-hot" in products:
+            del products["fluoroketone-hot"]
+        return Recipe(original.name, category, new_ingredients,
+                      products, original.energy)
+
+    def make_quick_recipe_force_pool(self, original: Recipe, pool: list, forced_pool: list, allow_liquids: int = 2,
+                          ingredients_offset: int = 0, ingredients_force_count: int = 1) -> Recipe:
+        count: int = len(original.ingredients) + ingredients_offset
+        if len(pool) == 0:
+            pool = forced_pool
+        assert len(pool) >= count, f"Can't pick {count} many items from pool {pool}."
+        force_count: int  = ingredients_force_count
+        if count <= force_count :
+            force_count: int = count
+        count -= force_count
+        new_ingredients = {}
+        liquids_used = 0
+        for _ in range(force_count):
+            new_ingredient = forced_pool.pop()
+            if new_ingredient in fluids:
+                while liquids_used == allow_liquids and new_ingredient in fluids:
+                    # liquids already at max for current recipe.
+                    # Return the liquid to the pool and get a new ingredient.
+                    forced_pool.append(new_ingredient)
+                    new_ingredient = forced_pool.pop(0)
+                liquids_used += 1 if new_ingredient in fluids else 0
+            new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
+        for _ in range(count):
+            new_ingredient = pool.pop()
+            if new_ingredient in fluids:
+                while liquids_used == allow_liquids and new_ingredient in fluids:
+                    # liquids already at max for current recipe.
+                    # Return the liquid to the pool and get a new ingredient.
+                    pool.append(new_ingredient)
+                    new_ingredient = pool.pop(0)
+                liquids_used += 1 if new_ingredient in fluids else 0
+            new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
+        products = original.products
+        category = self.get_category(original.category, liquids_used)
+        # empty barrel if we give a filled one
         if "fluoroketone-cold" in new_ingredients:
             products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
             if category == "crafting-with-fluid" and "fluoroketone-hot" in products:
@@ -430,7 +475,7 @@ class FactorioSAWS(World):
         """Generate a recipe from pool with time and cost similar to original * factor"""
         new_ingredients = {}
         # have to first sort for determinism, while filtering out non-stacking items
-        pool: typing.List[str] = sorted(pool & valid_ingredients)
+        pool: typing.List[str] = sorted(pool)
         # then sort with random data to shuffle
         self.random.shuffle(pool)
         target_raw = int(sum((count for ingredient, count in original.base_cost.items())) * factor)
@@ -535,38 +580,96 @@ class FactorioSAWS(World):
 
     def set_custom_recipes(self):
         ingredients_offset = self.options.recipe_ingredients_offset
+        ingredients_force_count = self.options.recipe_ingredients_force_count
         original_rocket_part = recipes["rocket-part"]
-        science_pack_pools = get_science_pack_pools()
-        valid_pool = sorted(science_pack_pools[self.options.max_science_pack.get_max_pack()]
-                            & valid_ingredients)
-        self.random.shuffle(valid_pool)
-        self.custom_recipes = {"rocket-part": Recipe("rocket-part", original_rocket_part.category,
+        science_pack_pools = get_science_pack_pools(self.options.recipe_exclude_ingredients.value, self.options.recipe_include_hard_ingredients)
+        if self.options.recipe_force_current_pool_ingredients:
+            count = 3 + ingredients_offset
+            force_count: int  = ingredients_force_count
+            if count <= ingredients_force_count :
+                force_count: int = count
+            count -= force_count
+
+            current_pool_id = science_pack_pool_association[self.options.max_science_pack.get_max_pack()]
+            current_pool = science_pack_pools[current_pool_id]
+            previous_pool = set()
+            for i in range(current_pool_id-1,0,-1):
+                previous_pool |= science_pack_pools[i]
+            for fluid in fluids:
+                current_pool.discard(fluid)
+                previous_pool.discard(fluid)
+            current_pool_list = sorted(current_pool)
+            previous_pool_list = sorted(previous_pool)
+
+            new_ingredients = {}
+            self.random.shuffle(current_pool_list)
+            for _ in range(force_count):
+                new_ingredients[current_pool_list.pop()] = 10
+            self.random.shuffle(previous_pool_list)
+            for _ in range(count):
+                new_ingredients[previous_pool_list.pop()] = 10
+
+            self.custom_recipes = {"rocket-part": Recipe("rocket-part", original_rocket_part.category,
+                                                     new_ingredients,
+                                                     original_rocket_part.products,
+                                                     original_rocket_part.energy)}
+        else:
+            valid_pool = sorted(science_pack_pools[science_pack_pool_association[self.options.max_science_pack.get_max_pack()]])
+            self.random.shuffle(valid_pool)
+            self.custom_recipes = {"rocket-part": Recipe("rocket-part", original_rocket_part.category,
                                                      {valid_pool[x]: 10 for x in range(3 + ingredients_offset)},
                                                      original_rocket_part.products,
                                                      original_rocket_part.energy)}
-
+        
         categories = ["metallurgy", "organic", "electromagnetics"]
         self.random.shuffle(categories)
 
         if self.options.recipe_ingredients:
-            valid_pool = []
-            for pack in self.options.max_science_pack.get_ordered_science_packs():
-                valid_pool += sorted(science_pack_pools[pack])
-                self.random.shuffle(valid_pool)
-                if pack in recipes:  # skips over space science pack
-                    new_recipe = self.make_quick_recipe(recipes[pack], valid_pool, ingredients_offset=
-                                                        ingredients_offset.value)
-                    if pack in ("metallurgic-science-pack", "agricultural-science-pack", "electromagnetic-science-pack"):
-                        new_recipe.category = categories.pop()
-                    if new_recipe.category == "crafting-with-fluid" and "fluoroketone-hot" in new_recipe.products:
-                        new_recipe.category = "chemistry"
-                    self.custom_recipes[pack] = new_recipe
+            if self.options.recipe_force_current_pool_ingredients:
+                previous_pool_id = 0
+                previous_pool = set()
+                for pack in self.options.max_science_pack.get_ordered_science_packs():
+                    current_pool_id = science_pack_pool_association[pack]
+                    current_pool =  sorted(science_pack_pools[current_pool_id])
+                    if current_pool_id == 0: # cannot craft with fluid in inventory
+                        for fluid in fluids: 
+                            if fluid in current_pool: current_pool.remove(fluid)
+                    if previous_pool_id < current_pool_id:
+                        previous_pool |= science_pack_pools[previous_pool_id]
+                    self.random.shuffle(current_pool)
+                    previous_pool_list = sorted(previous_pool)
+                    self.random.shuffle(previous_pool_list)
+                    if pack in recipes:  # skips over space science pack
+                        new_recipe = self.make_quick_recipe_force_pool(recipes[pack], previous_pool_list, current_pool , ingredients_offset=
+                                                            ingredients_offset.value, ingredients_force_count= ingredients_force_count.value)
+                        if pack in ("metallurgic-science-pack", "agricultural-science-pack", "electromagnetic-science-pack"):
+                            new_recipe.category = categories.pop()
+                        if new_recipe.category == "crafting-with-fluid" and "fluoroketone-hot" in new_recipe.products:
+                            new_recipe.category = "chemistry"
+                        self.custom_recipes[pack] = new_recipe
+                        previous_pool_id = current_pool_id
+            else:
+                valid_pool = []
+                for pack in self.options.max_science_pack.get_ordered_science_packs():
+                    valid_pool += sorted(science_pack_pools[science_pack_pool_association[pack]])
+                    self.random.shuffle(valid_pool)
+                    if pack in recipes:  # skips over space science pack
+                        if pack == "automation-science-pack":
+                            for fluid in fluids:
+                                if fluid in valid_pool: valid_pool.remove(fluid)
+                        new_recipe = self.make_quick_recipe(recipes[pack], valid_pool, ingredients_offset=
+                                                            ingredients_offset.value)
+                        if pack in ("metallurgic-science-pack", "agricultural-science-pack", "electromagnetic-science-pack"):
+                            new_recipe.category = categories.pop()
+                        if new_recipe.category == "crafting-with-fluid" and "fluoroketone-hot" in new_recipe.products:
+                            new_recipe.category = "chemistry"
+                        self.custom_recipes[pack] = new_recipe
 
         if self.options.silo.value == Silo.option_randomize_recipe \
                 or self.options.satellite.value == Satellite.option_randomize_recipe:
             valid_pool = set()
-            for pack in sorted(self.options.max_science_pack.get_allowed_packs()):
-                valid_pool |= science_pack_pools[pack]
+            for i in range(science_pack_pool_association[self.options.max_science_pack.get_max_pack()],0,-1):
+                valid_pool |= (science_pack_pools[i])
 
             if self.options.silo.value == Silo.option_randomize_recipe:
                 new_recipe = self.make_balanced_recipe(
@@ -586,7 +689,7 @@ class FactorioSAWS(World):
             Recipe(bridge, "crafting", {"replace_1": 1, "replace_2": 1, "replace_3": 1,
                                         "replace_4": 1, "replace_5": 1, "replace_6": 1},
                    {bridge: 1}, 10),
-            sorted(science_pack_pools[self.options.max_science_pack.get_ordered_science_packs()[0]]),
+            sorted(science_pack_pools[science_pack_pool_association[self.options.max_science_pack.get_ordered_science_packs()[0]]]),
             ingredients_offset=ingredients_offset.value)
         for ingredient_name in new_recipe.ingredients:
             new_recipe.ingredients[ingredient_name] = self.random.randint(50, 500)

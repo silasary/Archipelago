@@ -265,6 +265,28 @@ class RecipeIngredientsOffset(Range):
     range_start = -1
     range_end = 5
 
+class ForceCurrentPoolIngredients(Toggle):
+    """Force ingredients from current difficulty recipe pools.
+    """
+    display_name = "Force Current Pool Ingredients"
+
+class RecipeIngredientsForceCount(Range):
+    """Number of ingredients to force from current difficulty recipe pools
+    """
+    display_name = "Randomized Recipe Ingredients Force Count"
+    range_start = 1
+    range_end = 10
+    default = 2
+
+class RecipeExcludedIngredients(OptionSet):
+    """Set of items that will be excluded from being ingredients in random recipes"""
+    display_name = "Randomized Recipe Exclude Ingredients"
+
+class RecipeIncludeHardIngredients(Toggle):
+    """Include Hard Ingredients in the last difficulty pool. Enable at your own risk
+    These items are very difficult to craft and are excluded by default
+    """
+    display_name = "Include Hard Ingredients"  
 
 class FactorioStartItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
@@ -536,6 +558,10 @@ class FactorioOptions(PerGameCommonOptions):
     recipe_time: RecipeTime
     recipe_ingredients: RecipeIngredients
     recipe_ingredients_offset: RecipeIngredientsOffset
+    recipe_force_current_pool_ingredients: ForceCurrentPoolIngredients
+    recipe_ingredients_force_count: RecipeIngredientsForceCount
+    recipe_exclude_ingredients: RecipeExcludedIngredients
+    recipe_include_hard_ingredients: RecipeIncludeHardIngredients
     imported_blueprints: ImportedBlueprint
     world_gen: FactorioWorldGen
     progressive: Progressive

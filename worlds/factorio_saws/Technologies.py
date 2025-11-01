@@ -37,7 +37,6 @@ fluids_future = pool.submit(load_json_data, "fluids")
 items_future = pool.submit(load_json_data, "items")
 
 
-
 tech_table: Dict[str, int] = {}
 technology_table: Dict[str, Technology] = {}
 
@@ -237,7 +236,6 @@ del resources_future
 
 
 ignored_recipes = {
-
     "casting-pipe", "casting-iron-gear-wheel", "casting-pipe-to-ground", "casting-iron", "casting-copper",
     "casting-iron-stick", "casting-copper-cable", "casting-low-density-structure", "casting-steel","steam-condensation",
     "coal-synthesis", "molten-iron-from-lava", "molten-copper-from-lava", "bioplastic", "biosulfur", "biolubricant",
@@ -265,6 +263,12 @@ raw_recipes["mining-jellynut"] = {
 raw_recipes["mining-yumako"] = {
     "ingredients": {},
     "products": {"yumako": 1},
+    "energy": 1,
+    "category": "agriculture"
+}
+raw_recipes["mining-wood"] = {
+    "ingredients": {},
+    "products": {"wood": 1},
     "energy": 1,
     "category": "agriculture"
 }
@@ -301,6 +305,7 @@ for name, categories in machines_future.result().items():
 # add electric mining drill as a crafting machine to resolve basic-solid (mining)
 machines["electric-mining-drill"] = Machine("electric-mining-drill", {"basic-solid"})
 machines["pumpjack"] = Machine("pumpjack", {"basic-fluid"})
+machines["offshore-pump"] = Machine("offshore-pump", {"pump-fluid"})
 machines["big-mining-drill"] = Machine("big-mining-drill", {"hard-solid"})
 machines["assembling-machine-1"].categories.add("crafting-with-fluid")  # mod enables this
 machines["character"].categories = {"crafting", "electronics", "pressing"}
@@ -521,81 +526,104 @@ common_tech_table: Dict[str, int] = {tech_name: tech_id for tech_name, tech_id i
 useless_technologies: Set[str] = {tech_name for tech_name in common_tech_table
                                   if not technology_table[tech_name].useful()}
 
-rel_cost = {
-    "wood": 5000000,
-    "iron-ore": 1,
-    "copper-ore": 1,
-    "stone": 1,
-    "scrap": 6,
-    "jellynut": 6,
-    "yumako": 6,
-    "calcite": 6,
-    "tungsten-ore": 6,
-    "crude-oil": 0.5,
-    "water": 0.001,
-    "coal": 1,
-    "raw-fish": 10,
-    "steam": 0.01,
-    "used-up-uranium-fuel-cell": 500000,
-    "ammoniacal-solution": 1,
-    "lava": 1,
-    "fluoroketone-hot": 5000000,
-    "yumako-seed": 5000000,
-    "jellynut-seed": 5000000
-}
-
-exclusion_list: Set[str] = all_ingredient_names | {"rocket-part", "rocket-silo", "cargo-landing-pad",
-                                                   "used-up-uranium-fuel-cell", "fluoroketone-hot",
-                                                   "item-unknown", "satellite"} | {f"parameter-{i}" for i in range(10)}
 fluids: Set[str] = set(fluids_future.result())
 del fluids_future
 
+# items that cannot be crafted
+exclusion_list: Set[str] = {
+    "depleted-uranium-fuel-cell", "promethium-science-pack", "space-science-pack", "carbonic-asteroid-chunk", "metallic-asteroid-chunk", "oxide-asteroid-chunk", 
+    "promethium-asteroid-chunk", "rocket-part", "rocket-silo", "satellite", "space-platform-hub", "pistol", "artillery-targeting-remote", "blueprint", "blueprint-book", 
+    "burner-generator", "coin", "copper-wire", "copy-paste-tool", "cut-paste-tool", "deconstruction-planner", "discharge-defense-remote", "electric-energy-interface", 
+    "empty-module-slot", "express-loader", "fast-loader", "science", "green-wire", "heat-interface", "infinity-chest", "infinity-pipe", "item-unknown", "lane-splitter", 
+    "linked-belt", "linked-chest", "loader", "red-wire", "selection-tool", "simple-entity-with-force", "simple-entity-with-owner", "spidertron-remote", 
+    "spidertron-rocket-launcher-1", "spidertron-rocket-launcher-2", "spidertron-rocket-launcher-3", "spidertron-rocket-launcher-4", "tank-cannon", "tank-flamethrower", 
+    "tank-machine-gun", "turbo-loader", "upgrade-planner", "vehicle-machine-gun", "thruster-fuel", "thruster-oxidizer", "fusion-plasma", "parameter-0", "parameter-1", 
+    "parameter-2", "parameter-3", "parameter-4", "parameter-5", "parameter-6", "parameter-7", "parameter-8", "parameter-9", "fluid-unknown", "space-platform-foundation", 
+    "cargo-bay", "asteroid-collector", "crusher", "thruster", "space-platform-starter-pack", "lightning-rod", "lightning-collector"
+}
 
-@Utils.cache_argsless
-def get_science_pack_pools() -> Dict[str, Set[str]]:
-    def get_estimated_difficulty(recipe: Recipe):
+science_pack_pool_association: Dict[str, int] = {
+    "automation-science-pack": 0,
+    "logistic-science-pack": 1,
+    "military-science-pack": 1,
+    "chemical-science-pack": 2,
+    "production-science-pack": 2,
+    "utility-science-pack": 2,
+    "agricultural-science-pack": 3,
+    "electromagnetic-science-pack": 3,
+    "metallurgic-science-pack": 3,
+    "cryogenic-science-pack": 4,
+    "space-science-pack": 4
+}
 
-        base_ingredients = recipe.base_cost
-        cost = 0
-
-        for ingredient_name, amount in base_ingredients.items():
-            cost += rel_cost.get(ingredient_name, 1) * amount
-
-        machine_cost = get_estimated_difficulty(recipes["recycler"]) if recipe.name == "scrap-recycling" else get_estimated_difficulty(recipes[recipe.crafting_machine]) if recipe.crafting_machine != "character" else 0
-        cost = cost + round(machine_cost / 10)
-
-        return cost
-
-    science_pack_pools: Dict[str, Set[str]] = {}
-    already_taken = exclusion_list.copy()
-    current_difficulty = 5
-    for science_pack in Options.MaxSciencePack.get_ordered_science_packs():
-        current = science_pack_pools[science_pack] = set()
-        for name, recipe in recipes.items():
-            if recipe.name not in ignored_recipes:
-                if (science_pack != "automation-science-pack" or not recipe.recursive_unlocking_technologies) \
-                        and get_estimated_difficulty(recipe) < current_difficulty:
-                    current |= set(recipe.products)
-
-        if science_pack == "automation-science-pack":
-            # Can't handcraft automation science if fluids end up in its recipe, making the seed impossible.
-            current -= fluids
-        elif science_pack == "logistic-science-pack":
-            current |= {"steam"}
-
-        current -= {"yumako-seed", "jellynut-seed"}
-
-        current -= already_taken
-        already_taken |= current
-        current_difficulty *= 2
-
+def get_science_pack_pools(excluded_ingredients: Set[str], include_hard_pool: bool) -> Dict[int, Set[str]]:
+    # TODO sciencesanity? previous science pack can become ingredients
+    # "automation-science-pack", "logistic-science-pack", "military-science-pack", "chemical-science-pack", "production-science-pack", 
+    # "utility-science-pack", "agricultural-science-pack", "electromagnetic-science-pack", "metallurgic-science-pack", "cryogenic-science-pack", 
+    # automation
+    sphere_0_pool: Set[str] = {
+        "iron-chest", "transport-belt", "burner-inserter", "inserter", "pipe", "stone-brick", "boiler", "offshore-pump", "stone-furnace", "iron-plate", "copper-plate", "iron-gear-wheel", "copper-cable", 
+        "electronic-circuit", "firearm-magazine", "coal", "copper-ore", "iron-ore", "stone", "scrap", "tungsten-ore", "calcite", "sulfuric-acid", "lava", "water", "ammoniacal-solution"
+    }
+    # logistic military
+    early_pool: Set[str] = {
+        "steel-chest", "underground-belt", "splitter", "long-handed-inserter", "fast-inserter", "pipe-to-ground", "concrete", "hazard-concrete", "steam-engine",  "burner-mining-drill", "electric-mining-drill", 
+        "assembling-machine-1", "fast-transport-belt", "medium-electric-pole", "crude-oil", "heavy-oil", "light-oil", "petroleum-gas", "lubricant",  "solid-fuel", "flamethrower-ammo", "steam", "ice", 
+        "steel-plate", "iron-stick", "ammonia", "gun-turret", "engine-unit", "pump", "uranium-ore", "grenade", "rail", "rail-signal", "rail-chain-signal", "small-lamp", "constant-combinator", 
+        "arithmetic-combinator", "decider-combinator", "power-switch", "programmable-speaker", "display-panel", "repair-pack", "shotgun-shell", "piercing-rounds-magazine", "stone-wall", "gate", 
+        "barrel" , "water-barrel", "crude-oil-barrel", "petroleum-gas-barrel", "light-oil-barrel", "heavy-oil-barrel", "lubricant-barrel", "sulfuric-acid-barrel"
+    }
+    # chemical production utility
+    mid_pool: Set[str] = {
+        "plastic-bar", "advanced-circuit", "battery", "carbon", "sulfur", "rocket-fuel", "big-electric-pole", "electric-engine-unit", "active-provider-chest", "passive-provider-chest", 
+        "storage-chest", "buffer-chest", "requester-chest", "speed-module", "train-stop", "productivity-module", "quality-module", "efficiency-module", "processing-unit", "fast-splitter", 
+        "fast-underground-belt", "assembling-machine-2", "refined-concrete", "storage-tank", "heat-pipe", "refined-hazard-concrete",  "landfill", "explosives", "rocket", "land-mine", "rocket-launcher", 
+        "cannon-shell", "radar", "explosive-rocket", "slowdown-capsule", "explosive-cannon-shell", "piercing-shotgun-shell", "submachine-gun", "poison-capsule", "pumpjack", "low-density-structure", 
+        "steel-furnace", "flamethrower", "solar-panel", "defender-capsule", "express-transport-belt", "chemical-plant", "lab", "light-armor", "accumulator", "solar-panel-equipment", "logistic-robot", 
+        "bulk-inserter", "fluid-wagon", "cargo-wagon", "oil-refinery", "construction-robot", "car", "flying-robot-frame", "selector-combinator", "uranium-238", "uranium-rounds-magazine", 
+        "holmium-plate", "holmium-solution", "electrolyte", "holmium-ore", "cliff-explosives", "tungsten-carbide", "tungsten-plate", "railgun-ammo", "tesla-ammo", "spoilage", "jelly", 
+        "yumako-mash", "yumako", "jellynut", "nutrients", "copper-bacteria", "iron-bacteria", "bioflux",  "raw-fish", "small-electric-pole", "tree-seed", "wood", "wooden-chest", "shotgun",
+        "ice-platform", "lithium-brine", "lithium-plate", "fluorine", "lithium", "fluoroketone-hot-barrel", "fluoroketone-cold", "fluoroketone-cold-barrel"
+    }
+    # agricultural electromagnetic metallurgic
+    late_pool: Set[str] = {
+        "combat-shotgun", "battery-equipment", "cluster-grenade", "flamethrower-turret", "steam-turbine", "energy-shield-equipment", "rail-support", "heat-exchanger", "explosive-uranium-cannon-shell", 
+        "substation", "night-vision-equipment", "distractor-capsule", "belt-immunity-equipment", "express-underground-belt", "electric-furnace", "uranium-cannon-shell" , "laser-turret",  "uranium-235", 
+        "uranium-fuel-cell", "assembling-machine-3", "locomotive", "express-splitter", "heavy-armor", "beacon", "personal-roboport-equipment", "roboport", "biter-egg", "capture-robot-rocket", "stack-inserter", 
+        "heating-tower", "pentapod-egg", "superconductor", "supercapacitor", "molten-copper", "molten-iron", "artillery-shell", "carbon-fiber", "fusion-power-cell", "jellynut-seed", "yumako-seed", 
+        "artificial-jellynut-soil", "artificial-yumako-soil"
+    }
+    # cryogenic space
+    very_late_pool: Set[str] = {
+        "tank", "productivity-module-2", "efficiency-module-2", "speed-module-2", "quality-module-2", "nuclear-fuel", "modular-armor", "destroyer-capsule", "exoskeleton-equipment", "battery-mk2-equipment", 
+        "centrifuge", "power-armor", "personal-laser-defense-equipment", "energy-shield-mk2-equipment", "rail-ramp", "quantum-processor", "teslagun", "artillery-turret", "artillery-wagon", "turbo-splitter", 
+        "turbo-underground-belt", "toolbelt-equipment", "captive-biter-spawner", "electromagnetic-plant", "foundry", "biochamber", "agricultural-tower", "recycler", "turbo-transport-belt", 
+        "big-mining-drill", "cryogenic-plant", "biolab", "rocket-turret", "tesla-turret"
+    }
+    # excluded by default
+    hard_pool: Set[str] = {
+        "fission-reactor-equipment", "fusion-reactor-equipment", "personal-roboport-mk2-equipment", "power-armor-mk2", "mech-armor", "railgun", "railgun-turret", "atomic-bomb", "spidertron", "nuclear-reactor", 
+        "overgrowth-jellynut-soil", "overgrowth-yumako-soil", "efficiency-module-3", "productivity-module-3", "quality-module-3", "speed-module-3", "battery-mk3-equipment", "discharge-defense-equipment", 
+        "fusion-generator", "fusion-reactor", "foundation", "cargo-landing-pad"
+    }
+    if len(excluded_ingredients) > 0:
+        for exclude_item in excluded_ingredients:
+            if exclude_item in sphere_0_pool: sphere_0_pool.remove(exclude_item)
+            if exclude_item in early_pool: early_pool.remove(exclude_item)
+            if exclude_item in mid_pool: mid_pool.remove(exclude_item)
+            if exclude_item in late_pool: late_pool.remove(exclude_item)
+            if exclude_item in very_late_pool: very_late_pool.remove(exclude_item)
+            if exclude_item in hard_pool: hard_pool.remove(exclude_item)
+    if include_hard_pool:
+        very_late_pool |= hard_pool
+    science_pack_pools: Dict[int, Set[str]] = {}
+    science_pack_pools[0] = sphere_0_pool
+    science_pack_pools[1] = early_pool
+    science_pack_pools[2] = mid_pool
+    science_pack_pools[3] = late_pool
+    science_pack_pools[4] = very_late_pool
     return science_pack_pools
 
-
-item_stack_sizes: Dict[str, int] = items_future.result()
-non_stacking_items: Set[str] = {item for item, stack in item_stack_sizes.items() if stack == 1}
-stacking_items: Set[str] = set(item_stack_sizes) - non_stacking_items
-valid_ingredients: Set[str] = stacking_items | fluids
 
 # cleanup async helpers
 pool.shutdown()
