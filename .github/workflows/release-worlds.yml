@@ -50,6 +50,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.world }}-${{ steps.get_version.outputs.result }}
-          name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
-          body: "## ${{ steps.get_name.outputs.result }} ${{ steps.get_version.outputs.result }}\n\n${{ steps.get_changelog.outputs.result }}"
+          name: ${{ steps.get_name.outputs.result }} v${{ steps.get_version.outputs.result }}
+          body: "${{ steps.get_changelog.outputs.result }}"
           artifacts: build/apworlds/${{ env.world }}.apworld
