@@ -1,6 +1,7 @@
 {
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
-    "world_version": "0.0.7",
-    "minimum_ap_version": "0.6.0"
+    "world_version": "0.8.0",
+    "minimum_ap_version": "0.6.0",
+    "changelog": "* Updated SAWS Client to use an isolated config folder.  This allows you to use the same Factorio executable for both server and client."
 }
