@@ -36,11 +36,20 @@ jobs:
         uses: mikefarah/yq@v4.45.1
         with:
           cmd: yq .world_version worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
+      - name: Get Name
+        id: get_name
+        uses: mikefarah/yq@v4.45.1
+        with:
+          cmd: yq .game worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
+      - name: Get Changelog
+        id: get_changelog
+        uses: mikefarah/yq@v4.45.1
+        with:
+          cmd: yq ".changelog" worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.world }}-${{ steps.get_version.outputs.result }}
           name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
-          body: "Automated release of APWorld `${{ env.world }}` version `${{ steps.get_version.outputs.result }}`."
+          body: "## ${{ steps.get_name.outputs.result }} ${{ steps.get_version.outputs.result }}\n\n${{ steps.get_changelog.outputs.result }}"
           artifacts: build/apworlds/${{ env.world }}.apworld
-          makeLatest: true
