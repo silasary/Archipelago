@@ -17,7 +17,7 @@ from .Technologies import tech_table, recipes, free_sample_exclusions, progressi
     base_tech_table, tech_to_progressive_lookup, fluids, useless_technologies
 
 if TYPE_CHECKING:
-    from . import Factorio
+    from . import FactorioSAWS
 
 template_env: Optional[jinja2.Environment] = None
 
@@ -89,7 +89,7 @@ class FactorioModFile(worlds.Files.APPlayerContainer):
         super(FactorioModFile, self).write_contents(opened_zipfile)
 
 
-def generate_mod(world: "Factorio", output_directory: str):
+def generate_mod(world: "FactorioSAWS", output_directory: str):
     player = world.player
     multiworld = world.multiworld
     random = world.random

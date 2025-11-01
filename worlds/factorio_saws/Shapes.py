@@ -4,7 +4,7 @@ from collections import deque
 from .Options import TechTreeLayout
 
 if TYPE_CHECKING:
-    from . import Factorio, FactorioScienceLocation
+    from . import FactorioSAWS, FactorioScienceLocation
 
 funnel_layers = {TechTreeLayout.option_small_funnels: 3,
                  TechTreeLayout.option_medium_funnels: 4,
@@ -19,7 +19,7 @@ def _sorter(location: "FactorioScienceLocation"):
     return location.complexity, location.rel_cost
 
 
-def get_shapes(world: "Factorio") -> Dict["FactorioScienceLocation", Set["FactorioScienceLocation"]]:
+def get_shapes(world: "FactorioSAWS") -> Dict["FactorioScienceLocation", Set["FactorioScienceLocation"]]:
     prerequisites: Dict["FactorioScienceLocation", Set["FactorioScienceLocation"]] = {}
     layout = world.options.tech_tree_layout.value
     locations: List["FactorioScienceLocation"] = sorted(world.science_locations, key=lambda loc: loc.name)

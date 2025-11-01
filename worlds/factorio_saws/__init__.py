@@ -10,7 +10,7 @@ from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 from worlds.generic import Rules
-from .settings import FactorioSettings
+from .settings import FactorioSAWSSettings
 from .Locations import location_pools, location_table, craftsanity_locations
 from .Mod import generate_mod
 from .Options import FactorioOptions, MaxSciencePack, Silo, Satellite, TechTreeInformation, Goal, TechCostDistribution
@@ -27,7 +27,7 @@ def launch_client():
     launch_subprocess(launch, name="FactorioSAWSClient")
 
 
-components.append(Component("Factorio - Space Age Without Space Client", "FactorioSAWSClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Factorio - Space Age Without Space Client", func=launch_client, component_type=Type.CLIENT))
 
 class FactorioWeb(WebWorld):
     tutorials = [Tutorial(
@@ -55,7 +55,7 @@ all_items["Atomic Rocket Trap"] = factorio_base_id - 7
 all_items["Atomic Cliff Remover Trap"] = factorio_base_id - 8
 all_items["Inventory Spill Trap"] = factorio_base_id - 9
 
-class Factorio(World):
+class FactorioSAWS(World):
     """
     Factorio is a game about automation. You play as an engineer who has crash landed on the planet
     Nauvis, an inhospitable world filled with dangerous creatures called biters. Build a factory,
@@ -86,13 +86,13 @@ class Factorio(World):
     origin_region_name = "Nauvis"
     science_locations: typing.List[FactorioScienceLocation]
     removed_technologies: typing.Set[str]
-    settings: typing.ClassVar[FactorioSettings]
+    settings: typing.ClassVar[FactorioSAWSSettings]
     trap_names: tuple[str] = ("Evolution", "Attack", "Teleport", "Grenade", "Cluster Grenade", "Artillery",
                               "Atomic Rocket", "Atomic Cliff Remover", "Inventory Spill")
     want_progressives: dict[str, bool] = collections.defaultdict(lambda: False)
 
     def __init__(self, world, player: int):
-        super(Factorio, self).__init__(world, player)
+        super(FactorioSAWS, self).__init__(world, player)
         self.removed_technologies = useless_technologies.copy()
         self.advancement_technologies = set()
         self.custom_recipes = {}
@@ -379,7 +379,7 @@ class Factorio(World):
                     if not state.has(item_name, item.player):
                         return item_name
 
-        return super(Factorio, self).collect_item(state, item, remove)
+        return super(FactorioSAWS, self).collect_item(state, item, remove)
 
     @classmethod
     def stage_write_spoiler(cls, world, spoiler_handle):
@@ -633,7 +633,7 @@ class Factorio(World):
 
 
 class FactorioLocation(Location):
-    game: str = Factorio.game
+    game: str = FactorioSAWS.game
 
 
 class FactorioCraftsanityLocation(FactorioLocation):
@@ -664,11 +664,11 @@ class FactorioScienceLocation(FactorioLocation):
         self.complexity = int(self.name.split("-")[1]) - 1
         self.rel_cost = int(self.name.split("-")[2])
 
-        self.ingredients = {Factorio.ordered_science_packs[self.complexity]: 1}
+        self.ingredients = {FactorioSAWS.ordered_science_packs[self.complexity]: 1}
         for complexity in range(self.complexity):
             if (parent.multiworld.worlds[self.player].options.tech_cost_mix >
                     parent.multiworld.worlds[self.player].random.randint(0, 99)):
-                self.ingredients[Factorio.ordered_science_packs[complexity]] = 1
+                self.ingredients[FactorioSAWS.ordered_science_packs[complexity]] = 1
 
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:

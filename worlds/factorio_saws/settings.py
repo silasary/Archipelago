@@ -3,7 +3,7 @@ import typing
 import settings
 
 
-class FactorioSettings(settings.Group):
+class FactorioSAWSSettings(settings.Group):
     class Executable(settings.UserFilePath):
         is_exe = True
 

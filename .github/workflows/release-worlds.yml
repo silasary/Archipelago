@@ -43,3 +43,4 @@ jobs:
           name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
           body: "Automated release of APWorld `${{ env.world }}` version `${{ steps.get_version.outputs.result }}`."
           artifacts: build/apworlds/${{ env.world }}.apworld
+          makeLatest: true
