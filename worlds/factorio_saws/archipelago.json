@@ -1,7 +1,20 @@
 {
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
-    "world_version": "0.8.1",
+    "world_version": "0.8.2",
     "minimum_ap_version": "0.6.0",
-    "changelog": "* Prevent webhost from serving an incorrectly renamed mod file."
+    "changelog": [
+        "## 0.8.2",
+        "* Added a `configure_server` script to the SAWS folder to help easily set up mod settings for the server.",
+        "",
+        "",
+        "## 0.8.1",
+        "* Prevented webhost from serving an incorrectly renamed mod file.",
+        "",
+        "",
+        "## 0.8.0",
+        "* Updated SAWS Client to use an isolated config folder.  This allows you to use the same Factorio executable for both server and client.",
+        "  * Saves and Mods now go in the `factorio_saws` folder in your archipelago folder.",
+        "  * This is a port of my PR for vanilla Factorio at https://github.com/ArchipelagoMW/Archipelago/pull/4221, hopefully it merges there in time for AP 0.6.4 🙂"
+    ]
 }
