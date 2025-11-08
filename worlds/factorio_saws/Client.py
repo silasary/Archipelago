@@ -610,6 +610,19 @@ def launch(*new_args: str):
         with open(config_file, 'w') as f:
             f.write(f"[path]\nread-data=__PATH__system-read-data__\nwrite-data={user_path('factorio_saws')}")
 
+
+    if is_windows:
+        configure_sh = user_path('factorio_saws', 'configure_server.bat')
+        if not os.path.exists(configure_sh):
+            with open(configure_sh, 'w') as f:
+                f.write(f"\"{executable}\" --config \"{config_file}\"")
+    else:
+        configure_sh = user_path('factorio_saws', 'configure_server.sh')
+        if not os.path.exists(configure_sh):
+            with open(configure_sh, 'w') as f:
+                f.write(f"#!/bin/sh\n\"{executable}\" --config \"{config_file}\"\n")
+            os.chmod(configure_sh, 0o755)
+
     asyncio.run(main(lambda: FactorioContext(
         args.connect, args.password,
         initial_filter_item_sends, initial_bridge_chat_out,
