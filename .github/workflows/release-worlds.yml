@@ -45,11 +45,11 @@ jobs:
         id: get_changelog
         uses: mikefarah/yq@v4.45.1
         with:
-          cmd: yq ".changelog" worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
+          cmd: yq '.changelog | join("\n")' worlds/${{ env.world }}/archipelago.json --unwrapScalar=true
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.world }}-${{ steps.get_version.outputs.result }}
-          name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
+          name: ${{ steps.get_name.outputs.result }} v${{ steps.get_version.outputs.result }}
           body: ${{ steps.get_changelog.outputs.result }}
           artifacts: build/apworlds/${{ env.world }}.apworld
