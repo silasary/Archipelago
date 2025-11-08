@@ -51,5 +51,5 @@ jobs:
         with:
           tag: ${{ env.world }}-${{ steps.get_version.outputs.result }}
           name: ${{ env.world }} v${{ steps.get_version.outputs.result }}
-          body: "## ${{ steps.get_name.outputs.result }} ${{ steps.get_version.outputs.result }}\n\n${{ steps.get_changelog.outputs.result }}"
+          body: ${{ steps.get_changelog.outputs.result }}
           artifacts: build/apworlds/${{ env.world }}.apworld
