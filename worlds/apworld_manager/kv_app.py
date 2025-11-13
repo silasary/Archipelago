@@ -136,16 +136,13 @@ def launch(*launch_args: str):
     class DirectoryApp(App):
         tab_count = 1  # kvui for some reason monkeypatches tab_length to require this,,
 
-        def __init__(self, *args, apworlds: list = None, **kwargs):
+        def __init__(self, *args, apworlds: list | None = None, **kwargs):
             super().__init__(*args, **kwargs)
             if apworlds is None:
                 apworlds = refresh_apworld_table()
             self.apworlds = apworlds
             from . import RepoWorld
-            if hasattr(RepoWorld, 'world_version'):
-                self.title = f'APWorld Manager {RepoWorld.world_version}'
-            else:
-                self.title = f'APWorld Manager {RepoWorld.world_version_str}'
+            self.title = f"{RepoWorld.game} {RepoWorld.world_version.as_simple_string()}"
 
         def build(self):
             window = ApworldDirectoryWindow()
