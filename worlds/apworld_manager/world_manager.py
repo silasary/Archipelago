@@ -340,10 +340,20 @@ class RepositoryManager:
     def download_remote_world(self, world: ApWorldMetadata, add_missing_metadata: bool = False) -> str:
         world_version_pathsafe = world.world_version.replace('/', '_')
         path = os.path.join(self.apworld_cache_path, f"{world.id}-{world_version_pathsafe}.apworld")
-        if not os.path.exists(path):
+        valid_cache = False
+        if os.path.exists(path):
+            with open(path, 'rb') as f:
+                hash = hashlib.sha256(f.read()).hexdigest()
+                if hash == world.data.get('hash_sha256'):
+                    valid_cache = True
+                else:
+                    print(f"Hash mismatch for cached {path}, redownloading.")
+
+        if not valid_cache:
             response = requests.get(world.download_url)
             with open(path, 'wb') as f:
                 f.write(response.content)
+
         if add_missing_metadata:
             try:
                 metadata_str = zipfile.ZipFile(path).read('archipelago.json')
