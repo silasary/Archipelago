@@ -1,5 +1,7 @@
 # Factorio Randomizer Setup Guide
 
+❗This guide is similar to the regular Factorio implementation, but the initial server setup is a bit different.  Sections that have been changed are highlighted.
+
 ## Required Software
 
 ##### Players
