@@ -46,6 +46,7 @@ from Utils import version_tuple, restricted_loads, Version, async_start, get_int
 from NetUtils import Endpoint, ClientStatus, NetworkItem, decode, encode, NetworkPlayer, Permission, NetworkSlot, \
     SlotType, LocationStore, MultiData, Hint, HintStatus
 from BaseClasses import ItemClassification
+from MinimalMultitrackerWebHost import start_minimal_multitracker_web_host
 
 
 min_client_version = Version(0, 5, 0)
@@ -785,8 +786,7 @@ class Context:
     # rest
 
     def get_hint_cost(self, slot):
-        if self.hint_cost:
-            return max(1, int(self.hint_cost * 0.01 * len(self.locations[slot])))
+        # I don't like this feature. turn it off.
         return 0
 
     def recheck_hints(self, team: typing.Optional[int] = None, slot: typing.Optional[int] = None,
@@ -2823,6 +2823,9 @@ async def main(args: argparse.Namespace):
     ip = args.host if args.host else Utils.get_public_ipv4()
     logging.info('Hosting game at %s:%d (%s)' % (ip, ctx.port,
                                                  'No password' if not ctx.password else 'Password: %s' % ctx.password))
+
+    # Bare bones multitracker html server that provides cheesetracker-compatible info.
+    start_minimal_multitracker_web_host(ctx)
 
     await ctx.server
     console_task = asyncio.create_task(console(ctx))
