@@ -763,7 +763,6 @@ class Context:
                     _, item_slot_id = self.player_name_lookup[item_slot_name]
                 else:
                     # Location Name: Item Name
-                    [location_name] = re.match(r'^  (.*)$', location_str).groups()
                     match = re.match(r'^  (.*): (.*)$', line)
                     if match == None:
                         continue # skip sphere 0 starter items.

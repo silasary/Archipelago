@@ -58,6 +58,13 @@ check_template = """
 def get_check_infos(ctx):
     for slot_id, slot_info in ctx.slot_info.items():
         team_id = 0 # teams are only partially implemented.
+        try:
+            last_activity = (
+                datetime.datetime.utcnow() -
+                datetime.datetime.utcfromtimestamp(ctx.client_activity_timers[(team_id, slot_id)].timestamp())
+            ).total_seconds()
+        except KeyError:
+            last_activity = "None"
         yield dict(
             n=slot_id,
             name=slot_info.name,
@@ -73,10 +80,7 @@ def get_check_infos(ctx):
             found=len(ctx.location_checks[(team_id, slot_id)]),
             total=len(ctx.locations[slot_id]),
             percent="-", # i don't think this is needed. do the division yourself.
-            last_activity=(
-                datetime.datetime.utcnow() -
-                datetime.datetime.utcfromtimestamp(ctx.client_activity_timers[(team_id, slot_id)].timestamp())
-            ).total_seconds(),
+            last_activity=last_activity,
         )
 
 hint_template = """
