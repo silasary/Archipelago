@@ -4,6 +4,8 @@ import datetime
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler, HTTPStatus
 from threading import Thread
 
+from settings import get_settings
+
 def start_minimal_multitracker_web_host(ctx):
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -12,9 +14,11 @@ def start_minimal_multitracker_web_host(ctx):
             self.wfile.write(render(ctx).encode("utf8"))
         def log_message(self, format, *args):
             pass # Silence please
-    server = ThreadingHTTPServer(("0.0.0.0", 1234), Handler)
+    main_port = get_settings().server_options.port
+    port = main_port - 38181 + 1234
+    server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
     def run():
-        print("serving: http://0.0.0.0:1234/")
+        print("serving: http://0.0.0.0:{}/".format(port))
         server.serve_forever()
     Thread(target=run, daemon=True).start()
 
