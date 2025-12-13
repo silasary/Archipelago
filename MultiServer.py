@@ -245,9 +245,9 @@ class Context:
     non_hintable_names: typing.Dict[str, typing.AbstractSet[str]]
     spheres: typing.List[typing.Dict[int, typing.Set[int]]]
     """ each sphere is { player: { location_id, ... } } """
-    spoiler_spheres: typing.Dict[int, typing.List[typing.Set[int]]]
-    """ each player's spheres of locations from the spoiler log playthrough.
-        { player: [ { location_id, ... } ] } """
+    spoiler_spheres: typing.List[typing.Dict[int, typing.Set[int]]]
+    """ a sequence of each player's locations from the spoiler log playthrough.
+        [ { player: { location_id, ... } } ] """
     logger: logging.Logger
 
     def __init__(self, host: str, port: int, server_password: str, password: str, location_check_points: int,
@@ -313,7 +313,7 @@ class Context:
         self.stored_data_notification_clients = collections.defaultdict(weakref.WeakSet)
         self.read_data = {}
         self.spheres = []
-        self.spoiler_spheres = {}
+        self.spoiler_spheres = []
 
         # init empty to satisfy linter, I suppose
         self.gamespackage = {}
@@ -735,7 +735,7 @@ class Context:
         #    # Could do more checks too.
 
         is_multiplayer = len(self.player_names) > 1
-        self.spoiler_spheres = collections.defaultdict(list)
+        self.spoiler_spheres = []
 
         match = re.search(r'^Playthrough:$', contents, re.MULTILINE)
         if match == None: raise Exception("spoiler does not contain a playthrough: " + filename)
@@ -776,11 +776,10 @@ class Context:
                     raise
 
                 player_spoiler_sphere[location_slot_id].add(location_id)
+            if player_spoiler_sphere:
+                self.spoiler_spheres.append(dict(player_spoiler_sphere))
 
-            for slot, sphere in player_spoiler_sphere.items():
-                self.spoiler_spheres[slot].append(sphere)
-
-        self.logger.info("loaded spoilers for !oracle. spheres: %d", sum(len(spheres) for spheres in self.spoiler_spheres.values()))
+        self.logger.info("loaded spoilers for !oracle. spheres: %d", len(self.spoiler_spheres))
 
     # rest
 
@@ -1891,28 +1890,55 @@ class ClientMessageProcessor(CommonCommandProcessor):
         return self.get_hints(location, True)
 
 
-    def get_oracle_advice(self):
+    def get_oracle_advice(self, is_anyone: bool):
         ctx = self.ctx
         if not ctx.spoiler_spheres:
             self.output("The !oracle command is disabled. Run server with --oracle-spoiler to enable.")
             return False
-        location_checks = ctx.location_checks[self.client.team, self.client.slot]
-        for sphere in ctx.spoiler_spheres[self.client.slot]:
-            remaining = sphere - location_checks
-            if not remaining: continue
-            location_id = random.choice(list(remaining))
-            parts = [{"text": "The oracle advises you to go to "}]
-            NetUtils.add_json_location(parts, location_id, self.client.slot)
-            parts.append({"text": "."})
-            ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
-            return True
+
+        for player_spoiler_sphere in ctx.spoiler_spheres:
+            candidates = []
+            for slot_id, spoiler_locations in player_spoiler_sphere.items():
+                if not is_anyone and slot_id != self.client.slot: continue
+                team_id = self.client.team # Team's are only partially implemented.
+                location_checks = ctx.location_checks[team_id, slot_id]
+                remaining = spoiler_locations - location_checks
+                candidates.extend((slot_id, location_id) for location_id in remaining)
+            if candidates:
+                # Found something
+                slot_id, location_id = random.choice(candidates)
+                parts = []
+                if slot_id == self.client.slot:
+                    parts.append({"text": "The oracle advises you to go to "})
+                else:
+                    parts.extend([
+                        {"text": "The oracle advises "},
+                        {"text": str(slot_id), "type": NetUtils.JSONTypes.player_id},
+                        {"text": " to go to "},
+                    ])
+                NetUtils.add_json_location(parts, location_id, slot_id)
+                parts.append({"text": "."})
+                ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
+                return True
 
         self.output("The oracle advises you to simply win")
         return True
 
-    def _cmd_oracle(self) -> bool:
-        """Get advice from the oracle."""
-        return self.get_oracle_advice()
+    def _cmd_oracle(self, whom: str = "") -> bool:
+        """
+        Get advice from the oracle.
+
+        whom: ask '!oracle anyone' to ask on whom we're waiting and where they should go. otherwise, just '!oracle' asks where thou shouldst go.
+        """
+        is_anyone = False
+        if whom == "":
+            pass
+        elif whom.lower() == "anyone":
+            is_anyone = True
+        else:
+            self.output("Unrecognized whom. Ask either '!oracle' or '!oracle anyone'.")
+            return False
+        return self.get_oracle_advice(is_anyone)
 
 
 def get_checked_checks(ctx: Context, team: int, slot: int) -> typing.List[int]:
