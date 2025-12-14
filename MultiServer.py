@@ -1890,7 +1890,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
         return self.get_hints(location, True)
 
 
-    def get_oracle_advice(self, is_anyone: bool):
+    def get_oracle_advice(self, is_list: bool, is_anyone: bool):
         ctx = self.ctx
         if not ctx.spoiler_spheres:
             self.output("The !oracle command is disabled. Run server with --oracle-spoiler to enable.")
@@ -1906,39 +1906,44 @@ class ClientMessageProcessor(CommonCommandProcessor):
                 candidates.extend((slot_id, location_id) for location_id in remaining)
             if candidates:
                 # Found something
-                slot_id, location_id = random.choice(candidates)
-                parts = []
-                if slot_id == self.client.slot:
-                    parts.append({"text": "The oracle advises you to go to "})
-                else:
-                    parts.extend([
-                        {"text": "The oracle advises "},
-                        {"text": str(slot_id), "type": NetUtils.JSONTypes.player_id},
-                        {"text": " to go to "},
-                    ])
-                NetUtils.add_json_location(parts, location_id, slot_id)
-                parts.append({"text": "."})
-                ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
+                if not is_list:
+                    candidates = [random.choice(candidates)]
+                for slot_id, location_id in candidates:
+                    parts = []
+                    if slot_id == self.client.slot:
+                        parts.append({"text": "The oracle advises you to go to "})
+                    else:
+                        parts.extend([
+                            {"text": "The oracle advises "},
+                            {"text": str(slot_id), "type": NetUtils.JSONTypes.player_id},
+                            {"text": " to go to "},
+                        ])
+                    NetUtils.add_json_location(parts, location_id, slot_id)
+                    parts.append({"text": "."})
+                    ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
                 return True
 
         self.output("The oracle advises you to simply win")
         return True
 
-    def _cmd_oracle(self, whom: str = "") -> bool:
+    def _cmd_oracle(self, *args) -> bool:
         """
         Get advice from the oracle.
-
-        whom: ask '!oracle anyone' to ask on whom we're waiting and where they should go. otherwise, just '!oracle' asks where thou shouldst go.
+        List: ask '!oracle list' for the full list of places thou shouldst go instead of a random 1.
+        Anyone: ask '!oracle anyone' to ask on whom we're waiting and where they should go. otherwise, just '!oracle' asks where thou shouldst go.
+        Anyone List: ask '!oracle list anyone' or '!oracle anyone list' to get the full list of places everyone is waiting for and on whom for each.
         """
+        is_list = False
         is_anyone = False
-        if whom == "":
-            pass
-        elif whom.lower() == "anyone":
-            is_anyone = True
-        else:
-            self.output("Unrecognized whom. Ask either '!oracle' or '!oracle anyone'.")
-            return False
-        return self.get_oracle_advice(is_anyone)
+        for arg in args:
+            if arg.lower() == "list":
+                is_list = True
+            elif arg.lower() == "anyone":
+                is_anyone = True
+            else:
+                self.output("The oracle does not understand {}. Only 'anyone' and/or 'list' are recognized.".format(repr(arg)))
+                return False
+        return self.get_oracle_advice(is_list, is_anyone)
 
 
 def get_checked_checks(ctx: Context, team: int, slot: int) -> typing.List[int]:
