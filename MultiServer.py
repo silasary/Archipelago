@@ -1938,7 +1938,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
         for arg in args:
             if arg.lower() == "list":
                 is_list = True
-            elif arg.lower() == "anyone":
+            elif arg.lower() in ("anyone", "everyone"):
                 is_anyone = True
             else:
                 self.output("The oracle does not understand {}. Only 'anyone' and/or 'list' are recognized.".format(repr(arg)))
