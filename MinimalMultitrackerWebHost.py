@@ -99,7 +99,7 @@ hint_template = """
   </tr>
 """
 def get_hints(ctx):
-    for hint in itertools.chain(*ctx.hints.values()):
+    for hint in set(itertools.chain(*ctx.hints.values())):
         game = ctx.slot_info[hint.finding_player].game
         yield dict(
             finder=ctx.slot_info[hint.finding_player].name,
