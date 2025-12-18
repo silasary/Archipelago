@@ -9,7 +9,9 @@ import sys
 import types
 
 from importlib import import_module
+import typing
 
+from Options import OptionGroup
 from Utils import user_path
 
 from ..game import AutoGameRegister, Game
@@ -49,12 +51,15 @@ if len(broken_games):
     raise RuntimeError("Some Keymaster's Keep games could not be loaded. See broken_games.txt for details.")
 
 # Archipelago options
-option_classes: List[Type] = list()
+option_classes: list[type] = []
+game_option_groups: list[OptionGroup] = []
 
-# Reverse order here is needed so that the options are added in alphabetical order in the YAML
-game_cls: Type[Game]
-for _, game_cls in sorted(AutoGameRegister.games.items(), reverse=True):
+game_cls: type[Game]
+for name, game_cls in sorted(AutoGameRegister.games.items()):
     option_classes.append(game_cls.options_cls)
+    options = list(typing.get_type_hints(game_cls.options_cls).values())
+    if options:
+        game_option_groups.append(OptionGroup(name, options))
 
 
 @dataclasses.dataclass

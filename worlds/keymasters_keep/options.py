@@ -15,7 +15,7 @@ from Options import (
 )
 
 from .game import AutoGameRegister
-from .games import GameArchipelagoOptions
+from .games import GameArchipelagoOptions, game_option_groups
 
 
 class Goal(Choice):
@@ -498,7 +498,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
 # Option presets here...
 
 
-option_groups: typing.List[OptionGroup] = [
+option_groups: list[OptionGroup] = [
     OptionGroup(
         "Goal Options",
         [
@@ -542,11 +542,7 @@ option_groups: typing.List[OptionGroup] = [
             GameMedleyGameSelection,
             GameMedleyGameSelectionBagSize,
             GameSelection,
-            GameMedleyGameSelectionBagSize,
         ],
     ),
-    OptionGroup(
-        "Individual Game Options",
-        typing.get_type_hints(GameArchipelagoOptions).values(),
-    )
 ]
+option_groups.extend(game_option_groups)
