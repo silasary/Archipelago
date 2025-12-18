@@ -92,12 +92,13 @@ This allows you to host your own Factorio game.
 
 1. Obtain the Factorio mod for this Archipelago seed. It should be named `AP_*.zip`, where `*` is the seed number.
 2. Install the mod into your Factorio Server by copying the zip file into the `Archipelago/factorio_saws/mods` folder. If this folder does not exist, launch the SAWS client once to generate the server files.
-3. Download the latest version of https://mods.factorio.com/mod/SpaceAgeWithoutSpace and place it in the same folder.
-4. Install the mod into your Factorio Client by copying the zip file into the `mods` folder, which is likely located
+   * :exclamation: This is not the server's default mod directory.  This is a APSAWS-specific folder in your Archipelago directory.
+4. Download the latest version of https://mods.factorio.com/mod/SpaceAgeWithoutSpace and place it in the same folder.
+5. Install the mod into your Factorio Client by copying the zip file into the `mods` folder, which is likely located
    at `C:\Users\YourName\AppData\Roaming\Factorio\mods`.
-5. Obtain the Archipelago Server address from the website's host room, or from the server host.
-6. Run your Archipelago Launcher, and select the "Factorio: Space Age Without Space Client"
-7. Enter `/connect [server-address]` into the input box at the bottom of the Archipelago Client and press "Enter"
+6. Obtain the Archipelago Server address from the website's host room, or from the server host.
+7. Run your Archipelago Launcher, and select the "Factorio: Space Age Without Space Client"
+8. Enter `/connect [server-address]` into the input box at the bottom of the Archipelago Client and press "Enter"
 
 ![Factorio Client for Archipelago Connection Command](/static/generated/docs/Factorio/connect-to-ap-server.png)
 
