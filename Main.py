@@ -51,23 +51,25 @@ def main(args, seed=None, baked_server_options: dict[str, object] | None = None)
     multiworld.state = CollectionState(multiworld)
     logger.info('Archipelago Version %s  -  Seed: %s\n', __version__, multiworld.seed)
 
-    logger.info(f"Found {len(AutoWorld.AutoWorldRegister.world_types)} World Types:")
-    longest_name = max(len(text) for text in AutoWorld.AutoWorldRegister.world_types)
+    should_spam_junk = False
+    if should_spam_junk:
+        logger.info(f"Found {len(AutoWorld.AutoWorldRegister.world_types)} World Types:")
+        longest_name = max(len(text) for text in AutoWorld.AutoWorldRegister.world_types)
 
-    world_classes = AutoWorld.AutoWorldRegister.world_types.values()
+        world_classes = AutoWorld.AutoWorldRegister.world_types.values()
 
-    version_count = max(len(cls.world_version.as_simple_string()) for cls in world_classes)
-    item_count = len(str(max(len(cls.item_names) for cls in world_classes)))
-    location_count = len(str(max(len(cls.location_names) for cls in world_classes)))
+        version_count = max(len(cls.world_version.as_simple_string()) for cls in world_classes)
+        item_count = len(str(max(len(cls.item_names) for cls in world_classes)))
+        location_count = len(str(max(len(cls.location_names) for cls in world_classes)))
 
-    for name, cls in AutoWorld.AutoWorldRegister.world_types.items():
-        if not cls.hidden and len(cls.item_names) > 0:
-            logger.info(f" {name:{longest_name}}: "
-                        f"v{cls.world_version.as_simple_string():{version_count}} | "
-                        f"Items: {len(cls.item_names):{item_count}} | "
-                        f"Locations: {len(cls.location_names):{location_count}}")
+        for name, cls in AutoWorld.AutoWorldRegister.world_types.items():
+            if not cls.hidden and len(cls.item_names) > 0:
+                logger.info(f" {name:{longest_name}}: "
+                            f"v{cls.world_version.as_simple_string():{version_count}} | "
+                            f"Items: {len(cls.item_names):{item_count}} | "
+                            f"Locations: {len(cls.location_names):{location_count}}")
 
-    del item_count, location_count
+        del item_count, location_count
 
     # This assertion method should not be necessary to run if we are not outputting any multidata.
     if not args.skip_output and not args.spoiler_only:
