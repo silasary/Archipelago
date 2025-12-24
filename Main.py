@@ -223,8 +223,6 @@ def main(args, seed=None, baked_server_options: dict[str, object] | None = None)
             multiworld.spoiler.create_playthrough(create_paths=args.spoiler > 2)
 
         multiworld.spoiler.to_file(output_path('%s_Spoiler.txt' % outfilebase))
-        if args.spoiler > 1:
-            multiworld.spoiler.playthrough_to_json(output_path('%s_Spoiler_Playthrough.json' % outfilebase))
         logger.info('Done. Skipped multidata modification. Total time: %s', time.perf_counter() - start)
         return multiworld
 
@@ -377,8 +375,6 @@ def main(args, seed=None, baked_server_options: dict[str, object] | None = None)
 
         if args.spoiler:
             multiworld.spoiler.to_file(os.path.join(temp_dir, '%s_Spoiler.txt' % outfilebase))
-            if args.spoiler > 1:
-                multiworld.spoiler.playthrough_to_json(os.path.join(temp_dir, '%s_Spoiler_Playthrough.json' % outfilebase))
 
         zipfilename = output_path(f"AP_{multiworld.seed_name}.zip")
         logger.info(f"Creating final archive at {zipfilename}")

@@ -723,11 +723,16 @@ class Context:
             f'Loaded save file with {sum([len(v) for k, v in self.received_items.items() if k[2]])} received items '
             f'for {sum(k[2] for k in self.received_items)} players')
 
-    def load_spoiler_json(self, obj):
-        pass
     def load_spoiler(self, filename):
         with open(filename) as f:
             contents = f.read()
+        #try:
+        #    [seed_name] = re.findall(r'Seed: (\d+)', contents.split("\n", 1)[0])
+        #except ValueError:
+        #    raise Exception("doesn't look like a spoiler log: " + filename) from None
+        #if seed_name != self.seed_name:
+        #    raise Exception("wrong spoiler log. seed mismatch: " + filename)
+        #    # Could do more checks too.
 
         is_multiplayer = len(self.player_names) > 1
         self.spoiler_spheres = []
@@ -2827,12 +2832,7 @@ async def main(args: argparse.Namespace):
         logging.exception(f"Failed to read multiworld data ({e})")
         raise
 
-    spoiler_walkthrough_json_filename = os.path.splitext(data_filename)[0] + "_Spoiler_Playthrough.json"
-    if os.path.isfile(spoiler_walkthrough_json_filename):
-        import json
-        with open(spoiler_walkthrough_json_filename) as f:
-            ctx.load_spoiler_json(json.load(f))
-    elif args.oracle_spoiler:
+    if args.oracle_spoiler:
         try:
             ctx.load_spoiler(args.oracle_spoiler)
         except Exception as e:

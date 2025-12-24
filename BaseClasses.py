@@ -1926,13 +1926,6 @@ class Spoiler:
                 outfile.write('\n'.join(path_listings))
             AutoWorld.call_all(self.multiworld, "write_spoiler_end", outfile)
 
-    def playthrough_to_json(self, filename: str) -> None:
-        import json
-        with open(filename, 'w', encoding="utf-8-sig") as outfile:
-            json.dump({
-                "playthrough": self.playthrough,
-            }, outfile, indent=2)
-            outfile.write("\n")
 
 class Tutorial(NamedTuple):
     """Class to build website tutorial pages from a .md file in the world's /docs folder. Order is as follows.
