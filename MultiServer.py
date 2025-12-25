@@ -249,6 +249,9 @@ class Context:
     spoiler_spheres: typing.List[typing.Dict[int, typing.Set[int]]]
     """ a sequence of each player's locations from the spoiler log playthrough.
         [ { player: { location_id, ... } } ] """
+    spoiler_item_counts: typing.Dict[int, typing.Dict[int, int]]
+    """ for each slot, how many of each item id is listed in the spoiler walkthrough.
+        { player: { item_id: count } } """
     logger: logging.Logger
 
     def __init__(self, host: str, port: int, server_password: str, password: str, location_check_points: int,
@@ -315,6 +318,7 @@ class Context:
         self.read_data = {}
         self.spheres = []
         self.spoiler_spheres = []
+        self.spoiler_item_counts = {}
 
         # init empty to satisfy linter, I suppose
         self.gamespackage = {}
@@ -734,6 +738,7 @@ class Context:
 
         is_multiplayer = len(self.player_names) > 1
         self.spoiler_spheres = []
+        self.spoiler_item_counts = collections.defaultdict(collections.Counter)
 
         match = re.search(r'^Playthrough:$', contents, re.MULTILINE)
         if match == None:
@@ -770,16 +775,15 @@ class Context:
                     location_slot_id = item_slot_id = 1
                 try:
                     location_id = self.location_names_for_game(self.games[location_slot_id])[location_name]
-                    _ = self.item_names_for_game(self.games[item_slot_id])[item_name]
+                    item_id = self.item_names_for_game(self.games[item_slot_id])[item_name]
                 except KeyError:
                     if location_slot_id == item_slot_id:
                         # "events" trigger this, such as defeating a boss locally.
-                        # We need to check the item as well as the location because Ship of Harkinian
-                        # tells you to buy tunics and shields, which are events, at shop slots, which are real locations.
                         continue
                     raise
 
                 player_spoiler_sphere[location_slot_id].add(location_id)
+                self.spoiler_item_counts[item_slot_id][item_id] += 1
             if player_spoiler_sphere:
                 self.spoiler_spheres.append(dict(player_spoiler_sphere))
 
@@ -1896,18 +1900,45 @@ class ClientMessageProcessor(CommonCommandProcessor):
 
     def get_oracle_advice(self, is_list: bool, is_anyone: bool):
         ctx = self.ctx
+        team_id = self.client.team
         if not ctx.spoiler_spheres:
             self.output("The !oracle command is disabled. Run server with --oracle-spoiler to enable.")
             return False
 
+        # Don't point to a location if it has been checked, or if enough of the item found there has already been obtained.
+        # For the latter, we need to take stock of everything.
+        from pprint import pp
+        item_counts_remaining = {
+            slot_id: dict(counts) for slot_id, counts in ctx.spoiler_item_counts.items()
+        }
+        for slot_id, counts in item_counts_remaining.items():
+            # I don't understand the remote_items thing.
+            # Pick whichever of local or remote has the most items for each client.
+            local_received_items  = ctx.received_items.get((team_id, slot_id, False), [])
+            remote_received_items = ctx.received_items.get((team_id, slot_id, True), [])
+            received_items = local_received_items if len(local_received_items) > len(remote_received_items) else remote_received_items
+
+            for item in received_items:
+                try:
+                    counts[item.item] -= 1
+                except KeyError:
+                    pass # Not relevant to the spoiler walkthrough.
+
+        candidates = []
         for player_spoiler_sphere in ctx.spoiler_spheres:
-            candidates = []
             for slot_id, spoiler_locations in player_spoiler_sphere.items():
                 if not is_anyone and slot_id != self.client.slot: continue
-                team_id = self.client.team
                 location_checks = ctx.location_checks[team_id, slot_id]
-                remaining = spoiler_locations - location_checks
-                candidates.extend((slot_id, location_id) for location_id in remaining)
+                location_store = ctx.locations[slot_id]
+                for location_id in spoiler_locations:
+                    # Skip locations already collected.
+                    if location_id in location_checks: continue
+                    # Skip locations that give items that are already satisfied.
+                    item_id, receiver_slot_id, _ = location_store[location_id]
+                    if item_counts_remaining[receiver_slot_id][item_id] <= 0: continue
+                    # This would still be useful.
+                    candidates.append((slot_id, location_id))
+
             if candidates:
                 # Found something
                 if not is_list:
