@@ -770,9 +770,13 @@ class Context:
                     location_slot_id = item_slot_id = 1
                 try:
                     location_id = self.location_names_for_game(self.games[location_slot_id])[location_name]
+                    _ = self.item_names_for_game(self.games[item_slot_id])[item_name]
                 except KeyError:
                     if location_slot_id == item_slot_id:
-                        continue # "events" trigger this, such as defeating a boss locally.
+                        # "events" trigger this, such as defeating a boss locally.
+                        # We need to check the item as well as the location because Ship of Harkinian
+                        # tells you to buy tunics and shields, which are events, at shop slots, which are real locations.
+                        continue
                     raise
 
                 player_spoiler_sphere[location_slot_id].add(location_id)
