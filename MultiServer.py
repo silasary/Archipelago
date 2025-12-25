@@ -13,6 +13,7 @@ import itertools
 import logging
 import math
 import operator
+import os
 import pickle
 import random
 import re
@@ -724,21 +725,20 @@ class Context:
             f'for {sum(k[2] for k in self.received_items)} players')
 
     def load_spoiler(self, filename):
-        with open(filename) as f:
-            contents = f.read()
-        #try:
-        #    [seed_name] = re.findall(r'Seed: (\d+)', contents.split("\n", 1)[0])
-        #except ValueError:
-        #    raise Exception("doesn't look like a spoiler log: " + filename) from None
-        #if seed_name != self.seed_name:
-        #    raise Exception("wrong spoiler log. seed mismatch: " + filename)
-        #    # Could do more checks too.
+        try:
+            with open(filename) as f:
+                contents = f.read()
+        except FileNotFoundError:
+            logging.info("No spoiler log found. Disabling !oracle command.")
+            return
 
         is_multiplayer = len(self.player_names) > 1
         self.spoiler_spheres = []
 
         match = re.search(r'^Playthrough:$', contents, re.MULTILINE)
-        if match == None: raise Exception("spoiler does not contain a playthrough: " + filename)
+        if match == None:
+            logging.info("Spoiler log does not contain a playthrough. Disabling !oracle command.")
+            return
         contents = contents[match.span()[1]:]
 
         # Example playthrough content:
@@ -1904,7 +1904,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
             candidates = []
             for slot_id, spoiler_locations in player_spoiler_sphere.items():
                 if not is_anyone and slot_id != self.client.slot: continue
-                team_id = self.client.team # Team's are only partially implemented.
+                team_id = self.client.team
                 location_checks = ctx.location_checks[team_id, slot_id]
                 remaining = spoiler_locations - location_checks
                 candidates.extend((slot_id, location_id) for location_id in remaining)
@@ -2704,7 +2704,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--server_password', default=defaults["server_password"])
     parser.add_argument('--password', default=defaults["password"])
     parser.add_argument('--savefile', default=defaults["savefile"])
-    parser.add_argument('--oracle-spoiler', help="path to _Spoiler.txt to enable the !oracle command")
     parser.add_argument('--disable_save', default=defaults["disable_save"], action='store_true')
     parser.add_argument('--cert', help="Path to a SSL Certificate for encryption.")
     parser.add_argument('--cert_key', help="Path to SSL Certificate Key file")
@@ -2836,12 +2835,7 @@ async def main(args: argparse.Namespace):
         logging.exception(f"Failed to read multiworld data ({e})")
         raise
 
-    if args.oracle_spoiler:
-        try:
-            ctx.load_spoiler(args.oracle_spoiler)
-        except Exception as e:
-            logging.exception(f"Failed to read spoilers ({e})")
-            raise
+    ctx.load_spoiler(os.path.splitext(data_filename)[0] + "_Spoiler.txt")
 
     ctx.init_save(not args.disable_save)
 
