@@ -1898,7 +1898,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
         return self.get_hints(location, True)
 
 
-    def get_oracle_advice(self, is_list: bool, is_anyone: bool):
+    def get_oracle_advice(self, is_list: bool, is_anyone: bool, min_count: int):
         ctx = self.ctx
         team_id = self.client.team
         if not ctx.spoiler_spheres:
@@ -1924,8 +1924,9 @@ class ClientMessageProcessor(CommonCommandProcessor):
                 except KeyError:
                     pass # Not relevant to the spoiler walkthrough.
 
-        candidates = []
+        final_advices = []
         for player_spoiler_sphere in ctx.spoiler_spheres:
+            candidates = []
             for slot_id, spoiler_locations in player_spoiler_sphere.items():
                 if not is_anyone and slot_id != self.client.slot: continue
                 location_checks = ctx.location_checks[team_id, slot_id]
@@ -1941,44 +1942,60 @@ class ClientMessageProcessor(CommonCommandProcessor):
 
             if candidates:
                 # Found something
+                random.shuffle(candidates)
                 if not is_list:
-                    candidates = [random.choice(candidates)]
-                for slot_id, location_id in candidates:
-                    parts = []
-                    if slot_id == self.client.slot:
-                        parts.append({"text": "The oracle advises you to go to "})
-                    else:
-                        parts.extend([
-                            {"text": "The oracle advises "},
-                            {"text": str(slot_id), "type": NetUtils.JSONTypes.player_id},
-                            {"text": " to go to "},
-                        ])
-                    NetUtils.add_json_location(parts, location_id, slot_id)
-                    parts.append({"text": "."})
-                    ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
-                return True
+                    # Only give some of them.
+                    candidates = candidates[:min_count - len(final_advices)]
+                final_advices.extend(candidates)
+            if len(final_advices) >= min_count:
+                break
+        for slot_id, location_id in final_advices:
+            parts = []
+            if slot_id == self.client.slot:
+                parts.append({"text": "The oracle advises you to go to "})
+            else:
+                parts.extend([
+                    {"text": "The oracle advises "},
+                    {"text": str(slot_id), "type": NetUtils.JSONTypes.player_id},
+                    {"text": " to go to "},
+                ])
+            NetUtils.add_json_location(parts, location_id, slot_id)
+            parts.append({"text": "."})
+            ctx.broadcast_all([{"cmd": "PrintJSON", "data": parts}])
 
-        self.output("The oracle advises you to simply win")
+        if len(final_advices) == 0:
+            self.output("The oracle advises you to simply win")
+        elif len(final_advices) < min_count:
+            self.output("Then the oracle advises you to simply win")
         return True
 
     def _cmd_oracle(self, *args) -> bool:
         """
         Get advice from the oracle.
         List: ask '!oracle list' for the full list of places thou shouldst go instead of a random 1.
+        How Many: ask '!oracle 3' to ask for 3 advices, or a different number. asking '!oracle list 3' will list at least 3.
         Anyone: ask '!oracle anyone' to ask on whom we're waiting and where they should go. otherwise, just '!oracle' asks where thou shouldst go.
-        Anyone List: ask '!oracle list anyone' or '!oracle anyone list' to get the full list of places everyone is waiting for and on whom for each.
         """
         is_list = False
         is_anyone = False
+        min_count = 0
         for arg in args:
+            if min_count == 0:
+                try: min_count = int(arg)
+                except ValueError: pass
+                else:
+                    if min_count <= 0:
+                        self.output("The oracle refuses to give {} advices.".format(min_count))
+                        return False
+                    continue
             if arg.lower() == "list":
                 is_list = True
             elif arg.lower() in ("anyone", "everyone"):
                 is_anyone = True
             else:
-                self.output("The oracle does not understand {}. Only 'anyone' and/or 'list' are recognized.".format(repr(arg)))
+                self.output("The oracle does not understand {}. Ask for 'anyone' or 'list' or say how many advices you want in any combination.".format(repr(arg)))
                 return False
-        return self.get_oracle_advice(is_list, is_anyone)
+        return self.get_oracle_advice(is_list, is_anyone, min_count or 1)
 
 
 def get_checked_checks(ctx: Context, team: int, slot: int) -> typing.List[int]:
