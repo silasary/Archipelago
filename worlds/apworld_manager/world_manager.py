@@ -1,27 +1,31 @@
 import asyncio
-from collections import defaultdict
-from dataclasses import dataclass
-from functools import lru_cache
 import hashlib
 import inspect
+import json
 import logging
 import math
+import os
 import pathlib
 import re
-import time
-import requests
-import json
-import os
 import shutil
+import time
 import typing
+import urllib.parse
 import zipfile
+from collections import defaultdict
+from dataclasses import dataclass
 from enum import Enum, IntEnum
-from Utils import cache_path, version_tuple
+from functools import lru_cache
+
+import requests
 
 import Utils
+from Utils import cache_path, version_tuple
 from worlds import world_sources
 from worlds.Files import InvalidDataError
-from ._vendor.packaging.version import Version, VERSION_PATTERN, InvalidVersion
+
+from ._vendor.packaging.version import VERSION_PATTERN, InvalidVersion, Version
+
 
 class GithubRateLimitExceeded(Exception):
     pass
@@ -285,6 +289,29 @@ class GithubRepository(Repository):
         releases = response.json()
         return releases
 
+class ForejoRepository(GithubRepository):
+    # Self hosted git server, used by Phar
+    def __init__(self, world_source: RemoteWorldSource, url: str, apworld_cache_path) -> None:
+        super().__init__(world_source, url, apworld_cache_path)
+        if url.startswith("https://pharware.com/git/") and not url.startswith("https://pharware.com/git/api/"):
+            url = url.replace("https://pharware.com/git/", "https://pharware.com/git/api/v1/repos/")
+        else:
+            purl = urllib.parse.urlparse(url)
+            if not purl.path.startswith("/api/"):
+                url = f"{purl.scheme}://{purl.netloc}/api/v1/repos{purl.path}"
+            pass
+        self.url = url
+
+
+    def get_repository_json(self):
+        super().get_repository_json()
+
+    def fetch(self, url):
+        # No auth, and we don't want to leak a github token to a non-github server
+        response = requests.get(url)
+        releases = response.json()
+        return releases
+
 
 class RepositoryManager:
     def __init__(self) -> None:
@@ -301,12 +328,19 @@ class RepositoryManager:
             if not enabled:
                 continue
 
-            if repo.startswith("https://github.com/"):
-                self.add_github_repository(repo)
-            elif repo.startswith("https://"):
-                self.add_remote_repository(repo)
-            else:
-                self.add_local_dir(repo)
+            self.add_repo(repo)
+
+    def add_repo(self, path: str) -> Repository:
+        if path.startswith("https://github.com/") or path.startswith("https://api.github.com/"):
+            return self.add_github_repository(path)
+        if path.startswith("https://pharware.com/") or path.startswith("https://codeberg.org/"):
+            return self.add_forejo_repository(path)
+        if path.startswith("https://"):
+            if path.endswith(".json"):
+                return self.add_remote_repository(path)
+            print(f"guessing forejo repository for {path}")
+            return self.add_forejo_repository(path)
+        return self.add_local_dir(path)
 
     def add_local_dir(self, path: str) -> Repository:
         repo = Repository(RemoteWorldSource.LOCAL, path, self.apworld_cache_path)
@@ -321,6 +355,11 @@ class RepositoryManager:
     def add_github_repository(self, url: str, blessed: bool = False) -> GithubRepository:
         """This is not recommended for general use, as it will bump against the github api rate limit.  But it's useful for testing."""
         repo = GithubRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path)
+        self.repositories.append(repo)
+        return repo
+
+    def add_forejo_repository(self, url: str, blessed: bool = False) -> ForejoRepository:
+        repo = ForejoRepository(RemoteWorldSource.REMOTE_BLESSED if blessed else RemoteWorldSource.REMOTE, url, self.apworld_cache_path)
         self.repositories.append(repo)
         return repo
 
@@ -351,6 +390,7 @@ class RepositoryManager:
 
         if not valid_cache:
             response = requests.get(world.download_url)
+            response.raise_for_status()
             with open(path, 'wb') as f:
                 f.write(response.content)
 
