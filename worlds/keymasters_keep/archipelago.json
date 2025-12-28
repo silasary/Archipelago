@@ -4,8 +4,8 @@
     "game": "Keymaster's Keep",
     "idgb_id": null,
     "minimum_ap_version": "0.6.1",
-    "world_version": "2.1.1",
+    "world_version": "2.1.2",
     "changelog":[
-        "Fixed crash when a shop contains a deprioritized item."
+        "Fixed crash when a shop contains a deprioritized item. Added backwards compatibility for worlds created before area_domination added."
     ]
 }
