@@ -143,11 +143,11 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
             self.area_trials = {}
             self.area_completion_locations = {}
+            self.conquest_medallions_required = {}
 
             area: str
             trials: list[str]
             for area, trials in _args["slot_data"]["area_trials"].items():
-                trial: str
                 self.area_trials[KeymastersKeepRegions(area)] = [
                     self.id_to_location_data[self.location_name_to_id[trial]] for trial in trials
                 ]
@@ -160,7 +160,10 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.area_trials_minimum = _args["slot_data"]["area_trials_minimum"]
             self.artifacts_of_resolve_required = _args["slot_data"]["artifacts_of_resolve_required"]
             self.artifacts_of_resolve_total = _args["slot_data"]["artifacts_of_resolve_total"]
-            self.conquest_medallions_required = _args["slot_data"]["conquest_medallions_required"]
+            
+            if "conquest_medallions_required" in _args["slot_data"]:
+                self.conquest_medallions_required = _args["slot_data"]["conquest_medallions_required"]
+            
             self.game_medley_mode = _args["slot_data"]["game_medley_mode"]
             self.game_medley_percentage_chance = _args["slot_data"]["game_medley_percentage_chance"]
             self.goal = KeymastersKeepGoals(_args["slot_data"]["goal"])
