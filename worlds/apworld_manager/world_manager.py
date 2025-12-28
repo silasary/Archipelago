@@ -333,7 +333,8 @@ class RepositoryManager:
     def add_repo(self, path: str) -> Repository:
         if path.startswith("https://github.com/") or path.startswith("https://api.github.com/"):
             return self.add_github_repository(path)
-        if path.startswith("https://pharware.com/") or path.startswith("https://codeberg.org/"):
+        if path.startswith("https://pharware.com/") or path.startswith("https://codeberg.org/") or \
+           path.startswith("https://git.makuluni.com/"):
             return self.add_forejo_repository(path)
         if path.startswith("https://"):
             if path.endswith(".json"):
