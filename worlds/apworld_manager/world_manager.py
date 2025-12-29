@@ -286,7 +286,7 @@ class GithubRepository(Repository):
         else:
             headers = {"Authorization": f"Bearer {gh_token}"}
         response = requests.get(url, headers=headers)
-        response.raise_for_status()
+        # response.raise_for_status()
         releases = response.json()
         return releases
 
