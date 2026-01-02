@@ -15,10 +15,10 @@ class ShuffleMainParty(Toggle):
     default = 1
 
 
-class CharacterProgressionScaling(Toggle):
-    """In addition to the progression scaling, also scale the progression based on the number of party members
-       and if the second license board has been unlocked."""
-    display_name = "Character Progression Scaling"
+class ProgressiveScaling(Toggle):
+    """In addition to the progression scaling, also scale the progression based on the number of party members, 
+    the second license board has been unlocked, and progressive access to slightly easier regions to unlock more difficult areas."""
+    display_name = "Difficulty Progressive Scaling"
     default = 1
 
 
@@ -78,7 +78,7 @@ class BahamutUnlock(Choice):
 @dataclass
 class FF12OpenWorldGameOptions(PerGameCommonOptions):
     shuffle_main_party: ShuffleMainParty
-    character_progression_scaling: CharacterProgressionScaling
+    difficulty_progressive_scaling: ProgressiveScaling
     include_treasures: IncludeTreasures
     include_chops: IncludeChops
     include_black_orbs: IncludeBlackOrbs
