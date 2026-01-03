@@ -249,6 +249,15 @@ class FF12OpenWorldWorld(World):
         if (self.options.bahamut_unlock == "defeat_cid_2" and
                 location_name == "Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (1)"):
             return LocationProgressType.DEFAULT
+        if (self.options.bahamut_unlock == "defeat_shadowseer" and
+                location_name == "Clan Hall - Hunt 44: Shadowseer Reward (1)"):
+            return LocationProgressType.DEFAULT
+        if (self.options.bahamut_unlock == "defeat_yiazmat" and
+                location_name == "Clan Hall - Hunt 45: Yiazmat Reward (1)"):
+            return LocationProgressType.DEFAULT
+        if (self.options.bahamut_unlock == "defeat_omega" and
+                location_name == "Clan Hall - Clan Boss: Omega Mark XII Reward (1)"):
+            return LocationProgressType.DEFAULT
         if (self.options.bahamut_unlock == "collect_pinewood_chops" and
                 location_name == "Archades - Sandalwood Chop Reward (1)"):
             return LocationProgressType.DEFAULT
@@ -354,6 +363,15 @@ class FF12OpenWorldWorld(World):
 
         if self.options.bahamut_unlock == "defeat_cid_2":
             self.multiworld.get_location("Pharos of Ridorana - Defeat Famfrit and Cid 2 Reward (1)", self.player).place_locked_item(
+                self.create_item("Writ of Transit"))
+        elif self.options.bahamut_unlock == "defeat_shadowseer":
+            self.multiworld.get_location("Clan Hall - Hunt 44: Shadowseer Reward (1)", self.player).place_locked_item(
+                self.create_item("Writ of Transit"))
+        elif self.options.bahamut_unlock == "defeat_yiazmat":
+            self.multiworld.get_location("Clan Hall - Hunt 45: Yiazmat Reward (1)", self.player).place_locked_item(
+                self.create_item("Writ of Transit"))
+        elif self.options.bahamut_unlock == "defeat_omega":
+            self.multiworld.get_location("Clan Hall - Clan Boss: Omega Mark XII Reward (1)", self.player).place_locked_item(
                 self.create_item("Writ of Transit"))
         elif self.options.bahamut_unlock == "collect_pinewood_chops":
             self.multiworld.get_location("Archades - Sandalwood Chop Reward (1)", self.player).place_locked_item(
