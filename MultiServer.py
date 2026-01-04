@@ -776,6 +776,9 @@ class Context:
                 try:
                     location_id = self.location_names_for_game(self.games[location_slot_id])[location_name]
                     item_id = self.item_names_for_game(self.games[item_slot_id])[item_name]
+                    # Some apworlds omit non-randomized mappings from the locations dict but still put them in the spoiler log.
+                    # Example: A Link to the Past with small_key_shuffle: start_with, key_drop_shuffle: 'false'.
+                    self.locations[location_slot_id][location_id]
                 except KeyError:
                     if location_slot_id == item_slot_id:
                         # "events" trigger this, such as defeating a boss locally.
@@ -1936,7 +1939,11 @@ class ClientMessageProcessor(CommonCommandProcessor):
                     if location_id in location_checks: continue
                     # Skip locations that give items that are already satisfied.
                     item_id, receiver_slot_id, _ = location_store[location_id]
-                    if item_counts_remaining[receiver_slot_id][item_id] <= 0: continue
+                    try:
+                        if item_counts_remaining[receiver_slot_id][item_id] <= 0: continue
+                    except KeyError:
+                        # A Link to the Past puts some items in local and some in remote. Just ignore the less popular one.
+                        continue
                     # This would still be useful.
                     candidates.append((slot_id, location_id))
 
