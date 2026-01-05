@@ -200,6 +200,8 @@ class Repository:
         self.worlds.sort(key = lambda x: x.name)
 
 class GithubRepository(Repository):
+    html_url: str | None = None
+
     def __init__(self, world_source: RemoteWorldSource, url: str, apworld_cache_path) -> None:
         super().__init__(world_source, url, apworld_cache_path)
         if url.startswith("https://github.com"):
@@ -209,7 +211,7 @@ class GithubRepository(Repository):
         self.url = url
         os.makedirs(os.path.join(apworld_cache_path, "github"), exist_ok=True)
 
-    def get_license(self) -> typing.Optional[str]:
+    def get_license(self) -> str | None:
         """Get the license for this repository."""
         data = self.fetch(self.url)
         if data.get('license'):
@@ -227,6 +229,10 @@ class GithubRepository(Repository):
         # if readme['encoding'] == 'base64':
         #     description = base64.b64decode(description).decode('utf-8')
 
+        if self.html_url is None:
+            repo_data = self.fetch(self.url)
+            self.html_url = repo_data.get("html_url")
+            self.url = repo_data.get("url", self.url)
 
         releases_endpoint_url = f"{self.url}/releases"
         endpoint_sha = hashlib.sha256(releases_endpoint_url.encode()).hexdigest()
@@ -234,7 +240,7 @@ class GithubRepository(Repository):
 
         releases = self.fetch(releases_endpoint_url)
 
-        if isinstance(releases, dict) and 'message' in releases:
+        if isinstance(releases, dict) and "message" in releases:
             print(f"Error getting releases from {self.url}: {releases['message']}")
             if cached_request.exists():
                 releases = json.load(cached_request.open())
