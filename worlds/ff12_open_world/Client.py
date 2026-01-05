@@ -151,6 +151,10 @@ class FF12OpenWorldContext(CommonContext):
         self.item_lock = asyncio.Lock()
         if "localappdata" in os.environ:
             self.game_communication_path = os.path.expandvars(r"%localappdata%\FF12OpenWorldAP")
+        else:
+            logger.info("Could not find localappdata environment variable")
+            self.game_communication_path = None
+        self.delete_communication_files()
 
     async def get_username(self):
         if not self.auth:
@@ -168,6 +172,7 @@ class FF12OpenWorldContext(CommonContext):
     async def connection_closed(self):
         self.ff12connected = False
         self.server_connected = False
+        self.delete_communication_files()
         self.ff12_items_received.clear()
         self.game_state_cache = FF12StateCache()
         await super(FF12OpenWorldContext, self).connection_closed()
@@ -175,6 +180,7 @@ class FF12OpenWorldContext(CommonContext):
     async def disconnect(self, allow_autoreconnect: bool = False):
         self.ff12connected = False
         self.server_connected = False
+        self.delete_communication_files()
         self.ff12_items_received.clear()
         self.game_state_cache = FF12StateCache()
         await super(FF12OpenWorldContext, self).disconnect()
@@ -243,6 +249,7 @@ class FF12OpenWorldContext(CommonContext):
         if cmd in {"DataPackage"}:
             self.find_game()
             self.server_connected = True
+            self.delete_communication_files()
             asyncio.create_task(self.send_msgs([{'cmd': 'Sync'}]))
 
         if cmd in {"RoomInfo"}:
@@ -261,6 +268,16 @@ class FF12OpenWorldContext(CommonContext):
                 if self.ff12connected:
                     self.ff12connected = False
                 logger.info("Game is not open (Try running the client as an admin).")
+
+    def delete_communication_files(self):
+        if os.path.exists(self.game_communication_path):
+            for filename in os.listdir(self.game_communication_path):
+                file_path = os.path.join(self.game_communication_path, filename)
+                try:
+                    if os.path.isfile(file_path):
+                        os.remove(file_path)
+                except Exception as e:
+                    logger.info(e)
 
     async def update_game_state_cache(self):
         if not self.ff12connected or not self.ff12:
