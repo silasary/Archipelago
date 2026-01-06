@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import collections
 import logging
+import os
 import typing
 
 from Options import OptionError
@@ -654,7 +655,7 @@ class FactorioScienceLocation(FactorioLocation):
     revealed: bool = False
 
     # Factorio technology properties:
-    ingredients: typing.Dict[str, int]
+    ingredients: dict[str, int]
     count: int = 0
     crafted_item = None
 
@@ -673,3 +674,7 @@ class FactorioScienceLocation(FactorioLocation):
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
         return [(name, count) for name, count in self.ingredients.items()]
+
+mods_dir = Utils.user_path("factorio_saws", "mods")
+if not os.path.exists(mods_dir):
+    os.makedirs(mods_dir, exist_ok=True)
