@@ -53,3 +53,4 @@ jobs:
           name: ${{ steps.get_name.outputs.result }} v${{ steps.get_version.outputs.result }}
           body: ${{ steps.get_changelog.outputs.result }}
           artifacts: build/apworlds/${{ env.world }}.apworld
+          commit: ${{ github.ref_name }}
