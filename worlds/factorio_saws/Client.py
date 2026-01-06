@@ -605,10 +605,15 @@ def launch(*new_args: str):
             raise FileNotFoundError(f"Path {executable} is not an executable file.")
 
     config_file = user_path('factorio_saws', 'config', 'apconfig.ini')
+
     if not os.path.exists(config_file):
         os.makedirs(os.path.dirname(config_file), exist_ok=True)
-        with open(config_file, 'w') as f:
-            f.write(f"[path]\nread-data=__PATH__system-read-data__\nwrite-data={user_path('factorio_saws')}")
+
+        read_path = os.path.abspath(os.path.join(os.path.dirname(executable), "..", "..", "data"))
+        if not os.path.exists(read_path):
+            read_path = "__PATH__system-read-data__"
+        with open(config_file, "w") as f:
+            f.write(f"[path]\nread-data={read_path}\nwrite-data={user_path('factorio_saws')}")
 
 
     if is_windows:
