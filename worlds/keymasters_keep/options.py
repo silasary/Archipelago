@@ -1,5 +1,3 @@
-import typing
-
 from dataclasses import dataclass
 
 from Options import (
@@ -15,7 +13,7 @@ from Options import (
 )
 
 from .game import AutoGameRegister
-from .games import GameArchipelagoOptions, game_option_groups
+from .game_options import GameArchipelagoOptions, game_option_groups
 
 
 class Goal(Choice):

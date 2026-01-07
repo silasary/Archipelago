@@ -49,19 +49,3 @@ if len(broken_games):
         )
 
     raise RuntimeError("Some Keymaster's Keep games could not be loaded. See broken_games.txt for details.")
-
-# Archipelago options
-option_classes: list[type] = []
-game_option_groups: list[OptionGroup] = []
-
-game_cls: type[Game]
-for name, game_cls in sorted(AutoGameRegister.games.items()):
-    option_classes.append(game_cls.options_cls)
-    options = list(typing.get_type_hints(game_cls.options_cls).values())
-    if options:
-        game_option_groups.append(OptionGroup(name, options))
-
-
-@dataclasses.dataclass
-class GameArchipelagoOptions(*option_classes):
-    pass
