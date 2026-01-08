@@ -3367,6 +3367,7 @@ entrance_rule_data_table: Dict[Tuple[str, str], Callable[[CollectionState, int],
     ("Archades", "Aerodrome"): rule_data_list[1],
     ("Balfonheim", "Aerodrome"): rule_data_list[1],
     ("Pharos of Ridorana", "Balfonheim"): rule_data_list[24],
+    ("Initial", "Trials"): rule_data_list[1],
 }
 
 entrance_rule_difficulty_table: Dict[Tuple[str, str], int] = {
@@ -3583,4 +3584,5 @@ entrance_rule_difficulty_table: Dict[Tuple[str, str], int] = {
     ("Archades", "Aerodrome"): 0,
     ("Balfonheim", "Aerodrome"): 0,
     ("Pharos of Ridorana", "Balfonheim"): 5,
+    ("Initial", "Trials"): 0,
 }
