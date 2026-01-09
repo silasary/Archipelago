@@ -170,12 +170,17 @@ class GameObjectiveGenerator:
 
                 optional_constraints: List[str]
                 objectives: List[str]
-                optional_constraints, objectives, objectives_in_use = game.generate_objectives(
-                    count=count,
-                    include_difficult=include_difficult,
-                    include_time_consuming=include_time_consuming,
-                    objectives_in_use=objectives_in_use,
-                )
+                try:
+                    optional_constraints, objectives, objectives_in_use = game.generate_objectives(
+                        count=count,
+                        include_difficult=include_difficult,
+                        include_time_consuming=include_time_consuming,
+                        objectives_in_use=objectives_in_use,
+                    )
+                except Exception as e:
+                    raise GameObjectiveGeneratorException(
+                        f"Error generating objectives for game '{game.game_name_with_platforms()}': {e}"
+                    ) from e
 
                 data.append((game, optional_constraints, objectives))
 
