@@ -41,7 +41,9 @@ class GameObjectiveTemplate:
             else:
                 k = collection[1]
 
-            if callable(collection[0]):
+            if isinstance(collection[0], range):
+                evaluated_collection = list(collection[0])
+            elif callable(collection[0]):
                 evaluated_collection = collection[0]()
             else:
                 evaluated_collection = collection[0]
