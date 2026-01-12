@@ -466,9 +466,10 @@ def parse_version(version: str) -> Version:
         return Version(f"0.0.0+{version.strip('_')}")
 
 class SortStages(IntEnum):
-    UPDATE_AVAILABLE = 4
-    PRERELEASE_AVAILABLE = 3
-    BUNDLED_BUT_UPDATABLE = 2
+    UPDATE_AVAILABLE = 10
+    PRERELEASE_AVAILABLE = 8
+    BUNDLED_BUT_UPDATABLE = 4
+    REPO_AVAILABLE = 2
     INSTALLED = 1
     DEFAULT = 0
     AFTER_DARK = -4
@@ -481,15 +482,15 @@ class WorldInfo(typing.TypedDict):
     description: str
     installed: bool
     manifest: dict[str, typing.Any]
-    remotes: typing.Optional[dict[str, ApWorldMetadata]]
-    latest_version: typing.Optional[ApWorldMetadata]
+    remotes: dict[str, ApWorldMetadata] | None
+    latest_version: ApWorldMetadata | None
     update_available: bool
     install_text: str
     sort: SortStages
     after_dark: bool
-    file: typing.Optional[pathlib.Path]
+    file: pathlib.Path | None
     world_description: str
-    installed_version: typing.Optional[str]
+    installed_version: str | None
 
 repositories = RepositoryManager()
 
@@ -498,7 +499,7 @@ def install_world(world: WorldInfo) -> None:
 
     path = repositories.download_remote_world(world["latest_version"])
     install_apworld(path)
-    if world['sort'] == SortStages.BUNDLED_BUT_UPDATABLE:
+    if world["sort"] == SortStages.BUNDLED_BUT_UPDATABLE:
         os.remove(world["file"])
 
 
@@ -605,8 +606,14 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
                         data['sort'] = SortStages.UPDATE_AVAILABLE
                         data['install_text'] = "Update"
         elif not remote:
-            description = "No remote data available"
-            data['sort'] = SortStages.NO_REMOTE
+            custom_repo = manifest_data.get("repo_url") or manifest_data.get("github")
+            if custom_repo:
+                description = "Custom repo available"
+                data["sort"] = SortStages.REPO_AVAILABLE
+                data["install_text"] = "Add Repo"
+            else:
+                description = "No remote data available"
+                data["sort"] = SortStages.NO_REMOTE
         else:
             highest_remote_version = max(remote.values(), key=lambda w: parse_version(w.world_version))
             data["latest_version"] = highest_remote_version

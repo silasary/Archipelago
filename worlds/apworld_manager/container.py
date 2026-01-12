@@ -5,7 +5,7 @@ from typing import Any
 
 from worlds.Files import APWorldContainer
 
-LITERAL_KEYS = ("github", "authors", "world_version_full", "tracker", "flags")
+LITERAL_KEYS = ("github", "authors", "world_version_full", "tracker", "flags", "repo_url")
 
 class RepoWorldContainer(APWorldContainer):
     """A zipfile containing a world implementation."""

@@ -221,8 +221,17 @@ def launch(*launch_args: str):
             directory_window.switch_to(details_tab)
 
         def download_latest(self):
-            print("Downloading latest version")
-            install_world(self.details)
+            if self.details["description"] == "Custom repo available":
+                from . import RepoWorld
+                manifest_data = self.details['manifest']
+                custom_repo = manifest_data.get("repo_url") or manifest_data.get("github")
+                RepoWorld.settings.repositories[custom_repo] = True
+                RepoWorld.settings._changed = True
+                repo = repositories.add_repo(custom_repo)
+                repositories.refresh()
+            else:
+                print("Downloading latest version")
+                install_world(self.details)
 
             app.apworlds.clear()
             app.apworlds.extend(refresh_apworld_table())
