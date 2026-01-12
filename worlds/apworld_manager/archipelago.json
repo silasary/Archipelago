@@ -1,10 +1,7 @@
 {
     "game": "APWorld Manager",
-    "world_version": "0.0.21",
+    "world_version": "0.0.22",
     "changelog": [
-        "Installer now confirms the file hash before installing worlds",
-        "Clean up some code needed for 0.6.3 compatibility",
-        "Added support for worlds not in the main index providing a 'github' url in their manifest as a shortcut to manually adding the repo to host.yaml",
-        "Fixed titlebar version text"
+        "Fixed bug when trying to hash a world from a custom github repo."
     ]
 }
