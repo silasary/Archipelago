@@ -273,6 +273,9 @@ class GithubRepository(Repository):
                     world['source_url'] = self.url
                     world['world'] = asset['browser_download_url']
                     world['size'] = asset['size']
+                    digest = asset.get('digest')
+                    if digest and digest.startswith('sha256:'):
+                        world['hash_sha256'] = digest.replace('sha256:', '')
                     if release.get('prerelease'):
                         world['metadata']['prerelease'] = release.get('prerelease')
 
@@ -426,9 +429,12 @@ class RepositoryManager:
                     zf.writestr("archipelago.json", json.dumps(metadata, indent=4))
         return path
 
-    def find_release_by_hash(self, hash_sha256: str) -> typing.Optional[ApWorldMetadata]:
+    def find_release_by_hash(self, hash_sha256: str, world_id: str = "") -> typing.Optional[ApWorldMetadata]:
         for repo in self.repositories:
-            for world in sorted(repo.worlds, key=lambda w: w.version_tuple, reverse=True):
+            worlds = repo.worlds
+            if world_id:
+                worlds = [w for w in repo.worlds if w.id == world_id]
+            for world in sorted(worlds, key=lambda w: w.version_tuple, reverse=True):
                 if world.data.get('hash_sha256') == hash_sha256:
                     return world
         return None
@@ -550,7 +556,7 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
         local_version = "0.0.0"
         with open(file, 'rb') as f:
             hash = hashlib.sha256(f.read()).hexdigest()
-        if local := repositories.find_release_by_hash(hash):
+        if local := repositories.find_release_by_hash(hash, file.stem):
             local_version = local.world_version
 
         if not local_version or local_version == "0.0.0":
@@ -571,8 +577,8 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
                 "installed": True,
                 "manifest": manifest_data,
                 "remotes": remote,
-                'update_available': False,
-                'install_text': '-',
+                "update_available": False,
+                "install_text": "-",
                 "after_dark": manifest_data.get("after_dark", False),
                 "file": file,
                 "description": description,
