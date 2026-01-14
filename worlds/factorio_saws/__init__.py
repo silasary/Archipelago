@@ -499,6 +499,9 @@ class FactorioSAWS(World):
                 logging.warning(f"missing recipe for {ingredient}")
                 continue
             ingredient_raw = sum((count for ingredient, count in ingredient_recipe.base_cost.items()))
+            if ingredient_raw == 0:
+                logging.warning(f"zero raw for {ingredient}")
+                continue
             ingredient_energy = ingredient_recipe.total_energy
             num_raw = remaining_raw / ingredient_raw / remaining_num_ingredients
             num_energy = remaining_energy / ingredient_energy / remaining_num_ingredients
