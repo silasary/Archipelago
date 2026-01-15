@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import functools, itertools
 import string
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import Dict, Set, FrozenSet, Tuple, Union, List, Any, Optional
 from dataclasses import dataclass
-from enum import IntFlag
+from enum import IntEnum, IntFlag
 
 import orjson
 
@@ -38,22 +38,58 @@ class FactorioElement:
         return hash(self.name)
 
 
+# TODO: These should probably be "event" location/items in AP.
 class Capability(IntFlag):
-    """ The player has the ability to do something. """
-    automate_mining = 1<<0 # burner mining drill
-    mine_with_fluid = 1<<1 # uranium mining technology
-    mine_hard_solids = 1<<2 # big mining drill
-    pump_tiles = 1<<3 # offshore pump
-    pump_entities = 1<<4 # pumpjack
-    automate_planting = 1<<5 # agricultural tower
-    heat_buildings = 1<<6 # heating tower, nuclear reactor
-    collect_asteroids = 1<<7 # asteroid collector
-    travel_space = 1<<8 # thruster
+    """
+    Represents global milestones in the player's abilities
+    """
+    generate_power               = 1<< 0 # boiler + steam engine
+    generate_power_in_space      = 1<< 1 # solar panel
+    generate_power_in_dark_space = 1<< 2 # nuclear or fusion
+    automate_mining              = 1<< 3 # burner mining drill
+    mine_with_fluid              = 1<< 4 # uranium mining technology + electric mining drills
+    mine_hard_solids             = 1<< 5 # big mining drill
+    pump_tiles                   = 1<< 6 # offshore pump
+    pump_entities                = 1<< 7 # pumpjack
+    automate_planting            = 1<< 8 # agricultural tower
+    harness_lightning            = 1<< 9 # lightning rod
+    heat_buildings               = 1<<10 # heating tower or nuclear reactor
+    build_on_ocean_planet        = 1<<11 # ice platform + concrete
+    collect_asteroids            = 1<<12 # asteroid collector
+    travel_space                 = 1<<13 # thruster
+    destroy_medium_asteroids     = 1<<14 # gun turret
+    destroy_big_asteroids        = 1<<15 # rocket turret
+    destroy_huge_asteroids       = 1<<16 # railgun turret
 
-    # big becomes medium, so chain the capabilities.
-    destroy_medium_asteroids           = 1<<9 # gun turret
-    destroy_big_asteroids        = 1<<10|1<<9 # rocket turret
-    destroy_huge_asteroids = 1<<11|1<<10|1<<9 # railgun turret
+    destroy_big_and_smaller_asteroids = destroy_big_asteroids | destroy_medium_asteroids
+    destroy_huge_and_smaller_asteroids = destroy_huge_asteroids | destroy_big_and_smaller_asteroids
+
+class PowerType(IntFlag):
+    """
+    Effectively 0-count ingredients for every recipe/operation a machine performs.
+    Except for the fusion reactor which consumes both electricty and fusion fuel,
+    buildings almost always require exactly 1 power type.
+    """
+    electricity = 1<<0 # produced by solar panel, required by assembling machine.
+    heat        = 1<<1 # produced by heating tower, required by heat exchanger.
+    chemical    = 1<<2 # satisfied by foraged coal, required by boiler.
+    nutrients   = 1<<3 # satisfied by nutrients, required by biochamber.
+    food        = 1<<4 # satisfied by bioflux, required by captive biter spawner.
+    nuclear     = 1<<5 # satisfied by uranium fuel cell, required by nuclear reactor
+    fusion      = 1<<6 # satisfied by fusion power cell, required by fusion reactor
+    free        = 0 # offshore pump requires no power.
+
+class HeatBufferMode(IntEnum):
+    conduct = 0, # heat pipe
+    produce = 1, # nuclear reactor, heating tower
+    consume = 2, # heat exchanger
+    editor_only = -1, # heat interface
+
+class RecipeClassification(IntEnum):
+    standard = 0 # Produce "better" items.
+    breeding = 1 # Produce more of the same items.
+    conversion = 2 # Lossless conversion of items into other items.
+    dead_end_recycling = 3 # 75% chance to destroy item in a recycler.
 
 class Technology(FactorioElement):  # maybe make subclass of Location?
     factorio_id: int
@@ -183,11 +219,45 @@ class Recipe(FactorioElement):
                 total_energy += selected_recipe_energy
         return total_energy
 
+#TODO: delete the above definition of class Recipe
+@dataclass
+class Recipe:
+    name: str
+    """ e.g. 'electronic-circuit', 'simple-coal-liquefaction' """
+    inputs: Dict[str, int]
+    """
+    e.g. {'copper-cable': 3, 'iron-place': 1}, {'raw-fish': 0, 'nutrients': 100, 'water': 100}
+    an amount of 0 means the input is somehow "preserved" in the process.
+    """
+    outputs: Dict[str, int]
+    """
+    e.g. {'electronic-circuit': 1}, {'empty-barrel': 0, 'water': 0}
+    an amount of 0 means this is a lossless conversion.
+    """
+    energy: float
+    """ the crafting time in seconds """
+    classification: RecipeClassification
+    """ useful for guiding traversal of the cyclic directed graph of what items yield what other items. """
+    machines: Set[str]
+    """ this recipe can be performed in any of these machines, possibly including 'character' for hand crafting. """
+    locations: Set[str] | None
+    """ this recipe must be performed in one of these locations. None means anywhere. """
 
 class Machine(FactorioElement):
     def __init__(self, name, categories):
         self.name: str = name
         self.categories: set = categories
+
+# TODO: delete the above definition of class Machine.
+@dataclass
+class Machine:
+    name: str
+    """ e.g. 'assembling-machine-1', 'captive-biter-spawner', 'steam-turbine', 'character' """
+    power_type: PowerType
+    locations: Set[str] | None
+    """ this machine can only operate in one of these locations. None means anywhere. the charcater cannot hand craft in space. """
+    can_freeze: bool
+    """ requires heating in locations with the Capability.heat_buildings threat. """
 
 @dataclass(frozen=True, order=True)
 class SurfaceProperties:
@@ -206,7 +276,8 @@ class SurfaceProperties:
         return True
 SPACE_SURFACE = SurfaceProperties(0, 0, 0)
 
-class SpaceLocation: # TODO subclass AP Region
+@dataclass
+class SpaceLocation:
     name: str
     """ e.g. 'nauvis', 'solar-system-edge', 'fulgora-aquilo', 'aquilo_orbit' """
     surface_properties: SurfaceProperties
@@ -237,8 +308,6 @@ class SpaceLocation: # TODO subclass AP Region
         self.natural_tiles = set()
         self.mineable_resources = set()
         self.forageable_resources = set()
-    def __repr__(self):
-        return "{}({})".format(type(self).__name__, ", ".join("{}={}".format(name, repr(value)) for name, value in self.__dict__.items()))
 
 ORBIT_SUFFIX = "_orbit"
 
@@ -273,7 +342,7 @@ class ForageableResource:
 
 # Exported data
 machines: Dict[str, Machine] = {}
-recipes = {}
+recipes: Dict[str, Recipe] = {}
 machine_per_category: Dict[str: str] = {} # One machine for each category. TODO: determinism.
 required_technologies: Dict[str, FrozenSet[Technology]] = {}
 free_sample_exclusions: Set[str] = set()
@@ -330,8 +399,6 @@ _additional_autoplace_entities = {
     RawSpaceLocation.gleba: {
         RawEntity.jellystem,
         RawEntity.yumako_tree,
-        RawEntity.gleba_spawner,
-        RawEntity.gleba_spawner_small,
         RawEntity.slipstack,
         RawEntity.funneltrunk,
         RawEntity.hairyclubnub,
@@ -342,15 +409,20 @@ _additional_autoplace_entities = {
         RawEntity.sunnycomb,
         RawEntity.cuttlepop,
         RawEntity.water_cane,
+        RawEntity.gleba_spawner,
+        RawEntity.gleba_spawner_small,
+        RawEntity.small_stomper_shell,
+        RawEntity.medium_stomper_shell,
+        RawEntity.big_stomper_shell,
     },
     RawSpaceLocation.vulcanus: {
-        # These don't spawn naturally per se.
         RawEntity.small_demolisher_corpse,
         RawEntity.medium_demolisher_corpse,
         RawEntity.big_demolisher_corpse,
     },
     RawSpaceLocation.fulgora: {
         RawEntity.fulgurite_small,
+        RawEntity.lightning,
     },
 }
 _additional_autoplace_tiles = {
@@ -363,6 +435,9 @@ _additional_autoplace_tiles = {
         RawTile.water_mud,
     }
 }
+_surfaces_with_lightning = {
+    RawSpaceLocation.fulgora,
+}
 
 # Nauvis is missing its surface properties for some reason.
 _default_gravity = 10
@@ -370,16 +445,22 @@ _default_magnetic_field = 90
 _default_pressure =  1000
 
 _asteroid_info_table = {
-    RawEntity.medium_metallic_asteroid: (Capability.destroy_medium_asteroids, RawItem.metallic_asteroid_chunk),
-    RawEntity.medium_carbonic_asteroid: (Capability.destroy_medium_asteroids, RawItem.carbonic_asteroid_chunk),
-    RawEntity.medium_oxide_asteroid:    (Capability.destroy_medium_asteroids, RawItem.oxide_asteroid_chunk),
-    RawEntity.big_metallic_asteroid:    (Capability.destroy_big_asteroids,    RawItem.metallic_asteroid_chunk),
-    RawEntity.big_carbonic_asteroid:    (Capability.destroy_big_asteroids,    RawItem.carbonic_asteroid_chunk),
-    RawEntity.big_oxide_asteroid:       (Capability.destroy_big_asteroids,    RawItem.oxide_asteroid_chunk),
-    RawEntity.huge_metallic_asteroid:   (Capability.destroy_huge_asteroids,   RawItem.metallic_asteroid_chunk),
-    RawEntity.huge_carbonic_asteroid:   (Capability.destroy_huge_asteroids,   RawItem.carbonic_asteroid_chunk),
-    RawEntity.huge_oxide_asteroid:      (Capability.destroy_huge_asteroids,   RawItem.oxide_asteroid_chunk),
-    RawEntity.huge_promethium_asteroid: (Capability.destroy_huge_asteroids,   RawItem.promethium_asteroid_chunk),
+    RawEntity.medium_metallic_asteroid: (Capability.destroy_medium_asteroids,             RawItem.metallic_asteroid_chunk),
+    RawEntity.medium_carbonic_asteroid: (Capability.destroy_medium_asteroids,             RawItem.carbonic_asteroid_chunk),
+    RawEntity.medium_oxide_asteroid:    (Capability.destroy_medium_asteroids,             RawItem.oxide_asteroid_chunk),
+    RawEntity.big_metallic_asteroid:    (Capability.destroy_big_and_smaller_asteroids,    RawItem.metallic_asteroid_chunk),
+    RawEntity.big_carbonic_asteroid:    (Capability.destroy_big_and_smaller_asteroids,    RawItem.carbonic_asteroid_chunk),
+    RawEntity.big_oxide_asteroid:       (Capability.destroy_big_and_smaller_asteroids,    RawItem.oxide_asteroid_chunk),
+    RawEntity.huge_metallic_asteroid:   (Capability.destroy_huge_and_smaller_asteroids,   RawItem.metallic_asteroid_chunk),
+    RawEntity.huge_carbonic_asteroid:   (Capability.destroy_huge_and_smaller_asteroids,   RawItem.carbonic_asteroid_chunk),
+    RawEntity.huge_oxide_asteroid:      (Capability.destroy_huge_and_smaller_asteroids,   RawItem.oxide_asteroid_chunk),
+    RawEntity.huge_promethium_asteroid: (Capability.destroy_huge_and_smaller_asteroids,   RawItem.promethium_asteroid_chunk),
+}
+
+_resource_category_to_capbility = {
+   "basic-solid": Capability.automate_mining,
+   "hard-solid":  Capability.mine_hard_solids,
+   "basic-fluid": Capability.pump_entities,
 }
 
 _indirect_recycling_recipes = {
@@ -395,22 +476,66 @@ _assteroid_collecting_entities = {
 _automated_planting_entities = {
     RawEntity.agricultural_tower,
 }
+_tile_mining_machines = {
+    RawEntity.offshore_pump,
+}
 
-_start_unlocked_recipes = {
-    # TODO: Derrive this from get_data() and/or make this one or more Options.
-    # This relates to whether trigger techs are shuffled, vanilla, skipped, or something else.
-    RawRecipe.offshore_pump,
-    RawRecipe.boiler,
-    RawRecipe.steam_engine,
-    RawRecipe.automation_science_pack,
-    RawRecipe.inserter,
-    RawRecipe.small_electric_pole,
-    RawRecipe.copper_cable,
-    RawRecipe.lab,
-    RawRecipe.electronic_circuit,
-    RawRecipe.electric_mining_drill,
-    RawRecipe.pipe,
-    RawRecipe.pipe_to_ground,
+_electricity_conducting_machines = {
+    RawEntity.small_electric_pole,
+    RawEntity.medium_electric_pole,
+    RawEntity.big_electric_pole,
+    RawEntity.substation,
+}
+
+_entity_heat_buffer_mode = {
+    RawEntity.nuclear_reactor: HeatBufferMode.produce,
+    RawEntity.heating_tower:   HeatBufferMode.produce,
+    RawEntity.heat_exchanger:  HeatBufferMode.consume,
+    RawEntity.heat_pipe:       HeatBufferMode.conduct,
+    RawEntity.heat_interface:  HeatBufferMode.editor_only,
+}
+
+_power_producing_usage_priorities = {
+    "primary-output", # lightning rod
+    "secondary-output", # steam engine, steam turbine, fusion generator
+    "solar", # solar panel
+}
+_power_consuming_usage_priorities = {
+    "lamp", # small lamp
+    "primary-input", # combinators, fusion reactor, rocket silo, ...
+    "secondary-input", # assembling machine, pumpjack, ...
+}
+
+_override_recipe_data = {
+    # I think it's actually a bug that bacteria cultivation doesn't ignore stats for catalysts like pentapod egg breading does.
+    RawRecipe.copper_bacteria_cultivation: {
+        "ingredients": [
+            { "type": "item", "name": "copper-bacteria", "amount": 1,
+                "ignored_by_stats": 1, # Added this.
+            },
+            { "type": "item", "name": "bioflux", "amount": 1, },
+        ],
+        "products": [
+            { "type": "item", "name": "copper-bacteria", "probability": 1, "amount": 4,
+                "ignored_by_stats": 1, # Added this.
+                "ignored_by_productivity": 1, # Added this.
+            },
+        ],
+    },
+    RawRecipe.iron_bacteria_cultivation: {
+        "ingredients": [
+            { "type": "item", "name": "iron-bacteria", "amount": 1,
+                "ignored_by_stats": 1, # Added this.
+            },
+            { "type": "item", "name": "bioflux", "amount": 1, },
+        ],
+        "products": [
+            { "type": "item", "name": "iron-bacteria", "probability": 1, "amount": 4,
+                "ignored_by_stats": 1, # Added this.
+                "ignored_by_productivity": 1, # Added this.
+            },
+        ],
+    },
 }
 
 def _get_asteroid_info(spawn_data):
@@ -421,6 +546,21 @@ def _get_asteroid_info(spawn_data):
         # Need to break it open.
         return _asteroid_info_table[spawn_data["asteroid"]]
     assert False, "what's this asteroid data: " + repr(spawn_data)
+
+def _get_machine_power_type(entity) -> PowerType:
+    result = PowerType.free
+    if "burner_prototype" in entity:
+        [fuel_category] = entity["burner_prototype"]["fuel_categories"].keys()
+        result |= {
+            "chemical":  PowerType.chemical,
+            "nutrients": PowerType.nutrients,
+            "food":      PowerType.food,
+            "nuclear":   PowerType.nuclear,
+            "fusion":    PowerType.fusion,
+        }[fuel_category]
+    if "electric_energy_source_prototype" in entity and entity["electric_energy_source_prototype"]["usage_priority"] in _power_consuming_usage_priorities:
+        result |= PowerType.electricity
+    return result
 
 def init():
     factorio_tech_id = factorio_base_id
@@ -458,6 +598,8 @@ def init():
             # Surface features.
             if space_location_data.get("entities_require_heating", False):
                 surface_location.threats |= Capability.heat_buildings
+            if location_name in _surfaces_with_lightning:
+                surface_location.threats |= Capability.harness_lightning
             surface_location.natural_entities.update(space_location_data["map_gen_settings"]["autoplace_settings"]["entity"]["settings"].keys())
             surface_location.natural_entities.update(_additional_autoplace_entities.get(location_name, ()))
             surface_location.natural_tiles.update(space_location_data["map_gen_settings"]["autoplace_settings"]["tile"]["settings"].keys())
@@ -509,14 +651,7 @@ def init():
             required_ingredients = []
             if "resource_category" in entity:
                 # Mineable
-                category = entity["resource_category"]
-                if category == "basic-solid":
-                    required_capabilities |= Capability.automate_mining
-                elif category == "hard-solid":
-                    required_capabilities |= Capability.mine_hard_solids
-                elif category == "basic-fluid":
-                    required_capabilities |= Capability.pump_entities
-                else: assert False, "new .resource_category needs to be added to class Capability(IntFlag): " + repr(category)
+                required_capabilities |= _resource_category_to_capbility[entity["resource_category"]]
                 if "required_fluid" in entity["mineable_properties"]:
                     required_ingredients.append(entity["mineable_properties"]["required_fluid"])
                     required_capabilities |= Capability.mine_with_fluid
@@ -528,11 +663,11 @@ def init():
                     forageable_resources.add(ForageableResource(product))
                 if "items_to_place_this" in entity:
                     # Can additionally be automated with agriculture.
-                    # TODO: this is probably the wrong logic for determining what the agricultural tower is willing to plant,
-                    # but it gets the answer right for space age: yumako, jellynut, tree.
-                    # TODO: determine the valid surface by checking both:
-                    #  * entity["surface_conditions"] -- needed for tree-plant
-                    #  * entity["autoplace_specification"]["tile_restriction"] -- needed for jellystem
+                    # This is probably the wrong logic for determining what the agricultural tower is willing to plant,
+                    # but it gets the answer right for Space Age: yumako, jellynut, tree.
+                    # Other ideas:
+                    #  * entity["surface_conditions"] -- for tree-plant
+                    #  * entity["autoplace_specification"]["tile_restriction"] -- for jellystem
                     for ingredient_data in entity["items_to_place_this"]:
                         ingredient = ingredient_data["name"]
                         for product in products:
@@ -564,9 +699,125 @@ def init():
                 found_a_home = True
         if not found_a_home:
             print("WARNING: missing home for natural resource tile: " + tile_name)
-    # Note: This does not count drops from stomper shells
-    # (i couldn't find a compelling connection between the enemies and their corpses in the data.),
-    # but it's all overshadowed by other options on the same surface anyway.
+
+    # ========
+    # Machines
+    # ========
+
+    crafting_category_to_machines = defaultdict(set)
+    resource_category_to_machines = defaultdict(set)
+    tile_mining_machines = set()
+    electricity_producing_machines = set()
+    electricity_conducting_machines = set()
+    heat_producing_machines = set()
+    heat_conducting_machines = set()
+    machine_to_power_type: Dict[str, PowerType] = {}
+    for entity_name, entity in get_data()["entity"].items():
+        is_machine = False
+        # What powers this machine?
+        power_type = _get_machine_power_type(entity)
+        # Crafting buildings and the character:
+        for category in entity.get("crafting_categories", ()):
+            crafting_category_to_machines[category].add(entity_name)
+            is_machine = True
+        # Mining buildings and the character:
+        for category in entity.get("resource_categories", ()):
+            resource_category_to_machines[category].add(entity_name)
+            is_machine = True
+        # Offshore pump:
+        if entity_name in _tile_mining_machines:
+            tile_mining_machines.add(entity_name)
+            is_machine = True
+        # Electricity producers:
+        if "electric_energy_source_prototype" in entity and entity["electric_energy_source_prototype"]["usage_priority"] in _power_producing_usage_priorities:
+            electricity_producing_machines.add(entity_name)
+            is_machine = True
+        # Electricity conductors:
+        if entity_name in _electricity_conducting_machines:
+            electricity_conducting_machines.add(entity_name)
+            is_machine = True
+        # Heat producers, consumers, and conductors:
+        if "heat_buffer_prototype" in entity:
+            mode = _entity_heat_buffer_mode[entity_name]
+            if mode == HeatBufferMode.produce:
+                heat_producing_machines.add(entity_name)
+                is_machine = True
+            elif mode == HeatBufferMode.consume:
+                power_type |= PowerType.heat
+                is_machine = True
+            elif mode == HeatBufferMode.conduct:
+                heat_conducting_machines.add(entity_name)
+                is_machine = True
+            elif mode == HeatBufferMode.editor_only:
+                pass # ignore
+            else: assert False
+        # Where can this machine operate?
+        if "surface_conditions" in entity:
+            locations = set(
+                location_name for location_name, location in space_locations.items()
+                if location.surface_properties.satisfies(entity["surface_conditions"])
+            )
+        else:
+            locations = None
+        can_freeze = entity.get("heating_energy", 0) != 0
+
+        # Do we care?
+        if is_machine:
+            machines[entity_name] = Machine(entity_name, power_type, locations, can_freeze)
+
+    # =======
+    # Recipes
+    # =======
+
+    starting_recipes: Set[str] = set()
+    for recipe_name, recipe_data in get_data()["recipe"].items():
+        if recipe_data["enabled"]:
+            starting_recipes.add(recipe_name)
+        energy = recipe_data["energy"] # crafting time in seconds.
+        allows_productivity = recipe_data["allowed_effects"]["productivity"]
+        override_data = _override_recipe_data.get(recipe_name, recipe_data)
+
+        inputs = {
+            i["name"]: i["amount"] - i.get("ignored_by_stats", 0)
+            for i in override_data["ingredients"]
+        }
+        outputs = {
+            p["name"]: p["amount"] * p.get("probability", 1) + p.get("extra_count_fraction", 0) - p.get("ignored_by_stats", 0)
+            for p in override_data["products"]
+        }
+
+        if any(amount < 0 for amount in outputs.values()):
+            # This only happens for dead-end recycling recipes, such as copper-ore-recycling.
+            assert (
+                recipe_data["category"] == "recycling" and
+                len(inputs) == 1 and
+                inputs.keys() == outputs.keys() and
+                all(amount == 0 for amount in inputs.values())
+            ), "expected a negative byproduct to be part of a dead-end recycling recipe"
+            classification = RecipeClassification.dead_end_recycling
+        elif all(amount == 0 for amount in inputs.values()) and all(amount == 0 for amount in outputs.values()):
+            # This is a lossless conversion recipe, such as barreling/unbarreling or fluoroketone cooling.
+            # Thematically the recipe respects conservation of mass, if you like.
+            classification = RecipeClassification.conversion
+        elif any(amount == 0 and name in outputs and outputs[name] > 0 for name, amount in inputs.items()):
+            # Use an item (and something else surely) to produce more of the item (and something else possibly).
+            # e.g. kovarex, pentapod egg breeding, coal liquefaction
+            classification = RecipeClassification.breeding
+        else:
+            # e.g. electronic circuit, cryogenic science pack
+            classification = RecipeClassification.standard
+
+        # What machines can perform this recipe?
+        valid_machines = crafting_category_to_machines[recipe_data["category"]]
+        # Where can this recipe be performed?
+        if "surface_conditions" in recipe_data:
+            locations = set(
+                location_name for location_name, location in space_locations.items()
+                if location.surface_properties.satisfies(recipe_data["surface_conditions"])
+            )
+        else:
+            locations = None
+        recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations)
 
     import pdb; pdb.set_trace()
 
@@ -606,9 +857,11 @@ def init():
         if "mining-with-fluid" in technology.modifiers:
             mining_with_fluid_sources.add(technology_name)
 
+
     # =======
     # Recipes
     # =======
+
 
     import pdb; pdb.set_trace()
     for recipe_name, recipe_data in raw_recipes.items():
@@ -641,16 +894,6 @@ def init():
 
         for product_name in recipe.products.keys():
             all_product_sources.setdefault(product_name, set()).add(recipe)
-
-    # Collect all crafting entities.
-    for entity_name, entity in get_data()["entity"].items():
-        if "crafting_categories" not in entity: continue # We're looking for crafting buildings (and "character").
-        machines[entity_name] = Machine(entity_name, set(entity["crafting_categories"]))
-
-    # add electric mining drill as a crafting machine to resolve basic-solid (mining)
-    #machines["electric-mining-drill"] = Machine("electric-mining-drill", {"basic-solid"})
-    #machines["pumpjack"] = Machine("pumpjack", {"basic-fluid"})
-    #machines["assembling-machine-1"].categories.add("crafting-with-fluid")  # mod enables this
 
     # build requirements graph for all technology ingredients
 

@@ -58,8 +58,8 @@ all_items["Inventory Spill Trap"] = factorio_base_id - 9
 
 class Factorio(World):
     """
-    Factorio is a game about automation. You play as an engineer who has crash landed on the planet
-    Nauvis, an inhospitable world filled with dangerous creatures called biters. Build a factory,
+    Factorio is a game about automation. You play as an engineer who has crash landed on
+    an inhospitable world filled with dangerous creatures. Build a factory,
     research new technologies, and become more efficient in your quest to build a rocket and return home.
     """
     game = "Factorio"
@@ -84,7 +84,7 @@ class Factorio(World):
     tech_tree_layout_prerequisites: typing.Dict[FactorioScienceLocation, typing.Set[FactorioScienceLocation]]
     tech_mix: int = 0
     skip_silo: bool = False
-    origin_region_name = "Nauvis"
+    origin_region_name = "The Region"
     science_locations: typing.List[FactorioScienceLocation]
     craftsanity_locations: typing.List[FactorioCraftsanityLocation]
     removed_technologies: typing.Set[str]
@@ -117,7 +117,20 @@ class Factorio(World):
     def create_regions(self):
         player = self.player
         random = self.random
-        nauvis = Region("Nauvis", player, self.multiworld)
+
+        # Regions don't really work for Factorio, because all the AP Locations are globally unlocked research.
+        # Even Space Age planets don't work as AP Regions, because the stuff you get there isn't Archipelago stuff
+        # but rather items that help you globally unlock Archipelago stuff.
+        # (And science packs aren't regions either, because you need combinations of science packs.)
+        the_region = Region("The Region", player, self.multiworld)
+
+        def new_location(location):
+            the_region.locations.append(location)
+            return location
+        def new_event(location_name, item_name, classification=ItemClassification.progression):
+            location = new_location(FactorioLocation(player, location_name, None, the_region))
+            event = FactorioItem(item_name, classification, None, player)
+            location.place_locked_item(event)
 
         location_count = len(base_tech_table) - len(useless_technologies) - self.skip_silo
 
@@ -156,12 +169,14 @@ class Factorio(World):
             raise Exception("Too many traps for too few locations. Either decrease the trap count, "
                             f"or increase the location count (higher max science pack). (Player {self.player})") from e
 
-        self.science_locations = [FactorioScienceLocation(player, loc_name, self.location_name_to_id[loc_name], nauvis)
-                                  for loc_name in science_location_names]
-
-        self.craftsanity_locations = [FactorioCraftsanityLocation(player, loc_name, self.location_name_to_id[loc_name], nauvis)
-                                      for loc_name in craftsanity_location_names]
-
+        self.science_locations = [
+            new_location(FactorioScienceLocation(player, loc_name, self.location_name_to_id[loc_name], the_region))
+            for loc_name in science_location_names
+        ]
+        self.craftsanity_locations = [
+            new_location(FactorioCraftsanityLocation(player, loc_name, self.location_name_to_id[loc_name], the_region))
+            for loc_name in craftsanity_location_names
+        ]
 
         distribution: TechCostDistribution = self.options.tech_cost_distribution
         min_cost = self.options.min_tech_cost.value
@@ -183,20 +198,12 @@ class Factorio(World):
         for i, location in enumerate(sorted(self.science_locations, key=sorter)):
             location.count = rand_values[i]
         del rand_values
-        nauvis.locations.extend(self.science_locations)
-        nauvis.locations.extend(self.craftsanity_locations)
-        location = FactorioLocation(player, "Rocket Launch", None, nauvis)
-        nauvis.locations.append(location)
-        event = FactorioItem("Victory", ItemClassification.progression, None, player)
-        location.place_locked_item(event)
+        new_event("Rocket Launch", "Victory")
 
         for ingredient in sorted(self.options.max_science_pack.get_allowed_packs()):
-            location = FactorioLocation(player, f"Automate {ingredient}", None, nauvis)
-            nauvis.locations.append(location)
-            event = FactorioItem(f"Automated {ingredient}", ItemClassification.progression, None, player)
-            location.place_locked_item(event)
+            new_event(f"Automate {ingredient}", f"Automated {ingredient}")
 
-        self.multiworld.regions.append(nauvis)
+        self.multiworld.regions.append(the_region)
 
     def create_items(self) -> None:
         self.set_custom_recipes()
@@ -304,7 +311,7 @@ class Factorio(World):
         self.get_location("Rocket Launch").access_rule = lambda state: all(state.has(technology, player)
                                                                            for technology in
                                                                            victory_tech_names)
-        self.multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
+        self.multiworld.completion_condition[player] = lambda state: state.has("Victory", player)
 
         if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
             victory_tech_names_r = get_rocket_requirements(silo_recipe, None, None, None)
@@ -383,7 +390,7 @@ class Factorio(World):
     @classmethod
     def stage_write_spoiler(cls, world, spoiler_handle):
         factorio_players = world.get_game_players(cls.game)
-        spoiler_handle.write('\n\nFactorio Recipes:\n')
+        spoiler_handle.write("\n\nFactorio Recipes:\n")
         for player in factorio_players:
             name = world.get_player_name(player)
             for recipe in world.worlds[player].custom_recipes.values():
@@ -614,7 +621,8 @@ class FactorioCraftsanityLocation(FactorioLocation):
 
     @property
     def crafted_item(self):
-        return " ".join(self.name.split(" ")[1:])
+        # e.g. "Craft piercing-rounds-magazine" => "piercing-rounds-magazine"
+        return self.split(" ", 1)[-1]
 
 
 class FactorioScienceLocation(FactorioLocation):
