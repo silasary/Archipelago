@@ -15,7 +15,7 @@ def start_minimal_multitracker_web_host(ctx):
         def log_message(self, format, *args):
             pass # Silence please
     main_port = get_settings().server_options.port
-    port = main_port - 38181 + 1234
+    port = main_port - 38281 + 1231
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
     def run():
         print("serving: http://0.0.0.0:{}/".format(port))
