@@ -13,8 +13,8 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
-from .Technologies import tech_table, recipes, free_sample_exclusions, progressive_technology_table, \
-    base_tech_table, tech_to_progressive_lookup, fluids
+from .Technologies import recipes, free_sample_exclusions, progressive_technology_table, \
+    base_tech_table, fluids
 
 if TYPE_CHECKING:
     from . import Factorio
@@ -129,9 +129,7 @@ def generate_mod(world: "Factorio", output_directory: str):
     template_data = {
         "locations": locations,
         "player_names": multiworld.player_name,
-        "tech_table": tech_table,
         "base_tech_table": base_tech_table,
-        "tech_to_progressive_lookup": tech_to_progressive_lookup,
         "mod_name": mod_name,
         "allowed_science_packs": world.options.max_science_pack.get_allowed_packs(),
         "tech_tree_layout_prerequisites": world.tech_tree_layout_prerequisites,
