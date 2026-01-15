@@ -13,8 +13,7 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
-from .Technologies import recipes, free_sample_exclusions, progressive_technology_table, \
-    base_tech_table, fluids
+from .Technologies import recipes, free_sample_exclusions, progressive_technology_table, base_tech_table, fluids
 
 if TYPE_CHECKING:
     from . import Factorio

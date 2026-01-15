@@ -252,6 +252,10 @@ class Factorio(World):
         player = self.player
         shapes = get_shapes(self)
 
+        # asdf
+        location = self.get_location("AP-1-001")
+        location.access_rule = make_science_access_rule(location, player)
+
         for ingredient in self.options.max_science_pack.get_allowed_packs():
             location = self.get_location(f"Automate {ingredient}")
 
