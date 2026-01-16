@@ -647,7 +647,7 @@ class FactorioScienceLocation(FactorioLocation):
                 self.ingredients[Factorio.ordered_science_packs[complexity]] = 1
 
     def access_rule(self, state): -> bool
-        state.has_all(self.required_items, self.player)
+        return state.has_all(self.required_items, self.player)
 
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
