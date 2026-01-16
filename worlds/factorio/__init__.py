@@ -252,10 +252,6 @@ class Factorio(World):
         player = self.player
         shapes = get_shapes(self)
 
-        # asdf
-        location = self.get_location("AP-1-001")
-        location.access_rule = make_science_access_rule(location, player)
-
         for ingredient in self.options.max_science_pack.get_allowed_packs():
             location = self.get_location(f"Automate {ingredient}")
 
@@ -649,6 +645,9 @@ class FactorioScienceLocation(FactorioLocation):
             if (parent.multiworld.worlds[self.player].options.tech_cost_mix >
                     parent.multiworld.worlds[self.player].random.randint(0, 99)):
                 self.ingredients[Factorio.ordered_science_packs[complexity]] = 1
+
+    def access_rule(self, state): -> bool
+        state.has_all(self.required_items, self.player)
 
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
