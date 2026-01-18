@@ -63,9 +63,6 @@ class Factorio(World):
     research new technologies, and become more efficient in your quest to build a rocket and return home.
     """
     game = "Factorio"
-    special_nodes = {"automation", "logistics", "rocket-silo"}
-    custom_recipes: typing.Dict[str, Recipe]
-    location_pool: typing.List[FactorioScienceLocation]
     advancement_technologies: typing.Set[str]
 
     web = FactorioWeb()
@@ -191,10 +188,10 @@ class Factorio(World):
         rand_values = sorted(rand_values)
         if self.options.ramping_tech_costs:
             def sorter(loc: FactorioScienceLocation):
-                return loc.complexity, loc.rel_cost
+                return loc.name
         else:
             def sorter(loc: FactorioScienceLocation):
-                return loc.rel_cost
+                return loc.name.split("-")[-1]
         for i, location in enumerate(sorted(self.science_locations, key=sorter)):
             location.count = rand_values[i]
         del rand_values
@@ -515,6 +512,7 @@ class Factorio(World):
                       original.products, original.energy)
 
     def set_custom_recipes(self):
+        return # TODO
         ingredients_offset = self.options.recipe_ingredients_offset
         original_rocket_part = recipes["rocket-part"]
         science_pack_pools = get_science_pack_pools()
@@ -626,7 +624,6 @@ class FactorioCraftsanityLocation(FactorioLocation):
 
 
 class FactorioScienceLocation(FactorioLocation):
-    complexity: int
     revealed: bool = False
     crafted_item = None
 
@@ -640,13 +637,7 @@ class FactorioScienceLocation(FactorioLocation):
         self.complexity = int(self.name[3]) - 1
         self.rel_cost = int(self.name[5:])
 
-        self.ingredients = {Factorio.ordered_science_packs[self.complexity]: 1}
-        for complexity in range(self.complexity):
-            if (parent.multiworld.worlds[self.player].options.tech_cost_mix >
-                    parent.multiworld.worlds[self.player].random.randint(0, 99)):
-                self.ingredients[Factorio.ordered_science_packs[complexity]] = 1
-
-    def access_rule(self, state): -> bool
+    def access_rule(self, state) -> bool:
         return state.has_all(self.required_items, self.player)
 
     @property
