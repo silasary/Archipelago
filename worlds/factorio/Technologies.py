@@ -1,5 +1,5 @@
 import itertools
-from collections import defaultdict
+from collections import defaultdict, Counter
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
@@ -7,6 +7,7 @@ from .data import (
     get_data,
     Entity as RawEntity,
     Item as RawItem,
+    Fluid as RawFluid,
     Tile as RawTile,
     Recipe as RawRecipe,
     SpaceLocation as RawSpaceLocation,
@@ -14,10 +15,10 @@ from .data import (
 )
 
 # TODO: complicated things not done yet:
-# * capture-bot-rocket + (rocket launcher | rocket turret | spidertron) @ nauvis = captive-biter-spawner
-#   ^ this is the only example of a building that is not necessarily placed by an item of the same name.
-# * boiler not registering as a machine. boiling water is not a Recipe 
-# * acid neutralization produces 500C steam. that's functionally a different item from regular steam, but only for steam-turbine. otherwise it's compatible with steam, e.g. for coal liquifaction and steam condensation.
+# * steam is both a power type and an ingredient, but it's only considered a power type currently. consider acid neutralization, coal liquifaction, steam condensation, etc.
+# * aquilo freezing buildings matters for performing ammoniacal solution separation, but the logic doesn't know that that requires heating buildings. the logic is incorrectly assuming that access to ammoniacal ocean allows you to craft arbitrarily with the item, perhaps as though shipping it offworld were possible, which it is not.
+# * there's no logic for generating power in space, which does not allow chemical combustion. solar panels need to be required somehow.
+# * fusion reactor is missing the fluoroketone requirement. probably need to add a capability.
 
 # TODO: delete these notes: 
 """
@@ -25,7 +26,6 @@ from .data import (
 from .Technologies import free_sample_exclusions, tech_to_progressive_lookup, base_tech_table, all_product_sources, required_technologies, get_rocket_requirements, get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, progressive_technology_table, fluids, valid_ingredients
 """
 # TODO: redo these:
-machine_per_category: dict[str: str] = {} # One machine for each category.
 required_technologies: dict[str, frozenset["Technology"]] = {}
 base_tech_table = {}
 progressive_technology_table: dict[str, "Technology"] = {}
@@ -52,12 +52,13 @@ class Capability(IntFlag):
     automate_planting            = 1<< 5 # agricultural tower
     harness_lightning            = 1<< 6 # lightning rod
     heat_buildings               = 1<< 7 # heating tower or nuclear reactor
-    build_on_ocean_planet        = 1<< 8 # ice platform + concrete
+    build_on_ice_platforms       = 1<< 8 # ice platform + concrete
     collect_asteroids            = 1<< 9 # asteroid collector
     travel_space                 = 1<<10 # thruster
-    destroy_medium_asteroids     = 1<<11 # gun turret
-    destroy_big_asteroids        = 1<<12 # rocket turret
-    destroy_huge_asteroids       = 1<<13 # railgun turret
+    generate_power_in_dark_space = 1<<11 # nuclear or fusion
+    destroy_medium_asteroids     = 1<<12 # gun turret
+    destroy_big_asteroids        = 1<<13 # rocket turret
+    destroy_huge_asteroids       = 1<<14 # railgun turret
 
     destroy_big_and_smaller_asteroids = destroy_big_asteroids | destroy_medium_asteroids
     destroy_huge_and_smaller_asteroids = destroy_huge_asteroids | destroy_big_and_smaller_asteroids
@@ -65,17 +66,20 @@ class Capability(IntFlag):
 class PowerType(IntFlag):
     """
     Buildings almost always require exactly 1 power type,
-    except for the fusion reactor which consumes both electricty and fusion fuel,
+    except for the fusion reactor which consumes both electricity and fusion fuel,
     and some machines operate for free, e.g. offshore-pump.
     """
-    electricity   = 1<<0 # produced by solar panel, required by assembling machine.
-    heat          = 1<<1 # produced by heating tower, required by heat exchanger.
-    chemical      = 1<<2 # satisfied by foraged coal, required by boiler.
-    nutrients     = 1<<3 # satisfied by nutrients, required by biochamber.
-    food          = 1<<4 # satisfied by bioflux, required by captive biter spawner.
-    nuclear       = 1<<5 # satisfied by uranium fuel cell, required by nuclear reactor
-    fusion_fuel   = 1<<6 # satisfied by fusion power cell, required by fusion reactor
-    fusion_plasma = 1<<7 # produced by fusion reactor, required by fusion generator
+    chemical_fuel = 1<< 0 # satisfied by foraged coal, required by boiler
+    steam_165C    = 1<< 1 # produced by boiler, required by steam engine
+    steam_500C    = 1<< 2 # produced by heat exchanger, usable in steam turbine and steam engine
+    electricity   = 1<< 3 # produced by solar panel, required by assembling machine
+    heat          = 1<< 4 # produced by heating tower, required by heat exchanger
+    nutrients     = 1<< 5 # satisfied by nutrients, required by biochamber
+    food          = 1<< 6 # satisfied by bioflux, required by captive biter spawner
+    nuclear_fuel  = 1<< 7 # satisfied by uranium fuel cell, required by nuclear reactor
+    fusion_fuel   = 1<< 8 # satisfied by fusion power cell, required by fusion reactor
+    fusion_plasma = 1<< 9 # produced by fusion reactor, required by fusion generator
+    thruster_fuel = 1<<10 # both fuel and oxidizer, required by thruster
     free          = 0 # offshore pump requires no power.
 
 class HeatBufferMode(IntEnum):
@@ -135,26 +139,6 @@ class Technology:
 
     def is_infinite(self):
         return type(self.requirement) == ResearchRequirement and self.requirement.units == None
-
-class CustomTechnology(Technology):
-    """A particularly configured Technology for a world."""
-    ingredients: set[str]
-
-    def __init__(self, origin: Technology, world, allowed_packs: set[str], player: int):
-        ingredients = allowed_packs
-        self.player = player
-        if origin.name not in world.special_nodes:
-            ingredients = set(world.random.sample(list(ingredients), world.random.randint(1, len(ingredients))))
-        self.ingredients = ingredients
-        super(CustomTechnology, self).__init__(origin.name, origin.factorio_id)
-
-    def get_prior_technologies(self) -> set[Technology]:
-        """Get Technologies that have to precede this one to resolve tree connections."""
-        technologies = set()
-        for ingredient in self.ingredients:
-            technologies |= required_technologies[ingredient]  # technologies that unlock the recipes
-        return technologies
-
 
 @dataclass
 class Recipe:
@@ -231,10 +215,6 @@ class SpaceLocation:
     """ where would thrusters be able to fly us from here? """
     threats: Capability
     """ what size asteroids do we encounter here, and do buildings freeze? """
-
-    mineable_resources: set["MineableResource"]
-    forageable_resources: set["ForageableResource"]
-
     def __init__(self, name: str, surface_properties: SurfaceProperties):
         self.name = name
         self.surface_properties = surface_properties
@@ -242,39 +222,24 @@ class SpaceLocation:
         self.launch_to = None
         self.thrust_to = []
         self.threats = Capability(0)
-        self.mineable_resources = set()
-        self.forageable_resources = set()
 
 ORBIT_SUFFIX = "_orbit"
 
 @dataclass(frozen=True, order=True)
-class MineableResource:
+class MiningSource:
     """
-    A resource the player can collect in automated abundance provided they have the right equipment and technology.
+    A source of an item the player can collect in automated abundance provided they have the right equipment and technology.
     E.g. stone on Nauvis (requires mining drills), sulfuric acid on vulcanus (requires pumpjacks),
-    yumako on gleba (requires agricultural towers), carbonic asteroid chunk in space (required asteroid collector).
+    yumako on gleba (requires agricultural towers), carbonic asteroid chunk in space (requires asteroid collector).
     """
     name: str
     """ item or fluid name """
+    location: str
+    """ e.g. 'fulgora' """
     required_capabilities: Capability
     """ e.g. Capability.automate_mining|mine_with_fluid """
     required_ingredients: tuple[str, ...]
     """ e.g. 'sulfuric-acid' """
-    def __init__(self, name: str, required_capabilities=0, required_ingredients=None):
-        object.__setattr__(self, "name", name)
-        object.__setattr__(self, "required_capabilities", Capability(required_capabilities))
-        object.__setattr__(self, "required_ingredients", tuple(sorted(required_ingredients or ())))
-
-@dataclass(frozen=True, order=True)
-class ForageableResource:
-    """
-    A resource the player can collect manually in small quantities. Never requires special equipment.
-    Does not logically satisfy automation ingredients, but can be used for trigger techs,
-    automation machine ingredients, and bootstrapping circular recipes like pentapod egg breeding.
-    e.g. fish on Nauvis, iron stick on fulgora, yumako on gleba (even without agricultural towers).
-    """
-    name: str
-    """ item or fluid name """
 
 # =============
 # Exported data
@@ -288,6 +253,11 @@ progressive_technology_chains: dict[str, dict[int, str]] = defaultdict(dict)
 """ e.g. {'advanced-material-processing': {1:'advanced-material-processing', 2:'advanced-material-processing-2'}} """
 empty_technologies: set[str] = set()
 fluids: set[str] = set()
+logic_events = {}
+"""
+mapping from event name to expression. Expression is either an event name,
+or {"or": [expression, ...]} or {"and": [expression, ...]}
+"""
 
 # ==================
 # Hardcoded constants that we don't have a good way to derrive from the data:
@@ -376,6 +346,9 @@ _additional_autoplace_tiles = {
 _surfaces_with_lightning = {
     RawSpaceLocation.fulgora,
 }
+_surfaces_requiring_ice_platforms = {
+    RawSpaceLocation.aquilo,
+}
 
 # Nauvis is missing its surface properties for some reason.
 _default_gravity = 10
@@ -413,6 +386,10 @@ _indirect_recycling_recipes = {
 _automated_planting_machines = {
     RawEntity.agricultural_tower,
 }
+_lightning_harnessing_machines = {
+    RawEntity.lightning_rod,
+    RawEntity.lightning_collector,
+}
 _asteroid_collecting_machines = {
     RawEntity.asteroid_collector,
 }
@@ -422,7 +399,6 @@ _tile_mining_machines = {
 
 _fluid_conduit_machines = {
     RawEntity.pipe,
-    RawEntity.pipe_to_ground,
 }
 
 _electricity_conduit_machines = {
@@ -438,6 +414,23 @@ _entity_heat_buffer_mode = {
     RawEntity.heat_exchanger:  HeatBufferMode.consume,
     RawEntity.heat_pipe:       HeatBufferMode.conduct,
     RawEntity.heat_interface:  HeatBufferMode.editor_only,
+}
+_steam_165C_consuming_machines = {
+    RawEntity.steam_engine,
+}
+_steam_500C_consuming_machines = {
+    RawEntity.steam_turbine,
+}
+
+_ice_platform_items = {
+    # Also the names of the entities.
+    RawItem.ice_platform,
+}
+_heat_insulation_flooring_items = {
+    RawItem.concrete,
+    RawItem.hazard_concrete,
+    RawItem.refined_concrete,
+    RawItem.refined_hazard_concrete,
 }
 
 _power_producing_usage_priorities = {
@@ -490,27 +483,10 @@ _override_recipe_data = {
     },
 }
 
-# Psuedo recipes functions in logic like a normal recipe, but Factorio doesn't consider them proper recipes.
-_ROCKET_LAUNCHER_CATEGORY = "_rocket-launcher"
-_pseudo_recipes = {
-    "_capture-spawner-with-rocket": {
-        # This says it creates a captive biter spawner as an item, which is not exactly right, but it makes the logic flow as we want.
-        # (Unless the captive-biter-spawner-recycling recipe somehow becomes a non-dead-end recycling recipe, then this logic would be broken.)
-        "enabled": True,
-        "category": _ROCKET_LAUNCHER_CATEGORY,
-        "energy": 0.5,
-        "hidden_from_player_crafting": True,
-        "ingredients": [{"type": "item", "name": RawItem.capture_robot_rocket, "amount": 1}],
-        "products": [{"type": "item", "name": RawItem.captive_biter_spawner, "amount": 1}],
-        "surface_conditions": _navis_surface_conditions,
-    },
-}
-
-
 # TODO: this is unimplemented, and also do we care?
 _effective_technology_name_for_progressive_grouping = {
     RawTechnology.turbo_transport_belt: "logistics-4",
-    RawTechnology.epic_quality: "quality-upgrade-1",
+    RawTechnology.epic_quality: "quality-upgrade-1", # Really it's quality-upgrade-3. quality-module gives the first two builtin.
     RawTechnology.legendary_quality: "quality-upgrade-2",
 }
 
@@ -523,17 +499,18 @@ def _get_asteroid_info(spawn_data):
         return _asteroid_info_table[spawn_data["asteroid"]]
     assert False, "what's this asteroid data: " + repr(spawn_data)
 
+_fuel_category_to_power_type = {
+    "chemical":  PowerType.chemical_fuel,
+    "nutrients": PowerType.nutrients,
+    "food":      PowerType.food,
+    "nuclear":   PowerType.nuclear_fuel,
+    "fusion":    PowerType.fusion_fuel,
+}
 def _get_machine_power_type(entity) -> PowerType:
     result = PowerType.free
     if "burner_prototype" in entity:
         [fuel_category] = entity["burner_prototype"]["fuel_categories"].keys()
-        result |= {
-            "chemical":  PowerType.chemical,
-            "nutrients": PowerType.nutrients,
-            "food":      PowerType.food,
-            "nuclear":   PowerType.nuclear,
-            "fusion":    PowerType.fusion_fuel,
-        }[fuel_category]
+        result |= _fuel_category_to_power_type[fuel_category]
     if "electric_energy_source_prototype" in entity and entity["electric_energy_source_prototype"]["usage_priority"] in _power_consuming_usage_priorities:
         result |= PowerType.electricity
     return result
@@ -551,6 +528,8 @@ def init():
     # ===============
     # Space Locations
     # ===============
+    item_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
+    item_to_forage_locations: dict[str, set[str]] = defaultdict(set)
 
     natural_entity_to_locations: dict[str, set[str]] = defaultdict(set)
     natural_tile_to_locations: dict[str, set[str]] = defaultdict(set)
@@ -576,11 +555,13 @@ def init():
             # Surface features.
             if space_location_data.get("entities_require_heating", False):
                 surface_location.threats |= Capability.heat_buildings
+            if location_name in _surfaces_requiring_ice_platforms:
+                surface_location.threats |= Capability.build_on_ice_platforms
             if location_name in _surfaces_with_lightning:
                 surface_location.threats |= Capability.harness_lightning
-            for entity_name in (
-                space_location_data["map_gen_settings"]["autoplace_settings"]["entity"]["settings"].keys() |
-                _additional_autoplace_entities.get(location_name, set())
+            for entity_name in itertools.chain(
+                space_location_data["map_gen_settings"]["autoplace_settings"]["entity"]["settings"].keys(),
+                _additional_autoplace_entities.get(location_name, set()),
             ):
                 natural_entity_to_locations[entity_name].add(surface_location.name)
             for tile_name in (
@@ -597,7 +578,10 @@ def init():
             threats, item = _get_asteroid_info(spawn_data)
             space_location.threats |= threats
             # Add a natural resource for this now, because we already know everything.
-            space_location.mineable_resources.add(MineableResource(item, threats | Capability.collect_asteroids))
+            item_to_mining_sources[item].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
+        if space_location_data["solar_power_in_space"] < 100:
+            # This is true for aquilo and beyond.
+            space_location.threats |= Capability.generate_power_in_dark_space
 
     for location_name, space_connection_data in get_data()["space_connection"].items():
         connection_names = [
@@ -619,7 +603,14 @@ def init():
             capabilities, item = _get_asteroid_info(spawn_data)
             space_location.threats |= capabilities
             # Add a natural resource for this now, because we already know everything.
-            space_location.mineable_resources.add(MineableResource(item, threats | Capability.collect_asteroids))
+            item_to_mining_sources[item].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
+        solar_power_in_space = min(
+            get_data()["space_location"][space_connection_data["from"]["name"]]["solar_power_in_space"],
+            get_data()["space_location"][space_connection_data["to"]  ["name"]]["solar_power_in_space"],
+        )
+        if solar_power_in_space < 100:
+            # This is true for all of aquilo's connections and beyond.
+            space_location.threats |= Capability.generate_power_in_dark_space
 
     # =================
     # Natural Resources
@@ -627,24 +618,24 @@ def init():
     # Find mineable and forageable resources.
     for entity_name, entity in get_data()["entity"].items():
         if "autoplace_specification" not in entity: continue # We're looking for natural features.
-        mineable_resources = set()
-        forageable_resources = set()
         if entity["mineable_properties"]["minable"]:
             products = [p["name"] for p in entity["mineable_properties"]["products"]]
             required_capabilities = Capability(0)
-            required_ingredients = []
+            required_ingredients = ()
             if "resource_category" in entity:
                 # Mineable
                 required_capabilities |= _resource_category_to_capbility[entity["resource_category"]]
                 if "required_fluid" in entity["mineable_properties"]:
-                    required_ingredients.append(entity["mineable_properties"]["required_fluid"])
+                    required_ingredients = (entity["mineable_properties"]["required_fluid"],)
                     required_capabilities |= Capability.mine_with_fluid
                 for product in products:
-                    mineable_resources.add(MineableResource(product, required_capabilities, required_ingredients))
+                    for home in natural_entity_to_locations.get(entity_name, ()):
+                        item_to_mining_sources[product].add(MiningSource(item, home, required_capabilities, required_ingredients))
             else:
                 # Foragable
                 for product in products:
-                    forageable_resources.add(ForageableResource(product))
+                    for home in natural_entity_to_locations.get(entity_name, ()):
+                        item_to_forage_locations[product].add(home)
                 if "items_to_place_this" in entity:
                     # Can additionally be automated with agriculture.
                     # This is probably the wrong logic for determining what the agricultural tower is willing to plant,
@@ -655,34 +646,22 @@ def init():
                     for ingredient_data in entity["items_to_place_this"]:
                         ingredient = ingredient_data["name"]
                         for product in products:
-                            mineable_resources.add(MineableResource(product, Capability.automate_planting, [ingredient]))
+                            for home in natural_entity_to_locations.get(entity_name, ()):
+                                item_to_mining_sources[product].add(MiningSource(item, home, Capability.automate_planting, (ingredient,)))
         elif "loot" in entity:
             # Pentapod eggs from gleba spawners (aka egg rafts) use .loot instead of .mineable_properties.
             products = [p["item"] for p in entity["loot"]]
             for product in products:
-                forageable_resources.add(ForageableResource(product))
+                for home in natural_entity_to_locations.get(entity_name, ()):
+                    item_to_forage_locations[product].add(home)
         else: continue
 
-        # Where does this resource appear in the uninverse?
-        homes = natural_entity_to_locations.get(entity_name, None)
-        if homes != None:
-            for name in homes:
-                space_location = space_locations[name]
-                space_location.mineable_resources.update(mineable_resources)
-                space_location.forageable_resources.update(forageable_resources)
-        else:
-            print("WARNING: missing home for natural resource entity: " + entity_name)
     # Offshore pump yields fluids sourced from tiles.
     for tile_name, tile_data in get_data()["tile"].items():
         if "fluid" not in tile_data: continue
-        mineable_resource = MineableResource(tile_data["fluid"]["name"], Capability.pump_tiles)
-        homes = natural_tile_to_locations.get(tile_name, None)
-        if homes != None:
-            for name in homes:
-                space_location = space_locations[name]
-                space_location.mineable_resources.update(mineable_resources)
-        else:
-            print("WARNING: missing home for natural resource tile: " + tile_name)
+        fluid_name = tile_data["fluid"]["name"]
+        for home in natural_tile_to_locations.get(tile_name, ()):
+            item_to_mining_sources[fluid_name].add(MiningSource(fluid_name, home, Capability.pump_tiles, ()))
 
     # =====
     # Items
@@ -690,6 +669,9 @@ def init():
 
     ammo_category_to_weapon_items = defaultdict(set)
     ammo_category_to_ammo_items = defaultdict(set)
+    power_type_to_fuel_items = defaultdict(set)
+    ice_platform_items = set()
+    heat_insulation_flooring_items = set()
     for item_name, item_data in get_data()["item"].items():
         stack_size = item_data["stack_size"]
         weight_in_g = item_data["weight"]
@@ -708,14 +690,23 @@ def init():
         # Ammo is logically relevant for destroying asteroids of various sizes.
         if "ammo_category" in item_data:
             ammo_category_to_ammo_items[item_data["ammo_category"]["name"]].add(item_name)
+        # Fuel
+        if "fuel_category" in item_data:
+            power_type_to_fuel_items[_fuel_category_to_power_type[item_data["fuel_category"]]].add(item_name)
+        # Ice platforms
+        if item_name in _ice_platform_items:
+            ice_platform_items.add(item_name)
+        if item_name in _heat_insulation_flooring_items:
+            heat_insulation_flooring_items.add(item_name)
 
     # ========
     # Machines
     # ========
 
     crafting_category_to_machines = defaultdict(set)
-    resource_category_to_machines = defaultdict(set)
+    mining_capability_to_machines = defaultdict(set)
     automated_planting_machines = set()
+    lightning_harnessing_machines = set()
     asteroid_collecting_machines = set()
     tile_mining_machines = set()
     fluid_conduit_machines = set()
@@ -740,11 +731,15 @@ def init():
             is_machine = True
         # Mining buildings and the character:
         for category in entity.get("resource_categories", ()):
-            resource_category_to_machines[category].add(entity_name)
+            mining_capability_to_machines[_resource_category_to_capbility[category]].add(entity_name)
             is_machine = True
         # agricultural tower:
         if entity_name in _automated_planting_machines:
             automated_planting_machines.add(entity_name)
+            is_machine = True
+        # lightning rods:
+        if entity_name in _lightning_harnessing_machines:
+            lightning_harnessing_machines.add(entity_name)
             is_machine = True
         # asteroid collector:
         if entity_name in _asteroid_collecting_machines:
@@ -766,6 +761,11 @@ def init():
                 water_boiling_machines_500C.add(entity_name)
             else: assert False, "unrecognized boiled water temperature: " + repr(entity["target_temperature"])
             is_machine = True
+        # Steam consuming:
+        if entity_name in _steam_165C_consuming_machines:
+            power_required |= PowerType.steam_165C
+        elif entity_name in _steam_500C_consuming_machines:
+            power_required |= PowerType.steam_500C
         # Electricity producers:
         if "electric_energy_source_prototype" in entity and entity["electric_energy_source_prototype"]["usage_priority"] in _power_producing_usage_priorities:
             electricity_producing_machines.add(entity_name)
@@ -800,6 +800,7 @@ def init():
         # Thruster:
         if "max_performance" in entity:
             thruster_machines.add(entity_name)
+            power_required |= PowerType.thruster_fuel
             is_machine = True
         # Labs:
         if "lab_inputs" in entity:
@@ -846,12 +847,14 @@ def init():
 
         machines[entity_name] = Machine(entity_name, power_required, locations, can_freeze)
 
+    assert all(labs == next(iter(science_pack_to_labs.values())) for labs in science_pack_to_labs.values()), "labs that take a subset of science packs are not supported"
+
     # =======
     # Recipes
     # =======
 
     starting_recipes: set[str] = set()
-    for recipe_name, recipe_data in itertools.chain(get_data()["recipe"].items(), _pseudo_recipes.items()):
+    for recipe_name, recipe_data in get_data()["recipe"].items():
         if recipe_data["enabled"]:
             starting_recipes.add(recipe_name)
         energy = recipe_data["energy"] # crafting time in seconds.
@@ -901,11 +904,14 @@ def init():
         is_unusual_recipe = recipe_data["hidden_from_player_crafting"]
 
         recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
+    product_to_recipes: dict[str, set[str]] = defaultdict(set)
+    for recipe_name, recipe in recipes.items():
+        for product in recipe.outputs.keys():
+            product_to_recipes[product].add(recipe_name)
 
     # ============
     # Technologies
     # ============
-    recipe_to_technologies: dict[str, set[Technology]] = defaultdict(set)
     for technology_name, technology_data in get_data()["technology"].items():
         prerequisites = set(technology_data["prerequisites"].keys())
         ingredients = {i["name"]: i["amount"] for i in technology_data["research_unit_ingredients"] }
@@ -935,7 +941,6 @@ def init():
                 requirement = CreateSpacePlatformRequirement()
             else: assert False, "unrecognized research trigger type: " + repr(trigger["type"])
         else: assert False, "technology appears to have no cost or trigger: " + technology_name
-
 
         unlock_recipes = set()
         unlock_space_locations = set()
@@ -997,8 +1002,325 @@ def init():
             assert technologies[progressive_chain[1]].is_infinite(), "technology ends with -1 without any other levels: " + progressive_chain[1]
         assert not any(technologies[progressive_chain[level]].is_infinite() for level in range(1, len(progressive_chain)+1-1)), "infinite technology must be the highest level defined in the group: " + progressive_group_name
 
+
+
+
+    # =====
+    # Logic
+    # =====
+    # Due to an assertion above, we conflate item names with machine names here for simplicity.
+    fmt_reach_location = "Reach {}".format
+    fmt_access_item = "Access {}".format
+    fmt_automate_item = "Automate {}".format
+    fmt_capability = lambda capability: "Can {}".format(capability.name.replace("_", " "))
+    fmt_operate_machine = "Operate {}".format
+    fmt_supply_power = lambda power_type: "Supply {}".format(power_type.name.replace("_", " "))
+    fmt_unlock_research = lambda name: name # These are proper Archipelago items.
+    fmt_learn_recipe = "Learn {}".format
+
+    can_launch_rockets = fmt_automate_item(RawItem.rocket_part)
+
+    all_ingredient_items = set(itertools.chain.from_iterable(
+        recipe.inputs.keys() for recipe in recipes.values()
+        if recipe.classification != RecipeClassification.dead_end_recycling
+    ))
+
+    # Reach locations.
+    for space_location in space_locations.values():
+        # Inbound connections
+        logic_events[fmt_reach_location(space_location.name)] = {"or": [
+            *[{"and": [
+                # Thrust from each thrust_to location.
+                fmt_reach_location(connection_location),
+                fmt_capability(Capability.travel_space),
+                *[fmt_capability(threat) for threat in space_locations[connection_location].threats],
+            ]} for connection_location in space_location.thrust_to],
+            *([{"and": [
+                # Launch from the drop_to location.
+                fmt_reach_location(space_location.drop_to),
+                can_launch_rockets,
+            ]}] if space_location.drop_to else []),
+            *([
+                # Drop from the launch_to location.
+                fmt_reach_location(space_location.launch_to),
+            ] if space_location.launch_to else []),
+        ]}
+
+    # Capabilities.
+    for capability in Capability:
+        if capability in mining_capability_to_machines:
+            expr = {"or": [
+                fmt_operate_machine(name) for name in mining_capability_to_machines[capability]
+                if name != RawEntity.character # Smacking rocks does not count as automating mining.
+            ]}
+        elif capability == Capability.mine_with_fluid:
+            expr = {"or": [
+                fmt_unlock_research(name) for name, technology in technologies.items()
+                if technology.unlock_mining_with_fluid
+            ]}
+        elif capability == Capability.pump_tiles:
+            expr = {"or": [fmt_operate_machine(name) for name in tile_mining_machines]}
+        elif capability == Capability.automate_planting:
+            expr = {"or": [fmt_operate_machine(name) for name in automated_planting_machines]}
+        elif capability == Capability.harness_lightning:
+            expr = {"or": [fmt_operate_machine(name) for name in lightning_harnessing_machines]}
+        elif capability == Capability.heat_buildings:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(name) for name in heat_producing_machines]},
+                {"or": [fmt_access_item(name) for name in heat_conduit_machines]},
+            ]}
+        elif capability == Capability.build_on_ice_platforms:
+            expr = {"and": [
+                {"or": [fmt_automate_item(name) for name in ice_platform_items]},
+                {"or": [fmt_automate_item(name) for name in heat_insulation_flooring_items]},
+            ]}
+        elif capability == Capability.collect_asteroids:
+            expr = {"or": [fmt_operate_machine(name) for name in asteroid_collecting_machines]}
+        elif capability == Capability.travel_space:
+            expr = {"or": [fmt_operate_machine(name) for name in thruster_machines]}
+        elif capability == Capability.generate_power_in_dark_space:
+            expr = NEVER # TODO
+        elif capability == Capability.destroy_medium_asteroids:
+            expr = NEVER # TODO
+        elif capability == Capability.destroy_big_asteroids:
+            expr = NEVER # TODO
+        elif capability == Capability.destroy_huge_asteroids:
+            expr = NEVER # TODO
+        else: assert False, "forgot a capability: " + repr(capability)
+
+        logic_events[fmt_capability(capability)] = expr
+        del expr # give me a NameError if i forget to assign to expr in this loop.
+
+    # Machines
+    for machine_name, machine in machines.items():
+        expr = {"and": [
+            # Craft the machine.
+            fmt_access_item(machine_name),
+            # Power it.
+            *[fmt_supply_power(power_type) for power_type in machine.power_required],
+            # Place it.
+            *([{"or": [
+                fmt_reach_location(space_location) for space_location in machine.locations
+            ]}] if machine.locations != None else []),
+        ]}
+        logic_events[fmt_operate_machine(machine_name)] = expr
+
+    # Power
+    for power_type in PowerType:
+        if power_type in power_type_to_fuel_items:
+            expr = {"or": [fmt_access_item(item) for item in power_type_to_fuel_items[power_type]]}
+        elif power_type == PowerType.steam_165C:
+            expr = {"and": [
+                # Steam too hot still works.
+                {"or": [fmt_operate_machine(machine) for machine in itertools.chain(water_boiling_machines_165C, water_boiling_machines_500C)]},
+                {"or": [fmt_access_item(machine)     for machine in fluid_conduit_machines]},
+            ]}
+        elif power_type == PowerType.steam_500C:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(machine) for machine in water_boiling_machines_500C]},
+                {"or": [fmt_access_item(machine)     for machine in fluid_conduit_machines]},
+            ]}
+        elif power_type == PowerType.electricity:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(machine) for machine in electricity_producing_machines]},
+                {"or": [fmt_access_item(machine)     for machine in electricity_conduit_machines]},
+            ]}
+        elif power_type == PowerType.heat:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(machine) for machine in heat_producing_machines]},
+                {"or": [fmt_access_item(machine)     for machine in heat_conduit_machines]},
+            ]}
+        elif power_type == PowerType.fusion_plasma:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(machine) for machine in fusion_plasma_producing_machines]},
+                # No conduits for fusion plasma
+            ]}
+        elif power_type == PowerType.thruster_fuel:
+            expr = {"and": [
+                fmt_automate_item(RawFluid.thruster_fuel),
+                fmt_automate_item(RawFluid.thruster_oxidizer),
+                {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
+            ]}
+        else: assert False, "forgot a PowerType: " + repr(power_type)
+        logic_events[fmt_supply_power(power_type)] = expr
+        del expr # give me a NameError if i forget to assign to expr in this loop.
+
+    # Research
+    for technology_name, technology in technologies.items():
+        if type(technology.requirement) == ResearchRequirement:
+            expr = {"and": [
+                {"or": [fmt_operate_machine(lab) for lab in lab_machines]},
+                *[fmt_automate_item(science_pack) for science_pack in technology.requirement.ingredients.keys()],
+            ]}
+        elif type(technology.requirement) == CraftRequirement:
+            # FIXME: This assumes that mining up the item counts as crafting it, which i think is wrong, but i don't think it ever matters.
+            expr = fmt_access_item(technology.requirement.item)
+        elif type(technology.requirement) == BuildRequirement:
+            # FIXME: This also requires that you power the thing, which is not correct,
+            # but it's more correct than just crafting it.
+            # (building an asteroid collector requires launching a space platform starter pack, but not having solar panels.)
+            # This incorrect logic inflicts unnecessary logical requirements,
+            # which at least is erring in the right direction.
+            expr = fmt_operate_machine(technology.requirement.entity)
+        elif type(technology.requirement) == MineRequirement:
+            expr = {"or": [fmt_reach_location(space_location) for space_location in natural_entity_to_locations[technology.requirement.entity]]}
+        elif type(technology.requirement) == CaptureSpawnerRequirement:
+            expr = {"and": [
+                fmt_reach_location(RawSpaceLocation.nauvis),
+                fmt_access_item(RawItem.capture_robot_rocket),
+                {"or": [
+                    *[fmt_access_item(item) for item in ammo_category_to_weapon_items["rocket"]],
+                    *[fmt_access_item(entity) for entity in ammo_category_to_weapon_entities["rocket"]],
+                ]}
+            ]}
+        elif type(technology.requirement) == CreateSpacePlatformRequirement:
+            expr = {"and": [
+                can_launch_rockets,
+                fmt_access_item(RawItem.space_platform_starter_pack),
+            ]}
+        else: assert False, "forgot a requirement type: " + repr(technology.requirement)
+        logic_events[fmt_unlock_research(technology_name)] = expr
+        del expr # give me a NameError if i forget to assign to expr in this loop.
+
+    # Items
+    for item_name in itertools.chain(items.keys(), fluids):
+        for fmt_automate_or_access in [fmt_access_item, fmt_automate_item]:
+            source_exprs = []
+            # Foraging sources only count for accessing the item, not for automating it.
+            if fmt_automate_or_access is fmt_access_item:
+                for home in item_to_forage_locations.get(item_name, []):
+                    source_exprs.append(fmt_reach_location(home))
+            # Mining
+            for mining_source in item_to_mining_sources.get(item_name, []):
+                source_exprs.append({"and": [
+                    fmt_reach_location(mining_source.location),
+                    *[fmt_capability(capability) for capability in mining_source.required_capabilities],
+                    *[fmt_access_item(ingredient) for ingredient in mining_source.required_ingredients],
+                ]})
+            # Crafting
+            for recipe_name in product_to_recipes.get(item_name, []):
+                recipe = recipes[recipe_name]
+                if recipe.classification == RecipeClassification.dead_end_recycling:
+                    continue # e.g. steel recycling is not a source of steel.
+                amount_of_this_product = recipe.outputs[item_name]
+                if amount_of_this_product == 0 and recipe.classification != RecipeClassification.conversion:
+                    continue # e.g. quantum-processor is not a source of fluoroketone-hot
+                # This recipe works.
+                recipe_exprs = [
+                    fmt_learn_recipe(recipe_name),
+                ]
+                for ingredient, amount in recipe.inputs.items():
+                    if amount <= 0 and recipe.classification != RecipeClassification.conversion:
+                        # This item must be present, but isn't "consumed" so to speak by the recipe.
+                        # Automating this recipe only needs limited access to the ingredient.
+                        recipe_exprs.append(fmt_access_item(ingredient))
+                    else:
+                        recipe_exprs.append(fmt_automate_or_access(ingredient))
+                machine_exprs = []
+                for machine in recipe.machines:
+                    if machine == RawEntity.character:
+                        # The character can only create limited quantities. Not proper automation.
+                        if fmt_automate_or_access is fmt_access_item:
+                            machine_expr = ALWAYS
+                        else:
+                            machine_expr = NEVER
+                    else:
+                        machine_expr = fmt_operate_machine(machine)
+                    machine_exprs.append(machine_expr)
+                recipe_exprs.append({"or": machine_exprs})
+                if recipe.locations != None:
+                    recipe_exprs.append({"or": [fmt_reach_location(location_name) for location_name in recipe.locations]})
+                source_exprs.append({"and": recipe_exprs})
+            logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
+
     import pdb; pdb.set_trace()
-    TODO()
+    import json; print(json.dumps({k: optimize_expr(v) for k, v in logic_events.items()}, indent=2))
+    import pdb; pdb.set_trace()
+
     return None
 
+ALWAYS = "(always)"
+NEVER = "(never)"
+
+def optimize_expr(expr):
+    def recurse(expr):
+        if type(expr) != dict: return expr
+        if "or" in expr:
+            clauses = expr["or"]
+            if len(clauses) == 0: return NEVER
+            if len(clauses) == 1: return recurse(clauses[0])
+            new_clauses = []
+            for clause in clauses:
+                clause = recurse(clause)
+                if clause == NEVER: continue # A or False == A
+                if clause == ALWAYS: return ALWAYS # A or True == True
+                if type(clause) == dict and "or" in clause:
+                    # A or (B or C) == A or B or C
+                    new_clauses.extend(clause["or"])
+                else:
+                    new_clauses.append(clause)
+            # (A and B) or (A and C) == A and (B or C)
+            counter = Counter(itertools.chain.from_iterable(
+                (sub_clause for sub_clause in sub_expr["and"] if type(sub_clause) == str)
+                for sub_expr in new_clauses if type(sub_expr) == dict and "and" in sub_expr
+            ))
+            omnipresent_sub_clauses = set(sub_clause for sub_clause, count in counter.items() if count == len(new_clauses))
+            if len(omnipresent_sub_clauses) > 0:
+                return {"and": [
+                    *omnipresent_sub_clauses,
+                    {"or": [
+                        {"and": [
+                            sub_clause for sub_clause in clause["and"]
+                            if not (type(sub_clause) == str and sub_clause in omnipresent_sub_clauses)
+                        ]} for clause in new_clauses
+                    ]},
+                ]}
+            return {"or": new_clauses}
+
+        elif "and" in expr:
+            clauses = expr["and"]
+            if len(clauses) == 0: return ALWAYS
+            if len(clauses) == 1: return recurse(clauses[0])
+            new_clauses = []
+            for clause in clauses:
+                clause = recurse(clause)
+                if clause == ALWAYS: continue # A and True == A
+                if clause == NEVER: return NEVER # A and False == False
+                if type(clause) == dict and "and" in clause:
+                    # A and (B and C) == A and B and C
+                    new_clauses.extend(clause["or"])
+                else:
+                    new_clauses.append(clause)
+
+            # (A or B) and (A or C) == A or (B and C)
+            counter = Counter(itertools.chain.from_iterable(
+                (sub_clause for sub_clause in sub_expr["or"] if type(sub_clause) == str)
+                for sub_expr in new_clauses if type(sub_expr) == dict and "or" in sub_expr
+            ))
+            omnipresent_sub_clauses = set(sub_clause for sub_clause, count in counter.items() if count == len(new_clauses))
+            if len(omnipresent_sub_clauses) > 0:
+                import pdb; pdb.set_trace() # Test this logic and then delete this breakpoint.
+                return {"or": [
+                    *omnipresent_sub_clauses,
+                    {"and": [
+                        {"or": [
+                            sub_clause for sub_clause in clause["or"]
+                            if not (type(sub_clause) == str and sub_clause in omnipresent_sub_clauses)
+                        ]} for clause in new_clauses
+                    ]},
+                ]}
+            return {"and": new_clauses}
+
+        else: assert False
+        return expr
+
+    import json
+    original_expr = json.dumps(expr,sort_keys=True,separators=(',', ':'))
+    while True:
+        expr = recurse(expr)
+        new_expr = json.dumps(expr,sort_keys=True,separators=(',', ':'))
+        if original_expr == new_expr: break
+        original_expr = new_expr
+
+    return expr
 init()

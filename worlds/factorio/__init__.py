@@ -112,6 +112,9 @@ class Factorio(World):
             lambda: self.options.progressive.want_progressives(self.random))
 
     def create_regions(self):
+        """
+        We're combining create_regions() and create_items().
+        """
         player = self.player
         random = self.random
 
@@ -124,10 +127,14 @@ class Factorio(World):
         def new_location(location):
             the_region.locations.append(location)
             return location
-        def new_event(location_name, item_name, classification=ItemClassification.progression):
-            location = new_location(FactorioLocation(player, location_name, None, the_region))
-            event = FactorioItem(item_name, classification, None, player)
+        def new_event(location_name, item_name, required_items=None):
+            location = new_location(FactorioLocation(player, location_name, None, the_region, required_items))
+            event = FactorioItem(item_name, ItemClassification.progression, None, player)
             location.place_locked_item(event)
+
+
+
+
 
         location_count = len(base_tech_table) - len(useless_technologies) - self.skip_silo
 
@@ -608,6 +615,17 @@ class Factorio(World):
 class FactorioLocation(Location):
     game: str = Factorio.game
 
+    required_items: Set[str] | None
+
+    def __init__(self, player: int, name: str, address: int, parent: Region,
+        required_items: Set[str] | None = None,
+    ):
+        super().__init__(player, name, address, parent)
+        self.required_items = required_items
+
+    def access_rule(self, state) -> bool:
+        return state.has_all(self.required_items, self.player)
+
 
 class FactorioCraftsanityLocation(FactorioLocation):
     ingredients = {}
@@ -615,7 +633,7 @@ class FactorioCraftsanityLocation(FactorioLocation):
     revealed = False
 
     def __init__(self, player: int, name: str, address: int, parent: Region):
-        super(FactorioCraftsanityLocation, self).__init__(player, name, address, parent)
+        super().__init__(player, name, address, parent)
 
     @property
     def crafted_item(self):
@@ -632,13 +650,10 @@ class FactorioScienceLocation(FactorioLocation):
     count: int = 0
 
     def __init__(self, player: int, name: str, address: int, parent: Region):
-        super(FactorioScienceLocation, self).__init__(player, name, address, parent)
+        super().__init__(player, name, address, parent)
         # "AP-{Complexity}-{Cost}"
         self.complexity = int(self.name[3]) - 1
         self.rel_cost = int(self.name[5:])
-
-    def access_rule(self, state) -> bool:
-        return state.has_all(self.required_items, self.player)
 
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
