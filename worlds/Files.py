@@ -252,8 +252,9 @@ class APPlayerContainer(APContainer):
             "player_name": self.player_name,
             "game": self.game,
             "patch_file_ending": self.patch_file_ending,
-            "filename_override": self.filename_override,
         })
+        if self.filename_override:
+            manifest["filename_override"] = self.filename_override
         return manifest
 
 
