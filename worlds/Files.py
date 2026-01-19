@@ -226,19 +226,22 @@ class APPlayerContainer(APContainer):
     player: Optional[int]
     player_name: str
     server: str
+    filename_override: Optional[str] = None
 
     def __init__(self, path: Optional[str] = None, player: Optional[int] = None,
-                 player_name: str = "", server: str = ""):
+                 player_name: str = "", server: str = "", filename_override: Optional[str] = None):
         super().__init__(path)
         self.player = player
         self.player_name = player_name
         self.server = server
+        self.filename_override = filename_override
 
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         manifest = super().read_contents(opened_zipfile)
         self.player = manifest["player"]
         self.server = manifest["server"]
         self.player_name = manifest["player_name"]
+        self.filename_override = manifest.get("filename_override")
         return manifest
 
     def get_manifest(self) -> Dict[str, Any]:
@@ -249,6 +252,7 @@ class APPlayerContainer(APContainer):
             "player_name": self.player_name,
             "game": self.game,
             "patch_file_ending": self.patch_file_ending,
+            "filename_override": self.filename_override,
         })
         return manifest
 

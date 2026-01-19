@@ -37,8 +37,11 @@ def download_patch(room_id, patch_id):
                 patch_file_ending = manifest["patch_file_ending"]
             else:
                 patch_file_ending = AutoPatchRegister.patch_types[patch.game].patch_file_ending
-            fname = f"P{patch.player_id}_{patch.player_name}_{app.jinja_env.filters['suuid'](room_id)}" \
-                    f"{patch_file_ending}"
+            if manifest.get("filename_override"):
+                fname = manifest["filename_override"]
+            else:
+                fname = f"P{patch.player_id}_{patch.player_name}_{app.jinja_env.filters['suuid'](room_id)}" \
+                        f"{patch_file_ending}"
             new_file.seek(0)
             return send_file(new_file, as_attachment=True, download_name=fname)
         else:
