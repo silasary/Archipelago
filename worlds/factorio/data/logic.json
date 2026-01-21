@@ -21220,7 +21220,7 @@
   },
   "automation": {
     "and": [
-      "Automate automation-science-pack",
+      "Access automation-science-pack",
       {
         "or": [
           "Operate biolab",

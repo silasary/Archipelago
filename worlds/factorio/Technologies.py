@@ -99,6 +99,8 @@ class ResearchRequirement:
     """ how many units of research, e.g. 'automation' costs 10. None means this is an infinite research with a cost formula. """
     energy: int
     """ lab time for 1 unit of research in seconds. """
+    uses_tech_cost_multiplier: bool
+    """ whether the units scale with the tech cost multiplier map gen setting. """
 @dataclass
 class CraftRequirement:
     item: str
@@ -985,7 +987,7 @@ def init():
             energy_in_ticks = technology_data["research_unit_energy"]
             assert energy_in_ticks % 60 == 0, "update Technology.energy type from int to float"
             energy = energy_in_ticks // 60
-            requirement = ResearchRequirement(ingredients, units, energy)
+            requirement = ResearchRequirement(ingredients, units, energy, not technology_data["ignore_tech_cost_multiplier"])
         elif "research_trigger" in technology_data:
             # Trigger technology.
             trigger = technology_data["research_trigger"]
@@ -1285,9 +1287,10 @@ def init():
     # Research
     for technology_name, technology in technologies.items():
         if type(technology.requirement) == ResearchRequirement:
+            fmt_automate_or_access = fmt_automate_item if technology.requirement.uses_tech_cost_multiplier else fmt_access_item
             expr = {"and": [
                 {"or": [fmt_operate_machine(lab) for lab in lab_machines]},
-                *[fmt_automate_item(science_pack) for science_pack in technology.requirement.ingredients.keys()],
+                *[fmt_automate_or_access(science_pack) for science_pack in technology.requirement.ingredients.keys()],
             ]}
         elif type(technology.requirement) == CraftRequirement:
             # FIXME: This assumes that mining up the item counts as crafting it, which i think is wrong, but i don't think it ever matters.
