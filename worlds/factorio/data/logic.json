@@ -1143,27 +1143,6 @@
     "or": [
       {
         "and": [
-          "Access carbonic-asteroid-chunk",
-          "Learn advanced-carbonic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access carbonic-asteroid-chunk",
-          "Learn carbonic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access carbonic-asteroid-chunk",
-          "Learn carbonic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
           "Access metallic-asteroid-chunk",
           "Learn metallic-asteroid-reprocessing",
           "Operate crusher"
@@ -4935,27 +4914,6 @@
       },
       {
         "and": [
-          "Access metallic-asteroid-chunk",
-          "Learn advanced-metallic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access metallic-asteroid-chunk",
-          "Learn metallic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access metallic-asteroid-chunk",
-          "Learn metallic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
           "Access oxide-asteroid-chunk",
           "Learn oxide-asteroid-reprocessing",
           "Operate crusher"
@@ -5346,27 +5304,6 @@
         "and": [
           "Access metallic-asteroid-chunk",
           "Learn metallic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access oxide-asteroid-chunk",
-          "Learn advanced-oxide-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access oxide-asteroid-chunk",
-          "Learn oxide-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Access oxide-asteroid-chunk",
-          "Learn oxide-asteroid-reprocessing",
           "Operate crusher"
         ]
       },
@@ -10491,27 +10428,6 @@
     "or": [
       {
         "and": [
-          "Automate carbonic-asteroid-chunk",
-          "Learn advanced-carbonic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate carbonic-asteroid-chunk",
-          "Learn carbonic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate carbonic-asteroid-chunk",
-          "Learn carbonic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
           "Automate metallic-asteroid-chunk",
           "Learn metallic-asteroid-reprocessing",
           "Operate crusher"
@@ -14772,27 +14688,6 @@
       },
       {
         "and": [
-          "Automate metallic-asteroid-chunk",
-          "Learn advanced-metallic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate metallic-asteroid-chunk",
-          "Learn metallic-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate metallic-asteroid-chunk",
-          "Learn metallic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
           "Automate oxide-asteroid-chunk",
           "Learn oxide-asteroid-reprocessing",
           "Operate crusher"
@@ -15233,27 +15128,6 @@
         "and": [
           "Automate metallic-asteroid-chunk",
           "Learn metallic-asteroid-reprocessing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate oxide-asteroid-chunk",
-          "Learn advanced-oxide-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate oxide-asteroid-chunk",
-          "Learn oxide-asteroid-crushing",
-          "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Automate oxide-asteroid-chunk",
-          "Learn oxide-asteroid-reprocessing",
           "Operate crusher"
         ]
       },

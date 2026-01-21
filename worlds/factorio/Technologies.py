@@ -1350,9 +1350,10 @@ def init():
                 recipe = recipes[recipe_name]
                 if recipe.classification == RecipeClassification.dead_end_recycling:
                     continue # e.g. steel recycling is not a source of steel.
-                amount_of_this_product = recipe.outputs[item_name]
-                if amount_of_this_product == 0 and recipe.classification != RecipeClassification.conversion:
+                if recipe.outputs[item_name] == 0 and recipe.classification != RecipeClassification.conversion:
                     continue # e.g. quantum-processor is not a source of fluoroketone-hot
+                if item_name in recipe.inputs and recipe.outputs[item_name] - recipe.inputs[item_name] < 0:
+                    continue # e.g. metallic-asteroid-crushing is not a source of metallic-asteroid-chunk
                 if recipe_name == RawRecipe.nutrients_from_spoilage and fmt_automate_or_access is fmt_automate_item:
                     # Crafting nutrients from spoilage is not a viable source of automated nutrients.
                     # The reason is in the numbers in the data, so this could be possible to infer automatically,
