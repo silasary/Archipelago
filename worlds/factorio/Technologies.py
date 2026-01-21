@@ -1254,15 +1254,9 @@ def init():
         if power_type in power_type_to_fuel_items:
             expr = {"or": [fmt_access_item(item) for item in power_type_to_fuel_items[power_type]]}
         elif power_type == PowerType.steam_165C:
-            expr = {"and": [
-                fmt_access_item(RawFluid.steam),
-                {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
-            ]}
+            expr = fmt_access_item(RawFluid.steam)
         elif power_type == PowerType.steam_500C:
-            expr = {"and": [
-                fmt_access_item(STEAM_500C),
-                {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
-            ]}
+            expr = fmt_access_item(STEAM_500C)
         elif power_type == PowerType.electricity:
             expr = {"and": [
                 {"or": [fmt_operate_machine(machine) for machine in electricity_producing_machines]},
@@ -1366,7 +1360,6 @@ def init():
                 recipe_exprs = []
                 if not recipe_name.endswith(pseudo_recipe_suffixes):
                     recipe_exprs.append(fmt_learn_recipe(recipe_name))
-                needs_pipes = False
                 for ingredient, amount in recipe.inputs.items():
                     if amount <= 0 and recipe.classification != RecipeClassification.conversion:
                         # This item must be present, but isn't "consumed" so to speak by the recipe.
@@ -1374,8 +1367,10 @@ def init():
                         recipe_exprs.append(fmt_access_item(ingredient))
                     else:
                         recipe_exprs.append(fmt_automate_or_access(ingredient))
-                    if ingredient in fluids:
-                        needs_pipes = True
+                needs_pipes = (
+                    sum(ingredient in fluids for ingredient in recipe.inputs.keys()) >= 2 or
+                    sum(product    in fluids for product    in recipe.outputs.keys()) >= 2
+                )
                 if needs_pipes:
                     recipe_exprs.append({"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]})
                 if recipe.machines != None:
