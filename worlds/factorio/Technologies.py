@@ -1334,9 +1334,13 @@ def init():
                     source_exprs.append(fmt_reach_location(home))
             # Mining
             for mining_source in item_to_mining_sources.get(item_name, []):
+                required_capabilities = mining_source.required_capabilities
+                if not (required_capabilities & Capability.mine_with_fluid) and fmt_automate_or_access is fmt_access_item:
+                    # The character can hand-mine basic-solid ore patches.
+                    required_capabilities &= ~Capability.automate_mining
                 source_exprs.append({"and": [
                     fmt_reach_location(mining_source.location),
-                    *[fmt_capability(capability) for capability in mining_source.required_capabilities],
+                    *[fmt_capability(capability) for capability in required_capabilities],
                     *[fmt_access_item(ingredient) for ingredient in mining_source.required_ingredients],
                 ]})
             # Crafting

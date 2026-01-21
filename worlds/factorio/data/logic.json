@@ -959,6 +959,7 @@
   },
   "Access calcite": {
     "or": [
+      "Reach vulcanus",
       {
         "and": [
           "Access artillery-shell",
@@ -978,12 +979,6 @@
           "Access oxide-asteroid-chunk",
           "Learn advanced-oxide-asteroid-crushing",
           "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach vulcanus"
         ]
       }
     ]
@@ -1386,6 +1381,8 @@
   "Access coal": {
     "or": [
       "Reach nauvis",
+      "Reach nauvis",
+      "Reach vulcanus",
       {
         "and": [
           "Access carbon",
@@ -1414,18 +1411,6 @@
           "Access slowdown-capsule",
           "Learn slowdown-capsule-recycling",
           "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach nauvis"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach vulcanus"
         ]
       }
     ]
@@ -1704,18 +1689,13 @@
     "or": [
       "Access copper-bacteria",
       "Reach gleba",
+      "Reach nauvis",
       "Reach vulcanus",
       {
         "and": [
           "Access metallic-asteroid-chunk",
           "Learn advanced-metallic-asteroid-crushing",
           "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach nauvis"
         ]
       }
     ]
@@ -3980,6 +3960,7 @@
     "or": [
       "Access iron-bacteria",
       "Reach gleba",
+      "Reach nauvis",
       "Reach vulcanus",
       {
         "and": [
@@ -4000,12 +3981,6 @@
           "Access metallic-asteroid-chunk",
           "Learn metallic-asteroid-crushing",
           "Operate crusher"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach nauvis"
         ]
       }
     ]
@@ -6752,7 +6727,6 @@
       "Reach fulgora",
       {
         "and": [
-          "Can automate mining",
           "Can harness lightning",
           "Reach fulgora"
         ]
@@ -7786,6 +7760,8 @@
     "or": [
       "Reach fulgora",
       "Reach gleba",
+      "Reach gleba",
+      "Reach nauvis",
       "Reach nauvis",
       "Reach vulcanus",
       {
@@ -7829,18 +7805,6 @@
           "Access stone-furnace",
           "Learn stone-furnace-recycling",
           "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach gleba"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach nauvis"
         ]
       }
     ]
