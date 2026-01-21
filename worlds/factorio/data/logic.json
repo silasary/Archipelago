@@ -342,6 +342,8 @@
   },
   "Access ammoniacal-solution": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump tiles",
       "Reach aquilo"
     ]
@@ -1729,6 +1731,7 @@
   },
   "Access copper-ore": {
     "or": [
+      "Access copper-bacteria",
       "Reach gleba",
       "Reach vulcanus",
       {
@@ -1906,6 +1909,8 @@
       },
       {
         "and": [
+          "Can build on ice platforms",
+          "Can heat buildings",
           "Can pump entities",
           "Reach aquilo"
         ]
@@ -3129,6 +3134,8 @@
   },
   "Access fluorine": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump entities",
       "Reach aquilo"
     ]
@@ -3475,6 +3482,7 @@
       },
       {
         "and": [
+          "Can harness lightning",
           "Can pump tiles",
           "Reach fulgora"
         ]
@@ -4021,6 +4029,7 @@
   },
   "Access iron-ore": {
     "or": [
+      "Access iron-bacteria",
       "Reach gleba",
       "Reach vulcanus",
       {
@@ -4694,6 +4703,8 @@
   },
   "Access lithium-brine": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump entities",
       "Reach aquilo"
     ]
@@ -6857,6 +6868,7 @@
       {
         "and": [
           "Can automate mining",
+          "Can harness lightning",
           "Reach fulgora"
         ]
       }
@@ -7148,6 +7160,14 @@
   },
   "Access spoilage": {
     "or": [
+      "Access agricultural-science-pack",
+      "Access bioflux",
+      "Access jelly",
+      "Access jellynut",
+      "Access nutrients",
+      "Access raw-fish",
+      "Access yumako",
+      "Access yumako-mash",
       "Reach gleba",
       {
         "and": [
@@ -9416,6 +9436,8 @@
   },
   "Automate ammoniacal-solution": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump tiles",
       "Reach aquilo"
     ]
@@ -11102,6 +11124,7 @@
   },
   "Automate copper-ore": {
     "or": [
+      "Automate copper-bacteria",
       {
         "and": [
           "Automate metallic-asteroid-chunk",
@@ -11277,6 +11300,8 @@
       },
       {
         "and": [
+          "Can build on ice platforms",
+          "Can heat buildings",
           "Can pump entities",
           "Reach aquilo"
         ]
@@ -12704,6 +12729,8 @@
   },
   "Automate fluorine": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump entities",
       "Reach aquilo"
     ]
@@ -13120,6 +13147,7 @@
       },
       {
         "and": [
+          "Can harness lightning",
           "Can pump tiles",
           "Reach fulgora"
         ]
@@ -13687,6 +13715,7 @@
   },
   "Automate iron-ore": {
     "or": [
+      "Automate iron-bacteria",
       {
         "and": [
           "Automate concrete",
@@ -14411,6 +14440,8 @@
   },
   "Automate lithium-brine": {
     "and": [
+      "Can build on ice platforms",
+      "Can heat buildings",
       "Can pump entities",
       "Reach aquilo"
     ]
@@ -15055,19 +15086,6 @@
         "and": [
           "Automate raw-fish",
           "Learn nutrients-from-fish",
-          {
-            "or": [
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3",
-              "Operate biochamber"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Automate spoilage",
-          "Learn nutrients-from-spoilage",
           {
             "or": [
               "Operate assembling-machine-2",
@@ -16966,6 +16984,7 @@
   "Automate scrap": {
     "and": [
       "Can automate mining",
+      "Can harness lightning",
       "Reach fulgora"
     ]
   },
@@ -17374,6 +17393,14 @@
   },
   "Automate spoilage": {
     "or": [
+      "Automate agricultural-science-pack",
+      "Automate bioflux",
+      "Automate jelly",
+      "Automate jellynut",
+      "Automate nutrients",
+      "Automate raw-fish",
+      "Automate yumako",
+      "Automate yumako-mash",
       {
         "and": [
           "Automate agricultural-tower",
@@ -19477,11 +19504,75 @@
     ]
   },
   "Can collect asteroids": "Operate asteroid-collector",
-  "Can destroy big asteroids": "TODO",
-  "Can destroy huge asteroids": "TODO",
-  "Can destroy medium asteroids": "TODO",
-  "Can generate electricity in dark space": "TODO",
-  "Can generate electricity in space": "TODO",
+  "Can destroy big asteroids": {
+    "and": [
+      "Operate rocket-turret",
+      {
+        "or": [
+          "Automate explosive-rocket",
+          "Automate rocket"
+        ]
+      }
+    ]
+  },
+  "Can destroy huge asteroids": {
+    "and": [
+      "Automate railgun-ammo",
+      "Operate railgun-turret"
+    ]
+  },
+  "Can destroy medium asteroids": {
+    "and": [
+      "Operate gun-turret",
+      {
+        "or": [
+          "Automate firearm-magazine",
+          "Automate piercing-rounds-magazine",
+          "Automate uranium-rounds-magazine"
+        ]
+      }
+    ]
+  },
+  "Can generate electricity in dark space": {
+    "or": [
+      {
+        "and": [
+          "Access fluoroketone-cold-barrel",
+          "Operate fusion-generator"
+        ]
+      },
+      {
+        "and": [
+          "Operate nuclear-reactor",
+          "Operate steam-turbine",
+          {
+            "or": [
+              {
+                "and": [
+                  "Automate ice",
+                  "Learn ice-melting",
+                  "Operate chemical-plant"
+                ]
+              },
+              {
+                "and": [
+                  "Automate water-barrel",
+                  "Learn empty-water-barrel",
+                  {
+                    "or": [
+                      "Operate assembling-machine-2",
+                      "Operate assembling-machine-3"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "Can generate electricity in space": "Operate solar-panel",
   "Can harness lightning": {
     "or": [
       "Operate lightning-collector",
@@ -20454,6 +20545,7 @@
   },
   "Operate fusion-reactor": {
     "and": [
+      "Access fluoroketone-cold",
       "Access fusion-reactor",
       "Supply electricity",
       "Supply fusion fuel"

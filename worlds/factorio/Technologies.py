@@ -16,10 +16,6 @@ from .data import (
 
 # TODO: complicated things not done yet:
 # * steam is both a power type and an ingredient, but it's only considered a power type currently. consider acid neutralization, coal liquifaction, steam condensation, etc.
-# * aquilo freezing buildings matters for performing ammoniacal solution separation, but the logic doesn't know that that requires heating buildings. the logic is incorrectly assuming that access to ammoniacal ocean allows you to craft arbitrarily with the item, perhaps as though shipping it offworld were possible, which it is not.
-# * there's no logic for generating power in space, which does not allow chemical combustion. solar panels need to be required somehow.
-# * fusion reactor is missing the fluoroketone requirement. probably need to add a capability.
-# * spoiling is a process that's not included in the logic. e.g. fish is a source of spoilage, and copper bacteria produces copper.
 
 # TODO: delete these notes: 
 """
@@ -159,12 +155,14 @@ class Recipe:
     """ the crafting time in seconds """
     classification: RecipeClassification
     """ useful for guiding traversal of the cyclic directed graph of what items yield what other items. """
-    machines: set[str]
-    """ this recipe can be performed in any of these machines, possibly including 'character' for hand crafting. """
+    machines: set[str] | None
+    """ this recipe can be performed in any of these machines, possibly including 'character' for hand crafting. None means this is a spoiling process. """
     locations: set[str] | None
     """ this recipe must be performed in one of these locations. None means anywhere. """
     is_unusual_recipe: bool
     """ true for barreling/unbarreling, rocket part, and biter egg. these should be excluded from free samples. """
+
+SPOILING_SUFFIX = "_spoiling"
 
 @dataclass
 class Machine:
@@ -638,7 +636,8 @@ def init():
                     required_capabilities |= Capability.mine_with_fluid
                 for product in products:
                     for home in natural_entity_to_locations.get(entity_name, ()):
-                        item_to_mining_sources[product].add(MiningSource(item, home, required_capabilities, required_ingredients))
+                        home_threats = space_locations[home].threats
+                        item_to_mining_sources[product].add(MiningSource(item, home, required_capabilities|home_threats, required_ingredients))
             else:
                 # Foragable
                 for product in products:
@@ -655,7 +654,8 @@ def init():
                         ingredient = ingredient_data["name"]
                         for product in products:
                             for home in natural_entity_to_locations.get(entity_name, ()):
-                                item_to_mining_sources[product].add(MiningSource(item, home, Capability.automate_planting, (ingredient,)))
+                                home_threats = space_locations[home].threats
+                                item_to_mining_sources[product].add(MiningSource(item, home, Capability.automate_planting|home_threats, (ingredient,)))
         elif "loot" in entity:
             # Pentapod eggs from gleba spawners (aka egg rafts) use .loot instead of .mineable_properties.
             products = [p["item"] for p in entity["loot"]]
@@ -669,7 +669,10 @@ def init():
         if "fluid" not in tile_data: continue
         fluid_name = tile_data["fluid"]["name"]
         for home in natural_tile_to_locations.get(tile_name, ()):
-            item_to_mining_sources[fluid_name].add(MiningSource(fluid_name, home, Capability.pump_tiles, ()))
+            # This claims that pumping ammoniacal solution with an offshore pump requires heating buildings, which is not quite right,
+            # but it's tricky to find a more correct place for the threat logic.
+            home_threats = space_locations[home].threats
+            item_to_mining_sources[fluid_name].add(MiningSource(fluid_name, home, Capability.pump_tiles|home_threats, ()))
 
     # =====
     # Items
@@ -912,6 +915,21 @@ def init():
         is_unusual_recipe = recipe_data["hidden_from_player_crafting"]
 
         recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
+    # Spoiling is kind of like a recipe.
+    for item_name, item_data in get_data()["item"].items():
+        if "spoil_result" not in item_data: continue
+        product = item_data["spoil_result"]["name"]
+        recipe_name = item_name + SPOILING_SUFFIX
+        inputs = {item_name: 1}
+        outputs = {product: 1}
+        energy = 3600 # FIXME: Find the spoilage time in the data.
+        classification = RecipeClassification.standard # Unclear if this is going to cause incorrect logic about nutrients <-> spoilage creating infinite nutrients.
+        valid_machines = None
+        locations = None
+        is_unusual_recipe = True
+        recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
+        starting_recipes.add(recipe_name)
+
     product_to_recipes: dict[str, set[str]] = defaultdict(set)
     for recipe_name, recipe in recipes.items():
         for product in recipe.outputs.keys():
@@ -1102,15 +1120,75 @@ def init():
         elif capability == Capability.travel_space:
             expr = {"or": [fmt_operate_machine(name) for name in thruster_machines]}
         elif capability == Capability.generate_electricity_in_space:
-            expr = "TODO" # TODO
+            # FIXME: i'm just giving up and hard coding the answer here.
+            expr = fmt_operate_machine(RawEntity.solar_panel)
         elif capability == Capability.generate_electricity_in_dark_space:
-            expr = "TODO" # TODO
+            # FIXME: i'm just giving up and hard coding the answers here.
+            expr = {"or": [
+                # Nuclear reactor power.
+                {"and": [
+                    fmt_operate_machine(RawEntity.nuclear_reactor),
+                    fmt_operate_machine(RawEntity.steam_turbine), # includes heat exchanger and stuff.
+                    # And get water in space.
+                    {"or": [
+                        # Probably this one.
+                        {"and": [
+                            fmt_learn_recipe(RawRecipe.ice_melting),
+                            fmt_automate_item(RawItem.ice),
+                            fmt_operate_machine(RawEntity.chemical_plant),
+                        ]},
+                        # Technically this also works.
+                        {"and": [
+                            fmt_learn_recipe(RawRecipe.empty_water_barrel),
+                            fmt_automate_item(RawItem.water_barrel),
+                            {"or": [
+                                fmt_operate_machine(RawEntity.assembling_machine_2),
+                                fmt_operate_machine(RawEntity.assembling_machine_3),
+                            ]},
+                        ]},
+                        # The offshore pump sources of water don't count, and neither does steam condensation.
+                    ]},
+                ]},
+                # Fusion power.
+                {"and": [
+                    fmt_operate_machine(RawEntity.fusion_generator),
+                    # You must barrel the coolant to get it into space.
+                    fmt_access_item(RawItem.fluoroketone_cold_barrel),
+                ]},
+            ]}
         elif capability == Capability.destroy_medium_asteroids:
-            expr = "TODO" # TODO
+            ammo_category = "bullet"
+            expr = {"and": [
+                {"or": [
+                    fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]
+                    # Car and tank don't work in space, and aren't automated.
+                    # Just hardcoding the answer i guess.
+                    if machine == RawEntity.gun_turret
+                ]},
+                {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
+            ]}
         elif capability == Capability.destroy_big_asteroids:
-            expr = "TODO" # TODO
+            ammo_category = "rocket"
+            expr = {"and": [
+                {"or": [
+                    fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]
+                    # Spidertron can't be placed in space.
+                    # Just hardcoding the answer i guess.
+                    if machine == RawEntity.rocket_turret
+                ]},
+                {"or": [
+                    fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]
+                    # atomic bomb and capture robot rocket are not what you need.
+                    # Just hardcoding the answer i guess.
+                    if item in (RawItem.rocket, RawItem.explosive_rocket)
+                ]},
+            ]}
         elif capability == Capability.destroy_huge_asteroids:
-            expr = "TODO" # TODO
+            ammo_category = "railgun"
+            expr = {"and": [
+                {"or": [fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]]},
+                {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
+            ]}
         else: assert False, "forgot a capability: " + repr(capability)
 
         logic_events[fmt_capability(capability)] = expr
@@ -1135,6 +1213,9 @@ def init():
                 fmt_reach_location(space_location) for space_location in machine.locations
             ]}] if machine.locations != None else []),
         ]}
+        if machine_name in fusion_plasma_producing_machines:
+            # You also need coolant for this machine.
+            expr["and"].append(fmt_access_item(RawFluid.fluoroketone_cold))
         logic_events[fmt_operate_machine(machine_name)] = expr
 
     # Power
@@ -1209,6 +1290,7 @@ def init():
 
     # Recipes
     for recipe_name, recipe in recipes.items():
+        if recipe_name.endswith(SPOILING_SUFFIX): continue # not a real recipe.
         if recipe_name in starting_recipes:
             expr = ALWAYS
         else:
@@ -1241,10 +1323,18 @@ def init():
                 amount_of_this_product = recipe.outputs[item_name]
                 if amount_of_this_product == 0 and recipe.classification != RecipeClassification.conversion:
                     continue # e.g. quantum-processor is not a source of fluoroketone-hot
+                if recipe_name == RawRecipe.nutrients_from_spoilage and fmt_automate_or_access is fmt_automate_item:
+                    # Crafting nutrients from spoilage is not a viable source of automated nutrients.
+                    # The reason is in the numbers in the data, so this could be possible to infer automatically,
+                    # but it would need to consider many branching paths through bioflux and bacteria
+                    # and also consider productivity bonuses at every step of the way.
+                    # Instead of all that, hardcode this escape hatch where nutrients from spoilage is suitable only for getting a
+                    # catalyst amount of nutrients.
+                    continue
                 # This recipe works.
-                recipe_exprs = [
-                    fmt_learn_recipe(recipe_name),
-                ]
+                recipe_exprs = []
+                if not recipe_name.endswith(SPOILING_SUFFIX):
+                    recipe_exprs.append(fmt_learn_recipe(recipe_name))
                 needs_pipes = False
                 for ingredient, amount in recipe.inputs.items():
                     if amount <= 0 and recipe.classification != RecipeClassification.conversion:
@@ -1257,18 +1347,19 @@ def init():
                         needs_pipes = True
                 if needs_pipes:
                     recipe_exprs.append({"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]})
-                machine_exprs = []
-                for machine in recipe.machines:
-                    if machine == RawEntity.character:
-                        # The character can only create limited quantities. Not proper automation.
-                        if fmt_automate_or_access is fmt_access_item:
-                            machine_expr = ALWAYS
+                if recipe.machines != None:
+                    machine_exprs = []
+                    for machine in recipe.machines:
+                        if machine == RawEntity.character:
+                            # The character can only create limited quantities. Not proper automation.
+                            if fmt_automate_or_access is fmt_access_item:
+                                machine_expr = ALWAYS
+                            else:
+                                machine_expr = NEVER
                         else:
-                            machine_expr = NEVER
-                    else:
-                        machine_expr = fmt_operate_machine(machine)
-                    machine_exprs.append(machine_expr)
-                recipe_exprs.append({"or": machine_exprs})
+                            machine_expr = fmt_operate_machine(machine)
+                        machine_exprs.append(machine_expr)
+                    recipe_exprs.append({"or": machine_exprs})
                 if recipe.locations != None:
                     recipe_exprs.append({"or": [fmt_reach_location(location_name) for location_name in recipe.locations]})
                 source_exprs.append({"and": recipe_exprs})
