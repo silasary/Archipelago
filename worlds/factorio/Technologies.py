@@ -14,9 +14,6 @@ from .data import (
     Technology as RawTechnology,
 )
 
-# TODO: complicated things not done yet:
-# * steam is both a power type and an ingredient, but it's only considered a power type currently. consider acid neutralization, coal liquifaction, steam condensation, etc.
-
 # TODO: delete these notes: 
 """
 # These are the exports we're expected to provide:
@@ -163,6 +160,8 @@ class Recipe:
     """ true for barreling/unbarreling, rocket part, and biter egg. these should be excluded from free samples. """
 
 SPOILING_SUFFIX = "_spoiling"
+OPERATION_SUFFIX = "_operation"
+pseudo_recipe_suffixes = (SPOILING_SUFFIX, OPERATION_SUFFIX)
 
 @dataclass
 class Machine:
@@ -183,6 +182,10 @@ class Item:
     stack_size: int
     rocket_capacity: int
     """ how many fit on a rocket. e.g. 2000 for electronic-circuit, 50 for inserter. 0 for rocket-silo. """
+
+# Steam is both a power source and an "item" sometimes.
+STEAM_500C = RawFluid.steam + "_500C"
+pseudo_items = (STEAM_500C,)
 
 @dataclass(frozen=True, order=True)
 class SurfaceProperties:
@@ -376,13 +379,6 @@ _resource_category_to_capbility = {
    "basic-solid": Capability.automate_mining,
    "hard-solid":  Capability.mine_hard_solids,
    "basic-fluid": Capability.pump_entities,
-}
-
-_indirect_recycling_recipes = {
-    # breaks multi-step loops in crafting dependencies.
-    # TODO: is this really needed?
-    RawRecipe.nuclear_fuel_reprocessing,
-    RawRecipe.nutrients_from_spoilage,
 }
 
 _automated_planting_machines = {
@@ -721,8 +717,8 @@ def init():
     asteroid_collecting_machines = set()
     tile_mining_machines = set()
     fluid_conduit_machines = set()
-    water_boiling_machines_165C = set()
-    water_boiling_machines_500C = set()
+    water_boilers_165C = set()
+    water_boilers_500C = set()
     electricity_producing_machines = set()
     electricity_conduit_machines = set()
     heat_producing_machines = set()
@@ -767,9 +763,9 @@ def init():
         # Water boiling:
         if "boiler_mode" in entity:
             if entity["target_temperature"] == 165:
-                water_boiling_machines_165C.add(entity_name)
+                water_boilers_165C.add(entity_name)
             elif entity["target_temperature"] == 500:
-                water_boiling_machines_500C.add(entity_name)
+                water_boilers_500C.add(entity_name)
             else: assert False, "unrecognized boiled water temperature: " + repr(entity["target_temperature"])
             is_machine = True
         # Steam consuming:
@@ -869,7 +865,18 @@ def init():
         if recipe_data["enabled"]:
             starting_recipes.add(recipe_name)
         energy = recipe_data["energy"] # crafting time in seconds.
+
         override_data = _override_recipe_data.get(recipe_name, recipe_data)
+        extra_products = []
+        for p in override_data["products"]:
+            if p["name"] == RawFluid.steam and "temperature" in p:
+                assert p["temperature"] == 500, "unrecognized steam temperature in recipe output: " + recipe_name
+                extra_products.append({
+                    # This steam also satisfies the 500C steam requirement.
+                    # Effectively produce both to make it work with the logic.
+                    "name": STEAM_500C,
+                    "amount": p["amount"],
+                })
 
         inputs = {
             i["name"]: i["amount"] - i.get("ignored_by_stats", 0)
@@ -877,8 +884,9 @@ def init():
         }
         outputs = {
             p["name"]: p["amount"] * p.get("probability", 1) + p.get("extra_count_fraction", 0) - p.get("ignored_by_stats", 0)
-            for p in override_data["products"]
+            for p in itertools.chain(override_data["products"], extra_products)
         }
+
 
         if any(amount < 0 for amount in outputs.values()):
             # This only happens for dead-end recycling recipes, such as copper-ore-recycling.
@@ -915,19 +923,42 @@ def init():
         is_unusual_recipe = recipe_data["hidden_from_player_crafting"]
 
         recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
-    # Spoiling is kind of like a recipe.
+
+    # Spoiling is like a recipe.
     for item_name, item_data in get_data()["item"].items():
         if "spoil_result" not in item_data: continue
         product = item_data["spoil_result"]["name"]
         recipe_name = item_name + SPOILING_SUFFIX
-        inputs = {item_name: 1}
-        outputs = {product: 1}
-        energy = 3600 # FIXME: Find the spoilage time in the data.
-        classification = RecipeClassification.standard # Unclear if this is going to cause incorrect logic about nutrients <-> spoilage creating infinite nutrients.
-        valid_machines = None
-        locations = None
-        is_unusual_recipe = True
-        recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
+        recipes[recipe_name] = Recipe(recipe_name,
+            inputs={item_name:1}, outputs={product:1},
+            energy=3600, # FIXME: Find the spoilage time in the data.
+            classification=RecipeClassification.standard,
+            machines=None, locations=None, is_unusual_recipe=False,
+        )
+        starting_recipes.add(recipe_name)
+
+    # Water boiling is like a recipe.
+    for machine_name in water_boilers_165C:
+        recipe_name = machine_name + OPERATION_SUFFIX
+        recipes[recipe_name] = Recipe(recipe_name,
+            inputs={RawFluid.water: 6}, outputs={RawFluid.steam: 60},
+            energy=1, classification=RecipeClassification.standard,
+            machines={machine_name}, locations=None, is_unusual_recipe=False,
+        )
+        starting_recipes.add(recipe_name)
+    for machine_name in water_boilers_500C:
+        recipe_name = machine_name + OPERATION_SUFFIX
+        recipes[recipe_name] = Recipe(recipe_name,
+            inputs={RawFluid.water: 10.3}, outputs={
+                STEAM_500C: 103,
+                # 500C steam also works as plain steam for coal liquefaction and steam engine operation.
+                # The math here is a lie, because we're not really producing twice as much steam,
+                # but our logic doesn't consider managing unwanted byproducts, so the result is correct here.
+                RawFluid.steam: 103,
+            },
+            energy=1, classification=RecipeClassification.standard,
+            machines={machine_name}, locations=None, is_unusual_recipe=False,
+        )
         starting_recipes.add(recipe_name)
 
     product_to_recipes: dict[str, set[str]] = defaultdict(set)
@@ -1224,14 +1255,13 @@ def init():
             expr = {"or": [fmt_access_item(item) for item in power_type_to_fuel_items[power_type]]}
         elif power_type == PowerType.steam_165C:
             expr = {"and": [
-                # Steam too hot still works.
-                {"or": [fmt_operate_machine(machine) for machine in itertools.chain(water_boiling_machines_165C, water_boiling_machines_500C)]},
-                {"or": [fmt_access_item(machine)     for machine in fluid_conduit_machines]},
+                fmt_access_item(RawFluid.steam),
+                {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
             ]}
         elif power_type == PowerType.steam_500C:
             expr = {"and": [
-                {"or": [fmt_operate_machine(machine) for machine in water_boiling_machines_500C]},
-                {"or": [fmt_access_item(machine)     for machine in fluid_conduit_machines]},
+                fmt_access_item(STEAM_500C),
+                {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
             ]}
         elif power_type == PowerType.electricity:
             expr = {"and": [
@@ -1290,7 +1320,7 @@ def init():
 
     # Recipes
     for recipe_name, recipe in recipes.items():
-        if recipe_name.endswith(SPOILING_SUFFIX): continue # not a real recipe.
+        if recipe_name.endswith(pseudo_recipe_suffixes): continue # not a real recipe.
         if recipe_name in starting_recipes:
             expr = ALWAYS
         else:
@@ -1301,7 +1331,7 @@ def init():
         logic_events[fmt_learn_recipe(recipe_name)] = expr
 
     # Items
-    for item_name in itertools.chain(items.keys(), fluids):
+    for item_name in itertools.chain(items.keys(), fluids, pseudo_items):
         for fmt_automate_or_access in [fmt_access_item, fmt_automate_item]:
             source_exprs = []
             # Foraging sources only count for accessing the item, not for automating it.
@@ -1333,7 +1363,7 @@ def init():
                     continue
                 # This recipe works.
                 recipe_exprs = []
-                if not recipe_name.endswith(SPOILING_SUFFIX):
+                if not recipe_name.endswith(pseudo_recipe_suffixes):
                     recipe_exprs.append(fmt_learn_recipe(recipe_name))
                 needs_pipes = False
                 for ingredient, amount in recipe.inputs.items():

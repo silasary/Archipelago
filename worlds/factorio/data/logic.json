@@ -7231,15 +7231,35 @@
   },
   "Access steam": {
     "and": [
-      "Access calcite",
       "Access pipe",
-      "Access sulfuric-acid",
-      "Learn acid-neutralisation",
-      "Reach vulcanus",
       {
         "or": [
-          "Operate chemical-plant",
-          "Operate cryogenic-plant"
+          {
+            "and": [
+              "Access calcite",
+              "Access sulfuric-acid",
+              "Learn acid-neutralisation",
+              "Reach vulcanus",
+              {
+                "or": [
+                  "Operate chemical-plant",
+                  "Operate cryogenic-plant"
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              "Access water",
+              "Operate boiler"
+            ]
+          },
+          {
+            "and": [
+              "Access water",
+              "Operate heat-exchanger"
+            ]
+          }
         ]
       }
     ]
@@ -7258,6 +7278,35 @@
       "Access iron-gear-wheel",
       "Access pipe",
       "Learn steam-turbine"
+    ]
+  },
+  "Access steam_500C": {
+    "and": [
+      "Access pipe",
+      {
+        "or": [
+          {
+            "and": [
+              "Access calcite",
+              "Access sulfuric-acid",
+              "Learn acid-neutralisation",
+              "Reach vulcanus",
+              {
+                "or": [
+                  "Operate chemical-plant",
+                  "Operate cryogenic-plant"
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              "Access water",
+              "Operate heat-exchanger"
+            ]
+          }
+        ]
+      }
     ]
   },
   "Access steel-chest": {
@@ -17485,14 +17534,34 @@
   "Automate steam": {
     "and": [
       "Access pipe",
-      "Automate calcite",
-      "Automate sulfuric-acid",
-      "Learn acid-neutralisation",
-      "Reach vulcanus",
       {
         "or": [
-          "Operate chemical-plant",
-          "Operate cryogenic-plant"
+          {
+            "and": [
+              "Automate calcite",
+              "Automate sulfuric-acid",
+              "Learn acid-neutralisation",
+              "Reach vulcanus",
+              {
+                "or": [
+                  "Operate chemical-plant",
+                  "Operate cryogenic-plant"
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              "Automate water",
+              "Operate boiler"
+            ]
+          },
+          {
+            "and": [
+              "Automate water",
+              "Operate heat-exchanger"
+            ]
+          }
         ]
       }
     ]
@@ -17523,6 +17592,35 @@
           "Operate assembling-machine-1",
           "Operate assembling-machine-2",
           "Operate assembling-machine-3"
+        ]
+      }
+    ]
+  },
+  "Automate steam_500C": {
+    "and": [
+      "Access pipe",
+      {
+        "or": [
+          {
+            "and": [
+              "Automate calcite",
+              "Automate sulfuric-acid",
+              "Learn acid-neutralisation",
+              "Reach vulcanus",
+              {
+                "or": [
+                  "Operate chemical-plant",
+                  "Operate cryogenic-plant"
+                ]
+              }
+            ]
+          },
+          {
+            "and": [
+              "Automate water",
+              "Operate heat-exchanger"
+            ]
+          }
         ]
       }
     ]
@@ -21236,18 +21334,13 @@
   "Supply steam 165C": {
     "and": [
       "Access pipe",
-      {
-        "or": [
-          "Operate boiler",
-          "Operate heat-exchanger"
-        ]
-      }
+      "Access steam"
     ]
   },
   "Supply steam 500C": {
     "and": [
       "Access pipe",
-      "Operate heat-exchanger"
+      "Access steam_500C"
     ]
   },
   "Supply thruster fuel": {
