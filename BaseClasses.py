@@ -1366,6 +1366,7 @@ class Region:
         location_type: type[Location] | None = None,
         item_type: type[Item] | None = None,
         show_in_spoiler: bool = True,
+        show_in_spoiler_playthrough: bool = True,
     ) -> Item:
         """
         Adds an event location/item pair to the region.
@@ -1376,6 +1377,7 @@ class Region:
         :param location_type: Location class to create the event location with. Defaults to BaseClasses.Location.
         :param item_type: Item class to create the event item with. Defaults to BaseClasses.Item.
         :param show_in_spoiler: Will be passed along to the created event Location's show_in_spoiler attribute.
+        :param show_in_spoiler_playthrough: Will be passed along to the created event Location's show_in_spoiler_playthrough attribute.
         :return: The created Event Item
         """
         if location_type is None:
@@ -1389,6 +1391,7 @@ class Region:
 
         event_location = location_type(self.player, location_name, None, self)
         event_location.show_in_spoiler = show_in_spoiler
+        event_location.show_in_spoiler_playthrough = show_in_spoiler_playthrough
         if rule is not None:
             event_location.access_rule = rule
 
@@ -1472,6 +1475,7 @@ class Location:
     parent_region: Optional[Region]
     locked: bool = False
     show_in_spoiler: bool = True
+    show_in_spoiler_playthrough: bool = True
     progress_type: LocationProgressType = LocationProgressType.DEFAULT
     always_allow: Callable[[CollectionState, Item], bool] = staticmethod(lambda state, item: False)
     access_rule: Callable[[CollectionState], bool] = staticmethod(lambda state: True)
@@ -1795,7 +1799,13 @@ class Spoiler:
                                          chain.from_iterable(multiworld.precollected_items.values())
                                          if item.advancement])}
 
-        for i, sphere in enumerate(collection_spheres):
+        shown_collection_spheres = [
+            shown_sphere for shown_sphere in [
+                [location for location in sphere if location.show_in_spoiler_playthrough]
+                for sphere in collection_spheres
+            ] if shown_sphere
+        ]
+        for i, sphere in enumerate(shown_collection_spheres):
             self.playthrough[str(i + 1)] = {
                 str(location): str(location.item) for location in sorted(sphere)}
         if create_paths:
