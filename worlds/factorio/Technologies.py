@@ -1276,7 +1276,7 @@ def init():
 
     import os, json
     with open(os.path.join(os.path.dirname(__file__), "data", "logic.json"), "w") as f:
-        f.write(json.dumps({k: optimize_expr(v) for k, v in logic_events.items()}, indent=2))
+        f.write(json.dumps({k: optimize_expr(v) for k, v in logic_events.items()}, indent=2, sort_keys=True))
         f.write("\n")
 
     import pdb; pdb.set_trace()
@@ -1368,5 +1368,11 @@ def optimize_expr(expr):
         if original_expr == new_expr: break
         original_expr = new_expr
 
-    return expr
+
+    def sorted_recursive(expr):
+        if type(expr) != dict: return expr
+        expr = {k: (sorted_recursive(x) for x in v) for k, v in expr.items()}
+        expr = {k: sorted(v, key=json.dumps) for k, v in expr.items()}
+        return expr
+    return sorted_recursive(expr)
 init()
