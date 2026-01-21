@@ -745,6 +745,12 @@ class HKLocation(Location):
         if costs:
             self.costs = dict(costs)
             self.sort_costs()
+        #print("CREATED LOCATION({}, {}, {}, {}, {}, {}, {})".format(player, name, code, parent, costs, vanilla, basename))
+        # CREATED LOCATION(1, Waterways_06[right1], None, Menu, None, False, None)
+        # CREATED LOCATION(1, Lurien, 16777360, Menu, None, False, Lurien)
+        # CREATED LOCATION(1, Rancid_Egg-Sheo, None, Menu, None, True, Rancid_Egg-Sheo)
+        # CREATED LOCATION(1, Lit_Abyss_Lighthouse, None, Menu, None, False, None)
+        self.show_in_spoiler = self.show_in_spoiler_playthrough = code is not None or vanilla
 
     def cost_text(self, separator=" and "):
         if self.costs is None:
