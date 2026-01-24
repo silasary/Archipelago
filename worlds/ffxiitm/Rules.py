@@ -1,7 +1,8 @@
 from typing import TYPE_CHECKING
 
-from BaseClasses import CollectionState, MultiWorld, LocationProgressType
+from BaseClasses import CollectionState, LocationProgressType, MultiWorld
 from worlds.generic.Rules import add_rule, set_rule
+
 from .Locations import get_locations_by_category
 
 if TYPE_CHECKING:
@@ -27,5 +28,5 @@ def set_rules(world: "FFXIITMWorld", player: int):
         for floor in range(2, max_floor // 10):
             set_rule(
                 get_entrance(f"Trial {str(floor * 10).rjust(3, '0')}"),
-                lambda state: state.count_group("Mist", world.player) >= floor
+                lambda state, floor=floor: state.count_group("Mist", world.player) >= floor
             )
