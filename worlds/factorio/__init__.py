@@ -113,25 +113,55 @@ class Factorio(World):
 
     def create_regions(self):
         """
-        We're combining create_regions() and create_items().
+        This implementation covers create_regions(), create_items(), and set_rules().
         """
         player = self.player
         random = self.random
 
-        # Regions don't really work for Factorio, because all the AP Locations are globally unlocked research.
+        with open(os.path.join(os.path.dirname(__file__), "data", "logic.json")) as f:
+            import json
+            logic_events = json.load(f)
+
+        from .Technologies import optimize_expr, never_inline_events
+
+        # Regions don't map well onto anything useful in Factorio, because all the AP Locations are globally unlocked research.
         # Even Space Age planets don't work as AP Regions, because the stuff you get there isn't Archipelago stuff
         # but rather items that help you globally unlock Archipelago stuff.
         # (And science packs aren't regions either, because you need combinations of science packs.)
         the_region = Region("The Region", player, self.multiworld)
 
+        location_id_cursor = factorio_base_id
+        def next_location_code():
+            nonlocal location_id_cursor
+            result = location_id_cursor
+            location_id_cursor += 1
+            return result
+        item_id_cursor = factorio_base_id
+        def next_item_code():
+            nonlocal item_id_cursor
+            result = item_id_cursor
+            item_id_cursor += 1
+            return result
         def new_location(location):
             the_region.locations.append(location)
             return location
+        def new_science_location(location_name, required_items):
+            return new_location(FactorioScienceLocation(player, location_name, next_location_code(), the_region, required_items))
+        def new_item(item_name, classification, code=None):
+            return FactorioItem(item_name, classification, code)
         def new_event(location_name, item_name, required_items=None):
             location = new_location(FactorioLocation(player, location_name, None, the_region, required_items))
-            event = FactorioItem(item_name, ItemClassification.progression, None, player)
+            event = new_item(item_name, ItemClassification.progression)
             location.place_locked_item(event)
 
+        for event_name in logic_events.keys():
+            try:
+                event_type, sub_name = event_name.split(" ", 1)
+            except ValueError:
+                event_type, sub_name = "Technology", event_name
+            if event_type == "Technology":
+                # This is a proper item and corresponding location.
+                new_location(FactorioLocation(player, sub_name))
 
 
 
@@ -615,46 +645,8 @@ class Factorio(World):
 class FactorioLocation(Location):
     game: str = Factorio.game
 
-    required_items: Set[str] | None
-
     def __init__(self, player: int, name: str, address: int, parent: Region,
-        required_items: Set[str] | None = None,
+        access_rule_fn: typing.Callable[["State", int], bool],
     ):
         super().__init__(player, name, address, parent)
-        self.required_items = required_items
-
-    def access_rule(self, state) -> bool:
-        return state.has_all(self.required_items, self.player)
-
-
-class FactorioCraftsanityLocation(FactorioLocation):
-    ingredients = {}
-    count = 0
-    revealed = False
-
-    def __init__(self, player: int, name: str, address: int, parent: Region):
-        super().__init__(player, name, address, parent)
-
-    @property
-    def crafted_item(self):
-        # e.g. "Craft piercing-rounds-magazine" => "piercing-rounds-magazine"
-        return self.split(" ", 1)[-1]
-
-
-class FactorioScienceLocation(FactorioLocation):
-    revealed: bool = False
-    crafted_item = None
-
-    # Factorio technology properties:
-    ingredients: typing.Dict[str, int]
-    count: int = 0
-
-    def __init__(self, player: int, name: str, address: int, parent: Region):
-        super().__init__(player, name, address, parent)
-        # "AP-{Complexity}-{Cost}"
-        self.complexity = int(self.name[3]) - 1
-        self.rel_cost = int(self.name[5:])
-
-    @property
-    def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
-        return [(name, count) for name, count in self.ingredients.items()]
+        self.access_rule = lambda state: access_rule_fn(state, self.player)

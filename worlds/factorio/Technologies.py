@@ -1,3 +1,4 @@
+# TODO: rename this file to dump-data-preprocessor.py
 import itertools
 from collections import defaultdict, Counter
 from dataclasses import dataclass
@@ -265,6 +266,7 @@ logic_events = {}
 mapping from event name to expression. Expression is either an event name,
 or {"or": [expression, ...]} or {"and": [expression, ...]}
 """
+never_inline_events: set[str] = set()
 
 # ==================
 # Hardcoded constants that we don't have a good way to derrive from the data:
@@ -530,6 +532,8 @@ def init():
     # ===============
     item_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
     item_to_forage_locations: dict[str, set[str]] = defaultdict(set)
+    entity_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
+    entity_to_forage_locations: dict[str, set[str]] = defaultdict(set)
 
     natural_entity_to_locations: dict[str, set[str]] = defaultdict(set)
     natural_tile_to_locations: dict[str, set[str]] = defaultdict(set)
@@ -635,12 +639,15 @@ def init():
                 for product in products:
                     for home in natural_entity_to_locations.get(entity_name, ()):
                         home_threats = space_locations[home].threats
-                        item_to_mining_sources[product].add(MiningSource(item, home, required_capabilities|home_threats, required_ingredients))
+                        mining_source = MiningSource(item, home, required_capabilities|home_threats, required_ingredients)
+                        item_to_mining_sources[product].add(mining_source)
+                        entity_to_mining_sources[entity_name].add(mining_source)
             else:
                 # Foragable
                 for product in products:
                     for home in natural_entity_to_locations.get(entity_name, ()):
                         item_to_forage_locations[product].add(home)
+                        entity_to_forage_locations[entity_name].add(home)
                 if "items_to_place_this" in entity:
                     # Can additionally be automated with agriculture.
                     # This is probably the wrong logic for determining what the agricultural tower is willing to plant,
@@ -996,7 +1003,7 @@ def init():
             elif trigger["type"] == "mine-entity":
                 requirement = MineRequirement(trigger["entity"])
             elif trigger["type"] == "build-entity":
-                requirement = BuildRequirement(trigger["entity"])
+                requirement = BuildRequirement(trigger["entity"]["name"])
             elif trigger["type"] == "capture-spawner":
                 requirement = CaptureSpawnerRequirement()
             elif trigger["type"] == "create-space-platform":
@@ -1066,6 +1073,7 @@ def init():
     # =====
     # Logic
     # =====
+    global logic_events
     # Thanks to an assertion above, we can conflate item names with machine names here for simplicity.
     fmt_discover_location = "Discover {}".format
     fmt_reach_location = "Reach {}".format
@@ -1107,6 +1115,8 @@ def init():
                 ] if space_location.launch_to else []),
             ]},
         ]}
+        if space_location.launch_to != None or space_location.name == RawSpaceLocation.solar_system_edge:
+            never_inline_events.add(fmt_reach_location(space_location.name))
     # Discover them too.
     for name, techs in space_location_to_unlocking_technologies.items():
         logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
@@ -1226,9 +1236,11 @@ def init():
 
         logic_events[fmt_capability(capability)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
+        never_inline_events.add(fmt_capability(capability))
 
     # Machines
     for machine_name, machine in machines.items():
+        if machine_name == RawEntity.character: continue # You can access yourself from the beginning.
         # Craft the machine.
         obtain_expr = fmt_access_item(machine_name)
         if machine_name == RawEntity.captive_biter_spawner:
@@ -1283,6 +1295,7 @@ def init():
         else: assert False, "forgot a PowerType: " + repr(power_type)
         logic_events[fmt_supply_power(power_type)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
+        never_inline_events.add(fmt_supply_power(power_type))
 
     # Research
     for technology_name, technology in technologies.items():
@@ -1303,7 +1316,22 @@ def init():
             # which at least is erring in the right direction.
             expr = fmt_operate_machine(technology.requirement.entity)
         elif type(technology.requirement) == MineRequirement:
-            expr = {"or": [fmt_reach_location(space_location) for space_location in natural_entity_to_locations[technology.requirement.entity]]}
+            source_exprs = []
+            if technology.requirement.entity in entity_to_mining_sources:
+                for mining_source in entity_to_mining_sources[technology.requirement.entity]:
+                    required_capabilities = mining_source.required_capabilities
+                    if not (required_capabilities & Capability.mine_with_fluid):
+                        # The character can hand-mine basic-solid ore patches.
+                        required_capabilities &= ~Capability.automate_mining
+                    source_exprs.append({"and": [
+                        fmt_reach_location(mining_source.location),
+                        *[fmt_capability(capability) for capability in required_capabilities],
+                        *[fmt_access_item(ingredient) for ingredient in mining_source.required_ingredients],
+                    ]})
+            elif technology.requirement.entity in entity_to_forage_locations:
+                source_exprs.extend(fmt_reach_location(home) for home in entity_to_forage_locations[technology.requirement.entity])
+            else: assert False, "no way to mine for trigger tech: " + technology.requirement.entity
+            expr = {"or": source_exprs}
         elif type(technology.requirement) == CaptureSpawnerRequirement:
             expr = fmt_capability(Capability.capture_biter_spawners)
         elif type(technology.requirement) == CreateSpacePlatformRequirement:
@@ -1314,6 +1342,7 @@ def init():
         else: assert False, "forgot a requirement type: " + repr(technology.requirement)
         logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
+        never_inline_events.add(fmt_unlock_research(technology_name))
 
     # Recipes
     for recipe_name, recipe in recipes.items():
@@ -1398,20 +1427,83 @@ def init():
                 source_exprs.append({"and": recipe_exprs})
             logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 
+    # Optimize.
+    import pdb; pdb.set_trace()
+    logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
+
     import os, json
     with open(os.path.join(os.path.dirname(__file__), "data", "logic.json"), "w") as f:
-        f.write(json.dumps({k: optimize_expr(v) for k, v in logic_events.items()}, indent=2, sort_keys=True))
+        f.write(json.dumps(logic_events, indent=2, sort_keys=True))
         f.write("\n")
 
     import pdb; pdb.set_trace()
-    import json; print(json.dumps({k: optimize_expr(v) for k, v in logic_events.items()}, indent=2))
+    logic_events = inline_exprs(logic_events, never_inline_events)
+    with open(os.path.join(os.path.dirname(__file__), "data", "logic-inlined.json"), "w") as f:
+        f.write(json.dumps(logic_events, indent=2, sort_keys=True))
+        f.write("\n")
     import pdb; pdb.set_trace()
+    return
 
-    return None
+def inline_exprs(logic_events, never_inline_events):
+    def visit_readonly(expr, fn):
+        if type(expr) != dict:
+            fn(expr)
+            return
+        assert expr.keys() in ({"and"}, {"or"})
+        for clause in expr[next(iter(expr.keys()))]:
+            visit_readonly(clause, fn)
+    def visit_replace(expr, fn):
+        if type(expr) != dict: return fn(expr)
+        assert expr.keys() in ({"and"}, {"or"})
+        key = next(iter(expr.keys()))
+        new_clauses = []
+        for clause in expr[key]:
+            new_clauses.append(visit_replace(clause, fn))
+        return {key: new_clauses}
 
+    while True:
+        # Prune unused expressions.
+        all_used_names = set()
+        for expr in logic_events.values():
+            visit_readonly(expr, all_used_names.add)
+        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER}
+        if len(unreachable_events) > 0:
+            # e.g. 'Automate infinity-chest', 'Access pistol'
+            logic_events = dict(
+                **{event_name: NEVER for event_name in unreachable_events},
+                **logic_events,
+            )
+
+        unused_events = logic_events.keys() - all_used_names - never_inline_events
+        for pruned in unused_events:
+            print("INFO: pruning unused name: " + pruned)
+        logic_events = {k: v for k, v in logic_events.items() if k not in unused_events}
+
+        # Inline trivial events.
+        inline_these = {}
+        for event_name, expr in logic_events.items():
+            if event_name in never_inline_events: continue
+            if type(expr) == dict: continue # too complex
+            # Simple enough to inline.
+            print("INFO: inling trivial logic: {}: {}".format(event_name, expr))
+            inline_these[event_name] = expr
+        new_logic_events = {}
+        did_anything = False
+        for event_name, expr in logic_events.items():
+            new_expr = visit_replace(expr, lambda expr: inline_these.get(expr, expr))
+            if new_expr != expr:
+                new_expr = optimize_expr(new_expr)
+                did_anything = True
+            new_logic_events[event_name] = new_expr
+        logic_events = new_logic_events
+
+        if not did_anything: break
+
+    return logic_events
+
+# TODO: Move this to logic.py
 ALWAYS = "(always)"
 NEVER = "(never)"
-
 def optimize_expr(expr):
     def recurse(expr):
         if type(expr) != dict: return expr
@@ -1424,6 +1516,7 @@ def optimize_expr(expr):
                 clause = recurse(clause)
                 if clause == NEVER: continue # A or False == A
                 if clause == ALWAYS: return ALWAYS # A or True == True
+                if clause in new_clauses: continue # A or A == A
                 if type(clause) == dict and "or" in clause:
                     # A or (B or C) == A or B or C
                     new_clauses.extend(clause["or"])
@@ -1431,7 +1524,7 @@ def optimize_expr(expr):
                     new_clauses.append(clause)
             # (A and B) or (A and C) == A and (B or C)
             counter = Counter(itertools.chain.from_iterable(
-                (sub_clause for sub_clause in sub_expr["and"] if type(sub_clause) == str)
+                set(sub_clause for sub_clause in sub_expr["and"] if type(sub_clause) == str)
                 for sub_expr in new_clauses if type(sub_expr) == dict and "and" in sub_expr
             ))
             omnipresent_sub_clauses = set(sub_clause for sub_clause, count in counter.items() if count == len(new_clauses))
@@ -1445,6 +1538,30 @@ def optimize_expr(expr):
                         ]} for clause in new_clauses
                     ]},
                 ]}
+            elif any(value >= 2 for value in counter.values()):
+                # Not omnipresent, but popular.
+                # (A and X) or (B and X) or (J and K) == (X and (A or B)) or (J and K)
+                # (access product AND operater recycler) OR (access another product AND operate recycler) OR (just craft the thing)
+                popular_sub_clause = sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+                clauses_with = []
+                clauses_without = []
+                for sub_expr in new_clauses:
+                    if type(sub_expr) == dict and "and" in sub_expr and popular_sub_clause in sub_expr["and"]:
+                        clauses_with.append(sub_expr)
+                    else:
+                        clauses_without.append(sub_expr)
+                return {"or": [
+                    *clauses_without, # e.g. craft the thing normally
+                    {"and": [
+                        popular_sub_clause, # e.g. operate recycler
+                        {"or": [
+                            {"and": [
+                                sub_clause for sub_clause in sub_expr["and"]
+                                if sub_clause != popular_sub_clause
+                            ]} for sub_expr in clauses_with
+                        ]},
+                    ]},
+                ]}
             return {"or": new_clauses}
 
         elif "and" in expr:
@@ -1456,6 +1573,7 @@ def optimize_expr(expr):
                 clause = recurse(clause)
                 if clause == ALWAYS: continue # A and True == A
                 if clause == NEVER: return NEVER # A and False == False
+                if clause in new_clauses: continue # A and A == A
                 if type(clause) == dict and "and" in clause:
                     # A and (B and C) == A and B and C
                     new_clauses.extend(clause["and"])
@@ -1464,12 +1582,11 @@ def optimize_expr(expr):
 
             # (A or B) and (A or C) == A or (B and C)
             counter = Counter(itertools.chain.from_iterable(
-                (sub_clause for sub_clause in sub_expr["or"] if type(sub_clause) == str)
+                set(sub_clause for sub_clause in sub_expr["or"] if type(sub_clause) == str)
                 for sub_expr in new_clauses if type(sub_expr) == dict and "or" in sub_expr
             ))
             omnipresent_sub_clauses = set(sub_clause for sub_clause, count in counter.items() if count == len(new_clauses))
             if len(omnipresent_sub_clauses) > 0:
-                import pdb; pdb.set_trace() # Test this logic and then delete this breakpoint.
                 return {"or": [
                     *omnipresent_sub_clauses,
                     {"and": [
@@ -1492,11 +1609,11 @@ def optimize_expr(expr):
         if original_expr == new_expr: break
         original_expr = new_expr
 
-
     def sorted_recursive(expr):
         if type(expr) != dict: return expr
         expr = {k: (sorted_recursive(x) for x in v) for k, v in expr.items()}
         expr = {k: sorted(v, key=json.dumps) for k, v in expr.items()}
         return expr
     return sorted_recursive(expr)
+
 init()
