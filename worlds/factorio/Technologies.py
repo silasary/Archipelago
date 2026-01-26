@@ -1,5 +1,5 @@
-# TODO: rename this file to dump-data-preprocessor.py
-import itertools
+# TODO: separate data preprocessing into a dumper script.
+import itertools, typing
 from collections import defaultdict, Counter
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
@@ -14,24 +14,6 @@ from .data import (
     SpaceLocation as RawSpaceLocation,
     Technology as RawTechnology,
 )
-
-# TODO: delete these notes: 
-"""
-# These are the exports we're expected to provide:
-from .Technologies import free_sample_exclusions, tech_to_progressive_lookup, base_tech_table, all_product_sources, required_technologies, get_rocket_requirements, get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, progressive_technology_table, fluids, valid_ingredients
-"""
-# TODO: redo these:
-required_technologies: dict[str, frozenset["Technology"]] = {}
-base_tech_table = {}
-progressive_technology_table: dict[str, "Technology"] = {}
-tech_to_progressive_lookup: dict[str, str] = {}
-useless_technologies: set[str] = {}
-valid_ingredients: set[str] = {}
-all_product_sources: dict[str, set["Recipe"]] = {}
-free_sample_exclusions: set[str] = set()
-tech_table: dict[str, int] = {}
-technology_table: dict[str, "Technology"] = {}
-
 
 factorio_base_id = 2 ** 17
 
@@ -266,7 +248,10 @@ logic_events = {}
 mapping from event name to expression. Expression is either an event name,
 or {"or": [expression, ...]} or {"and": [expression, ...]}
 """
+advancement_technologies: set[str] = set()
 never_inline_events: set[str] = set()
+ap_location_name_to_id: dict[str, int] = {}
+ap_item_name_to_id: dict[str, int] = {}
 
 # ==================
 # Hardcoded constants that we don't have a good way to derrive from the data:
@@ -518,8 +503,6 @@ def _get_machine_power_type(entity) -> PowerType:
     return result
 
 def init():
-    factorio_tech_id = factorio_base_id
-
     global fluids
     fluids = get_data()["fluid"].keys() - _parameter_names
 
@@ -982,6 +965,7 @@ def init():
     space_location_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     mining_with_fluid_unlocking_technologies = set()
     for technology_name, technology_data in get_data()["technology"].items():
+        assert " " not in technology_name, "spaces are used to prefix event types. a space in a technology name creates ambiguity"
         prerequisites = set(technology_data["prerequisites"].keys())
         ingredients = {i["name"]: i["amount"] for i in technology_data["research_unit_ingredients"] }
         if len(ingredients) > 0:
@@ -1428,7 +1412,6 @@ def init():
             logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 
     # Optimize.
-    import pdb; pdb.set_trace()
     logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
 
     import os, json
@@ -1436,14 +1419,24 @@ def init():
         f.write(json.dumps(logic_events, indent=2, sort_keys=True))
         f.write("\n")
 
-    import pdb; pdb.set_trace()
-    logic_events = inline_exprs(logic_events, never_inline_events)
+    logic_events, all_used_names = inline_exprs(logic_events, never_inline_events)
     with open(os.path.join(os.path.dirname(__file__), "data", "logic-inlined.json"), "w") as f:
         f.write(json.dumps(logic_events, indent=2, sort_keys=True))
         f.write("\n")
-    import pdb; pdb.set_trace()
-    return
+    advancement_technologies.update(all_used_names)
 
+    # ========
+    # id codes
+    # ========
+    id_cursor = factorio_base_id
+    for technology_name in sorted(logic_events.keys()):
+        if " " in technology_name: continue # Not a technology.
+        ap_location_name_to_id[technology_name] = id_cursor
+        ap_item_name_to_id[technology_name] = id_cursor
+        id_cursor += 1
+        # TODO: artificial names for progressive items?
+
+# TODO: Move this to logic.py
 def inline_exprs(logic_events, never_inline_events):
     def visit_readonly(expr, fn):
         if type(expr) != dict:
@@ -1475,8 +1468,6 @@ def inline_exprs(logic_events, never_inline_events):
             )
 
         unused_events = logic_events.keys() - all_used_names - never_inline_events
-        for pruned in unused_events:
-            print("INFO: pruning unused name: " + pruned)
         logic_events = {k: v for k, v in logic_events.items() if k not in unused_events}
 
         # Inline trivial events.
@@ -1485,7 +1476,6 @@ def inline_exprs(logic_events, never_inline_events):
             if event_name in never_inline_events: continue
             if type(expr) == dict: continue # too complex
             # Simple enough to inline.
-            print("INFO: inling trivial logic: {}: {}".format(event_name, expr))
             inline_these[event_name] = expr
         new_logic_events = {}
         did_anything = False
@@ -1499,7 +1489,7 @@ def inline_exprs(logic_events, never_inline_events):
 
         if not did_anything: break
 
-    return logic_events
+    return logic_events, all_used_names
 
 # TODO: Move this to logic.py
 ALWAYS = "(always)"
@@ -1615,5 +1605,40 @@ def optimize_expr(expr):
         expr = {k: sorted(v, key=json.dumps) for k, v in expr.items()}
         return expr
     return sorted_recursive(expr)
+
+INTERPRETED = False
+def compile_expr(expr) -> typing.Callable[[dict[str, int]], bool]:
+    if INTERPRETED:
+        def access_rule_fn(d):
+            def recurse(expr):
+                if expr == ALWAYS: return True
+                if expr == NEVER: return False
+                if type(expr) != dict: return d[expr] > 0
+                if "or" in expr:
+                    for clause in expr["or"]:
+                        if recurse(clause):
+                            return True
+                    return False
+                elif "and" in expr:
+                    for clause in expr["and"]:
+                        if not recurse(clause):
+                            return False
+                    return True
+                else: assert False
+            return recurse(expr)
+        return access_rule_fn
+    else:
+        def recurse(expr):
+            if expr == ALWAYS: return "True"
+            if expr == NEVER: return "False"
+            if type(expr) != dict: return "d[{}]".format(repr(expr))
+            if "or" in expr:
+                return "({})".format(" or ".join(recurse(clause) for clause in expr["or"]))
+            elif "and" in expr:
+                return "({})".format(" and ".join(recurse(clause) for clause in expr["and"]))
+            else: assert False
+        code = recurse(expr)
+        fn = eval("lambda d: " + code)
+        return fn
 
 init()
