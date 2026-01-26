@@ -12454,16 +12454,11 @@
   },
   "Can automate planting": "Operate agricultural-tower",
   "Can build on ice platforms": {
-    "and": [
-      "Automate ice-platform",
-      {
-        "or": [
-          "Automate concrete",
-          "Automate hazard-concrete",
-          "Automate refined-concrete",
-          "Automate refined-hazard-concrete"
-        ]
-      }
+    "or": [
+      "Automate concrete",
+      "Automate hazard-concrete",
+      "Automate refined-concrete",
+      "Automate refined-hazard-concrete"
     ]
   },
   "Can capture biter spawners": {

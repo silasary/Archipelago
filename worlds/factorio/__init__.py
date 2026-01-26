@@ -73,7 +73,7 @@ class Factorio(World):
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
-        # TODO: explicit parameters instead of handing over the self.
+        return # TODO: explicit parameters instead of handing over the self.
         from .Mod import generate_mod
         generate_mod(self, output_directory)
 
@@ -103,10 +103,10 @@ class Factorio(World):
             location = FactorioLocation(player, location_name, code, the_region, access_rule_fn)
             the_region.locations.append(location)
             return location
-        def new_item(item_name, classification):
+        def new_item(item_name, classification, add_to_pool=True):
             code = ap_item_name_to_id.get(item_name, None)
             item = FactorioItem(item_name, classification, code, player)
-            if code != None:
+            if code != None and add_to_pool:
                 self.multiworld.itempool.append(item)
             return item
         def new_event(location_name, item_name, access_rule_fn):
@@ -125,10 +125,20 @@ class Factorio(World):
                 event_type, sub_name = "Technology", event_name
             if event_type == "Technology":
                 # This is a proper item and corresponding location.
-                new_location(sub_name, compile_expr(expr))
-                new_item(sub_name,
-                    ItemClassification.progression if event_name in advancement_technologies else ItemClassification.useful,
+                locked = sub_name in (
+                    # These are critical at the start.
+                    "steam-power",
+                    "elecetronics",
+                    "automation-science-pack",
+                    "automation",
                 )
+                location = new_location(sub_name, compile_expr(expr))
+                item = new_item(sub_name,
+                    ItemClassification.progression if event_name in advancement_technologies else ItemClassification.useful,
+                    add_to_pool=not locked,
+                )
+                if locked:
+                    location.place_locked_item(item)
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))

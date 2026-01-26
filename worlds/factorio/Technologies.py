@@ -4,6 +4,9 @@ from collections import defaultdict, Counter
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
+# TODO: "Can mine with fluid" needs to require one of the fluid-enabled drills.
+# TODO: thruster fuel needs to require either ice or fluid handling (to get water in space).
+
 from .data import (
     get_data,
     Entity as RawEntity,
@@ -30,7 +33,7 @@ class Capability(IntFlag):
     harness_lightning                  = 1<< 6 # lightning rod
     capture_biter_spawners             = 1<< 7 # capture robot rocket + some rocket launcher on nauvis
     heat_buildings                     = 1<< 8 # heating tower or nuclear reactor
-    build_on_ice_platforms             = 1<< 9 # ice platform + concrete
+    build_on_ice_platforms             = 1<< 9 # concrete
     collect_asteroids                  = 1<<10 # asteroid collector
     travel_space                       = 1<<11 # thruster
     generate_electricity_in_space      = 1<<12 # solar panel
@@ -409,10 +412,6 @@ _steam_500C_consuming_machines = {
     RawEntity.steam_turbine,
 }
 
-_ice_platform_items = {
-    # Also the names of the entities.
-    RawItem.ice_platform,
-}
 _heat_insulation_flooring_items = {
     RawItem.concrete,
     RawItem.hazard_concrete,
@@ -669,7 +668,6 @@ def init():
     ammo_category_to_weapon_items = defaultdict(set)
     ammo_category_to_ammo_items = defaultdict(set)
     power_type_to_fuel_items = defaultdict(set)
-    ice_platform_items = set()
     heat_insulation_flooring_items = set()
     for item_name, item_data in get_data()["item"].items():
         stack_size = item_data["stack_size"]
@@ -692,9 +690,7 @@ def init():
         # Fuel
         if "fuel_category" in item_data:
             power_type_to_fuel_items[_fuel_category_to_power_type[item_data["fuel_category"]]].add(item_name)
-        # Ice platforms
-        if item_name in _ice_platform_items:
-            ice_platform_items.add(item_name)
+        # Building on ice platforms
         if item_name in _heat_insulation_flooring_items:
             heat_insulation_flooring_items.add(item_name)
 
@@ -1138,10 +1134,7 @@ def init():
                 {"or": [fmt_access_item(name) for name in heat_conduit_machines]},
             ]}
         elif capability == Capability.build_on_ice_platforms:
-            expr = {"and": [
-                {"or": [fmt_automate_item(name) for name in ice_platform_items]},
-                {"or": [fmt_automate_item(name) for name in heat_insulation_flooring_items]},
-            ]}
+            expr = {"or": [fmt_automate_item(name) for name in heat_insulation_flooring_items]}
         elif capability == Capability.collect_asteroids:
             expr = {"or": [fmt_operate_machine(name) for name in asteroid_collecting_machines]}
         elif capability == Capability.travel_space:
