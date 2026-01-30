@@ -375,6 +375,19 @@ class GameSelectionBagSize(Range):
     default = 1
 
 
+class GameSelectionForceSelect(OptionList):
+    """
+    Forces certain games to become areas, selected and placed randomly from this list. This option does not affect shops or the Keymaster's challenge room. If more games than permitted areas are specified, this option will cause an error. 'game_selection_bag_size' will treat games added by this option as if they have been pre-drawn from their respective bags.
+
+    You are allowed to add the same game multiple times here. This will cause that many instances of the game to appear as areas.
+    """
+
+    display_name: str = "Game Selection Force Select"
+    valid_keys = sorted(AutoGameRegister.games.keys())
+
+    default = list()
+
+
 class IncludeAdultOnlyOrUnratedGames(Toggle):
     """
     Determines if adult only or unrated games should be considered for the game pool.
@@ -486,6 +499,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     game_medley_game_selection_bag_size: GameMedleyGameSelectionBagSize
     game_selection: GameSelection
     game_selection_bag_size: GameSelectionBagSize
+    game_selection_force_select: GameSelectionForceSelect
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
@@ -542,6 +556,8 @@ option_groups: list[OptionGroup] = [
             GameMedleyGameSelection,
             GameMedleyGameSelectionBagSize,
             GameSelection,
+            GameSelectionBagSize,
+            GameSelectionForceSelect,
         ],
     ),
 ]
