@@ -4,7 +4,7 @@ import typing
 
 from Options import OptionGroup
 
-from .games import AutoGameRegister, Game
+from .game import AutoGameRegister, Game
 
 # We need to "move" options classes into a file that ends with options.py because Utils.restricted_dumps complains if we don't
 this = sys.modules[__name__]

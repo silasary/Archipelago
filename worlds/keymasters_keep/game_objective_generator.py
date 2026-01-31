@@ -1,19 +1,14 @@
 import logging
-
 from random import Random
-from typing import Any, List, Set, Tuple, Type, Union
+from typing import Any, List, Set, Type, Union
 
 from Options import OptionError
 
 from .enums import KeymastersKeepGamePlatforms
-
-from .game import Game
-from .games import AutoGameRegister
-
+from .game import AutoGameRegister, Game
 from .games.game_medley_game import GameMedleyGame
 
-
-GameObjectiveGeneratorData = List[Tuple[Type[Game], List[str], List[str]]]
+GameObjectiveGeneratorData = list[tuple[type[Game], list[str], list[str]]]
 
 
 class GameObjectiveGeneratorException(Exception):
@@ -21,15 +16,15 @@ class GameObjectiveGeneratorException(Exception):
 
 
 class GameObjectiveGenerator:
-    games: List[Type[Game]]
-    games_medley: List[Type[Game]]
+    games: list[type[Game]]
+    games_medley: list[type[Game]]
 
     archipelago_options: Any
 
     def __init__(
         self,
-        allowable_games: List[str] = None,
-        allowable_games_medley: List[str] = None,
+        allowable_games: list[str] = None,
+        allowable_games_medley: list[str] = None,
         game_medley_mode: bool = False,
         include_adult_only_or_unrated_games: bool = False,
         include_modern_console_games: bool = False,

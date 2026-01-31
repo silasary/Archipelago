@@ -30,7 +30,7 @@ class GameObjectiveTemplate:
         game_objective = self.label
 
         key: str
-        collection: Tuple[Callable[[], Union[List[Any], range]], Union[int, Sequence[int], Callable[[], int]]]
+        collection: tuple[Callable[[], list[Any] | range], int | Sequence[int] | Callable[[], int]]
         for key, collection in self.data.items():
             k: int
 

@@ -1,7 +1,7 @@
 import asyncio
 import collections
 import typing
-from typing import Any, ClassVar, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 import CommonClient
 import NetUtils
@@ -482,9 +482,9 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
         # Trials Available
         area: KeymastersKeepRegions
-        trials: List[KeymastersKeepLocationData]
+        trials: list[KeymastersKeepLocationData]
         for area, trials in self.area_trials.items():
-            available_trials: List[int] = list()
+            available_trials: list[int] = []
 
             trial: KeymastersKeepLocationData
             for trial in self.area_trials[area]:
@@ -507,12 +507,12 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
         # Shop Items Purchased
         if self.shops:
-            data: Dict[str, Any]
+            data: dict[str, Any]
             for data in self.shop_data.values():
                 shop: KeymastersKeepShops = data["shop"]
-                purchased_items: List[int] = list()
+                purchased_items: list[int] = []
 
-                for item_name, item_data in data["shop_items"].items():
+                for item_data in data["shop_items"].values():
                     if item_data["location_data"].archipelago_id in self.location_ids_checked:
                         purchased_items.append(item_data["location_data"].archipelago_id)
 
