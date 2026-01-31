@@ -3,9 +3,9 @@
     "flags": ["tracker_included"],
     "game": "Keymaster's Keep",
     "idgb_id": null,
-    "minimum_ap_version": "0.6.1",
-    "world_version": "2.1.2",
+    "minimum_ap_version": "0.6.4",
+    "world_version": "2.1.4",
     "changelog":[
-        "Fixed crash when a shop contains a deprioritized item. Added backwards compatibility for worlds created before area_domination added."
+        "Log if a user is overriding a default game with an external version (ie: Medley or backlog)."
     ]
 }

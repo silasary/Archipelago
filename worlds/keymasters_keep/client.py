@@ -1,27 +1,23 @@
 import asyncio
 import collections
 import typing
+from typing import Any, Dict, List, Optional, Set
 
 import CommonClient
 import NetUtils
 import Utils
-
-from typing import Any, Dict, List, Optional, Set
-
 from BaseClasses import ItemClassification
 
 from .data.item_data import KeymastersKeepItemData
 from .data.location_data import KeymastersKeepLocationData
 from .data.mapping_data import region_to_unlock_location_and_item
-
-from .data_funcs import item_names_to_id, location_names_to_id, id_to_items, id_to_item_data, id_to_location_data
-
+from .data_funcs import id_to_item_data, id_to_items, id_to_location_data, item_names_to_id, location_names_to_id
 from .enums import (
     KeymastersKeepGoals,
     KeymastersKeepItems,
     KeymastersKeepRegions,
-    KeymastersKeepShops,
     KeymastersKeepShopkeepers,
+    KeymastersKeepShops,
     KeymastersKeepTags,
 )
 
@@ -31,24 +27,24 @@ class KeymastersKeepCommandProcessor(CommonClient.ClientCommandProcessor):
 
 
 class KeymastersKeepContext(CommonClient.CommonContext):
-    tags: Set[str] = {"AP"}
+    tags: set[str] = {"AP"}
     game: str = "Keymaster's Keep"
     command_processor: CommonClient.ClientCommandProcessor = KeymastersKeepCommandProcessor
-    items_handling: int = 0b111
+    items_handling: int | None = 0b111
     want_slot_data: bool = True
 
-    item_name_to_id: Dict[str, int] = item_names_to_id()
-    location_name_to_id: Dict[str, int] = location_names_to_id()
+    item_name_to_id: dict[str, int] = item_names_to_id()
+    location_name_to_id: dict[str, int] = location_names_to_id()
 
-    id_to_items: Dict[int, KeymastersKeepItems] = id_to_items()
-    id_to_item_data: Dict[int, KeymastersKeepItemData] = id_to_item_data()
-    id_to_location_data: Dict[int, KeymastersKeepLocationData] = id_to_location_data()
+    id_to_items: dict[int, KeymastersKeepItems] = id_to_items()
+    id_to_item_data: dict[int, KeymastersKeepItemData] = id_to_item_data()
+    id_to_location_data: dict[int, KeymastersKeepLocationData] = id_to_location_data()
 
-    area_completion_locations: Dict[KeymastersKeepRegions, KeymastersKeepLocationData]
-    area_game_optional_constraints: Dict[str, List[str]]
-    area_games: Dict[str, str]
-    area_trial_game_objectives: Dict[str, str]
-    area_trials: Dict[KeymastersKeepRegions, List[KeymastersKeepLocationData]]
+    area_completion_locations: dict[KeymastersKeepRegions, KeymastersKeepLocationData]
+    area_game_optional_constraints: dict[str, list[str]]
+    area_games: dict[str, str]
+    area_trial_game_objectives: dict[str, str]
+    area_trials: dict[KeymastersKeepRegions, list[KeymastersKeepLocationData]]
     area_trials_maximum: int
     area_trials_minimum: int
     artifacts_of_resolve_required: int
@@ -60,7 +56,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     goal: KeymastersKeepGoals
     goal_completed: bool
     goal_game: str
-    goal_game_optional_constraints: List[str]
+    goal_game_optional_constraints: list[str]
     goal_trial_game_objective: str
     hint_creation_queue: collections.deque
     hints_reveal_objectives: bool
@@ -88,9 +84,9 @@ class KeymastersKeepContext(CommonClient.CommonContext):
     game_state: Dict[str, Any]
     is_game_state_initialized: bool
 
-    controller_task: Optional[asyncio.Task]
+    controller_task: asyncio.Task | None
 
-    def __init__(self, server_address: Optional[str], password: Optional[str]) -> None:
+    def __init__(self, server_address: str | None, password: str | None) -> None:
         super().__init__(server_address, password)
 
         self.game_state = dict()
@@ -160,10 +156,10 @@ class KeymastersKeepContext(CommonClient.CommonContext):
             self.area_trials_minimum = _args["slot_data"]["area_trials_minimum"]
             self.artifacts_of_resolve_required = _args["slot_data"]["artifacts_of_resolve_required"]
             self.artifacts_of_resolve_total = _args["slot_data"]["artifacts_of_resolve_total"]
-            
+
             if "conquest_medallions_required" in _args["slot_data"]:
                 self.conquest_medallions_required = _args["slot_data"]["conquest_medallions_required"]
-            
+
             self.game_medley_mode = _args["slot_data"]["game_medley_mode"]
             self.game_medley_percentage_chance = _args["slot_data"]["game_medley_percentage_chance"]
             self.goal = KeymastersKeepGoals(_args["slot_data"]["goal"])
@@ -282,14 +278,14 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         self._update_game_state()
         self.ui.update_tabs()
 
-    async def controller(self):
+    async def controller(self) -> None:
         while not self.exit_event.is_set():
             await asyncio.sleep(0.1)
 
             # Network Operations
             if self.server and self.slot:
                 # Create Hints
-                hints_to_create: List[int] = list()
+                hints_to_create: list[int] = []
 
                 while len(self.hint_creation_queue) > 0:
                     location_id: int = self.hint_creation_queue.popleft()
@@ -305,7 +301,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
                     ])
 
                 # Send Checked Locations
-                checked_location_ids: List[int] = list()
+                checked_location_ids: list[int] = []
 
                 while len(self.completed_locations_queue) > 0:
                     location_id: int = self.completed_locations_queue.popleft()
@@ -328,8 +324,8 @@ class KeymastersKeepContext(CommonClient.CommonContext):
                         }
                     ])
 
-    def _initialize_game_state(self) -> Dict[str, Any]:
-        game_state: Dict[str, Any] = {
+    def _initialize_game_state(self) -> dict[str, Any]:
+        game_state: dict[str, Any] = {
             "areas_locked_by": dict(),
             "areas_unlocked": dict(),
             "artifact_of_resolve_received": 0,
@@ -346,7 +342,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
         }
 
         # Magic Keys
-        key_labels: List[str] = list()
+        key_labels: list[str] = []
 
         key: KeymastersKeepItems
         if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
@@ -366,7 +362,7 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
         # Relics
         if self.shops:
-            relics: List[KeymastersKeepItems] = [
+            relics: list[KeymastersKeepItems] = [
                 item for item in list(KeymastersKeepItems) if item.name.startswith("RELIC_")
             ]
 
@@ -486,9 +482,9 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
         # Trials Available
         area: KeymastersKeepRegions
-        trials: List[KeymastersKeepLocationData]
+        trials: list[KeymastersKeepLocationData]
         for area, trials in self.area_trials.items():
-            available_trials: List[int] = list()
+            available_trials: list[int] = []
 
             trial: KeymastersKeepLocationData
             for trial in self.area_trials[area]:
@@ -511,12 +507,12 @@ class KeymastersKeepContext(CommonClient.CommonContext):
 
         # Shop Items Purchased
         if self.shops:
-            data: Dict[str, Any]
+            data: dict[str, Any]
             for data in self.shop_data.values():
                 shop: KeymastersKeepShops = data["shop"]
-                purchased_items: List[int] = list()
+                purchased_items: list[int] = []
 
-                for item_name, item_data in data["shop_items"].items():
+                for item_data in data["shop_items"].values():
                     if item_data["location_data"].archipelago_id in self.location_ids_checked:
                         purchased_items.append(item_data["location_data"].archipelago_id)
 

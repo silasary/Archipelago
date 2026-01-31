@@ -30,7 +30,7 @@ class GameObjectiveTemplate:
         game_objective = self.label
 
         key: str
-        collection: Tuple[Callable[[], Union[List[Any], range]], Union[int, Sequence[int], Callable[[], int]]]
+        collection: tuple[Callable[[], list[Any] | range], int | Sequence[int] | Callable[[], int]]
         for key, collection in self.data.items():
             k: int
 
@@ -41,7 +41,9 @@ class GameObjectiveTemplate:
             else:
                 k = collection[1]
 
-            if callable(collection[0]):
+            if isinstance(collection[0], range):
+                evaluated_collection = list(collection[0])
+            elif callable(collection[0]):
                 evaluated_collection = collection[0]()
             else:
                 evaluated_collection = collection[0]
