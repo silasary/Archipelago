@@ -1,23 +1,15 @@
-{% from "macros.lua" import dict_to_lua %}
--- this file gets written automatically by the Archipelago Randomizer and is in its raw form a Jinja2 Template
 require "lib"
 require "util"
+require "template_parameters" -- defines PARAMS
 
-SLOT_NAME = "{{ slot_name }}"
-SEED_NAME = "{{ seed_name }}"
-ARCHIPELAGO_DEATH_LINK_SETTING = {{ deathlink_setting_name }}
-
-TRAP_EVO_FACTOR = {{ evolution_trap_increase }} / 100
-GOAL = {{ goal }}
-ENERGY_INCREMENT = {{ energy_link * 10000000 }}
+ENERGY_INCREMENT = PARAMS.energy_link_increment
 ENERGY_LINK_EFFICIENCY = 0.75
-ALLOW_IMPORTED_BLUEPRINTS = {{ allow_imported_blueprints }}
 
 FREE_SAMPLES = {{ free_samples }}
 FREE_SAMPLE_EXCLUDES = {{ dict_to_lua(free_sample_excludes) }}
 
 
-if settings.global[ARCHIPELAGO_DEATH_LINK_SETTING].value then
+if settings.global[PARAMS.death_link_setting].value then
     DEATH_LINK = 1
 else
     DEATH_LINK = 0
@@ -56,7 +48,7 @@ function on_check_energy_link(event)
         if storage.forcedata[force].energy < ENERGY_INCREMENT * bridgecount * 5 then
             for i, bridge in pairs(bridges) do
                 if validate_energy_link_bridge(i, bridge) then
-                    energy_increment = get_energy_increment(bridge)
+                    local energy_increment = get_energy_increment(bridge)
                     if bridge.energy > energy_increment*3 then
                         storage.forcedata[force].energy = storage.forcedata[force].energy + (energy_increment * ENERGY_LINK_EFFICIENCY)
                         bridge.energy = bridge.energy - energy_increment
@@ -66,7 +58,7 @@ function on_check_energy_link(event)
         end
         for i, bridge in pairs(bridges) do
             if validate_energy_link_bridge(i, bridge) then
-                energy_increment = get_energy_increment(bridge)
+                local energy_increment = get_energy_increment(bridge)
                 if storage.forcedata[force].energy < energy_increment and bridge.quality.level == 0 then
                     break
                 end
@@ -107,7 +99,7 @@ function on_energy_bridge_removed(entity)
         storage.energy_link_bridges[entity.unit_number] = nil
     end
 end
-if (ENERGY_INCREMENT) then
+if ENERGY_INCREMENT > 0 then
     script.on_event(defines.events.on_tick, on_check_energy_link)
 
     script.on_event({defines.events.on_built_entity}, function(event) on_energy_bridge_constructed(event.entity) end)
@@ -123,7 +115,7 @@ if (ENERGY_INCREMENT) then
 end
 
 function set_permissions()
-    if not ALLOW_IMPORTED_BLUEPRINTS then
+    if not PARAMS.allow_imported_blueprints then
         local group = game.permissions.get_group("Default")
         group.set_allows_action(defines.input_action.open_blueprint_library_gui, false)
         group.set_allows_action(defines.input_action.import_blueprint, false)
@@ -162,8 +154,8 @@ function on_runtime_mod_setting_changed(event)
         force = game.players[event.player_index].force
     end
 
-    if event.setting == ARCHIPELAGO_DEATH_LINK_SETTING then
-        if settings.global[ARCHIPELAGO_DEATH_LINK_SETTING].value then
+    if event.setting == PARAMS.death_link_setting then
+        if settings.global[PARAMS.death_link_setting].value then
             DEATH_LINK = 1
         else
             DEATH_LINK = 0
@@ -201,7 +193,7 @@ function on_rocket_launched(event)
         if cargo_pod then
             satellite_count = cargo_pod.get_item_count("satellite")
         end
-        if satellite_count > 0 or GOAL == 0 then
+        if satellite_count > 0 then
             storage.forcedata[event.rocket.force.name]['victory'] = 1
             dumpInfo(event.rocket.force)
             game.set_game_state
@@ -335,7 +327,7 @@ script.on_event(defines.events.on_research_finished, function(event)
         return
     end
     -- We've received an AP item, or this technology isn't randomized.
-    if FREE_SAMPLES == 0 then
+    if PARAMS.free_sample_amount == "none" then
         return  -- Nothing else to do.
     end
     if not technology.prototype.effects then
@@ -347,13 +339,14 @@ script.on_event(defines.events.on_research_finished, function(event)
             for _, result in pairs(recipe.products) do
                 if result.type == "item" and result.amount and FREE_SAMPLE_EXCLUDES[effect.recipe] ~= 1 then
                     local count
-                    if FREE_SAMPLES == 1 then
+                    if PARAMS.free_sample_amount == "single_craft" then
                         count = result.amount
-                    else
+                    elseif PARAMS.free_sample_amount == "stack" then
                         count = get_any_stack_size(result.name)
-                        if FREE_SAMPLES == 2 then
-                            count = math.ceil(count / 2)
-                        end
+                    elseif PARAMS.free_sample_amount == "half_stack" then
+                        count = math.ceil(get_any_stack_size(result.name) / 2)
+                    else
+                        error("unrecognized free_sample_amount: " .. tostring(PARAMS.free_sample_amount))
                     end
                     add_samples(technology.force, result.name, count)
                 end
@@ -431,7 +424,7 @@ commands.add_command("ap-sync", "Used by the Archipelago client to get progress 
             research_done[tech_name] = tech.researched
         end
     end
-    rcon.print(helpers.table_to_json({["slot_name"] = SLOT_NAME, ["seed_name"] = SEED_NAME, ["info"] = data_collection}))
+    rcon.print(helpers.table_to_json({["slot_name"] = PARAMS.slot_name, ["seed_name"] = PARAMS.seed_name, ["info"] = data_collection}))
 end)
 
 commands.add_command("ap-print", "Used by the Archipelago client to print messages", function (call)
@@ -444,7 +437,7 @@ TRAP_TABLE = {
 end,
 ["Evolution Trap"] = function ()
     local new_factor = game.forces["enemy"].get_evolution_factor("nauvis") +
-        (TRAP_EVO_FACTOR * (1 - game.forces["enemy"].get_evolution_factor("nauvis")))
+        (PARAMS.trap_evo_factor * (1 - game.forces["enemy"].get_evolution_factor("nauvis")))
     game.forces["enemy"].set_evolution_factor(new_factor, "nauvis")
     game.print({"", "New evolution factor:", new_factor})
 end,
@@ -544,10 +537,10 @@ end)
 
 commands.add_command("ap-rcon-info", "Used by the Archipelago client to get information", function(call)
     rcon.print(helpers.table_to_json({
-        ["slot_name"] = SLOT_NAME,
-        ["seed_name"] = SEED_NAME,
+        ["slot_name"] = PARAMS.slot_name,
+        ["seed_name"] = PARAMS.seed_name,
         ["death_link"] = DEATH_LINK,
-        ["energy_link"] = ENERGY_INCREMENT
+        ["energy_link"] = PARAMS.energy_increment,
     }))
 end)
 

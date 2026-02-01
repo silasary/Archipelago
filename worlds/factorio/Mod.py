@@ -17,11 +17,8 @@ from . import Options
 if TYPE_CHECKING:
     from . import Factorio
 
-data_template: Optional[jinja2.Template] = None
-data_final_template: Optional[jinja2.Template] = None
+template_parameters_template: Optional[jinja2.Template] = None
 locale_template: Optional[jinja2.Template] = None
-control_template: Optional[jinja2.Template] = None
-settings_template: Optional[jinja2.Template] = None
 
 template_load_lock = threading.Lock()
 
@@ -76,9 +73,9 @@ def generate_mod(
     output_directory: str,
 ):
 
-    global data_final_template, locale_template, control_template, data_template, settings_template
+    global template_parameters_template, locale_template
     with template_load_lock:
-        if not data_final_template:
+        if not template_parameters_template:
             def load_template(name: str):
                 import pkgutil
                 data = pkgutil.get_data(__name__, "data/mod_template/" + name).decode()
@@ -89,49 +86,49 @@ def generate_mod(
                 undefined=jinja2.StrictUndefined,
             )
 
-            data_template = template_env.get_template("data.lua")
-            data_final_template = template_env.get_template("data-final-fixes.lua")
-            locale_template = template_env.get_template(r"locale/en/locale.cfg")
-            control_template = template_env.get_template("control.lua")
-            settings_template = template_env.get_template("settings.lua")
+            template_parameters_template = template_env.get_template("template_parameters.lua")
+            locale_template = template_env.get_template("locale/en/locale.cfg")
 
     # get data for templates
     locations = [(location, location.item) for location in []] # TODO: deleted
     mod_name = f"AP-{multiworld.seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
     versioned_mod_name = mod_name + "_" + Utils.__version__
 
-    world_gen = world.options.world_gen.value
-    world_gen_preset = {
-        "default": False,
-        "order": "a",
-        "basic_settings": world_gen["basic"],
-        "advanced_settings": world_gen["advanced"],
+    mod_params = {
+        "mod_name": mod_name,
+        "seed_name": multiworld.seed_name,
+        "slot_name": world.player_name,
+
+        "trap_evo_factor": world.options.evolution_trap_increase.value / 100,
+        "energy_increment": 10_000_000 if world.options.energy_link.value else 0,
+        "allow_imported_blueprints": world.options.imported_blueprints.value,
+
+        "free_sample_amount": world.options.free_samples.current_key,
+        "free_sample_quality_name": world.options.free_samples_quality.current_key,
+        "free_sample_excludes": {recipe: 1 for recipe in free_sample_excludes},
+
+        "world_gen_preset": {
+            "default": False,
+            "order": "a",
+            "basic_settings": world.options.world_gen.value["basic"],
+            "advanced_settings": world.options.world_gen.value["advanced"],
+        },
     }
 
-    template_data = {
+    locale_data = {
         "locations": locations,
         "player_names": multiworld.player_name,
-        "mod_name": mod_name,
-        "slot_name": world.player_name,
-        "seed_name": multiworld.seed_name,
 
         "default_death_link": "true" if world.options.death_link.value else "false",
         "deathlink_setting_name": "archipelago-death-link-{}-{}".format(player, multiworld.seed_name),
 
         "free_samples": world.options.free_samples.value,
-        "free_sample_excludes": {recipe: 1 for recipe in free_sample_excludes},
-        "free_sample_quality_name": world.options.free_samples_quality.current_key,
 
         "progressive_technology_table": {tech.name: tech.progressive for tech in
                                          progressive_technology_table.values()},
 
-        "goal": 0, # TODO
         "tech_tree_information": world.options.tech_tree_information.value,
         "starting_items": world.options.starting_items.value,
-        "allow_imported_blueprints": "true" if world.options.imported_blueprints.value else "false",
-        "world_gen_preset": world_gen_preset,
-        "evolution_trap_increase": world.options.evolution_trap_increase.value,
-        "energy_link": 0, # TODO
     }
 
     zf_path = os.path.join(output_directory, versioned_mod_name + ".zip")
@@ -153,16 +150,10 @@ def generate_mod(
                                                 file_path=os.path.join(dirpath, filename):
                                          (arcpath, open(file_path, "rb").read()))
 
-    mod.writing_tasks.append(lambda: (versioned_mod_name + "/data.lua",
-                                      data_template.render(**template_data)))
-    mod.writing_tasks.append(lambda: (versioned_mod_name + "/data-final-fixes.lua",
-                                      data_final_template.render(**template_data)))
-    mod.writing_tasks.append(lambda: (versioned_mod_name + "/control.lua",
-                                      control_template.render(**template_data)))
-    mod.writing_tasks.append(lambda: (versioned_mod_name + "/settings.lua",
-                                      settings_template.render(**template_data)))
+    mod.writing_tasks.append(lambda: (versioned_mod_name + "/template_parameters.lua",
+                                      template_parameters_template.render(mod_params=render_lua_value(mod_params))))
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/locale/en/locale.cfg",
-                                      locale_template.render(**template_data)))
+                                      locale_template.render(**locale_data)))
 
     info = base_info.copy()
     info["name"] = mod_name
