@@ -87,8 +87,7 @@ class Factorio(World):
         from .Mod import generate_mod
         generate_mod(
             player=self.player,
-            seed_name=self.multiworld.seed_name,
-            random=self.random,
+            multiworld=self.multiworld,
             free_sample_excludes=free_sample_excludes,
             output_directory=output_directory,
         )

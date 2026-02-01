@@ -140,7 +140,7 @@ function on_force_created(event)
         force = game.forces[force]
     end
     local data = {}
-    data['earned_samples'] = {{ dict_to_lua(starting_items) }}
+    data['earned_samples'] = table.deepcopy({{ dict_to_lua(starting_items) }})
     data["victory"] = 0
     data["death_link_tick"] = 0
     data["energy"] = 0

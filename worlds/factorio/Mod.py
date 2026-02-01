@@ -71,8 +71,7 @@ progressive_technology_table = {} # TODO
 
 def generate_mod(
     player: int,
-    seed_name: str,
-    random,
+    multiworld: "Multiworld",
     free_sample_excludes: set[str],
     output_directory: str,
 ):
@@ -95,9 +94,10 @@ def generate_mod(
             locale_template = template_env.get_template(r"locale/en/locale.cfg")
             control_template = template_env.get_template("control.lua")
             settings_template = template_env.get_template("settings.lua")
+
     # get data for templates
     locations = [(location, location.item) for location in []] # TODO: deleted
-    mod_name = f"AP-{seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
+    mod_name = f"AP-{multiworld.seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
     versioned_mod_name = mod_name + "_" + Utils.__version__
 
     world_gen = world.options.world_gen.value
@@ -113,10 +113,10 @@ def generate_mod(
         "player_names": multiworld.player_name,
         "mod_name": mod_name,
         "slot_name": world.player_name,
-        "seed_name": seed_name,
+        "seed_name": multiworld.seed_name,
 
         "default_death_link": "true" if world.options.death_link.value else "false",
-        "deathlink_setting_name": "archipelago-death-link-{}-{}".format(player, seed_name),
+        "deathlink_setting_name": "archipelago-death-link-{}-{}".format(player, multiworld.seed_name),
 
         "free_samples": world.options.free_samples.value,
         "free_sample_excludes": {recipe: 1 for recipe in free_sample_excludes},
@@ -131,7 +131,7 @@ def generate_mod(
         "allow_imported_blueprints": "true" if world.options.imported_blueprints.value else "false",
         "world_gen_preset": world_gen_preset,
         "evolution_trap_increase": world.options.evolution_trap_increase.value,
-        "energy_link": world.options.energy_link.value,
+        "energy_link": 0, # TODO
     }
 
     zf_path = os.path.join(output_directory, versioned_mod_name + ".zip")
