@@ -1,3 +1,7 @@
+
+ARCHIPELAGO_DEATH_LINK_SETTING = {{ deathlink_setting_name }}
+DEFAULT_DEATH_LINK = {{ default_death_link }}
+
 -- Find out if more than one AP mod is loaded, and if so, error out.
 function mod_is_AP(str)
     -- lua string.match is way more restrictive than regex. Regex would be "^AP-W?\d{20}-P[1-9]\d*-.+$"
@@ -19,12 +23,8 @@ end
 data:extend({
     {
         type = "bool-setting",
-        name = "archipelago-death-link-{{ slot_player }}-{{ seed_name }}",
+        name = ARCHIPELAGO_DEATH_LINK_SETTING,
         setting_type = "runtime-global",
-        {% if death_link %}
-            default_value = true
-        {% else %}
-            default_value = false
-        {% endif %}
+        default_value = DEFAULT_DEATH_LINK,
     }
 })

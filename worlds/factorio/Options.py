@@ -139,7 +139,7 @@ class Satellite(Choice):
 
 
 class FreeSamples(Choice):
-    """Get free items with your technologies."""
+    """Get free items with your recipe unlocks."""
     display_name = "Free Samples"
     option_none = 0
     option_single_craft = 1
@@ -261,12 +261,17 @@ class FactorioStartItems(OptionDict):
 
 
 class FactorioFreeSampleBlacklist(OptionSet):
-    """Set of items that should never be granted from Free Samples"""
+    """Recipes that when unlocked should never grant Free Samples.
+    TODO: include science packs by default and allow to be removed.
+    Fluids, barreling/unbarreling, and biter eggs are always excluded.
+    TODO: rename from "blacklist" to "excludes".
+    """
     display_name = "Free Sample Blacklist"
 
 
 class FactorioFreeSampleWhitelist(OptionSet):
-    """Overrides any free sample blacklist present. This may ruin the balance of the mod, be warned."""
+    """Overrides any free sample blacklist present. This may ruin the balance of the mod, be warned.
+    TODO: delete this and use defaults for the exclude list instead."""
     display_name = "Free Sample Whitelist"
 
 

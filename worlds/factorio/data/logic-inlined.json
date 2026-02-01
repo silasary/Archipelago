@@ -4,7 +4,6 @@
       {
         "and": [
           "Access battery",
-          "Access iron-plate",
           "electric-energy-accumulators"
         ]
       },
@@ -89,20 +88,10 @@
       }
     ]
   },
-  "Access agricultural-science-pack": {
-    "and": [
-      "Access bioflux",
-      "Access pentapod-egg",
-      "Operate biochamber",
-      "Reach gleba",
-      "agricultural-science-pack"
-    ]
-  },
   "Access agricultural-tower": {
     "and": [
       "Access electronic-circuit",
       "Access landfill",
-      "Access spoilage",
       "Access steel-plate",
       "agriculture"
     ]
@@ -121,9 +110,9 @@
   },
   "Access ammoniacal-solution": {
     "and": [
+      "Access offshore-pump",
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump tiles",
       "Reach aquilo"
     ]
   },
@@ -183,7 +172,6 @@
   },
   "Access artillery-turret": {
     "and": [
-      "Access iron-gear-wheel",
       "Access processing-unit",
       "Access refined-concrete",
       "Access tungsten-plate",
@@ -193,7 +181,6 @@
   "Access artillery-wagon": {
     "and": [
       "Access engine-unit",
-      "Access iron-gear-wheel",
       "Access processing-unit",
       "Access refined-concrete",
       "Access tungsten-plate",
@@ -211,8 +198,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
-          "Access iron-plate",
           "automation"
         ]
       }
@@ -224,7 +209,6 @@
         "and": [
           "Access assembling-machine-1",
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
           "Access steel-plate",
           "automation-2"
         ]
@@ -258,13 +242,6 @@
       "Access processing-unit",
       "Access uranium-235",
       "atomic-bomb"
-    ]
-  },
-  "Access automation-science-pack": {
-    "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
-      "automation-science-pack"
     ]
   },
   "Access barrel": {
@@ -403,8 +380,12 @@
     "or": [
       {
         "and": [
-          "Access copper-plate",
-          "Access iron-plate",
+          "Access scrap",
+          "recycling"
+        ]
+      },
+      {
+        "and": [
           "Access sulfuric-acid",
           "battery",
           {
@@ -413,12 +394,6 @@
               "Operate cryogenic-plant"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Access scrap",
-          "recycling"
         ]
       },
       {
@@ -519,7 +494,6 @@
   "Access biochamber": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-plate",
       "Access landfill",
       "Access nutrients",
       "Access pentapod-egg",
@@ -588,7 +562,6 @@
       {
         "and": [
           "Access pipe",
-          "Access stone-furnace",
           "steam-power"
         ]
       }
@@ -609,7 +582,6 @@
           "Access advanced-circuit",
           "Access electronic-circuit",
           "Access fast-inserter",
-          "Access iron-gear-wheel",
           "bulk-inserter"
         ]
       },
@@ -619,19 +591,6 @@
           "Operate recycler"
         ]
       }
-    ]
-  },
-  "Access burner-inserter": {
-    "and": [
-      "Access iron-gear-wheel",
-      "Access iron-plate"
-    ]
-  },
-  "Access burner-mining-drill": {
-    "and": [
-      "Access iron-gear-wheel",
-      "Access iron-plate",
-      "Access stone-furnace"
     ]
   },
   "Access calcite": {
@@ -697,7 +656,6 @@
   "Access car": {
     "and": [
       "Access engine-unit",
-      "Access iron-plate",
       "Access steel-plate",
       "automobilism"
     ]
@@ -719,7 +677,6 @@
       },
       {
         "and": [
-          "Access coal",
           "Access sulfuric-acid",
           "tungsten-carbide",
           {
@@ -732,7 +689,6 @@
       },
       {
         "and": [
-          "Access spoilage",
           "Operate biochamber",
           "biochamber"
         ]
@@ -771,7 +727,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -858,8 +814,6 @@
   },
   "Access cargo-wagon": {
     "and": [
-      "Access iron-gear-wheel",
-      "Access iron-plate",
       "Access steel-plate",
       "railway"
     ]
@@ -868,7 +822,6 @@
     "and": [
       "Access advanced-circuit",
       "Access concrete",
-      "Access iron-gear-wheel",
       "Access steel-plate",
       "uranium-processing"
     ]
@@ -876,7 +829,6 @@
   "Access chemical-plant": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-gear-wheel",
       "Access pipe",
       "Access steel-plate",
       "oil-processing"
@@ -899,39 +851,9 @@
       "military-4"
     ]
   },
-  "Access coal": {
-    "or": [
-      "Reach nauvis",
-      "Reach vulcanus",
-      {
-        "and": [
-          "Access carbon",
-          "Access sulfur",
-          "Access water",
-          "Operate chemical-plant",
-          "rocket-turret"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access grenade",
-              "Access poison-capsule",
-              "Access slowdown-capsule"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Access combat-shotgun": {
     "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
       "Access steel-plate",
-      "Access wood",
       "military-3"
     ]
   },
@@ -945,13 +867,19 @@
       },
       {
         "and": [
-          "Access stone-brick",
           "Access water",
           {
             "or": [
               {
                 "and": [
-                  "Access iron-ore",
+                  "Access molten-iron",
+                  "Access pipe",
+                  "Operate foundry",
+                  "foundry"
+                ]
+              },
+              {
+                "and": [
                   "concrete",
                   {
                     "or": [
@@ -959,14 +887,6 @@
                       "Operate assembling-machine-3"
                     ]
                   }
-                ]
-              },
-              {
-                "and": [
-                  "Access molten-iron",
-                  "Access pipe",
-                  "Operate foundry",
-                  "foundry"
                 ]
               }
             ]
@@ -1037,12 +957,7 @@
   "Access copper-cable": {
     "or": [
       "Reach fulgora",
-      {
-        "and": [
-          "Access copper-plate",
-          "electronics"
-        ]
-      },
+      "electronics",
       {
         "and": [
           "Access molten-copper",
@@ -1083,71 +998,9 @@
       }
     ]
   },
-  "Access copper-ore": {
-    "or": [
-      "Access copper-bacteria",
-      "Reach gleba",
-      "Reach nauvis",
-      "Reach vulcanus",
-      {
-        "and": [
-          "Access metallic-asteroid-chunk",
-          "Operate crusher",
-          "advanced-asteroid-processing"
-        ]
-      }
-    ]
-  },
-  "Access copper-plate": {
-    "or": [
-      {
-        "and": [
-          "Access copper-ore",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Access molten-copper",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access battery",
-              "Access combat-shotgun",
-              "Access copper-cable",
-              "Access gun-turret",
-              "Access heat-exchanger",
-              "Access heat-pipe",
-              "Access heavy-armor",
-              "Access low-density-structure",
-              "Access nuclear-reactor",
-              "Access piercing-rounds-magazine",
-              "Access piercing-shotgun-shell",
-              "Access shotgun",
-              "Access shotgun-shell",
-              "Access solar-panel",
-              "Access steam-turbine",
-              "Access submachine-gun"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Access crude-oil": {
     "or": [
+      "Operate pumpjack",
       {
         "and": [
           "Access crude-oil-barrel",
@@ -1156,23 +1009,6 @@
             "or": [
               "Operate assembling-machine-2",
               "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Can pump entities",
-          {
-            "or": [
-              "Reach nauvis",
-              {
-                "and": [
-                  "Can build on ice platforms",
-                  "Can heat buildings",
-                  "Reach aquilo"
-                ]
-              }
             ]
           }
         ]
@@ -1245,7 +1081,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
           "Access piercing-rounds-magazine",
           "defender"
         ]
@@ -1271,7 +1106,6 @@
   "Access display-panel": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-plate",
       "circuit-network"
     ]
   },
@@ -1337,7 +1171,6 @@
       "Access advanced-circuit",
       "Access efficiency-module-2",
       "Access processing-unit",
-      "Access spoilage",
       "efficiency-module-3"
     ]
   },
@@ -1381,7 +1214,6 @@
     "and": [
       "Access advanced-circuit",
       "Access steel-plate",
-      "Access stone-brick",
       "advanced-material-processing-2"
     ]
   },
@@ -1396,8 +1228,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
-          "Access iron-plate",
           "electric-mining-drill"
         ]
       }
@@ -1408,7 +1238,6 @@
       "Access heavy-oil",
       "Access holmium-solution",
       "Access pipe",
-      "Access stone",
       "Operate electromagnetic-plant",
       "electromagnetic-plant"
     ]
@@ -1435,7 +1264,6 @@
       {
         "and": [
           "Access copper-cable",
-          "Access iron-plate",
           "electronics"
         ]
       },
@@ -1530,7 +1358,6 @@
     "or": [
       {
         "and": [
-          "Access iron-gear-wheel",
           "Access pipe",
           "Access steel-plate",
           "engine",
@@ -1615,7 +1442,6 @@
     "or": [
       {
         "and": [
-          "Access coal",
           "Access sulfur",
           "Access water",
           "explosives",
@@ -1654,7 +1480,6 @@
         "and": [
           "Access advanced-circuit",
           "Access fast-splitter",
-          "Access iron-gear-wheel",
           "Access lubricant",
           "logistics-3",
           {
@@ -1679,7 +1504,6 @@
       {
         "and": [
           "Access fast-transport-belt",
-          "Access iron-gear-wheel",
           "Access lubricant",
           "logistics-3",
           {
@@ -1704,7 +1528,6 @@
       {
         "and": [
           "Access fast-underground-belt",
-          "Access iron-gear-wheel",
           "Access lubricant",
           "logistics-3",
           {
@@ -1736,7 +1559,6 @@
         "and": [
           "Access electronic-circuit",
           "Access inserter",
-          "Access iron-plate",
           "fast-inserter"
         ]
       }
@@ -1747,7 +1569,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
           "Access splitter",
           "logistics-2"
         ]
@@ -1762,17 +1583,11 @@
   },
   "Access fast-transport-belt": {
     "or": [
+      "logistics-2",
       {
         "and": [
           "Access express-transport-belt",
           "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Access iron-gear-wheel",
-          "Access transport-belt",
-          "logistics-2"
         ]
       }
     ]
@@ -1787,20 +1602,8 @@
       },
       {
         "and": [
-          "Access iron-gear-wheel",
           "Access underground-belt",
           "logistics-2"
-        ]
-      }
-    ]
-  },
-  "Access firearm-magazine": {
-    "or": [
-      "Access iron-plate",
-      {
-        "and": [
-          "Access piercing-rounds-magazine",
-          "Operate recycler"
         ]
       }
     ]
@@ -1830,7 +1633,6 @@
   },
   "Access flamethrower": {
     "and": [
-      "Access iron-gear-wheel",
       "Access steel-plate",
       "flamethrower"
     ]
@@ -1838,7 +1640,6 @@
   "Access flamethrower-turret": {
     "and": [
       "Access engine-unit",
-      "Access iron-gear-wheel",
       "Access pipe",
       "Access steel-plate",
       "flamethrower"
@@ -1846,7 +1647,6 @@
   },
   "Access fluid-wagon": {
     "and": [
-      "Access iron-gear-wheel",
       "Access pipe",
       "Access steel-plate",
       "Access storage-tank",
@@ -1857,7 +1657,7 @@
     "and": [
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump entities",
+      "Operate pumpjack",
       "Reach aquilo"
     ]
   },
@@ -1967,7 +1767,6 @@
       "Access carbon-fiber",
       "Access fluoroketone-cold",
       "Access lithium-plate",
-      "Access stone",
       "Access tungsten-plate",
       "foundation",
       {
@@ -2056,13 +1855,7 @@
   },
   "Access grenade": {
     "or": [
-      {
-        "and": [
-          "Access coal",
-          "Access iron-plate",
-          "military-2"
-        ]
-      },
+      "military-2",
       {
         "and": [
           "Operate recycler",
@@ -2076,14 +1869,6 @@
       }
     ]
   },
-  "Access gun-turret": {
-    "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
-      "Access iron-plate",
-      "gun-turret"
-    ]
-  },
   "Access hazard-concrete": {
     "and": [
       "Access concrete",
@@ -2092,7 +1877,6 @@
   },
   "Access heat-exchanger": {
     "and": [
-      "Access copper-plate",
       "Access pipe",
       "Access steel-plate",
       "Learn heat-exchanger"
@@ -2102,15 +1886,14 @@
     "or": [
       {
         "and": [
-          "Access copper-plate",
-          "Access steel-plate",
-          "Learn heat-pipe"
+          "Access heating-tower",
+          "Operate recycler"
         ]
       },
       {
         "and": [
-          "Access heating-tower",
-          "Operate recycler"
+          "Access steel-plate",
+          "Learn heat-pipe"
         ]
       }
     ]
@@ -2125,7 +1908,6 @@
   },
   "Access heavy-armor": {
     "and": [
-      "Access copper-plate",
       "Access steel-plate",
       "heavy-armor"
     ]
@@ -2146,8 +1928,8 @@
       },
       {
         "and": [
+          "Access offshore-pump",
           "Can harness lightning",
-          "Can pump tiles",
           "Reach fulgora"
         ]
       },
@@ -2158,34 +1940,32 @@
             "or": [
               {
                 "and": [
-                  "Access coal",
+                  "Access calcite",
+                  "Access sulfuric-acid",
+                  "calcite-processing"
+                ]
+              },
+              {
+                "and": [
+                  "Access pipe",
                   {
                     "or": [
                       {
                         "and": [
-                          "Access calcite",
-                          "Access sulfuric-acid",
-                          "calcite-processing"
+                          "Access crude-oil",
+                          "Access water",
+                          "advanced-oil-processing"
                         ]
                       },
                       {
                         "and": [
                           "Access heavy-oil",
-                          "Access pipe",
                           "Access steam",
                           "coal-liquefaction"
                         ]
                       }
                     ]
                   }
-                ]
-              },
-              {
-                "and": [
-                  "Access crude-oil",
-                  "Access pipe",
-                  "Access water",
-                  "advanced-oil-processing"
                 ]
               }
             ]
@@ -2251,7 +2031,6 @@
   "Access holmium-solution": {
     "and": [
       "Access holmium-ore",
-      "Access stone",
       "Access water",
       "Operate chemical-plant",
       "holmium-processing"
@@ -2321,8 +2100,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
-          "Access iron-plate",
           "electronics"
         ]
       },
@@ -2367,183 +2144,10 @@
       }
     ]
   },
-  "Access iron-gear-wheel": {
-    "or": [
-      "Access iron-plate",
-      "Reach fulgora",
-      {
-        "and": [
-          "Access molten-iron",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Access scrap",
-          "recycling"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access artillery-turret",
-              "Access artillery-wagon",
-              "Access assembling-machine-1",
-              "Access assembling-machine-2",
-              "Access bulk-inserter",
-              "Access burner-inserter",
-              "Access burner-mining-drill",
-              "Access cargo-wagon",
-              "Access centrifuge",
-              "Access chemical-plant",
-              "Access combat-shotgun",
-              "Access defender-capsule",
-              "Access electric-mining-drill",
-              "Access engine-unit",
-              "Access express-splitter",
-              "Access express-transport-belt",
-              "Access express-underground-belt",
-              "Access fast-splitter",
-              "Access fast-transport-belt",
-              "Access fast-underground-belt",
-              "Access flamethrower",
-              "Access flamethrower-turret",
-              "Access fluid-wagon",
-              "Access gun-turret",
-              "Access inserter",
-              "Access lab",
-              "Access long-handed-inserter",
-              "Access offshore-pump",
-              "Access oil-refinery",
-              "Access personal-roboport-equipment",
-              "Access pumpjack",
-              "Access radar",
-              "Access recycler",
-              "Access repair-pack",
-              "Access roboport",
-              "Access rocket-launcher",
-              "Access rocket-turret",
-              "Access shotgun",
-              "Access steam-engine",
-              "Access steam-turbine",
-              "Access submachine-gun",
-              "Access tank",
-              "Access transport-belt"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Access iron-ore": {
-    "or": [
-      "Access iron-bacteria",
-      "Reach gleba",
-      "Reach nauvis",
-      "Reach vulcanus",
-      {
-        "and": [
-          "Access concrete",
-          "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Access metallic-asteroid-chunk",
-          "Operate crusher",
-          {
-            "or": [
-              "advanced-asteroid-processing",
-              "space-platform"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Access iron-plate": {
-    "or": [
-      {
-        "and": [
-          "Access iron-ore",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Access molten-iron",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access accumulator",
-              "Access assembling-machine-1",
-              "Access battery",
-              "Access biochamber",
-              "Access burner-inserter",
-              "Access burner-mining-drill",
-              "Access car",
-              "Access cargo-wagon",
-              "Access display-panel",
-              "Access electric-mining-drill",
-              "Access electronic-circuit",
-              "Access fast-inserter",
-              "Access firearm-magazine",
-              "Access grenade",
-              "Access gun-turret",
-              "Access inserter",
-              "Access iron-gear-wheel",
-              "Access iron-plate",
-              "Access iron-stick",
-              "Access long-handed-inserter",
-              "Access pipe",
-              "Access pipe-to-ground",
-              "Access power-switch",
-              "Access programmable-speaker",
-              "Access radar",
-              "Access rail-chain-signal",
-              "Access rail-signal",
-              "Access rocket",
-              "Access rocket-launcher",
-              "Access shotgun",
-              "Access shotgun-shell",
-              "Access small-lamp",
-              "Access splitter",
-              "Access steam-engine",
-              "Access storage-tank",
-              "Access submachine-gun",
-              "Access train-stop",
-              "Access transport-belt",
-              "Access underground-belt"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Access iron-stick": {
     "or": [
+      "Learn iron-stick",
       "Reach fulgora",
-      {
-        "and": [
-          "Access iron-plate",
-          "Learn iron-stick"
-        ]
-      },
       {
         "and": [
           "Access molten-iron",
@@ -2590,7 +2194,7 @@
       {
         "and": [
           "Access jellynut-seed",
-          "Can automate planting",
+          "Operate agricultural-tower",
           "Reach gleba"
         ]
       }
@@ -2620,8 +2224,6 @@
   "Access lab": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-gear-wheel",
-      "Access transport-belt",
       "electronics"
     ]
   },
@@ -2634,12 +2236,7 @@
   },
   "Access landfill": {
     "or": [
-      {
-        "and": [
-          "Access stone",
-          "landfill"
-        ]
-      },
+      "landfill",
       {
         "and": [
           "Operate recycler",
@@ -2678,12 +2275,6 @@
       }
     ]
   },
-  "Access lava": {
-    "and": [
-      "Can pump tiles",
-      "Reach vulcanus"
-    ]
-  },
   "Access light-oil": {
     "or": [
       {
@@ -2718,7 +2309,6 @@
                     "or": [
                       {
                         "and": [
-                          "Access coal",
                           "Access steam",
                           "Operate oil-refinery",
                           "coal-liquefaction"
@@ -2776,7 +2366,6 @@
         "and": [
           "Access copper-cable",
           "Access steel-plate",
-          "Access stone-brick",
           "Reach fulgora",
           "planet-discovery-fulgora"
         ]
@@ -2813,7 +2402,7 @@
     "and": [
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump entities",
+      "Operate pumpjack",
       "Reach aquilo"
     ]
   },
@@ -2822,14 +2411,7 @@
       {
         "and": [
           "Access lithium",
-          "lithium-processing",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
+          "lithium-processing"
         ]
       },
       {
@@ -2864,8 +2446,6 @@
   "Access long-handed-inserter": {
     "and": [
       "Access inserter",
-      "Access iron-gear-wheel",
-      "Access iron-plate",
       "automation"
     ]
   },
@@ -2878,18 +2458,17 @@
             "or": [
               {
                 "and": [
-                  "Access copper-plate",
-                  "Access steel-plate",
-                  "low-density-structure"
-                ]
-              },
-              {
-                "and": [
                   "Access molten-copper",
                   "Access molten-iron",
                   "Access pipe",
                   "Operate foundry",
                   "foundry"
+                ]
+              },
+              {
+                "and": [
+                  "Access steel-plate",
+                  "low-density-structure"
                 ]
               }
             ]
@@ -2986,7 +2565,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -3066,26 +2645,14 @@
     "and": [
       "Access calcite",
       "Operate foundry",
-      "foundry",
-      {
-        "or": [
-          "Access copper-ore",
-          "Access lava"
-        ]
-      }
+      "foundry"
     ]
   },
   "Access molten-iron": {
     "and": [
       "Access calcite",
       "Operate foundry",
-      "foundry",
-      {
-        "or": [
-          "Access iron-ore",
-          "Access lava"
-        ]
-      }
+      "foundry"
     ]
   },
   "Access night-vision-equipment": {
@@ -3107,29 +2674,18 @@
     "and": [
       "Access advanced-circuit",
       "Access concrete",
-      "Access copper-plate",
       "Access steel-plate",
       "nuclear-power"
     ]
   },
   "Access nutrients": {
     "or": [
+      "agriculture",
+      "fish-breeding",
       {
         "and": [
           "Access biter-egg",
           "captivity"
-        ]
-      },
-      {
-        "and": [
-          "Access raw-fish",
-          "fish-breeding"
-        ]
-      },
-      {
-        "and": [
-          "Access spoilage",
-          "agriculture"
         ]
       },
       {
@@ -3169,7 +2725,6 @@
   },
   "Access offshore-pump": {
     "and": [
-      "Access iron-gear-wheel",
       "Access pipe",
       "steam-power"
     ]
@@ -3177,10 +2732,8 @@
   "Access oil-refinery": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-gear-wheel",
       "Access pipe",
       "Access steel-plate",
-      "Access stone-brick",
       "oil-processing"
     ]
   },
@@ -3189,7 +2742,6 @@
       "Access artificial-jellynut-soil",
       "Access biter-egg",
       "Access jellynut-seed",
-      "Access spoilage",
       "Access water",
       "Reach gleba",
       "overgrowth-soil",
@@ -3205,7 +2757,6 @@
     "and": [
       "Access artificial-yumako-soil",
       "Access biter-egg",
-      "Access spoilage",
       "Access water",
       "Access yumako-seed",
       "Reach gleba",
@@ -3222,7 +2773,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -3334,7 +2885,6 @@
         "and": [
           "Access advanced-circuit",
           "Access battery",
-          "Access iron-gear-wheel",
           "Access steel-plate",
           "personal-roboport-equipment"
         ]
@@ -3383,7 +2933,6 @@
             "or": [
               {
                 "and": [
-                  "Access coal",
                   "Access heavy-oil",
                   "Access steam",
                   "Operate oil-refinery",
@@ -3440,8 +2989,6 @@
     "or": [
       {
         "and": [
-          "Access copper-plate",
-          "Access firearm-magazine",
           "Access steel-plate",
           "military-2"
         ]
@@ -3461,7 +3008,6 @@
   },
   "Access piercing-shotgun-shell": {
     "and": [
-      "Access copper-plate",
       "Access shotgun-shell",
       "Access steel-plate",
       "military-4"
@@ -3469,12 +3015,7 @@
   },
   "Access pipe": {
     "or": [
-      {
-        "and": [
-          "Access iron-plate",
-          "steam-power"
-        ]
-      },
+      "steam-power",
       {
         "and": [
           "Access molten-iron",
@@ -3512,12 +3053,7 @@
       "Access pipe",
       {
         "or": [
-          {
-            "and": [
-              "Access iron-plate",
-              "steam-power"
-            ]
-          },
+          "steam-power",
           {
             "and": [
               "Access molten-iron",
@@ -3541,7 +3077,6 @@
       },
       {
         "and": [
-          "Access coal",
           "Access petroleum-gas",
           "plastics",
           {
@@ -3571,7 +3106,6 @@
   },
   "Access poison-capsule": {
     "and": [
-      "Access coal",
       "Access electronic-circuit",
       "Access steel-plate",
       "military-3"
@@ -3609,7 +3143,6 @@
     "and": [
       "Access copper-cable",
       "Access electronic-circuit",
-      "Access iron-plate",
       "circuit-network"
     ]
   },
@@ -3732,7 +3265,6 @@
     "and": [
       "Access copper-cable",
       "Access electronic-circuit",
-      "Access iron-plate",
       "Access iron-stick",
       "circuit-network"
     ]
@@ -3748,7 +3280,6 @@
   "Access pumpjack": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-gear-wheel",
       "Access pipe",
       "Access steel-plate",
       "oil-gathering"
@@ -3854,8 +3385,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
-          "Access iron-plate",
           "radar"
         ]
       },
@@ -3878,7 +3407,6 @@
         "and": [
           "Access iron-stick",
           "Access steel-plate",
-          "Access stone",
           "railway"
         ]
       },
@@ -3893,7 +3421,6 @@
   "Access rail-chain-signal": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-plate",
       "automated-rail-transportation"
     ]
   },
@@ -3908,7 +3435,6 @@
   "Access rail-signal": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-plate",
       "automated-rail-transportation"
     ]
   },
@@ -3948,36 +3474,9 @@
       "railgun"
     ]
   },
-  "Access raw-fish": {
-    "or": [
-      "Reach nauvis",
-      {
-        "and": [
-          "Access nutrients",
-          "Access raw-fish",
-          "Access water",
-          "Reach nauvis",
-          "fish-breeding",
-          {
-            "or": [
-              "Operate biochamber",
-              "Operate chemical-plant"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Access spidertron",
-          "Operate recycler"
-        ]
-      }
-    ]
-  },
   "Access recycler": {
     "and": [
       "Access concrete",
-      "Access iron-gear-wheel",
       "Access processing-unit",
       "Access steel-plate",
       "Reach fulgora",
@@ -4029,7 +3528,6 @@
   "Access repair-pack": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-gear-wheel",
       "repair-pack"
     ]
   },
@@ -4044,7 +3542,6 @@
   "Access roboport": {
     "and": [
       "Access advanced-circuit",
-      "Access iron-gear-wheel",
       "Access steel-plate",
       "Learn roboport"
     ]
@@ -4060,7 +3557,6 @@
       {
         "and": [
           "Access explosives",
-          "Access iron-plate",
           "rocketry"
         ]
       }
@@ -4119,8 +3615,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-gear-wheel",
-          "Access iron-plate",
           "rocketry"
         ]
       },
@@ -4147,7 +3641,6 @@
       {
         "and": [
           "Access carbon-fiber",
-          "Access iron-gear-wheel",
           "Access processing-unit",
           "Access rocket-launcher",
           "Access steel-plate",
@@ -4180,24 +3673,9 @@
       "advanced-combinators"
     ]
   },
-  "Access shotgun": {
-    "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
-      "Access iron-plate",
-      "Access wood",
-      "military"
-    ]
-  },
   "Access shotgun-shell": {
     "or": [
-      {
-        "and": [
-          "Access copper-plate",
-          "Access iron-plate",
-          "military"
-        ]
-      },
+      "military",
       {
         "and": [
           "Access piercing-shotgun-shell",
@@ -4208,7 +3686,6 @@
   },
   "Access slowdown-capsule": {
     "and": [
-      "Access coal",
       "Access electronic-circuit",
       "Access steel-plate",
       "military-3"
@@ -4217,7 +3694,6 @@
   "Access small-electric-pole": {
     "and": [
       "Access copper-cable",
-      "Access wood",
       "electronics"
     ]
   },
@@ -4225,7 +3701,6 @@
     "and": [
       "Access copper-cable",
       "Access electronic-circuit",
-      "Access iron-plate",
       "lamp"
     ]
   },
@@ -4233,7 +3708,6 @@
     "or": [
       {
         "and": [
-          "Access copper-plate",
           "Access electronic-circuit",
           "Access steel-plate",
           "solar-energy"
@@ -4391,7 +3865,6 @@
       "Access exoskeleton-equipment",
       "Access fission-reactor-equipment",
       "Access radar",
-      "Access raw-fish",
       "Access rocket-turret",
       "spidertron"
     ]
@@ -4401,8 +3874,6 @@
       {
         "and": [
           "Access electronic-circuit",
-          "Access iron-plate",
-          "Access transport-belt",
           "logistics"
         ]
       },
@@ -4410,54 +3881,6 @@
         "and": [
           "Access fast-splitter",
           "Operate recycler"
-        ]
-      }
-    ]
-  },
-  "Access spoilage": {
-    "or": [
-      "Access agricultural-science-pack",
-      "Access bioflux",
-      "Access jelly",
-      "Access jellynut",
-      "Access nutrients",
-      "Access raw-fish",
-      "Access yumako",
-      "Access yumako-mash",
-      "Reach gleba",
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access agricultural-tower",
-              "Access efficiency-module-3",
-              "Access nutrients",
-              "Access overgrowth-jellynut-soil",
-              "Access overgrowth-yumako-soil"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Reach gleba",
-          {
-            "or": [
-              {
-                "and": [
-                  "Access jelly",
-                  "jellynut"
-                ]
-              },
-              {
-                "and": [
-                  "Access yumako-mash",
-                  "yumako"
-                ]
-              }
-            ]
-          }
         ]
       }
     ]
@@ -4492,7 +3915,7 @@
           "Access water",
           {
             "or": [
-              "Operate boiler",
+              "Access boiler",
               "Operate heat-exchanger"
             ]
           }
@@ -4502,16 +3925,12 @@
   },
   "Access steam-engine": {
     "and": [
-      "Access iron-gear-wheel",
-      "Access iron-plate",
       "Access pipe",
       "steam-power"
     ]
   },
   "Access steam-turbine": {
     "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
       "Access pipe",
       "Learn steam-turbine"
     ]
@@ -4567,26 +3986,13 @@
   "Access steel-furnace": {
     "and": [
       "Access steel-plate",
-      "Access stone-brick",
       "advanced-material-processing"
     ]
   },
   "Access steel-plate": {
     "or": [
       "Reach fulgora",
-      {
-        "and": [
-          "Access iron-plate",
-          "steel-processing",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
+      "steel-processing",
       {
         "and": [
           "Access molten-iron",
@@ -4684,100 +4090,13 @@
       }
     ]
   },
-  "Access stone": {
-    "or": [
-      "Reach fulgora",
-      "Reach gleba",
-      "Reach nauvis",
-      "Reach vulcanus",
-      {
-        "and": [
-          "Access calcite",
-          "Access lava",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Access scrap",
-          "recycling"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access foundation",
-              "Access rail",
-              "Access stone-furnace"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Access stone-brick": {
-    "or": [
-      "Reach fulgora",
-      {
-        "and": [
-          "Access stone",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access concrete",
-              "Access electric-furnace",
-              "Access lightning-rod",
-              "Access oil-refinery",
-              "Access steel-furnace",
-              "Access stone-wall"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Access stone-furnace": {
-    "or": [
-      "Access stone",
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access boiler",
-              "Access burner-mining-drill"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Access stone-wall": {
     "or": [
+      "stone-wall",
       {
         "and": [
           "Access gate",
           "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Access stone-brick",
-          "stone-wall"
         ]
       }
     ]
@@ -4800,19 +4119,10 @@
       },
       {
         "and": [
-          "Access iron-plate",
           "Access steel-plate",
           "fluid-handling"
         ]
       }
-    ]
-  },
-  "Access submachine-gun": {
-    "and": [
-      "Access copper-plate",
-      "Access iron-gear-wheel",
-      "Access iron-plate",
-      "military"
     ]
   },
   "Access substation": {
@@ -4829,7 +4139,6 @@
       {
         "and": [
           "Access bioflux",
-          "Access spoilage",
           "Operate biochamber",
           "bioflux-processing"
         ]
@@ -4861,7 +4170,6 @@
     "or": [
       {
         "and": [
-          "Access iron-plate",
           "Access sulfur",
           "Access water",
           "sulfur-processing",
@@ -4887,7 +4195,7 @@
       },
       {
         "and": [
-          "Can pump entities",
+          "Operate pumpjack",
           "Reach vulcanus"
         ]
       }
@@ -4940,7 +4248,6 @@
     "or": [
       {
         "and": [
-          "Access copper-plate",
           "Access holmium-plate",
           "Access light-oil",
           "Access plastic-bar",
@@ -4975,7 +4282,6 @@
     "and": [
       "Access advanced-circuit",
       "Access engine-unit",
-      "Access iron-gear-wheel",
       "Access steel-plate",
       "tank"
     ]
@@ -5038,40 +4344,9 @@
   "Access train-stop": {
     "and": [
       "Access electronic-circuit",
-      "Access iron-plate",
       "Access iron-stick",
       "Access steel-plate",
       "automated-rail-transportation"
-    ]
-  },
-  "Access transport-belt": {
-    "or": [
-      {
-        "and": [
-          "Access iron-gear-wheel",
-          "Access iron-plate"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access fast-transport-belt",
-              "Access lab",
-              "Access splitter",
-              "Access underground-belt"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Access tree-seed": {
-    "and": [
-      "Access wood",
-      "Reach nauvis",
-      "tree-seeding"
     ]
   },
   "Access tungsten-carbide": {
@@ -5110,7 +4385,7 @@
       "Reach vulcanus",
       {
         "and": [
-          "Can mine hard solids",
+          "Operate big-mining-drill",
           "Reach vulcanus"
         ]
       }
@@ -5182,17 +4457,11 @@
   },
   "Access underground-belt": {
     "or": [
+      "logistics",
       {
         "and": [
           "Access fast-underground-belt",
           "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Access iron-plate",
-          "Access transport-belt",
-          "logistics"
         ]
       }
     ]
@@ -5274,7 +4543,6 @@
       },
       {
         "and": [
-          "Access iron-plate",
           "Access uranium-235",
           "Access uranium-238",
           "nuclear-power"
@@ -5285,9 +4553,7 @@
   "Access uranium-ore": {
     "and": [
       "Access sulfuric-acid",
-      "Can automate mining",
-      "Can mine with fluid",
-      "Reach nauvis"
+      "Can mine with fluid"
     ]
   },
   "Access uranium-rounds-magazine": {
@@ -5299,6 +4565,7 @@
   },
   "Access water": {
     "or": [
+      "Access offshore-pump",
       {
         "and": [
           "Access ice",
@@ -5329,17 +4596,6 @@
             ]
           }
         ]
-      },
-      {
-        "and": [
-          "Can pump tiles",
-          {
-            "or": [
-              "Reach gleba",
-              "Reach nauvis"
-            ]
-          }
-        ]
       }
     ]
   },
@@ -5356,39 +4612,13 @@
       }
     ]
   },
-  "Access wood": {
-    "or": [
-      "Reach gleba",
-      "Reach nauvis",
-      {
-        "and": [
-          "Access tree-seed",
-          "Can automate planting",
-          "Reach nauvis"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Access combat-shotgun",
-              "Access shotgun",
-              "Access small-electric-pole",
-              "Access wood"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Access yumako": {
     "or": [
       "Reach gleba",
       {
         "and": [
           "Access yumako-seed",
-          "Can automate planting",
+          "Operate agricultural-tower",
           "Reach gleba"
         ]
       }
@@ -5426,7 +4656,6 @@
       {
         "and": [
           "Automate battery",
-          "Automate iron-plate",
           "electric-energy-accumulators",
           {
             "or": [
@@ -5573,9 +4802,9 @@
   },
   "Automate ammoniacal-solution": {
     "and": [
+      "Access offshore-pump",
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump tiles",
       "Reach aquilo"
     ]
   },
@@ -5706,7 +4935,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           "automation",
           {
             "or": [
@@ -5791,7 +5019,6 @@
   },
   "Automate automation-science-pack": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
       "automation-science-pack",
       {
@@ -5950,8 +5177,6 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
-          "Automate iron-plate",
           "Automate sulfuric-acid",
           "battery",
           {
@@ -6110,7 +5335,6 @@
   "Automate biochamber": {
     "and": [
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "Automate landfill",
       "Automate nutrients",
       "Automate pentapod-egg",
@@ -6233,7 +5457,6 @@
   "Automate burner-inserter": {
     "and": [
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       {
         "or": [
           "Operate assembling-machine-1",
@@ -6246,7 +5469,6 @@
   "Automate burner-mining-drill": {
     "and": [
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "Automate stone-furnace",
       {
         "or": [
@@ -6259,17 +5481,12 @@
   },
   "Automate calcite": {
     "or": [
+      "Reach vulcanus",
       {
         "and": [
           "Automate oxide-asteroid-chunk",
           "Operate crusher",
           "advanced-asteroid-processing"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach vulcanus"
         ]
       },
       {
@@ -6329,7 +5546,6 @@
   "Automate car": {
     "and": [
       "Automate engine-unit",
-      "Automate iron-plate",
       "Automate steel-plate",
       "automobilism",
       {
@@ -6357,7 +5573,13 @@
       },
       {
         "and": [
-          "Automate coal",
+          "Automate spoilage",
+          "Operate biochamber",
+          "biochamber"
+        ]
+      },
+      {
+        "and": [
           "Automate sulfuric-acid",
           "tungsten-carbide",
           {
@@ -6366,13 +5588,6 @@
               "Operate cryogenic-plant"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Automate spoilage",
-          "Operate biochamber",
-          "biochamber"
         ]
       }
     ]
@@ -6409,7 +5624,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -6511,7 +5726,6 @@
   "Automate cargo-wagon": {
     "and": [
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "Automate steel-plate",
       "railway",
       {
@@ -6601,45 +5815,8 @@
       }
     ]
   },
-  "Automate coal": {
-    "or": [
-      {
-        "and": [
-          "Automate carbon",
-          "Automate sulfur",
-          "Automate water",
-          "Operate chemical-plant",
-          "rocket-turret"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          {
-            "or": [
-              "Reach nauvis",
-              "Reach vulcanus"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate grenade",
-              "Automate poison-capsule",
-              "Automate slowdown-capsule"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Automate combat-shotgun": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
       "Automate steel-plate",
       "Automate wood",
@@ -6657,7 +5834,6 @@
     "or": [
       {
         "and": [
-          "Automate stone-brick",
           "Automate water",
           {
             "or": [
@@ -6671,7 +5847,6 @@
               },
               {
                 "and": [
-                  "Automate iron-ore",
                   "concrete",
                   {
                     "or": [
@@ -6738,52 +5913,8 @@
       }
     ]
   },
-  "Automate copper-bacteria": {
-    "and": [
-      "Reach gleba",
-      {
-        "or": [
-          {
-            "and": [
-              "Access copper-bacteria",
-              "Automate bioflux",
-              "Operate biochamber",
-              "bacteria-cultivation"
-            ]
-          },
-          {
-            "and": [
-              "Automate yumako-mash",
-              "yumako",
-              {
-                "or": [
-                  "Operate assembling-machine-2",
-                  "Operate assembling-machine-3",
-                  "Operate biochamber"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Automate copper-cable": {
     "or": [
-      {
-        "and": [
-          "Automate copper-plate",
-          "electronics",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3",
-              "Operate electromagnetic-plant"
-            ]
-          }
-        ]
-      },
       {
         "and": [
           "Automate molten-copper",
@@ -6821,69 +5952,16 @@
             ]
           }
         ]
-      }
-    ]
-  },
-  "Automate copper-ore": {
-    "or": [
-      "Automate copper-bacteria",
-      {
-        "and": [
-          "Automate metallic-asteroid-chunk",
-          "Operate crusher",
-          "advanced-asteroid-processing"
-        ]
       },
       {
         "and": [
-          "Can automate mining",
-          "Reach nauvis"
-        ]
-      }
-    ]
-  },
-  "Automate copper-plate": {
-    "or": [
-      {
-        "and": [
-          "Automate copper-ore",
+          "electronics",
           {
             "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Automate molten-copper",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate battery",
-              "Automate combat-shotgun",
-              "Automate copper-cable",
-              "Automate gun-turret",
-              "Automate heat-exchanger",
-              "Automate heat-pipe",
-              "Automate heavy-armor",
-              "Automate low-density-structure",
-              "Automate nuclear-reactor",
-              "Automate piercing-rounds-magazine",
-              "Automate piercing-shotgun-shell",
-              "Automate shotgun",
-              "Automate shotgun-shell",
-              "Automate solar-panel",
-              "Automate steam-turbine",
-              "Automate submachine-gun"
+              "Operate assembling-machine-1",
+              "Operate assembling-machine-2",
+              "Operate assembling-machine-3",
+              "Operate electromagnetic-plant"
             ]
           }
         ]
@@ -6892,6 +5970,7 @@
   },
   "Automate crude-oil": {
     "or": [
+      "Operate pumpjack",
       {
         "and": [
           "Automate crude-oil-barrel",
@@ -6900,23 +5979,6 @@
             "or": [
               "Operate assembling-machine-2",
               "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Can pump entities",
-          {
-            "or": [
-              "Reach nauvis",
-              {
-                "and": [
-                  "Can build on ice platforms",
-                  "Can heat buildings",
-                  "Reach aquilo"
-                ]
-              }
             ]
           }
         ]
@@ -7061,7 +6123,6 @@
   "Automate display-panel": {
     "and": [
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "circuit-network",
       {
         "or": [
@@ -7209,7 +6270,6 @@
     "and": [
       "Automate advanced-circuit",
       "Automate steel-plate",
-      "Automate stone-brick",
       "advanced-material-processing-2",
       {
         "or": [
@@ -7232,7 +6292,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           "electric-mining-drill",
           {
             "or": [
@@ -7250,7 +6309,6 @@
       "Access pipe",
       "Automate heavy-oil",
       "Automate holmium-solution",
-      "Automate stone",
       "Operate electromagnetic-plant",
       "electromagnetic-plant"
     ]
@@ -7289,7 +6347,6 @@
       {
         "and": [
           "Automate copper-cable",
-          "Automate iron-plate",
           "electronics",
           {
             "or": [
@@ -7519,7 +6576,6 @@
     "or": [
       {
         "and": [
-          "Automate coal",
           "Automate sulfur",
           "Automate water",
           "explosives",
@@ -7640,7 +6696,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate inserter",
-          "Automate iron-plate",
           "fast-inserter",
           {
             "or": [
@@ -7731,18 +6786,9 @@
   },
   "Automate firearm-magazine": {
     "or": [
-      {
-        "and": [
-          "Automate iron-plate",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
+      "Operate assembling-machine-1",
+      "Operate assembling-machine-2",
+      "Operate assembling-machine-3",
       {
         "and": [
           "Automate piercing-rounds-magazine",
@@ -7831,7 +6877,7 @@
     "and": [
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump entities",
+      "Operate pumpjack",
       "Reach aquilo"
     ]
   },
@@ -7948,7 +6994,6 @@
       "Automate carbon-fiber",
       "Automate fluoroketone-cold",
       "Automate lithium-plate",
-      "Automate stone",
       "Automate tungsten-plate",
       "foundation",
       {
@@ -8053,8 +7098,17 @@
     "or": [
       {
         "and": [
-          "Automate coal",
-          "Automate iron-plate",
+          "Operate recycler",
+          {
+            "or": [
+              "Automate cliff-explosives",
+              "Automate cluster-grenade"
+            ]
+          }
+        ]
+      },
+      {
+        "and": [
           "military-2",
           {
             "or": [
@@ -8064,25 +7118,12 @@
             ]
           }
         ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate cliff-explosives",
-              "Automate cluster-grenade"
-            ]
-          }
-        ]
       }
     ]
   },
   "Automate gun-turret": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "gun-turret",
       {
         "or": [
@@ -8108,7 +7149,6 @@
   },
   "Automate heat-exchanger": {
     "and": [
-      "Automate copper-plate",
       "Automate pipe",
       "Automate steel-plate",
       "Learn heat-exchanger",
@@ -8125,7 +7165,12 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
+          "Automate heating-tower",
+          "Operate recycler"
+        ]
+      },
+      {
+        "and": [
           "Automate steel-plate",
           "Learn heat-pipe",
           {
@@ -8135,12 +7180,6 @@
               "Operate assembling-machine-3"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Automate heating-tower",
-          "Operate recycler"
         ]
       }
     ]
@@ -8162,7 +7201,6 @@
   },
   "Automate heavy-armor": {
     "and": [
-      "Automate copper-plate",
       "Automate steel-plate",
       "heavy-armor",
       {
@@ -8178,6 +7216,13 @@
     "or": [
       {
         "and": [
+          "Access offshore-pump",
+          "Can harness lightning",
+          "Reach fulgora"
+        ]
+      },
+      {
+        "and": [
           "Automate heavy-oil-barrel",
           "fluid-handling",
           {
@@ -8186,13 +7231,6 @@
               "Operate assembling-machine-3"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Can harness lightning",
-          "Can pump tiles",
-          "Reach fulgora"
         ]
       },
       {
@@ -8208,7 +7246,6 @@
                       {
                         "and": [
                           "Access heavy-oil",
-                          "Automate coal",
                           "Automate steam",
                           "coal-liquefaction"
                         ]
@@ -8227,7 +7264,6 @@
               {
                 "and": [
                   "Automate calcite",
-                  "Automate coal",
                   "Automate sulfuric-acid",
                   "calcite-processing"
                 ]
@@ -8291,7 +7327,6 @@
   "Automate holmium-solution": {
     "and": [
       "Automate holmium-ore",
-      "Automate stone",
       "Automate water",
       "Operate chemical-plant",
       "holmium-processing"
@@ -8360,7 +7395,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           "electronics",
           {
             "or": [
@@ -8384,62 +7418,11 @@
       }
     ]
   },
-  "Automate iron-bacteria": {
-    "and": [
-      "Reach gleba",
-      {
-        "or": [
-          {
-            "and": [
-              "Access iron-bacteria",
-              "Automate bioflux",
-              "Operate biochamber",
-              "bacteria-cultivation"
-            ]
-          },
-          {
-            "and": [
-              "Automate jelly",
-              "jellynut",
-              {
-                "or": [
-                  "Operate assembling-machine-2",
-                  "Operate assembling-machine-3",
-                  "Operate biochamber"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Automate iron-chest": {
-    "and": [
-      "Automate iron-plate",
-      {
-        "or": [
-          "Operate assembling-machine-1",
-          "Operate assembling-machine-2",
-          "Operate assembling-machine-3"
-        ]
-      }
-    ]
-  },
   "Automate iron-gear-wheel": {
     "or": [
-      {
-        "and": [
-          "Automate iron-plate",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
+      "Operate assembling-machine-1",
+      "Operate assembling-machine-2",
+      "Operate assembling-machine-3",
       {
         "and": [
           "Automate molten-iron",
@@ -8507,49 +7490,8 @@
       }
     ]
   },
-  "Automate iron-ore": {
+  "Automate iron-stick": {
     "or": [
-      "Automate iron-bacteria",
-      {
-        "and": [
-          "Automate concrete",
-          "Operate recycler"
-        ]
-      },
-      {
-        "and": [
-          "Automate metallic-asteroid-chunk",
-          "Operate crusher",
-          {
-            "or": [
-              "advanced-asteroid-processing",
-              "space-platform"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          "Reach nauvis"
-        ]
-      }
-    ]
-  },
-  "Automate iron-plate": {
-    "or": [
-      {
-        "and": [
-          "Automate iron-ore",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
       {
         "and": [
           "Automate molten-iron",
@@ -8559,60 +7501,6 @@
       },
       {
         "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate accumulator",
-              "Automate assembling-machine-1",
-              "Automate battery",
-              "Automate biochamber",
-              "Automate burner-inserter",
-              "Automate burner-mining-drill",
-              "Automate car",
-              "Automate cargo-wagon",
-              "Automate display-panel",
-              "Automate electric-mining-drill",
-              "Automate electronic-circuit",
-              "Automate fast-inserter",
-              "Automate firearm-magazine",
-              "Automate grenade",
-              "Automate gun-turret",
-              "Automate inserter",
-              "Automate iron-chest",
-              "Automate iron-gear-wheel",
-              "Automate iron-stick",
-              "Automate light-armor",
-              "Automate long-handed-inserter",
-              "Automate pipe",
-              "Automate pipe-to-ground",
-              "Automate power-switch",
-              "Automate programmable-speaker",
-              "Automate radar",
-              "Automate rail-chain-signal",
-              "Automate rail-signal",
-              "Automate rocket",
-              "Automate rocket-launcher",
-              "Automate shotgun",
-              "Automate shotgun-shell",
-              "Automate small-lamp",
-              "Automate splitter",
-              "Automate steam-engine",
-              "Automate storage-tank",
-              "Automate submachine-gun",
-              "Automate train-stop",
-              "Automate transport-belt",
-              "Automate underground-belt"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Automate iron-stick": {
-    "or": [
-      {
-        "and": [
-          "Automate iron-plate",
           "Learn iron-stick",
           {
             "or": [
@@ -8621,13 +7509,6 @@
               "Operate assembling-machine-3"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Automate molten-iron",
-          "Operate foundry",
-          "foundry"
         ]
       },
       {
@@ -8673,7 +7554,7 @@
   "Automate jellynut": {
     "and": [
       "Access jellynut-seed",
-      "Can automate planting",
+      "Operate agricultural-tower",
       "Reach gleba"
     ]
   },
@@ -8738,19 +7619,6 @@
     "or": [
       {
         "and": [
-          "Automate stone",
-          "landfill",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
           "Operate recycler",
           {
             "or": [
@@ -8758,6 +7626,18 @@
               "Automate artificial-jellynut-soil",
               "Automate artificial-yumako-soil",
               "Automate biochamber"
+            ]
+          }
+        ]
+      },
+      {
+        "and": [
+          "landfill",
+          {
+            "or": [
+              "Operate assembling-machine-1",
+              "Operate assembling-machine-2",
+              "Operate assembling-machine-3"
             ]
           }
         ]
@@ -8794,24 +7674,6 @@
       }
     ]
   },
-  "Automate lava": {
-    "and": [
-      "Can pump tiles",
-      "Reach vulcanus"
-    ]
-  },
-  "Automate light-armor": {
-    "and": [
-      "Automate iron-plate",
-      {
-        "or": [
-          "Operate assembling-machine-1",
-          "Operate assembling-machine-2",
-          "Operate assembling-machine-3"
-        ]
-      }
-    ]
-  },
   "Automate light-oil": {
     "or": [
       {
@@ -8822,7 +7684,6 @@
               {
                 "and": [
                   "Access heavy-oil",
-                  "Automate coal",
                   "Automate steam",
                   "Operate oil-refinery",
                   "coal-liquefaction"
@@ -8903,7 +7764,6 @@
         "and": [
           "Automate copper-cable",
           "Automate steel-plate",
-          "Automate stone-brick",
           "Reach fulgora",
           "planet-discovery-fulgora",
           {
@@ -8943,7 +7803,7 @@
     "and": [
       "Can build on ice platforms",
       "Can heat buildings",
-      "Can pump entities",
+      "Operate pumpjack",
       "Reach aquilo"
     ]
   },
@@ -8952,14 +7812,7 @@
       {
         "and": [
           "Automate lithium",
-          "lithium-processing",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
+          "lithium-processing"
         ]
       },
       {
@@ -9007,6 +7860,7 @@
   },
   "Automate logistic-science-pack": {
     "and": [
+      "Access electric-mining-drill",
       "Automate inserter",
       "Automate transport-belt",
       "logistic-science-pack",
@@ -9023,7 +7877,6 @@
     "and": [
       "Automate inserter",
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "automation",
       {
         "or": [
@@ -9052,7 +7905,6 @@
               },
               {
                 "and": [
-                  "Automate copper-plate",
                   "Automate steel-plate",
                   "low-density-structure",
                   {
@@ -9173,7 +8025,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -9285,26 +8137,14 @@
     "and": [
       "Automate calcite",
       "Operate foundry",
-      "foundry",
-      {
-        "or": [
-          "Automate copper-ore",
-          "Automate lava"
-        ]
-      }
+      "foundry"
     ]
   },
   "Automate molten-iron": {
     "and": [
       "Automate calcite",
       "Operate foundry",
-      "foundry",
-      {
-        "or": [
-          "Automate iron-ore",
-          "Automate lava"
-        ]
-      }
+      "foundry"
     ]
   },
   "Automate night-vision-equipment": {
@@ -9333,7 +8173,6 @@
     "and": [
       "Automate advanced-circuit",
       "Automate concrete",
-      "Automate copper-plate",
       "Automate steel-plate",
       "nuclear-power",
       {
@@ -9428,7 +8267,6 @@
       "Automate iron-gear-wheel",
       "Automate pipe",
       "Automate steel-plate",
-      "Automate stone-brick",
       "oil-processing",
       {
         "or": [
@@ -9477,7 +8315,7 @@
     "or": [
       {
         "and": [
-          "Can collect asteroids",
+          "Operate asteroid-collector",
           {
             "or": [
               "Reach aquilo_orbit",
@@ -9647,7 +8485,6 @@
               {
                 "and": [
                   "Access heavy-oil",
-                  "Automate coal",
                   "Automate steam",
                   "Operate oil-refinery",
                   "coal-liquefaction"
@@ -9722,7 +8559,6 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
           "Automate firearm-magazine",
           "Automate steel-plate",
           "military-2",
@@ -9750,7 +8586,6 @@
   },
   "Automate piercing-shotgun-shell": {
     "and": [
-      "Automate copper-plate",
       "Automate shotgun-shell",
       "Automate steel-plate",
       "military-4",
@@ -9765,19 +8600,6 @@
   },
   "Automate pipe": {
     "or": [
-      {
-        "and": [
-          "Automate iron-plate",
-          "steam-power",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
       {
         "and": [
           "Automate molten-iron",
@@ -9807,6 +8629,18 @@
             ]
           }
         ]
+      },
+      {
+        "and": [
+          "steam-power",
+          {
+            "or": [
+              "Operate assembling-machine-1",
+              "Operate assembling-machine-2",
+              "Operate assembling-machine-3"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -9817,7 +8651,13 @@
         "or": [
           {
             "and": [
-              "Automate iron-plate",
+              "Automate molten-iron",
+              "Operate foundry",
+              "foundry"
+            ]
+          },
+          {
+            "and": [
               "steam-power",
               {
                 "or": [
@@ -9826,13 +8666,6 @@
                   "Operate assembling-machine-3"
                 ]
               }
-            ]
-          },
-          {
-            "and": [
-              "Automate molten-iron",
-              "Operate foundry",
-              "foundry"
             ]
           }
         ]
@@ -9851,7 +8684,6 @@
       },
       {
         "and": [
-          "Automate coal",
           "Automate petroleum-gas",
           "plastics",
           {
@@ -9881,7 +8713,6 @@
   },
   "Automate poison-capsule": {
     "and": [
-      "Automate coal",
       "Automate electronic-circuit",
       "Automate steel-plate",
       "military-3",
@@ -9940,7 +8771,6 @@
     "and": [
       "Automate copper-cable",
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "circuit-network",
       {
         "or": [
@@ -10109,7 +8939,6 @@
     "and": [
       "Automate copper-cable",
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "Automate iron-stick",
       "circuit-network",
       {
@@ -10123,10 +8952,10 @@
   },
   "Automate promethium-asteroid-chunk": {
     "and": [
-      "Can collect asteroids",
       "Can destroy big asteroids",
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
+      "Operate asteroid-collector",
       {
         "or": [
           "Reach shattered-planet",
@@ -10320,7 +9149,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           "radar",
           {
             "or": [
@@ -10350,7 +9178,6 @@
         "and": [
           "Automate iron-stick",
           "Automate steel-plate",
-          "Automate stone",
           "railway",
           {
             "or": [
@@ -10372,7 +9199,6 @@
   "Automate rail-chain-signal": {
     "and": [
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "automated-rail-transportation",
       {
         "or": [
@@ -10401,7 +9227,6 @@
   "Automate rail-signal": {
     "and": [
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "automated-rail-transportation",
       {
         "or": [
@@ -10466,10 +9291,8 @@
     "or": [
       {
         "and": [
-          "Access raw-fish",
           "Automate nutrients",
           "Automate water",
-          "Reach nauvis",
           "fish-breeding",
           {
             "or": [
@@ -10608,7 +9431,6 @@
       {
         "and": [
           "Automate explosives",
-          "Automate iron-plate",
           "rocketry",
           {
             "or": [
@@ -10682,7 +9504,6 @@
         "and": [
           "Automate electronic-circuit",
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           "rocketry",
           {
             "or": [
@@ -10756,7 +9577,6 @@
   },
   "Automate scrap": {
     "and": [
-      "Can automate mining",
       "Can harness lightning",
       "Reach fulgora"
     ]
@@ -10777,9 +9597,7 @@
   },
   "Automate shotgun": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "Automate wood",
       "military",
       {
@@ -10795,8 +9613,12 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
-          "Automate iron-plate",
+          "Automate piercing-shotgun-shell",
+          "Operate recycler"
+        ]
+      },
+      {
+        "and": [
           "military",
           {
             "or": [
@@ -10806,18 +9628,11 @@
             ]
           }
         ]
-      },
-      {
-        "and": [
-          "Automate piercing-shotgun-shell",
-          "Operate recycler"
-        ]
       }
     ]
   },
   "Automate slowdown-capsule": {
     "and": [
-      "Automate coal",
       "Automate electronic-circuit",
       "Automate steel-plate",
       "military-3",
@@ -10849,7 +9664,6 @@
     "and": [
       "Automate copper-cable",
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "lamp",
       {
         "or": [
@@ -10864,7 +9678,6 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
           "Automate electronic-circuit",
           "Automate steel-plate",
           "solar-energy",
@@ -11004,7 +9817,6 @@
     "and": [
       "Automate carbon",
       "Automate ice",
-      "Automate iron-plate",
       "space-science-pack",
       {
         "or": [
@@ -11131,7 +9943,6 @@
       {
         "and": [
           "Automate electronic-circuit",
-          "Automate iron-plate",
           "Automate transport-belt",
           "logistics",
           {
@@ -11250,7 +10061,7 @@
           "Automate water",
           {
             "or": [
-              "Operate boiler",
+              "Access boiler",
               "Operate heat-exchanger"
             ]
           }
@@ -11261,7 +10072,6 @@
   "Automate steam-engine": {
     "and": [
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "Automate pipe",
       "steam-power",
       {
@@ -11275,7 +10085,6 @@
   },
   "Automate steam-turbine": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
       "Automate pipe",
       "Learn steam-turbine",
@@ -11322,7 +10131,6 @@
   "Automate steel-furnace": {
     "and": [
       "Automate steel-plate",
-      "Automate stone-brick",
       "advanced-material-processing",
       {
         "or": [
@@ -11335,19 +10143,7 @@
   },
   "Automate steel-plate": {
     "or": [
-      {
-        "and": [
-          "Automate iron-plate",
-          "steel-processing",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
+      "steel-processing",
       {
         "and": [
           "Automate molten-iron",
@@ -11445,92 +10241,11 @@
       }
     ]
   },
-  "Automate stone": {
-    "or": [
-      {
-        "and": [
-          "Automate calcite",
-          "Automate lava",
-          "Operate foundry",
-          "foundry"
-        ]
-      },
-      {
-        "and": [
-          "Can automate mining",
-          {
-            "or": [
-              "Reach gleba",
-              "Reach nauvis"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate foundation",
-              "Automate rail",
-              "Automate stone-furnace",
-              {
-                "and": [
-                  "Automate scrap",
-                  "recycling"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "Automate stone-brick": {
-    "or": [
-      {
-        "and": [
-          "Automate stone",
-          {
-            "or": [
-              "Operate electric-furnace",
-              "Operate steel-furnace",
-              "Operate stone-furnace"
-            ]
-          }
-        ]
-      },
-      {
-        "and": [
-          "Operate recycler",
-          {
-            "or": [
-              "Automate concrete",
-              "Automate electric-furnace",
-              "Automate lightning-rod",
-              "Automate oil-refinery",
-              "Automate steel-furnace",
-              "Automate stone-wall"
-            ]
-          }
-        ]
-      }
-    ]
-  },
   "Automate stone-furnace": {
     "or": [
-      {
-        "and": [
-          "Automate stone",
-          {
-            "or": [
-              "Operate assembling-machine-1",
-              "Operate assembling-machine-2",
-              "Operate assembling-machine-3"
-            ]
-          }
-        ]
-      },
+      "Operate assembling-machine-1",
+      "Operate assembling-machine-2",
+      "Operate assembling-machine-3",
       {
         "and": [
           "Operate recycler",
@@ -11554,7 +10269,6 @@
       },
       {
         "and": [
-          "Automate stone-brick",
           "stone-wall",
           {
             "or": [
@@ -11592,7 +10306,6 @@
       },
       {
         "and": [
-          "Automate iron-plate",
           "Automate steel-plate",
           "fluid-handling",
           {
@@ -11608,9 +10321,7 @@
   },
   "Automate submachine-gun": {
     "and": [
-      "Automate copper-plate",
       "Automate iron-gear-wheel",
-      "Automate iron-plate",
       "military",
       {
         "or": [
@@ -11674,7 +10385,6 @@
     "or": [
       {
         "and": [
-          "Automate iron-plate",
           "Automate sulfur",
           "Automate water",
           "sulfur-processing",
@@ -11700,7 +10410,7 @@
       },
       {
         "and": [
-          "Can pump entities",
+          "Operate pumpjack",
           "Reach vulcanus"
         ]
       }
@@ -11753,7 +10463,6 @@
     "or": [
       {
         "and": [
-          "Automate copper-plate",
           "Automate holmium-plate",
           "Automate light-oil",
           "Automate plastic-bar",
@@ -11919,7 +10628,6 @@
   },
   "Automate thruster-oxidizer": {
     "and": [
-      "Automate iron-ore",
       "Automate water",
       "Operate chemical-plant",
       {
@@ -11996,7 +10704,6 @@
   "Automate train-stop": {
     "and": [
       "Automate electronic-circuit",
-      "Automate iron-plate",
       "Automate iron-stick",
       "Automate steel-plate",
       "automated-rail-transportation",
@@ -12014,7 +10721,6 @@
       {
         "and": [
           "Automate iron-gear-wheel",
-          "Automate iron-plate",
           {
             "or": [
               "Operate assembling-machine-1",
@@ -12073,7 +10779,7 @@
   },
   "Automate tungsten-ore": {
     "and": [
-      "Can mine hard solids",
+      "Operate big-mining-drill",
       "Reach vulcanus"
     ]
   },
@@ -12151,7 +10857,6 @@
       },
       {
         "and": [
-          "Automate iron-plate",
           "Automate transport-belt",
           "logistics",
           {
@@ -12250,7 +10955,6 @@
       },
       {
         "and": [
-          "Automate iron-plate",
           "Automate uranium-235",
           "Automate uranium-238",
           "nuclear-power",
@@ -12268,9 +10972,7 @@
   "Automate uranium-ore": {
     "and": [
       "Access sulfuric-acid",
-      "Can automate mining",
-      "Can mine with fluid",
-      "Reach nauvis"
+      "Can mine with fluid"
     ]
   },
   "Automate uranium-rounds-magazine": {
@@ -12304,6 +11006,7 @@
   },
   "Automate water": {
     "or": [
+      "Access offshore-pump",
       {
         "and": [
           "Automate ice",
@@ -12334,17 +11037,6 @@
             ]
           }
         ]
-      },
-      {
-        "and": [
-          "Can pump tiles",
-          {
-            "or": [
-              "Reach gleba",
-              "Reach nauvis"
-            ]
-          }
-        ]
       }
     ]
   },
@@ -12365,9 +11057,8 @@
     "or": [
       {
         "and": [
-          "Access tree-seed",
-          "Can automate planting",
-          "Reach nauvis"
+          "Operate agricultural-tower",
+          "tree-seeding"
         ]
       },
       {
@@ -12400,7 +11091,7 @@
   "Automate yumako": {
     "and": [
       "Access yumako-seed",
-      "Can automate planting",
+      "Operate agricultural-tower",
       "Reach gleba"
     ]
   },
@@ -12445,14 +11136,6 @@
       }
     ]
   },
-  "Can automate mining": {
-    "or": [
-      "Operate big-mining-drill",
-      "Operate burner-mining-drill",
-      "Operate electric-mining-drill"
-    ]
-  },
-  "Can automate planting": "Operate agricultural-tower",
   "Can build on ice platforms": {
     "or": [
       "Automate concrete",
@@ -12464,7 +11147,6 @@
   "Can capture biter spawners": {
     "and": [
       "Access capture-robot-rocket",
-      "Reach nauvis",
       {
         "or": [
           "Access rocket-launcher",
@@ -12474,7 +11156,6 @@
       }
     ]
   },
-  "Can collect asteroids": "Operate asteroid-collector",
   "Can destroy big asteroids": {
     "and": [
       "Access rocket-turret",
@@ -12494,7 +11175,7 @@
   },
   "Can destroy medium asteroids": {
     "and": [
-      "Access gun-turret",
+      "gun-turret",
       {
         "or": [
           "Automate firearm-magazine",
@@ -12543,7 +11224,6 @@
       }
     ]
   },
-  "Can generate electricity in space": "Access solar-panel",
   "Can harness lightning": {
     "or": [
       "Access lightning-collector",
@@ -12555,17 +11235,23 @@
       "Access heat-pipe",
       {
         "or": [
-          "Operate heating-tower",
+          "Access heating-tower",
           "Operate nuclear-reactor"
         ]
       }
     ]
   },
-  "Can mine hard solids": "Operate big-mining-drill",
-  "Can mine with fluid": "uranium-mining",
-  "Can pump entities": "Operate pumpjack",
-  "Can pump tiles": "Access offshore-pump",
-  "Can travel space": "Operate thruster",
+  "Can mine with fluid": {
+    "and": [
+      "uranium-mining",
+      {
+        "or": [
+          "Operate big-mining-drill",
+          "Operate electric-mining-drill"
+        ]
+      }
+    ]
+  },
   "Learn heat-exchanger": {
     "or": [
       "heating-tower",
@@ -12613,13 +11299,7 @@
   "Operate agricultural-tower": {
     "and": [
       "Access agricultural-tower",
-      "Supply electricity",
-      {
-        "or": [
-          "Reach gleba",
-          "Reach nauvis"
-        ]
-      }
+      "Supply electricity"
     ]
   },
   "Operate assembling-machine-1": {
@@ -12675,50 +11355,18 @@
   "Operate biochamber": {
     "and": [
       "Access biochamber",
-      "Supply nutrients"
+      "Access nutrients"
     ]
   },
   "Operate biolab": {
     "and": [
       "Access biolab",
-      "Reach nauvis",
       "Supply electricity"
-    ]
-  },
-  "Operate boiler": {
-    "and": [
-      "Access boiler",
-      "Supply chemical fuel",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
-    ]
-  },
-  "Operate burner-mining-drill": {
-    "and": [
-      "Access burner-mining-drill",
-      "Supply chemical fuel",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
     ]
   },
   "Operate captive-biter-spawner": {
     "and": [
-      "Reach nauvis",
-      "Supply food",
+      "Access bioflux",
       {
         "or": [
           "Access captive-biter-spawner",
@@ -12771,12 +11419,6 @@
       "Supply electricity"
     ]
   },
-  "Operate electric-furnace": {
-    "and": [
-      "Access electric-furnace",
-      "Supply electricity"
-    ]
-  },
   "Operate electric-mining-drill": {
     "and": [
       "Access electric-mining-drill",
@@ -12798,36 +11440,21 @@
   "Operate fusion-generator": {
     "and": [
       "Access fusion-generator",
-      "Supply fusion plasma"
+      "Operate fusion-reactor"
     ]
   },
   "Operate fusion-reactor": {
     "and": [
       "Access fluoroketone-cold",
+      "Access fusion-power-cell",
       "Access fusion-reactor",
-      "Supply electricity",
-      "Supply fusion fuel"
+      "Supply electricity"
     ]
   },
   "Operate heat-exchanger": {
     "and": [
       "Access heat-exchanger",
       "Supply heat"
-    ]
-  },
-  "Operate heating-tower": {
-    "and": [
-      "Access heating-tower",
-      "Supply chemical fuel",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
     ]
   },
   "Operate lab": {
@@ -12839,7 +11466,7 @@
   "Operate nuclear-reactor": {
     "and": [
       "Access nuclear-reactor",
-      "Supply nuclear fuel"
+      "Access uranium-fuel-cell"
     ]
   },
   "Operate oil-refinery": {
@@ -12869,58 +11496,19 @@
   "Operate rocket-silo": {
     "and": [
       "Access rocket-silo",
-      "Supply electricity",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
+      "Supply electricity"
     ]
   },
   "Operate steam-engine": {
     "and": [
-      "Access steam-engine",
-      "Supply steam 165C"
+      "Access steam",
+      "Access steam-engine"
     ]
   },
   "Operate steam-turbine": {
     "and": [
       "Access steam-turbine",
-      "Supply steam 500C"
-    ]
-  },
-  "Operate steel-furnace": {
-    "and": [
-      "Access steel-furnace",
-      "Supply chemical fuel",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
-    ]
-  },
-  "Operate stone-furnace": {
-    "and": [
-      "Access stone-furnace",
-      "Supply chemical fuel",
-      {
-        "or": [
-          "Reach aquilo",
-          "Reach fulgora",
-          "Reach gleba",
-          "Reach nauvis",
-          "Reach vulcanus"
-        ]
-      }
+      "Access steam_500C"
     ]
   },
   "Operate thruster": {
@@ -12957,11 +11545,11 @@
   },
   "Reach aquilo-solar-system-edge": {
     "and": [
+      "Access solar-panel",
       "Can destroy big asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "planet-discovery-aquilo",
       "promethium-science-pack",
       {
@@ -12984,17 +11572,11 @@
         "or": [
           {
             "and": [
-              "Automate rocket-part",
-              "Reach aquilo"
-            ]
-          },
-          {
-            "and": [
+              "Access solar-panel",
               "Can destroy big asteroids",
               "Can destroy medium asteroids",
               "Can generate electricity in dark space",
-              "Can generate electricity in space",
-              "Can travel space",
+              "Operate thruster",
               {
                 "or": [
                   "Reach fulgora-aquilo",
@@ -13007,6 +11589,12 @@
                   }
                 ]
               }
+            ]
+          },
+          {
+            "and": [
+              "Automate rocket-part",
+              "Reach aquilo"
             ]
           }
         ]
@@ -13021,9 +11609,9 @@
   },
   "Reach fulgora-aquilo": {
     "and": [
+      "Access solar-panel",
       "Can destroy medium asteroids",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "planet-discovery-aquilo",
       "planet-discovery-fulgora",
       {
@@ -13047,15 +11635,9 @@
         "or": [
           {
             "and": [
-              "Automate rocket-part",
-              "Reach fulgora"
-            ]
-          },
-          {
-            "and": [
+              "Access solar-panel",
               "Can destroy medium asteroids",
-              "Can generate electricity in space",
-              "Can travel space",
+              "Operate thruster",
               {
                 "or": [
                   "Reach gleba-fulgora",
@@ -13070,6 +11652,12 @@
                 ]
               }
             ]
+          },
+          {
+            "and": [
+              "Automate rocket-part",
+              "Reach fulgora"
+            ]
           }
         ]
       }
@@ -13083,9 +11671,9 @@
   },
   "Reach gleba-aquilo": {
     "and": [
+      "Access solar-panel",
       "Can destroy medium asteroids",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "planet-discovery-aquilo",
       "planet-discovery-gleba",
       {
@@ -13104,9 +11692,9 @@
   },
   "Reach gleba-fulgora": {
     "and": [
+      "Access solar-panel",
       "Can destroy medium asteroids",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "planet-discovery-fulgora",
       "planet-discovery-gleba",
       {
@@ -13124,15 +11712,9 @@
         "or": [
           {
             "and": [
-              "Automate rocket-part",
-              "Reach gleba"
-            ]
-          },
-          {
-            "and": [
+              "Access solar-panel",
               "Can destroy medium asteroids",
-              "Can generate electricity in space",
-              "Can travel space",
+              "Operate thruster",
               {
                 "or": [
                   "Reach gleba-fulgora",
@@ -13148,16 +11730,21 @@
                 ]
               }
             ]
+          },
+          {
+            "and": [
+              "Automate rocket-part",
+              "Reach gleba"
+            ]
           }
         ]
       }
     ]
   },
-  "Reach nauvis": "(always)",
   "Reach nauvis-fulgora": {
     "and": [
-      "Can generate electricity in space",
-      "Can travel space",
+      "Access solar-panel",
+      "Operate thruster",
       "planet-discovery-fulgora",
       {
         "or": [
@@ -13174,8 +11761,8 @@
   },
   "Reach nauvis-gleba": {
     "and": [
-      "Can generate electricity in space",
-      "Can travel space",
+      "Access solar-panel",
+      "Operate thruster",
       "planet-discovery-gleba",
       {
         "or": [
@@ -13192,8 +11779,8 @@
   },
   "Reach nauvis-vulcanus": {
     "and": [
-      "Can generate electricity in space",
-      "Can travel space",
+      "Access solar-panel",
+      "Operate thruster",
       "planet-discovery-vulcanus",
       {
         "or": [
@@ -13210,17 +11797,12 @@
   },
   "Reach nauvis_orbit": {
     "or": [
+      "Automate rocket-part",
       {
         "and": [
-          "Automate rocket-part",
-          "Reach nauvis"
-        ]
-      },
-      {
-        "and": [
+          "Access solar-panel",
           "Can destroy medium asteroids",
-          "Can generate electricity in space",
-          "Can travel space",
+          "Operate thruster",
           {
             "or": [
               "Reach nauvis-fulgora",
@@ -13234,24 +11816,24 @@
   },
   "Reach shattered-planet": {
     "and": [
+      "Access solar-panel",
       "Can destroy big asteroids",
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "Reach solar-system-edge-shattered-planet",
       "promethium-science-pack"
     ]
   },
   "Reach solar-system-edge": {
     "and": [
+      "Access solar-panel",
       "Can destroy big asteroids",
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "promethium-science-pack",
       {
         "or": [
@@ -13263,12 +11845,12 @@
   },
   "Reach solar-system-edge-shattered-planet": {
     "and": [
+      "Access solar-panel",
       "Can destroy big asteroids",
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "promethium-science-pack",
       {
         "or": [
@@ -13286,9 +11868,9 @@
   },
   "Reach vulcanus-gleba": {
     "and": [
+      "Access solar-panel",
       "Can destroy medium asteroids",
-      "Can generate electricity in space",
-      "Can travel space",
+      "Operate thruster",
       "planet-discovery-gleba",
       "planet-discovery-vulcanus",
       {
@@ -13306,15 +11888,9 @@
         "or": [
           {
             "and": [
-              "Automate rocket-part",
-              "Reach vulcanus"
-            ]
-          },
-          {
-            "and": [
+              "Access solar-panel",
               "Can destroy medium asteroids",
-              "Can generate electricity in space",
-              "Can travel space",
+              "Operate thruster",
               {
                 "or": [
                   "Reach nauvis-vulcanus",
@@ -13322,29 +11898,15 @@
                 ]
               }
             ]
+          },
+          {
+            "and": [
+              "Automate rocket-part",
+              "Reach vulcanus"
+            ]
           }
         ]
       }
-    ]
-  },
-  "Supply chemical fuel": {
-    "or": [
-      "Access biter-egg",
-      "Access carbon",
-      "Access coal",
-      "Access jelly",
-      "Access jellynut",
-      "Access jellynut-seed",
-      "Access nuclear-fuel",
-      "Access pentapod-egg",
-      "Access rocket-fuel",
-      "Access solid-fuel",
-      "Access spoilage",
-      "Access tree-seed",
-      "Access wood",
-      "Access yumako",
-      "Access yumako-mash",
-      "Access yumako-seed"
     ]
   },
   "Supply electricity": {
@@ -13369,29 +11931,33 @@
       }
     ]
   },
-  "Supply food": "Access bioflux",
-  "Supply fusion fuel": "Access fusion-power-cell",
-  "Supply fusion plasma": "Operate fusion-reactor",
   "Supply heat": {
     "and": [
       "Access heat-pipe",
       {
         "or": [
-          "Operate heating-tower",
+          "Access heating-tower",
           "Operate nuclear-reactor"
         ]
       }
     ]
   },
-  "Supply nuclear fuel": "Access uranium-fuel-cell",
-  "Supply nutrients": "Access nutrients",
-  "Supply steam 165C": "Access steam",
-  "Supply steam 500C": "Access steam_500C",
   "Supply thruster fuel": {
     "and": [
       "Access pipe",
       "Automate thruster-fuel",
-      "Automate thruster-oxidizer"
+      "Automate thruster-oxidizer",
+      {
+        "or": [
+          "Automate water-barrel",
+          {
+            "and": [
+              "Automate ice",
+              "space-platform-thruster"
+            ]
+          }
+        ]
+      }
     ]
   },
   "advanced-asteroid-processing": {
@@ -13607,7 +12173,7 @@
   },
   "automation": {
     "and": [
-      "Access automation-science-pack",
+      "automation-science-pack",
       {
         "or": [
           "Operate biolab",
@@ -14228,7 +12794,7 @@
   },
   "electromagnetic-plant": "Access holmium-plate",
   "electromagnetic-science-pack": "Access supercapacitor",
-  "electronics": "Access copper-plate",
+  "electronics": "(always)",
   "elevated-rail": {
     "and": [
       "Automate automation-science-pack",
@@ -15332,23 +13898,7 @@
       }
     ]
   },
-  "oil-processing": {
-    "and": [
-      "Can pump entities",
-      {
-        "or": [
-          "Reach nauvis",
-          {
-            "and": [
-              "Can build on ice platforms",
-              "Can heat buildings",
-              "Reach aquilo"
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "oil-processing": "Operate pumpjack",
   "overgrowth-soil": {
     "and": [
       "Automate agricultural-science-pack",
@@ -16329,7 +14879,7 @@
       }
     ]
   },
-  "steam-power": "Access iron-plate",
+  "steam-power": "(always)",
   "steel-axe": "Access steel-plate",
   "steel-plate-productivity": {
     "and": [
@@ -16638,9 +15188,7 @@
   "uranium-processing": {
     "and": [
       "Access sulfuric-acid",
-      "Can automate mining",
-      "Can mine with fluid",
-      "Reach nauvis"
+      "Can mine with fluid"
     ]
   },
   "utility-science-pack": {

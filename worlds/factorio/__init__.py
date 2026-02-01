@@ -7,7 +7,11 @@ from worlds.AutoWorld import World, WebWorld
 
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
-from .Technologies import compile_expr, logic_events, advancement_technologies, ap_item_name_to_id, ap_location_name_to_id
+from .Technologies import (
+    compile_expr, logic_events,
+    ap_item_name_to_id, ap_location_name_to_id,
+    advancement_technologies, never_give_free_samples_from_recipes,
+)
 
 
 def _register_client():
@@ -73,9 +77,21 @@ class Factorio(World):
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
-        return # TODO: explicit parameters instead of handing over the self.
+        return # TODO
+        free_sample_excludes = set()
+        free_sample_excludes.update(world.options.free_sample_blacklist.value)
+        for item in world.options.free_sample_whitelist.value:
+            del free_sample_excludes[item]
+        free_sample_excludes.update(never_give_free_samples_from_recipes)
+
         from .Mod import generate_mod
-        generate_mod(self, output_directory)
+        generate_mod(
+            player=self.player,
+            seed_name=self.multiworld.seed_name,
+            random=self.random,
+            free_sample_excludes=free_sample_excludes,
+            output_directory=output_directory,
+        )
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
@@ -118,7 +134,7 @@ class Factorio(World):
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
         found_victory_event = False
-        for event_name, expr in logic_events.items():
+        for event_name, expr in sorted(logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             try:
                 event_type, sub_name = event_name.split(" ", 1)
             except ValueError:
@@ -127,6 +143,8 @@ class Factorio(World):
                 # This is a proper item and corresponding location.
                 locked = sub_name in (
                     # These are critical at the start.
+                    # The algorithm might swap things around, but starting with these vanilla location/item locks
+                    # prevents a naive shuffle from failing to find a path out of early game.
                     "steam-power",
                     "elecetronics",
                     "automation-science-pack",

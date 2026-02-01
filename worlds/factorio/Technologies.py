@@ -4,9 +4,6 @@ from collections import defaultdict, Counter
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
-# TODO: "Can mine with fluid" needs to require one of the fluid-enabled drills.
-# TODO: thruster fuel needs to require either ice or fluid handling (to get water in space).
-
 from .data import (
     get_data,
     Entity as RawEntity,
@@ -35,7 +32,7 @@ class Capability(IntFlag):
     heat_buildings                     = 1<< 8 # heating tower or nuclear reactor
     build_on_ice_platforms             = 1<< 9 # concrete
     collect_asteroids                  = 1<<10 # asteroid collector
-    travel_space                       = 1<<11 # thruster
+    travel_space                       = 1<<11 # thruster and either ice or water barrel
     generate_electricity_in_space      = 1<<12 # solar panel
     generate_electricity_in_dark_space = 1<<13 # nuclear or fusion
     destroy_medium_asteroids           = 1<<14 # gun turret
@@ -144,8 +141,6 @@ class Recipe:
     """ this recipe can be performed in any of these machines, possibly including 'character' for hand crafting. None means this is a spoiling process. """
     locations: set[str] | None
     """ this recipe must be performed in one of these locations. None means anywhere. """
-    is_unusual_recipe: bool
-    """ true for barreling/unbarreling, rocket part, and biter egg. these should be excluded from free samples. """
 
 SPOILING_SUFFIX = "_spoiling"
 OPERATION_SUFFIX = "_operation"
@@ -255,6 +250,7 @@ advancement_technologies: set[str] = set()
 never_inline_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
+never_give_free_samples_from_recipes: set[str] = set()
 
 # ==================
 # Hardcoded constants that we don't have a good way to derrive from the data:
@@ -373,6 +369,10 @@ _resource_category_to_capbility = {
    "basic-fluid": Capability.pump_entities,
 }
 
+_mining_drills_with_fluid_connections = {
+    RawEntity.electric_mining_drill,
+    RawEntity.big_mining_drill,
+}
 _automated_planting_machines = {
     RawEntity.agricultural_tower,
 }
@@ -700,6 +700,7 @@ def init():
 
     crafting_category_to_machines = defaultdict(set)
     mining_capability_to_machines = defaultdict(set)
+    mining_drills_with_fluid_connections = set()
     automated_planting_machines = set()
     lightning_harnessing_machines = set()
     asteroid_collecting_machines = set()
@@ -727,6 +728,8 @@ def init():
         # Mining buildings and the character:
         for category in entity.get("resource_categories", ()):
             mining_capability_to_machines[_resource_category_to_capbility[category]].add(entity_name)
+            if entity_name in _mining_drills_with_fluid_connections:
+                mining_drills_with_fluid_connections.add(entity_name)
             is_machine = True
         # agricultural tower:
         if entity_name in _automated_planting_machines:
@@ -907,10 +910,12 @@ def init():
             )
         else:
             locations = None
-        # Should this be excluded from free samples?
-        is_unusual_recipe = recipe_data["hidden_from_player_crafting"]
 
-        recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations, is_unusual_recipe)
+        recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations)
+
+        if recipe_data["hidden_from_player_crafting"]:
+            # Exclude barreling/unbarreling, rocket part, and biter egg from free samples.
+            never_give_free_samples_from_recipes.add(recipe_name)
 
     # Spoiling is like a recipe.
     for item_name, item_data in get_data()["item"].items():
@@ -921,7 +926,7 @@ def init():
             inputs={item_name:1}, outputs={product:1},
             energy=3600, # FIXME: Find the spoilage time in the data.
             classification=RecipeClassification.standard,
-            machines=None, locations=None, is_unusual_recipe=False,
+            machines=None, locations=None,
         )
         starting_recipes.add(recipe_name)
 
@@ -931,7 +936,7 @@ def init():
         recipes[recipe_name] = Recipe(recipe_name,
             inputs={RawFluid.water: 6}, outputs={RawFluid.steam: 60},
             energy=1, classification=RecipeClassification.standard,
-            machines={machine_name}, locations=None, is_unusual_recipe=False,
+            machines={machine_name}, locations=None,
         )
         starting_recipes.add(recipe_name)
     for machine_name in water_boilers_500C:
@@ -945,7 +950,7 @@ def init():
                 RawFluid.steam: 103,
             },
             energy=1, classification=RecipeClassification.standard,
-            machines={machine_name}, locations=None, is_unusual_recipe=False,
+            machines={machine_name}, locations=None,
         )
         starting_recipes.add(recipe_name)
 
@@ -1095,8 +1100,8 @@ def init():
                 ] if space_location.launch_to else []),
             ]},
         ]}
-        if space_location.launch_to != None or space_location.name == RawSpaceLocation.solar_system_edge:
-            never_inline_events.add(fmt_reach_location(space_location.name))
+        #if space_location.launch_to != None or space_location.name == RawSpaceLocation.solar_system_edge:
+        #    never_inline_events.add(fmt_reach_location(space_location.name))
     # Discover them too.
     for name, techs in space_location_to_unlocking_technologies.items():
         logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
@@ -1112,7 +1117,10 @@ def init():
                 if name != RawEntity.character # Smacking rocks does not count as automating mining.
             ]}
         elif capability == Capability.mine_with_fluid:
-            expr = {"or": [fmt_unlock_research(name) for name in mining_with_fluid_unlocking_technologies]}
+            expr = {"and": [
+                {"or": [fmt_unlock_research(name) for name in mining_with_fluid_unlocking_technologies]},
+                {"or": [fmt_operate_machine(name) for name in mining_drills_with_fluid_connections]},
+            ]}
         elif capability == Capability.pump_tiles:
             expr = {"or": [fmt_operate_machine(name) for name in tile_mining_machines]}
         elif capability == Capability.automate_planting:
@@ -1213,7 +1221,7 @@ def init():
 
         logic_events[fmt_capability(capability)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
-        never_inline_events.add(fmt_capability(capability))
+        #never_inline_events.add(fmt_capability(capability))
 
     # Machines
     for machine_name, machine in machines.items():
@@ -1268,11 +1276,21 @@ def init():
                 fmt_automate_item(RawFluid.thruster_fuel),
                 fmt_automate_item(RawFluid.thruster_oxidizer),
                 {"or": [fmt_access_item(machine) for machine in fluid_conduit_machines]},
+                # Also need water in space.
+                {"or": [
+                    # The usual way.
+                    {"and": [
+                        fmt_automate_item(RawItem.ice),
+                        fmt_learn_recipe(RawRecipe.ice_melting),
+                    ]},
+                    # Technically works.
+                    fmt_automate_item(RawItem.water_barrel),
+                ]},
             ]}
         else: assert False, "forgot a PowerType: " + repr(power_type)
         logic_events[fmt_supply_power(power_type)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
-        never_inline_events.add(fmt_supply_power(power_type))
+        #never_inline_events.add(fmt_supply_power(power_type))
 
     # Research
     for technology_name, technology in technologies.items():
@@ -1401,6 +1419,9 @@ def init():
                     recipe_exprs.append({"or": machine_exprs})
                 if recipe.locations != None:
                     recipe_exprs.append({"or": [fmt_reach_location(location_name) for location_name in recipe.locations]})
+                if item_name == RawItem.logistic_science_pack and fmt_automate_or_access is fmt_automate_item: # TODO: allow disablign this in the options?
+                    # Don't let the player go too long without electric mining drills.
+                    recipe_exprs.append(fmt_access_item(RawItem.electric_mining_drill))
                 source_exprs.append({"and": recipe_exprs})
             logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 

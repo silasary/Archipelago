@@ -13951,6 +13951,7 @@
   },
   "Automate logistic-science-pack": {
     "and": [
+      "Access electric-mining-drill",
       "Automate inserter",
       "Automate transport-belt",
       "Learn logistic-science-pack",
@@ -18825,7 +18826,17 @@
     ]
   },
   "Can mine hard solids": "Operate big-mining-drill",
-  "Can mine with fluid": "uranium-mining",
+  "Can mine with fluid": {
+    "and": [
+      "uranium-mining",
+      {
+        "or": [
+          "Operate big-mining-drill",
+          "Operate electric-mining-drill"
+        ]
+      }
+    ]
+  },
   "Can pump entities": "Operate pumpjack",
   "Can pump tiles": "Operate offshore-pump",
   "Can travel space": "Operate thruster",
@@ -20430,7 +20441,18 @@
     "and": [
       "Access pipe",
       "Automate thruster-fuel",
-      "Automate thruster-oxidizer"
+      "Automate thruster-oxidizer",
+      {
+        "or": [
+          "Automate water-barrel",
+          {
+            "and": [
+              "Automate ice",
+              "Learn ice-melting"
+            ]
+          }
+        ]
+      }
     ]
   },
   "advanced-asteroid-processing": {

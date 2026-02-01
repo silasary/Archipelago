@@ -3,16 +3,19 @@
 require "lib"
 require "util"
 
-FREE_SAMPLES = {{ free_samples }}
 SLOT_NAME = "{{ slot_name }}"
 SEED_NAME = "{{ seed_name }}"
-FREE_SAMPLE_BLACKLIST = {{ dict_to_lua(free_sample_blacklist) }}
+ARCHIPELAGO_DEATH_LINK_SETTING = {{ deathlink_setting_name }}
+
 TRAP_EVO_FACTOR = {{ evolution_trap_increase }} / 100
-MAX_SCIENCE_PACK = {{ max_science_pack }}
 GOAL = {{ goal }}
-ARCHIPELAGO_DEATH_LINK_SETTING = "archipelago-death-link-{{ slot_player }}-{{ seed_name }}"
 ENERGY_INCREMENT = {{ energy_link * 10000000 }}
 ENERGY_LINK_EFFICIENCY = 0.75
+ALLOW_IMPORTED_BLUEPRINTS = {{ allow_imported_blueprints }}
+
+FREE_SAMPLES = {{ free_samples }}
+FREE_SAMPLE_EXCLUDES = {{ dict_to_lua(free_sample_excludes) }}
+
 
 if settings.global[ARCHIPELAGO_DEATH_LINK_SETTING].value then
     DEATH_LINK = 1
@@ -22,118 +25,6 @@ end
 
 CURRENTLY_DEATH_LOCK = 0
 
-{% if chunk_shuffle %}
-LAST_POSITIONS = {}
-GENERATOR = nil
-NORTH = 1
-EAST = 2
-SOUTH = 3
-WEST = 4
-ER_COLOR = {1, 1, 1, 0.2}
-ER_SEED = {{ random.randint(4294967295, 2*4294967295)}}
-CURRENTLY_MOVING = false
-ER_FRAMES = {}
-CHUNK_OFFSET = {
-[NORTH] = {0, 1},
-[EAST] = {1, 0},
-[SOUTH] = {0, -1},
-[WEST] = {-1, 0}
-}
-
-
-function on_player_changed_position(event)
-    if CURRENTLY_MOVING == true then
-        return
-    end
-    local player_id = event.player_index
-    local player = game.get_player(player_id)
-    local character = player.character -- can be nil, such as spectators
-
-    if character == nil then
-        return
-    end
-    local last_position = LAST_POSITIONS[player_id]
-    if last_position == nil then
-        LAST_POSITIONS[player_id] = character.position
-        return
-    end
-
-    last_x_chunk = math.floor(last_position.x / 32)
-    current_x_chunk = math.floor(character.position.x / 32)
-    last_y_chunk = math.floor(last_position.y / 32)
-    current_y_chunk = math.floor(character.position.y / 32)
-    if (ER_FRAMES[player_id] ~= nil and rendering.is_valid(ER_FRAMES[player_id])) then
-        rendering.destroy(ER_FRAMES[player_id])
-    end
-    ER_FRAMES[player_id] = rendering.draw_rectangle{
-        color=ER_COLOR, width=1, filled=false, left_top = {current_x_chunk*32, current_y_chunk*32},
-        right_bottom={current_x_chunk*32+32, current_y_chunk*32+32}, players={player}, time_to_live=60,
-        draw_on_ground= true, only_in_alt_mode = true, surface=character.surface}
-    if current_x_chunk == last_x_chunk and current_y_chunk == last_y_chunk then -- nothing needs doing
-        return
-    end
-    if ((last_position.x - character.position.x) ^ 2 + (last_position.y - character.position.y) ^ 2) > 4000 then
-        -- distance too high, death or other teleport took place
-        LAST_POSITIONS[player_id] = character.position
-        return
-    end
-    -- we'll need a deterministic random state
-    if GENERATOR == nil or not GENERATOR.valid then
-        GENERATOR = game.create_random_generator()
-    end
-
-    -- sufficiently random pattern
-    GENERATOR.re_seed((ER_SEED + (last_x_chunk * 1730000000) + (last_y_chunk * 97000)) % 4294967295)
-    -- we now need all 4 exit directions deterministically shuffled to the 4 outgoing directions.
-    local exit_table = {
-    [1] = 1,
-    [2] = 2,
-    [3] = 3,
-    [4] = 4
-    }
-    exit_table = fisher_yates_shuffle(exit_table)
-    if current_x_chunk > last_x_chunk then -- going right/east
-        outbound_direction = EAST
-    elseif current_x_chunk < last_x_chunk then -- going left/west
-        outbound_direction = WEST
-    end
-
-    if current_y_chunk > last_y_chunk then -- going down/south
-        outbound_direction = SOUTH
-    elseif current_y_chunk < last_y_chunk then -- going up/north
-        outbound_direction = NORTH
-    end
-    local target_direction = exit_table[outbound_direction]
-
-    local target_position = {(CHUNK_OFFSET[target_direction][1] + last_x_chunk) * 32 + 16,
-                             (CHUNK_OFFSET[target_direction][2] + last_y_chunk) * 32 + 16}
-    target_position = character.surface.find_non_colliding_position(character.prototype.name,
-                                                                    target_position, 32, 0.5)
-    if target_position ~= nil then
-        rendering.draw_circle{color = ER_COLOR, radius = 1, filled = true,
-                              target = {character.position.x, character.position.y}, surface = character.surface,
-                              time_to_live = 300, draw_on_ground = true}
-        rendering.draw_line{color = ER_COLOR, width = 3, gap_length = 0.5, dash_length = 0.5,
-                            from = {character.position.x, character.position.y}, to = target_position,
-                            surface = character.surface,
-                            time_to_live = 300, draw_on_ground = true}
-        CURRENTLY_MOVING = true -- prevent recursive event
-        character.teleport(target_position)
-        CURRENTLY_MOVING = false
-    end
-    LAST_POSITIONS[player_id] = character.position
-end
-
-function fisher_yates_shuffle(tbl)
-    for i = #tbl, 2, -1 do
-        local j = GENERATOR(i)
-        tbl[i], tbl[j] = tbl[j], tbl[i]
-    end
-    return tbl
-end
-
-script.on_event(defines.events.on_player_changed_position, on_player_changed_position)
-{% endif %}
 -- Handle the pathfinding result of teleport traps
 script.on_event(defines.events.on_script_path_request_finished, handle_teleport_attempt)
 
@@ -231,58 +122,13 @@ if (ENERGY_INCREMENT) then
     script.on_event({defines.events.on_robot_mined_entity}, function(event) on_energy_bridge_removed(event.entity) end)
 end
 
-{% if not imported_blueprints -%}
 function set_permissions()
-    local group = game.permissions.get_group("Default")
-    group.set_allows_action(defines.input_action.open_blueprint_library_gui, false)
-    group.set_allows_action(defines.input_action.import_blueprint, false)
-    group.set_allows_action(defines.input_action.import_blueprint_string, false)
-    group.set_allows_action(defines.input_action.import_blueprints_filtered, false)
-end
-{%- endif %}
-
-
-function check_spawn_silo(force)
-    if force.players and #force.players > 0 and force.get_entity_count("rocket-silo") < 1 then
-        local surface = game.get_surface(1)
-        local spawn_position = force.get_spawn_position(surface)
-        spawn_entity(surface, force, "rocket-silo", spawn_position.x, spawn_position.y, 80, true, true)
-        spawn_entity(surface, force, "cargo-landing-pad", spawn_position.x, spawn_position.y, 80, true, true)
-    end
-end
-
-function check_despawn_silo(force)
-    if not force.players or #force.players < 1 then
-        if force.get_entity_count("rocket-silo") > 0 then
-            local surface = game.get_surface(1)
-            local spawn_position = force.get_spawn_position(surface)
-            local x1 = spawn_position.x - 41
-            local x2 = spawn_position.x + 41
-            local y1 = spawn_position.y - 41
-            local y2 = spawn_position.y + 41
-            local silos = surface.find_entities_filtered{area = { {x1, y1}, {x2, y2} },
-                                                         name = "rocket-silo",
-                                                         force = force}
-            for i, silo in ipairs(silos) do
-                silo.destructible = true
-                silo.destroy()
-            end
-        end
-        if force.get_entity_count("cargo-landing-pad") > 0 then
-            local surface = game.get_surface(1)
-            local spawn_position = force.get_spawn_position(surface)
-            local x1 = spawn_position.x - 41
-            local x2 = spawn_position.x + 41
-            local y1 = spawn_position.y - 41
-            local y2 = spawn_position.y + 41
-            local pads = surface.find_entities_filtered{area = { {x1, y1}, {x2, y2} },
-                                                        name = "cargo-landing-pad",
-                                                        force = force}
-            for i, pad in ipairs(pads) do
-                pad.destructible = true
-                pad.destroy()
-            end
-        end
+    if not ALLOW_IMPORTED_BLUEPRINTS then
+        local group = game.permissions.get_group("Default")
+        group.set_allows_action(defines.input_action.open_blueprint_library_gui, false)
+        group.set_allows_action(defines.input_action.import_blueprint, false)
+        group.set_allows_action(defines.input_action.import_blueprint_string, false)
+        group.set_allows_action(defines.input_action.import_blueprints_filtered, false)
     end
 end
 
@@ -300,20 +146,11 @@ function on_force_created(event)
     data["energy"] = 0
     data["energy_bridges"] = 0
     storage.forcedata[event.force] = data
-{%- if silo == 2 %}
-    check_spawn_silo(force)
-{%- endif %}
-{%- for tech_name in removed_technologies %}
-    force.technologies["{{ tech_name }}"].researched = true
-{%- endfor %}
 end
 script.on_event(defines.events.on_force_created, on_force_created)
 
 -- Destroy force data.  This doesn't appear to be currently possible with the Factorio API, but here for completeness.
 function on_force_destroyed(event)
-{%- if silo == 2 %}
-    check_despawn_silo(event.force)
-{%- endif %}
     storage.forcedata[event.force.name] = nil
 end
 
@@ -348,21 +185,9 @@ function on_player_created(event)
     data['pending_samples'] = table.deepcopy(storage.forcedata[player.force.name]['earned_samples'])
     storage.playerdata[player.index] = data
     update_player(player.index)  -- Attempt to send pending free samples, if relevant.
-{%- if silo == 2 %}
-    check_spawn_silo(game.players[event.player_index].force)
-{%- endif %}
     dumpInfo(player.force)
 end
 script.on_event(defines.events.on_player_created, on_player_created)
-
--- Create/destroy silo for force if player switched force
-function on_player_changed_force(event)
-{%- if silo == 2 %}
-    check_despawn_silo(event.force)
-    check_spawn_silo(game.players[event.player_index].force)
-{%- endif %}
-end
-script.on_event(defines.events.on_player_changed_force, on_player_changed_force)
 
 function on_player_removed(event)
     storage.playerdata[event.player_index] = nil
@@ -472,7 +297,7 @@ function add_samples(force, name, count)
 end
 
 script.on_init(function()
-    {% if not imported_blueprints %}set_permissions(){% endif %}
+    set_permissions()
     storage.forcedata = {}
     storage.playerdata = {}
     storage.energy_link_bridges = {}
@@ -505,34 +330,32 @@ script.on_event(defines.events.on_research_finished, function(event)
         return
     end
     if technology.researched and string.find(technology.name, "ap%-") == 1 then
-        -- check if it came from the server anyway, then we don't need to double send.
-        dumpInfo(technology.force) --is sendable
-    else
-        if FREE_SAMPLES == 0 then
-            return  -- Nothing else to do
-        end
-        if not technology.prototype.effects then
-            return  -- No technology effects, so nothing to do.
-        end
-        for _, effect in pairs(technology.prototype.effects) do
-            if effect.type == "unlock-recipe" then
-                local recipe = prototypes.recipe[effect.recipe]
-                for _, result in pairs(recipe.products) do
-                    if result.type == "item" and result.amount then
-                        local name = result.name
-                        if FREE_SAMPLE_BLACKLIST[name] ~= 1 then
-                            local count
-                            if FREE_SAMPLES == 1 then
-                                count = result.amount
-                            else
-                                count = get_any_stack_size(result.name)
-                                if FREE_SAMPLES == 2 then
-                                    count = math.ceil(count / 2)
-                                end
-                            end
-                            add_samples(technology.force, name, count)
+        -- Notify the server that we've unlocked an AP location.
+        dumpInfo(technology.force)
+        return
+    end
+    -- We've received an AP item, or this technology isn't randomized.
+    if FREE_SAMPLES == 0 then
+        return  -- Nothing else to do.
+    end
+    if not technology.prototype.effects then
+        return  -- No technology effects, so nothing to do.
+    end
+    for _, effect in pairs(technology.prototype.effects) do
+        if effect.type == "unlock-recipe" then
+            local recipe = prototypes.recipe[effect.recipe]
+            for _, result in pairs(recipe.products) do
+                if result.type == "item" and result.amount and FREE_SAMPLE_EXCLUDES[effect.recipe] ~= 1 then
+                    local count
+                    if FREE_SAMPLES == 1 then
+                        count = result.amount
+                    else
+                        count = get_any_stack_size(result.name)
+                        if FREE_SAMPLES == 2 then
+                            count = math.ceil(count / 2)
                         end
                     end
+                    add_samples(technology.force, result.name, count)
                 end
             end
         end
@@ -565,108 +388,6 @@ function kill_players(force)
         end
     end
     CURRENTLY_DEATH_LOCK = 0
-end
-
-function spawn_entity(surface, force, name, x, y, radius, randomize, avoid_ores)
-    local prototype = prototypes.entity[name]
-    local args = {  -- For can_place_entity and place_entity
-        name = prototype.name,
-        position = {x = x, y = y},
-        force = force.name,
-        build_check_type = defines.build_check_type.blueprint_ghost,
-        forced = true
-    }
-
-    local box = prototype.selection_box
-    local dims = {
-        w = box.right_bottom.x - box.left_top.x,
-        h = box.right_bottom.y - box.left_top.y
-    }
-    local entity_radius = math.ceil(math.max(dims.w, dims.h) / math.sqrt(2) / 2)
-    local bounds = {
-        xmin = math.ceil(x - radius - box.left_top.x),
-        xmax = math.floor(x + radius - box.right_bottom.x),
-        ymin = math.ceil(y - radius - box.left_top.y),
-        ymax = math.floor(y + radius - box.right_bottom.y)
-    }
-
-    local new_entity = nil
-    local attempts = 1000
-    for i = 1,attempts do  -- Try multiple times
-        -- Find a position
-        if (randomize and i < attempts-3) or (not randomize and i ~= 1) then
-            args.position.x = math.random(bounds.xmin, bounds.xmax)
-            args.position.y = math.random(bounds.ymin, bounds.ymax)
-        elseif randomize then
-            args.position.x = x + (i + 3 - attempts) * dims.w
-            args.position.y = y + (i + 3 - attempts) * dims.h
-        end
-        -- Generate required chunks
-        local x1 = args.position.x + box.left_top.x
-        local x2 = args.position.x + box.right_bottom.x
-        local y1 = args.position.y + box.left_top.y
-        local y2 = args.position.y + box.right_bottom.y
-        if not surface.is_chunk_generated({x = x1, y = y1}) or
-           not surface.is_chunk_generated({x = x2, y = y1}) or
-           not surface.is_chunk_generated({x = x1, y = y2}) or
-           not surface.is_chunk_generated({x = x2, y = y2}) then
-            surface.request_to_generate_chunks(args.position, entity_radius)
-            surface.force_generate_chunk_requests()
-        end
-        -- Try to place entity
-        if surface.can_place_entity(args) then
-            -- Can hypothetically place this entity here.  Destroy everything underneath it.
-            local collision_area = {
-                {
-                    args.position.x + prototype.collision_box.left_top.x,
-                    args.position.y + prototype.collision_box.left_top.y
-                },
-                {
-                    args.position.x + prototype.collision_box.right_bottom.x,
-                    args.position.y + prototype.collision_box.right_bottom.y
-                }
-            }
-            local entities = surface.find_entities_filtered {
-                area = collision_area,
-                collision_mask = prototype.collision_mask.layers
-            }
-            local can_place = true
-            for _, entity in pairs(entities) do
-                if entity.force and entity.force.name ~= 'neutral' then
-                    can_place = false
-                    break
-                end
-            end
-            local allow_placement_on_resources = not avoid_ores or i > attempts/2
-            if can_place and not allow_placement_on_resources then
-                local resources = surface.find_entities_filtered {
-                    area = collision_area,
-                    type = 'resource'
-                }
-                can_place = (next(resources) == nil)
-            end
-            if can_place then
-                for _, entity in pairs(entities) do
-                    entity.destroy({do_cliff_correction=true, raise_destroy=true})
-                end
-                args.build_check_type = defines.build_check_type.script
-                args.create_build_effect_smoke = false
-                if script.active_mods["quality"] then
-                    args.quality = "{{ free_sample_quality_name }}"
-                end
-                new_entity = surface.create_entity(args)
-                if new_entity then
-                    new_entity.destructible = false
-                    new_entity.minable = false
-                    new_entity.rotatable = false
-                    break
-                end
-            end
-        end
-    end
-    if new_entity == nil then
-        force.print("Failed to place " .. args.name .. " in " .. serpent.line({x = x, y = y, radius = radius}))
-    end
 end
 
 
@@ -829,14 +550,6 @@ commands.add_command("ap-rcon-info", "Used by the Archipelago client to get info
         ["energy_link"] = ENERGY_INCREMENT
     }))
 end)
-
-
-{% if allow_cheats -%}
-commands.add_command("ap-spawn-silo", "Attempts to spawn a silo and cargo landing pad around 0,0", function(call)
-    spawn_entity(game.player.surface, game.player.force, "rocket-silo", 0, 0, 80, true, true)
-end)
-{% endif -%}
-
 
 commands.add_command("ap-deathlink", "Kill all players", function(call)
     local force = game.forces["player"]
