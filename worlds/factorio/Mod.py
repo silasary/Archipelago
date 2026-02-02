@@ -17,6 +17,14 @@ from .Technologies import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks,
     technologies,
+    technology_name_to_location_name, location_name_to_technology_name,
+
+    ResearchRequirement,
+    CraftRequirement,
+    MineRequirement,
+    BuildRequirement,
+    CaptureSpawnerRequirement,
+    CreateSpacePlatformRequirement,
 )
 
 if TYPE_CHECKING:
@@ -113,7 +121,7 @@ def generate_mod(
     for location in world_locations:
         if location.revealed:
             item = location.item
-            receiver_name = multiworld.player_names[item.player]
+            receiver_name = multiworld.player_name[item.player]
             display_name = f"{receiver_name}'s {item.name} ({location.name})"
             if item.advancement:
                 helpfulness_clause = ", which is considered a logical advancement"
@@ -132,19 +140,53 @@ def generate_mod(
         else:
             display_name = location.name
             description = "Researching this technology sends something to someone."
+            icon = "/ap_unimportant.png"
         locale_locations.append(LocaleLocation(location.name, display_name, description))
 
-        props = technology.requirement.to_lua_properties()
+        technology = technologies[location_name_to_technology_name[location.name]]
+        # https://lua-api.factorio.com/latest/prototypes/TechnologyPrototype.html
         tech_data = {
-            **props,
-            prerequisites=["ap-" + name for name in sorted(technology.prerequisites)],
+            "icon": icon,
+            # Mimic the same prerequisit map.
+            "prerequisites": [technology_name_to_location_name[name] for name in sorted(technology.prerequisites)],
         }
-        tech_data = {
-            "research_trigger": tech_data.research_trigger
-            "unit":             tech_data.unit
-            "max_level":        tech_data.max_level
-            "prerequisites":    tech_data.prerequisites
-        }
+        if type(technology.requirement) == ResearchRequirement:
+            # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
+            unit = {
+                "time": technology.requirement.energy,
+                "ingredients": [[ingredient_name, amount] for ingredient_name, amount in technology.requirement.ingredients.items()],
+            }
+            if type(technology.requirement.units) == str:
+                # Infinite
+                unit["count_formula"] = technology.requirement.units
+            else:
+                unit["count"] = technology.requirement.units
+            tech_data["unit"] = unit
+        elif type(technology.requirement) == CraftRequirement:
+            tech_data["research_trigger"] = {
+                "type": "craft-item",
+                "item": {"name": technology.requirement.item},
+                "count": technology.requirement.count,
+            }
+        elif type(technology.requirement) == MineRequirement:
+            tech_data["research_trigger"] = {
+                "type": "mine-entity",
+                "entity": technology.requirement.entity,
+            }
+        elif type(technology.requirement) == BuildRequirement:
+            tech_data["research_trigger"] = {
+                "type": "build-entity",
+                "entity": technology.requirement.entity,
+            }
+        elif type(technology.requirement) == CaptureSpawnerRequirement:
+            tech_data["research_trigger"] = {
+                "type": "capture-spawner",
+            }
+        elif type(technology.requirement) == CreateSpacePlatformRequirement:
+            tech_data["research_trigger"] = {
+                "type": "create-space-platform",
+            }
+        else: assert False, str(type(technology.requirement))
         new_technology_data[location.name] = tech_data
 
     def set_to_1(s):
@@ -228,6 +270,15 @@ def render_lua_value(x):
         if type(x) == bool: return out.write("true" if x else "false")
         if type(x) == list:
             if len(x) == 0: return out.write("{}")
+            if len(x) <= 2 and all(type(child) in (int, float, str) for child in x):
+                # This is perhaps a tuple like {"automation-science-pack", 1}
+                out.write("{")
+                out.write(repr(x[0]))
+                if len(x) == 2:
+                    out.write(", ")
+                    out.write(repr(x[1]))
+                out.write("}")
+                return
             out.write("{\n")
             new_indentation = indentation + "  "
             for child in x:

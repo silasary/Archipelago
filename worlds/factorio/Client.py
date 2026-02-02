@@ -22,6 +22,7 @@ from NetUtils import ClientStatus, NetworkItem, JSONtoTextParser, JSONMessagePar
 from Utils import async_start, get_file_safe_name, is_windows, Version, format_SI_prefix, get_text_between
 from .settings import FactorioSettings
 from settings import get_settings
+from worlds import network_data_package
 
 
 def check_stdin() -> None:
@@ -181,8 +182,10 @@ class FactorioContext(CommonContext):
         if cmd in {"Connected", "RoomUpdate"}:
             # catch up sync anything that is already cleared.
             if "checked_locations" in args and args["checked_locations"]:
-                self.rcon_client.send_commands({item_name: f'/ap-get-technology ap-{item_name}-\t-1' for
-                                                item_name in args["checked_locations"]})
+                self.rcon_client.send_commands({
+                    location_id: f'/ap-get-technology {self.location_names.lookup_in_game(location_id)}\t-1'
+                    for location_id in args["checked_locations"]
+                })
             if cmd == "Connected" and self.energy_link_increment:
                 async_start(self.send_msgs([{
                     "cmd": "SetNotify", "keys": [self.energylink_key]
@@ -286,7 +289,8 @@ async def game_watcher(ctx: FactorioContext):
                         f"Connected Multiworld is not the expected one {data['seed_name']} != {ctx.seed_name}")
                 else:
                     data = data["info"]
-                    research_data: set[int] = {int(tech_name.split("-")[1]) for tech_name in data["research_done"]}
+                    location_name_to_id = network_data_package["games"][ctx.game]["location_name_to_id"]
+                    research_data: set[int] = {location_name_to_id[tech_name] for tech_name in data["research_done"]}
                     victory = data["victory"]
                     await ctx.update_death_link(data["death_link"])
                     ctx.multiplayer = data.get("multiplayer", False)

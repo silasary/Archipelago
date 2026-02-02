@@ -26,10 +26,10 @@ end
 for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
     -- https://lua-api.factorio.com/stable/prototypes/TechnologyPrototype.html
     local new_tech = table.deepcopy(template_tech)
-    new_tech.name             = tech_name
+    new_tech.name = tech_name
+    new_tech.unit = tech_data.unit
     new_tech.research_trigger = tech_data.research_trigger
-    new_tech.unit             = tech_data.unit
-    new_tech.max_level        = tech_data.max_level
+    new_tech.prerequisites = tech_data.prerequisites
 
     -- Set icon.
     if string.sub(tech_data.icon, 1, 1) == "/" then
@@ -48,10 +48,10 @@ for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
     data:extend{new_tech}
 end
 
-for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
-    local prerequisites = {}
-    for _, name in pairs(tech_data.prerequisites) do
-        prerequisites[name] = technologies[name]
-    end
-    technologies[tech_name].prerequisites = prerequisites
-end
+--for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
+--    local prerequisites = {}
+--    for _, name in pairs(tech_data.prerequisites) do
+--        prerequisites[name] = technologies[name]
+--    end
+--    technologies[tech_name].prerequisites = prerequisites
+--end

@@ -12,6 +12,7 @@ from .Technologies import (
     ap_item_name_to_id, ap_location_name_to_id,
     advancement_technologies, never_give_free_samples_from_recipes,
     progressive_technology_stacks,
+    technology_name_to_location_name,
 )
 
 
@@ -41,11 +42,13 @@ class FactorioItem(Item):
 
 class FactorioLocation(Location):
     game = "Factorio"
+    revealed: bool
 
     def __init__(self, player: int, name: str, address: int, parent: Region,
         access_rule_fn: typing.Callable[[dict[str, int]], bool],
     ):
         super().__init__(player, name, address, parent)
+        self.revealed = False
         self.access_rule = lambda state: access_rule_fn(state.prog_items[player])
 
 
@@ -74,7 +77,10 @@ class Factorio(World):
         # TODO: progressive item groups here?
     }
 
+    locations: list[FactorioLocation]
+
     def __init__(self, world, player: int):
+        self.locations = []
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
@@ -83,7 +89,7 @@ class Factorio(World):
             player=self.player,
             player_name=self.player_name,
             world_zip_path=self.zip_path,
-            world_locations=[], # TODO
+            world_locations=self.locations,
             options=self.options,
             multiworld=self.multiworld,
             output_directory=output_directory,
@@ -114,6 +120,8 @@ class Factorio(World):
             code = ap_location_name_to_id.get(location_name, None)
             location = FactorioLocation(player, location_name, code, the_region, access_rule_fn)
             the_region.locations.append(location)
+            if code != None:
+                self.locations.append(location)
             return location
         def new_item(item_name, classification, add_to_pool=True):
             code = ap_item_name_to_id.get(item_name, None)
@@ -142,17 +150,18 @@ class Factorio(World):
                     # The algorithm might swap things around, but starting with these vanilla location/item locks
                     # prevents a naive shuffle from failing to find a path out of early game.
                     "steam-power",
-                    "elecetronics",
+                    "electronics",
                     "automation-science-pack",
                     "automation",
                 )
-                location = new_location(sub_name, compile_expr(expr))
+                location = new_location(technology_name_to_location_name[sub_name], compile_expr(expr))
                 item = new_item(sub_name,
                     ItemClassification.progression if event_name in advancement_technologies else ItemClassification.useful,
                     add_to_pool=not locked,
                 )
                 if locked:
                     location.place_locked_item(item)
+                    location.revealed = True
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))

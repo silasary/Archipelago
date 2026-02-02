@@ -78,8 +78,8 @@ class RecipeClassification(IntEnum):
 class ResearchRequirement:
     ingredients: dict[str, int]
     """ the keys are the science pack names for 1 unit of research. the values are always 1. """
-    units: int | None
-    """ how many units of research, e.g. 'automation' costs 10. None means this is an infinite research with a cost formula. """
+    units: int | str
+    """ how many units of research, e.g. 'automation' costs 10. A str means this is the cost formula for an infinite research. """
     energy: int
     """ lab time for 1 unit of research in seconds. """
     uses_tech_cost_multiplier: bool
@@ -117,7 +117,7 @@ class Technology:
     """ usually a ResearchRequirement """
 
     def is_infinite(self):
-        return type(self.requirement) == ResearchRequirement and self.requirement.units == None
+        return type(self.requirement) == ResearchRequirement and type(self.requirement.units) == str
 
 @dataclass
 class Recipe:
@@ -250,6 +250,8 @@ advancement_technologies: set[str] = set()
 never_inline_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
+technology_name_to_location_name: dict[str, str] = {}
+location_name_to_technology_name: dict[str, str] = {}
 never_give_free_samples_from_recipes: set[str] = set()
 
 # ==================
@@ -974,7 +976,9 @@ def init():
             # Research technology (using science packs and labs).
             assert set(ingredients.values()) == {1}, "update comment on ResearchRequirement.ingredients to no longer claim the amount is always 1"
             if "research_unit_count_formula" in technology_data:
-                units = None # infinite
+                # infinite
+                units = technology_data["research_unit_count_formula"]
+                assert type(units) == str
             else:
                 units = technology_data["research_unit_count"]
             energy_in_ticks = technology_data["research_unit_energy"]
@@ -1449,7 +1453,18 @@ def init():
     for technology_name in sorted(logic_events.keys()):
         if " " in technology_name: continue # Not a technology.
         assert not technology_name.startswith("ap-"), "would cause an ambiguity in control.lua"
-        ap_location_name_to_id["ap-" + technology_name] = id_cursor
+        location_name = "ap-" + technology_name
+        try: int(location_name.rsplit("-", 1)[-1])
+        except ValueError:
+            pass # This name isn't special
+        else:
+            # Names that end with -1 or another number are special.
+            # We don't intend anything special about the relationship between all the levels of the locations,
+            # so disable that special handling.
+            location_name += "-"
+        technology_name_to_location_name[technology_name] = location_name
+        location_name_to_technology_name[location_name] = technology_name
+        ap_location_name_to_id[location_name] = id_cursor
         ap_item_name_to_id[technology_name] = id_cursor
         id_cursor += 1
     for progressive_technology_name in sorted(progressive_technology_stacks.keys()):
