@@ -1448,7 +1448,8 @@ def init():
     id_cursor = factorio_base_id
     for technology_name in sorted(logic_events.keys()):
         if " " in technology_name: continue # Not a technology.
-        ap_location_name_to_id[technology_name] = id_cursor
+        assert not technology_name.startswith("ap-"), "would cause an ambiguity in control.lua"
+        ap_location_name_to_id["ap-" + technology_name] = id_cursor
         ap_item_name_to_id[technology_name] = id_cursor
         id_cursor += 1
     for progressive_technology_name in sorted(progressive_technology_stacks.keys()):

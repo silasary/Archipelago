@@ -16,6 +16,7 @@ from . import Options
 from .Technologies import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks,
+    technologies,
 )
 
 if TYPE_CHECKING:
@@ -102,6 +103,50 @@ def generate_mod(
         del free_sample_excludes[item]
     free_sample_excludes.update(never_give_free_samples_from_recipes)
 
+    @dataclass
+    class LocaleLocation:
+        name: str
+        display_name: str
+        description: str
+    locale_locations: list[LocaleLocation] = []
+    new_technology_data: dict[str, dict] = {}
+    for location in world_locations:
+        if location.revealed:
+            item = location.item
+            receiver_name = multiworld.player_names[item.player]
+            display_name = f"{receiver_name}'s {item.name} ({location.name})"
+            if item.advancement:
+                helpfulness_clause = ", which is considered a logical advancement"
+                icon = "/ap.png"
+            elif item.useful:
+                helpfulness_clause = ", which is considered useful"
+                icon = "/ap_unimportant.png"
+            elif item.trap:
+                helpfulness_clause = ", which is considered fun"
+                icon = "/ap_unimportant.png"
+            else:
+                helpfulness_clause = ""
+                icon = "/ap_unimportant.png"
+            description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
+            # TODO: set icon = "automation" or such if it's a Factorio item.
+        else:
+            display_name = location.name
+            description = "Researching this technology sends something to someone."
+        locale_locations.append(LocaleLocation(location.name, display_name, description))
+
+        props = technology.requirement.to_lua_properties()
+        tech_data = {
+            **props,
+            prerequisites=["ap-" + name for name in sorted(technology.prerequisites)],
+        }
+        tech_data = {
+            "research_trigger": tech_data.research_trigger
+            "unit":             tech_data.unit
+            "max_level":        tech_data.max_level
+            "prerequisites":    tech_data.prerequisites
+        }
+        new_technology_data[location.name] = tech_data
+
     def set_to_1(s):
         return {x: 1 for x in s}
 
@@ -119,12 +164,12 @@ def generate_mod(
         "free_sample_quality": options.free_samples_quality.current_key,
         "free_sample_excludes": set_to_1(free_sample_excludes),
 
+        "hide_base_technologies": sorted(technologies.keys()),
+        "new_technology_data": new_technology_data,
         "progressive_technology_stacks": progressive_technology_stacks,
-        "hide_base_technologies": [],
-        "new_technology_data": [],
-        "starting_items": options.starting_items.value,
 
         "allow_imported_blueprints": bool(options.imported_blueprints.value),
+        "starting_items": options.starting_items.value,
         "world_gen_preset": {
             "default": False,
             "order": "a",
@@ -134,35 +179,10 @@ def generate_mod(
     }
     template_parameters_contents = template_parameters_template.render(mod_params=render_lua_value(mod_params))
 
-    @dataclass
-    class LocaleLocation:
-        name: str
-        display_name: str
-        description: str
-    locale_locations: list[LocaleLocation] = []
-    for location in world_locations:
-        if location.revealed:
-            item = location.item
-            receiver_name = multiworld.player_names[item.player]
-            display_name = f"{receiver_name}'s {item.name} ({location.name})"
-            if item.advancement:
-                helpfulness_clause = ", which is considered a logical advancement"
-            elif item.useful:
-                helpfulness_clause = ", which is considered useful"
-            elif item.trap:
-                helpfulness_clause = ", which is considered fun"
-            else:
-                helpfulness_clause = ""
-            description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
-        else:
-            display_name = location.name
-            description = "Researching this technology sends something to someone."
-        locale_locations.append(LocaleLocation(location.name, display_name, description))
-
-    locale_data = {
-        "locations": locale_locations,
-        "death_link_setting": death_link_setting_name,
-    }
+    locale_contents = locale_template.render(
+        locations=locale_locations,
+        death_link_setting=death_link_setting_name,
+    )
 
     zf_path = os.path.join(output_directory, versioned_mod_name + ".zip")
     mod = FactorioModFile(zf_path, player=player, player_name=player_name)
@@ -186,7 +206,7 @@ def generate_mod(
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/template_parameters.lua",
                                       template_parameters_contents))
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/locale/en/locale.cfg",
-                                      locale_template.render(**locale_data)))
+                                      locale_contents))
 
     info = base_info.copy()
     info["name"] = mod_name
