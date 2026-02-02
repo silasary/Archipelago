@@ -81,7 +81,7 @@ class FactorioCommandProcessor(ClientCommandProcessor):
 
 class FactorioContext(CommonContext):
     command_processor = FactorioCommandProcessor
-    game = "Factorio"
+    game = "Factorio: Space Age"
     items_handling = 0b111  # full remote
 
     # updated by spinup server
@@ -258,7 +258,7 @@ class FactorioContext(CommonContext):
                 ("FactorioServer", "Factorio Server Log"),
                 ("FactorioWatcher", "Bridge Data Log"),
             ]
-            base_title = "Archipelago Factorio Client"
+            base_title = "Archipelago Factorio: Space Age Client"
 
         self.ui = FactorioManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
@@ -587,7 +587,7 @@ def launch(*new_args: str):
     colorama.just_fix_windows_console()
 
     # args handling
-    parser = get_base_parser(description="Optional arguments to Factorio Client follow. "
+    parser = get_base_parser(description="Optional arguments to Factorio: Space Age Client follow. "
                                          "Remaining arguments get passed into bound Factorio instance. "
                                          "Refer to Factorio --help for those.")
     parser.add_argument('--rcon-port', default='24242', type=int, help='Port to use to communicate with Factorio')

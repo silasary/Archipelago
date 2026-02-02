@@ -20,8 +20,8 @@ def _register_client():
     from worlds.LauncherComponents import Component, components, Type, launch as launch_component
     def launch_client(*args: str):
         from .Client import launch
-        launch_component(launch, name="Factorio Client", args=args)
-    components.append(Component("Factorio Client", func=launch_client, component_type=Type.CLIENT))
+        launch_component(launch, name="Factorio: Space Age Client", args=args)
+    components.append(Component("Factorio: Space Age Client", func=launch_client, component_type=Type.CLIENT))
 _register_client()
 
 
@@ -38,10 +38,10 @@ class FactorioWeb(WebWorld):
 
 
 class FactorioItem(Item):
-    game = "Factorio"
+    game = "Factorio: Space Age"
 
 class FactorioLocation(Location):
-    game = "Factorio"
+    game = "Factorio: Space Age"
     revealed: bool
 
     def __init__(self, player: int, name: str, address: int, parent: Region,
@@ -63,7 +63,7 @@ class Factorio(World):
 
     https://www.factorio.com/
     """
-    game = "Factorio"
+    game = "Factorio: Space Age"
     required_client_version = (0, 6, 0)
 
     web = FactorioWeb()

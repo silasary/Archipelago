@@ -6,8 +6,8 @@ import unittest
 import WebHostLib.check
 
 FACTORIO_YAML="""
-game: Factorio
-Factorio:
+game: 'Factorio: Space Age'
+'Factorio: Space Age':
   world_gen:
     autoplace_controls:
       coal:

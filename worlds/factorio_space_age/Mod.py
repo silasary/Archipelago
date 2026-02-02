@@ -50,7 +50,7 @@ base_info = {
 
 
 class FactorioModFile(worlds.Files.APPlayerContainer):
-    game = "Factorio"
+    game = "Factorio: Space Age"
     writing_tasks: List[Callable[[], Tuple[str, Union[str, bytes]]]]
     patch_file_ending = ".zip"
 
