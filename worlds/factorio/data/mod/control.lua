@@ -5,10 +5,6 @@ require "template_parameters" -- defines PARAMS
 ENERGY_INCREMENT = PARAMS.energy_link_increment
 ENERGY_LINK_EFFICIENCY = 0.75
 
-FREE_SAMPLES = {{ free_samples }}
-FREE_SAMPLE_EXCLUDES = {{ dict_to_lua(free_sample_excludes) }}
-
-
 if settings.global[PARAMS.death_link_setting].value then
     DEATH_LINK = 1
 else
@@ -132,7 +128,7 @@ function on_force_created(event)
         force = game.forces[force]
     end
     local data = {}
-    data['earned_samples'] = table.deepcopy({{ dict_to_lua(starting_items) }})
+    data['earned_samples'] = table.deepcopy(PARAMS.starting_items)
     data["victory"] = 0
     data["death_link_tick"] = 0
     data["energy"] = 0
@@ -220,24 +216,25 @@ function update_player(index)
     end
     local data = storage.playerdata[index]
     local samples = data['pending_samples']
-    local sent
     --player.print(serpent.block(data['pending_samples']))
-    local stack = {}
 
     for name, count in pairs(samples) do
-        stack.name = name
-        stack.count = count
+        local stack = {
+            name = name,
+            count = count,
+        }
         if script.active_mods["quality"] then
-            stack.quality = "{{ free_sample_quality_name }}"
+            stack.quality = PARAMS.free_sample_quality
         end
         if prototypes.item[name] then
+            local sent
             if character.can_insert(stack) then
                 sent = character.insert(stack)
             else
                 sent = 0
             end
             if sent > 0 then
-                player.print("Received " .. sent .. "x [item=" .. name .. ",quality={{ free_sample_quality_name }}]")
+                player.print("Received " .. sent .. "x [item=" .. name .. ",quality=" .. PARAMS.free_sample_quality .. "]")
                 data.suppress_full_inventory_message = false
             end
             if sent ~= count then               -- Couldn't full send.
@@ -337,7 +334,7 @@ script.on_event(defines.events.on_research_finished, function(event)
         if effect.type == "unlock-recipe" then
             local recipe = prototypes.recipe[effect.recipe]
             for _, result in pairs(recipe.products) do
-                if result.type == "item" and result.amount and FREE_SAMPLE_EXCLUDES[effect.recipe] ~= 1 then
+                if result.type == "item" and result.amount and PARAMS.free_sample_excludes[effect.recipe] ~= 1 then
                     local count
                     if PARAMS.free_sample_amount == "single_craft" then
                         count = result.amount
@@ -478,7 +475,6 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
     if storage.index_sync == nil then
         storage.index_sync = {}
     end
-    local tech
     local force = game.forces["player"]
     if call.parameter == nil then
         game.print("ap-get-technology is only to be used by the Archipelago Factorio Client")
@@ -492,19 +488,19 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
         game.print("ap-get-technology is only to be used by the Archipelago Factorio Client")
         return
     elseif index == -1 then -- for coop sync and restoring from an older savegame
-        tech = force.technologies[item_name]
+        local tech = force.technologies[item_name]
         if tech.researched ~= true then
             game.print({"", "Received [technology=" .. tech.name .. "] as it is already checked."})
             game.play_sound({path="utility/research_completed"})
             tech.researched = true
         end
         return
-    elseif progressive_technologies[item_name] ~= nil then
+    elseif PARAMS.progressive_technology_stacks[item_name] ~= nil then
         if storage.index_sync[index] ~= item_name then -- not yet received prog item
             storage.index_sync[index] = item_name
-            local tech_stack = progressive_technologies[item_name]
-            for _, item_name in ipairs(tech_stack) do
-                tech = force.technologies[item_name]
+            local tech_stack = PARAMS.progressive_technology_stacks[item_name]
+            for _, tech_name in ipairs(tech_stack) do
+                local tech = force.technologies[tech_name]
                 if tech.researched ~= true then
                     game.print({"", "Received [technology=" .. tech.name .. "] from ", source})
                     game.play_sound({path="utility/research_completed"})
@@ -514,7 +510,7 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
             end
         end
     elseif force.technologies[item_name] ~= nil then
-        tech = force.technologies[item_name]
+        local tech = force.technologies[item_name]
         if tech ~= nil then
             storage.index_sync[index] = tech
             if tech.researched ~= true then
@@ -540,7 +536,7 @@ commands.add_command("ap-rcon-info", "Used by the Archipelago client to get info
         ["slot_name"] = PARAMS.slot_name,
         ["seed_name"] = PARAMS.seed_name,
         ["death_link"] = DEATH_LINK,
-        ["energy_link"] = PARAMS.energy_increment,
+        ["energy_link"] = PARAMS.energy_link_increment,
     }))
 end)
 
@@ -573,5 +569,3 @@ commands.add_command("toggle-ap-chat", "Toggle sending of chat messages from pla
     log("Player command toggle-ap-chat") -- notifies client
 end)
 
--- data
-progressive_technologies = {{ dict_to_lua(progressive_technology_table) }}

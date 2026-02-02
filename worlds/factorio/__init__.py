@@ -11,6 +11,7 @@ from .Technologies import (
     compile_expr, logic_events,
     ap_item_name_to_id, ap_location_name_to_id,
     advancement_technologies, never_give_free_samples_from_recipes,
+    progressive_technology_stacks,
 )
 
 
@@ -77,18 +78,14 @@ class Factorio(World):
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
-        return # TODO
-        free_sample_excludes = set()
-        free_sample_excludes.update(world.options.free_sample_blacklist.value)
-        for item in world.options.free_sample_whitelist.value:
-            del free_sample_excludes[item]
-        free_sample_excludes.update(never_give_free_samples_from_recipes)
-
         from .Mod import generate_mod
         generate_mod(
             player=self.player,
+            player_name=self.player_name,
+            world_zip_path=self.zip_path,
+            world_locations=[], # TODO
+            options=self.options,
             multiworld=self.multiworld,
-            free_sample_excludes=free_sample_excludes,
             output_directory=output_directory,
         )
 

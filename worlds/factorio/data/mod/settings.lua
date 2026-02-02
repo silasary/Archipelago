@@ -1,6 +1,4 @@
-
-ARCHIPELAGO_DEATH_LINK_SETTING = {{ deathlink_setting_name }}
-DEFAULT_DEATH_LINK = {{ default_death_link }}
+require "template_parameters" -- defines PARAMS
 
 -- Find out if more than one AP mod is loaded, and if so, error out.
 function mod_is_AP(str)
@@ -23,8 +21,8 @@ end
 data:extend({
     {
         type = "bool-setting",
-        name = ARCHIPELAGO_DEATH_LINK_SETTING,
+        name = PARAMS.death_link_setting,
         setting_type = "runtime-global",
-        default_value = DEFAULT_DEATH_LINK,
+        default_value = PARAMS.default_death_link,
     }
 })

@@ -1,10 +1,5 @@
--- this file gets written automatically by the Archipelago Randomizer and is in its raw form a Jinja2 Template
-require('lib')
-
-local MOD_NAME = {{ lua_mod_name }}
-local HIDE_BASE_TECHNOLOGIES = {{ lua_hide_base_technologies }}
-local NEW_TECHNOLOGY_DATA = {{ lua_new_technology_data }}
-
+require "lib"
+require "template_parameters" -- defines PARAMS
 
 local technologies = data.raw["technology"]
 
@@ -15,7 +10,7 @@ template_tech.prerequisites = {} -- Will be set later.
 
 -- The base technologies are triggered behind the scenes in control.lua.
 -- Hide them from the player and make them impossible to trigger normally.
-for _, tech_name in pairs(HIDE_BASE_TECHNOLOGIES) do
+for _, tech_name in pairs(PARAMS.hide_base_technologies) do
     local base_tech = technologies[tech_name]
     base_tech.hidden = true
     base_tech.hidden_in_factoriopedia = true
@@ -28,7 +23,7 @@ for _, tech_name in pairs(HIDE_BASE_TECHNOLOGIES) do
     }
 end
 
-for tech_name, tech_data in pairs(NEW_TECHNOLOGY_DATA) do
+for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
     -- https://lua-api.factorio.com/stable/prototypes/TechnologyPrototype.html
     local new_tech = table.deepcopy(template_tech)
     new_tech.name             = tech_name
@@ -40,7 +35,7 @@ for tech_name, tech_data in pairs(NEW_TECHNOLOGY_DATA) do
     -- Set icon.
     if string.sub(tech_data.icon, 1, 1) == "/" then
         -- Generic icon.
-        new_tech.icon = "__" .. MOD_NAME .. "__/graphics/icons" .. tech_data.icon
+        new_tech.icon = "__" .. PARAMS.mod_name .. "__/graphics/icons" .. tech_data.icon
         new_tech.icon_size = 128
         new_tech.icons = nil
     else

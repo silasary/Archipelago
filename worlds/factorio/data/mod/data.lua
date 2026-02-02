@@ -1,4 +1,5 @@
-{% from "macros.lua" import dict_to_lua %}
+require "template_parameters" -- defines PARAMS
+
 -- TODO: Replace the tinting code with an actual rendered picture of the energy bridge icon.
 -- This tint is so that one is less likely to accidentally mass-produce energy-bridges, then wonder why their rocket is not building.
 function energy_bridge_tint()
@@ -34,8 +35,8 @@ local energy_bridge_recipe = table.deepcopy(data.raw["recipe"]["accumulator"])
 energy_bridge_recipe.name = "ap-energy-bridge"
 energy_bridge_recipe.results = { {type = "item", name = energy_bridge_item.name, amount = 1} }
 energy_bridge_recipe.energy_required = 1
-energy_bridge_recipe.enabled = {% if energy_link %}true{% else %}false{% endif %}
+energy_bridge_recipe.enabled = PARAMS.energy_link_increment > 0
 energy_bridge_recipe.localised_name = "Archipelago EnergyLink Bridge"
 data.raw["recipe"]["ap-energy-bridge"] = energy_bridge_recipe
 
-data.raw["map-gen-presets"].default["archipelago"] = {{ dict_to_lua(world_gen_preset) }}
+data.raw["map-gen-presets"].default["archipelago"] = PARAMS.world_gen_preset

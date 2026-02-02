@@ -1,11 +1,11 @@
 """Outputs a Factorio Mod to facilitate integration with Archipelago"""
 
-import dataclasses
 import json
 import os
 import shutil
 import threading
 import zipfile
+from dataclasses import dataclass
 from typing import Optional, TYPE_CHECKING, Any, List, Callable, Tuple, Union
 
 import jinja2
@@ -13,6 +13,10 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
+from .Technologies import (
+    never_give_free_samples_from_recipes,
+    progressive_technology_stacks,
+)
 
 if TYPE_CHECKING:
     from . import Factorio
@@ -30,18 +34,14 @@ base_info = {
     "description": "Integration client for the Archipelago Randomizer",
     "factorio_version": "2.0",
     "dependencies": [
-        "base >= 2.0.28",
-        "? quality >= 2.0.28",
-        "! space-age",
-        "? science-not-invited",
-        "? factory-levels"
+        "base >= 2.0.73",
+        "space-age >= 2.0.73",
     ]
 }
 
 
 class FactorioModFile(worlds.Files.APPlayerContainer):
     game = "Factorio"
-    compression_method = zipfile.ZIP_DEFLATED  # Factorio can't load LZMA archives
     writing_tasks: List[Callable[[], Tuple[str, Union[str, bytes]]]]
     patch_file_ending = ".zip"
 
@@ -51,7 +51,7 @@ class FactorioModFile(worlds.Files.APPlayerContainer):
 
     def write_contents(self, opened_zipfile: zipfile.ZipFile):
         # directory containing Factorio mod has to come first, or Factorio won't recognize this file as a mod.
-        mod_dir = self.path[:-4]  # cut off .zip
+        mod_dir = self.path[:-len(".zip")]
         for root, dirs, files in os.walk(mod_dir):
             for file in files:
                 filename = os.path.join(root, file)
@@ -64,12 +64,13 @@ class FactorioModFile(worlds.Files.APPlayerContainer):
         # now we can add extras.
         super().write_contents(opened_zipfile)
 
-progressive_technology_table = {} # TODO
-
 def generate_mod(
     player: int,
+    player_name: str,
+    world_zip_path: str | None,
+    world_locations: "list[FactorioLocation]",
+    options: Options,
     multiworld: "Multiworld",
-    free_sample_excludes: set[str],
     output_directory: str,
 ):
 
@@ -90,52 +91,84 @@ def generate_mod(
             locale_template = template_env.get_template("locale/en/locale.cfg")
 
     # get data for templates
-    locations = [(location, location.item) for location in []] # TODO: deleted
     mod_name = f"AP-{multiworld.seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
-    versioned_mod_name = mod_name + "_" + Utils.__version__
+    versioned_mod_name = f"{mod_name}_{Utils.__version__}"
+
+    death_link_setting_name = "archipelago-death-link-{}-{}".format(player, multiworld.seed_name)
+
+    free_sample_excludes = set()
+    free_sample_excludes.update(options.free_sample_blacklist.value)
+    for item in options.free_sample_whitelist.value:
+        del free_sample_excludes[item]
+    free_sample_excludes.update(never_give_free_samples_from_recipes)
+
+    def set_to_1(s):
+        return {x: 1 for x in s}
 
     mod_params = {
         "mod_name": mod_name,
         "seed_name": multiworld.seed_name,
-        "slot_name": world.player_name,
+        "slot_name": player_name,
 
-        "trap_evo_factor": world.options.evolution_trap_increase.value / 100,
-        "energy_increment": 10_000_000 if world.options.energy_link.value else 0,
-        "allow_imported_blueprints": world.options.imported_blueprints.value,
+        "default_death_link": bool(options.death_link.value),
+        "death_link_setting": death_link_setting_name,
+        "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
+        "trap_evo_factor": options.evolution_trap_increase.value / 100,
 
-        "free_sample_amount": world.options.free_samples.current_key,
-        "free_sample_quality_name": world.options.free_samples_quality.current_key,
-        "free_sample_excludes": {recipe: 1 for recipe in free_sample_excludes},
+        "free_sample_amount": options.free_samples.current_key,
+        "free_sample_quality": options.free_samples_quality.current_key,
+        "free_sample_excludes": set_to_1(free_sample_excludes),
 
+        "progressive_technology_stacks": progressive_technology_stacks,
+        "hide_base_technologies": [],
+        "new_technology_data": [],
+        "starting_items": options.starting_items.value,
+
+        "allow_imported_blueprints": bool(options.imported_blueprints.value),
         "world_gen_preset": {
             "default": False,
             "order": "a",
-            "basic_settings": world.options.world_gen.value["basic"],
-            "advanced_settings": world.options.world_gen.value["advanced"],
+            "basic_settings": options.world_gen.value["basic"],
+            "advanced_settings": options.world_gen.value["advanced"],
         },
     }
+    template_parameters_contents = template_parameters_template.render(mod_params=render_lua_value(mod_params))
+
+    @dataclass
+    class LocaleLocation:
+        name: str
+        display_name: str
+        description: str
+    locale_locations: list[LocaleLocation] = []
+    for location in world_locations:
+        if location.revealed:
+            item = location.item
+            receiver_name = multiworld.player_names[item.player]
+            display_name = f"{receiver_name}'s {item.name} ({location.name})"
+            if item.advancement:
+                helpfulness_clause = ", which is considered a logical advancement"
+            elif item.useful:
+                helpfulness_clause = ", which is considered useful"
+            elif item.trap:
+                helpfulness_clause = ", which is considered fun"
+            else:
+                helpfulness_clause = ""
+            description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
+        else:
+            display_name = location.name
+            description = "Researching this technology sends something to someone."
+        locale_locations.append(LocaleLocation(location.name, display_name, description))
 
     locale_data = {
-        "locations": locations,
-        "player_names": multiworld.player_name,
-
-        "default_death_link": "true" if world.options.death_link.value else "false",
-        "deathlink_setting_name": "archipelago-death-link-{}-{}".format(player, multiworld.seed_name),
-
-        "free_samples": world.options.free_samples.value,
-
-        "progressive_technology_table": {tech.name: tech.progressive for tech in
-                                         progressive_technology_table.values()},
-
-        "tech_tree_information": world.options.tech_tree_information.value,
-        "starting_items": world.options.starting_items.value,
+        "locations": locale_locations,
+        "death_link_setting": death_link_setting_name,
     }
 
     zf_path = os.path.join(output_directory, versioned_mod_name + ".zip")
-    mod = FactorioModFile(zf_path, player=player, player_name=world.player_name)
+    mod = FactorioModFile(zf_path, player=player, player_name=player_name)
 
-    if world.zip_path:
-        with zipfile.ZipFile(world.zip_path) as zf:
+    if world_zip_path:
+        with zipfile.ZipFile(world_zip_path) as zf:
             for file in zf.infolist():
                 if not file.is_dir() and "/data/mod/" in file.filename:
                     path_part = Utils.get_text_after(file.filename, "/data/mod/")
@@ -151,16 +184,58 @@ def generate_mod(
                                          (arcpath, open(file_path, "rb").read()))
 
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/template_parameters.lua",
-                                      template_parameters_template.render(mod_params=render_lua_value(mod_params))))
+                                      template_parameters_contents))
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/locale/en/locale.cfg",
                                       locale_template.render(**locale_data)))
 
     info = base_info.copy()
     info["name"] = mod_name
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/info.json",
-                                      json.dumps(info, indent=4)))
+                                      json.dumps(info, indent=4) + "\n"))
 
     # write the mod file
-    import pdb; pdb.set_trace()
     mod.write()
     return
+
+def render_lua_value(x):
+    from io import StringIO
+    import re
+    out = StringIO()
+    def recurse(x, indentation):
+        # Numbers and strings repr correctly from python to lua.
+        if type(x) in (int, float, str): return out.write(repr(x))
+        # Booleans are slightly different.
+        if type(x) == bool: return out.write("true" if x else "false")
+        if type(x) == list:
+            if len(x) == 0: return out.write("{}")
+            out.write("{\n")
+            new_indentation = indentation + "  "
+            for child in x:
+                out.write(new_indentation)
+                recurse(child, new_indentation)
+                out.write(",\n")
+            out.write(indentation)
+            out.write("}")
+            return
+        if type(x) == dict:
+            if len(x) == 0: return out.write("{}")
+            out.write("{\n")
+            new_indentation = indentation + "  "
+            for name, child in x.items():
+                out.write(new_indentation)
+                if re.match(r'^\w+$', name):
+                    # Simple identifier
+                    out.write(name)
+                else:
+                    # Needs quotes.
+                    out.write("[" + repr(name) + "]")
+                out.write(" = ")
+                recurse(child, new_indentation)
+                out.write(",\n")
+            out.write(indentation)
+            out.write("}")
+            return
+        assert False, f"cannot render type to Lua: {type(x)}: {repr(x)}"
+
+    recurse(x, "")
+    return out.getvalue()

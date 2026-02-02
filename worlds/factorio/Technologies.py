@@ -237,8 +237,8 @@ items: dict[str, Item] = {}
 machines: dict[str, Machine] = {}
 recipes: dict[str, Recipe] = {}
 technologies: dict[str, Technology] = {}
-progressive_technology_chains: dict[str, dict[int, str]] = defaultdict(dict)
-""" e.g. {'advanced-material-processing': {1:'advanced-material-processing', 2:'advanced-material-processing-2'}} """
+progressive_technology_stacks: dict[str, list[str]] = {}
+""" e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
 empty_technologies: set[str] = set()
 fluids: set[str] = set()
 logic_events = {}
@@ -965,6 +965,7 @@ def init():
     recipe_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     space_location_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     mining_with_fluid_unlocking_technologies = set()
+    progressive_technology_chains: dict[str, dict[int, str]] = defaultdict(dict)
     for technology_name, technology_data in get_data()["technology"].items():
         assert " " not in technology_name, "spaces are used to prefix event types. a space in a technology name creates ambiguity"
         prerequisites = set(technology_data["prerequisites"].keys())
@@ -1052,7 +1053,9 @@ def init():
             assert technologies[progressive_chain[1]].is_infinite(), "technology ends with -1 without any other levels: " + progressive_chain[1]
         assert not any(technologies[progressive_chain[level]].is_infinite() for level in range(1, len(progressive_chain)+1-1)), "infinite technology must be the highest level defined in the group: " + progressive_group_name
 
-
+        # Export the final stack
+        stack = [progressive_chain[level] for level in range(1, len(progressive_chain)+1)]
+        progressive_technology_stacks["progressive-" + progressive_group_name] = stack
 
 
     # =====
