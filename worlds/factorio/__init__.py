@@ -171,8 +171,20 @@ class Factorio(World):
         # TODO: implement start_location_hints
 
     def collect_item(self, state, item, remove=False):
-        # progressive technology here.
-        return super().collect_item(state, item, remove)
+        # Convert a progressive technology name into what it would be at this state.
+        try:
+            stack = progressive_technology_stacks[item]
+        except KeyError:
+            # Normal item
+            return super().collect_item(state, item, remove)
+        if remove:
+            # If we're culling items out of the multiworld, lose the last progressive ones.
+            stack = reversed(stack)
+        for actual_item in stack:
+            if not state.has(actual_item):
+                break
+        # If we didn't find any we're missing, grant the last one again. It's probably an infinite tech.
+        return actual_item
 
     def get_filler_item_name(self) -> str:
         import pdb; pdb.set_trace()

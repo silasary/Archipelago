@@ -1451,7 +1451,9 @@ def init():
         ap_location_name_to_id[technology_name] = id_cursor
         ap_item_name_to_id[technology_name] = id_cursor
         id_cursor += 1
-        # TODO: artificial names for progressive items?
+    for progressive_technology_name in sorted(progressive_technology_stacks.keys()):
+        ap_item_name_to_id[progressive_technology_name] = id_cursor
+        id_cursor += 1
 
 # TODO: Move this to logic.py
 def inline_exprs(logic_events, never_inline_events):
