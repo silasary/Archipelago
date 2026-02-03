@@ -136,7 +136,13 @@ def generate_mod(
                 helpfulness_clause = ""
                 icon = "/ap_unimportant.png"
             description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
-            # TODO: set icon = "automation" or such if it's a Factorio item.
+            if item.name in technologies:
+                # This is an item for Factorio (probably). Use the built in icon.
+                icon = item.name
+            elif item.name in progressive_technology_stacks:
+                # This is a progressive item for Factorio (probably). Use one of the icons in the stack.
+                stack = progressive_technology_stacks[item.name]
+                icon = stack[min(1, len(stack)-1)]
         else:
             display_name = location.name
             description = "Researching this technology sends something to someone."

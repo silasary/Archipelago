@@ -107,7 +107,6 @@ class Factorio(World):
         TODO: create traps.
         """
         player = self.player
-        random = self.random
 
         # Regions don't map well onto anything useful in Factorio, because all the AP Locations are globally unlocked research.
         # Even Space Age planets don't work as AP Regions, because the stuff you get there isn't Archipelago stuff
@@ -123,15 +122,9 @@ class Factorio(World):
             if code != None:
                 self.locations.append(location)
             return location
-        def new_item(item_name, classification, add_to_pool=True):
-            code = ap_item_name_to_id.get(item_name, None)
-            item = FactorioItem(item_name, classification, code, player)
-            if code != None and add_to_pool:
-                self.multiworld.itempool.append(item)
-            return item
         def new_event(location_name, item_name, access_rule_fn):
             location = new_location(location_name, access_rule_fn)
-            event = new_item(item_name, ItemClassification.progression)
+            event = self.create_item(item_name)
             location.place_locked_item(event)
 
         victory_event_name = "Reach solar-system-edge"
@@ -155,13 +148,12 @@ class Factorio(World):
                     "automation",
                 )
                 location = new_location(technology_name_to_location_name[sub_name], compile_expr(expr))
-                item = new_item(sub_name,
-                    ItemClassification.progression if event_name in advancement_technologies else ItemClassification.useful,
-                    add_to_pool=not locked,
-                )
+                item = self.create_item(sub_name)
                 if locked:
                     location.place_locked_item(item)
                     location.revealed = True
+                else:
+                    self.multiworld.itempool.append(item)
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))
@@ -177,7 +169,9 @@ class Factorio(World):
             map_basic_settings["seed"] = self.random.randint(0, 2 ** 32 - 1)
 
         start_location_hints: typing.Set[str] = self.options.start_location_hints.value
-        # TODO: implement start_location_hints
+        for location in self.locations:
+            if location.name in start_location_hints:
+                location.revealed = True
 
     def collect_item(self, state, item, remove=False):
         # Convert a progressive technology name into what it would be at this state.
@@ -188,23 +182,27 @@ class Factorio(World):
             return super().collect_item(state, item, remove)
         # Progressive item
         if remove:
-            # If we're culling items out of the multiworld, lose the last progressive item we have.
+            # We're uncollecting an item during some backtracking in generation.
+            # It will be collected again later.
             for actual_item in reversed(stack):
                 if state.has(actual_item, item.player):
                     return actual_item
-            # If we didn't find anything, don't remove anything.
-            return None
         else:
             for actual_item in stack:
                 if not state.has(actual_item, item.player):
-                    break
-            # If we didn't find any we're missing, grant the last one again. It's probably an infinite tech.
-            return actual_item
+                    return actual_item
+        return None
 
     def get_filler_item_name(self) -> str:
         import pdb; pdb.set_trace()
         raise NotImplementedError
-    def create_item(self, name: str) -> FactorioItem:
-        import pdb; pdb.set_trace()
-        raise NotImplementedError
+
+    def create_item(self, item_name: str) -> FactorioItem:
+        code = ap_item_name_to_id.get(item_name, None)
+        if code == None or item_name in advancement_technologies:
+            # Events are always advancement (that's the point.).
+            classification = ItemClassification.progression
+        else:
+            classification = ItemClassification.useful
+        return FactorioItem(item_name, classification, code, self.player)
 
