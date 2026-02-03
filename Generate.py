@@ -650,8 +650,9 @@ def roll_alttp_settings(ret: argparse.Namespace, weights):
 
 
 if __name__ == '__main__':
-    import atexit
-    confirmation = atexit.register(input, "Press enter to close.")
+    if not os.environ.get("AP_NO_PROMPT_ON_EXIT", ""):
+        import atexit
+        confirmation = atexit.register(input, "Press enter to close.")
     erargs, seed = main()
     from Main import main as ERmain
     multiworld = ERmain(erargs, seed)
@@ -664,5 +665,6 @@ if __name__ == '__main__':
         gc.collect()  # need to collect to deref all hard references
         assert not weak(), f"MultiWorld object was not de-allocated, it's referenced {sys.getrefcount(weak())} times." \
                            " This would be a memory leak."
-    # in case of error-free exit should not need confirmation
-    atexit.unregister(confirmation)
+    if not os.environ.get("AP_NO_PROMPT_ON_EXIT", ""):
+        # in case of error-free exit should not need confirmation
+        atexit.unregister(confirmation)
