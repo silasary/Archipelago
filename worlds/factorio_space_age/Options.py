@@ -286,6 +286,32 @@ class FreeSampleExcludes(OptionSet):
     # TODO: move the validation from generate_early() into a schema here.
 
 
+class LogicMiningDrill(DefaultOnToggle):
+    """
+    Logically require electric mining drills for logistic science pack automation (green science).
+    Otherwise, you may need to use burner mining drills for automation until vulcanus or uranium is required.
+    """
+
+class LogicElectricFurnace(DefaultOnToggle):
+    """
+    Logically require electric furnaces, asteroid collectors, and crushers for space science pack automation and for traveling space.
+    Otherwise, you may need to supply space platforms with metal plates shipped up via rocket.
+    """
+
+class LogicIceMelting(DefaultOnToggle):
+    """
+    Logically require ice melting for traveling space.
+    Otherwise, you may need to supply space platforms with water barrels shipped up via rocket.
+    """
+
+class LogicGunTurret(DefaultOnToggle):
+    """
+    Logically require gun turrets for destroying medium asteroids.
+    Otherwise, you may need to use walls and speed regulation to survive space travel.
+    (Large and huge asteroids always logically require rocket turrets and railgun turrets respectively.)
+    """
+
+
 
 class TrapCount(Range):
     range_end = 25
@@ -372,6 +398,11 @@ class FactorioOptions(PerGameCommonOptions):
     free_samples_quality: FreeSamplesQuality
     free_sample_excludes: FreeSampleExcludes
 
+    require_electric_mining_drill: LogicMiningDrill
+    require_electric_furnace: LogicElectricFurnace
+    require_ice_melting: LogicIceMelting
+    require_gun_turret: LogicGunTurret
+
     teleport_traps: TeleportTrapCount
     grenade_traps: GrenadeTrapCount
     cluster_grenade_traps: ClusterGrenadeTrapCount
@@ -398,7 +429,16 @@ option_groups: list[OptionGroup] = [
             FreeSamples,
             FreeSamplesQuality,
             FreeSampleExcludes,
-        ]
+        ],
+    ),
+    OptionGroup(
+        "Logic",
+        [
+            LogicMiningDrill,
+            LogicElectricFurnace,
+            LogicIceMelting,
+            LogicGunTurret,
+        ],
     ),
     OptionGroup(
         "Traps",
@@ -414,6 +454,6 @@ option_groups: list[OptionGroup] = [
             AtomicCliffRemoverTrapCount,
             InventorySpillTrapCount,
         ],
-        start_collapsed=True
+        start_collapsed=True,
     ),
 ]

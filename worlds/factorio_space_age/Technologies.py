@@ -2,7 +2,7 @@
 import itertools, typing
 from collections import defaultdict, Counter
 from dataclasses import dataclass
-from enum import IntEnum, IntFlag
+from enum import IntEnum, IntFlag, StrEnum
 
 from .data import (
     get_data,
@@ -16,6 +16,14 @@ from .data import (
 )
 
 factorio_base_id = 2 ** 17
+
+class LogicOption(StrEnum):
+    burner_mining_drill_is_good_enough = "burner_mining_drill_is_good_enough"
+    water_barrel_is_good_enough = "water_barrel_is_good_enough"
+    launching_metal_is_good_enough = "launching_metal_is_good_enough"
+    backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
+    walls_to_destroy_medium_asteroids_is_good_enough = "walls_to_destroy_medium_asteroids_is_good_enough"
+fmt_option = lambda option: "Option {}".format(option.value)
 
 class Capability(IntFlag):
     """
@@ -72,7 +80,8 @@ class RecipeClassification(IntEnum):
     standard = 0 # Produce "better" items.
     breeding = 1 # Produce more of the same items.
     conversion = 2 # Lossless conversion of items into other items.
-    dead_end_recycling = 3 # 75% chance to destroy item in a recycler.
+    backwards_recycling = 3 # Un-crafting an item via a recycler.
+    dead_end_recycling = 4 # 75% chance to destroy item in a recycler.
 
 @dataclass
 class ResearchRequirement:
@@ -895,8 +904,12 @@ def init():
                 len(inputs) == 1 and
                 inputs.keys() == outputs.keys() and
                 all(amount == 0 for amount in inputs.values())
-            ), "expected a negative byproduct to be part of a dead-end recycling recipe"
+            ), "expected a negative byproduct to be part of a dead-end recycling recipe: " + recipe_name
             classification = RecipeClassification.dead_end_recycling
+        elif recipe_data["category"] == "recycling":
+            # Uncrafting an item.
+            assert len(inputs) == 1 and sum(inputs.values()) == 1, "is this not an un-crafting recipe?: " + recipe_name
+            classification = RecipeClassification.backwards_recycling
         elif all(amount == 0 for amount in inputs.values()) and all(amount == 0 for amount in outputs.values()):
             # This is a lossless conversion recipe, such as barreling/unbarreling or fluoroketone cooling.
             # Thematically the recipe respects conservation of mass, if you like.
@@ -933,7 +946,7 @@ def init():
         recipe_name = item_name + SPOILING_SUFFIX
         recipes[recipe_name] = Recipe(recipe_name,
             inputs={item_name:1}, outputs={product:1},
-            energy=3600, # FIXME: Find the spoilage time in the data.
+            energy=3600, # FIXME: Find the spoilage time in the data if we care.
             classification=RecipeClassification.standard,
             machines=None, locations=None,
         )
@@ -1115,11 +1128,18 @@ def init():
     fmt_learn_recipe = "Learn {}".format
 
     can_launch_rockets = fmt_automate_item(RawItem.rocket_part)
+    automate_iron_plates_in_space = {"or": [
+        fmt_option(LogicOption.launching_metal_is_good_enough),
+        {"and": [
+            fmt_operate_machine(RawEntity.asteroid_collector),
+            fmt_operate_machine(RawEntity.crusher),
+            fmt_operate_machine(RawEntity.electric_furnace),
+        ]},
+    ]}
 
-    all_ingredient_items = set(itertools.chain.from_iterable(
-        recipe.inputs.keys() for recipe in recipes.values()
-        if recipe.classification != RecipeClassification.dead_end_recycling
-    ))
+    # Options
+    for option in LogicOption:
+        logic_events[fmt_option(option)] = fmt_option(option)
 
     # Reach locations.
     for space_location in space_locations.values():
@@ -1144,8 +1164,6 @@ def init():
                 ] if space_location.launch_to else []),
             ]},
         ]}
-        #if space_location.launch_to != None or space_location.name == RawSpaceLocation.solar_system_edge:
-        #    never_inline_events.add(fmt_reach_location(space_location.name))
     # Discover them too.
     for name, techs in space_location_to_unlocking_technologies.items():
         logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
@@ -1190,7 +1208,11 @@ def init():
         elif capability == Capability.collect_asteroids:
             expr = {"or": [fmt_operate_machine(name) for name in asteroid_collecting_machines]}
         elif capability == Capability.travel_space:
-            expr = {"or": [fmt_operate_machine(name) for name in thruster_machines]}
+            expr = {"and": [
+                {"or": [fmt_operate_machine(name) for name in thruster_machines]},
+                # Also need to automate bullets probably.
+                automate_iron_plates_in_space,
+            ]}
         elif capability == Capability.generate_electricity_in_space:
             # FIXME: i'm just giving up and hard coding the answer here.
             expr = fmt_operate_machine(RawEntity.solar_panel)
@@ -1211,6 +1233,7 @@ def init():
                         ]},
                         # Technically this also works.
                         {"and": [
+                            fmt_option(LogicOption.water_barrel_is_good_enough),
                             fmt_learn_recipe(RawRecipe.empty_water_barrel),
                             fmt_automate_item(RawItem.water_barrel),
                             {"or": [
@@ -1230,14 +1253,23 @@ def init():
             ]}
         elif capability == Capability.destroy_medium_asteroids:
             ammo_category = "bullet"
-            expr = {"and": [
-                {"or": [
-                    fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]
-                    # Car and tank don't work in space, and aren't automated.
-                    # Just hardcoding the answer i guess.
-                    if machine == RawEntity.gun_turret
+            expr = {"or": [
+                {"and": [
+                    # Pewpew is the usual way.
+                    {"or": [
+                        fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]
+                        # Car and tank don't work in space, and aren't automated.
+                        # Just hardcoding the answer i guess.
+                        if machine == RawEntity.gun_turret
+                    ]},
+                    {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
                 ]},
-                {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
+                {"and": [
+                    # Consult your local speedrunner to find out if wall ships are right for you.
+                    fmt_option(LogicOption.walls_to_destroy_medium_asteroids_is_good_enough),
+                    fmt_automate_item(RawItem.stone_wall),
+                    # No repair packs in logic for you. Be grateful you get walls.
+                ]},
             ]}
         elif capability == Capability.destroy_big_asteroids:
             ammo_category = "rocket"
@@ -1265,7 +1297,6 @@ def init():
 
         logic_events[fmt_capability(capability)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
-        #never_inline_events.add(fmt_capability(capability))
 
     # Machines
     for machine_name, machine in machines.items():
@@ -1328,13 +1359,15 @@ def init():
                         fmt_learn_recipe(RawRecipe.ice_melting),
                     ]},
                     # Technically works.
-                    fmt_automate_item(RawItem.water_barrel),
+                    {"and": [
+                        fmt_option(LogicOption.water_barrel_is_good_enough),
+                        fmt_automate_item(RawItem.water_barrel),
+                    ]},
                 ]},
             ]}
         else: assert False, "forgot a PowerType: " + repr(power_type)
         logic_events[fmt_supply_power(power_type)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
-        #never_inline_events.add(fmt_supply_power(power_type))
 
     # Research
     for technology_name, technology in technologies.items():
@@ -1379,6 +1412,7 @@ def init():
                 fmt_access_item(RawItem.space_platform_starter_pack),
             ]}
         else: assert False, "forgot a requirement type: " + repr(technology.requirement)
+        # TODO: add prerequisites into logic.
         logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
         never_inline_events.add(fmt_unlock_research(technology_name))
@@ -1461,11 +1495,21 @@ def init():
                             machine_expr = fmt_operate_machine(machine)
                         machine_exprs.append(machine_expr)
                     recipe_exprs.append({"or": machine_exprs})
+                if recipe.classification == RecipeClassification.backwards_recycling:
+                    # Just cull this recipe from the logic if we're not doing something like a Fulgora start.
+                    recipe_exprs.append(fmt_option(LogicOption.backwards_recycling_is_interesting))
                 if recipe.locations != None:
                     recipe_exprs.append({"or": [fmt_reach_location(location_name) for location_name in recipe.locations]})
-                if item_name == RawItem.logistic_science_pack and fmt_automate_or_access is fmt_automate_item: # TODO: allow disablign this in the options?
-                    # Don't let the player go too long without electric mining drills.
-                    recipe_exprs.append(fmt_access_item(RawItem.electric_mining_drill))
+                # Logic option hooks
+                if item_name == RawItem.logistic_science_pack and fmt_automate_or_access is fmt_automate_item:
+                    # Require electric mining drills to get out of the early game.
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.burner_mining_drill_is_good_enough),
+                        fmt_access_item(RawItem.electric_mining_drill),
+                    ]})
+                elif item_name == RawItem.space_science_pack and fmt_automate_or_access is fmt_automate_item:
+                    # Require electric furnaces to make space science.
+                    recipe_exprs.append(automate_iron_plates_in_space)
                 source_exprs.append({"and": recipe_exprs})
             logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 
@@ -1516,6 +1560,16 @@ def init():
         id_cursor += 1
 
 # TODO: Move this to logic.py
+
+def instantiate_options(logic_events, options_dict: dict[LogicOption, bool]):
+    assert set(LogicOption) == options_dict.keys(), repr(set(LogicOption) - options_dict.keys())
+    logic_events = {**logic_events, **{
+        fmt_option(option): ALWAYS if value else NEVER
+        for option, value in options_dict.items()
+    }}
+    logic_events, _ = inline_exprs(logic_events, never_inline_events)
+    return logic_events
+
 def inline_exprs(logic_events, never_inline_events):
     def visit_readonly(expr, fn):
         if type(expr) != dict:

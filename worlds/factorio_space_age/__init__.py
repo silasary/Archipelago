@@ -8,7 +8,7 @@ from worlds.AutoWorld import World, WebWorld
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
 from .Technologies import (
-    compile_expr, logic_events,
+    compile_expr, logic_events as all_logic_events, instantiate_options, LogicOption,
     ap_item_name_to_id, ap_location_name_to_id,
     recipes as all_recipes, items as all_items,
     advancement_technologies, empty_technologies,
@@ -135,6 +135,14 @@ class Factorio(World):
 
         victory_event_name = "Reach solar-system-edge"
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
+
+        logic_events = instantiate_options(all_logic_events, {
+            LogicOption.burner_mining_drill_is_good_enough: not self.options.require_electric_mining_drill.value,
+            LogicOption.water_barrel_is_good_enough:        not self.options.require_ice_melting.value,
+            LogicOption.launching_metal_is_good_enough:     not self.options.require_electric_furnace.value,
+            LogicOption.backwards_recycling_is_interesting: False, # Fulgora start is not implemented.
+            LogicOption.walls_to_destroy_medium_asteroids_is_good_enough: not self.options.require_gun_turret.value,
+        })
 
         enabled_progressive_categories = {
             "off": (),

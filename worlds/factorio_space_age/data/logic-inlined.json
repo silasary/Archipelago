@@ -10,7 +10,8 @@
       {
         "and": [
           "Access lightning-collector",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -42,6 +43,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access active-provider-chest",
@@ -137,7 +139,8 @@
       {
         "and": [
           "Access overgrowth-jellynut-soil",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -156,7 +159,8 @@
       {
         "and": [
           "Access overgrowth-yumako-soil",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -192,7 +196,8 @@
       {
         "and": [
           "Access assembling-machine-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -216,7 +221,8 @@
       {
         "and": [
           "Access assembling-machine-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -249,6 +255,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access cliff-explosives",
@@ -399,6 +406,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access accumulator",
@@ -425,7 +433,8 @@
       {
         "and": [
           "Access battery-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -443,7 +452,8 @@
       {
         "and": [
           "Access battery-mk3-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -506,7 +516,8 @@
       {
         "and": [
           "Access capture-robot-rocket",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -540,6 +551,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access overgrowth-jellynut-soil",
@@ -556,7 +568,8 @@
       {
         "and": [
           "Access heating-tower",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -588,7 +601,8 @@
       {
         "and": [
           "Access stack-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -606,6 +620,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-shell",
@@ -629,7 +644,8 @@
       {
         "and": [
           "Access uranium-cannon-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -708,6 +724,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access foundation",
@@ -896,6 +913,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access cargo-landing-pad",
@@ -974,6 +992,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access advanced-circuit",
@@ -1065,7 +1084,8 @@
       {
         "and": [
           "Access selector-combinator",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1075,7 +1095,8 @@
       {
         "and": [
           "Access distractor-capsule",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -1121,7 +1142,8 @@
       {
         "and": [
           "Access destroyer-capsule",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1138,6 +1160,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access efficiency-module-2",
@@ -1161,7 +1184,8 @@
       {
         "and": [
           "Access efficiency-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1193,6 +1217,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access asteroid-collector",
@@ -1222,7 +1247,8 @@
       {
         "and": [
           "Access big-mining-drill",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -1270,6 +1296,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access active-provider-chest",
@@ -1341,7 +1368,8 @@
       {
         "and": [
           "Access energy-shield-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1373,6 +1401,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-wagon",
@@ -1401,7 +1430,8 @@
       {
         "and": [
           "Access spidertron",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1411,7 +1441,8 @@
       {
         "and": [
           "Access explosive-uranium-cannon-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -1456,6 +1487,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-shell",
@@ -1494,7 +1526,8 @@
       {
         "and": [
           "Access turbo-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1518,7 +1551,8 @@
       {
         "and": [
           "Access turbo-transport-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1542,7 +1576,8 @@
       {
         "and": [
           "Access turbo-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1552,7 +1587,8 @@
       {
         "and": [
           "Access bulk-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -1576,7 +1612,8 @@
       {
         "and": [
           "Access express-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1587,7 +1624,8 @@
       {
         "and": [
           "Access express-transport-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1597,7 +1635,8 @@
       {
         "and": [
           "Access express-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -1621,6 +1660,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access fusion-reactor-equipment",
@@ -1751,6 +1791,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access capture-robot-rocket",
@@ -1819,7 +1860,8 @@
       {
         "and": [
           "Access fusion-reactor-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -1859,6 +1901,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access cliff-explosives",
@@ -1887,7 +1930,8 @@
       {
         "and": [
           "Access heating-tower",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -2016,6 +2060,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access electromagnetic-plant",
@@ -2054,7 +2099,8 @@
       {
         "and": [
           "Access ice-platform",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -2106,6 +2152,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access fast-inserter",
@@ -2158,6 +2205,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access big-electric-pole",
@@ -2183,7 +2231,8 @@
       {
         "and": [
           "Access stack-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -2211,6 +2260,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artificial-jellynut-soil",
@@ -2240,6 +2290,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access agricultural-tower",
@@ -2265,6 +2316,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access discharge-defense-equipment",
@@ -2373,7 +2425,8 @@
       {
         "and": [
           "Access lightning-collector",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -2417,6 +2470,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access cryogenic-plant",
@@ -2484,6 +2538,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access asteroid-collector",
@@ -2712,6 +2767,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artificial-jellynut-soil",
@@ -2856,7 +2912,8 @@
       {
         "and": [
           "Access biochamber",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -2892,7 +2949,8 @@
       {
         "and": [
           "Access personal-roboport-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -2996,6 +3054,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access defender-capsule",
@@ -3026,6 +3085,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access boiler",
@@ -3090,6 +3150,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access advanced-circuit",
@@ -3134,7 +3195,8 @@
       {
         "and": [
           "Access mech-armor",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3172,6 +3234,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-turret",
@@ -3229,7 +3292,8 @@
       {
         "and": [
           "Access productivity-module-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3247,7 +3311,8 @@
       {
         "and": [
           "Access productivity-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3297,7 +3362,8 @@
       {
         "and": [
           "Access quality-module-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3315,7 +3381,8 @@
       {
         "and": [
           "Access quality-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3367,6 +3434,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access fusion-generator",
@@ -3391,6 +3459,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-shell",
@@ -3413,7 +3482,8 @@
       {
         "and": [
           "Access rail-ramp",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3503,6 +3573,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-turret",
@@ -3551,7 +3622,8 @@
       {
         "and": [
           "Access explosive-rocket",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -3576,7 +3648,8 @@
       {
         "and": [
           "Access nuclear-fuel",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -3621,7 +3694,8 @@
       {
         "and": [
           "Access rocket-turret",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3650,7 +3724,8 @@
       {
         "and": [
           "Access spidertron",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3679,7 +3754,8 @@
       {
         "and": [
           "Access piercing-shotgun-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3716,7 +3792,8 @@
       {
         "and": [
           "Access solar-panel-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3748,7 +3825,8 @@
       {
         "and": [
           "Access rocket-fuel",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -3797,7 +3875,8 @@
       {
         "and": [
           "Access space-platform-starter-pack",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3822,6 +3901,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access assembling-machine-3",
@@ -3846,7 +3926,8 @@
       {
         "and": [
           "Access speed-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3880,7 +3961,8 @@
       {
         "and": [
           "Access fast-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -3970,6 +4052,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access active-provider-chest",
@@ -4009,6 +4092,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access agricultural-tower",
@@ -4096,7 +4180,8 @@
       {
         "and": [
           "Access gate",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4114,7 +4199,8 @@
       {
         "and": [
           "Access fluid-wagon",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -4230,6 +4316,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access battery-mk3-equipment",
@@ -4258,6 +4345,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access cryogenic-plant",
@@ -4321,7 +4409,8 @@
       {
         "and": [
           "Access tesla-turret",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4368,6 +4457,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access big-mining-drill",
@@ -4404,6 +4494,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artillery-shell",
@@ -4461,7 +4552,8 @@
       {
         "and": [
           "Access fast-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4493,6 +4585,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access atomic-bomb",
@@ -4515,6 +4608,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access explosive-uranium-cannon-shell",
@@ -4538,7 +4632,8 @@
       {
         "and": [
           "Access fission-reactor-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -4641,6 +4736,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Access artificial-yumako-soil",
@@ -4670,7 +4766,8 @@
       {
         "and": [
           "Automate lightning-collector",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4713,48 +4810,57 @@
           "Operate recycler",
           {
             "or": [
-              "Automate active-provider-chest",
-              "Automate beacon",
-              "Automate belt-immunity-equipment",
-              "Automate big-mining-drill",
-              "Automate buffer-chest",
-              "Automate bulk-inserter",
-              "Automate centrifuge",
-              "Automate distractor-capsule",
-              "Automate efficiency-module",
-              "Automate efficiency-module-2",
-              "Automate efficiency-module-3",
-              "Automate electric-furnace",
-              "Automate energy-shield-equipment",
-              "Automate express-splitter",
-              "Automate logistic-robot",
-              "Automate modular-armor",
-              "Automate night-vision-equipment",
-              "Automate nuclear-reactor",
-              "Automate passive-provider-chest",
-              "Automate personal-roboport-equipment",
-              "Automate processing-unit",
-              "Automate productivity-module",
-              "Automate productivity-module-2",
-              "Automate productivity-module-3",
-              "Automate quality-module",
-              "Automate quality-module-2",
-              "Automate quality-module-3",
-              "Automate requester-chest",
-              "Automate roboport",
-              "Automate selector-combinator",
-              "Automate solar-panel-equipment",
-              "Automate speed-module",
-              "Automate speed-module-2",
-              "Automate speed-module-3",
-              "Automate storage-chest",
-              "Automate substation",
-              "Automate tank",
-              "Automate toolbelt-equipment",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate active-provider-chest",
+                      "Automate beacon",
+                      "Automate belt-immunity-equipment",
+                      "Automate big-mining-drill",
+                      "Automate buffer-chest",
+                      "Automate bulk-inserter",
+                      "Automate centrifuge",
+                      "Automate distractor-capsule",
+                      "Automate efficiency-module",
+                      "Automate efficiency-module-2",
+                      "Automate efficiency-module-3",
+                      "Automate electric-furnace",
+                      "Automate energy-shield-equipment",
+                      "Automate express-splitter",
+                      "Automate logistic-robot",
+                      "Automate modular-armor",
+                      "Automate night-vision-equipment",
+                      "Automate nuclear-reactor",
+                      "Automate passive-provider-chest",
+                      "Automate personal-roboport-equipment",
+                      "Automate processing-unit",
+                      "Automate productivity-module",
+                      "Automate productivity-module-2",
+                      "Automate productivity-module-3",
+                      "Automate quality-module",
+                      "Automate quality-module-2",
+                      "Automate quality-module-3",
+                      "Automate requester-chest",
+                      "Automate roboport",
+                      "Automate selector-combinator",
+                      "Automate solar-panel-equipment",
+                      "Automate speed-module",
+                      "Automate speed-module-2",
+                      "Automate speed-module-3",
+                      "Automate storage-chest",
+                      "Automate substation",
+                      "Automate tank",
+                      "Automate toolbelt-equipment"
+                    ]
+                  }
                 ]
               }
             ]
@@ -4843,7 +4949,8 @@
       {
         "and": [
           "Automate overgrowth-jellynut-soil",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4869,7 +4976,8 @@
       {
         "and": [
           "Automate overgrowth-yumako-soil",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -4928,7 +5036,8 @@
       {
         "and": [
           "Automate assembling-machine-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -4968,7 +5077,8 @@
       {
         "and": [
           "Automate assembling-machine-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -5035,6 +5145,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate cliff-explosives",
@@ -5192,16 +5303,25 @@
           "Operate recycler",
           {
             "or": [
-              "Automate accumulator",
-              "Automate battery-equipment",
-              "Automate flying-robot-frame",
-              "Automate laser-turret",
-              "Automate personal-roboport-equipment",
-              "Automate supercapacitor",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate accumulator",
+                      "Automate battery-equipment",
+                      "Automate flying-robot-frame",
+                      "Automate laser-turret",
+                      "Automate personal-roboport-equipment",
+                      "Automate supercapacitor"
+                    ]
+                  }
                 ]
               }
             ]
@@ -5229,7 +5349,8 @@
       {
         "and": [
           "Automate battery-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -5254,7 +5375,8 @@
       {
         "and": [
           "Automate battery-mk3-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -5354,7 +5476,8 @@
       {
         "and": [
           "Automate capture-robot-rocket",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -5378,6 +5501,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate overgrowth-jellynut-soil",
@@ -5394,7 +5518,8 @@
       {
         "and": [
           "Automate heating-tower",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -5449,7 +5574,8 @@
       {
         "and": [
           "Automate stack-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -5492,6 +5618,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-shell",
@@ -5522,7 +5649,8 @@
       {
         "and": [
           "Automate uranium-cannon-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -5605,6 +5733,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate foundation",
@@ -5865,18 +5994,27 @@
           "Operate recycler",
           {
             "or": [
-              "Automate cargo-landing-pad",
-              "Automate centrifuge",
-              "Automate hazard-concrete",
-              "Automate heating-tower",
-              "Automate nuclear-reactor",
-              "Automate recycler",
-              "Automate refined-concrete",
-              "Automate rocket-silo",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate cargo-landing-pad",
+                      "Automate centrifuge",
+                      "Automate hazard-concrete",
+                      "Automate heating-tower",
+                      "Automate nuclear-reactor",
+                      "Automate recycler",
+                      "Automate refined-concrete",
+                      "Automate rocket-silo"
+                    ]
+                  }
                 ]
               }
             ]
@@ -5927,26 +6065,35 @@
           "Operate recycler",
           {
             "or": [
-              "Automate advanced-circuit",
-              "Automate arithmetic-combinator",
-              "Automate beacon",
-              "Automate big-electric-pole",
-              "Automate constant-combinator",
-              "Automate decider-combinator",
-              "Automate electronic-circuit",
-              "Automate lightning-rod",
-              "Automate medium-electric-pole",
-              "Automate power-switch",
-              "Automate programmable-speaker",
-              "Automate railgun-ammo",
-              "Automate small-electric-pole",
-              "Automate small-lamp",
-              "Automate space-platform-foundation",
-              "Automate substation",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate advanced-circuit",
+                      "Automate arithmetic-combinator",
+                      "Automate beacon",
+                      "Automate big-electric-pole",
+                      "Automate constant-combinator",
+                      "Automate decider-combinator",
+                      "Automate electronic-circuit",
+                      "Automate lightning-rod",
+                      "Automate medium-electric-pole",
+                      "Automate power-switch",
+                      "Automate programmable-speaker",
+                      "Automate railgun-ammo",
+                      "Automate small-electric-pole",
+                      "Automate small-lamp",
+                      "Automate space-platform-foundation",
+                      "Automate substation"
+                    ]
+                  }
                 ]
               }
             ]
@@ -6059,7 +6206,8 @@
       {
         "and": [
           "Automate selector-combinator",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6069,7 +6217,8 @@
       {
         "and": [
           "Automate distractor-capsule",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6152,7 +6301,8 @@
       {
         "and": [
           "Automate destroyer-capsule",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6177,6 +6327,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate efficiency-module-2",
@@ -6208,7 +6359,8 @@
       {
         "and": [
           "Automate efficiency-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6249,6 +6401,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate asteroid-collector",
@@ -6285,7 +6438,8 @@
       {
         "and": [
           "Automate big-mining-drill",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6361,6 +6515,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate active-provider-chest",
@@ -6439,7 +6594,8 @@
       {
         "and": [
           "Automate energy-shield-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6479,6 +6635,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-wagon",
@@ -6514,7 +6671,8 @@
       {
         "and": [
           "Automate spidertron",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6524,7 +6682,8 @@
       {
         "and": [
           "Automate explosive-uranium-cannon-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6590,6 +6749,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-shell",
@@ -6629,7 +6789,8 @@
       {
         "and": [
           "Automate turbo-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6654,7 +6815,8 @@
       {
         "and": [
           "Automate turbo-transport-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6679,7 +6841,8 @@
       {
         "and": [
           "Automate turbo-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6689,7 +6852,8 @@
       {
         "and": [
           "Automate bulk-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6729,7 +6893,8 @@
       {
         "and": [
           "Automate express-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6739,7 +6904,8 @@
       {
         "and": [
           "Automate express-transport-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6764,7 +6930,8 @@
       {
         "and": [
           "Automate express-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -6792,7 +6959,8 @@
       {
         "and": [
           "Automate piercing-rounds-magazine",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -6817,6 +6985,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate fusion-reactor-equipment",
@@ -6978,6 +7147,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate capture-robot-rocket",
@@ -7046,7 +7216,8 @@
       {
         "and": [
           "Automate fusion-reactor-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -7099,6 +7270,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate cliff-explosives",
@@ -7166,7 +7338,8 @@
       {
         "and": [
           "Automate heating-tower",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -7312,6 +7485,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate electromagnetic-plant",
@@ -7363,7 +7537,12 @@
           "Operate recycler",
           {
             "or": [
-              "Automate ice-platform",
+              {
+                "and": [
+                  "Automate ice-platform",
+                  "Option backwards_recycling_is_interesting"
+                ]
+              },
               {
                 "and": [
                   "Automate scrap",
@@ -7408,6 +7587,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate fast-inserter",
@@ -7435,53 +7615,62 @@
           "Operate recycler",
           {
             "or": [
-              "Automate artillery-turret",
-              "Automate artillery-wagon",
-              "Automate assembling-machine-1",
-              "Automate assembling-machine-2",
-              "Automate bulk-inserter",
-              "Automate burner-inserter",
-              "Automate burner-mining-drill",
-              "Automate cargo-wagon",
-              "Automate centrifuge",
-              "Automate chemical-plant",
-              "Automate combat-shotgun",
-              "Automate defender-capsule",
-              "Automate electric-mining-drill",
-              "Automate engine-unit",
-              "Automate express-splitter",
-              "Automate express-transport-belt",
-              "Automate express-underground-belt",
-              "Automate fast-splitter",
-              "Automate fast-transport-belt",
-              "Automate fast-underground-belt",
-              "Automate flamethrower",
-              "Automate flamethrower-turret",
-              "Automate fluid-wagon",
-              "Automate gun-turret",
-              "Automate inserter",
-              "Automate lab",
-              "Automate long-handed-inserter",
-              "Automate offshore-pump",
-              "Automate oil-refinery",
-              "Automate personal-roboport-equipment",
-              "Automate pumpjack",
-              "Automate radar",
-              "Automate recycler",
-              "Automate repair-pack",
-              "Automate roboport",
-              "Automate rocket-launcher",
-              "Automate rocket-turret",
-              "Automate shotgun",
-              "Automate steam-engine",
-              "Automate steam-turbine",
-              "Automate submachine-gun",
-              "Automate tank",
-              "Automate transport-belt",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate artillery-turret",
+                      "Automate artillery-wagon",
+                      "Automate assembling-machine-1",
+                      "Automate assembling-machine-2",
+                      "Automate bulk-inserter",
+                      "Automate burner-inserter",
+                      "Automate burner-mining-drill",
+                      "Automate cargo-wagon",
+                      "Automate centrifuge",
+                      "Automate chemical-plant",
+                      "Automate combat-shotgun",
+                      "Automate defender-capsule",
+                      "Automate electric-mining-drill",
+                      "Automate engine-unit",
+                      "Automate express-splitter",
+                      "Automate express-transport-belt",
+                      "Automate express-underground-belt",
+                      "Automate fast-splitter",
+                      "Automate fast-transport-belt",
+                      "Automate fast-underground-belt",
+                      "Automate flamethrower",
+                      "Automate flamethrower-turret",
+                      "Automate fluid-wagon",
+                      "Automate gun-turret",
+                      "Automate inserter",
+                      "Automate lab",
+                      "Automate long-handed-inserter",
+                      "Automate offshore-pump",
+                      "Automate oil-refinery",
+                      "Automate personal-roboport-equipment",
+                      "Automate pumpjack",
+                      "Automate radar",
+                      "Automate recycler",
+                      "Automate repair-pack",
+                      "Automate roboport",
+                      "Automate rocket-launcher",
+                      "Automate rocket-turret",
+                      "Automate shotgun",
+                      "Automate steam-engine",
+                      "Automate steam-turbine",
+                      "Automate submachine-gun",
+                      "Automate tank",
+                      "Automate transport-belt"
+                    ]
+                  }
                 ]
               }
             ]
@@ -7514,6 +7703,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate big-electric-pole",
@@ -7546,7 +7736,8 @@
       {
         "and": [
           "Automate stack-inserter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -7576,6 +7767,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artificial-jellynut-soil",
@@ -7620,6 +7812,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate agricultural-tower",
@@ -7664,6 +7857,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate discharge-defense-equipment",
@@ -7779,7 +7973,8 @@
       {
         "and": [
           "Automate lightning-collector",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -7818,6 +8013,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate cryogenic-plant",
@@ -7860,10 +8056,15 @@
   },
   "Automate logistic-science-pack": {
     "and": [
-      "Access electric-mining-drill",
       "Automate inserter",
       "Automate transport-belt",
       "logistic-science-pack",
+      {
+        "or": [
+          "Access electric-mining-drill",
+          "Option burner_mining_drill_is_good_enough"
+        ]
+      },
       {
         "or": [
           "Operate assembling-machine-1",
@@ -7925,18 +8126,27 @@
           "Operate recycler",
           {
             "or": [
-              "Automate asteroid-collector",
-              "Automate battery-mk2-equipment",
-              "Automate cargo-bay",
-              "Automate crusher",
-              "Automate energy-shield-mk2-equipment",
-              "Automate fission-reactor-equipment",
-              "Automate personal-laser-defense-equipment",
-              "Automate power-armor-mk2",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate asteroid-collector",
+                      "Automate battery-mk2-equipment",
+                      "Automate cargo-bay",
+                      "Automate crusher",
+                      "Automate energy-shield-mk2-equipment",
+                      "Automate fission-reactor-equipment",
+                      "Automate personal-laser-defense-equipment",
+                      "Automate power-armor-mk2"
+                    ]
+                  }
                 ]
               }
             ]
@@ -8236,6 +8446,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artificial-jellynut-soil",
@@ -8414,7 +8625,8 @@
       {
         "and": [
           "Automate biochamber",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -8455,7 +8667,8 @@
       {
         "and": [
           "Automate personal-roboport-mk2-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -8574,6 +8787,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate defender-capsule",
@@ -8610,6 +8824,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate boiler",
@@ -8697,6 +8912,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate advanced-circuit",
@@ -8762,7 +8978,8 @@
       {
         "and": [
           "Automate mech-armor",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -8803,47 +9020,56 @@
           "Operate recycler",
           {
             "or": [
-              "Automate artillery-turret",
-              "Automate artillery-wagon",
-              "Automate asteroid-collector",
-              "Automate atomic-bomb",
-              "Automate battery-mk2-equipment",
-              "Automate capture-robot-rocket",
-              "Automate cargo-bay",
-              "Automate cargo-landing-pad",
-              "Automate cryogenic-plant",
-              "Automate destroyer-capsule",
-              "Automate discharge-defense-equipment",
-              "Automate efficiency-module-2",
-              "Automate efficiency-module-3",
-              "Automate electromagnetic-plant",
-              "Automate energy-shield-mk2-equipment",
-              "Automate exoskeleton-equipment",
-              "Automate fission-reactor-equipment",
-              "Automate mech-armor",
-              "Automate personal-laser-defense-equipment",
-              "Automate personal-roboport-mk2-equipment",
-              "Automate power-armor",
-              "Automate power-armor-mk2",
-              "Automate productivity-module-2",
-              "Automate productivity-module-3",
-              "Automate quality-module-2",
-              "Automate quality-module-3",
-              "Automate quantum-processor",
-              "Automate recycler",
-              "Automate rocket-silo",
-              "Automate rocket-turret",
-              "Automate space-platform-starter-pack",
-              "Automate speed-module-2",
-              "Automate speed-module-3",
-              "Automate stack-inserter",
-              "Automate tesla-turret",
-              "Automate thruster",
-              "Automate turbo-splitter",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate artillery-turret",
+                      "Automate artillery-wagon",
+                      "Automate asteroid-collector",
+                      "Automate atomic-bomb",
+                      "Automate battery-mk2-equipment",
+                      "Automate capture-robot-rocket",
+                      "Automate cargo-bay",
+                      "Automate cargo-landing-pad",
+                      "Automate cryogenic-plant",
+                      "Automate destroyer-capsule",
+                      "Automate discharge-defense-equipment",
+                      "Automate efficiency-module-2",
+                      "Automate efficiency-module-3",
+                      "Automate electromagnetic-plant",
+                      "Automate energy-shield-mk2-equipment",
+                      "Automate exoskeleton-equipment",
+                      "Automate fission-reactor-equipment",
+                      "Automate mech-armor",
+                      "Automate personal-laser-defense-equipment",
+                      "Automate personal-roboport-mk2-equipment",
+                      "Automate power-armor",
+                      "Automate power-armor-mk2",
+                      "Automate productivity-module-2",
+                      "Automate productivity-module-3",
+                      "Automate quality-module-2",
+                      "Automate quality-module-3",
+                      "Automate quantum-processor",
+                      "Automate recycler",
+                      "Automate rocket-silo",
+                      "Automate rocket-turret",
+                      "Automate space-platform-starter-pack",
+                      "Automate speed-module-2",
+                      "Automate speed-module-3",
+                      "Automate stack-inserter",
+                      "Automate tesla-turret",
+                      "Automate thruster",
+                      "Automate turbo-splitter"
+                    ]
+                  }
                 ]
               }
             ]
@@ -8887,7 +9113,8 @@
       {
         "and": [
           "Automate productivity-module-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -8913,7 +9140,8 @@
       {
         "and": [
           "Automate productivity-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9044,7 +9272,8 @@
       {
         "and": [
           "Automate quality-module-2",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9070,7 +9299,8 @@
       {
         "and": [
           "Automate quality-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9130,6 +9360,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate fusion-generator",
@@ -9162,6 +9393,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-shell",
@@ -9191,7 +9423,8 @@
       {
         "and": [
           "Automate rail-ramp",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9305,7 +9538,8 @@
       {
         "and": [
           "Automate spidertron",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9347,6 +9581,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-turret",
@@ -9425,7 +9660,8 @@
       {
         "and": [
           "Automate explosive-rocket",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -9457,7 +9693,8 @@
       {
         "and": [
           "Automate nuclear-fuel",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -9517,7 +9754,8 @@
       {
         "and": [
           "Automate rocket-turret",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9570,7 +9808,8 @@
       {
         "and": [
           "Automate spidertron",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9614,7 +9853,8 @@
       {
         "and": [
           "Automate piercing-shotgun-shell",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -9694,7 +9934,8 @@
       {
         "and": [
           "Automate solar-panel-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9761,7 +10002,12 @@
           "Operate recycler",
           {
             "or": [
-              "Automate rocket-fuel",
+              {
+                "and": [
+                  "Automate rocket-fuel",
+                  "Option backwards_recycling_is_interesting"
+                ]
+              },
               {
                 "and": [
                   "Automate scrap",
@@ -9793,7 +10039,8 @@
       {
         "and": [
           "Automate space-platform-starter-pack",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9823,6 +10070,18 @@
           "Operate assembling-machine-1",
           "Operate assembling-machine-2",
           "Operate assembling-machine-3"
+        ]
+      },
+      {
+        "or": [
+          "Option launching_metal_is_good_enough",
+          {
+            "and": [
+              "Operate asteroid-collector",
+              "Operate crusher",
+              "Operate electric-furnace"
+            ]
+          }
         ]
       },
       {
@@ -9867,6 +10126,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate assembling-machine-3",
@@ -9899,7 +10159,8 @@
       {
         "and": [
           "Automate speed-module-3",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9958,7 +10219,8 @@
       {
         "and": [
           "Automate fast-splitter",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -9976,6 +10238,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate agricultural-tower",
@@ -10115,6 +10378,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate active-provider-chest",
@@ -10156,83 +10420,92 @@
           "Operate recycler",
           {
             "or": [
-              "Automate agricultural-tower",
-              "Automate assembling-machine-2",
-              "Automate barrel",
-              "Automate battery-equipment",
-              "Automate beacon",
-              "Automate belt-immunity-equipment",
-              "Automate big-electric-pole",
-              "Automate cannon-shell",
-              "Automate capture-robot-rocket",
-              "Automate car",
-              "Automate cargo-bay",
-              "Automate cargo-landing-pad",
-              "Automate cargo-wagon",
-              "Automate centrifuge",
-              "Automate chemical-plant",
-              "Automate cluster-grenade",
-              "Automate combat-shotgun",
-              "Automate crusher",
-              "Automate destroyer-capsule",
-              "Automate discharge-defense-equipment",
-              "Automate electric-furnace",
-              "Automate electromagnetic-plant",
-              "Automate energy-shield-equipment",
-              "Automate engine-unit",
-              "Automate exoskeleton-equipment",
-              "Automate explosive-cannon-shell",
-              "Automate flamethrower",
-              "Automate flamethrower-turret",
-              "Automate fluid-wagon",
-              "Automate flying-robot-frame",
-              "Automate foundry",
-              "Automate gate",
-              "Automate heat-exchanger",
-              "Automate heat-pipe",
-              "Automate heavy-armor",
-              "Automate land-mine",
-              "Automate laser-turret",
-              "Automate lightning-rod",
-              "Automate locomotive",
-              "Automate low-density-structure",
-              "Automate medium-electric-pole",
-              "Automate modular-armor",
-              "Automate night-vision-equipment",
-              "Automate nuclear-reactor",
-              "Automate oil-refinery",
-              "Automate personal-roboport-equipment",
-              "Automate piercing-rounds-magazine",
-              "Automate piercing-shotgun-shell",
-              "Automate poison-capsule",
-              "Automate power-armor",
-              "Automate pump",
-              "Automate pumpjack",
-              "Automate rail",
-              "Automate rail-ramp",
-              "Automate rail-support",
-              "Automate railgun-ammo",
-              "Automate recycler",
-              "Automate refined-concrete",
-              "Automate roboport",
-              "Automate rocket-silo",
-              "Automate rocket-turret",
-              "Automate slowdown-capsule",
-              "Automate solar-panel",
-              "Automate solar-panel-equipment",
-              "Automate space-platform-foundation",
-              "Automate space-platform-starter-pack",
-              "Automate steel-chest",
-              "Automate steel-furnace",
-              "Automate storage-tank",
-              "Automate substation",
-              "Automate tank",
-              "Automate thruster",
-              "Automate train-stop",
               {
                 "and": [
                   "Automate scrap",
                   "recycling"
+                ]
+              },
+              {
+                "and": [
+                  "Option backwards_recycling_is_interesting",
+                  {
+                    "or": [
+                      "Automate agricultural-tower",
+                      "Automate assembling-machine-2",
+                      "Automate barrel",
+                      "Automate battery-equipment",
+                      "Automate beacon",
+                      "Automate belt-immunity-equipment",
+                      "Automate big-electric-pole",
+                      "Automate cannon-shell",
+                      "Automate capture-robot-rocket",
+                      "Automate car",
+                      "Automate cargo-bay",
+                      "Automate cargo-landing-pad",
+                      "Automate cargo-wagon",
+                      "Automate centrifuge",
+                      "Automate chemical-plant",
+                      "Automate cluster-grenade",
+                      "Automate combat-shotgun",
+                      "Automate crusher",
+                      "Automate destroyer-capsule",
+                      "Automate discharge-defense-equipment",
+                      "Automate electric-furnace",
+                      "Automate electromagnetic-plant",
+                      "Automate energy-shield-equipment",
+                      "Automate engine-unit",
+                      "Automate exoskeleton-equipment",
+                      "Automate explosive-cannon-shell",
+                      "Automate flamethrower",
+                      "Automate flamethrower-turret",
+                      "Automate fluid-wagon",
+                      "Automate flying-robot-frame",
+                      "Automate foundry",
+                      "Automate gate",
+                      "Automate heat-exchanger",
+                      "Automate heat-pipe",
+                      "Automate heavy-armor",
+                      "Automate land-mine",
+                      "Automate laser-turret",
+                      "Automate lightning-rod",
+                      "Automate locomotive",
+                      "Automate low-density-structure",
+                      "Automate medium-electric-pole",
+                      "Automate modular-armor",
+                      "Automate night-vision-equipment",
+                      "Automate nuclear-reactor",
+                      "Automate oil-refinery",
+                      "Automate personal-roboport-equipment",
+                      "Automate piercing-rounds-magazine",
+                      "Automate piercing-shotgun-shell",
+                      "Automate poison-capsule",
+                      "Automate power-armor",
+                      "Automate pump",
+                      "Automate pumpjack",
+                      "Automate rail",
+                      "Automate rail-ramp",
+                      "Automate rail-support",
+                      "Automate railgun-ammo",
+                      "Automate recycler",
+                      "Automate refined-concrete",
+                      "Automate roboport",
+                      "Automate rocket-silo",
+                      "Automate rocket-turret",
+                      "Automate slowdown-capsule",
+                      "Automate solar-panel",
+                      "Automate solar-panel-equipment",
+                      "Automate space-platform-foundation",
+                      "Automate space-platform-starter-pack",
+                      "Automate steel-chest",
+                      "Automate steel-furnace",
+                      "Automate storage-tank",
+                      "Automate substation",
+                      "Automate tank",
+                      "Automate thruster",
+                      "Automate train-stop"
+                    ]
+                  }
                 ]
               }
             ]
@@ -10249,6 +10522,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate boiler",
@@ -10264,7 +10538,8 @@
       {
         "and": [
           "Automate gate",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -10301,7 +10576,8 @@
       {
         "and": [
           "Automate fluid-wagon",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -10445,6 +10721,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate battery-mk3-equipment",
@@ -10473,6 +10750,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate cryogenic-plant",
@@ -10544,7 +10822,8 @@
       {
         "and": [
           "Automate tesla-turret",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       }
     ]
@@ -10734,6 +11013,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate fast-transport-belt",
@@ -10765,6 +11045,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate big-mining-drill",
@@ -10796,6 +11077,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artillery-shell",
@@ -10852,7 +11134,8 @@
       {
         "and": [
           "Automate fast-underground-belt",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -10898,6 +11181,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate atomic-bomb",
@@ -10920,6 +11204,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate explosive-uranium-cannon-shell",
@@ -10950,7 +11235,8 @@
       {
         "and": [
           "Automate fission-reactor-equipment",
-          "Operate recycler"
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting"
         ]
       },
       {
@@ -11064,6 +11350,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate combat-shotgun",
@@ -11126,6 +11413,7 @@
       {
         "and": [
           "Operate recycler",
+          "Option backwards_recycling_is_interesting",
           {
             "or": [
               "Automate artificial-yumako-soil",
@@ -11174,13 +11462,23 @@
     ]
   },
   "Can destroy medium asteroids": {
-    "and": [
-      "gun-turret",
+    "or": [
       {
-        "or": [
-          "Automate firearm-magazine",
-          "Automate piercing-rounds-magazine",
-          "Automate uranium-rounds-magazine"
+        "and": [
+          "Automate stone-wall",
+          "Option walls_to_destroy_medium_asteroids_is_good_enough"
+        ]
+      },
+      {
+        "and": [
+          "gun-turret",
+          {
+            "or": [
+              "Automate firearm-magazine",
+              "Automate piercing-rounds-magazine",
+              "Automate uranium-rounds-magazine"
+            ]
+          }
         ]
       }
     ]
@@ -11209,6 +11507,7 @@
               {
                 "and": [
                   "Automate water-barrel",
+                  "Option water_barrel_is_good_enough",
                   "fluid-handling",
                   {
                     "or": [
@@ -11248,6 +11547,23 @@
         "or": [
           "Operate big-mining-drill",
           "Operate electric-mining-drill"
+        ]
+      }
+    ]
+  },
+  "Can travel space": {
+    "and": [
+      "Operate thruster",
+      {
+        "or": [
+          "Option launching_metal_is_good_enough",
+          {
+            "and": [
+              "Operate asteroid-collector",
+              "Operate crusher",
+              "Operate electric-furnace"
+            ]
+          }
         ]
       }
     ]
@@ -11419,6 +11735,12 @@
       "Supply electricity"
     ]
   },
+  "Operate electric-furnace": {
+    "and": [
+      "Access electric-furnace",
+      "Supply electricity"
+    ]
+  },
   "Operate electric-mining-drill": {
     "and": [
       "Access electric-mining-drill",
@@ -11537,6 +11859,11 @@
       }
     ]
   },
+  "Option backwards_recycling_is_interesting": "Option backwards_recycling_is_interesting",
+  "Option burner_mining_drill_is_good_enough": "Option burner_mining_drill_is_good_enough",
+  "Option launching_metal_is_good_enough": "Option launching_metal_is_good_enough",
+  "Option walls_to_destroy_medium_asteroids_is_good_enough": "Option walls_to_destroy_medium_asteroids_is_good_enough",
+  "Option water_barrel_is_good_enough": "Option water_barrel_is_good_enough",
   "Reach aquilo": {
     "and": [
       "Reach aquilo_orbit",
@@ -11549,7 +11876,7 @@
       "Can destroy big asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-aquilo",
       "promethium-science-pack",
       {
@@ -11576,7 +11903,7 @@
               "Can destroy big asteroids",
               "Can destroy medium asteroids",
               "Can generate electricity in dark space",
-              "Operate thruster",
+              "Can travel space",
               {
                 "or": [
                   "Reach fulgora-aquilo",
@@ -11611,7 +11938,7 @@
     "and": [
       "Access solar-panel",
       "Can destroy medium asteroids",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-aquilo",
       "planet-discovery-fulgora",
       {
@@ -11637,7 +11964,7 @@
             "and": [
               "Access solar-panel",
               "Can destroy medium asteroids",
-              "Operate thruster",
+              "Can travel space",
               {
                 "or": [
                   "Reach gleba-fulgora",
@@ -11673,7 +12000,7 @@
     "and": [
       "Access solar-panel",
       "Can destroy medium asteroids",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-aquilo",
       "planet-discovery-gleba",
       {
@@ -11694,7 +12021,7 @@
     "and": [
       "Access solar-panel",
       "Can destroy medium asteroids",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-fulgora",
       "planet-discovery-gleba",
       {
@@ -11714,7 +12041,7 @@
             "and": [
               "Access solar-panel",
               "Can destroy medium asteroids",
-              "Operate thruster",
+              "Can travel space",
               {
                 "or": [
                   "Reach gleba-fulgora",
@@ -11744,7 +12071,7 @@
   "Reach nauvis-fulgora": {
     "and": [
       "Access solar-panel",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-fulgora",
       {
         "or": [
@@ -11762,7 +12089,7 @@
   "Reach nauvis-gleba": {
     "and": [
       "Access solar-panel",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-gleba",
       {
         "or": [
@@ -11780,7 +12107,7 @@
   "Reach nauvis-vulcanus": {
     "and": [
       "Access solar-panel",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-vulcanus",
       {
         "or": [
@@ -11802,7 +12129,7 @@
         "and": [
           "Access solar-panel",
           "Can destroy medium asteroids",
-          "Operate thruster",
+          "Can travel space",
           {
             "or": [
               "Reach nauvis-fulgora",
@@ -11821,7 +12148,7 @@
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Operate thruster",
+      "Can travel space",
       "Reach solar-system-edge-shattered-planet",
       "promethium-science-pack"
     ]
@@ -11833,7 +12160,7 @@
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Operate thruster",
+      "Can travel space",
       "promethium-science-pack",
       {
         "or": [
@@ -11850,7 +12177,7 @@
       "Can destroy huge asteroids",
       "Can destroy medium asteroids",
       "Can generate electricity in dark space",
-      "Operate thruster",
+      "Can travel space",
       "promethium-science-pack",
       {
         "or": [
@@ -11870,7 +12197,7 @@
     "and": [
       "Access solar-panel",
       "Can destroy medium asteroids",
-      "Operate thruster",
+      "Can travel space",
       "planet-discovery-gleba",
       "planet-discovery-vulcanus",
       {
@@ -11890,7 +12217,7 @@
             "and": [
               "Access solar-panel",
               "Can destroy medium asteroids",
-              "Operate thruster",
+              "Can travel space",
               {
                 "or": [
                   "Reach nauvis-vulcanus",
@@ -11949,11 +12276,16 @@
       "Automate thruster-oxidizer",
       {
         "or": [
-          "Automate water-barrel",
           {
             "and": [
               "Automate ice",
               "space-platform-thruster"
+            ]
+          },
+          {
+            "and": [
+              "Automate water-barrel",
+              "Option water_barrel_is_good_enough"
             ]
           }
         ]
