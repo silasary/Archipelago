@@ -105,11 +105,7 @@ def generate_mod(
 
     death_link_setting_name = "archipelago-death-link-{}-{}".format(player, multiworld.seed_name)
 
-    free_sample_excludes = set()
-    free_sample_excludes.update(options.free_sample_blacklist.value)
-    for item in options.free_sample_whitelist.value:
-        del free_sample_excludes[item]
-    free_sample_excludes.update(never_give_free_samples_from_recipes)
+    free_sample_excludes = options.free_sample_excludes.value | never_give_free_samples_from_recipes
 
     @dataclass
     class LocaleLocation:
@@ -119,8 +115,8 @@ def generate_mod(
     locale_locations: list[LocaleLocation] = []
     new_technology_data: dict[str, dict] = {}
     for location in world_locations:
-        if location.revealed:
-            item = location.item
+        item = location.item
+        if location.revealed or options.tech_tree_information.current_key == "full":
             receiver_name = multiworld.player_name[item.player]
             display_name = f"{receiver_name}'s {item.name} ({location.name})"
             if item.advancement:
@@ -141,8 +137,22 @@ def generate_mod(
                 icon = item.name
             elif item.name in progressive_technology_stacks:
                 # This is a progressive item for Factorio (probably). Use one of the icons in the stack.
-                stack = progressive_technology_stacks[item.name]
-                icon = stack[min(1, len(stack)-1)]
+                icon = progressive_technology_stacks[item.name][0]
+        elif options.tech_tree_information.current_key == "advancement":
+            if item.advancement:
+                helpfulness_clause = ", which is considered a logical advancement"
+                icon = "/ap.png"
+            elif item.useful:
+                helpfulness_clause = ", which is considered useful"
+                icon = "/ap_unimportant.png"
+            elif item.trap:
+                helpfulness_clause = ", which is considered fun"
+                icon = "/ap_unimportant.png"
+            else:
+                helpfulness_clause = ""
+                icon = "/ap_unimportant.png"
+            display_name = location.name
+            description = f"Researching this technology sends something to someone{helpfulness_clause}."
         else:
             display_name = location.name
             description = "Researching this technology sends something to someone."
@@ -150,11 +160,16 @@ def generate_mod(
         locale_locations.append(LocaleLocation(location.name, display_name, description))
 
         technology = technologies[location_name_to_technology_name[location.name]]
+        if options.technology_prerequisites.current_key == "vanilla":
+            prerequisites = [technology_name_to_location_name[name] for name in sorted(technology.prerequisites)]
+        elif options.technology_prerequisites.current_key == "removed":
+            prerequisites = []
+        else: assert False, options.technology_prerequisites.current_key
         # https://lua-api.factorio.com/latest/prototypes/TechnologyPrototype.html
         tech_data = {
             "icon": icon,
-            # Mimic the same prerequisit map.
-            "prerequisites": [technology_name_to_location_name[name] for name in sorted(technology.prerequisites)],
+            # Mimic the same prerequisite map.
+            "prerequisites": prerequisites,
         }
         if type(technology.requirement) == ResearchRequirement:
             # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
@@ -216,7 +231,7 @@ def generate_mod(
         "new_technology_data": new_technology_data,
         "progressive_technology_stacks": progressive_technology_stacks,
 
-        "allow_imported_blueprints": bool(options.imported_blueprints.value),
+        "allow_imported_blueprints": bool(options.allow_imported_blueprints.value),
         "starting_items": options.starting_items.value,
         "world_gen_preset": {
             "default": False,

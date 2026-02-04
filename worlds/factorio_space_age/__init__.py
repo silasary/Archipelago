@@ -10,10 +10,13 @@ from .Options import FactorioOptions, option_groups
 from .Technologies import (
     compile_expr, logic_events,
     ap_item_name_to_id, ap_location_name_to_id,
-    advancement_technologies, never_give_free_samples_from_recipes,
-    progressive_technology_stacks,
+    recipes as all_recipes, items as all_items,
+    advancement_technologies, empty_technologies,
+    progressive_technology_stacks, technology_name_to_progressive_group_name, progressive_group_name_to_category,
+    never_give_free_samples_from_recipes,
     technology_name_to_location_name,
 )
+empty_technologies_list = sorted(empty_technologies)
 
 
 def _register_client():
@@ -97,9 +100,12 @@ class Factorio(World):
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
-        if self.options.max_tech_cost < self.options.min_tech_cost:
-            self.options.min_tech_cost.value, self.options.max_tech_cost.value = \
-                self.options.max_tech_cost.value, self.options.min_tech_cost.value
+        unrecognized_recipes = self.options.free_sample_excludes.value - all_recipes.keys()
+        if unrecognized_recipes:
+            raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
+        unrecognized_items = self.options.starting_items.value.keys() - all_items.keys()
+        if unrecognized_items:
+            raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
 
     def create_regions(self):
         """
@@ -130,6 +136,12 @@ class Factorio(World):
         victory_event_name = "Reach solar-system-edge"
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
+        enabled_progressive_categories = {
+            "off": (),
+            "upgrades": ("upgrades",),
+            "all": ("upgrades", "recipes"),
+        }[self.options.progressive_technologies.current_key]
+
         found_victory_event = False
         for event_name, expr in sorted(logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             try:
@@ -138,6 +150,7 @@ class Factorio(World):
                 event_type, sub_name = "Technology", event_name
             if event_type == "Technology":
                 # This is a proper item and corresponding location.
+                # TODO: shuffle infinite techs.
                 locked = sub_name in (
                     # These are critical at the start.
                     # The algorithm might swap things around, but starting with these vanilla location/item locks
@@ -147,8 +160,13 @@ class Factorio(World):
                     "automation-science-pack",
                     "automation",
                 )
+                progressive_group_name = technology_name_to_progressive_group_name.get(sub_name, None)
+                if progressive_group_name != None and progressive_group_name_to_category[progressive_group_name] in enabled_progressive_categories:
+                    item_name = progressive_group_name
+                else:
+                    item_name = sub_name
                 location = new_location(technology_name_to_location_name[sub_name], compile_expr(expr))
-                item = self.create_item(sub_name)
+                item = self.create_item(item_name)
                 if locked:
                     location.place_locked_item(item)
                     location.revealed = True
@@ -194,14 +212,16 @@ class Factorio(World):
         return None
 
     def get_filler_item_name(self) -> str:
-        import pdb; pdb.set_trace()
-        raise NotImplementedError
+        # TODO: option for infinite techs to be filler items instead of nothing technologies.
+        return self.random.choice(empty_technologies_list)
 
     def create_item(self, item_name: str) -> FactorioItem:
         code = ap_item_name_to_id.get(item_name, None)
         if code == None or item_name in advancement_technologies:
             # Events are always advancement (that's the point.).
             classification = ItemClassification.progression
+        elif item_name in empty_technologies:
+            classification = ItemClassification.filler
         else:
             classification = ItemClassification.useful
         return FactorioItem(item_name, classification, code, self.player)

@@ -142,7 +142,7 @@ function on_force_destroyed(event)
     storage.forcedata[event.force.name] = nil
 end
 
-function on_runtime_mod_setting_changed(event)
+script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
     local force
     if event.player_index == nil then
         force = game.forces.player
@@ -160,8 +160,7 @@ function on_runtime_mod_setting_changed(event)
             dumpInfo(force)
         end
     end
-end
-script.on_event(defines.events.on_runtime_mod_setting_changed, on_runtime_mod_setting_changed)
+end)
 
 -- Initialize player data, either from them joining the game or them already being part of the game when the mod was
 -- added.`
@@ -177,32 +176,46 @@ function on_player_created(event)
 end
 script.on_event(defines.events.on_player_created, on_player_created)
 
-function on_player_removed(event)
+script.on_event(defines.events.on_player_removed, function(event)
     storage.playerdata[event.player_index] = nil
-end
-script.on_event(defines.events.on_player_removed, on_player_removed)
+end)
 
-function on_rocket_launched(event)
-    if event.rocket and event.rocket.valid and storage.forcedata[event.rocket.force.name]['victory'] == 0 then
-        satellite_count = 0
-        cargo_pod = event.rocket.cargo_pod
-        if cargo_pod then
-            satellite_count = cargo_pod.get_item_count("satellite")
-        end
-        if satellite_count > 0 then
-            storage.forcedata[event.rocket.force.name]['victory'] = 1
-            dumpInfo(event.rocket.force)
-            game.set_game_state
-            {
-                game_finished = true,
-                player_won = true,
-                can_continue = true,
-                victorious_force = event.rocket.force
-            }
-        end
+-- Goal checking
+function trigger_victory(force)
+    if storage.forcedata[force.name]['victory'] == 0 then
+        storage.forcedata[force.name]['victory'] = 1
+        dumpInfo(force)
+        game.set_game_state({
+            game_finished = true,
+            player_won = true,
+            can_continue = true,
+            victorious_force = force,
+        })
     end
 end
-script.on_event(defines.events.on_rocket_launched, on_rocket_launched)
+if false then -- TODO: goal == satellite -- second TODO: change to launching a space platform?
+    script.on_event(defines.events.on_rocket_launched, function(event)
+        if event.rocket and event.rocket.valid then
+            satellite_count = 0
+            cargo_pod = event.rocket.cargo_pod
+            if cargo_pod then
+                satellite_count = cargo_pod.get_item_count("satellite")
+            end
+            if satellite_count > 0 then
+                trigger_victory(event.rocket.force)
+            end
+        end
+    end)
+elseif true then -- TODO: goal == solar-system-edge
+    script.on_event(defines.events.on_tick, function(event)
+        local force = game.forces["player"]
+        for _, platform in pairs(force.platforms) do
+            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "solar-system-edge" then
+                trigger_victory(force)
+            end
+        end
+    end)
+end
 
 -- Updates a player, attempting to send them any pending samples (if relevant)
 function update_player(index)

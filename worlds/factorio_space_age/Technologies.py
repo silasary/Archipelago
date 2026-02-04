@@ -239,13 +239,20 @@ recipes: dict[str, Recipe] = {}
 technologies: dict[str, Technology] = {}
 progressive_technology_stacks: dict[str, list[str]] = {}
 """ e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
+technology_name_to_progressive_group_name: dict[str, str] = {}
+""" e.g. {'advanced-material-processing-2': 'progressive-advanced-material-processing'} """
+progressive_group_name_to_category: dict[str, typing.Literal["upgrades", "recipes"]] = {}
+
 empty_technologies: set[str] = set()
+""" {'biter-egg-handling', 'flammables', 'laser', 'modules'} """
+
 fluids: set[str] = set()
 logic_events = {}
 """
 mapping from event name to expression. Expression is either an event name,
 or {"or": [expression, ...]} or {"and": [expression, ...]}
 """
+
 advancement_technologies: set[str] = set()
 never_inline_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
@@ -471,7 +478,7 @@ _override_recipe_data = {
     },
 }
 
-# TODO: this is unimplemented, and also do we care?
+# TODO: this is unimplemented
 _effective_technology_name_for_progressive_grouping = {
     RawTechnology.turbo_transport_belt: "logistics-4",
     RawTechnology.epic_quality: "quality-upgrade-1", # Really it's quality-upgrade-3. quality-module gives the first two builtin.
@@ -1058,8 +1065,38 @@ def init():
         assert not any(technologies[progressive_chain[level]].is_infinite() for level in range(1, len(progressive_chain)+1-1)), "infinite technology must be the highest level defined in the group: " + progressive_group_name
 
         # Export the final stack
+        progressive_group_name = "progressive-" + progressive_group_name
         stack = [progressive_chain[level] for level in range(1, len(progressive_chain)+1)]
-        progressive_technology_stacks["progressive-" + progressive_group_name] = stack
+        progressive_technology_stacks[progressive_group_name] = stack
+        for technology_name in stack:
+            technology_name_to_progressive_group_name[technology_name] = progressive_group_name
+        # Determine the category
+        if progressive_group_name == "military":
+            category = "military"
+        else:
+            effect_types = {
+                effect_data["type"]
+                for technology_name in stack
+                for effect_data in get_data()["technology"][technology_name]["effects"]
+            }
+            if effect_types in (
+                {"gun-speed"}, {"ammo-damage"}, {"ammo-damage", "turret-attack"}, {"artillery-range"},
+                {"mining-drill-productivity-bonus"}, {"change-recipe-productivity"},
+                {"worker-robot-speed"}, {"worker-robot-storage"}, {"train-braking-force-bonus"},
+                {"character-health-bonus"}, {"maximum-following-robots-count"},
+                {"bulk-inserter-capacity-bonus", "inserter-stack-size-bonus"},
+                {"belt-stack-size-bonus", "inserter-stack-size-bonus"},
+                {"laboratory-speed"}, {"laboratory-productivity"},
+            ):
+                category = "upgrades"
+            elif effect_types in (
+                {"unlock-recipe"},
+                {"unlock-recipe", "unlock-quality"},
+            ):
+                category = "recipes"
+            else:
+                assert False, "categorize this set of effects: " + repr(effect_types)
+        progressive_group_name_to_category[progressive_group_name] = category
 
 
     # =====
@@ -1445,6 +1482,13 @@ def init():
         f.write(json.dumps(logic_events, indent=2, sort_keys=True))
         f.write("\n")
     advancement_technologies.update(all_used_names)
+    # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
+    # e.g. progressive-automation is advancement even though automation-3 isn't.
+    advancement_technologies.update(
+        technology_name_to_progressive_group_name[technology_name]
+        for technology_name in all_used_names
+        if technology_name in technology_name_to_progressive_group_name
+    )
 
     # ========
     # id codes
