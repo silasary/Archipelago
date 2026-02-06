@@ -1,0 +1,11 @@
+{
+    "game": "Final Fantasy XII Trial Mode",
+	"authors": [ "Silasary" ],
+    "tracker_included": true,
+    "minimum_ap_version": "0.6.3",
+    "world_version": "0.0.10",
+    "changelog": [
+        "Added archipelago.json for 0.7.0 compatibility.",
+        "Fixed Lambda Capture bug"
+    ]
+}
