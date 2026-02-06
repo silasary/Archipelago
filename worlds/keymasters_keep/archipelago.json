@@ -4,8 +4,9 @@
     "game": "Keymaster's Keep",
     "idgb_id": null,
     "minimum_ap_version": "0.6.4",
-    "world_version": "2.1.4",
+    "world_version": "2.1.5",
     "changelog":[
-        "Log if a user is overriding a default game with an external version (ie: Medley or backlog)."
+        "Added new yaml option to guarantee a game will be used at least once",
+        "Added full traceback to broken_games.txt for easier debugging"
     ]
 }
