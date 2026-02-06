@@ -375,7 +375,10 @@ class GameSelectionBagSize(Range):
 
 class GameSelectionForceSelect(OptionList):
     """
-    Forces certain games to become areas, selected and placed randomly from this list. This option does not affect shops or the Keymaster's challenge room. If more games than permitted areas are specified, this option will cause an error. 'game_selection_bag_size' will treat games added by this option as if they have been pre-drawn from their respective bags.
+    Guarantees certain games to be use at least once as an area trial.
+    This option does not affect shops or the Keymaster's challenge room.
+    If more games than permitted areas are specified, this option will cause an error.
+    If 'game_selection_bag_size' is enabled, forced games are treated as if they have been pre-drawn from the initial bag.
 
     You are allowed to add the same game multiple times here. This will cause that many instances of the game to appear as areas.
     """
@@ -383,7 +386,7 @@ class GameSelectionForceSelect(OptionList):
     display_name: str = "Game Selection Force Select"
     valid_keys = sorted(AutoGameRegister.games.keys())
 
-    default = list()
+    default = []
 
 
 class IncludeAdultOnlyOrUnratedGames(Toggle):
