@@ -24,7 +24,7 @@ def launch_client():
     launch_subprocess(launch, name="FFXIITM Client")
 
 
-components.append(Component("FFXIITM Client", "FFXIITMClient", func=launch_client, component_type=Type.CLIENT))
+components.append(Component("Final Fantasy XII Trial Mode Client",  func=launch_client, component_type=Type.CLIENT))
 
 class FFXIITMWeb(WebWorld):
     theme = "ocean"
