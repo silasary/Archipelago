@@ -14,11 +14,11 @@ ModuleUpdate.update()
 import Utils
 
 tracker_loaded = False
-# try:
-#     from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
-#     tracker_loaded = True
-# except ModuleNotFoundError:
-from CommonClient import CommonContext as CommonContext
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
+    tracker_loaded = True
+except ModuleNotFoundError:
+    from CommonClient import CommonContext as CommonContext
 
 check_num = 0
 
@@ -34,13 +34,14 @@ def check_stdin() -> None:
         print("WARNING: Console input is not routed reliably on Windows, use the GUI instead.")
 
 class FFXIITMClientCommandProcessor(ClientCommandProcessor):
-    def _cmd_test(self):
-        """Test"""
-        self.output(f"Test")
+    # def _cmd_test(self):
+    #     """Test"""
+    #     self.output(f"Test")
+    pass
 
 
 class FFXIITMContext(CommonContext):
-    command_processor: int = FFXIITMClientCommandProcessor
+    command_processor = FFXIITMClientCommandProcessor
     game = "Final Fantasy XII Trial Mode"
     items_handling = 0b111  # full remote
     tags = {"AP"}
@@ -134,25 +135,17 @@ class FFXIITMContext(CommonContext):
 
         super().on_package(cmd, args)
 
-    def run_gui(self):
+    def make_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
-        from kvui import GameManager
+        ui = super().make_gui()
 
-        class FFXIITMManager(GameManager):
+        class FFXIITMManager(ui):
             logging_pairs = [
                 ("Client", "Archipelago")
             ]
             base_title = "Archipelago FFXIITM Client"
 
-            def build(self):
-                container = super().build()
-                if tracker_loaded:
-                    self.ctx.build_gui(self)  # type: ignore
-
-                return container
-
-        self.ui = FFXIITMManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        return FFXIITMManager
 
 
 async def game_watcher(ctx: FFXIITMContext):
