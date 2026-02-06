@@ -24,6 +24,7 @@ class GameObjectiveGenerator:
     def __init__(
         self,
         allowable_games: list[str] = None,
+        forced_games: list[str] = None,
         allowable_games_medley: list[str] = None,
         game_medley_mode: bool = False,
         include_adult_only_or_unrated_games: bool = False,
@@ -44,6 +45,14 @@ class GameObjectiveGenerator:
 
         if not len(self.games):
             raise GameObjectiveGeneratorException("No games are left after game / objective filtering")
+
+        self.forced_games = self._filter_games(
+            forced_games,
+            include_adult_only_or_unrated_games,
+            include_modern_console_games,
+            include_difficult_objectives,
+            include_time_consuming_objectives,
+        )
 
         if game_medley_mode:
             self.games_medley = self._filter_games(
@@ -84,24 +93,52 @@ class GameObjectiveGenerator:
 
         game_selection: List[Type[Game]] = list()
 
-        if plan_length <= len(self.games):
-            game_selection = random.sample(self.games, plan_length)
-        elif bag_size <= 0:
-            for _ in range(plan_length):
-                game_selection.append(random.choice(self.games))
+        if len(self.forced_games) > 0:
+            if len(self.forced_games) > plan_length:
+                raise ValueError(
+                    f"Force selected games amount {len(self.forced_games)} is greater than permitted areas amount {plan_length}"
+                )
+            for forced_game in self.forced_games:
+                found: bool = False
+                for possible_game in self.games:
+                    if forced_game == possible_game:
+                        game_selection.append(possible_game)
+                        found = True
+                        break
+                if not found:
+                    raise ValueError(
+                        f"Force selected game {forced_game!r} not found in game selection list"
+                    )
+
+        def maybe_game_medley(expected: Type[Game]) -> Type[Game]:
+            if (
+                game_medley_mode
+                and random.randint(1, 100) <= game_medley_percentage_chance
+            ):
+                return GameMedleyGame
+            return expected
+
+        if bag_size <= 0:
+            for i in range(plan_length):
+                game_selection.append(maybe_game_medley(random.choice(self.games)))
         else:
             game_bag: List[Type[Game]] = self.games * bag_size
+            expected_drawn: int = bag_size
             while len(game_selection) < plan_length:
-                game_index: int = random.choice([i for i in range(len(game_bag))])
-                game_selection.append(game_bag[game_index])
-                game_bag.pop(game_index)
+                draw_game: Type[Game] = maybe_game_medley(random.choice(game_bag))
+                if draw_game not in game_bag:  # Game medley is never in the bag
+                    game_selection.append(draw_game)
+                    continue
+                drawn: int = game_selection.count(draw_game)
+                if drawn < expected_drawn:  # Force select affects draw rate otherwise
+                    game_selection.append(draw_game)
+                game_bag.remove(draw_game)
                 if len(game_bag) == 0:
                     game_bag = list(self.games)
+                    expected_drawn += bag_size
 
-        if game_medley_mode:
-            for i in range(len(game_selection)):
-                if random.randint(1, 100) <= game_medley_percentage_chance:
-                    game_selection[i] = GameMedleyGame
+        if len(self.forced_games) > 0:
+            random.shuffle(game_selection)
 
         data: GameObjectiveGeneratorData = list()
         objectives_in_use: Set[str] = set()

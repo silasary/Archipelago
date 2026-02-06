@@ -134,6 +134,7 @@ class KeymastersKeepWorld(World):
     game_medley_percentage_chance: int
     game_selection: List[str]
     game_selection_bag_size: int
+    game_selection_force_select: List[str]
     goal: KeymastersKeepGoals
     goal_game: str
     goal_game_optional_constraints: List[str]
@@ -300,6 +301,7 @@ class KeymastersKeepWorld(World):
 
         self.game_selection = list(self.options.game_selection.value)
         self.game_selection_bag_size = self.options.game_selection_bag_size.value
+        self.game_selection_force_select = list(self.options.game_selection_force_select)
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
         self.include_modern_console_games = bool(self.options.include_modern_console_games)
@@ -869,6 +871,7 @@ class KeymastersKeepWorld(World):
 
         generator: GameObjectiveGenerator = GameObjectiveGenerator(
             game_selection,
+            self.game_selection_force_select,
             self.game_medley_game_selection,
             self.game_medley_mode,
             self.include_adult_only_or_unrated_games,
