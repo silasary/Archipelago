@@ -4,6 +4,7 @@ import logging
 import pathlib
 import pkgutil
 import sys
+import traceback
 import types
 from importlib import import_module
 
@@ -33,8 +34,9 @@ for game_path in games_path.glob("*.py"):
     try:
         sys.modules[module_name] = module
         module_spec.loader.exec_module(module)
-    except Exception:
+    except Exception as e:
         broken_games.append(game_path.name)
+        broken_games.append(traceback.format_exc())
 
 if broken_games_path.exists():
     broken_games_path.unlink()
