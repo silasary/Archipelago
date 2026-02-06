@@ -137,11 +137,18 @@ class Factorio(World):
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
         logic_events = instantiate_options(all_logic_events, {
-            LogicOption.burner_mining_drill_is_good_enough: not self.options.require_electric_mining_drill.value,
-            LogicOption.water_barrel_is_good_enough:        not self.options.require_ice_melting.value,
-            LogicOption.launching_metal_is_good_enough:     not self.options.require_electric_furnace.value,
-            LogicOption.backwards_recycling_is_interesting: False, # Fulgora start is not implemented.
+            LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
+            LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,
+            LogicOption.launching_metal_is_good_enough:      not self.options.require_electric_furnace.value,
+            LogicOption.backwards_recycling_is_interesting:  False, # Fulgora start is not implemented.
             LogicOption.walls_to_destroy_medium_asteroids_is_good_enough: not self.options.require_gun_turret.value,
+            LogicOption.lightning_schmightning:              not self.options.require_lightning_rod.value,
+            LogicOption.solar_panels_into_darkness:          not self.options.require_dark_power.value,
+            LogicOption.slow_inserter_is_good_enough:        not self.options.require_fast_inserter.value,
+            LogicOption.assembling_machine_1_is_good_enough: not self.options.require_assembling_machine_2.value,
+            LogicOption.direct_pipes_is_good_enough:         not self.options.require_fluid_handling.value,
+            LogicOption.hand_building_is_good_enough:        not self.options.require_construction_robots.value,
+            LogicOption.belt_logistics_is_good_enough:       not self.options.require_logistic_robots.value,
         })
 
         enabled_progressive_categories = {
@@ -151,6 +158,7 @@ class Factorio(World):
         }[self.options.progressive_technologies.current_key]
 
         found_victory_event = False
+        # TODO: support self.options.goal
         for event_name, expr in sorted(logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             try:
                 event_type, sub_name = event_name.split(" ", 1)

@@ -225,8 +225,9 @@ function update_player(index)
     end
     local character = player.character or player.cutscene_character
     if not character or not character.valid then
-        return
+        return -- Might be dead
     end
+    -- TODO: also make sure the character is standing on the surface of a planet, not riding in a space platform or cargo pod.
     local data = storage.playerdata[index]
     local samples = data['pending_samples']
     --player.print(serpent.block(data['pending_samples']))

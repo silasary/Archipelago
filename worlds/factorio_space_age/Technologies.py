@@ -23,6 +23,13 @@ class LogicOption(StrEnum):
     launching_metal_is_good_enough = "launching_metal_is_good_enough"
     backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
     walls_to_destroy_medium_asteroids_is_good_enough = "walls_to_destroy_medium_asteroids_is_good_enough"
+    lightning_schmightning = "lightning_schmightning"
+    solar_panels_into_darkness = "solar_panels_into_darkness"
+    slow_inserter_is_good_enough = "slow_inserter_is_good_enough"
+    assembling_machine_1_is_good_enough = "assembling_machine_1_is_good_enough"
+    direct_pipes_is_good_enough = "direct_pipes_is_good_enough"
+    hand_building_is_good_enough = "hand_building_is_good_enough"
+    belt_logistics_is_good_enough = "belt_logistics_is_good_enough"
 fmt_option = lambda option: "Option {}".format(option.value)
 
 class Capability(IntFlag):
@@ -1136,6 +1143,29 @@ def init():
             fmt_operate_machine(RawEntity.electric_furnace),
         ]},
     ]}
+    optionally_access_pumps_and_tanks = {"or": [
+        fmt_option(LogicOption.direct_pipes_is_good_enough),
+        {"and": [
+            fmt_access_item(RawItem.pump),
+            fmt_access_item(RawItem.storage_tank),
+        ]},
+    ]}
+    optionally_operate_requester_chests = {"or": [
+        fmt_option(LogicOption.belt_logistics_is_good_enough),
+        {"and": [
+            fmt_access_item(RawItem.requester_chest),
+            fmt_access_item(RawItem.roboport),
+            fmt_access_item(RawItem.logistic_robot),
+        ]},
+    ]}
+    optionally_operate_construction_robots = {"or": [
+        fmt_option(LogicOption.hand_building_is_good_enough),
+        {"and": [
+            fmt_access_item(RawItem.storage_chest), # I think this is always redundant with roboport, but included for completeness.
+            fmt_access_item(RawItem.roboport),
+            fmt_access_item(RawItem.construction_robot),
+        ]},
+    ]}
 
     # Options
     for option in LogicOption:
@@ -1188,7 +1218,10 @@ def init():
         elif capability == Capability.automate_planting:
             expr = {"or": [fmt_operate_machine(name) for name in automated_planting_machines]}
         elif capability == Capability.harness_lightning:
-            expr = {"or": [fmt_operate_machine(name) for name in lightning_harnessing_machines]}
+            expr = {"or": [
+                *[fmt_operate_machine(name) for name in lightning_harnessing_machines],
+                fmt_option(LogicOption.lightning_schmightning),
+            ]}
         elif capability == Capability.capture_biter_spawners:
             expr = {"and": [
                 fmt_reach_location(RawSpaceLocation.nauvis),
@@ -1212,6 +1245,10 @@ def init():
                 {"or": [fmt_operate_machine(name) for name in thruster_machines]},
                 # Also need to automate bullets probably.
                 automate_iron_plates_in_space,
+                # It'd be nice to have robots at this point too.
+                optionally_access_pumps_and_tanks,
+                optionally_operate_requester_chests,
+                optionally_operate_construction_robots,
             ]}
         elif capability == Capability.generate_electricity_in_space:
             # FIXME: i'm just giving up and hard coding the answer here.
@@ -1249,6 +1286,11 @@ def init():
                     fmt_operate_machine(RawEntity.fusion_generator),
                     # You must barrel the coolant to get it into space.
                     fmt_access_item(RawItem.fluoroketone_cold_barrel),
+                ]},
+                # Or if you really want to try to make this work.
+                {"and": [
+                    fmt_option(LogicOption.solar_panels_into_darkness),
+                    fmt_operate_machine(RawEntity.solar_panel),
                 ]},
             ]}
         elif capability == Capability.destroy_medium_asteroids:
@@ -1507,6 +1549,22 @@ def init():
                         fmt_option(LogicOption.burner_mining_drill_is_good_enough),
                         fmt_access_item(RawItem.electric_mining_drill),
                     ]})
+                elif item_name == RawItem.advanced_circuit and RawItem.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
+                    # Require faster machines to get through the blue science phase of the game.
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.slow_inserter_is_good_enough),
+                        fmt_access_item(RawItem.fast_inserter),
+                    ]})
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.assembling_machine_1_is_good_enough),
+                        fmt_access_item(RawItem.assembling_machine_2),
+                    ]})
+                elif recipe_name in (RawRecipe.advanced_oil_processing, RawRecipe.coal_liquefaction):
+                    # You could probably do without this, but it sure is easier with fluid handling.
+                    recipe_exprs.append(optionally_access_pumps_and_tanks)
+                elif item_name in (RawItem.production_science_pack, RawItem.utility_science_pack) and fmt_automate_or_access is fmt_automate_item:
+                    # Require construction robots to scale up your factory for purple/yellow science.
+                    recipe_exprs.append(optionally_operate_construction_robots)
                 elif item_name == RawItem.space_science_pack and fmt_automate_or_access is fmt_automate_item:
                     # Require electric furnaces to make space science.
                     recipe_exprs.append(automate_iron_plates_in_space)

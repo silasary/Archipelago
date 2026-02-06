@@ -26,11 +26,21 @@ class FloatRange:
 LuaBool = Or(bool, And(int, lambda n: n in (0, 1)))
 
 class Goal(Choice):
-    """Goal required to complete the game."""
+    """
+    Goal required to complete the game.
+    launch starter pack: Build a space platform. TODO: unimplemented.
+    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science. TODO: unimplemented.
+    reach aquilo orbit: Logically requires rocket turrets. TODO: unimplemented.
+    solar system edge: (default) The victory condition in the normal game.
+    going to shattered planet 3: Travel 60 000 km towards the shattered planet. TODO: unimplemented.
+    """
     display_name = "Goal"
-    option_solar_system_edge = 0
-    # TODO: add more goal options
-    default = 0
+    option_launch_starter_pack = 0
+    option_any_other_planet_science = 1
+    option_reach_aquilo_orbit = 2
+    option_solar_system_edge = 3
+    option_going_to_shattered_planet_3 = 60_000_000
+    default = 3
 
 class AllowImportedBlueprints(DefaultOnToggle):
     """Allow blueprints imported from outside the current game."""
@@ -289,12 +299,12 @@ class FreeSampleExcludes(OptionSet):
 class LogicMiningDrill(DefaultOnToggle):
     """
     Logically require electric mining drills for logistic science pack automation (green science).
-    Otherwise, you may need to use burner mining drills for automation until vulcanus or uranium is required.
+    Otherwise, you may need to use burner mining drills for automation until Vulcanus or uranium is required.
     """
 
 class LogicElectricFurnace(DefaultOnToggle):
     """
-    Logically require electric furnaces, asteroid collectors, and crushers for space science pack automation and for traveling space.
+    Logically require electric furnaces for space science pack automation and for traveling space.
     Otherwise, you may need to supply space platforms with metal plates shipped up via rocket.
     """
 
@@ -309,6 +319,44 @@ class LogicGunTurret(DefaultOnToggle):
     Logically require gun turrets for destroying medium asteroids.
     Otherwise, you may need to use walls and speed regulation to survive space travel.
     (Large and huge asteroids always logically require rocket turrets and railgun turrets respectively.)
+    """
+
+class LogicLightningRod(DefaultOnToggle):
+    """
+    Logically require lightning rods for setting up mining drills on Fulgora.
+    Otherwise, you may need to solve the lightning problem some other way.
+    NOTE: This option does nothing, because the requirements for landing on Fulgora include all the requirements for crafting lightning rods.
+    """
+
+class LogicDarkPower(DefaultOnToggle):
+    """
+    Logically require nuclear power to reach Aquilo.
+    Otherwise, you may need to rely on poorly performing solar panels in dark space.
+    """
+
+class LogicFastInserter(Toggle):
+    """
+    Logically require fast inserters to automate advanced circuits.
+    """
+
+class LogicAssemblingMachine2(Toggle):
+    """
+    Logically require assembling machine 2 to automate advanced circuits.
+    """
+
+class LogicFluidHandling(Toggle):
+    """
+    Logically require pumps and storage tanks for advanced oil processing.
+    """
+
+class LogicConstructionRobots(Toggle):
+    """
+    Logically require construction robots before automating production or utility science (purple/yellow) or traveling to another planet.
+    """
+
+class LogicLogisticRobots(Toggle):
+    """
+    Logically require requester chests and logistic robots before traveling to another planet.
     """
 
 
@@ -402,6 +450,13 @@ class FactorioOptions(PerGameCommonOptions):
     require_electric_furnace: LogicElectricFurnace
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret
+    require_lightning_rod: LogicLightningRod
+    require_dark_power: LogicDarkPower
+    require_fast_inserter: LogicFastInserter
+    require_assembling_machine_2: LogicAssemblingMachine2
+    require_fluid_handling: LogicFluidHandling
+    require_construction_robots: LogicConstructionRobots
+    require_logistic_robots: LogicLogisticRobots
 
     teleport_traps: TeleportTrapCount
     grenade_traps: GrenadeTrapCount
@@ -438,6 +493,13 @@ option_groups: list[OptionGroup] = [
             LogicElectricFurnace,
             LogicIceMelting,
             LogicGunTurret,
+            LogicLightningRod,
+            LogicDarkPower,
+            LogicFastInserter,
+            LogicAssemblingMachine2,
+            LogicFluidHandling,
+            LogicConstructionRobots,
+            LogicLogisticRobots,
         ],
     ),
     OptionGroup(

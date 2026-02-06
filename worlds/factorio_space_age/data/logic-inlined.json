@@ -1998,14 +1998,36 @@
                         "and": [
                           "Access crude-oil",
                           "Access water",
-                          "advanced-oil-processing"
+                          "advanced-oil-processing",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
                         "and": [
                           "Access heavy-oil",
                           "Access steam",
-                          "coal-liquefaction"
+                          "coal-liquefaction",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       }
                     ]
@@ -2351,7 +2373,18 @@
                   "Access crude-oil",
                   "Access water",
                   "Operate oil-refinery",
-                  "advanced-oil-processing"
+                  "advanced-oil-processing",
+                  {
+                    "or": [
+                      "Option direct_pipes_is_good_enough",
+                      {
+                        "and": [
+                          "Access pump",
+                          "Access storage-tank"
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               {
@@ -2363,7 +2396,18 @@
                         "and": [
                           "Access steam",
                           "Operate oil-refinery",
-                          "coal-liquefaction"
+                          "coal-liquefaction",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
@@ -2994,7 +3038,18 @@
                   "Access heavy-oil",
                   "Access steam",
                   "Operate oil-refinery",
-                  "coal-liquefaction"
+                  "coal-liquefaction",
+                  {
+                    "or": [
+                      "Option direct_pipes_is_good_enough",
+                      {
+                        "and": [
+                          "Access pump",
+                          "Access storage-tank"
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               {
@@ -3006,7 +3061,18 @@
                       {
                         "and": [
                           "Access crude-oil",
-                          "Operate oil-refinery"
+                          "Operate oil-refinery",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
@@ -4795,6 +4861,18 @@
           "Automate electronic-circuit",
           "Automate plastic-bar",
           "advanced-circuit",
+          {
+            "or": [
+              "Access assembling-machine-2",
+              "Option assembling_machine_1_is_good_enough"
+            ]
+          },
+          {
+            "or": [
+              "Access fast-inserter",
+              "Option slow_inserter_is_good_enough"
+            ]
+          },
           {
             "or": [
               "Operate assembling-machine-1",
@@ -7420,14 +7498,36 @@
                         "and": [
                           "Access heavy-oil",
                           "Automate steam",
-                          "coal-liquefaction"
+                          "coal-liquefaction",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
                         "and": [
                           "Automate crude-oil",
                           "Automate water",
-                          "advanced-oil-processing"
+                          "advanced-oil-processing",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       }
                     ]
@@ -7880,7 +7980,18 @@
                   "Access heavy-oil",
                   "Automate steam",
                   "Operate oil-refinery",
-                  "coal-liquefaction"
+                  "coal-liquefaction",
+                  {
+                    "or": [
+                      "Option direct_pipes_is_good_enough",
+                      {
+                        "and": [
+                          "Access pump",
+                          "Access storage-tank"
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               {
@@ -7892,7 +8003,18 @@
                       {
                         "and": [
                           "Automate crude-oil",
-                          "Operate oil-refinery"
+                          "Operate oil-refinery",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
@@ -8700,7 +8822,18 @@
                   "Access heavy-oil",
                   "Automate steam",
                   "Operate oil-refinery",
-                  "coal-liquefaction"
+                  "coal-liquefaction",
+                  {
+                    "or": [
+                      "Option direct_pipes_is_good_enough",
+                      {
+                        "and": [
+                          "Access pump",
+                          "Access storage-tank"
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
               {
@@ -8712,7 +8845,18 @@
                       {
                         "and": [
                           "Automate crude-oil",
-                          "Operate oil-refinery"
+                          "Operate oil-refinery",
+                          {
+                            "or": [
+                              "Option direct_pipes_is_good_enough",
+                              {
+                                "and": [
+                                  "Access pump",
+                                  "Access storage-tank"
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       },
                       {
@@ -9089,6 +9233,18 @@
           "Operate assembling-machine-1",
           "Operate assembling-machine-2",
           "Operate assembling-machine-3"
+        ]
+      },
+      {
+        "or": [
+          "Option hand_building_is_good_enough",
+          {
+            "and": [
+              "Access construction-robot",
+              "Access roboport",
+              "Access storage-chest"
+            ]
+          }
         ]
       }
     ]
@@ -11287,6 +11443,18 @@
           "Operate assembling-machine-2",
           "Operate assembling-machine-3"
         ]
+      },
+      {
+        "or": [
+          "Option hand_building_is_good_enough",
+          {
+            "and": [
+              "Access construction-robot",
+              "Access roboport",
+              "Access storage-chest"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -11493,6 +11661,12 @@
       },
       {
         "and": [
+          "Access solar-panel",
+          "Option solar_panels_into_darkness"
+        ]
+      },
+      {
+        "and": [
           "Operate nuclear-reactor",
           "Operate steam-turbine",
           {
@@ -11526,7 +11700,8 @@
   "Can harness lightning": {
     "or": [
       "Access lightning-collector",
-      "Access lightning-rod"
+      "Access lightning-rod",
+      "Option lightning_schmightning"
     ]
   },
   "Can heat buildings": {
@@ -11554,6 +11729,41 @@
   "Can travel space": {
     "and": [
       "Operate thruster",
+      {
+        "or": [
+          "Option belt_logistics_is_good_enough",
+          {
+            "and": [
+              "Access logistic-robot",
+              "Access requester-chest",
+              "Access roboport"
+            ]
+          }
+        ]
+      },
+      {
+        "or": [
+          "Option direct_pipes_is_good_enough",
+          {
+            "and": [
+              "Access pump",
+              "Access storage-tank"
+            ]
+          }
+        ]
+      },
+      {
+        "or": [
+          "Option hand_building_is_good_enough",
+          {
+            "and": [
+              "Access construction-robot",
+              "Access roboport",
+              "Access storage-chest"
+            ]
+          }
+        ]
+      },
       {
         "or": [
           "Option launching_metal_is_good_enough",
@@ -11859,9 +12069,16 @@
       }
     ]
   },
+  "Option assembling_machine_1_is_good_enough": "Option assembling_machine_1_is_good_enough",
   "Option backwards_recycling_is_interesting": "Option backwards_recycling_is_interesting",
+  "Option belt_logistics_is_good_enough": "Option belt_logistics_is_good_enough",
   "Option burner_mining_drill_is_good_enough": "Option burner_mining_drill_is_good_enough",
+  "Option direct_pipes_is_good_enough": "Option direct_pipes_is_good_enough",
+  "Option hand_building_is_good_enough": "Option hand_building_is_good_enough",
   "Option launching_metal_is_good_enough": "Option launching_metal_is_good_enough",
+  "Option lightning_schmightning": "Option lightning_schmightning",
+  "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
+  "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
   "Option walls_to_destroy_medium_asteroids_is_good_enough": "Option walls_to_destroy_medium_asteroids_is_good_enough",
   "Option water_barrel_is_good_enough": "Option water_barrel_is_good_enough",
   "Reach aquilo": {
