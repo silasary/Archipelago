@@ -49,6 +49,18 @@ sort_count_addresses = [
     0x2050C64,  # Loot
 ]
 
+tracker_event_offsets = [  # list of save byte offsets that poptracker wants to know about
+    0x0408,  # Ktjn location
+    0x040E,  # Viera Rendezvous sidequest progress
+    0x0416,  # Grimy Fragment sidequest progress
+    0x0999, 0x099A ,0x099B ,0x099C ,0x099D ,0x099E,  # Giza trees
+    0x09F3, # Draklor bulkhead colour
+    0x1064 + 53,  # Earth Tyrant sidequest progress
+]
+tracker_event_offsets.extend(range(0x0C90, 0x0CAF))  # Trophy Rare Game Kills
+tracker_event_offsets.extend(range(0x1064 + 128 + 0, 0x1064 + 128 + 44))  # Hunt Progress
+tracker_event_offsets.extend(range(0x0A03, 0x0A6B))  # Defeat flags
+
 MAX_PARTY_MEMBERS = 12
 
 
@@ -143,8 +155,7 @@ class FF12OpenWorldContext(CommonContext):
         self.server_connected = False
         self.ff12connected = False
         self.stored_map_id = 0
-        self.hunt_progress = {}
-        self.hunt_progress_changed = False
+        self.event_flags = {}
         # hooked object
         self.ff12 = None
         self.game_state_cache = FF12StateCache()
@@ -511,16 +522,22 @@ class FF12OpenWorldContext(CommonContext):
                     },
                 }])
 
-            if self.hunt_progress_changed:
-                self.hunt_progress_changed = False
+            events_changed = False
+            for offset in tracker_event_offsets:
+                val = self.game_state_cache.save_byte(offset)
+                if self.event_flags.setdefault(offset, 0) != val:
+                    self.event_flags[offset] = val
+                    events_changed = True
+
+            if events_changed:
                 await self.send_msgs(
                     [
                         {
                             "cmd": "Set",
-                            "key": f"ffxiiow_hunts_{self.team}_{self.slot}",
+                            "key": f"ffxiiow_events_{self.team}_{self.slot}",
                             "default": {},
                             "want_reply": False,
-                            "operations": [{"operation": "update", "value": self.hunt_progress}],
+                            "operations": [{"operation": "update", "value": self.event_flags}],
                         }
                     ]
                 )
@@ -530,7 +547,7 @@ class FF12OpenWorldContext(CommonContext):
                 self.ff12connected = False
             logger.info(e)
 
-    def is_reward_met(self, location_data: FF12OpenWorldLocationData):
+    def is_reward_met(self, location_data: FF12OpenWorldLocationData) -> bool:
         save = self.game_state_cache
         scen = self.get_scenario_flag()
 
@@ -888,13 +905,10 @@ class FF12OpenWorldContext(CommonContext):
         elif 0x90FF <= int(location_data.str_id, 16) <= 0x911D:  # Hunt Club Outfitters
             outfitter_index = int(location_data.str_id, 16) - 0x90FF
             return save.save_byte(0xAF2 + outfitter_index) >= 1
+        raise Exception(f"Unknown reward location ID: {location_data.str_id}")
 
     def read_hunt_progress(self, hunt_id: int) -> int:
         value = self.game_state_cache.save_byte(0x1064 + 128 + hunt_id)
-        if self.hunt_progress.get(hunt_id) != value:
-            print("[Debug] Hunt Progress: Hunt %d: %d -> %d" % (hunt_id, self.hunt_progress.get(hunt_id, 0), value))
-            self.hunt_progress[hunt_id] = value
-            self.hunt_progress_changed = True
         return value
 
     def get_max_trophies(self):
