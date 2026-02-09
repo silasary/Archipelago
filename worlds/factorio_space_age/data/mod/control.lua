@@ -299,6 +299,23 @@ function add_samples(force, name, count)
     end
 end
 
+remote.add_interface("archipelago", {
+    begin_suppress_death_link = function(player_index)
+        CURRENTLY_DEATH_LOCK = 1
+    end,
+    end_suppress_death_link = function(player_index)
+        CURRENTLY_DEATH_LOCK = 0
+    end,
+})
+local function register_callbacks()
+    -- Integrate with the respawn-to-any-planet mod.
+    -- It should not send death links.
+    if remote.interfaces["respawn-to-any-planet"] ~= nil then
+        -- Callbacks across mods require going through the serialized remote interface interface.
+        remote.call("respawn-to-any-planet", "on_pre_die",  "archipelago", "begin_suppress_death_link")
+        remote.call("respawn-to-any-planet", "on_post_die", "archipelago", "end_suppress_death_link")
+    end
+end
 script.on_init(function()
     set_permissions()
     storage.forcedata = {}
@@ -318,9 +335,19 @@ script.on_init(function()
         on_player_created(e)
     end
 
+    -- Disable the vanilla victory condition.
     if remote.interfaces["silo_script"] then
-        remote.call("silo_script", "set_no_victory", true)
+        remote.call("silo_script", "set_no_victory", true) -- base
     end
+    if remote.interfaces["space_finish_script"] then
+        remote.call("space_finish_script", "set_no_victory", true) -- space-age
+    end
+
+    register_callbacks()
+end)
+script.on_configuration_changed(function()
+    -- As documented in the respawn-to-any-planet mod, we must re-register callbacks in this event.
+    register_callbacks()
 end)
 
 -- hook into researches done
@@ -582,4 +609,3 @@ end)
 commands.add_command("toggle-ap-chat", "Toggle sending of chat messages from players on the Factorio server to Archipelago.", function(call)
     log("Player command toggle-ap-chat") -- notifies client
 end)
-

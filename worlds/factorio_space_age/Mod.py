@@ -45,6 +45,7 @@ base_info = {
     "dependencies": [
         "base >= 2.0.73",
         "space-age >= 2.0.73",
+        "? respawn-to-any-planet",
     ]
 }
 
