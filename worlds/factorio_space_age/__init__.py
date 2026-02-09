@@ -8,6 +8,7 @@ from worlds.AutoWorld import World, WebWorld
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
 from .Technologies import (
+    technologies,
     compile_expr, logic_events as all_logic_events, instantiate_options, LogicOption,
     ap_item_name_to_id, ap_location_name_to_id,
     recipes as all_recipes, items as all_items,
@@ -176,6 +177,11 @@ class Factorio(World):
                     "automation-science-pack",
                     "automation",
                 )
+                if technologies[sub_name].is_infinite():
+                    if self.options.infinite_technologies.current_key == "removed":
+                        continue
+                    else:
+                        raise NotImplementedError("infinite_technologies must be set to 'removed' for now")
                 progressive_group_name = technology_name_to_progressive_group_name.get(sub_name, None)
                 if progressive_group_name != None and progressive_group_name_to_category[progressive_group_name] in enabled_progressive_categories:
                     item_name = progressive_group_name

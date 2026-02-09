@@ -158,7 +158,7 @@ def generate_mod(
             display_name = location.name
             description = "Researching this technology sends something to someone."
             icon = "/ap_unimportant.png"
-        locale_locations.append(LocaleLocation(location.name, display_name, description))
+        locale_location = LocaleLocation(location.name, display_name, description)
 
         technology = technologies[location_name_to_technology_name[location.name]]
         if options.technology_prerequisites.current_key == "vanilla":
@@ -179,7 +179,7 @@ def generate_mod(
                 "ingredients": [[ingredient_name, amount] for ingredient_name, amount in technology.requirement.ingredients.items()],
             }
             if type(technology.requirement.units) == str:
-                # Infinite
+                continue # TODO: support infinite technologies
                 unit["count_formula"] = technology.requirement.units
             else:
                 unit["count"] = technology.requirement.units
@@ -209,7 +209,9 @@ def generate_mod(
                 "type": "create-space-platform",
             }
         else: assert False, str(type(technology.requirement))
+
         new_technology_data[location.name] = tech_data
+        locale_locations.append(locale_location)
 
     def set_to_1(s):
         return {x: 1 for x in s}

@@ -128,7 +128,7 @@ function on_force_created(event)
         force = game.forces[force]
     end
     local data = {}
-    data['earned_samples'] = table.deepcopy(PARAMS.starting_items)
+    data["earned_samples"] = table.deepcopy(PARAMS.starting_items)
     data["victory"] = 0
     data["death_link_tick"] = 0
     data["energy"] = 0
@@ -169,7 +169,7 @@ function on_player_created(event)
     -- FIXME: This (probably) fires before any other mod has a chance to change the player's force
     -- For now, they will (probably) always be on the 'player' force when this event fires.
     local data = {}
-    data['pending_samples'] = table.deepcopy(storage.forcedata[player.force.name]['earned_samples'])
+    data["pending_samples"] = table.deepcopy(storage.forcedata[player.force.name]["earned_samples"])
     storage.playerdata[player.index] = data
     update_player(player.index)  -- Attempt to send pending free samples, if relevant.
     dumpInfo(player.force)
@@ -182,8 +182,8 @@ end)
 
 -- Goal checking
 function trigger_victory(force)
-    if storage.forcedata[force.name]['victory'] == 0 then
-        storage.forcedata[force.name]['victory'] = 1
+    if storage.forcedata[force.name]["victory"] == 0 then
+        storage.forcedata[force.name]["victory"] = 1
         dumpInfo(force)
         game.set_game_state({
             game_finished = true,
@@ -229,8 +229,8 @@ function update_player(index)
     end
     -- TODO: also make sure the character is standing on the surface of a planet, not riding in a space platform or cargo pod.
     local data = storage.playerdata[index]
-    local samples = data['pending_samples']
-    --player.print(serpent.block(data['pending_samples']))
+    local samples = data["pending_samples"]
+    --player.print(serpent.block(data["pending_samples"]))
 
     for name, count in pairs(samples) do
         local stack = {
@@ -291,10 +291,10 @@ function add_samples(force, name, count)
         t[name] = (t[name] or 0) + count
     end
     -- Add to storage table of earned samples for future new players
-    add_to_table(storage.forcedata[force.name]['earned_samples'])
+    add_to_table(storage.forcedata[force.name]["earned_samples"])
     -- Add to existing players
     for _, player in pairs(force.players) do
-        add_to_table(storage.playerdata[player.index]['pending_samples'])
+        add_to_table(storage.playerdata[player.index]["pending_samples"])
         update_player(player.index)
     end
 end

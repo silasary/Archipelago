@@ -228,15 +228,15 @@ class ProgressiveTechs(Choice):
 class InfiniteTechs(Choice):
     """
     How to handle infinitely researchable technologies, e.g. steel-plate-productivity.
-    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs.
-    shuffled: The cost and prerequisites of each infinite tech is shuffled, e.g. research productivity mighty require only military, utility, and agricultural science packs (normally the health technology).
+    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs. TODO: unimplemented
+    shuffled: The cost and prerequisites of each infinite tech is shuffled, e.g. research productivity mighty require only military, utility, and agricultural science packs (normally the health technology). TODO: unimplemented
     removed: Infinite technologies are removed.
     """
     display_name = "Infinite Technologies"
     option_vanilla = 0
     option_shuffled = 1
     option_removed = 2
-    default = 1
+    default = 2
 
 class TechTreeInformation(Choice):
     """
