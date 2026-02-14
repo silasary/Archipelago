@@ -23,6 +23,7 @@ class LogicOption(StrEnum):
     launching_metal_is_good_enough = "launching_metal_is_good_enough"
     backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
     walls_to_destroy_medium_asteroids_is_good_enough = "walls_to_destroy_medium_asteroids_is_good_enough"
+    wait_hours_for_fish_to_spoil = "wait_hours_for_fish_to_spoil"
     lightning_schmightning = "lightning_schmightning"
     solar_panels_into_darkness = "solar_panels_into_darkness"
     slow_inserter_is_good_enough = "slow_inserter_is_good_enough"
@@ -41,18 +42,19 @@ class Capability(IntFlag):
     mine_hard_solids                   = 1<< 2 # big mining drill
     pump_tiles                         = 1<< 3 # offshore pump
     pump_entities                      = 1<< 4 # pumpjack
-    automate_planting                  = 1<< 5 # agricultural tower
-    harness_lightning                  = 1<< 6 # lightning rod
-    capture_biter_spawners             = 1<< 7 # capture robot rocket + some rocket launcher on nauvis
-    heat_buildings                     = 1<< 8 # heating tower or nuclear reactor
-    build_on_ice_platforms             = 1<< 9 # concrete
-    collect_asteroids                  = 1<<10 # asteroid collector
-    travel_space                       = 1<<11 # thruster and either ice or water barrel
-    generate_electricity_in_space      = 1<<12 # solar panel
-    generate_electricity_in_dark_space = 1<<13 # nuclear or fusion
-    destroy_medium_asteroids           = 1<<14 # gun turret
-    destroy_big_asteroids              = 1<<15 # rocket turret
-    destroy_huge_asteroids             = 1<<16 # railgun turret
+    build_space_platforms              = 1<< 5 # launch rockets + craft start pack
+    automate_planting                  = 1<< 6 # agricultural tower
+    harness_lightning                  = 1<< 7 # lightning rod
+    capture_biter_spawners             = 1<< 8 # capture robot rocket + some rocket launcher on nauvis
+    heat_buildings                     = 1<< 9 # heating tower or nuclear reactor
+    build_on_ice_platforms             = 1<<10 # concrete
+    collect_asteroids                  = 1<<11 # asteroid collector
+    travel_space                       = 1<<12 # thruster and either ice or water barrel
+    generate_electricity_in_space      = 1<<13 # solar panel
+    generate_electricity_in_dark_space = 1<<14 # nuclear or fusion
+    destroy_medium_asteroids           = 1<<15 # gun turret
+    destroy_big_asteroids              = 1<<16 # rocket turret
+    destroy_huge_asteroids             = 1<<17 # railgun turret
 
     destroy_big_and_smaller_asteroids = destroy_big_asteroids | destroy_medium_asteroids
     destroy_huge_and_smaller_asteroids = destroy_huge_asteroids | destroy_big_and_smaller_asteroids
@@ -89,6 +91,7 @@ class RecipeClassification(IntEnum):
     conversion = 2 # Lossless conversion of items into other items.
     backwards_recycling = 3 # Un-crafting an item via a recycler.
     dead_end_recycling = 4 # 75% chance to destroy item in a recycler.
+    spoilage = 5 # Waiting.
 
 @dataclass
 class ResearchRequirement:
@@ -257,7 +260,7 @@ progressive_technology_stacks: dict[str, list[str]] = {}
 """ e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
 technology_name_to_progressive_group_name: dict[str, str] = {}
 """ e.g. {'advanced-material-processing-2': 'progressive-advanced-material-processing'} """
-progressive_group_name_to_category: dict[str, typing.Literal["upgrades", "recipes"]] = {}
+progressive_group_name_to_category: dict[str, typing.Literal["bonuses", "recipes"]] = {}
 
 empty_technologies: set[str] = set()
 """ {'biter-egg-handling', 'flammables', 'laser', 'modules'} """
@@ -953,8 +956,8 @@ def init():
         recipe_name = item_name + SPOILING_SUFFIX
         recipes[recipe_name] = Recipe(recipe_name,
             inputs={item_name:1}, outputs={product:1},
-            energy=3600, # FIXME: Find the spoilage time in the data if we care.
-            classification=RecipeClassification.standard,
+            energy=7550 if item_name == RawItem.raw_fish else 60, # FIXME: Find the spoilage time in the data if we care.
+            classification=RecipeClassification.spoilage,
             machines=None, locations=None,
         )
         starting_recipes.add(recipe_name)
@@ -1108,7 +1111,7 @@ def init():
                 {"belt-stack-size-bonus", "inserter-stack-size-bonus"},
                 {"laboratory-speed"}, {"laboratory-productivity"},
             ):
-                category = "upgrades"
+                category = "bonuses"
             elif effect_types in (
                 {"unlock-recipe"},
                 {"unlock-recipe", "unlock-quality"},
@@ -1221,6 +1224,11 @@ def init():
             expr = {"or": [
                 *[fmt_operate_machine(name) for name in lightning_harnessing_machines],
                 fmt_option(LogicOption.lightning_schmightning),
+            ]}
+        elif capability == Capability.build_space_platforms:
+            expr = {"and": [
+                can_launch_rockets,
+                fmt_access_item(RawItem.space_platform_starter_pack),
             ]}
         elif capability == Capability.capture_biter_spawners:
             expr = {"and": [
@@ -1421,7 +1429,12 @@ def init():
             ]}
         elif type(technology.requirement) == CraftRequirement:
             # FIXME: This assumes that mining up the item counts as crafting it, which i think is wrong, but i don't think it ever matters.
-            expr = fmt_access_item(technology.requirement.item)
+            if technology.requirement.count < 100:
+                # e.g. 50 iron plates for steam power, 25 bioflux for rocket-fuel-from-jelly.
+                expr = fmt_access_item(technology.requirement.item)
+            else:
+                # e.g. 100 nutrients for agricultural-science-pack, 500 nutrients for artificial soil.
+                expr = fmt_automate_item(technology.requirement.item)
         elif type(technology.requirement) == BuildRequirement:
             # FIXME: This also requires that you power the thing, which is not correct,
             # but it's more correct than just crafting it.
@@ -1449,10 +1462,7 @@ def init():
         elif type(technology.requirement) == CaptureSpawnerRequirement:
             expr = fmt_capability(Capability.capture_biter_spawners)
         elif type(technology.requirement) == CreateSpacePlatformRequirement:
-            expr = {"and": [
-                can_launch_rockets,
-                fmt_access_item(RawItem.space_platform_starter_pack),
-            ]}
+            expr = fmt_capability(Capability.build_space_platforms)
         else: assert False, "forgot a requirement type: " + repr(technology.requirement)
         # TODO: add prerequisites into logic.
         logic_events[fmt_unlock_research(technology_name)] = expr
@@ -1540,6 +1550,8 @@ def init():
                 if recipe.classification == RecipeClassification.backwards_recycling:
                     # Just cull this recipe from the logic if we're not doing something like a Fulgora start.
                     recipe_exprs.append(fmt_option(LogicOption.backwards_recycling_is_interesting))
+                elif recipe.classification == RecipeClassification.spoilage and recipe.energy > 120:
+                    recipe_exprs.append(fmt_option(LogicOption.wait_hours_for_fish_to_spoil))
                 if recipe.locations != None:
                     recipe_exprs.append({"or": [fmt_reach_location(location_name) for location_name in recipe.locations]})
                 # Logic option hooks

@@ -90,10 +90,20 @@
       }
     ]
   },
+  "Access agricultural-science-pack": {
+    "and": [
+      "Access bioflux",
+      "Access pentapod-egg",
+      "Operate biochamber",
+      "Reach gleba",
+      "agricultural-science-pack"
+    ]
+  },
   "Access agricultural-tower": {
     "and": [
       "Access electronic-circuit",
       "Access landfill",
+      "Access spoilage",
       "Access steel-plate",
       "agriculture"
     ]
@@ -693,6 +703,13 @@
       },
       {
         "and": [
+          "Access spoilage",
+          "Operate biochamber",
+          "biochamber"
+        ]
+      },
+      {
+        "and": [
           "Access sulfuric-acid",
           "tungsten-carbide",
           {
@@ -701,12 +718,6 @@
               "Operate cryogenic-plant"
             ]
           }
-        ]
-      },
-      {
-        "and": [
-          "Operate biochamber",
-          "biochamber"
         ]
       }
     ]
@@ -1195,6 +1206,7 @@
       "Access advanced-circuit",
       "Access efficiency-module-2",
       "Access processing-unit",
+      "Access spoilage",
       "efficiency-module-3"
     ]
   },
@@ -2779,12 +2791,17 @@
   },
   "Access nutrients": {
     "or": [
-      "agriculture",
       "fish-breeding",
       {
         "and": [
           "Access biter-egg",
           "captivity"
+        ]
+      },
+      {
+        "and": [
+          "Access spoilage",
+          "agriculture"
         ]
       },
       {
@@ -2842,6 +2859,7 @@
       "Access artificial-jellynut-soil",
       "Access biter-egg",
       "Access jellynut-seed",
+      "Access spoilage",
       "Access water",
       "Reach gleba",
       "overgrowth-soil",
@@ -2857,6 +2875,7 @@
     "and": [
       "Access artificial-yumako-soil",
       "Access biter-egg",
+      "Access spoilage",
       "Access water",
       "Access yumako-seed",
       "Reach gleba",
@@ -4033,6 +4052,55 @@
       }
     ]
   },
+  "Access spoilage": {
+    "or": [
+      "Access agricultural-science-pack",
+      "Access bioflux",
+      "Access jelly",
+      "Access jellynut",
+      "Access nutrients",
+      "Access yumako",
+      "Access yumako-mash",
+      "Option wait_hours_for_fish_to_spoil",
+      "Reach gleba",
+      {
+        "and": [
+          "Operate recycler",
+          "Option backwards_recycling_is_interesting",
+          {
+            "or": [
+              "Access agricultural-tower",
+              "Access efficiency-module-3",
+              "Access nutrients",
+              "Access overgrowth-jellynut-soil",
+              "Access overgrowth-yumako-soil"
+            ]
+          }
+        ]
+      },
+      {
+        "and": [
+          "Reach gleba",
+          {
+            "or": [
+              {
+                "and": [
+                  "Access jelly",
+                  "jellynut"
+                ]
+              },
+              {
+                "and": [
+                  "Access yumako-mash",
+                  "yumako"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "Access stack-inserter": {
     "and": [
       "Access bulk-inserter",
@@ -4291,6 +4359,7 @@
       {
         "and": [
           "Access bioflux",
+          "Access spoilage",
           "Operate biochamber",
           "bioflux-processing"
         ]
@@ -10388,9 +10457,14 @@
       "Automate jelly",
       "Automate jellynut",
       "Automate nutrients",
-      "Automate raw-fish",
       "Automate yumako",
       "Automate yumako-mash",
+      {
+        "and": [
+          "Automate raw-fish",
+          "Option wait_hours_for_fish_to_spoil"
+        ]
+      },
       {
         "and": [
           "Operate recycler",
@@ -11600,6 +11674,12 @@
       "Automate refined-hazard-concrete"
     ]
   },
+  "Can build space platforms": {
+    "and": [
+      "Access space-platform-starter-pack",
+      "Automate rocket-part"
+    ]
+  },
   "Can capture biter spawners": {
     "and": [
       "Access capture-robot-rocket",
@@ -12079,6 +12159,7 @@
   "Option lightning_schmightning": "Option lightning_schmightning",
   "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
   "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
+  "Option wait_hours_for_fish_to_spoil": "Option wait_hours_for_fish_to_spoil",
   "Option walls_to_destroy_medium_asteroids_is_good_enough": "Option walls_to_destroy_medium_asteroids_is_good_enough",
   "Option water_barrel_is_good_enough": "Option water_barrel_is_good_enough",
   "Reach aquilo": {
@@ -12589,9 +12670,9 @@
       }
     ]
   },
-  "agricultural-science-pack": "Access bioflux",
+  "agricultural-science-pack": "Automate bioflux",
   "agriculture": "Reach gleba",
-  "artificial-soil": "Access nutrients",
+  "artificial-soil": "Automate nutrients",
   "artillery": {
     "and": [
       "Automate automation-science-pack",
@@ -15331,12 +15412,7 @@
       }
     ]
   },
-  "space-platform": {
-    "and": [
-      "Access space-platform-starter-pack",
-      "Automate rocket-part"
-    ]
-  },
+  "space-platform": "Can build space platforms",
   "space-platform-thruster": {
     "and": [
       "Automate automation-science-pack",

@@ -139,7 +139,7 @@ class Factorio(World):
         elif self.options.goal.current_key == "aquilo_orbit":
             victory_event_name = "Reach aquilo_orbit"
         elif self.options.goal.current_key == "space_platform":
-            victory_event_name = "space-platform"
+            victory_event_name = "Can build space platforms"
         else: raise NotImplementedError("TODO: goal not supported: " + self.options.goal.current_key)
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
@@ -149,6 +149,7 @@ class Factorio(World):
             LogicOption.launching_metal_is_good_enough:      not self.options.require_electric_furnace.value,
             LogicOption.backwards_recycling_is_interesting:  False, # Fulgora start is not implemented.
             LogicOption.walls_to_destroy_medium_asteroids_is_good_enough: not self.options.require_gun_turret.value,
+            LogicOption.wait_hours_for_fish_to_spoil:        not self.options.require_gleba_for_spoilage.value,
             LogicOption.lightning_schmightning:              not self.options.require_lightning_rod.value,
             LogicOption.solar_panels_into_darkness:          not self.options.require_dark_power.value,
             LogicOption.slow_inserter_is_good_enough:        not self.options.require_fast_inserter.value,
@@ -160,8 +161,8 @@ class Factorio(World):
 
         enabled_progressive_categories = {
             "off": (),
-            "upgrades": ("upgrades",),
-            "all": ("upgrades", "recipes"),
+            "bonuses": ("bonuses",),
+            "all": ("bonuses", "recipes"),
         }[self.options.progressive_technologies.current_key]
 
         found_victory_event = False

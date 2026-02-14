@@ -213,12 +213,12 @@ class ProgressiveTechs(Choice):
     Whether to group technologies that end with -1, -2, -3, etc. into a sequence of progressive items so that they are always received in sequential order.
 
     off: All technologies will be separate items, which means you might received inserter-capacity-bonus-7 before inserter-capacity-bonus-2.
-    upgrades: Technologies that grant global bonuses will be grouped together and received in sequence, for example there will be 7 copies of progressive-inserter-capacity-bonus instead of the individual -1, -2, etc. items.
+    bonuses: Technologies that grant global bonuses will be grouped together and received in sequence, for example there will be 7 copies of progressive-inserter-capacity-bonus instead of the individual -1, -2, etc. items.
     all: In addition, technologies that unlock recipes will also be grouped, for example 3 copies of progressive-automation, 4 copies of progressive-military, 3 copies of progressive-speed-module, etc.
     """
     display_name = "Progressive Technologies"
     option_off = 0
-    option_upgrades = 1
+    option_bonuses = 1
     option_all = 2
     default = 2
 
@@ -370,6 +370,13 @@ class LogicGunTurret(DefaultOnToggle):
     """
 
 @auto_group
+class LogicSpoilage(DefaultOnToggle):
+    """
+    Logically require Gleba for access to spoilage.
+    Otherwise, you may need to wait >2 hours (configurable) for fish to spoil on Nauvis to get nutrient-triggered technology.
+    """
+
+@auto_group
 class LogicLightningRod(DefaultOnToggle):
     """
     Logically require lightning rods for setting up mining drills on Fulgora.
@@ -510,6 +517,7 @@ class FactorioOptions(PerGameCommonOptions):
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret
     require_lightning_rod: LogicLightningRod
+    require_gleba_for_spoilage: LogicSpoilage
     require_dark_power: LogicDarkPower
     require_fast_inserter: LogicFastInserter
     require_assembling_machine_2: LogicAssemblingMachine2
