@@ -134,7 +134,13 @@ class Factorio(World):
             event = self.create_item(item_name)
             location.place_locked_item(event)
 
-        victory_event_name = "Reach solar-system-edge"
+        if self.options.goal.current_key == "solar_system_edge":
+            victory_event_name = "Reach solar-system-edge"
+        elif self.options.goal.current_key == "aquilo_orbit":
+            victory_event_name = "Reach aquilo_orbit"
+        elif self.options.goal.current_key == "space_platform":
+            victory_event_name = "space-platform"
+        else: raise NotImplementedError("TODO: goal not supported: " + self.options.goal.current_key)
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
         logic_events = instantiate_options(all_logic_events, {
@@ -159,7 +165,6 @@ class Factorio(World):
         }[self.options.progressive_technologies.current_key]
 
         found_victory_event = False
-        # TODO: support self.options.goal
         for event_name, expr in sorted(logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             try:
                 event_type, sub_name = event_name.split(" ", 1)
@@ -197,8 +202,8 @@ class Factorio(World):
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))
-                if event_name == victory_event_name:
-                    found_victory_event = True
+            if event_name == victory_event_name:
+                found_victory_event = True
         assert found_victory_event, "event not found in logic: " + victory_event_name
 
 

@@ -193,20 +193,7 @@ function trigger_victory(force)
         })
     end
 end
-if false then -- TODO: goal == satellite -- second TODO: change to launching a space platform?
-    script.on_event(defines.events.on_rocket_launched, function(event)
-        if event.rocket and event.rocket.valid then
-            satellite_count = 0
-            cargo_pod = event.rocket.cargo_pod
-            if cargo_pod then
-                satellite_count = cargo_pod.get_item_count("satellite")
-            end
-            if satellite_count > 0 then
-                trigger_victory(event.rocket.force)
-            end
-        end
-    end)
-elseif true then -- TODO: goal == solar-system-edge
+if PARAMS.goal == "solar_system_edge" then
     script.on_event(defines.events.on_tick, function(event)
         local force = game.forces["player"]
         for _, platform in pairs(force.platforms) do
@@ -215,6 +202,23 @@ elseif true then -- TODO: goal == solar-system-edge
             end
         end
     end)
+elseif PARAMS.goal == "aquilo_orbit" then
+    script.on_event(defines.events.on_tick, function(event)
+        local force = game.forces["player"]
+        for _, platform in pairs(force.platforms) do
+            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "aquilo" then
+                trigger_victory(force)
+            end
+        end
+    end)
+elseif PARAMS.goal == "space_platform" then
+    script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
+        if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
+            trigger_victory(event.cargo_pod.force)
+        end
+    end)
+else
+    error("unrecognized goal: " .. tostring(PARAMS.goal))
 end
 
 -- Updates a player, attempting to send them any pending samples (if relevant)

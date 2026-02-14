@@ -182,7 +182,9 @@ def generate_mod(
                 continue # TODO: support infinite technologies
                 unit["count_formula"] = technology.requirement.units
             else:
-                unit["count"] = technology.requirement.units
+                unit_count = technology.requirement.units
+                unit_count = max(1, unit_count // options.tech_cost_divisor.value)
+                unit["count"] = unit_count
             tech_data["unit"] = unit
         elif type(technology.requirement) == CraftRequirement:
             tech_data["research_trigger"] = {
@@ -220,22 +222,25 @@ def generate_mod(
         "mod_name": mod_name,
         "seed_name": multiworld.seed_name,
         "slot_name": player_name,
+        "goal": options.goal.current_key,
 
         "default_death_link": bool(options.death_link.value),
         "death_link_setting": death_link_setting_name,
         "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
         "trap_evo_factor": options.evolution_trap_increase.value / 100,
 
+        "starting_items": options.starting_items.value,
         "free_sample_amount": options.free_samples.current_key,
         "free_sample_quality": options.free_samples_quality.current_key,
         "free_sample_excludes": set_to_1(free_sample_excludes),
+        "rocket_parts_per_rocket": options.rocket_parts_per_rocket.value,
+        "ingredients_per_space_platform_foundation": options.ingredients_per_space_platform_foundation.value,
 
         "hide_base_technologies": sorted(technologies.keys()),
         "new_technology_data": new_technology_data,
         "progressive_technology_stacks": progressive_technology_stacks,
 
         "allow_imported_blueprints": bool(options.allow_imported_blueprints.value),
-        "starting_items": options.starting_items.value,
         "world_gen_preset": {
             "default": False,
             "order": "a",

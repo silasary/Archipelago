@@ -25,38 +25,30 @@ class FloatRange:
 
 LuaBool = Or(bool, And(int, lambda n: n in (0, 1)))
 
+option_groups: list[OptionGroup] = []
+def auto_group(cls):
+    option_groups[-1].options.append(cls)
+    return cls
+
+
 class Goal(Choice):
     """
     Goal required to complete the game.
-    launch starter pack: Build a space platform. TODO: unimplemented.
-    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science. TODO: unimplemented.
-    reach aquilo orbit: Logically requires rocket turrets. TODO: unimplemented.
+    space platform: Build a space platform.
+    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science (TODO: unimplemented).
+    aquilo orbit: Reach aquilo orbit with a space platform.
     solar system edge: (default) The victory condition in the normal game.
-    going to shattered planet 3: Travel 60 000 km towards the shattered planet. TODO: unimplemented.
     """
     display_name = "Goal"
-    option_launch_starter_pack = 0
+    option_space_platform = 0
     option_any_other_planet_science = 1
-    option_reach_aquilo_orbit = 2
+    option_aquilo_orbit = 2
     option_solar_system_edge = 3
-    option_going_to_shattered_planet_3 = 60_000_000
     default = 3
 
 class AllowImportedBlueprints(DefaultOnToggle):
     """Allow blueprints imported from outside the current game."""
     display_name = "Allow Imported Blueprints"
-
-class StartingItems(OptionDict):
-    """Mapping of Factorio internal item-name to amount granted on start."""
-    display_name = "Starting Items"
-    default = {"burner-mining-drill": 4, "stone-furnace": 4,  "raw-fish": 50}
-    schema = Schema(
-        {
-            str: And(int, lambda n: n > 0,
-                     error="amount of starting items has to be a positive integer"),
-        }
-        # TODO: move the additional validation from generate_early() into the schema
-    )
 
 class FactorioWorldGen(OptionDict):
     """World Generation settings. Overview of options at https://wiki.factorio.com/Map_generator,
@@ -199,6 +191,10 @@ class FactorioWorldGen(OptionDict):
         else:
             raise NotImplementedError(f"Cannot Convert from non-dictionary, got {type(data)}")
 
+
+option_groups.append(OptionGroup("Technologies", []))
+
+@auto_group
 class TechnologyPrerequisites(Choice):
     """
     Researching a technology location requires researching the prerequisite locations first,
@@ -211,6 +207,7 @@ class TechnologyPrerequisites(Choice):
     option_removed = 1
     default = 0
 
+@auto_group
 class ProgressiveTechs(Choice):
     """
     Whether to group technologies that end with -1, -2, -3, etc. into a sequence of progressive items so that they are always received in sequential order.
@@ -225,6 +222,7 @@ class ProgressiveTechs(Choice):
     option_all = 2
     default = 2
 
+@auto_group
 class InfiniteTechs(Choice):
     """
     How to handle infinitely researchable technologies, e.g. steel-plate-productivity.
@@ -238,6 +236,7 @@ class InfiniteTechs(Choice):
     option_removed = 2
     default = 2
 
+@auto_group
 class TechTreeInformation(Choice):
     """
     How much information should be displayed in the tech tree.
@@ -252,6 +251,23 @@ class TechTreeInformation(Choice):
     # TODO: option to reveal recipient
     default = 2
 
+
+option_groups.append(OptionGroup("Speedups/Balance", []))
+
+@auto_group
+class StartingItems(OptionDict):
+    """Mapping of Factorio internal item-name to amount granted on start."""
+    display_name = "Starting Items"
+    default = {"burner-mining-drill": 4, "stone-furnace": 4,  "raw-fish": 50}
+    schema = Schema(
+        {
+            str: And(int, lambda n: n > 0,
+                     error="amount of starting items has to be a positive integer"),
+        }
+        # TODO: move the additional validation from generate_early() into the schema
+    )
+
+@auto_group
 class FreeSamples(Choice):
     """
     Get free items with your recipe unlocks.
@@ -264,6 +280,7 @@ class FreeSamples(Choice):
     option_stack = 3
     default = 3
 
+@auto_group
 class FreeSamplesQuality(Choice):
     """If free samples are on, determine the quality of the granted items."""
     display_name = "Free Samples Quality"
@@ -274,6 +291,7 @@ class FreeSamplesQuality(Choice):
     option_legendary = 4
     default = 0
 
+@auto_group
 class FreeSampleExcludes(OptionSet):
     """Recipes that when unlocked should never grant Free Samples of their products.
     Fluids, barreling/unbarreling, and biter eggs are always excluded.
@@ -295,25 +313,55 @@ class FreeSampleExcludes(OptionSet):
     }
     # TODO: move the validation from generate_early() into a schema here.
 
+@auto_group
+class TechCostDivisor(Range):
+    """
+    Reduce the cost of research technologies by dividing by this number.
+    1 = Vanilla. 10 = All technologies require 1/10th as much science.
+    """
+    range_start = 1
+    range_end = 10
+    default = 1
 
+@auto_group
+class RocketPartsPerRocket(Range):
+    """Normally a rocket requires 50 of each ingredient."""
+    range_start = 1
+    range_end = 200
+    default = 50
+
+@auto_group
+class IngredientsPerSpacePlatformFoundation(Range):
+    """Normally a space platform foundation requires 20 of each ingredient."""
+    range_start = 1
+    range_end = 400
+    default = 20
+
+
+option_groups.append(OptionGroup("Logic", []))
+
+@auto_group
 class LogicMiningDrill(DefaultOnToggle):
     """
     Logically require electric mining drills for logistic science pack automation (green science).
     Otherwise, you may need to use burner mining drills for automation until Vulcanus or uranium is required.
     """
 
+@auto_group
 class LogicElectricFurnace(DefaultOnToggle):
     """
     Logically require electric furnaces for space science pack automation and for traveling space.
     Otherwise, you may need to supply space platforms with metal plates shipped up via rocket.
     """
 
+@auto_group
 class LogicIceMelting(DefaultOnToggle):
     """
     Logically require ice melting for traveling space.
     Otherwise, you may need to supply space platforms with water barrels shipped up via rocket.
     """
 
+@auto_group
 class LogicGunTurret(DefaultOnToggle):
     """
     Logically require gun turrets for destroying medium asteroids.
@@ -321,6 +369,7 @@ class LogicGunTurret(DefaultOnToggle):
     (Large and huge asteroids always logically require rocket turrets and railgun turrets respectively.)
     """
 
+@auto_group
 class LogicLightningRod(DefaultOnToggle):
     """
     Logically require lightning rods for setting up mining drills on Fulgora.
@@ -328,87 +377,94 @@ class LogicLightningRod(DefaultOnToggle):
     NOTE: This option does nothing, because the requirements for landing on Fulgora include all the requirements for crafting lightning rods.
     """
 
+@auto_group
 class LogicDarkPower(DefaultOnToggle):
     """
     Logically require nuclear power to reach Aquilo.
     Otherwise, you may need to rely on poorly performing solar panels in dark space.
     """
 
+@auto_group
 class LogicFastInserter(Toggle):
     """
     Logically require fast inserters to automate advanced circuits.
     """
 
+@auto_group
 class LogicAssemblingMachine2(Toggle):
     """
     Logically require assembling machine 2 to automate advanced circuits.
     """
 
+@auto_group
 class LogicFluidHandling(Toggle):
     """
     Logically require pumps and storage tanks for advanced oil processing.
     """
 
+@auto_group
 class LogicConstructionRobots(Toggle):
     """
     Logically require construction robots before automating production or utility science (purple/yellow) or traveling to another planet.
     """
 
+@auto_group
 class LogicLogisticRobots(Toggle):
     """
     Logically require requester chests and logistic robots before traveling to another planet.
     """
 
 
+option_groups.append(OptionGroup("Traps", [], start_collapsed=True))
 
 class TrapCount(Range):
     range_end = 25
 
-
+@auto_group
 class AttackTrapCount(TrapCount):
     """Trap items that when received trigger an attack on your base."""
     display_name = "Attack Traps"
 
-
+@auto_group
 class TeleportTrapCount(TrapCount):
     """Trap items that when received trigger a random teleport.
     It is ensured the player can walk back to where they got teleported from."""
     display_name = "Teleport Traps"
 
-
+@auto_group
 class GrenadeTrapCount(TrapCount):
     """Trap items that when received trigger a grenade explosion on each player."""
     display_name = "Grenade Traps"
 
-
+@auto_group
 class ClusterGrenadeTrapCount(TrapCount):
     """Trap items that when received trigger a cluster grenade explosion on each player."""
     display_name = "Cluster Grenade Traps"
 
-
+@auto_group
 class ArtilleryTrapCount(TrapCount):
     """Trap items that when received trigger an artillery shell on each player."""
     display_name = "Artillery Traps"
 
-
+@auto_group
 class AtomicRocketTrapCount(TrapCount):
     """Trap items that when received trigger an atomic rocket explosion on each player.
     Warning: there is no warning. The launch is instantaneous."""
     display_name = "Atomic Rocket Traps"
 
-
+@auto_group
 class AtomicCliffRemoverTrapCount(TrapCount):
     """Trap items that when received trigger an atomic rocket explosion on a random cliff.
     Warning: there is no warning. The launch is instantaneous."""
     display_name = "Atomic Cliff Remover Traps"
 
-
+@auto_group
 class EvolutionTrapCount(TrapCount):
     """Trap items that when received increase the enemy evolution."""
     display_name = "Evolution Traps"
     range_end = 10
 
-
+@auto_group
 class EvolutionTrapIncrease(Range):
     """How much an Evolution Trap increases the enemy evolution.
     Increases scale down proportionally to the session's current evolution factor
@@ -418,11 +474,10 @@ class EvolutionTrapIncrease(Range):
     default = 10
     range_end = 100
 
-
+@auto_group
 class InventorySpillTrapCount(TrapCount):
     """Trap items that when received trigger dropping your main inventory and trash inventory onto the ground."""
     display_name = "Inventory Spill Traps"
-
 
 
 
@@ -435,16 +490,20 @@ class EnergyLink(Toggle):
 class FactorioOptions(PerGameCommonOptions):
     goal: Goal
     allow_imported_blueprints: AllowImportedBlueprints
-    starting_items: StartingItems
     world_gen: FactorioWorldGen
 
     technology_prerequisites: TechnologyPrerequisites
     progressive_technologies: ProgressiveTechs
     infinite_technologies: InfiniteTechs
     tech_tree_information: TechTreeInformation
+
+    starting_items: StartingItems
     free_samples: FreeSamples
     free_samples_quality: FreeSamplesQuality
     free_sample_excludes: FreeSampleExcludes
+    tech_cost_divisor: TechCostDivisor
+    rocket_parts_per_rocket: RocketPartsPerRocket
+    ingredients_per_space_platform_foundation: IngredientsPerSpacePlatformFoundation
 
     require_electric_mining_drill: LogicMiningDrill
     require_electric_furnace: LogicElectricFurnace
@@ -472,50 +531,3 @@ class FactorioOptions(PerGameCommonOptions):
     death_link: DeathLink
     energy_link: EnergyLink
     start_inventory_from_pool: StartInventoryPool
-
-option_groups: list[OptionGroup] = [
-    OptionGroup(
-        "Technologies",
-        [
-            TechnologyPrerequisites,
-            ProgressiveTechs,
-            InfiniteTechs,
-            TechTreeInformation,
-            FreeSamples,
-            FreeSamplesQuality,
-            FreeSampleExcludes,
-        ],
-    ),
-    OptionGroup(
-        "Logic",
-        [
-            LogicMiningDrill,
-            LogicElectricFurnace,
-            LogicIceMelting,
-            LogicGunTurret,
-            LogicLightningRod,
-            LogicDarkPower,
-            LogicFastInserter,
-            LogicAssemblingMachine2,
-            LogicFluidHandling,
-            LogicConstructionRobots,
-            LogicLogisticRobots,
-        ],
-    ),
-    OptionGroup(
-        "Traps",
-        [
-            AttackTrapCount,
-            EvolutionTrapCount,
-            EvolutionTrapIncrease,
-            TeleportTrapCount,
-            GrenadeTrapCount,
-            ClusterGrenadeTrapCount,
-            ArtilleryTrapCount,
-            AtomicRocketTrapCount,
-            AtomicCliffRemoverTrapCount,
-            InventorySpillTrapCount,
-        ],
-        start_collapsed=True,
-    ),
-]
