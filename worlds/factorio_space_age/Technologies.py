@@ -19,6 +19,7 @@ factorio_base_id = 2 ** 17
 
 class LogicOption(StrEnum):
     burner_mining_drill_is_good_enough = "burner_mining_drill_is_good_enough"
+    inserter_balancing_is_good_enough = "inserter_balancing_is_good_enough"
     water_barrel_is_good_enough = "water_barrel_is_good_enough"
     launching_metal_is_good_enough = "launching_metal_is_good_enough"
     backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
@@ -1560,6 +1561,13 @@ def init():
                     recipe_exprs.append({"or": [
                         fmt_option(LogicOption.burner_mining_drill_is_good_enough),
                         fmt_access_item(RawItem.electric_mining_drill),
+                    ]})
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.inserter_balancing_is_good_enough),
+                        {"and": [
+                            fmt_access_item(RawItem.underground_belt),
+                            fmt_access_item(RawItem.splitter),
+                        ]},
                     ]})
                 elif item_name == RawItem.advanced_circuit and RawItem.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
                     # Require faster machines to get through the blue science phase of the game.

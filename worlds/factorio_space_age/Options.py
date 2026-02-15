@@ -354,6 +354,12 @@ class LogicMiningDrill(DefaultOnToggle):
     """
 
 @auto_group
+class LogicLogistics(DefaultOnToggle):
+    """
+    Logically require logistics (underground belts and splitters) for logistic science pack automation (green science).
+    """
+
+@auto_group
 class LogicElectricFurnace(DefaultOnToggle):
     """
     Logically require electric furnaces for space science pack automation and for traveling space.
@@ -523,6 +529,7 @@ class FactorioOptions(PerGameCommonOptions):
     ingredients_per_space_platform_foundation: IngredientsPerSpacePlatformFoundation
 
     require_electric_mining_drill: LogicMiningDrill
+    require_logistics: LogicLogistics
     require_electric_furnace: LogicElectricFurnace
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret

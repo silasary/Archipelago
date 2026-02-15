@@ -147,6 +147,7 @@ class Factorio(World):
 
         logic_events = instantiate_options(all_logic_events, {
             LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
+            LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
             LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,
             LogicOption.launching_metal_is_good_enough:      not self.options.require_electric_furnace.value,
             LogicOption.backwards_recycling_is_interesting:  False, # Fulgora start is not implemented.
