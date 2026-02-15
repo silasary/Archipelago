@@ -50,68 +50,71 @@ class AllowImportedBlueprints(DefaultOnToggle):
     """Allow blueprints imported from outside the current game."""
     display_name = "Allow Imported Blueprints"
 
-class FactorioWorldGen(OptionDict):
-    """World Generation settings. Overview of options at https://wiki.factorio.com/Map_generator,
-    with in-depth documentation at https://lua-api.factorio.com/latest/concepts/MapGenSettings.html"""
-    display_name = "World Generation"
+
+option_groups.append(OptionGroup("World Gen", []))
+
+@auto_group
+class WorldGen(Choice):
+    """
+    vanilla: The vanilla Default settings.
+    buffed resources: All resource patches cranked to the max, cliffs disabled, oceans reduced, Fulgoran islands max size.
+    custom: use the world_gen_custom property.
+    """
+    option_vanilla = 0
+    option_buffed_resources = 1
+    option_custom = 2
+    default = 1
+
+@auto_group
+class WorldGenEnemies(DefaultOnToggle):
+    """
+    Enable enemies. Turning this off checks the 'No enemies' mode during world gen and disables pollution.
+    Ignored when world_gen is set to 'custom'.
+    """
+
+@auto_group
+class WorldGenAsteroids(Range):
+    """
+    Percentage modifier for spawning asteroids.
+    Ignored when world_gen is set to 'custom'.
+    TODO: unimplemented.
+    """
+    range_start = 10
+    range_end = 400
+    default = 100
+
+@auto_group
+class WorldGenSpoilage(Range):
+    """
+    Percentage modifier for spoiling rate. Higher rate is faster spoiling.
+    Ignored when world_gen is set to 'custom'.
+    TODO: unimplemented.
+    """
+    range_start = 10
+    range_end = 1000
+    default = 100
+
+@auto_group
+class WorldGenCustom(OptionDict):
+    """
+    Only used when world_gen is set to 'custom'.
+    Overview of options at https://wiki.factorio.com/Map_generator,
+    with in-depth documentation at https://lua-api.factorio.com/latest/concepts/MapGenSettings.html .
+
+    Other resources that may help:
+    * https://lua-api.factorio.com/latest/types/MapGenPreset.html
+    * https://github.com/wube/factorio-data/blob/master/map-gen-settings.example.json
+    * https://github.com/wube/factorio-data/blob/master/map-settings.example.json
+    * https://fesc.pages.dev/ ( https://github.com/rfvgyhn/factorio-exchange-string-parser )
+
+    Specify a combination of the 'basic' and 'advanced' settings in this object; they will be pulled apart appropriately.
+    TODO: currently only preset settings can be used, not regular settings. If you don't know what that means, neither do I,
+    but it means you can't fiddle with the asteroid spawn rate for example.
+    """
+    display_name = "Custom World Generation"
     # FIXME: do we want default be a rando-optimized default or in-game DS?
     value: dict[str, dict[str, typing.Any]]
-    default = {
-        "autoplace_controls": {
-            # terrain
-            "water": {"frequency": 1, "size": 1, "richness": 1},
-            "nauvis_cliff": {"frequency": 1, "size": 1, "richness": 1},
-            "starting_area_moisture": {"frequency": 1, "size": 1, "richness": 1},
-            # resources
-            "coal": {"frequency": 1, "size": 3, "richness": 6},
-            "copper-ore": {"frequency": 1, "size": 3, "richness": 6},
-            "crude-oil": {"frequency": 1, "size": 3, "richness": 6},
-            "iron-ore": {"frequency": 1, "size": 3, "richness": 6},
-            "stone": {"frequency": 1, "size": 3, "richness": 6},
-            "uranium-ore": {"frequency": 1, "size": 3, "richness": 6},
-            # misc
-            "trees": {"frequency": 1, "size": 1, "richness": 1},
-            "enemy-base": {"frequency": 1, "size": 1, "richness": 1},
-        },
-        "seed": None,
-        "starting_area": 1,
-        "peaceful_mode": False,
-        "no_enemies_mode": False,
-        "cliff_settings": {
-            "name": "cliff",
-            "cliff_elevation_0": 10,
-            "cliff_elevation_interval": 40,
-            "richness": 1
-        },
-        "property_expression_names": {
-            "control-setting:moisture:bias": 0,
-            "control-setting:moisture:frequency:multiplier": 1,
-            "control-setting:aux:bias": 0,
-            "control-setting:aux:frequency:multiplier": 1
-        },
-        "pollution": {
-            "enabled": True,
-            "diffusion_ratio": 0.02,
-            "ageing": 1,
-            "enemy_attack_pollution_consumption_modifier": 1,
-            "min_pollution_to_damage_trees": 60,
-            "pollution_restored_per_tree_damage": 10
-        },
-        "enemy_evolution": {
-            "enabled": True,
-            "time_factor": 40.0e-7,
-            "destroy_factor": 200.0e-5,
-            "pollution_factor": 9.0e-7
-        },
-        "enemy_expansion": {
-            "enabled": True,
-            "max_expansion_distance": 7,
-            "settler_group_min_size": 5,
-            "settler_group_max_size": 20,
-            "min_expansion_cooldown": 14400,
-            "max_expansion_cooldown": 216000
-        }
-    }
+    default = {}
     schema = Schema({
         "basic": {
             Optional("autoplace_controls"): {
@@ -162,7 +165,10 @@ class FactorioWorldGen(OptionDict):
                 Optional("settler_group_max_size"): FloatRange(1, 50),
                 Optional("min_expansion_cooldown"): FloatRange(3600, 216000),
                 Optional("max_expansion_cooldown"): FloatRange(18000, 648000)
-            }
+            },
+            Optional("difficulty_settings"): {
+                Optional("technology_price_multiplier"): FloatRange(0.01, 1000),
+            },
         }
     })
 
@@ -185,7 +191,7 @@ class FactorioWorldGen(OptionDict):
         optional_min_lte_max(enemy_expansion, "min_expansion_cooldown", "max_expansion_cooldown")
 
     @classmethod
-    def from_any(cls, data: dict[str, typing.Any]) -> FactorioWorldGen:
+    def from_any(cls, data: dict[str, typing.Any]) -> WorldGenCustom:
         if type(data) == dict:
             return cls(data)
         else:
@@ -199,13 +205,13 @@ class TechnologyPrerequisites(Choice):
     """
     Researching a technology location requires researching the prerequisite locations first,
     the connections in the technology graph.
-    vanilla: Imitate the vanilla tech tree connections.
+    vanilla: Imitate the vanilla tech tree connections (TODO: unimplemented).
     removed: No prerequisites. All technology locations can be researched simply by meeting the individual requirements.
     """
     display_name = "Technology Prerequisites"
     option_vanilla = 0
     option_removed = 1
-    default = 0
+    default = 1
 
 @auto_group
 class ProgressiveTechs(Choice):
@@ -226,8 +232,8 @@ class ProgressiveTechs(Choice):
 class InfiniteTechs(Choice):
     """
     How to handle infinitely researchable technologies, e.g. steel-plate-productivity.
-    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs. TODO: unimplemented
-    shuffled: The cost and prerequisites of each infinite tech is shuffled, e.g. research productivity mighty require only military, utility, and agricultural science packs (normally the health technology). TODO: unimplemented
+    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs (TODO: unimplemented).
+    shuffled: The cost and prerequisites of each infinite tech is shuffled, e.g. research productivity mighty require only military, utility, and agricultural science packs (normally the health technology) (TODO: unimplemented).
     removed: Infinite technologies are removed.
     """
     display_name = "Infinite Technologies"
@@ -497,7 +503,11 @@ class EnergyLink(Toggle):
 class FactorioOptions(PerGameCommonOptions):
     goal: Goal
     allow_imported_blueprints: AllowImportedBlueprints
-    world_gen: FactorioWorldGen
+    world_gen: WorldGen
+    world_gen_enemies: WorldGenEnemies
+    world_gen_asteroid_spawn_rate: WorldGenAsteroids
+    world_gen_spoil_rate: WorldGenSpoilage
+    world_gen_custom: WorldGenCustom
 
     technology_prerequisites: TechnologyPrerequisites
     progressive_technologies: ProgressiveTechs

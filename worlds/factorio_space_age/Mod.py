@@ -49,6 +49,53 @@ base_info = {
     ]
 }
 
+buffed_resources_basic = {
+    "autoplace_controls": {
+        # Resources
+        ## Nauvis
+        "iron-ore": { "frequency": 6, "size": 6, "richness": 6 },
+        "copper-ore": { "frequency": 6, "size": 6, "richness": 6 },
+        "stone": { "frequency": 6, "size": 6, "richness": 6 },
+        "coal": { "frequency": 6, "size": 6, "richness": 6 },
+        "crude-oil": { "frequency": 6, "size": 6, "richness": 6 },
+        "uranium-ore": { "frequency": 6, "size": 6, "richness": 6 },
+        ## Vulcanus
+        "vulcanus_coal": { "frequency": 6, "size": 6, "richness": 6 },
+        "calcite": { "frequency": 6, "size": 6, "richness": 6 },
+        "sulfuric_acid_geyser": { "frequency": 6, "size": 6, "richness": 6 },
+        "tungsten_ore": { "frequency": 6, "size": 6, "richness": 6 },
+        ## Gleba
+        "gleba_stone": { "frequency": 6, "size": 6, "richness": 6 },
+        ## Fulgora
+        "scrap": { "frequency": 6, "size": 6, "richness": 6 },
+        ## Aquilo
+        "aquilo_crude_oil": { "frequency": 6, "size": 6, "richness": 6 },
+        "lithium_brine": { "frequency": 6, "size": 6, "richness": 6 },
+        "fluorine_vent": { "frequency": 6, "size": 6, "richness": 6 },
+
+        # Terrain
+        ## Nauvis
+        "water": { "frequency": 1, "size": 0.5, "richness": 1 },
+        "trees": { "frequency": 1, "size": 1, "richness": 1 },
+        "rocks": { "frequency": 1, "size": 1, "richness": 1 },
+        "starting_area_moisture": { "frequency": 1, "size": 1, "richness": 1 },
+        ## Vulcanus
+        "vulcanus_volcanism": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
+        ## Gleba
+        "gleba_water": { "frequency": 0.1666666716337204, "size": 0.1666666716337204, "richness": 1 },
+        "gleba_plants": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
+        ## Fulgora
+        "fulgora_islands": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
+        ## Cliffs
+        "nauvis_cliff": { "frequency": 1, "size": 0, "richness": 1 },
+        "gleba_cliff": { "frequency": 1, "size": 0, "richness": 1 },
+        "fulgora_cliff": { "frequency": 1, "size": 0, "richness": 1 },
+
+        # Enemy
+        "enemy-base": { "frequency": 0.25, "size": 1.5, "richness": 1 },
+        "gleba_enemy_base": { "frequency": 1, "size": 0.25, "richness": 1 },
+    },
+}
 
 class FactorioModFile(worlds.Files.APPlayerContainer):
     game = "Factorio: Space Age"
@@ -215,6 +262,33 @@ def generate_mod(
         new_technology_data[location.name] = tech_data
         locale_locations.append(locale_location)
 
+    world_gen_preset = {
+        "default": False,
+        "order": "a",
+        "basic_settings": {},
+        "advanced_settings": {},
+    }
+    if options.world_gen.current_key == "custom":
+        world_gen_preset["basic_settings"] = options.world_gen_custom.value["basic"]
+        world_gen_preset["advanced_settings"] = options.world_gen_custom.value["advanced"]
+    else:
+        if options.world_gen.current_key == "vanilla":
+            pass # No modifications.
+        elif options.world_gen.current_key == "buffed_resources":
+            world_gen_preset["basic_settings"] = buffed_resources_basic
+        else: assert False
+        # Additional adjustments when not custom.
+        if options.world_gen_enemies.value == False:
+            world_gen_preset["basic_settings"]["no_enemies_mode"] = True
+            world_gen_preset["advanced_settings"]["pollution"] = {"enabled": False}
+        # These next two don't go into the preset for some reason??
+        # In order to implement these, we'd need to give world gen settings directly to the --create invocation
+        # using one of the json file interfaces, not through a preset created by a mod.
+        if options.world_gen_asteroid_spawn_rate.value != 100:
+            raise NotImplementedError("TODO: world_gen_asteroid_spawn_rate must be 100")
+        if options.world_gen_spoil_rate.value != 100:
+            raise NotImplementedError("TODO: world_gen_spoil_rate must be 100")
+
     def set_to_1(s):
         return {x: 1 for x in s}
 
@@ -241,12 +315,7 @@ def generate_mod(
         "progressive_technology_stacks": progressive_technology_stacks,
 
         "allow_imported_blueprints": bool(options.allow_imported_blueprints.value),
-        "world_gen_preset": {
-            "default": False,
-            "order": "a",
-            "basic_settings": options.world_gen.value["basic"],
-            "advanced_settings": options.world_gen.value["advanced"],
-        },
+        "world_gen_preset": world_gen_preset,
     }
     template_parameters_contents = template_parameters_template.render(mod_params=render_lua_value(mod_params))
 

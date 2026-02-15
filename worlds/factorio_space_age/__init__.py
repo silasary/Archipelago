@@ -107,6 +107,8 @@ class Factorio(World):
         unrecognized_items = self.options.starting_items.value.keys() - all_items.keys()
         if unrecognized_items:
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
+        if self.options.technology_prerequisites.current_key != "removed":
+            raise NotImplementedError("TODO: technology_prerequisites must be 'removed'")
 
     def create_regions(self):
         """
@@ -209,10 +211,10 @@ class Factorio(World):
 
 
     def generate_basic(self):
-        map_basic_settings = self.options.world_gen.value["basic"]
-        if map_basic_settings.get("seed", None) is None:  # allow seed 0
-            # 32 bit uint
-            map_basic_settings["seed"] = self.random.randint(0, 2 ** 32 - 1)
+        if self.options.world_gen.current_key == "custom":
+            map_basic_settings = self.options.world_gen_custom.value["basic"]
+            if map_basic_settings.get("seed", None) is None: # allow seed 0
+                map_basic_settings["seed"] = self.random.randint(0, 2 ** 32 - 1) # 32 bit uint
 
         start_location_hints: typing.Set[str] = self.options.start_location_hints.value
         for location in self.locations:
