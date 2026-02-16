@@ -24,7 +24,7 @@ def launch_client(*args):
     launch_subprocess(launch, name="FF12 Open World Client", args=args)
 
 
-components.append(Component("FF12 Open World Client", "FF12OpenWorldClient",
+components.append(Component("FF12 Open World Client",
                             func=launch_client, component_type=Type.CLIENT,
                             game_name="Final Fantasy 12 Open World", supports_uri=True))
 
