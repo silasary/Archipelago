@@ -8,15 +8,17 @@ from worlds.AutoWorld import World, WebWorld
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
 from .Technologies import (
-    logic_events as all_logic_events,
+    logic_events as all_logic_events, never_inline_events,
     advancement_technologies, empty_technologies, infinite_technologies,
     progressive_technology_stacks, technology_name_to_progressive_group_name, progressive_group_name_to_category,
     never_give_free_samples_from_recipes,
     technology_name_to_location_name,
     ap_item_name_to_id, ap_location_name_to_id,
     all_recipe_names, all_item_names,
-
-    compile_expr, instantiate_options, LogicOption,
+)
+from .Logic import (
+    LogicOption,
+    compile_expr, instantiate_options,
 )
 empty_technologies_list = sorted(empty_technologies)
 
@@ -153,7 +155,7 @@ class Factorio(World):
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
-        self.logic_events = instantiate_options(all_logic_events, {
+        self.logic_events = instantiate_options(all_logic_events, never_inline_events, {
             LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
             LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
             LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,
