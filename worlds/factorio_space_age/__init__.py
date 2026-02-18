@@ -14,7 +14,7 @@ from .Technologies import (
     never_give_free_samples_from_recipes,
     technology_name_to_location_name,
     ap_item_name_to_id, ap_location_name_to_id,
-    recipes as all_recipes, items as all_items, # Only need the keys for yaml validation.
+    all_recipe_names, all_item_names,
 
     compile_expr, instantiate_options, LogicOption,
 )
@@ -104,10 +104,10 @@ class Factorio(World):
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
-        unrecognized_recipes = self.options.free_sample_excludes.value - all_recipes.keys()
+        unrecognized_recipes = self.options.free_sample_excludes.value - all_recipe_names
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
-        unrecognized_items = self.options.starting_items.value.keys() - all_items.keys()
+        unrecognized_items = self.options.starting_items.value.keys() - all_item_names
         if unrecognized_items:
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
         if self.options.technology_prerequisites.current_key != "removed":

@@ -276,11 +276,8 @@ class MiningSource:
 # Exported data
 # =============
 
-# TODO: stop exporting these 4
-items: dict[str, Item] = {}
-machines: dict[str, Machine] = {}
-recipes: dict[str, Recipe] = {}
-technologies: dict[str, Technology] = {}
+technology_props_lua: dict[str, dict] = {}
+""" contains ["prerequisites"] array of string, and either ["unit"] or ["research_trigger"] which go directly into a TechnologyPrototype in Lua. """
 
 progressive_technology_stacks: dict[str, list[str]] = {}
 """ e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
@@ -291,7 +288,9 @@ progressive_group_name_to_category: dict[str, typing.Literal["bonuses", "recipes
 empty_technologies: set[str] = set()
 """ {'biter-egg-handling', 'flammables', 'laser', 'modules'} """
 
-fluids: set[str] = set()
+all_item_names: set[str] = set()
+all_recipe_names: set[str] = set()
+
 logic_events = {}
 """
 mapping from event name to expression. Expression is either an event name,
@@ -557,7 +556,6 @@ def _get_machine_power_type(entity) -> PowerType:
     return result
 
 def init():
-    global fluids
     fluids = get_data()["fluid"].keys() - _parameter_names
 
     # Throughout this code, we assume there's no ambiguity between item and fluid names. Assert that assumption.
@@ -720,6 +718,7 @@ def init():
     # Items
     # =====
 
+    items: dict[str, Item] = {}
     ammo_category_to_weapon_items = defaultdict(set)
     ammo_category_to_ammo_items = defaultdict(set)
     power_type_to_fuel_items = defaultdict(set)
@@ -733,6 +732,7 @@ def init():
             continue
         rocket_capacity = 1_000_000 // weight_in_g
         items[item_name] = Item(item_name, stack_size, rocket_capacity)
+        all_item_names.add(item_name)
 
         # Handheld weapons are logically relevant for capturing biter spawners.
         if "attack_parameters" in item_data:
@@ -753,6 +753,7 @@ def init():
     # Machines
     # ========
 
+    machines: dict[str, Machine] = {}
     crafting_category_to_machines = defaultdict(set)
     mining_capability_to_machines = defaultdict(set)
     mining_drills_with_fluid_connections = set()
@@ -906,6 +907,7 @@ def init():
     # Recipes
     # =======
 
+    recipes: dict[str, Recipe] = {}
     starting_recipes: set[str] = set()
     for recipe_name, recipe_data in get_data()["recipe"].items():
         if recipe_data["enabled"]:
@@ -971,6 +973,7 @@ def init():
             locations = None
 
         recipes[recipe_name] = Recipe(recipe_name, inputs, outputs, energy, classification, valid_machines, locations)
+        all_recipe_names.add(recipe_name)
 
         if recipe_data["hidden_from_player_crafting"]:
             # Exclude barreling/unbarreling, rocket part, and biter egg from free samples.
@@ -1021,6 +1024,7 @@ def init():
     # ============
     # Technologies
     # ============
+    technologies: dict[str, Technology] = {}
     recipe_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     space_location_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     mining_with_fluid_unlocking_technologies = set()
@@ -1029,6 +1033,9 @@ def init():
         assert " " not in technology_name, "spaces are used to prefix event types. a space in a technology name creates ambiguity"
         prerequisites = set(technology_data["prerequisites"].keys())
         ingredients = {i["name"]: i["amount"] for i in technology_data["research_unit_ingredients"] }
+        technology_props = {
+            "prerequisites": sorted(prerequisites),
+        }
         if len(ingredients) > 0:
             # Research technology (using science packs and labs).
             assert set(ingredients.values()) == {1}, "update comment on ResearchRequirement.ingredients to no longer claim the amount is always 1"
@@ -1043,6 +1050,18 @@ def init():
             assert energy_in_ticks % 60 == 0, "update Technology.energy type from int to float"
             energy = energy_in_ticks // 60
             requirement = ResearchRequirement(ingredients, units, energy, not technology_data["ignore_tech_cost_multiplier"])
+
+            # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
+            unit = {
+                "time": energy,
+                "ingredients": [[ingredient_name, amount] for ingredient_name, amount in ingredients.items()],
+            }
+            if type(units) == str:
+                unit["count_formula"] = units
+                # TODO: Also need to adjust the level appropriately?
+            else:
+                unit["count"] = units
+            technology_props["unit"] = unit
         elif "research_trigger" in technology_data:
             # Trigger technology.
             trigger = technology_data["research_trigger"]
@@ -1057,10 +1076,13 @@ def init():
             elif trigger["type"] == "create-space-platform":
                 requirement = CreateSpacePlatformRequirement()
             else: assert False, "unrecognized research trigger type: " + repr(trigger["type"])
+            # https://lua-api.factorio.com/latest/types/TechnologyTrigger.html
+            technology_props["research_trigger"] = trigger
         else: assert False, "technology appears to have no cost or trigger: " + technology_name
 
         technology = Technology(technology_name, prerequisites, requirement)
         technologies[technology_name] = technology
+        technology_props_lua[technology_name] = technology_props
 
         does_something_important = False
         for effect in technology_data["effects"]:

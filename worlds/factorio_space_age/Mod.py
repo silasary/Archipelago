@@ -18,14 +18,7 @@ from .Technologies import (
     progressive_technology_stacks, infinite_technologies,
     technology_name_to_location_name, location_name_to_technology_name,
     energy_link_bridge_recipes,
-
-    technologies,
-    ResearchRequirement,
-    CraftRequirement,
-    MineRequirement,
-    BuildRequirement,
-    CaptureSpawnerRequirement,
-    CreateSpacePlatformRequirement,
+    technology_props_lua,
 )
 
 if TYPE_CHECKING:
@@ -186,7 +179,7 @@ def generate_mod(
                 helpfulness_clause = ""
                 icon = "/ap_unimportant.png"
             description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
-            if item.name in technologies:
+            if item.name in technology_props_lua:
                 # This is an item for Factorio (probably). Use the built in icon.
                 icon = item.name
             elif item.name in progressive_technology_stacks:
@@ -213,9 +206,10 @@ def generate_mod(
             icon = "/ap_unimportant.png"
         locale_location = LocaleLocation(location.name, display_name, description)
 
-        technology = technologies[technology_name]
+        technology_props = technology_props_lua[technology_name]
         if options.technology_prerequisites.current_key == "vanilla":
-            prerequisites = [technology_name_to_location_name[name] for name in sorted(technology.prerequisites)]
+            # Translate preprequisite tech names to the AP names.
+            prerequisites = [technology_name_to_location_name[name] for name in technology_props["prerequisites"]]
         elif options.technology_prerequisites.current_key == "removed":
             prerequisites = []
         else: assert False, options.technology_prerequisites.current_key
@@ -225,46 +219,13 @@ def generate_mod(
             # Mimic the same prerequisite map.
             "prerequisites": prerequisites,
         }
-        if type(technology.requirement) == ResearchRequirement:
-            # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
-            unit = {
-                "time": technology.requirement.energy,
-                "ingredients": [[ingredient_name, amount] for ingredient_name, amount in technology.requirement.ingredients.items()],
+        if "unit" in technology_props:
+            tech_data["unit"] = {
+                **technology_props["unit"],
+                "count": max(1, technology_props["unit"]["count"] // options.tech_cost_divisor),
             }
-            if type(technology.requirement.units) == str:
-                assert False, "TODO: support infinite technologies"
-                unit["count_formula"] = technology.requirement.units
-                # Also need to adjust the level appropriately?
-            else:
-                unit_count = technology.requirement.units
-                unit_count = max(1, unit_count // options.tech_cost_divisor.value)
-                unit["count"] = unit_count
-            tech_data["unit"] = unit
-        elif type(technology.requirement) == CraftRequirement:
-            tech_data["research_trigger"] = {
-                "type": "craft-item",
-                "item": {"name": technology.requirement.item},
-                "count": technology.requirement.count,
-            }
-        elif type(technology.requirement) == MineRequirement:
-            tech_data["research_trigger"] = {
-                "type": "mine-entity",
-                "entity": technology.requirement.entity,
-            }
-        elif type(technology.requirement) == BuildRequirement:
-            tech_data["research_trigger"] = {
-                "type": "build-entity",
-                "entity": technology.requirement.entity,
-            }
-        elif type(technology.requirement) == CaptureSpawnerRequirement:
-            tech_data["research_trigger"] = {
-                "type": "capture-spawner",
-            }
-        elif type(technology.requirement) == CreateSpacePlatformRequirement:
-            tech_data["research_trigger"] = {
-                "type": "create-space-platform",
-            }
-        else: assert False, str(type(technology.requirement))
+        else:
+            tech_data["research_trigger"] = technology_props["research_trigger"]
 
         new_technology_data[location.name] = tech_data
         locale_locations.append(locale_location)
@@ -296,7 +257,7 @@ def generate_mod(
         if options.world_gen_spoil_rate.value != 100:
             raise NotImplementedError("TODO: world_gen_spoil_rate must be 100")
 
-    def set_to_1(s):
+    def set_to_1(s: set):
         return {x: 1 for x in s}
 
     mod_params = {
@@ -318,7 +279,7 @@ def generate_mod(
         "rocket_parts_per_rocket": options.rocket_parts_per_rocket.value,
         "ingredients_per_space_platform_foundation": options.ingredients_per_space_platform_foundation.value,
 
-        "hide_base_technologies": sorted(technologies.keys()),
+        "hide_base_technologies": sorted(technology_props_lua.keys()),
         "new_technology_data": new_technology_data,
         "progressive_technology_stacks": progressive_technology_stacks,
 
