@@ -32,7 +32,30 @@ class LogicOption(StrEnum):
     direct_pipes_is_good_enough = "direct_pipes_is_good_enough"
     hand_building_is_good_enough = "hand_building_is_good_enough"
     belt_logistics_is_good_enough = "belt_logistics_is_good_enough"
+    energy_link_recipe_early_game = "energy_link_recipe_early_game"
+    energy_link_recipe_mid_game = "energy_link_recipe_mid_game"
+    energy_link_recipe_fulgora = "energy_link_recipe_fulgora"
+    energy_link_unlocked_from_the_start = "energy_link_unlocked_from_the_start"
+    playing_without_energy_link_early_game_is_good_enough = "playing_without_energy_link_early_game_is_good_enough"
+    playing_without_energy_link_mid_game_is_good_enough = "playing_without_energy_link_mid_game_is_good_enough"
+    playing_without_energy_link_fulgora_is_good_enough = "playing_without_energy_link_fulgora_is_good_enough"
 fmt_option = lambda option: "Option {}".format(option.value)
+
+energy_link_bridge_name = "ap-energy-bridge"
+energy_link_bridge_recipes = {
+    LogicOption.energy_link_recipe_early_game: [
+        dict(type="item", amount=50, name=RawItem.iron_plate),
+        dict(type="item", amount=50, name=RawItem.copper_plate),
+    ],
+    LogicOption.energy_link_recipe_mid_game: [
+        dict(type="item", amount=1, name=RawItem.accumulator),
+        dict(type="item", amount=1, name=RawItem.radar),
+    ],
+    LogicOption.energy_link_recipe_fulgora: [
+        dict(type="item", amount=10, name=RawItem.supercapacitor),
+        dict(type="item", amount=1,  name=RawItem.radar),
+    ],
+}
 
 class Capability(IntFlag):
     """
@@ -253,10 +276,12 @@ class MiningSource:
 # Exported data
 # =============
 
+# TODO: stop exporting these 4
 items: dict[str, Item] = {}
 machines: dict[str, Machine] = {}
 recipes: dict[str, Recipe] = {}
 technologies: dict[str, Technology] = {}
+
 progressive_technology_stacks: dict[str, list[str]] = {}
 """ e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
 technology_name_to_progressive_group_name: dict[str, str] = {}
@@ -274,6 +299,7 @@ or {"or": [expression, ...]} or {"and": [expression, ...]}
 """
 
 advancement_technologies: set[str] = set()
+infinite_technologies: set[str] = set()
 never_inline_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
@@ -1010,6 +1036,7 @@ def init():
                 # infinite
                 units = technology_data["research_unit_count_formula"]
                 assert type(units) == str
+                infinite_technologies.add(technology_name)
             else:
                 units = technology_data["research_unit_count"]
             energy_in_ticks = technology_data["research_unit_energy"]
@@ -1469,6 +1496,8 @@ def init():
         logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
         never_inline_events.add(fmt_unlock_research(technology_name))
+    # EnergyLink technology
+    logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
 
     # Recipes
     for recipe_name, recipe in recipes.items():
@@ -1569,6 +1598,10 @@ def init():
                             fmt_access_item(RawItem.splitter),
                         ]},
                     ]})
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.playing_without_energy_link_early_game_is_good_enough),
+                        fmt_access_item(energy_link_bridge_name),
+                    ]})
                 elif item_name == RawItem.advanced_circuit and RawItem.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
                     # Require faster machines to get through the blue science phase of the game.
                     recipe_exprs.append({"or": [
@@ -1582,14 +1615,44 @@ def init():
                 elif recipe_name in (RawRecipe.advanced_oil_processing, RawRecipe.coal_liquefaction):
                     # You could probably do without this, but it sure is easier with fluid handling.
                     recipe_exprs.append(optionally_access_pumps_and_tanks)
+                elif recipe_name == RawItem.chemical_science_pack and fmt_automate_or_access is fmt_automate_item:
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.playing_without_energy_link_mid_game_is_good_enough),
+                        fmt_access_item(energy_link_bridge_name),
+                    ]})
                 elif item_name in (RawItem.production_science_pack, RawItem.utility_science_pack) and fmt_automate_or_access is fmt_automate_item:
                     # Require construction robots to scale up your factory for purple/yellow science.
                     recipe_exprs.append(optionally_operate_construction_robots)
                 elif item_name == RawItem.space_science_pack and fmt_automate_or_access is fmt_automate_item:
                     # Require electric furnaces to make space science.
                     recipe_exprs.append(automate_iron_plates_in_space)
+                elif recipe_name == RawItem.electromagnetic_science_pack and fmt_automate_or_access is fmt_automate_item:
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.playing_without_energy_link_fulgora_is_good_enough),
+                        fmt_access_item(energy_link_bridge_name),
+                    ]})
                 source_exprs.append({"and": recipe_exprs})
             logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
+    # Access Archipelago EnergyLink Bridge
+    logic_events[fmt_access_item(energy_link_bridge_name)] = {"and": [
+        # Unlock the recipe.
+        {"or": [
+            fmt_option(LogicOption.energy_link_unlocked_from_the_start),
+            fmt_unlock_research(energy_link_bridge_name),
+        ]},
+        # Craft it according to configurable recipe.
+        {"or": [
+            {"and": [
+                fmt_option(option),
+                *[fmt_access_item(ingredient_data["name"]) for ingredient_data in energy_link_bridge_recipes[option]],
+            ]}
+            for option in [
+                LogicOption.energy_link_recipe_early_game,
+                LogicOption.energy_link_recipe_mid_game,
+                LogicOption.energy_link_recipe_fulgora,
+            ]
+        ]},
+    ]}
 
     # Optimize.
     logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}

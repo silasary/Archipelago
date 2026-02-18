@@ -8,14 +8,15 @@ from worlds.AutoWorld import World, WebWorld
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
 from .Technologies import (
-    technologies,
-    compile_expr, logic_events as all_logic_events, instantiate_options, LogicOption,
-    ap_item_name_to_id, ap_location_name_to_id,
-    recipes as all_recipes, items as all_items,
-    advancement_technologies, empty_technologies,
+    logic_events as all_logic_events,
+    advancement_technologies, empty_technologies, infinite_technologies,
     progressive_technology_stacks, technology_name_to_progressive_group_name, progressive_group_name_to_category,
     never_give_free_samples_from_recipes,
     technology_name_to_location_name,
+    ap_item_name_to_id, ap_location_name_to_id,
+    recipes as all_recipes, items as all_items, # Only need the keys for yaml validation.
+
+    compile_expr, instantiate_options, LogicOption,
 )
 empty_technologies_list = sorted(empty_technologies)
 
@@ -82,6 +83,7 @@ class Factorio(World):
     }
 
     locations: list[FactorioLocation]
+    logic_events: dict
 
     def __init__(self, world, player: int):
         self.locations = []
@@ -96,6 +98,7 @@ class Factorio(World):
             world_locations=self.locations,
             options=self.options,
             multiworld=self.multiworld,
+            logic_events=self.logic_events,
             output_directory=output_directory,
         )
 
@@ -109,6 +112,8 @@ class Factorio(World):
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
         if self.options.technology_prerequisites.current_key != "removed":
             raise NotImplementedError("TODO: technology_prerequisites must be 'removed'")
+        if self.options.energy_link_technology.value:
+            raise NotImplementedError("TODO: energy_link_technology must be 'false'")
 
     def create_regions(self):
         """
@@ -145,7 +150,10 @@ class Factorio(World):
         else: raise NotImplementedError("TODO: goal not supported: " + self.options.goal.current_key)
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
-        logic_events = instantiate_options(all_logic_events, {
+        el_enabled = self.options.energy_link.value
+        el_recipe = self.options.energy_link_recipe.current_key
+        el_logic = self.options.require_energy_link.value
+        self.logic_events = instantiate_options(all_logic_events, {
             LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
             LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
             LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,
@@ -160,6 +168,14 @@ class Factorio(World):
             LogicOption.direct_pipes_is_good_enough:         not self.options.require_fluid_handling.value,
             LogicOption.hand_building_is_good_enough:        not self.options.require_construction_robots.value,
             LogicOption.belt_logistics_is_good_enough:       not self.options.require_logistic_robots.value,
+
+            LogicOption.energy_link_recipe_early_game:       el_enabled and el_recipe == "early_game",
+            LogicOption.energy_link_recipe_mid_game:         el_enabled and el_recipe == "mid_game",
+            LogicOption.energy_link_recipe_fulgora:          el_enabled and el_recipe == "fulgora",
+            LogicOption.energy_link_unlocked_from_the_start: el_enabled and not self.options.energy_link_technology.value,
+            LogicOption.playing_without_energy_link_early_game_is_good_enough: not (el_enabled and el_logic and el_recipe == "early_game"),
+            LogicOption.playing_without_energy_link_mid_game_is_good_enough:   not (el_enabled and el_logic and el_recipe == "mid_game"),
+            LogicOption.playing_without_energy_link_fulgora_is_good_enough:    not (el_enabled and el_logic and el_recipe == "fulgora"),
         })
 
         enabled_progressive_categories = {
@@ -169,7 +185,7 @@ class Factorio(World):
         }[self.options.progressive_technologies.current_key]
 
         found_victory_event = False
-        for event_name, expr in sorted(logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
+        for event_name, expr in sorted(self.logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             try:
                 event_type, sub_name = event_name.split(" ", 1)
             except ValueError:
@@ -186,7 +202,7 @@ class Factorio(World):
                     "automation-science-pack",
                     "automation",
                 )
-                if technologies[sub_name].is_infinite():
+                if sub_name in infinite_technologies:
                     if self.options.infinite_technologies.current_key == "removed":
                         continue
                     else:

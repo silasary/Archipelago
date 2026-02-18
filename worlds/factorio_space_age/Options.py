@@ -109,7 +109,10 @@ class WorldGenCustom(OptionDict):
 
     Specify a combination of the 'basic' and 'advanced' settings in this object; they will be pulled apart appropriately.
     TODO: currently only preset settings can be used, not regular settings. If you don't know what that means, neither do I,
-    but it means you can't fiddle with the asteroid spawn rate for example.
+    but it means you can't fiddle with the spoil rate for example.
+
+    If you wish you could just use a map exchange string, please contribute to this forum discussion:
+    https://forums.factorio.com/viewtopic.php?p=689150
     """
     display_name = "Custom World Generation"
     # FIXME: do we want default be a rando-optimized default or in-game DS?
@@ -434,6 +437,55 @@ class LogicLogisticRobots(Toggle):
     """
 
 
+option_groups.append(OptionGroup("Energy Link", [], start_collapsed=True))
+
+@auto_group
+class EnergyLink(Toggle):
+    """
+    Allow sending and receiving energy to/from a shared pool in the multiworld.
+    The Archipelago EnergyLink Bridge item is craftable in-game and functions like an accumulator for sending and receiving energy.
+    25% of the energy is lost during sending.
+
+    All EnergyLink-enabled games in the multiworld use the same pool.
+    Unit conversions between Factorio (Joules), Mega Man (HP), Roller Coaster Tycoon (USD),
+    Donkey Kong Country (Bananas), etc. is left to the apworld developers.
+
+    EnergyLink can also be used to transport energy between planets in Factorio: Space Age or to/from space platforms.
+    (TODO: Consider this in logic.)
+    """
+    display_name = "Energy Link"
+
+@auto_group
+class EnergyLinkRecipe(Choice):
+    """
+    The recipe to craft an Archipelago EnergyLink Bridge.
+    early game: Made from iron plates and copper plates.
+    mid game: Made from accumulator and radar (requires oil, acid, and battery).
+    fulgora: Made from supercapacitor and radar.
+    """
+    option_early_game = 0
+    option_mid_game = 1
+    option_fulgora = 2
+    default = 1
+
+@auto_group
+class EnergyLinkTechnology(Toggle):
+    """
+    Should the Archipelago EnergyLink Bridge recipe be unlocked by a technology, which is an item in the multiworld?
+    Note that this interacts with the free samples option.
+    (TODO: unimplemented)
+    """
+
+@auto_group
+class LogicEnergyLink(Toggle):
+    """
+    Logically require Archipelago EnergyLink Bridges for the following, depending on the setting of energy_link_recipe:
+    early_game: logistic science pack automation (green science).
+    mid_game: chemical science pack automation (blue science).
+    fulgora: electromagnetic science pack automation.
+    """
+
+
 option_groups.append(OptionGroup("Traps", [], start_collapsed=True))
 
 class TrapCount(Range):
@@ -500,10 +552,6 @@ class InventorySpillTrapCount(TrapCount):
 
 
 
-class EnergyLink(Toggle):
-    """Allow sending energy to other worlds. 25% of the energy is lost in the transfer."""
-    display_name = "Energy Link"
-
 
 @dataclass
 class FactorioOptions(PerGameCommonOptions):
@@ -542,6 +590,11 @@ class FactorioOptions(PerGameCommonOptions):
     require_construction_robots: LogicConstructionRobots
     require_logistic_robots: LogicLogisticRobots
 
+    energy_link: EnergyLink
+    energy_link_recipe: EnergyLinkRecipe
+    energy_link_technology: EnergyLinkTechnology
+    require_energy_link: LogicEnergyLink
+
     teleport_traps: TeleportTrapCount
     grenade_traps: GrenadeTrapCount
     cluster_grenade_traps: ClusterGrenadeTrapCount
@@ -554,5 +607,4 @@ class FactorioOptions(PerGameCommonOptions):
     evolution_trap_increase: EvolutionTrapIncrease
 
     death_link: DeathLink
-    energy_link: EnergyLink
     start_inventory_from_pool: StartInventoryPool

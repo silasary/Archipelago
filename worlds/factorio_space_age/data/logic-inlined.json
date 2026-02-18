@@ -128,6 +128,37 @@
       "Reach aquilo"
     ]
   },
+  "Access ap-energy-bridge": {
+    "and": [
+      "Option energy_link_unlocked_from_the_start",
+      {
+        "or": [
+          "Option energy_link_recipe_early_game",
+          {
+            "and": [
+              "Access radar",
+              {
+                "or": [
+                  {
+                    "and": [
+                      "Access accumulator",
+                      "Option energy_link_recipe_mid_game"
+                    ]
+                  },
+                  {
+                    "and": [
+                      "Access supercapacitor",
+                      "Option energy_link_recipe_fulgora"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "Access arithmetic-combinator": {
     "and": [
       "Access copper-cable",
@@ -6053,6 +6084,12 @@
       "chemical-science-pack",
       {
         "or": [
+          "Access ap-energy-bridge",
+          "Option playing_without_energy_link_mid_game_is_good_enough"
+        ]
+      },
+      {
+        "or": [
           "Operate assembling-machine-1",
           "Operate assembling-machine-2",
           "Operate assembling-machine-3"
@@ -6640,7 +6677,13 @@
       "Automate supercapacitor",
       "Operate electromagnetic-plant",
       "Reach fulgora",
-      "electromagnetic-science-pack"
+      "electromagnetic-science-pack",
+      {
+        "or": [
+          "Access ap-energy-bridge",
+          "Option playing_without_energy_link_fulgora_is_good_enough"
+        ]
+      }
     ]
   },
   "Automate electronic-circuit": {
@@ -8250,6 +8293,12 @@
       "Automate inserter",
       "Automate transport-belt",
       "logistic-science-pack",
+      {
+        "or": [
+          "Access ap-energy-bridge",
+          "Option playing_without_energy_link_early_game_is_good_enough"
+        ]
+      },
       {
         "or": [
           "Access electric-mining-drill",
@@ -12165,10 +12214,17 @@
   "Option belt_logistics_is_good_enough": "Option belt_logistics_is_good_enough",
   "Option burner_mining_drill_is_good_enough": "Option burner_mining_drill_is_good_enough",
   "Option direct_pipes_is_good_enough": "Option direct_pipes_is_good_enough",
+  "Option energy_link_recipe_early_game": "Option energy_link_recipe_early_game",
+  "Option energy_link_recipe_fulgora": "Option energy_link_recipe_fulgora",
+  "Option energy_link_recipe_mid_game": "Option energy_link_recipe_mid_game",
+  "Option energy_link_unlocked_from_the_start": "Option energy_link_unlocked_from_the_start",
   "Option hand_building_is_good_enough": "Option hand_building_is_good_enough",
   "Option inserter_balancing_is_good_enough": "Option inserter_balancing_is_good_enough",
   "Option launching_metal_is_good_enough": "Option launching_metal_is_good_enough",
   "Option lightning_schmightning": "Option lightning_schmightning",
+  "Option playing_without_energy_link_early_game_is_good_enough": "Option playing_without_energy_link_early_game_is_good_enough",
+  "Option playing_without_energy_link_fulgora_is_good_enough": "Option playing_without_energy_link_fulgora_is_good_enough",
+  "Option playing_without_energy_link_mid_game_is_good_enough": "Option playing_without_energy_link_mid_game_is_good_enough",
   "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
   "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
   "Option wait_hours_for_fish_to_spoil": "Option wait_hours_for_fish_to_spoil",

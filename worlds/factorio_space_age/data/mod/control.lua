@@ -231,7 +231,7 @@ function update_player(index)
     if not character or not character.valid then
         return -- Might be dead
     end
-    -- TODO: also make sure the character is standing on the surface of a planet, not riding in a space platform or cargo pod.
+    -- TODO: test when the character is riding in a space platform or cargo pod.
     local data = storage.playerdata[index]
     local samples = data["pending_samples"]
     --player.print(serpent.block(data["pending_samples"]))

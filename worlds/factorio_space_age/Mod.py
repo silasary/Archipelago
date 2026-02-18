@@ -15,10 +15,11 @@ import worlds.Files
 from . import Options
 from .Technologies import (
     never_give_free_samples_from_recipes,
-    progressive_technology_stacks,
-    technologies,
+    progressive_technology_stacks, infinite_technologies,
     technology_name_to_location_name, location_name_to_technology_name,
+    energy_link_bridge_recipes,
 
+    technologies,
     ResearchRequirement,
     CraftRequirement,
     MineRequirement,
@@ -53,47 +54,47 @@ buffed_resources_basic = {
     "autoplace_controls": {
         # Resources
         ## Nauvis
-        "iron-ore": { "frequency": 6, "size": 6, "richness": 6 },
-        "copper-ore": { "frequency": 6, "size": 6, "richness": 6 },
-        "stone": { "frequency": 6, "size": 6, "richness": 6 },
-        "coal": { "frequency": 6, "size": 6, "richness": 6 },
-        "crude-oil": { "frequency": 6, "size": 6, "richness": 6 },
-        "uranium-ore": { "frequency": 6, "size": 6, "richness": 6 },
+        "iron-ore":             { "frequency": 6, "size": 6, "richness": 6 },
+        "copper-ore":           { "frequency": 6, "size": 6, "richness": 6 },
+        "stone":                { "frequency": 6, "size": 6, "richness": 6 },
+        "coal":                 { "frequency": 6, "size": 6, "richness": 6 },
+        "crude-oil":            { "frequency": 6, "size": 6, "richness": 6 },
+        "uranium-ore":          { "frequency": 6, "size": 6, "richness": 6 },
         ## Vulcanus
-        "vulcanus_coal": { "frequency": 6, "size": 6, "richness": 6 },
-        "calcite": { "frequency": 6, "size": 6, "richness": 6 },
+        "vulcanus_coal":        { "frequency": 6, "size": 6, "richness": 6 },
+        "calcite":              { "frequency": 6, "size": 6, "richness": 6 },
         "sulfuric_acid_geyser": { "frequency": 6, "size": 6, "richness": 6 },
-        "tungsten_ore": { "frequency": 6, "size": 6, "richness": 6 },
+        "tungsten_ore":         { "frequency": 6, "size": 6, "richness": 6 },
         ## Gleba
-        "gleba_stone": { "frequency": 6, "size": 6, "richness": 6 },
+        "gleba_stone":          { "frequency": 6, "size": 6, "richness": 6 },
         ## Fulgora
-        "scrap": { "frequency": 6, "size": 6, "richness": 6 },
+        "scrap":                { "frequency": 6, "size": 6, "richness": 6 },
         ## Aquilo
-        "aquilo_crude_oil": { "frequency": 6, "size": 6, "richness": 6 },
-        "lithium_brine": { "frequency": 6, "size": 6, "richness": 6 },
-        "fluorine_vent": { "frequency": 6, "size": 6, "richness": 6 },
+        "aquilo_crude_oil":     { "frequency": 6, "size": 6, "richness": 6 },
+        "lithium_brine":        { "frequency": 6, "size": 6, "richness": 6 },
+        "fluorine_vent":        { "frequency": 6, "size": 6, "richness": 6 },
 
         # Terrain
         ## Nauvis
-        "water": { "frequency": 1, "size": 0.5, "richness": 1 },
-        "trees": { "frequency": 1, "size": 1, "richness": 1 },
-        "rocks": { "frequency": 1, "size": 1, "richness": 1 },
+        "water":                  { "frequency": 1, "size": 0.5, "richness": 1 },
+        "trees":                  { "frequency": 1, "size": 1, "richness": 1 },
+        "rocks":                  { "frequency": 1, "size": 1, "richness": 1 },
         "starting_area_moisture": { "frequency": 1, "size": 1, "richness": 1 },
         ## Vulcanus
         "vulcanus_volcanism": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
         ## Gleba
-        "gleba_water": { "frequency": 0.1666666716337204, "size": 0.1666666716337204, "richness": 1 },
-        "gleba_plants": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
+        "gleba_water":        { "frequency": 0.1666666716337204, "size": 0.1666666716337204, "richness": 1 },
+        "gleba_plants":       { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
         ## Fulgora
-        "fulgora_islands": { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
+        "fulgora_islands":    { "frequency": 0.1666666716337204, "size": 6, "richness": 1 },
         ## Cliffs
-        "nauvis_cliff": { "frequency": 1, "size": 0, "richness": 1 },
-        "gleba_cliff": { "frequency": 1, "size": 0, "richness": 1 },
-        "fulgora_cliff": { "frequency": 1, "size": 0, "richness": 1 },
+        "nauvis_cliff":       { "frequency": 1, "size": 0, "richness": 1 },
+        "gleba_cliff":        { "frequency": 1, "size": 0, "richness": 1 },
+        "fulgora_cliff":      { "frequency": 1, "size": 0, "richness": 1 },
 
         # Enemy
-        "enemy-base": { "frequency": 0.25, "size": 1.5, "richness": 1 },
-        "gleba_enemy_base": { "frequency": 1, "size": 0.25, "richness": 1 },
+        "enemy-base":         { "frequency": 0.25, "size": 1.5, "richness": 1 },
+        "gleba_enemy_base":   { "frequency": 1, "size": 0.25, "richness": 1 },
     },
 }
 
@@ -128,6 +129,7 @@ def generate_mod(
     world_locations: "list[FactorioLocation]",
     options: Options,
     multiworld: "Multiworld",
+    logic_events: dict,
     output_directory: str,
 ):
 
@@ -163,6 +165,10 @@ def generate_mod(
     locale_locations: list[LocaleLocation] = []
     new_technology_data: dict[str, dict] = {}
     for location in world_locations:
+        technology_name = location_name_to_technology_name[location.name]
+        if technology_name in infinite_technologies:
+            continue # TODO: support infinite technologies
+
         item = location.item
         if location.revealed or options.tech_tree_information.current_key == "full":
             receiver_name = multiworld.player_name[item.player]
@@ -207,7 +213,7 @@ def generate_mod(
             icon = "/ap_unimportant.png"
         locale_location = LocaleLocation(location.name, display_name, description)
 
-        technology = technologies[location_name_to_technology_name[location.name]]
+        technology = technologies[technology_name]
         if options.technology_prerequisites.current_key == "vanilla":
             prerequisites = [technology_name_to_location_name[name] for name in sorted(technology.prerequisites)]
         elif options.technology_prerequisites.current_key == "removed":
@@ -226,8 +232,9 @@ def generate_mod(
                 "ingredients": [[ingredient_name, amount] for ingredient_name, amount in technology.requirement.ingredients.items()],
             }
             if type(technology.requirement.units) == str:
-                continue # TODO: support infinite technologies
+                assert False, "TODO: support infinite technologies"
                 unit["count_formula"] = technology.requirement.units
+                # Also need to adjust the level appropriately?
             else:
                 unit_count = technology.requirement.units
                 unit_count = max(1, unit_count // options.tech_cost_divisor.value)
@@ -300,8 +307,9 @@ def generate_mod(
 
         "default_death_link": bool(options.death_link.value),
         "death_link_setting": death_link_setting_name,
-        "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
         "trap_evo_factor": options.evolution_trap_increase.value / 100,
+        "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
+        "energy_link_bridge_ingredients": energy_link_bridge_recipes["energy_link_recipe_" + options.energy_link_recipe.current_key],
 
         "starting_items": options.starting_items.value,
         "free_sample_amount": options.free_samples.current_key,
@@ -352,6 +360,8 @@ def generate_mod(
     info["name"] = mod_name
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/info.json",
                                       json.dumps(info, indent=4) + "\n"))
+    mod.writing_tasks.append(lambda: ("logic.json",
+                                      json.dumps(logic_events, indent=2, sort_keys=True) + "\n"))
 
     # write the mod file
     mod.write()
