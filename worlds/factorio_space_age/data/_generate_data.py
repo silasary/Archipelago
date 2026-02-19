@@ -1,16 +1,15 @@
-# TODO: separate data preprocessing into a dumper script.
 import itertools, typing
 from collections import defaultdict
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
-from .Logic import (
+from Logic import (
     LogicOption, fmt_option,
     inline_exprs, optimize_expr, ALWAYS, NEVER,
+    energy_link_bridge_recipes,
 )
 
-from .data import (
-    get_data,
+from generated_names import (
     Entity as RawEntity,
     Item as RawItem,
     Fluid as RawFluid,
@@ -20,24 +19,45 @@ from .data import (
     Technology as RawTechnology,
 )
 
+# =============
+# Exported data
+# =============
+
+technology_props_lua: dict[str, dict] = {}
+""" contains ["prerequisites"] array of string, and either ["unit"] or ["research_trigger"] which go directly into a TechnologyPrototype in Lua. """
+
+progressive_technology_stacks: dict[str, list[str]] = {}
+""" e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
+technology_name_to_progressive_group_name: dict[str, str] = {}
+""" e.g. {'advanced-material-processing-2': 'progressive-advanced-material-processing'} """
+progressive_group_name_to_category: dict[str, typing.Literal["bonuses", "recipes"]] = {}
+
+empty_technologies: set[str] = set()
+""" {'biter-egg-handling', 'flammables', 'laser', 'modules'} """
+
+all_item_names: set[str] = set()
+all_recipe_names: set[str] = set()
+
+raw_logic_events = {}
+"""
+mapping from event name to expression. Expression is either an event name,
+or {"or": [expression, ...]} or {"and": [expression, ...]}
+"""
+
+advancement_technologies: set[str] = set()
+infinite_technologies: set[str] = set()
+never_inline_events: set[str] = set()
+ap_location_name_to_id: dict[str, int] = {}
+ap_item_name_to_id: dict[str, int] = {}
+technology_name_to_location_name: dict[str, str] = {}
+location_name_to_technology_name: dict[str, str] = {}
+never_give_free_samples_from_recipes: set[str] = set()
+
+
+
 factorio_base_id = 2 ** 17
 
-
 energy_link_bridge_name = "ap-energy-bridge"
-energy_link_bridge_recipes = {
-    LogicOption.energy_link_recipe_early_game: [
-        dict(type="item", amount=50, name=RawItem.iron_plate),
-        dict(type="item", amount=50, name=RawItem.copper_plate),
-    ],
-    LogicOption.energy_link_recipe_mid_game: [
-        dict(type="item", amount=1, name=RawItem.accumulator),
-        dict(type="item", amount=1, name=RawItem.radar),
-    ],
-    LogicOption.energy_link_recipe_fulgora: [
-        dict(type="item", amount=10, name=RawItem.supercapacitor),
-        dict(type="item", amount=1,  name=RawItem.radar),
-    ],
-}
 
 class Capability(IntFlag):
     """
@@ -253,40 +273,6 @@ class MiningSource:
     """ e.g. Capability.automate_mining|mine_with_fluid """
     required_ingredients: tuple[str, ...]
     """ e.g. 'sulfuric-acid' """
-
-# =============
-# Exported data
-# =============
-
-technology_props_lua: dict[str, dict] = {}
-""" contains ["prerequisites"] array of string, and either ["unit"] or ["research_trigger"] which go directly into a TechnologyPrototype in Lua. """
-
-progressive_technology_stacks: dict[str, list[str]] = {}
-""" e.g. {'progressive-advanced-material-processing': ['advanced-material-processing', 'advanced-material-processing-2']} """
-technology_name_to_progressive_group_name: dict[str, str] = {}
-""" e.g. {'advanced-material-processing-2': 'progressive-advanced-material-processing'} """
-progressive_group_name_to_category: dict[str, typing.Literal["bonuses", "recipes"]] = {}
-
-empty_technologies: set[str] = set()
-""" {'biter-egg-handling', 'flammables', 'laser', 'modules'} """
-
-all_item_names: set[str] = set()
-all_recipe_names: set[str] = set()
-
-logic_events = {}
-"""
-mapping from event name to expression. Expression is either an event name,
-or {"or": [expression, ...]} or {"and": [expression, ...]}
-"""
-
-advancement_technologies: set[str] = set()
-infinite_technologies: set[str] = set()
-never_inline_events: set[str] = set()
-ap_location_name_to_id: dict[str, int] = {}
-ap_item_name_to_id: dict[str, int] = {}
-technology_name_to_location_name: dict[str, str] = {}
-location_name_to_technology_name: dict[str, str] = {}
-never_give_free_samples_from_recipes: set[str] = set()
 
 # ==================
 # Hardcoded constants that we don't have a good way to derrive from the data:
@@ -508,7 +494,7 @@ _override_recipe_data = {
 # TODO: this is unimplemented
 _effective_technology_name_for_progressive_grouping = {
     RawTechnology.turbo_transport_belt: "logistics-4",
-    RawTechnology.epic_quality: "quality-upgrade-1", # Really it's quality-upgrade-3. quality-module gives the first two builtin.
+    RawTechnology.epic_quality: "quality-upgrade-1",
     RawTechnology.legendary_quality: "quality-upgrade-2",
 }
 
@@ -537,11 +523,11 @@ def _get_machine_power_type(entity) -> PowerType:
         result |= PowerType.electricity
     return result
 
-def init():
-    fluids = get_data()["fluid"].keys() - _parameter_names
+def generate_everything(the_data: dict):
+    fluids = the_data["fluid"].keys() - _parameter_names
 
     # Throughout this code, we assume there's no ambiguity between item and fluid names. Assert that assumption.
-    fluid_item_name_collisions = fluids & get_data()["item"].keys()
+    fluid_item_name_collisions = fluids & the_data["item"].keys()
     assert len(fluid_item_name_collisions) == 0, "so it's come to this, has it. we need to add 'type' fields to fluid and item references due to name collisions. :NotLikeThis: " + repr(fluid_item_name_collisions)
 
     # ===============
@@ -555,7 +541,7 @@ def init():
     natural_entity_to_locations: dict[str, set[str]] = defaultdict(set)
     natural_tile_to_locations: dict[str, set[str]] = defaultdict(set)
     space_locations: dict[str, SpaceLocation] = {}
-    for location_name, space_location_data in get_data()["space_location"].items():
+    for location_name, space_location_data in the_data["space_location"].items():
         unlock_names = {location_name}
         if "surface_properties" in space_location_data:
             # There is a surface here.
@@ -606,7 +592,7 @@ def init():
             # This is true for aquilo and beyond.
             space_location.threats |= Capability.generate_electricity_in_dark_space
 
-    for location_name, space_connection_data in get_data()["space_connection"].items():
+    for location_name, space_connection_data in the_data["space_connection"].items():
         connection_names = [
             space_connection_data["from"]["name"],
             space_connection_data["to"]["name"],
@@ -630,8 +616,8 @@ def init():
             item_to_mining_sources[item].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
         space_location.threats |= Capability.generate_electricity_in_space
         solar_power_in_space = min(
-            get_data()["space_location"][space_connection_data["from"]["name"]]["solar_power_in_space"],
-            get_data()["space_location"][space_connection_data["to"]  ["name"]]["solar_power_in_space"],
+            the_data["space_location"][space_connection_data["from"]["name"]]["solar_power_in_space"],
+            the_data["space_location"][space_connection_data["to"]  ["name"]]["solar_power_in_space"],
         )
         if solar_power_in_space < 100:
             # This is true for all of aquilo's connections and beyond.
@@ -641,7 +627,7 @@ def init():
     # Natural Resources
     # =================
     # Find mineable and forageable resources.
-    for entity_name, entity in get_data()["entity"].items():
+    for entity_name, entity in the_data["entity"].items():
         if "autoplace_specification" not in entity: continue # We're looking for natural features.
         if entity["mineable_properties"]["minable"]:
             products = [p["name"] for p in entity["mineable_properties"]["products"]]
@@ -687,7 +673,7 @@ def init():
         else: continue
 
     # Offshore pump yields fluids sourced from tiles.
-    for tile_name, tile_data in get_data()["tile"].items():
+    for tile_name, tile_data in the_data["tile"].items():
         if "fluid" not in tile_data: continue
         fluid_name = tile_data["fluid"]["name"]
         for home in natural_tile_to_locations.get(tile_name, ()):
@@ -705,7 +691,7 @@ def init():
     ammo_category_to_ammo_items = defaultdict(set)
     power_type_to_fuel_items = defaultdict(set)
     heat_insulation_flooring_items = set()
-    for item_name, item_data in get_data()["item"].items():
+    for item_name, item_data in the_data["item"].items():
         stack_size = item_data["stack_size"]
         weight_in_g = item_data["weight"]
         if weight_in_g <= 100:
@@ -755,7 +741,7 @@ def init():
     lab_machines = set()
     science_pack_to_labs = defaultdict(set)
     ammo_category_to_weapon_entities = defaultdict(set)
-    for entity_name, entity in get_data()["entity"].items():
+    for entity_name, entity in the_data["entity"].items():
         is_machine = False
         # What powers this machine?
         power_required = _get_machine_power_type(entity)
@@ -849,7 +835,7 @@ def init():
             # Some entities describe their weapon abilities as gun items, which is more comprehensive and reliable when present.
             # e.g. tank has 3 different gun types, and the tank's own attack_parameters only represent one of them.
             for gun_data in entity["indexed_guns"]:
-                for ammo_category in get_data()["item"][gun_data["name"]]["attack_parameters"]["ammo_categories"]:
+                for ammo_category in the_data["item"][gun_data["name"]]["attack_parameters"]["ammo_categories"]:
                     ammo_category_to_weapon_entities[ammo_category].add(entity_name)
             is_machine = True
         elif "attack_parameters" in entity and "items_to_place_this" in entity:
@@ -891,7 +877,7 @@ def init():
 
     recipes: dict[str, Recipe] = {}
     starting_recipes: set[str] = set()
-    for recipe_name, recipe_data in get_data()["recipe"].items():
+    for recipe_name, recipe_data in the_data["recipe"].items():
         if recipe_data["enabled"]:
             starting_recipes.add(recipe_name)
         energy = recipe_data["energy"] # crafting time in seconds.
@@ -962,7 +948,7 @@ def init():
             never_give_free_samples_from_recipes.add(recipe_name)
 
     # Spoiling is like a recipe.
-    for item_name, item_data in get_data()["item"].items():
+    for item_name, item_data in the_data["item"].items():
         if "spoil_result" not in item_data: continue
         product = item_data["spoil_result"]["name"]
         recipe_name = item_name + SPOILING_SUFFIX
@@ -1011,7 +997,7 @@ def init():
     space_location_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
     mining_with_fluid_unlocking_technologies = set()
     progressive_technology_chains: dict[str, dict[int, str]] = defaultdict(dict)
-    for technology_name, technology_data in get_data()["technology"].items():
+    for technology_name, technology_data in the_data["technology"].items():
         assert " " not in technology_name, "spaces are used to prefix event types. a space in a technology name creates ambiguity"
         prerequisites = set(technology_data["prerequisites"].keys())
         ingredients = {i["name"]: i["amount"] for i in technology_data["research_unit_ingredients"] }
@@ -1132,7 +1118,7 @@ def init():
             effect_types = {
                 effect_data["type"]
                 for technology_name in stack
-                for effect_data in get_data()["technology"][technology_name]["effects"]
+                for effect_data in the_data["technology"][technology_name]["effects"]
             }
             if effect_types in (
                 {"gun-speed"}, {"ammo-damage"}, {"ammo-damage", "turret-attack"}, {"artillery-range"},
@@ -1157,7 +1143,7 @@ def init():
     # =====
     # Logic
     # =====
-    global logic_events
+    global raw_logic_events
     # Thanks to an assertion above, we can conflate item names with machine names here for simplicity.
     fmt_discover_location = "Discover {}".format
     fmt_reach_location = "Reach {}".format
@@ -1204,12 +1190,12 @@ def init():
 
     # Options
     for option in LogicOption:
-        logic_events[fmt_option(option)] = fmt_option(option)
+        raw_logic_events[fmt_option(option)] = fmt_option(option)
 
     # Reach locations.
     for space_location in space_locations.values():
         # Inbound connections
-        logic_events[fmt_reach_location(space_location.name)] = {"and": [
+        raw_logic_events[fmt_reach_location(space_location.name)] = {"and": [
             {"and": [fmt_discover_location(name) for name in space_location.unlock_names]},
             {"or": [
                 *[{"and": [
@@ -1231,10 +1217,10 @@ def init():
         ]}
     # Discover them too.
     for name, techs in space_location_to_unlocking_technologies.items():
-        logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
+        raw_logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
     # Start on Nauvis
-    logic_events[fmt_discover_location(RawSpaceLocation.nauvis)] = ALWAYS
-    logic_events[fmt_reach_location(RawSpaceLocation.nauvis)] = ALWAYS
+    raw_logic_events[fmt_discover_location(RawSpaceLocation.nauvis)] = ALWAYS
+    raw_logic_events[fmt_reach_location(RawSpaceLocation.nauvis)] = ALWAYS
 
     # Capabilities.
     for capability in Capability:
@@ -1377,7 +1363,7 @@ def init():
             ]}
         else: assert False, "forgot a capability: " + repr(capability)
 
-        logic_events[fmt_capability(capability)] = expr
+        raw_logic_events[fmt_capability(capability)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
 
     # Machines
@@ -1403,7 +1389,7 @@ def init():
         if machine_name in fusion_plasma_producing_machines:
             # You also need coolant for this machine.
             expr["and"].append(fmt_access_item(RawFluid.fluoroketone_cold))
-        logic_events[fmt_operate_machine(machine_name)] = expr
+        raw_logic_events[fmt_operate_machine(machine_name)] = expr
 
     # Power
     for power_type in PowerType:
@@ -1448,7 +1434,7 @@ def init():
                 ]},
             ]}
         else: assert False, "forgot a PowerType: " + repr(power_type)
-        logic_events[fmt_supply_power(power_type)] = expr
+        raw_logic_events[fmt_supply_power(power_type)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
 
     # Research
@@ -1497,11 +1483,11 @@ def init():
             expr = fmt_capability(Capability.build_space_platforms)
         else: assert False, "forgot a requirement type: " + repr(technology.requirement)
         # TODO: add prerequisites into logic.
-        logic_events[fmt_unlock_research(technology_name)] = expr
+        raw_logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
         never_inline_events.add(fmt_unlock_research(technology_name))
     # EnergyLink technology
-    logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
+    raw_logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
 
     # Recipes
     for recipe_name, recipe in recipes.items():
@@ -1513,7 +1499,7 @@ def init():
                 fmt_unlock_research(technology_name)
                 for technology_name in recipe_to_unlocking_technologies.get(recipe_name, [])
             ]}
-        logic_events[fmt_learn_recipe(recipe_name)] = expr
+        raw_logic_events[fmt_learn_recipe(recipe_name)] = expr
 
     # Items
     for item_name in itertools.chain(items.keys(), fluids, pseudo_items):
@@ -1636,9 +1622,9 @@ def init():
                         fmt_access_item(energy_link_bridge_name),
                     ]})
                 source_exprs.append({"and": recipe_exprs})
-            logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
+            raw_logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
     # Access Archipelago EnergyLink Bridge
-    logic_events[fmt_access_item(energy_link_bridge_name)] = {"and": [
+    raw_logic_events[fmt_access_item(energy_link_bridge_name)] = {"and": [
         # Unlock the recipe.
         {"or": [
             fmt_option(LogicOption.energy_link_unlocked_from_the_start),
@@ -1659,17 +1645,9 @@ def init():
     ]}
 
     # Optimize.
-    logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
+    raw_logic_events = {k: optimize_expr(v) for k, v in raw_logic_events.items()}
 
-    import os, json
-    with open(os.path.join(os.path.dirname(__file__), "data", "logic.json"), "w") as f:
-        f.write(json.dumps(logic_events, indent=2, sort_keys=True))
-        f.write("\n")
-
-    logic_events, all_used_names = inline_exprs(logic_events, never_inline_events)
-    with open(os.path.join(os.path.dirname(__file__), "data", "logic-inlined.json"), "w") as f:
-        f.write(json.dumps(logic_events, indent=2, sort_keys=True))
-        f.write("\n")
+    raw_logic_events, all_used_names = inline_exprs(raw_logic_events, never_inline_events)
     advancement_technologies.update(all_used_names)
     # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
     # e.g. progressive-automation is advancement even though automation-3 isn't.
@@ -1683,7 +1661,7 @@ def init():
     # id codes
     # ========
     id_cursor = factorio_base_id
-    for technology_name in sorted(logic_events.keys()):
+    for technology_name in sorted(raw_logic_events.keys()):
         if " " in technology_name: continue # Not a technology.
         assert not technology_name.startswith("ap-"), "would cause an ambiguity in control.lua"
         location_name = "ap-" + technology_name
@@ -1704,4 +1682,51 @@ def init():
         ap_item_name_to_id[progressive_technology_name] = id_cursor
         id_cursor += 1
 
-init()
+
+    # ============
+    # Final output
+    # ============
+    import os, json
+    here = os.path.dirname(__file__)
+    output1_py = os.path.join(here, "generated1.py")
+    output2_py = os.path.join(here, "generated2.py")
+    output3_py = os.path.join(here, "generated3.py")
+    header = """\
+#################################################
+# This file is generated by ./import-ap-dump.py #
+#################################################
+"""
+
+    def generate_decl(name, value):
+        if type(value) == set:
+            # Sets aren't supported in json, but we can get the middle from a list.
+            value_repr = "{" + json.dumps(sorted(value), indent=4)[1:-1] + "}"
+        else:
+            # Json representation is Python compatible.
+            value_repr = json.dumps(value, sort_keys=True, indent=4)
+        return "\n{} = {}\n".format(name, value_repr)
+
+    with open(output1_py, "w") as f:
+        f.write(header)
+        f.write(generate_decl("ap_location_name_to_id", ap_location_name_to_id))
+        f.write(generate_decl("ap_item_name_to_id", ap_item_name_to_id))
+
+    with open(output2_py, "w") as f:
+        f.write(header)
+        f.write(generate_decl("all_item_names", all_item_names))
+        f.write(generate_decl("all_recipe_names", all_recipe_names))
+        f.write(generate_decl("never_give_free_samples_from_recipes", never_give_free_samples_from_recipes))
+        f.write(generate_decl("location_name_to_technology_name", location_name_to_technology_name))
+        f.write(generate_decl("technology_name_to_location_name", technology_name_to_location_name))
+        f.write(generate_decl("advancement_technologies", advancement_technologies))
+        f.write(generate_decl("empty_technologies", empty_technologies))
+        f.write(generate_decl("infinite_technologies", infinite_technologies))
+        f.write(generate_decl("progressive_technology_stacks", progressive_technology_stacks))
+        f.write(generate_decl("technology_name_to_progressive_group_name", technology_name_to_progressive_group_name))
+        f.write(generate_decl("progressive_group_name_to_category", progressive_group_name_to_category))
+        f.write(generate_decl("technology_props_lua", technology_props_lua))
+        f.write(generate_decl("never_inline_events", never_inline_events))
+
+    with open(output3_py, "w") as f:
+        f.write(header)
+        f.write(generate_decl("raw_logic_events", raw_logic_events))

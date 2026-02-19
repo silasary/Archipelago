@@ -29,10 +29,25 @@ class LogicOption(StrEnum):
     playing_without_energy_link_fulgora_is_good_enough = "playing_without_energy_link_fulgora_is_good_enough"
 fmt_option = lambda option: "Option {}".format(option.value)
 
+energy_link_bridge_recipes = {
+    LogicOption.energy_link_recipe_early_game: [
+        dict(type="item", amount=50, name="iron-plate"),
+        dict(type="item", amount=50, name="copper-plate"),
+    ],
+    LogicOption.energy_link_recipe_mid_game: [
+        dict(type="item", amount=1, name="accumulator"),
+        dict(type="item", amount=1, name="radar"),
+    ],
+    LogicOption.energy_link_recipe_fulgora: [
+        dict(type="item", amount=10, name="supercapacitor"),
+        dict(type="item", amount=1,  name="radar"),
+    ],
+}
 
-def instantiate_options(logic_events, never_inline_events: set[str], options_dict: dict[LogicOption, bool]):
+
+def instantiate_options(raw_logic_events, never_inline_events: set[str], options_dict: dict[LogicOption, bool]):
     assert set(LogicOption) == options_dict.keys(), repr(set(LogicOption) - options_dict.keys())
-    logic_events = {**logic_events, **{
+    logic_events = {**raw_logic_events, **{
         fmt_option(option): ALWAYS if value else NEVER
         for option, value in options_dict.items()
     }}

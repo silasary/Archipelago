@@ -13,11 +13,11 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
-from .Technologies import (
+from .data.Logic import energy_link_bridge_recipes
+from .data.generated2 import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks, infinite_technologies,
     technology_name_to_location_name, location_name_to_technology_name,
-    energy_link_bridge_recipes,
     technology_props_lua,
 )
 
