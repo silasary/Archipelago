@@ -14,20 +14,8 @@ from .data.Logic import (
 from .data.generated1 import (
     ap_item_name_to_id, ap_location_name_to_id,
 )
-
-from .data.generated2 import (
-    # TODO: import these only when needed to save apworld startup time.
-    all_recipe_names, all_item_names,
-    advancement_technologies, empty_technologies, infinite_technologies,
-    technology_name_to_location_name,
-    progressive_technology_stacks, technology_name_to_progressive_group_name, progressive_group_name_to_category,
-    never_inline_events,
-)
-from .data.generated3 import (
-    # TODO: import these only when needed to save apworld startup time.
-    raw_logic_events, 
-)
-empty_technologies_list = sorted(empty_technologies)
+# NOTE: avoid importing .data.generated2 and 3 until someone actually instantiates a Factorio apworld.
+# This improves startup time for the launcher.
 
 
 def _register_client():
@@ -113,6 +101,7 @@ class Factorio(World):
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
+        from .data.generated2 import all_recipe_names, all_item_names
         unrecognized_recipes = self.options.free_sample_excludes.value - all_recipe_names
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
@@ -129,6 +118,13 @@ class Factorio(World):
         This implementation covers create_regions(), create_items(), and set_rules().
         TODO: create traps.
         """
+        from .data.generated2 import (
+            infinite_technologies,
+            technology_name_to_location_name,
+            technology_name_to_progressive_group_name, progressive_group_name_to_category,
+            never_inline_events,
+        )
+        from .data.generated3 import raw_logic_events
         player = self.player
 
         # Regions don't map well onto anything useful in Factorio, because all the AP Locations are globally unlocked research.
@@ -248,6 +244,7 @@ class Factorio(World):
                 location.revealed = True
 
     def collect_item(self, state, item, remove=False):
+        from .data.generated2 import progressive_technology_stacks
         # Convert a progressive technology name into what it would be at this state.
         try:
             stack = progressive_technology_stacks[item.name]
@@ -269,9 +266,12 @@ class Factorio(World):
 
     def get_filler_item_name(self) -> str:
         # TODO: option for infinite techs to be filler items instead of nothing technologies.
+        from .data.generated2 import empty_technologies
+        empty_technologies_list = sorted(empty_technologies)
         return self.random.choice(empty_technologies_list)
 
     def create_item(self, item_name: str) -> FactorioItem:
+        from .data.generated2 import advancement_technologies, empty_technologies
         code = ap_item_name_to_id.get(item_name, None)
         if code == None or item_name in advancement_technologies:
             # Events are always advancement (that's the point.).
