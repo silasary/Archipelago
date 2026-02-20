@@ -120,7 +120,7 @@ class Factorio(World):
             infinite_technologies,
             technology_name_to_location_name,
             technology_name_to_progressive_group_name, progressive_group_name_to_category,
-            never_inline_events, never_delete_events, unrandomized_events,
+            never_inline_events, never_delete_events, unrandomized_events as base_unrandomized_events,
         )
         from .data.generated3 import raw_logic_events
         player = self.player
@@ -146,14 +146,23 @@ class Factorio(World):
 
         if self.options.goal.current_key == "solar_system_edge":
             victory_event_name = "Reach solar-system-edge"
+            final_technology_name = "promethium-science-pack"
         elif self.options.goal.current_key == "aquilo_orbit":
             victory_event_name = "Reach aquilo_orbit"
+            final_technology_name = "planet-discovery-aquilo"
         elif self.options.goal.current_key == "any_other_planet_science":
             victory_event_name = "Can research any other planet science"
+            final_technology_name = None
         elif self.options.goal.current_key == "space_platform":
             victory_event_name = "Can build space platforms"
+            final_technology_name = "rocket-silo"
         else: assert False
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
+
+        unrandomized_events = set(base_unrandomized_events)
+        if final_technology_name != None and not self.options.shuffle_final_technology.value:
+            # Lock the goal tech also.
+            unrandomized_events.add(final_technology_name)
 
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key

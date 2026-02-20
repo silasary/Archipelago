@@ -204,6 +204,19 @@ class WorldGenCustom(OptionDict):
 option_groups.append(OptionGroup("Technologies", []))
 
 @auto_group
+class ShuffleFinalTechnology(Toggle):
+    """
+    Should the "last" technology (see below) be shuffled as a multiworld item?
+    Otherwise, it will be unlocked at its vanilla research location and require all the usual science packs.
+
+    The "last" technology depends on the goal:
+    space platform: rocket-silo, which requires 3 science packs.
+    any other planet science: this option has no effect.
+    aquilo orbit: planet-discovery-aquilo, which requires 9 science packs.
+    solar system edge: promethium-science-pack (unlocks solar-system-edge), which requires 10 science packs.
+    """
+
+@auto_group
 class TechnologyPrerequisites(Choice):
     """
     Researching a technology location requires researching the prerequisite locations first,
@@ -569,6 +582,7 @@ class FactorioOptions(PerGameCommonOptions):
     world_gen_spoil_rate: WorldGenSpoilage
     world_gen_custom: WorldGenCustom
 
+    shuffle_final_technology: ShuffleFinalTechnology
     technology_prerequisites: TechnologyPrerequisites
     progressive_technologies: ProgressiveTechs
     infinite_technologies: InfiniteTechs
