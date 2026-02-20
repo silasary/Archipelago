@@ -108,8 +108,6 @@ class Factorio(World):
         unrecognized_items = self.options.starting_items.value.keys() - all_item_names
         if unrecognized_items:
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
-        if self.options.technology_prerequisites.current_key != "removed":
-            raise NotImplementedError("TODO: technology_prerequisites must be 'removed'")
         if self.options.energy_link_technology.value:
             raise NotImplementedError("TODO: energy_link_technology must be 'false'")
 
@@ -159,6 +157,7 @@ class Factorio(World):
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
         self.logic_events = instantiate_options(raw_logic_events, never_inline_events, {
+            LogicOption.bypass_technology_prerequisites:     self.options.technology_prerequisites.current_key == "removed",
             LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
             LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
             LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,

@@ -6,6 +6,7 @@ ALWAYS = "(always)"
 NEVER = "(never)"
 
 class LogicOption(StrEnum):
+    bypass_technology_prerequisites = "bypass_technology_prerequisites"
     burner_mining_drill_is_good_enough = "burner_mining_drill_is_good_enough"
     inserter_balancing_is_good_enough = "inserter_balancing_is_good_enough"
     water_barrel_is_good_enough = "water_barrel_is_good_enough"

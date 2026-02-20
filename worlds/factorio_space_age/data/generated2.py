@@ -2132,6 +2132,7 @@ advancement_technologies = {
     "Option backwards_recycling_is_interesting",
     "Option belt_logistics_is_good_enough",
     "Option burner_mining_drill_is_good_enough",
+    "Option bypass_technology_prerequisites",
     "Option direct_pipes_is_good_enough",
     "Option energy_link_recipe_early_game",
     "Option energy_link_recipe_fulgora",

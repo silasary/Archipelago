@@ -129,23 +129,23 @@ class ResearchRequirement:
     """ lab time for 1 unit of research in seconds. """
     uses_tech_cost_multiplier: bool
     """ whether the units scale with the tech cost multiplier map gen setting. """
-@dataclass
+@dataclass(frozen=True)
 class CraftRequirement:
     item: str
     """ e.g. 'steel-plate' """
     count: int
     """ e.g. 50 """
-@dataclass
+@dataclass(frozen=True)
 class MineRequirement:
     entity: str
     """ e.g. 'fulgoran-ruin-vault' """
-@dataclass
+@dataclass(frozen=True)
 class BuildRequirement:
     entity: str
     """ e.g. 'asteroid-collector' """
-@dataclass
+@dataclass(frozen=True)
 class CaptureSpawnerRequirement: pass
-@dataclass
+@dataclass(frozen=True)
 class CreateSpacePlatformRequirement: pass
 @dataclass
 class Technology:
@@ -1437,32 +1437,32 @@ def generate_everything(the_data: dict):
         del expr # give me a NameError if i forget to assign to expr in this loop.
 
     # Research
-    for technology_name, technology in technologies.items():
-        if type(technology.requirement) == ResearchRequirement:
-            fmt_automate_or_access = fmt_automate_item if technology.requirement.uses_tech_cost_multiplier else fmt_access_item
+    def get_logic_expr_for_requirement(requirement):
+        if type(requirement) == ResearchRequirement:
+            fmt_automate_or_access = fmt_automate_item if requirement.uses_tech_cost_multiplier else fmt_access_item
             expr = {"and": [
                 {"or": [fmt_operate_machine(lab) for lab in lab_machines]},
-                *[fmt_automate_or_access(science_pack) for science_pack in technology.requirement.ingredients.keys()],
+                *[fmt_automate_or_access(science_pack) for science_pack in requirement.ingredients.keys()],
             ]}
-        elif type(technology.requirement) == CraftRequirement:
+        elif type(requirement) == CraftRequirement:
             # FIXME: This assumes that mining up the item counts as crafting it, which i think is wrong, but i don't think it ever matters.
-            if technology.requirement.count < 100:
+            if requirement.count < 100:
                 # e.g. 50 iron plates for steam power, 25 bioflux for rocket-fuel-from-jelly.
-                expr = fmt_access_item(technology.requirement.item)
+                expr = fmt_access_item(requirement.item)
             else:
                 # e.g. 100 nutrients for agricultural-science-pack, 500 nutrients for artificial soil.
-                expr = fmt_automate_item(technology.requirement.item)
-        elif type(technology.requirement) == BuildRequirement:
+                expr = fmt_automate_item(requirement.item)
+        elif type(requirement) == BuildRequirement:
             # FIXME: This also requires that you power the thing, which is not correct,
             # but it's more correct than just crafting it.
             # (building an asteroid collector requires launching a space platform starter pack, but not having solar panels.)
             # This incorrect logic inflicts unnecessary logical requirements,
             # which at least is erring in the right direction.
-            expr = fmt_operate_machine(technology.requirement.entity)
-        elif type(technology.requirement) == MineRequirement:
+            expr = fmt_operate_machine(requirement.entity)
+        elif type(requirement) == MineRequirement:
             source_exprs = []
-            if technology.requirement.entity in entity_to_mining_sources:
-                for mining_source in entity_to_mining_sources[technology.requirement.entity]:
+            if requirement.entity in entity_to_mining_sources:
+                for mining_source in entity_to_mining_sources[requirement.entity]:
                     required_capabilities = mining_source.required_capabilities
                     if not (required_capabilities & Capability.mine_with_fluid):
                         # The character can hand-mine basic-solid ore patches.
@@ -1472,16 +1472,64 @@ def generate_everything(the_data: dict):
                         *[fmt_capability(capability) for capability in required_capabilities],
                         *[fmt_access_item(ingredient) for ingredient in mining_source.required_ingredients],
                     ]})
-            elif technology.requirement.entity in entity_to_forage_locations:
-                source_exprs.extend(fmt_reach_location(home) for home in entity_to_forage_locations[technology.requirement.entity])
-            else: assert False, "no way to mine for trigger tech: " + technology.requirement.entity
+            elif requirement.entity in entity_to_forage_locations:
+                source_exprs.extend(fmt_reach_location(home) for home in entity_to_forage_locations[requirement.entity])
+            else: assert False, "no way to mine for trigger tech: " + requirement.entity
             expr = {"or": source_exprs}
-        elif type(technology.requirement) == CaptureSpawnerRequirement:
+        elif type(requirement) == CaptureSpawnerRequirement:
             expr = fmt_capability(Capability.capture_biter_spawners)
-        elif type(technology.requirement) == CreateSpacePlatformRequirement:
+        elif type(requirement) == CreateSpacePlatformRequirement:
             expr = fmt_capability(Capability.build_space_platforms)
-        else: assert False, "forgot a requirement type: " + repr(technology.requirement)
-        # TODO: add prerequisites into logic.
+        else: assert False, "forgot a requirement type: " + repr(requirement)
+        return expr
+    from functools import lru_cache
+    @lru_cache(maxsize=None)
+    def get_prerequisite_requirements(later_technology_name):
+        """
+        returns all prerequisite requirements, not the reqirements of the technology itself.
+        returns a set of non-research requirement objects plus each individual science pack name.
+        """
+        recursive_requirements = set()
+        for prerequisite_technology_name in technologies[later_technology_name].prerequisites:
+            recursive_requirements.update(get_prerequisite_requirements(prerequisite_technology_name))
+            prerequisite_technology = technologies[prerequisite_technology_name]
+            if type(prerequisite_technology.requirement) == ResearchRequirement:
+                recursive_requirements.update(prerequisite_technology.requirement.ingredients.keys())
+            else:
+                recursive_requirements.add(prerequisite_technology.requirement)
+        return recursive_requirements
+    for technology_name, technology in technologies.items():
+        expr = get_logic_expr_for_requirement(technology.requirement)
+
+        # add prerequisites into logic.
+        prerequisite_science_packs = {}
+        prerequisite_requirements = []
+        for something in get_prerequisite_requirements(technology_name):
+            if type(something) == str:
+                prerequisite_science_packs[something] = 1
+            else:
+                prerequisite_requirements.append(something)
+        if len(prerequisite_science_packs) > 0:
+            prerequisite_requirements.append(ResearchRequirement(
+                ingredients=prerequisite_science_packs,
+                units=67, energy=69, # fake values that don't matter.
+                # FIXME: This does matter and is not accurate, but for vanilla, it gets the right answer every time anyway,
+                # because only 1 technology doesn't use tech cost multiplier, and every technology that depends on it does.
+                # And so the prerequisite never introduces a *new* requirement to automate automation science packs.
+                uses_tech_cost_multiplier=True,
+            ))
+        if len(prerequisite_requirements) > 0:
+            expr = {"and": [
+                expr,
+                {"or": [
+                    fmt_option(LogicOption.bypass_technology_prerequisites),
+                    {"and": [
+                        get_logic_expr_for_requirement(requirement)
+                        for requirement in prerequisite_requirements
+                    ]},
+                ]},
+            ]}
+
         raw_logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
         never_inline_events.add(fmt_unlock_research(technology_name))

@@ -12217,6 +12217,7 @@ raw_logic_events = {
     "Option backwards_recycling_is_interesting": "Option backwards_recycling_is_interesting",
     "Option belt_logistics_is_good_enough": "Option belt_logistics_is_good_enough",
     "Option burner_mining_drill_is_good_enough": "Option burner_mining_drill_is_good_enough",
+    "Option bypass_technology_prerequisites": "Option bypass_technology_prerequisites",
     "Option direct_pipes_is_good_enough": "Option direct_pipes_is_good_enough",
     "Option energy_link_recipe_early_game": "Option energy_link_recipe_early_game",
     "Option energy_link_recipe_fulgora": "Option energy_link_recipe_fulgora",
@@ -12676,6 +12677,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12687,6 +12717,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12701,6 +12750,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12712,6 +12780,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12726,6 +12811,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12739,12 +12843,118 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "agricultural-science-pack": "Automate bioflux",
-    "agriculture": "Reach gleba",
-    "artificial-soil": "Automate nutrients",
+    "agricultural-science-pack": {
+        "and": [
+            "Automate bioflux",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "agriculture": {
+        "and": [
+            "Reach gleba",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "artificial-soil": {
+        "and": [
+            "Automate nutrients",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "artillery": {
         "and": [
             "Automate automation-science-pack",
@@ -12758,6 +12968,36 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12776,6 +13016,37 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12792,6 +13063,37 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12810,6 +13112,37 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12827,6 +13160,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12841,6 +13206,34 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12858,6 +13251,33 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12870,12 +13290,36 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "automation": {
         "and": [
             "automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -12893,6 +13337,23 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12907,6 +13368,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12920,10 +13401,58 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "bacteria-cultivation": "Access bioflux",
+    "bacteria-cultivation": {
+        "and": [
+            "Access bioflux",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "battery": {
         "and": [
             "Automate automation-science-pack",
@@ -12932,6 +13461,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12944,6 +13492,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12958,6 +13525,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -12975,6 +13562,34 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -12987,13 +13602,148 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "big-mining-drill": "Access foundry",
-    "biochamber": "Access nutrients",
-    "bioflux": "Access biochamber",
-    "bioflux-processing": "Access bioflux",
+    "big-mining-drill": {
+        "and": [
+            "Access foundry",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "biochamber": {
+        "and": [
+            "Access nutrients",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "bioflux": {
+        "and": [
+            "Access biochamber",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "bioflux-processing": {
+        "and": [
+            "Access bioflux",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "biolab": {
         "and": [
             "Automate agricultural-science-pack",
@@ -13009,10 +13759,79 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Access sulfuric-acid",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "biter-egg-handling": "Can capture biter spawners",
+    "biter-egg-handling": {
+        "and": [
+            "Can capture biter spawners",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "braking-force-1": {
         "and": [
             "Automate automation-science-pack",
@@ -13022,6 +13841,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13035,6 +13873,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13050,6 +13908,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13064,6 +13942,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13077,6 +13976,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13093,6 +14013,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13108,6 +14049,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13120,10 +14083,56 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "calcite-processing": "Reach vulcanus",
+    "calcite-processing": {
+        "and": [
+            "Reach vulcanus",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "captive-biter-spawner": {
         "and": [
             "Automate agricultural-science-pack",
@@ -13142,6 +14151,56 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access sulfuric-acid",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13158,6 +14217,36 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13173,6 +14262,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13185,6 +14303,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13196,6 +14333,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13212,6 +14366,34 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13227,6 +14409,34 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13238,6 +14448,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13252,11 +14480,130 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "cryogenic-plant": "Access lithium-plate",
-    "cryogenic-science-pack": "Access cryogenic-plant",
+    "cryogenic-plant": {
+        "and": [
+            "Access lithium-plate",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "cryogenic-science-pack": {
+        "and": [
+            "Access cryogenic-plant",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "defender": {
         "and": [
             "Automate automation-science-pack",
@@ -13266,6 +14613,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13282,6 +14647,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13295,6 +14682,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13310,6 +14718,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13324,6 +14753,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13335,6 +14784,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13349,6 +14817,28 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13365,6 +14855,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13377,6 +14896,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13388,6 +14926,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13402,6 +14957,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13415,12 +14989,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "electric-mining-drill": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -13441,6 +15041,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13456,6 +15078,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13474,6 +15120,36 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13491,11 +15167,100 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "electromagnetic-plant": "Access holmium-plate",
-    "electromagnetic-science-pack": "Access supercapacitor",
+    "electromagnetic-plant": {
+        "and": [
+            "Access holmium-plate",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "electromagnetic-science-pack": {
+        "and": [
+            "Access supercapacitor",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "electronics": "(always)",
     "elevated-rail": {
         "and": [
@@ -13507,6 +15272,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13520,6 +15305,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13538,6 +15342,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13549,6 +15382,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13566,6 +15416,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13578,6 +15457,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13593,6 +15492,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13605,12 +15525,37 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "fast-inserter": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -13628,6 +15573,36 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13643,6 +15618,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can mine with fluid",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13656,6 +15653,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13667,6 +15683,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13680,6 +15715,24 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13691,6 +15744,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13705,6 +15776,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13717,6 +15807,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13732,6 +15841,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13746,6 +15875,28 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13763,6 +15914,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13784,10 +15959,85 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "foundry": "Access tungsten-carbide",
+    "foundry": {
+        "and": [
+            "Access tungsten-carbide",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "fusion-reactor": {
         "and": [
             "Automate agricultural-science-pack",
@@ -13804,6 +16054,54 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13825,6 +16123,56 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access sulfuric-acid",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13837,12 +16185,36 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "gun-turret": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -13861,10 +16233,66 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "heating-tower": "Reach gleba",
+    "heating-tower": {
+        "and": [
+            "Reach gleba",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "heavy-armor": {
         "and": [
             "Automate automation-science-pack",
@@ -13873,10 +16301,55 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "holmium-processing": "Access holmium-ore",
+    "holmium-processing": {
+        "and": [
+            "Access holmium-ore",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "inserter-capacity-bonus-1": {
         "and": [
             "Automate automation-science-pack",
@@ -13885,6 +16358,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13898,6 +16390,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13910,6 +16421,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13925,6 +16455,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13939,6 +16489,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -13952,6 +16523,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -13968,10 +16560,59 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "jellynut": "Reach gleba",
+    "jellynut": {
+        "and": [
+            "Reach gleba",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "kovarex-enrichment-process": {
         "and": [
             "Automate automation-science-pack",
@@ -13983,12 +16624,42 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "lamp": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -14007,6 +16678,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14018,6 +16708,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14031,6 +16738,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14046,6 +16772,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14059,6 +16805,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14074,6 +16841,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14087,6 +16875,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14103,6 +16912,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14117,6 +16947,28 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14133,6 +16985,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14146,6 +17020,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14161,6 +17055,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14174,6 +17088,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14189,6 +17124,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14202,6 +17158,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14218,6 +17195,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14232,6 +17230,28 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14248,6 +17268,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14269,6 +17313,53 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14284,10 +17375,85 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "lithium-processing": "Reach aquilo",
+    "lithium-processing": {
+        "and": [
+            "Reach aquilo",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "logistic-robotics": {
         "and": [
             "Automate automation-science-pack",
@@ -14298,12 +17464,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "logistic-science-pack": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -14323,12 +17515,40 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "logistics": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -14346,6 +17566,23 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14360,6 +17597,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14372,6 +17629,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14388,6 +17664,34 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14400,6 +17704,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14418,13 +17742,79 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "metallurgic-science-pack": "Access tungsten-plate",
+    "metallurgic-science-pack": {
+        "and": [
+            "Access tungsten-plate",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "military": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -14442,6 +17832,23 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14455,6 +17862,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14471,6 +17897,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14482,6 +17929,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14495,6 +17960,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14507,6 +17991,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14522,6 +18025,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14533,6 +18056,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14546,6 +18088,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14557,6 +18118,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14572,6 +18152,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can mine with fluid",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14585,6 +18187,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can mine with fluid",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14597,10 +18221,50 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "oil-processing": "Operate pumpjack",
+    "oil-processing": {
+        "and": [
+            "Operate pumpjack",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "overgrowth-soil": {
         "and": [
             "Automate agricultural-science-pack",
@@ -14614,6 +18278,38 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14629,6 +18325,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14641,6 +18358,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14658,6 +18395,33 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14668,6 +18432,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14680,6 +18461,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14694,6 +18492,24 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14706,6 +18522,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14720,6 +18555,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14736,6 +18591,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14751,6 +18627,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14771,6 +18671,49 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14784,6 +18727,29 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14799,6 +18765,29 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14812,6 +18801,29 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14828,6 +18840,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14839,6 +18880,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14852,6 +18912,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14868,6 +18948,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14880,6 +18982,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14896,6 +19017,33 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14909,6 +19057,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14920,6 +19088,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14935,6 +19122,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14949,6 +19158,38 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14970,6 +19211,55 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -14981,6 +19271,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -14996,6 +19305,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15010,6 +19341,33 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15031,12 +19389,65 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "radar": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -15060,6 +19471,39 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15080,6 +19524,54 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15097,6 +19589,54 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15116,6 +19656,54 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15128,10 +19716,55 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "recycling": "Reach fulgora",
+    "recycling": {
+        "and": [
+            "Reach fulgora",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "refined-flammables-1": {
         "and": [
             "Automate automation-science-pack",
@@ -15141,6 +19774,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15155,6 +19808,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15168,6 +19841,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15184,6 +19877,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15198,6 +19912,28 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15214,6 +19950,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15232,12 +19992,49 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "repair-pack": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -15265,6 +20062,55 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate cryogenic-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can capture biter spawners",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15277,6 +20123,24 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15288,6 +20152,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15302,6 +20184,25 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15314,6 +20215,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15328,6 +20249,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15344,6 +20285,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15357,6 +20319,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15369,6 +20351,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15385,6 +20387,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15400,6 +20431,53 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access cryogenic-plant",
+                            "Access foundry",
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access lithium-plate",
+                            "Access nutrients",
+                            "Access supercapacitor",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate electromagnetic-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate metallurgic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach aquilo",
+                            "Reach fulgora",
+                            "Reach gleba",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15412,6 +20490,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15429,6 +20527,37 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15441,6 +20570,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15457,6 +20605,33 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15468,6 +20643,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15481,10 +20673,53 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "space-platform": "Can build space platforms",
+    "space-platform": {
+        "and": [
+            "Can build space platforms",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "space-platform-thruster": {
         "and": [
             "Automate automation-science-pack",
@@ -15496,10 +20731,57 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "space-science-pack": "Operate asteroid-collector",
+    "space-science-pack": {
+        "and": [
+            "Operate asteroid-collector",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "speed-module": {
         "and": [
             "Automate automation-science-pack",
@@ -15508,6 +20790,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15523,6 +20824,28 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15537,6 +20860,34 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15556,6 +20907,40 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Access sulfuric-acid",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Can mine with fluid",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15573,11 +20958,62 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "steam-power": "(always)",
-    "steel-axe": "Access steel-plate",
+    "steel-axe": {
+        "and": [
+            "Access steel-plate",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "steel-plate-productivity": {
         "and": [
             "Automate automation-science-pack",
@@ -15589,12 +21025,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "steel-processing": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -15606,6 +21068,12 @@ raw_logic_events = {
     "stone-wall": {
         "and": [
             "Automate automation-science-pack",
+            {
+                "or": [
+                    "Access lab",
+                    "Option bypass_technology_prerequisites"
+                ]
+            },
             {
                 "or": [
                     "Operate biolab",
@@ -15623,6 +21091,24 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15635,6 +21121,24 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15650,6 +21154,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15664,6 +21188,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15681,6 +21226,30 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15696,6 +21265,31 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15714,6 +21308,37 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15725,6 +21350,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15739,6 +21383,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15757,6 +21422,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15768,6 +21462,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15783,6 +21494,36 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15801,6 +21542,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15818,6 +21591,38 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate agricultural-science-pack",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15833,11 +21638,97 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access biochamber",
+                            "Access bioflux",
+                            "Access lab",
+                            "Access nutrients",
+                            "Automate automation-science-pack",
+                            "Automate bioflux",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate nutrients",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "tungsten-carbide": "Reach vulcanus",
-    "tungsten-steel": "Access big-mining-drill",
+    "tungsten-carbide": {
+        "and": [
+            "Reach vulcanus",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "tungsten-steel": {
+        "and": [
+            "Access big-mining-drill",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "turbo-transport-belt": {
         "and": [
             "Automate automation-science-pack",
@@ -15850,6 +21741,35 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access big-mining-drill",
+                            "Access foundry",
+                            "Access lab",
+                            "Access tungsten-carbide",
+                            "Access tungsten-plate",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach vulcanus",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15866,6 +21786,30 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Access sulfuric-acid",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Automate utility-science-pack",
+                            "Can mine with fluid",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15879,13 +21823,52 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
     "uranium-processing": {
         "and": [
             "Access sulfuric-acid",
-            "Can mine with fluid"
+            "Can mine with fluid",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     },
     "utility-science-pack": {
@@ -15898,6 +21881,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15908,6 +21911,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15920,6 +21940,23 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15934,6 +21971,24 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15946,6 +22001,25 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15960,6 +22034,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -15976,6 +22070,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate military-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -15989,6 +22104,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -16001,6 +22136,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -16016,6 +22171,26 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -16029,6 +22204,27 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -16045,6 +22241,27 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate utility-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -16060,6 +22277,30 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -16078,6 +22319,35 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access holmium-ore",
+                            "Access holmium-plate",
+                            "Access lab",
+                            "Access supercapacitor",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Automate space-science-pack",
+                            "Automate utility-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach fulgora",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -16090,6 +22360,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -16104,6 +22394,26 @@ raw_logic_events = {
                 "or": [
                     "Operate biolab",
                     "Operate lab"
+                ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
@@ -16120,8 +22430,57 @@ raw_logic_events = {
                     "Operate biolab",
                     "Operate lab"
                 ]
+            },
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate production-science-pack",
+                            "Operate pumpjack",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
-    "yumako": "Reach gleba"
+    "yumako": {
+        "and": [
+            "Reach gleba",
+            {
+                "or": [
+                    "Option bypass_technology_prerequisites",
+                    {
+                        "and": [
+                            "Access lab",
+                            "Automate automation-science-pack",
+                            "Automate chemical-science-pack",
+                            "Automate logistic-science-pack",
+                            "Automate space-science-pack",
+                            "Can build space platforms",
+                            "Operate asteroid-collector",
+                            "Operate pumpjack",
+                            "Reach gleba",
+                            {
+                                "or": [
+                                    "Operate biolab",
+                                    "Operate lab"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }

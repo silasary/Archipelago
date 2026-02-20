@@ -34,7 +34,7 @@ def auto_group(cls):
 class Goal(Choice):
     """
     Goal required to complete the game.
-    space platform: Build a space platform.
+    space platform: Build a space platform. (Note: this makes for a very short game, often only requiring automating two science packs, and for reasons unknown to me also causes random generation failures sometimes.)
     any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science (TODO: unimplemented).
     aquilo orbit: Reach aquilo orbit with a space platform.
     solar system edge: (default) The victory condition in the normal game.
@@ -208,13 +208,16 @@ class TechnologyPrerequisites(Choice):
     """
     Researching a technology location requires researching the prerequisite locations first,
     the connections in the technology graph.
-    vanilla: Imitate the vanilla tech tree connections (TODO: unimplemented).
+    vanilla: Imitate the vanilla tech tree connections.
     removed: No prerequisites. All technology locations can be researched simply by meeting the individual requirements.
+
+    Note that with prerequisites removed, the technology GUI lists all the trigger techs for planets you haven't visited yet
+    before the research techs that you're actually looking for, which can be a little annoying.
     """
     display_name = "Technology Prerequisites"
     option_vanilla = 0
     option_removed = 1
-    default = 1
+    default = 0
 
 @auto_group
 class ProgressiveTechs(Choice):
