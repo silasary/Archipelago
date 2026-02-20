@@ -9294,6 +9294,92 @@ raw_logic_events = {
             }
         ]
     },
+    "Can research any other planet science": {
+        "and": [
+            "Automate chemical-science-pack",
+            "Automate logistic-science-pack",
+            "Automate space-science-pack",
+            {
+                "or": [
+                    {
+                        "and": [
+                            "Automate agricultural-science-pack",
+                            {
+                                "or": [
+                                    "Option bypass_technology_prerequisites",
+                                    {
+                                        "and": [
+                                            "Access biochamber",
+                                            "Access bioflux",
+                                            "Access nutrients",
+                                            "Access pumpjack",
+                                            "Automate bioflux",
+                                            "Automate chemical-science-pack",
+                                            "Automate logistic-science-pack",
+                                            "Automate nutrients",
+                                            "Automate space-science-pack",
+                                            "Can build space platforms",
+                                            "Operate asteroid-collector",
+                                            "Reach gleba"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "and": [
+                            "Automate electromagnetic-science-pack",
+                            {
+                                "or": [
+                                    "Option bypass_technology_prerequisites",
+                                    {
+                                        "and": [
+                                            "Access holmium-ore",
+                                            "Access holmium-plate",
+                                            "Access pumpjack",
+                                            "Access supercapacitor",
+                                            "Automate chemical-science-pack",
+                                            "Automate logistic-science-pack",
+                                            "Automate space-science-pack",
+                                            "Can build space platforms",
+                                            "Operate asteroid-collector",
+                                            "Reach fulgora"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "and": [
+                            "Automate metallurgic-science-pack",
+                            {
+                                "or": [
+                                    "Option bypass_technology_prerequisites",
+                                    {
+                                        "and": [
+                                            "Access big-mining-drill",
+                                            "Access foundry",
+                                            "Access pumpjack",
+                                            "Access tungsten-carbide",
+                                            "Access tungsten-plate",
+                                            "Automate chemical-science-pack",
+                                            "Automate logistic-science-pack",
+                                            "Automate space-science-pack",
+                                            "Can build space platforms",
+                                            "Operate asteroid-collector",
+                                            "Reach vulcanus"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     "Can travel space": {
         "and": [
             "Operate thruster",

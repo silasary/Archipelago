@@ -148,9 +148,11 @@ class Factorio(World):
             victory_event_name = "Reach solar-system-edge"
         elif self.options.goal.current_key == "aquilo_orbit":
             victory_event_name = "Reach aquilo_orbit"
+        elif self.options.goal.current_key == "any_other_planet_science":
+            victory_event_name = "Can research any other planet science"
         elif self.options.goal.current_key == "space_platform":
             victory_event_name = "Can build space platforms"
-        else: raise NotImplementedError("TODO: goal not supported: " + self.options.goal.current_key)
+        else: assert False
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
 
         el_enabled = self.options.energy_link.value

@@ -10170,6 +10170,7 @@ never_inline_events = {
 }
 
 never_delete_events = {
+    "Can research any other planet science",
     "advanced-asteroid-processing",
     "advanced-circuit",
     "advanced-combinators",

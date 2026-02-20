@@ -211,6 +211,8 @@ elseif PARAMS.goal == "aquilo_orbit" then
             end
         end
     end)
+elseif PARAMS.goal == "any_other_planet_science" then
+    -- Handled in on_research_finished.
 elseif PARAMS.goal == "space_platform" then
     script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
         if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
@@ -362,6 +364,17 @@ script.on_event(defines.events.on_research_finished, function(event)
         --Also no need for free samples in the Editor extensions testing surfaces, as these testing surfaces
         --are worked on exclusively in editor mode.
         return
+    end
+    if PARAMS.goal == "any_other_planet_science" then
+        -- Did we win?
+        for name, amount in pairs(technology.prototype.ingredients) do
+            if  name == "metallurgic-science-pack" or
+                name == "agricultural-science-pack" or
+                name == "electromagnetic-science-pack"
+            then
+                trigger_victory()
+            end
+        end
     end
     if technology.researched and string.find(technology.name, "ap%-") == 1 then
         -- Notify the server that we've unlocked an AP location.

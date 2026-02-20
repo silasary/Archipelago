@@ -83,6 +83,7 @@ class Capability(IntFlag):
     destroy_medium_asteroids           = 1<<15 # gun turret
     destroy_big_asteroids              = 1<<16 # rocket turret
     destroy_huge_asteroids             = 1<<17 # railgun turret
+    research_any_other_planet_science  = 1<<18 # sometimes a goal
 
     destroy_big_and_smaller_asteroids = destroy_big_asteroids | destroy_medium_asteroids
     destroy_huge_and_smaller_asteroids = destroy_huge_asteroids | destroy_big_and_smaller_asteroids
@@ -1365,6 +1366,8 @@ def generate_everything(the_data: dict):
                 {"or": [fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]]},
                 {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
             ]}
+        elif capability == Capability.research_any_other_planet_science:
+            continue # Handled below, after technology.
         else: assert False, "forgot a capability: " + repr(capability)
 
         raw_logic_events[fmt_capability(capability)] = expr
@@ -1558,6 +1561,15 @@ def generate_everything(the_data: dict):
         never_delete_events.add(fmt_unlock_research(technology_name))
     # EnergyLink technology
     raw_logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
+
+    # Define Capability.research_any_other_planet_science by manually inlining a few example researches.
+    if True:
+        raw_logic_events[fmt_capability(Capability.research_any_other_planet_science)] = {"or": [
+            raw_logic_events[fmt_unlock_research(RawTechnology.asteroid_reprocessing)], # metallurgic
+            raw_logic_events[fmt_unlock_research(RawTechnology.carbon_fiber)],          # aggricultural
+            raw_logic_events[fmt_unlock_research(RawTechnology.lightning_collector)],   # electromagnetic
+        ]}
+        never_delete_events.add(fmt_capability(Capability.research_any_other_planet_science))
 
     # Recipes
     for recipe_name, recipe in recipes.items():

@@ -36,7 +36,7 @@ class Goal(Choice):
     Goal required to complete the game.
     space platform: Build a space platform. (Note: this makes for a very short game, often only requiring automating two science packs, and for reasons unknown to me also causes random generation failures sometimes.)
     any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science (TODO: unimplemented).
-    aquilo orbit: Reach aquilo orbit with a space platform.
+    aquilo orbit: Reach Aquilo orbit with a space platform.
     solar system edge: (default) The victory condition in the normal game.
     """
     display_name = "Goal"
