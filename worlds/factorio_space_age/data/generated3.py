@@ -294,99 +294,108 @@ raw_logic_events = {
                             "Access steel-plate",
                             {
                                 "and": [
-                                    "Access crude-oil-barrel",
+                                    "Option unbarreling_is_interesting",
                                     {
                                         "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access fluoroketone-cold-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access fluoroketone-hot-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access heavy-oil-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access light-oil-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access lubricant-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access petroleum-gas-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access sulfuric-acid-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access water-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
+                                            {
+                                                "and": [
+                                                    "Access crude-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access fluoroketone-cold-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access fluoroketone-hot-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access heavy-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access light-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access lubricant-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access petroleum-gas-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access sulfuric-acid-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Access water-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
                                         ]
                                     }
                                 ]
@@ -940,6 +949,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access crude-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -1521,6 +1531,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access fluoroketone-cold-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -1560,6 +1571,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access fluoroketone-hot-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -1763,6 +1775,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access heavy-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -2169,6 +2182,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access light-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -2356,6 +2370,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access lubricant-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -2776,6 +2791,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access petroleum-gas-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -3942,6 +3958,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access sulfuric-acid-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -4654,99 +4671,108 @@ raw_logic_events = {
                             "Automate steel-plate",
                             {
                                 "and": [
-                                    "Automate crude-oil-barrel",
+                                    "Option unbarreling_is_interesting",
                                     {
                                         "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate fluoroketone-cold-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate fluoroketone-hot-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate heavy-oil-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate light-oil-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate lubricant-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate petroleum-gas-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate sulfuric-acid-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate water-barrel",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3"
+                                            {
+                                                "and": [
+                                                    "Automate crude-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate fluoroketone-cold-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate fluoroketone-hot-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate heavy-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate light-oil-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate lubricant-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate petroleum-gas-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate sulfuric-acid-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "Automate water-barrel",
+                                                    {
+                                                        "or": [
+                                                            "Access assembling-machine-2",
+                                                            "Access assembling-machine-3"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
                                         ]
                                     }
                                 ]
@@ -5299,6 +5325,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate crude-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -5907,6 +5934,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate fluoroketone-cold-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -5946,6 +5974,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate fluoroketone-hot-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -6199,6 +6228,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate heavy-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -6496,6 +6526,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate light-oil-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -6751,6 +6782,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate lubricant-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -7201,6 +7233,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate petroleum-gas-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -8531,6 +8564,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Automate sulfuric-acid-barrel",
+                    "Option unbarreling_is_interesting",
                     "fluid-handling",
                     {
                         "or": [
@@ -9499,6 +9533,7 @@ raw_logic_events = {
     "Option playing_without_energy_link_mid_game_is_good_enough": "Option playing_without_energy_link_mid_game_is_good_enough",
     "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
     "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
+    "Option unbarreling_is_interesting": "Option unbarreling_is_interesting",
     "Option wait_hours_for_fish_to_spoil": "Option wait_hours_for_fish_to_spoil",
     "Option walls_to_destroy_medium_asteroids_is_good_enough": "Option walls_to_destroy_medium_asteroids_is_good_enough",
     "Option water_barrel_is_good_enough": "Option water_barrel_is_good_enough",

@@ -879,6 +879,7 @@ def generate_everything(the_data: dict):
 
     recipes: dict[str, Recipe] = {}
     starting_recipes: set[str] = set()
+    unbarreling_recipes: set[str] = set()
     for recipe_name, recipe_data in the_data["recipe"].items():
         if recipe_data["enabled"]:
             starting_recipes.add(recipe_name)
@@ -923,6 +924,8 @@ def generate_everything(the_data: dict):
             # This is a lossless conversion recipe, such as barreling/unbarreling or fluoroketone cooling.
             # Thematically the recipe respects conservation of mass, if you like.
             classification = RecipeClassification.conversion
+            if RawItem.barrel in outputs.keys():
+                unbarreling_recipes.add(recipe_name)
         elif any(amount == 0 and name in outputs and outputs[name] > 0 for name, amount in inputs.items()):
             # Use an item (and something else surely) to produce more of the item (and something else possibly).
             # e.g. kovarex, pentapod egg breeding, coal liquefaction
@@ -1682,6 +1685,9 @@ def generate_everything(the_data: dict):
                         fmt_option(LogicOption.playing_without_energy_link_fulgora_is_good_enough),
                         fmt_access_item(energy_link_bridge_name),
                     ]})
+                elif recipe_name in unbarreling_recipes:
+                    # Unbarreling is never a source of an item.
+                    recipe_exprs.append(fmt_option(LogicOption.unbarreling_is_interesting))
                 source_exprs.append({"and": recipe_exprs})
             raw_logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
     # Access Archipelago EnergyLink Bridge

@@ -2070,6 +2070,7 @@ advancement_technologies = {
     "Option playing_without_energy_link_mid_game_is_good_enough",
     "Option slow_inserter_is_good_enough",
     "Option solar_panels_into_darkness",
+    "Option unbarreling_is_interesting",
     "Option wait_hours_for_fish_to_spoil",
     "Option walls_to_destroy_medium_asteroids_is_good_enough",
     "Option water_barrel_is_good_enough",
