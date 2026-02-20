@@ -1,3 +1,4 @@
+# TODO: Operate asteroid-collector should depend on Can generate_electricity_in_space
 import itertools, typing
 from collections import defaultdict
 from dataclasses import dataclass
@@ -46,7 +47,9 @@ or {"or": [expression, ...]} or {"and": [expression, ...]}
 
 advancement_technologies: set[str] = set()
 infinite_technologies: set[str] = set()
+never_delete_events: set[str] = set()
 never_inline_events: set[str] = set()
+unrandomized_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
 technology_name_to_location_name: dict[str, str] = {}
@@ -1532,7 +1535,18 @@ def generate_everything(the_data: dict):
 
         raw_logic_events[fmt_unlock_research(technology_name)] = expr
         del expr # give me a NameError if i forget to assign to expr in this loop.
-        never_inline_events.add(fmt_unlock_research(technology_name))
+        if technology_name in (
+            # These are critical at the start.
+            # The fill algorithm crumbles if you let it attempt to random a way out of the early game.
+            RawTechnology.steam_power,
+            RawTechnology.electronics,
+            RawTechnology.automation_science_pack,
+            RawTechnology.automation,
+        ):
+            unrandomized_events.add(fmt_unlock_research(technology_name))
+        else:
+            never_inline_events.add(fmt_unlock_research(technology_name))
+        never_delete_events.add(fmt_unlock_research(technology_name))
     # EnergyLink technology
     raw_logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
 
@@ -1694,7 +1708,7 @@ def generate_everything(the_data: dict):
     # Optimize.
     raw_logic_events = {k: optimize_expr(v) for k, v in raw_logic_events.items()}
 
-    raw_logic_events, all_used_names = inline_exprs(raw_logic_events, never_inline_events)
+    raw_logic_events, all_used_names = inline_exprs(raw_logic_events, never_inline_events, never_delete_events)
     advancement_technologies.update(all_used_names)
     # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
     # e.g. progressive-automation is advancement even though automation-3 isn't.
@@ -1772,7 +1786,9 @@ def generate_everything(the_data: dict):
         f.write(generate_decl("technology_name_to_progressive_group_name", technology_name_to_progressive_group_name))
         f.write(generate_decl("progressive_group_name_to_category", progressive_group_name_to_category))
         f.write(generate_decl("technology_props_lua", technology_props_lua))
+        f.write(generate_decl("unrandomized_events", unrandomized_events))
         f.write(generate_decl("never_inline_events", never_inline_events))
+        f.write(generate_decl("never_delete_events", never_delete_events))
 
     with open(output3_py, "w") as f:
         f.write(header)

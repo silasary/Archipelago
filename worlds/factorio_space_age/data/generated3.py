@@ -14,7 +14,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access lightning-collector",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -23,7 +23,6 @@ raw_logic_events = {
     "Access active-provider-chest": {
         "and": [
             "Access advanced-circuit",
-            "Access electronic-circuit",
             "Access steel-chest",
             "logistic-system"
         ]
@@ -32,21 +31,13 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access copper-cable",
-                    "Access electronic-circuit",
                     "Access plastic-bar",
                     "advanced-circuit"
                 ]
             },
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -91,6 +82,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
             }
         ]
     },
@@ -105,7 +102,6 @@ raw_logic_events = {
     },
     "Access agricultural-tower": {
         "and": [
-            "Access electronic-circuit",
             "Access landfill",
             "Access spoilage",
             "Access steel-plate",
@@ -118,15 +114,14 @@ raw_logic_events = {
             "planet-discovery-aquilo",
             {
                 "or": [
-                    "Operate chemical-plant",
-                    "Operate cryogenic-plant"
+                    "Access chemical-plant",
+                    "Access cryogenic-plant"
                 ]
             }
         ]
     },
     "Access ammoniacal-solution": {
         "and": [
-            "Access offshore-pump",
             "Can build on ice platforms",
             "Can heat buildings",
             "Reach aquilo"
@@ -163,13 +158,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access arithmetic-combinator": {
-        "and": [
-            "Access copper-cable",
-            "Access electronic-circuit",
-            "circuit-network"
-        ]
-    },
     "Access artificial-jellynut-soil": {
         "or": [
             {
@@ -184,7 +172,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access overgrowth-jellynut-soil",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -204,7 +192,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access overgrowth-yumako-soil",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -236,38 +224,19 @@ raw_logic_events = {
             "artillery"
         ]
     },
-    "Access assembling-machine-1": {
-        "or": [
-            {
-                "and": [
-                    "Access assembling-machine-2",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Access electronic-circuit",
-                    "automation"
-                ]
-            }
-        ]
-    },
     "Access assembling-machine-2": {
         "or": [
             {
                 "and": [
-                    "Access assembling-machine-1",
-                    "Access electronic-circuit",
-                    "Access steel-plate",
-                    "automation-2"
+                    "Access assembling-machine-3",
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access assembling-machine-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Access steel-plate",
+                    "automation-2"
                 ]
             }
         ]
@@ -299,7 +268,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -328,8 +297,8 @@ raw_logic_events = {
                                     "Access crude-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -339,8 +308,8 @@ raw_logic_events = {
                                     "Access fluoroketone-cold-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -350,8 +319,8 @@ raw_logic_events = {
                                     "Access fluoroketone-hot-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -361,8 +330,8 @@ raw_logic_events = {
                                     "Access heavy-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -372,8 +341,8 @@ raw_logic_events = {
                                     "Access light-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -383,8 +352,8 @@ raw_logic_events = {
                                     "Access lubricant-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -394,8 +363,8 @@ raw_logic_events = {
                                     "Access petroleum-gas-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -405,8 +374,8 @@ raw_logic_events = {
                                     "Access sulfuric-acid-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -416,8 +385,8 @@ raw_logic_events = {
                                     "Access water-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -432,6 +401,22 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting",
+                    {
+                        "or": [
+                            "Access accumulator",
+                            "Access battery-equipment",
+                            "Access flying-robot-frame",
+                            "Access laser-turret",
+                            "Access personal-roboport-equipment",
+                            "Access supercapacitor"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
                     "Access scrap",
                     "recycling"
                 ]
@@ -442,24 +427,8 @@ raw_logic_events = {
                     "battery",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access accumulator",
-                            "Access battery-equipment",
-                            "Access flying-robot-frame",
-                            "Access laser-turret",
-                            "Access personal-roboport-equipment",
-                            "Access supercapacitor"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -478,7 +447,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access battery-mk2-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -497,7 +466,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access battery-mk3-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -513,8 +482,6 @@ raw_logic_events = {
     "Access beacon": {
         "and": [
             "Access advanced-circuit",
-            "Access copper-cable",
-            "Access electronic-circuit",
             "Access steel-plate",
             "effect-transmission"
         ]
@@ -528,7 +495,6 @@ raw_logic_events = {
     },
     "Access big-electric-pole": {
         "and": [
-            "Access copper-cable",
             "Access iron-stick",
             "Access steel-plate",
             "electric-energy-distribution-1"
@@ -539,16 +505,15 @@ raw_logic_events = {
             "Access advanced-circuit",
             "Access electric-engine-unit",
             "Access electric-mining-drill",
+            "Access foundry",
             "Access molten-iron",
             "Access tungsten-carbide",
-            "Operate foundry",
             "Reach vulcanus",
             "big-mining-drill"
         ]
     },
     "Access biochamber": {
         "and": [
-            "Access electronic-circuit",
             "Access landfill",
             "Access nutrients",
             "Access pentapod-egg",
@@ -561,7 +526,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access capture-robot-rocket",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -575,27 +540,11 @@ raw_logic_events = {
             }
         ]
     },
-    "Access biolab": {
-        "and": [
-            "Access biter-egg",
-            "Access capture-robot-rocket",
-            "Access lab",
-            "Access refined-concrete",
-            "Access uranium-235",
-            "biolab"
-        ]
-    },
     "Access biter-egg": {
         "or": [
             {
                 "and": [
-                    "Operate captive-biter-spawner",
-                    "captivity"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -605,22 +554,11 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            }
-        ]
-    },
-    "Access boiler": {
-        "or": [
-            {
-                "and": [
-                    "Access heating-tower",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
             },
             {
                 "and": [
-                    "Access pipe",
-                    "steam-power"
+                    "Operate captive-biter-spawner",
+                    "captivity"
                 ]
             }
         ]
@@ -628,7 +566,6 @@ raw_logic_events = {
     "Access buffer-chest": {
         "and": [
             "Access advanced-circuit",
-            "Access electronic-circuit",
             "Access steel-chest",
             "logistic-system"
         ]
@@ -638,15 +575,14 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "Access fast-inserter",
                     "bulk-inserter"
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access stack-inserter",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -664,7 +600,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -688,8 +624,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access uranium-cannon-shell",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -699,9 +635,9 @@ raw_logic_events = {
         "and": [
             "Access biter-egg",
             "Access capture-robot-rocket",
+            "Access cryogenic-plant",
             "Access fluoroketone-cold",
             "Access uranium-235",
-            "Operate cryogenic-plant",
             "captive-biter-spawner"
         ]
     },
@@ -749,8 +685,8 @@ raw_logic_events = {
                     "tungsten-carbide",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -769,7 +705,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -891,8 +827,6 @@ raw_logic_events = {
     },
     "Access chemical-plant": {
         "and": [
-            "Access electronic-circuit",
-            "Access pipe",
             "Access steel-plate",
             "oil-processing"
         ]
@@ -924,41 +858,14 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
+                    "Access foundry",
+                    "Access molten-iron",
+                    "foundry"
                 ]
             },
             {
                 "and": [
-                    "Access water",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access molten-iron",
-                                    "Access pipe",
-                                    "Operate foundry",
-                                    "foundry"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "concrete",
-                                    {
-                                        "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -973,19 +880,28 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
+            },
+            {
+                "and": [
+                    "concrete",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
             }
-        ]
-    },
-    "Access constant-combinator": {
-        "and": [
-            "Access copper-cable",
-            "Access electronic-circuit",
-            "circuit-network"
         ]
     },
     "Access construction-robot": {
         "and": [
-            "Access electronic-circuit",
             "Access flying-robot-frame",
             "construction-robotics"
         ]
@@ -1018,62 +934,17 @@ raw_logic_events = {
             }
         ]
     },
-    "Access copper-cable": {
-        "or": [
-            "Reach fulgora",
-            "electronics",
-            {
-                "and": [
-                    "Access molten-copper",
-                    "Operate foundry",
-                    "foundry"
-                ]
-            },
-            {
-                "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access advanced-circuit",
-                            "Access arithmetic-combinator",
-                            "Access beacon",
-                            "Access big-electric-pole",
-                            "Access constant-combinator",
-                            "Access decider-combinator",
-                            "Access electronic-circuit",
-                            "Access lightning-rod",
-                            "Access medium-electric-pole",
-                            "Access power-switch",
-                            "Access programmable-speaker",
-                            "Access railgun-ammo",
-                            "Access small-electric-pole",
-                            "Access small-lamp",
-                            "Access space-platform-foundation",
-                            "Access substation"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "Access crude-oil": {
         "or": [
-            "Operate pumpjack",
+            "Access pumpjack",
             {
                 "and": [
                     "Access crude-oil-barrel",
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -1087,8 +958,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -1111,26 +982,20 @@ raw_logic_events = {
             "cryogenic-plant",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate cryogenic-plant"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access cryogenic-plant"
                 ]
             }
         ]
     },
     "Access decider-combinator": {
         "or": [
+            "circuit-network",
             {
                 "and": [
-                    "Access copper-cable",
-                    "Access electronic-circuit",
-                    "circuit-network"
-                ]
-            },
-            {
-                "and": [
+                    "Access recycler",
                     "Access selector-combinator",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1141,13 +1006,12 @@ raw_logic_events = {
             {
                 "and": [
                     "Access distractor-capsule",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access electronic-circuit",
                     "Access piercing-rounds-magazine",
                     "defender"
                 ]
@@ -1170,12 +1034,6 @@ raw_logic_events = {
             "discharge-defense-equipment"
         ]
     },
-    "Access display-panel": {
-        "and": [
-            "Access electronic-circuit",
-            "circuit-network"
-        ]
-    },
     "Access distractor-capsule": {
         "or": [
             {
@@ -1188,7 +1046,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access destroyer-capsule",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1199,13 +1057,12 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "efficiency-module"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1230,7 +1087,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access efficiency-module-3",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1249,21 +1106,20 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access electronic-circuit",
                     "Access engine-unit",
                     "Access lubricant",
                     "electric-engine",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1291,27 +1147,21 @@ raw_logic_events = {
     },
     "Access electric-mining-drill": {
         "or": [
+            "electric-mining-drill",
             {
                 "and": [
                     "Access big-mining-drill",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Access electronic-circuit",
-                    "electric-mining-drill"
                 ]
             }
         ]
     },
     "Access electrolyte": {
         "and": [
+            "Access electromagnetic-plant",
             "Access heavy-oil",
             "Access holmium-solution",
-            "Access pipe",
-            "Operate electromagnetic-plant",
             "electromagnetic-plant"
         ]
     },
@@ -1325,80 +1175,9 @@ raw_logic_events = {
             "electromagnetic-plant",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
-        ]
-    },
-    "Access electronic-circuit": {
-        "or": [
-            {
-                "and": [
-                    "Access copper-cable",
-                    "electronics"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access active-provider-chest",
-                            "Access advanced-circuit",
-                            "Access agricultural-tower",
-                            "Access arithmetic-combinator",
-                            "Access assembling-machine-1",
-                            "Access assembling-machine-2",
-                            "Access beacon",
-                            "Access biochamber",
-                            "Access buffer-chest",
-                            "Access bulk-inserter",
-                            "Access chemical-plant",
-                            "Access constant-combinator",
-                            "Access construction-robot",
-                            "Access decider-combinator",
-                            "Access defender-capsule",
-                            "Access display-panel",
-                            "Access efficiency-module",
-                            "Access electric-engine-unit",
-                            "Access electric-mining-drill",
-                            "Access fast-inserter",
-                            "Access fast-splitter",
-                            "Access flying-robot-frame",
-                            "Access foundry",
-                            "Access gate",
-                            "Access inserter",
-                            "Access lab",
-                            "Access laser-turret",
-                            "Access locomotive",
-                            "Access oil-refinery",
-                            "Access passive-provider-chest",
-                            "Access poison-capsule",
-                            "Access power-switch",
-                            "Access processing-unit",
-                            "Access productivity-module",
-                            "Access programmable-speaker",
-                            "Access pumpjack",
-                            "Access quality-module",
-                            "Access radar",
-                            "Access rail-chain-signal",
-                            "Access rail-signal",
-                            "Access repair-pack",
-                            "Access requester-chest",
-                            "Access rocket-launcher",
-                            "Access slowdown-capsule",
-                            "Access small-lamp",
-                            "Access solar-panel",
-                            "Access speed-module",
-                            "Access splitter",
-                            "Access storage-chest",
-                            "Access supercapacitor",
-                            "Access train-stop"
-                        ]
-                    }
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access electromagnetic-plant"
                 ]
             }
         ]
@@ -1415,7 +1194,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access energy-shield-mk2-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1433,21 +1212,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access pipe",
-                    "Access steel-plate",
-                    "engine",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1460,6 +1225,12 @@ raw_logic_events = {
                             "Access tank"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Access steel-plate",
+                    "engine"
                 ]
             }
         ]
@@ -1476,8 +1247,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access spidertron",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1488,7 +1259,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access explosive-uranium-cannon-shell",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -1520,20 +1291,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access sulfur",
-                    "Access water",
-                    "explosives",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1550,6 +1308,18 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access sulfur",
+                    "explosives",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -1563,17 +1333,17 @@ raw_logic_events = {
                     "logistics-3",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
                         ]
                     }
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access turbo-splitter",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1588,17 +1358,17 @@ raw_logic_events = {
                     "logistics-3",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
                         ]
                     }
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access turbo-transport-belt",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1613,17 +1383,17 @@ raw_logic_events = {
                     "logistics-3",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
                         ]
                     }
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access turbo-underground-belt",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1631,18 +1401,12 @@ raw_logic_events = {
     },
     "Access fast-inserter": {
         "or": [
+            "fast-inserter",
             {
                 "and": [
                     "Access bulk-inserter",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Access electronic-circuit",
-                    "Access inserter",
-                    "fast-inserter"
                 ]
             }
         ]
@@ -1651,16 +1415,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access electronic-circuit",
-                    "Access splitter",
-                    "logistics-2"
+                    "Access express-splitter",
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access express-splitter",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Access splitter",
+                    "logistics-2"
                 ]
             }
         ]
@@ -1671,7 +1434,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access express-transport-belt",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1682,7 +1445,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access express-underground-belt",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -1706,7 +1469,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1727,14 +1490,12 @@ raw_logic_events = {
     "Access flamethrower-turret": {
         "and": [
             "Access engine-unit",
-            "Access pipe",
             "Access steel-plate",
             "flamethrower"
         ]
     },
     "Access fluid-wagon": {
         "and": [
-            "Access pipe",
             "Access steel-plate",
             "Access storage-tank",
             "fluid-wagon"
@@ -1742,9 +1503,9 @@ raw_logic_events = {
     },
     "Access fluorine": {
         "and": [
+            "Access pumpjack",
             "Can build on ice platforms",
             "Can heat buildings",
-            "Operate pumpjack",
             "Reach aquilo"
         ]
     },
@@ -1752,21 +1513,21 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access fluoroketone-cold-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access cryogenic-plant",
+                    "Access fluoroketone-hot",
+                    "cryogenic-plant"
                 ]
             },
             {
                 "and": [
-                    "Access fluoroketone-hot",
-                    "Operate cryogenic-plant",
-                    "cryogenic-plant"
+                    "Access fluoroketone-cold-barrel",
+                    "fluid-handling",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
                 ]
             }
         ]
@@ -1778,8 +1539,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -1789,11 +1550,10 @@ raw_logic_events = {
             {
                 "and": [
                     "Access ammonia",
+                    "Access cryogenic-plant",
                     "Access fluorine",
                     "Access lithium",
-                    "Access pipe",
                     "Access solid-fuel",
-                    "Operate cryogenic-plant",
                     "cryogenic-plant"
                 ]
             },
@@ -1803,8 +1563,8 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -1818,8 +1578,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -1830,14 +1590,13 @@ raw_logic_events = {
                 "and": [
                     "Access battery",
                     "Access electric-engine-unit",
-                    "Access electronic-circuit",
                     "Access steel-plate",
                     "robotics"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1859,15 +1618,14 @@ raw_logic_events = {
             "foundation",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
     },
     "Access foundry": {
         "and": [
-            "Access electronic-circuit",
             "Access lubricant",
             "Access refined-concrete",
             "Access steel-plate",
@@ -1876,19 +1634,19 @@ raw_logic_events = {
             "foundry",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate foundry"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access foundry"
                 ]
             }
         ]
     },
     "Access fusion-generator": {
         "and": [
+            "Access cryogenic-plant",
             "Access quantum-processor",
             "Access superconductor",
             "Access tungsten-plate",
-            "Operate cryogenic-plant",
             "Reach aquilo",
             "fusion-reactor"
         ]
@@ -1898,16 +1656,16 @@ raw_logic_events = {
             {
                 "and": [
                     "Access ammonia",
+                    "Access cryogenic-plant",
                     "Access holmium-plate",
                     "Access lithium-plate",
-                    "Operate cryogenic-plant",
                     "fusion-reactor"
                 ]
             },
             {
                 "and": [
                     "Access fusion-reactor-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -1915,10 +1673,10 @@ raw_logic_events = {
     },
     "Access fusion-reactor": {
         "and": [
+            "Access cryogenic-plant",
             "Access quantum-processor",
             "Access superconductor",
             "Access tungsten-plate",
-            "Operate cryogenic-plant",
             "Reach aquilo",
             "fusion-reactor"
         ]
@@ -1936,7 +1694,6 @@ raw_logic_events = {
     },
     "Access gate": {
         "and": [
-            "Access electronic-circuit",
             "Access steel-plate",
             "Access stone-wall",
             "gate"
@@ -1947,7 +1704,7 @@ raw_logic_events = {
             "military-2",
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -1967,7 +1724,6 @@ raw_logic_events = {
     },
     "Access heat-exchanger": {
         "and": [
-            "Access pipe",
             "Access steel-plate",
             "Learn heat-exchanger"
         ]
@@ -1977,7 +1733,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access heating-tower",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -1991,7 +1747,6 @@ raw_logic_events = {
     },
     "Access heating-tower": {
         "and": [
-            "Access boiler",
             "Access concrete",
             "Access heat-pipe",
             "heating-tower"
@@ -2011,22 +1766,15 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Access offshore-pump",
-                    "Can harness lightning",
-                    "Reach fulgora"
-                ]
-            },
-            {
-                "and": [
-                    "Operate oil-refinery",
+                    "Access oil-refinery",
                     {
                         "or": [
                             {
@@ -2038,43 +1786,32 @@ raw_logic_events = {
                             },
                             {
                                 "and": [
-                                    "Access pipe",
+                                    "Access crude-oil",
+                                    "advanced-oil-processing",
                                     {
                                         "or": [
+                                            "Option direct_pipes_is_good_enough",
                                             {
                                                 "and": [
-                                                    "Access crude-oil",
-                                                    "Access water",
-                                                    "advanced-oil-processing",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
+                                                    "Access pump",
+                                                    "Access storage-tank"
                                                 ]
-                                            },
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "Access heavy-oil",
+                                    "coal-liquefaction",
+                                    {
+                                        "or": [
+                                            "Option direct_pipes_is_good_enough",
                                             {
                                                 "and": [
-                                                    "Access heavy-oil",
-                                                    "Access steam",
-                                                    "coal-liquefaction",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
+                                                    "Access pump",
+                                                    "Access storage-tank"
                                                 ]
                                             }
                                         ]
@@ -2083,6 +1820,12 @@ raw_logic_events = {
                             }
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Can harness lightning",
+                    "Reach fulgora"
                 ]
             }
         ]
@@ -2094,8 +1837,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -2119,16 +1862,16 @@ raw_logic_events = {
                     "holmium-processing",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2144,9 +1887,8 @@ raw_logic_events = {
     },
     "Access holmium-solution": {
         "and": [
+            "Access chemical-plant",
             "Access holmium-ore",
-            "Access water",
-            "Operate chemical-plant",
             "holmium-processing"
         ]
     },
@@ -2159,8 +1901,8 @@ raw_logic_events = {
                     "planet-discovery-aquilo",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -2168,7 +1910,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access ice-platform",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -2202,30 +1944,8 @@ raw_logic_events = {
                     "planet-discovery-aquilo",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Access inserter": {
-        "or": [
-            {
-                "and": [
-                    "Access electronic-circuit",
-                    "electronics"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access fast-inserter",
-                            "Access long-handed-inserter"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -2266,14 +1986,14 @@ raw_logic_events = {
             "Reach fulgora",
             {
                 "and": [
+                    "Access foundry",
                     "Access molten-iron",
-                    "Operate foundry",
                     "foundry"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2299,8 +2019,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access stack-inserter",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -2311,8 +2031,8 @@ raw_logic_events = {
             "Reach gleba",
             {
                 "and": [
+                    "Access agricultural-tower",
                     "Access jellynut-seed",
-                    "Operate agricultural-tower",
                     "Reach gleba"
                 ]
             }
@@ -2328,7 +2048,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2338,12 +2058,6 @@ raw_logic_events = {
                     }
                 ]
             }
-        ]
-    },
-    "Access lab": {
-        "and": [
-            "Access electronic-circuit",
-            "electronics"
         ]
     },
     "Access land-mine": {
@@ -2358,7 +2072,7 @@ raw_logic_events = {
             "landfill",
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2377,14 +2091,13 @@ raw_logic_events = {
             {
                 "and": [
                     "Access battery",
-                    "Access electronic-circuit",
                     "Access steel-plate",
                     "laser-turret"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2400,27 +2113,31 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access light-oil-barrel",
-                    "fluid-handling",
+                    "Access crude-oil",
+                    "Access oil-refinery",
+                    "advanced-oil-processing",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Option direct_pipes_is_good_enough",
+                            {
+                                "and": [
+                                    "Access pump",
+                                    "Access storage-tank"
+                                ]
+                            }
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Access pipe",
+                    "Access heavy-oil",
                     {
                         "or": [
                             {
                                 "and": [
-                                    "Access crude-oil",
-                                    "Access water",
-                                    "Operate oil-refinery",
-                                    "advanced-oil-processing",
+                                    "Access oil-refinery",
+                                    "coal-liquefaction",
                                     {
                                         "or": [
                                             "Option direct_pipes_is_good_enough",
@@ -2436,43 +2153,27 @@ raw_logic_events = {
                             },
                             {
                                 "and": [
-                                    "Access heavy-oil",
+                                    "advanced-oil-processing",
                                     {
                                         "or": [
-                                            {
-                                                "and": [
-                                                    "Access steam",
-                                                    "Operate oil-refinery",
-                                                    "coal-liquefaction",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "and": [
-                                                    "Access water",
-                                                    "advanced-oil-processing",
-                                                    {
-                                                        "or": [
-                                                            "Operate biochamber",
-                                                            "Operate chemical-plant"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Access chemical-plant",
+                                            "Operate biochamber"
                                         ]
                                     }
                                 ]
                             }
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "Access light-oil-barrel",
+                    "fluid-handling",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -2486,8 +2187,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -2496,9 +2197,9 @@ raw_logic_events = {
         "and": [
             "Access accumulator",
             "Access electrolyte",
+            "Access electromagnetic-plant",
             "Access lightning-rod",
             "Access supercapacitor",
-            "Operate electromagnetic-plant",
             "Reach fulgora",
             "lightning-collector"
         ]
@@ -2507,17 +2208,16 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access copper-cable",
-                    "Access steel-plate",
-                    "Reach fulgora",
-                    "planet-discovery-fulgora"
+                    "Access lightning-collector",
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access lightning-collector",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Access steel-plate",
+                    "Reach fulgora",
+                    "planet-discovery-fulgora"
                 ]
             }
         ]
@@ -2530,12 +2230,11 @@ raw_logic_events = {
                     "Access ammonia",
                     "Access holmium-plate",
                     "Access lithium-brine",
-                    "Access pipe",
                     "lithium-processing",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -2544,9 +2243,9 @@ raw_logic_events = {
     },
     "Access lithium-brine": {
         "and": [
+            "Access pumpjack",
             "Can build on ice platforms",
             "Can heat buildings",
-            "Operate pumpjack",
             "Reach aquilo"
         ]
     },
@@ -2560,7 +2259,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2575,7 +2274,6 @@ raw_logic_events = {
     },
     "Access locomotive": {
         "and": [
-            "Access electronic-circuit",
             "Access engine-unit",
             "Access steel-plate",
             "railway"
@@ -2588,12 +2286,6 @@ raw_logic_events = {
             "logistic-robotics"
         ]
     },
-    "Access long-handed-inserter": {
-        "and": [
-            "Access inserter",
-            "automation"
-        ]
-    },
     "Access low-density-structure": {
         "or": [
             {
@@ -2603,10 +2295,9 @@ raw_logic_events = {
                         "or": [
                             {
                                 "and": [
+                                    "Access foundry",
                                     "Access molten-copper",
                                     "Access molten-iron",
-                                    "Access pipe",
-                                    "Operate foundry",
                                     "foundry"
                                 ]
                             },
@@ -2622,13 +2313,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -2643,6 +2328,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
             }
         ]
     },
@@ -2650,8 +2341,8 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access chemical-plant",
                     "Access heavy-oil",
-                    "Operate chemical-plant",
                     "lubricant"
                 ]
             },
@@ -2668,8 +2359,8 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -2683,8 +2374,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -2701,7 +2392,6 @@ raw_logic_events = {
     },
     "Access medium-electric-pole": {
         "and": [
-            "Access copper-cable",
             "Access iron-stick",
             "Access steel-plate",
             "electric-energy-distribution-1"
@@ -2790,14 +2480,14 @@ raw_logic_events = {
     "Access molten-copper": {
         "and": [
             "Access calcite",
-            "Operate foundry",
+            "Access foundry",
             "foundry"
         ]
     },
     "Access molten-iron": {
         "and": [
             "Access calcite",
-            "Operate foundry",
+            "Access foundry",
             "foundry"
         ]
     },
@@ -2810,9 +2500,9 @@ raw_logic_events = {
     },
     "Access nuclear-fuel": {
         "and": [
+            "Access centrifuge",
             "Access rocket-fuel",
             "Access uranium-235",
-            "Operate centrifuge",
             "kovarex-enrichment-process"
         ]
     },
@@ -2831,6 +2521,19 @@ raw_logic_events = {
                 "and": [
                     "Access biter-egg",
                     "captivity"
+                ]
+            },
+            {
+                "and": [
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting",
+                    {
+                        "or": [
+                            "Access artificial-jellynut-soil",
+                            "Access artificial-yumako-soil",
+                            "Access biochamber"
+                        ]
+                    }
                 ]
             },
             {
@@ -2859,32 +2562,11 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access artificial-jellynut-soil",
-                            "Access artificial-yumako-soil",
-                            "Access biochamber"
-                        ]
-                    }
-                ]
             }
-        ]
-    },
-    "Access offshore-pump": {
-        "and": [
-            "Access pipe",
-            "steam-power"
         ]
     },
     "Access oil-refinery": {
         "and": [
-            "Access electronic-circuit",
-            "Access pipe",
             "Access steel-plate",
             "oil-processing"
         ]
@@ -2895,13 +2577,12 @@ raw_logic_events = {
             "Access biter-egg",
             "Access jellynut-seed",
             "Access spoilage",
-            "Access water",
             "Reach gleba",
             "overgrowth-soil",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -2911,14 +2592,13 @@ raw_logic_events = {
             "Access artificial-yumako-soil",
             "Access biter-egg",
             "Access spoilage",
-            "Access water",
             "Access yumako-seed",
             "Reach gleba",
             "overgrowth-soil",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -2999,7 +2679,6 @@ raw_logic_events = {
     "Access passive-provider-chest": {
         "and": [
             "Access advanced-circuit",
-            "Access electronic-circuit",
             "Access steel-chest",
             "Learn passive-provider-chest"
         ]
@@ -3010,7 +2689,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access biochamber",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -3018,7 +2697,6 @@ raw_logic_events = {
                 "and": [
                     "Access nutrients",
                     "Access pentapod-egg",
-                    "Access water",
                     "Operate biochamber",
                     "Reach gleba",
                     "biochamber"
@@ -3047,7 +2725,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access personal-roboport-mk2-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3065,9 +2743,34 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access crude-oil",
-                    "Operate oil-refinery",
-                    "oil-processing"
+                    "Access oil-refinery",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "Access crude-oil",
+                                    "oil-processing"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "Access heavy-oil",
+                                    "coal-liquefaction",
+                                    {
+                                        "or": [
+                                            "Option direct_pipes_is_good_enough",
+                                            {
+                                                "and": [
+                                                    "Access pump",
+                                                    "Access storage-tank"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             },
             {
@@ -3076,23 +2779,21 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Access pipe",
+                    "advanced-oil-processing",
                     {
                         "or": [
                             {
                                 "and": [
-                                    "Access heavy-oil",
-                                    "Access steam",
-                                    "Operate oil-refinery",
-                                    "coal-liquefaction",
+                                    "Access crude-oil",
+                                    "Access oil-refinery",
                                     {
                                         "or": [
                                             "Option direct_pipes_is_good_enough",
@@ -3108,38 +2809,11 @@ raw_logic_events = {
                             },
                             {
                                 "and": [
-                                    "Access water",
-                                    "advanced-oil-processing",
+                                    "Access light-oil",
                                     {
                                         "or": [
-                                            {
-                                                "and": [
-                                                    "Access crude-oil",
-                                                    "Operate oil-refinery",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "and": [
-                                                    "Access light-oil",
-                                                    {
-                                                        "or": [
-                                                            "Operate biochamber",
-                                                            "Operate chemical-plant"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Access chemical-plant",
+                                            "Operate biochamber"
                                         ]
                                     }
                                 ]
@@ -3157,8 +2831,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -3167,13 +2841,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access steel-plate",
-                    "military-2"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3181,6 +2849,12 @@ raw_logic_events = {
                             "Access uranium-rounds-magazine"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Access steel-plate",
+                    "military-2"
                 ]
             }
         ]
@@ -3190,59 +2864,6 @@ raw_logic_events = {
             "Access shotgun-shell",
             "Access steel-plate",
             "military-4"
-        ]
-    },
-    "Access pipe": {
-        "or": [
-            "steam-power",
-            {
-                "and": [
-                    "Access molten-iron",
-                    "Operate foundry",
-                    "foundry"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access boiler",
-                            "Access chemical-plant",
-                            "Access engine-unit",
-                            "Access flamethrower-turret",
-                            "Access fluid-wagon",
-                            "Access heat-exchanger",
-                            "Access offshore-pump",
-                            "Access oil-refinery",
-                            "Access pipe-to-ground",
-                            "Access pump",
-                            "Access pumpjack",
-                            "Access rocket-silo",
-                            "Access steam-engine",
-                            "Access steam-turbine"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Access pipe-to-ground": {
-        "and": [
-            "Access pipe",
-            {
-                "or": [
-                    "steam-power",
-                    {
-                        "and": [
-                            "Access molten-iron",
-                            "Operate foundry",
-                            "foundry"
-                        ]
-                    }
-                ]
-            }
         ]
     },
     "Access plastic-bar": {
@@ -3261,15 +2882,15 @@ raw_logic_events = {
                     "plastics",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3287,7 +2908,6 @@ raw_logic_events = {
     },
     "Access poison-capsule": {
         "and": [
-            "Access electronic-circuit",
             "Access steel-plate",
             "military-3"
         ]
@@ -3315,17 +2935,10 @@ raw_logic_events = {
             {
                 "and": [
                     "Access mech-armor",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
-        ]
-    },
-    "Access power-switch": {
-        "and": [
-            "Access copper-cable",
-            "Access electronic-circuit",
-            "circuit-network"
         ]
     },
     "Access processing-unit": {
@@ -3333,27 +2946,20 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "Access sulfuric-acid",
                     "processing-unit",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access electromagnetic-plant"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3397,6 +3003,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
             }
         ]
     },
@@ -3405,14 +3017,13 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "productivity-module"
                 ]
             },
             {
                 "and": [
                     "Access productivity-module-2",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3431,7 +3042,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access productivity-module-3",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3448,8 +3059,6 @@ raw_logic_events = {
     },
     "Access programmable-speaker": {
         "and": [
-            "Access copper-cable",
-            "Access electronic-circuit",
             "Access iron-stick",
             "circuit-network"
         ]
@@ -3457,15 +3066,12 @@ raw_logic_events = {
     "Access pump": {
         "and": [
             "Access engine-unit",
-            "Access pipe",
             "Access steel-plate",
             "fluid-handling"
         ]
     },
     "Access pumpjack": {
         "and": [
-            "Access electronic-circuit",
-            "Access pipe",
             "Access steel-plate",
             "oil-gathering"
         ]
@@ -3475,14 +3081,13 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "quality-module"
                 ]
             },
             {
                 "and": [
                     "Access quality-module-2",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3501,7 +3106,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access quality-module-3",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3521,12 +3126,12 @@ raw_logic_events = {
             {
                 "and": [
                     "Access carbon-fiber",
+                    "Access electromagnetic-plant",
                     "Access fluoroketone-cold",
                     "Access lithium-plate",
                     "Access processing-unit",
                     "Access superconductor",
                     "Access tungsten-carbide",
-                    "Operate electromagnetic-plant",
                     "quantum-processor",
                     {
                         "or": [
@@ -3553,7 +3158,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3570,15 +3175,10 @@ raw_logic_events = {
     },
     "Access radar": {
         "or": [
+            "radar",
             {
                 "and": [
-                    "Access electronic-circuit",
-                    "radar"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3602,16 +3202,10 @@ raw_logic_events = {
             {
                 "and": [
                     "Access rail-ramp",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
-        ]
-    },
-    "Access rail-chain-signal": {
-        "and": [
-            "Access electronic-circuit",
-            "automated-rail-transportation"
         ]
     },
     "Access rail-ramp": {
@@ -3620,12 +3214,6 @@ raw_logic_events = {
             "Access refined-concrete",
             "Access steel-plate",
             "elevated-rail"
-        ]
-    },
-    "Access rail-signal": {
-        "and": [
-            "Access electronic-circuit",
-            "automated-rail-transportation"
         ]
     },
     "Access rail-support": {
@@ -3637,17 +3225,16 @@ raw_logic_events = {
     },
     "Access railgun": {
         "and": [
+            "Access cryogenic-plant",
             "Access fluoroketone-cold",
             "Access quantum-processor",
             "Access superconductor",
             "Access tungsten-plate",
-            "Operate cryogenic-plant",
             "railgun"
         ]
     },
     "Access railgun-ammo": {
         "and": [
-            "Access copper-cable",
             "Access explosives",
             "Access steel-plate",
             "railgun"
@@ -3656,11 +3243,11 @@ raw_logic_events = {
     "Access railgun-turret": {
         "and": [
             "Access carbon-fiber",
+            "Access cryogenic-plant",
             "Access fluoroketone-cold",
             "Access quantum-processor",
             "Access superconductor",
             "Access tungsten-plate",
-            "Operate cryogenic-plant",
             "railgun"
         ]
     },
@@ -3680,19 +3267,18 @@ raw_logic_events = {
                     "Access concrete",
                     "Access iron-stick",
                     "Access steel-plate",
-                    "Access water",
                     "concrete",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -3716,16 +3302,9 @@ raw_logic_events = {
             "concrete"
         ]
     },
-    "Access repair-pack": {
-        "and": [
-            "Access electronic-circuit",
-            "repair-pack"
-        ]
-    },
     "Access requester-chest": {
         "and": [
             "Access advanced-circuit",
-            "Access electronic-circuit",
             "Access steel-chest",
             "logistic-system"
         ]
@@ -3742,7 +3321,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access explosive-rocket",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -3760,7 +3339,6 @@ raw_logic_events = {
                 "and": [
                     "Access bioflux",
                     "Access jelly",
-                    "Access water",
                     "Operate biochamber",
                     "bioflux-processing"
                 ]
@@ -3768,7 +3346,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access nuclear-fuel",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -3780,13 +3358,11 @@ raw_logic_events = {
                             {
                                 "and": [
                                     "Access ammonia",
-                                    "Access pipe",
-                                    "Access water",
                                     "planet-discovery-aquilo",
                                     {
                                         "or": [
-                                            "Operate chemical-plant",
-                                            "Operate cryogenic-plant"
+                                            "Access chemical-plant",
+                                            "Access cryogenic-plant"
                                         ]
                                     }
                                 ]
@@ -3805,16 +3381,11 @@ raw_logic_events = {
     },
     "Access rocket-launcher": {
         "or": [
+            "rocketry",
             {
                 "and": [
-                    "Access electronic-circuit",
-                    "rocketry"
-                ]
-            },
-            {
-                "and": [
+                    "Access recycler",
                     "Access rocket-turret",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3824,7 +3395,6 @@ raw_logic_events = {
         "and": [
             "Access concrete",
             "Access electric-engine-unit",
-            "Access pipe",
             "Access processing-unit",
             "Access steel-plate",
             "rocket-silo"
@@ -3843,8 +3413,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access spidertron",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3874,7 +3444,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access piercing-shotgun-shell",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -3882,38 +3452,23 @@ raw_logic_events = {
     },
     "Access slowdown-capsule": {
         "and": [
-            "Access electronic-circuit",
             "Access steel-plate",
             "military-3"
-        ]
-    },
-    "Access small-electric-pole": {
-        "and": [
-            "Access copper-cable",
-            "electronics"
-        ]
-    },
-    "Access small-lamp": {
-        "and": [
-            "Access copper-cable",
-            "Access electronic-circuit",
-            "lamp"
         ]
     },
     "Access solar-panel": {
         "or": [
             {
                 "and": [
-                    "Access electronic-circuit",
-                    "Access steel-plate",
-                    "solar-energy"
+                    "Access recycler",
+                    "Access solar-panel-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access solar-panel-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Access steel-plate",
+                    "solar-energy"
                 ]
             }
         ]
@@ -3932,32 +3487,18 @@ raw_logic_events = {
                 "and": [
                     "Access ammonia",
                     "Access crude-oil",
-                    "Access pipe",
                     "planet-discovery-aquilo",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Access rocket-fuel",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate chemical-plant",
+                    "Access chemical-plant",
                     {
                         "or": [
                             {
@@ -3980,6 +3521,19 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access recycler",
+                    "Access rocket-fuel",
+                    "Option backwards_recycling_is_interesting"
+                ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
             }
         ]
     },
@@ -3987,16 +3541,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access copper-cable",
-                    "Access steel-plate",
-                    "rocket-silo"
+                    "Access recycler",
+                    "Access space-platform-starter-pack",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Access space-platform-starter-pack",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Access steel-plate",
+                    "rocket-silo"
                 ]
             }
         ]
@@ -4014,13 +3567,12 @@ raw_logic_events = {
             {
                 "and": [
                     "Access advanced-circuit",
-                    "Access electronic-circuit",
                     "speed-module"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4045,8 +3597,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access speed-module-3",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -4072,16 +3624,11 @@ raw_logic_events = {
     },
     "Access splitter": {
         "or": [
-            {
-                "and": [
-                    "Access electronic-circuit",
-                    "logistics"
-                ]
-            },
+            "logistics",
             {
                 "and": [
                     "Access fast-splitter",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -4100,7 +3647,7 @@ raw_logic_events = {
             "Reach gleba",
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4145,49 +3692,9 @@ raw_logic_events = {
             "stack-inserter"
         ]
     },
-    "Access steam": {
-        "or": [
-            {
-                "and": [
-                    "Access calcite",
-                    "Access sulfuric-acid",
-                    "Reach vulcanus",
-                    "calcite-processing",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Access water",
-                    {
-                        "or": [
-                            "Access boiler",
-                            "Operate heat-exchanger"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Access steam-engine": {
-        "and": [
-            "Access pipe",
-            "steam-power"
-        ]
-    },
-    "Access steam-turbine": {
-        "and": [
-            "Access pipe",
-            "Learn steam-turbine"
-        ]
-    },
     "Access steam_500C": {
         "or": [
+            "Operate heat-exchanger",
             {
                 "and": [
                     "Access calcite",
@@ -4196,16 +3703,10 @@ raw_logic_events = {
                     "calcite-processing",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
-                ]
-            },
-            {
-                "and": [
-                    "Access water",
-                    "Operate heat-exchanger"
                 ]
             }
         ]
@@ -4214,13 +3715,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access steel-plate",
-                    "steel-processing"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4231,6 +3726,12 @@ raw_logic_events = {
                             "Access storage-chest"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Access steel-plate",
+                    "steel-processing"
                 ]
             }
         ]
@@ -4247,20 +3748,14 @@ raw_logic_events = {
             "steel-processing",
             {
                 "and": [
+                    "Access foundry",
                     "Access molten-iron",
-                    "Operate foundry",
                     "foundry"
                 ]
             },
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4340,6 +3835,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access scrap",
+                    "recycling"
+                ]
             }
         ]
     },
@@ -4349,7 +3850,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access gate",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -4358,7 +3859,6 @@ raw_logic_events = {
     "Access storage-chest": {
         "and": [
             "Access advanced-circuit",
-            "Access electronic-circuit",
             "Access steel-chest",
             "Learn storage-chest"
         ]
@@ -4368,7 +3868,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access fluid-wagon",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -4383,7 +3883,6 @@ raw_logic_events = {
     "Access substation": {
         "and": [
             "Access advanced-circuit",
-            "Access copper-cable",
             "Access steel-plate",
             "electric-energy-distribution-2"
         ]
@@ -4409,13 +3908,11 @@ raw_logic_events = {
             {
                 "and": [
                     "Access petroleum-gas",
-                    "Access pipe",
-                    "Access water",
                     "sulfur-processing",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -4426,13 +3923,18 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access pumpjack",
+                    "Reach vulcanus"
+                ]
+            },
+            {
+                "and": [
                     "Access sulfur",
-                    "Access water",
                     "sulfur-processing",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -4443,16 +3945,10 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
-                ]
-            },
-            {
-                "and": [
-                    "Operate pumpjack",
-                    "Reach vulcanus"
                 ]
             }
         ]
@@ -4464,8 +3960,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -4476,16 +3972,15 @@ raw_logic_events = {
                 "and": [
                     "Access battery",
                     "Access electrolyte",
-                    "Access electronic-circuit",
+                    "Access electromagnetic-plant",
                     "Access holmium-plate",
                     "Access superconductor",
-                    "Operate electromagnetic-plant",
                     "electromagnetic-plant"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4505,16 +4000,16 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access electromagnetic-plant",
                     "Access holmium-plate",
                     "Access light-oil",
                     "Access plastic-bar",
-                    "Operate electromagnetic-plant",
                     "electromagnetic-plant"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4547,20 +4042,20 @@ raw_logic_events = {
     "Access tesla-ammo": {
         "and": [
             "Access electrolyte",
+            "Access electromagnetic-plant",
             "Access plastic-bar",
             "Access supercapacitor",
-            "Operate electromagnetic-plant",
             "tesla-weapons"
         ]
     },
     "Access tesla-turret": {
         "and": [
             "Access electrolyte",
+            "Access electromagnetic-plant",
             "Access processing-unit",
             "Access supercapacitor",
             "Access superconductor",
             "Access teslagun",
-            "Operate electromagnetic-plant",
             "tesla-weapons"
         ]
     },
@@ -4569,17 +4064,17 @@ raw_logic_events = {
             {
                 "and": [
                     "Access electrolyte",
+                    "Access electromagnetic-plant",
                     "Access holmium-plate",
                     "Access plastic-bar",
                     "Access superconductor",
-                    "Operate electromagnetic-plant",
                     "tesla-weapons"
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Access tesla-turret",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -4602,7 +4097,6 @@ raw_logic_events = {
     },
     "Access train-stop": {
         "and": [
-            "Access electronic-circuit",
             "Access iron-stick",
             "Access steel-plate",
             "automated-rail-transportation"
@@ -4618,15 +4112,15 @@ raw_logic_events = {
                     "tungsten-carbide",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4645,7 +4139,7 @@ raw_logic_events = {
             "Reach vulcanus",
             {
                 "and": [
-                    "Operate big-mining-drill",
+                    "Access big-mining-drill",
                     "Reach vulcanus"
                 ]
             }
@@ -4655,15 +4149,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access foundry",
                     "Access molten-iron",
                     "Access tungsten-ore",
-                    "Operate foundry",
                     "tungsten-steel"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4688,10 +4182,10 @@ raw_logic_events = {
     "Access turbo-splitter": {
         "and": [
             "Access express-splitter",
+            "Access foundry",
             "Access lubricant",
             "Access processing-unit",
             "Access tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
@@ -4699,9 +4193,9 @@ raw_logic_events = {
     "Access turbo-transport-belt": {
         "and": [
             "Access express-transport-belt",
+            "Access foundry",
             "Access lubricant",
             "Access tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
@@ -4709,9 +4203,9 @@ raw_logic_events = {
     "Access turbo-underground-belt": {
         "and": [
             "Access express-underground-belt",
+            "Access foundry",
             "Access lubricant",
             "Access tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
@@ -4722,7 +4216,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access fast-underground-belt",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -4732,7 +4226,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Operate centrifuge",
+                    "Access centrifuge",
                     {
                         "or": [
                             {
@@ -4754,7 +4248,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4770,14 +4264,14 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access centrifuge",
                     "Access uranium-ore",
-                    "Operate centrifuge",
                     "uranium-processing"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4802,7 +4296,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access fission-reactor-equipment",
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -4828,51 +4322,14 @@ raw_logic_events = {
             "uranium-ammo"
         ]
     },
-    "Access water": {
-        "or": [
-            "Access offshore-pump",
-            {
-                "and": [
-                    "Access ice",
-                    "Operate chemical-plant",
-                    "space-platform-thruster"
-                ]
-            },
-            {
-                "and": [
-                    "Access steam",
-                    "calcite-processing",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Access water-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "Access water-barrel": {
         "and": [
             "Access barrel",
-            "Access water",
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -4882,8 +4339,8 @@ raw_logic_events = {
             "Reach gleba",
             {
                 "and": [
+                    "Access agricultural-tower",
                     "Access yumako-seed",
-                    "Operate agricultural-tower",
                     "Reach gleba"
                 ]
             }
@@ -4899,13 +4356,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access yumako",
-                    "yumako"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -4914,6 +4365,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Access yumako",
+                    "yumako"
+                ]
             }
         ]
     },
@@ -4921,23 +4378,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate battery",
-                    "electric-energy-accumulators",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate lightning-collector",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate lightning-collector",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate battery",
+                    "electric-energy-accumulators"
                 ]
             }
         ]
@@ -4945,51 +4394,15 @@ raw_logic_events = {
     "Automate active-provider-chest": {
         "and": [
             "Automate advanced-circuit",
-            "Automate electronic-circuit",
             "Automate steel-chest",
-            "logistic-system",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "logistic-system"
         ]
     },
     "Automate advanced-circuit": {
         "or": [
             {
                 "and": [
-                    "Automate copper-cable",
-                    "Automate electronic-circuit",
-                    "Automate plastic-bar",
-                    "advanced-circuit",
-                    {
-                        "or": [
-                            "Access assembling-machine-2",
-                            "Option assembling_machine_1_is_good_enough"
-                        ]
-                    },
-                    {
-                        "or": [
-                            "Access fast-inserter",
-                            "Option slow_inserter_is_good_enough"
-                        ]
-                    },
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -5048,6 +4461,24 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate plastic-bar",
+                    "advanced-circuit",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Option assembling_machine_1_is_good_enough"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "Access fast-inserter",
+                            "Option slow_inserter_is_good_enough"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -5062,18 +4493,10 @@ raw_logic_events = {
     },
     "Automate agricultural-tower": {
         "and": [
-            "Automate electronic-circuit",
             "Automate landfill",
             "Automate spoilage",
             "Automate steel-plate",
-            "agriculture",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "agriculture"
         ]
     },
     "Automate ammonia": {
@@ -5082,57 +4505,35 @@ raw_logic_events = {
             "planet-discovery-aquilo",
             {
                 "or": [
-                    "Operate chemical-plant",
-                    "Operate cryogenic-plant"
+                    "Access chemical-plant",
+                    "Access cryogenic-plant"
                 ]
             }
         ]
     },
     "Automate ammoniacal-solution": {
         "and": [
-            "Access offshore-pump",
             "Can build on ice platforms",
             "Can heat buildings",
             "Reach aquilo"
-        ]
-    },
-    "Automate arithmetic-combinator": {
-        "and": [
-            "Automate copper-cable",
-            "Automate electronic-circuit",
-            "circuit-network",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
         ]
     },
     "Automate artificial-jellynut-soil": {
         "or": [
             {
                 "and": [
-                    "Automate jellynut-seed",
-                    "Automate landfill",
-                    "Automate nutrients",
-                    "Reach gleba",
-                    "artificial-soil",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate overgrowth-jellynut-soil",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate overgrowth-jellynut-soil",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate jellynut-seed",
+                    "Automate landfill",
+                    "Automate nutrients",
+                    "Reach gleba",
+                    "artificial-soil"
                 ]
             }
         ]
@@ -5141,25 +4542,18 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate landfill",
-                    "Automate nutrients",
-                    "Automate yumako-seed",
-                    "Reach gleba",
-                    "artificial-soil",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate overgrowth-yumako-soil",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate overgrowth-yumako-soil",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate landfill",
+                    "Automate nutrients",
+                    "Automate yumako-seed",
+                    "Reach gleba",
+                    "artificial-soil"
                 ]
             }
         ]
@@ -5170,97 +4564,39 @@ raw_logic_events = {
             "Automate explosives",
             "Automate radar",
             "Automate tungsten-plate",
-            "artillery",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "artillery"
         ]
     },
     "Automate artillery-turret": {
         "and": [
-            "Automate iron-gear-wheel",
             "Automate processing-unit",
             "Automate refined-concrete",
             "Automate tungsten-plate",
-            "artillery",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "artillery"
         ]
     },
     "Automate artillery-wagon": {
         "and": [
             "Automate engine-unit",
-            "Automate iron-gear-wheel",
             "Automate processing-unit",
             "Automate refined-concrete",
             "Automate tungsten-plate",
-            "artillery",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate assembling-machine-1": {
-        "or": [
-            {
-                "and": [
-                    "Automate assembling-machine-2",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "automation",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
+            "artillery"
         ]
     },
     "Automate assembling-machine-2": {
         "or": [
             {
                 "and": [
-                    "Automate assembling-machine-1",
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "Automate steel-plate",
-                    "automation-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate assembling-machine-3",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate assembling-machine-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate steel-plate",
+                    "automation-2"
                 ]
             }
         ]
@@ -5269,14 +4605,7 @@ raw_logic_events = {
         "and": [
             "Automate assembling-machine-2",
             "Automate speed-module",
-            "automation-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "automation-3"
         ]
     },
     "Automate asteroid-collector": {
@@ -5284,14 +4613,7 @@ raw_logic_events = {
             "Automate electric-engine-unit",
             "Automate low-density-structure",
             "Automate processing-unit",
-            "space-platform",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "space-platform"
         ]
     },
     "Automate atomic-bomb": {
@@ -5299,34 +4621,14 @@ raw_logic_events = {
             "Automate explosives",
             "Automate processing-unit",
             "Automate uranium-235",
-            "atomic-bomb",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate automation-science-pack": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "automation-science-pack",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "atomic-bomb"
         ]
     },
     "Automate barrel": {
         "or": [
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -5349,13 +4651,14 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
+                            "Automate steel-plate",
                             {
                                 "and": [
                                     "Automate crude-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5365,8 +4668,8 @@ raw_logic_events = {
                                     "Automate fluoroketone-cold-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5376,8 +4679,8 @@ raw_logic_events = {
                                     "Automate fluoroketone-hot-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5387,8 +4690,8 @@ raw_logic_events = {
                                     "Automate heavy-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5398,8 +4701,8 @@ raw_logic_events = {
                                     "Automate light-oil-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5409,8 +4712,8 @@ raw_logic_events = {
                                     "Automate lubricant-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5420,20 +4723,8 @@ raw_logic_events = {
                                     "Automate petroleum-gas-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate steel-plate",
-                                    {
-                                        "or": [
-                                            "Operate assembling-machine-1",
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5443,8 +4734,8 @@ raw_logic_events = {
                                     "Automate sulfuric-acid-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5454,8 +4745,8 @@ raw_logic_events = {
                                     "Automate water-barrel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -5470,19 +4761,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate sulfuric-acid",
-                    "battery",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -5509,6 +4788,18 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate sulfuric-acid",
+                    "battery",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -5516,23 +4807,16 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate battery",
-                    "Automate steel-plate",
-                    "battery-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate battery-mk2-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate battery-mk2-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate battery",
+                    "Automate steel-plate",
+                    "battery-equipment"
                 ]
             }
         ]
@@ -5541,24 +4825,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate battery-equipment",
-                    "Automate low-density-structure",
-                    "Automate processing-unit",
-                    "battery-mk2-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate battery-mk3-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate battery-mk3-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate battery-equipment",
+                    "Automate low-density-structure",
+                    "Automate processing-unit",
+                    "battery-mk2-equipment"
                 ]
             }
         ]
@@ -5567,78 +4844,44 @@ raw_logic_events = {
         "and": [
             "Automate battery-mk2-equipment",
             "Automate supercapacitor",
-            "battery-mk3-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "battery-mk3-equipment"
         ]
     },
     "Automate beacon": {
         "and": [
             "Automate advanced-circuit",
-            "Automate copper-cable",
-            "Automate electronic-circuit",
             "Automate steel-plate",
-            "effect-transmission",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "effect-transmission"
         ]
     },
     "Automate belt-immunity-equipment": {
         "and": [
             "Automate advanced-circuit",
             "Automate steel-plate",
-            "belt-immunity-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "belt-immunity-equipment"
         ]
     },
     "Automate big-electric-pole": {
         "and": [
-            "Automate copper-cable",
             "Automate iron-stick",
             "Automate steel-plate",
-            "electric-energy-distribution-1",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "electric-energy-distribution-1"
         ]
     },
     "Automate big-mining-drill": {
         "and": [
+            "Access foundry",
             "Automate advanced-circuit",
             "Automate electric-engine-unit",
             "Automate electric-mining-drill",
             "Automate molten-iron",
             "Automate tungsten-carbide",
-            "Operate foundry",
             "Reach vulcanus",
             "big-mining-drill"
         ]
     },
     "Automate biochamber": {
         "and": [
-            "Automate electronic-circuit",
             "Automate landfill",
             "Automate nutrients",
             "Automate pentapod-egg",
@@ -5646,8 +4889,8 @@ raw_logic_events = {
             "biochamber",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
                     "Operate biochamber"
                 ]
             }
@@ -5657,8 +4900,8 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate capture-robot-rocket",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -5676,13 +4919,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Operate captive-biter-spawner",
-                    "captivity"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -5692,30 +4929,11 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            }
-        ]
-    },
-    "Automate boiler": {
-        "or": [
-            {
-                "and": [
-                    "Automate heating-tower",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
             },
             {
                 "and": [
-                    "Automate pipe",
-                    "Automate stone-furnace",
-                    "steam-power",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Operate captive-biter-spawner",
+                    "captivity"
                 ]
             }
         ]
@@ -5723,66 +4941,24 @@ raw_logic_events = {
     "Automate buffer-chest": {
         "and": [
             "Automate advanced-circuit",
-            "Automate electronic-circuit",
             "Automate steel-chest",
-            "logistic-system",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "logistic-system"
         ]
     },
     "Automate bulk-inserter": {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "Automate fast-inserter",
-                    "Automate iron-gear-wheel",
-                    "bulk-inserter",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate stack-inserter",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate stack-inserter",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            }
-        ]
-    },
-    "Automate burner-inserter": {
-        "and": [
-            "Automate iron-gear-wheel",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate burner-mining-drill": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "Automate stone-furnace",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Automate advanced-circuit",
+                    "Automate fast-inserter",
+                    "bulk-inserter"
                 ]
             }
         ]
@@ -5792,14 +4968,7 @@ raw_logic_events = {
             "Reach vulcanus",
             {
                 "and": [
-                    "Automate oxide-asteroid-chunk",
-                    "Operate crusher",
-                    "advanced-asteroid-processing"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -5808,6 +4977,13 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate oxide-asteroid-chunk",
+                    "Operate crusher",
+                    "advanced-asteroid-processing"
+                ]
             }
         ]
     },
@@ -5815,24 +4991,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate explosives",
-                    "Automate plastic-bar",
-                    "Automate steel-plate",
-                    "tank",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate uranium-cannon-shell",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate uranium-cannon-shell",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate explosives",
+                    "Automate plastic-bar",
+                    "Automate steel-plate",
+                    "tank"
                 ]
             }
         ]
@@ -5843,28 +5012,14 @@ raw_logic_events = {
             "Automate flying-robot-frame",
             "Automate processing-unit",
             "Automate steel-plate",
-            "captivity",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "captivity"
         ]
     },
     "Automate car": {
         "and": [
             "Automate engine-unit",
             "Automate steel-plate",
-            "automobilism",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "automobilism"
         ]
     },
     "Automate carbon": {
@@ -5894,8 +5049,8 @@ raw_logic_events = {
                     "tungsten-carbide",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -5906,15 +5061,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate carbon",
-                    "Automate yumako-mash",
-                    "Operate biochamber",
-                    "carbon-fiber"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -5927,6 +5074,14 @@ raw_logic_events = {
                             "Automate toolbelt-equipment"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Automate carbon",
+                    "Automate yumako-mash",
+                    "Operate biochamber",
+                    "carbon-fiber"
                 ]
             }
         ]
@@ -6009,14 +5164,7 @@ raw_logic_events = {
             "Automate low-density-structure",
             "Automate processing-unit",
             "Automate steel-plate",
-            "space-platform",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "space-platform"
         ]
     },
     "Automate cargo-landing-pad": {
@@ -6024,60 +5172,27 @@ raw_logic_events = {
             "Automate concrete",
             "Automate processing-unit",
             "Automate steel-plate",
-            "rocket-silo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "rocket-silo"
         ]
     },
     "Automate cargo-wagon": {
         "and": [
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
-            "railway",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "railway"
         ]
     },
     "Automate centrifuge": {
         "and": [
             "Automate advanced-circuit",
             "Automate concrete",
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
-            "uranium-processing",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "uranium-processing"
         ]
     },
     "Automate chemical-plant": {
         "and": [
-            "Automate electronic-circuit",
-            "Automate iron-gear-wheel",
-            "Automate pipe",
             "Automate steel-plate",
-            "oil-processing",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "oil-processing"
         ]
     },
     "Automate chemical-science-pack": {
@@ -6091,13 +5206,6 @@ raw_logic_events = {
                     "Access ap-energy-bridge",
                     "Option playing_without_energy_link_mid_game_is_good_enough"
                 ]
-            },
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
             }
         ]
     },
@@ -6107,14 +5215,7 @@ raw_logic_events = {
             "Automate calcite",
             "Automate explosives",
             "Automate grenade",
-            "cliff-explosives",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "cliff-explosives"
         ]
     },
     "Automate cluster-grenade": {
@@ -6122,64 +5223,28 @@ raw_logic_events = {
             "Automate explosives",
             "Automate grenade",
             "Automate steel-plate",
-            "military-4",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military-4"
         ]
     },
     "Automate combat-shotgun": {
         "and": [
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
             "Automate wood",
-            "military-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military-3"
         ]
     },
     "Automate concrete": {
         "or": [
             {
                 "and": [
-                    "Automate water",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access pipe",
-                                    "Automate molten-iron",
-                                    "Operate foundry",
-                                    "foundry"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "concrete",
-                                    {
-                                        "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+                    "Access foundry",
+                    "Automate molten-iron",
+                    "foundry"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -6208,112 +5273,37 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            }
-        ]
-    },
-    "Automate constant-combinator": {
-        "and": [
-            "Automate copper-cable",
-            "Automate electronic-circuit",
-            "circuit-network",
+            },
             {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                "and": [
+                    "concrete",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
                 ]
             }
         ]
     },
     "Automate construction-robot": {
         "and": [
-            "Automate electronic-circuit",
             "Automate flying-robot-frame",
-            "construction-robotics",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate copper-cable": {
-        "or": [
-            {
-                "and": [
-                    "Automate molten-copper",
-                    "Operate foundry",
-                    "foundry"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Automate scrap",
-                                    "recycling"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Option backwards_recycling_is_interesting",
-                                    {
-                                        "or": [
-                                            "Automate advanced-circuit",
-                                            "Automate arithmetic-combinator",
-                                            "Automate beacon",
-                                            "Automate big-electric-pole",
-                                            "Automate constant-combinator",
-                                            "Automate decider-combinator",
-                                            "Automate electronic-circuit",
-                                            "Automate lightning-rod",
-                                            "Automate medium-electric-pole",
-                                            "Automate power-switch",
-                                            "Automate programmable-speaker",
-                                            "Automate railgun-ammo",
-                                            "Automate small-electric-pole",
-                                            "Automate small-lamp",
-                                            "Automate space-platform-foundation",
-                                            "Automate substation"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "electronics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            }
+            "construction-robotics"
         ]
     },
     "Automate crude-oil": {
         "or": [
-            "Operate pumpjack",
+            "Access pumpjack",
             {
                 "and": [
                     "Automate crude-oil-barrel",
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -6327,8 +5317,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -6338,14 +5328,7 @@ raw_logic_events = {
             "Automate electric-engine-unit",
             "Automate low-density-structure",
             "Automate steel-plate",
-            "space-platform",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "space-platform"
         ]
     },
     "Automate cryogenic-plant": {
@@ -6358,43 +5341,30 @@ raw_logic_events = {
             "cryogenic-plant",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate cryogenic-plant"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access cryogenic-plant"
                 ]
             }
         ]
     },
     "Automate cryogenic-science-pack": {
         "and": [
+            "Access cryogenic-plant",
             "Automate fluoroketone-cold",
             "Automate ice",
             "Automate lithium-plate",
-            "Operate cryogenic-plant",
             "Reach aquilo",
             "cryogenic-science-pack"
         ]
     },
     "Automate decider-combinator": {
         "or": [
+            "circuit-network",
             {
                 "and": [
-                    "Automate copper-cable",
-                    "Automate electronic-circuit",
-                    "circuit-network",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
+                    "Access recycler",
                     "Automate selector-combinator",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -6404,24 +5374,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate distractor-capsule",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
                     "Automate piercing-rounds-magazine",
-                    "defender",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "defender"
                 ]
             }
         ]
@@ -6431,14 +5392,7 @@ raw_logic_events = {
             "Automate distractor-capsule",
             "Automate processing-unit",
             "Automate steel-plate",
-            "destroyer",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "destroyer"
         ]
     },
     "Automate discharge-defense-equipment": {
@@ -6446,51 +5400,23 @@ raw_logic_events = {
             "Automate laser-turret",
             "Automate processing-unit",
             "Automate steel-plate",
-            "discharge-defense-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
-        ]
-    },
-    "Automate display-panel": {
-        "and": [
-            "Automate electronic-circuit",
-            "circuit-network",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "discharge-defense-equipment"
         ]
     },
     "Automate distractor-capsule": {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate defender-capsule",
-                    "distractor",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate destroyer-capsule",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate destroyer-capsule",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate defender-capsule",
+                    "distractor"
                 ]
             }
         ]
@@ -6499,22 +5425,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "efficiency-module",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -6523,6 +5434,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate advanced-circuit",
+                    "efficiency-module"
+                ]
             }
         ]
     },
@@ -6530,25 +5447,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate efficiency-module",
-                    "Automate processing-unit",
-                    "efficiency-module-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate efficiency-module-3",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate efficiency-module-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate efficiency-module",
+                    "Automate processing-unit",
+                    "efficiency-module-2"
                 ]
             }
         ]
@@ -6559,36 +5468,14 @@ raw_logic_events = {
             "Automate efficiency-module-2",
             "Automate processing-unit",
             "Automate spoilage",
-            "efficiency-module-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "efficiency-module-3"
         ]
     },
     "Automate electric-engine-unit": {
         "or": [
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate engine-unit",
-                    "Automate lubricant",
-                    "electric-engine",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -6604,6 +5491,19 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate engine-unit",
+                    "Automate lubricant",
+                    "electric-engine",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -6611,47 +5511,26 @@ raw_logic_events = {
         "and": [
             "Automate advanced-circuit",
             "Automate steel-plate",
-            "advanced-material-processing-2",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "advanced-material-processing-2"
         ]
     },
     "Automate electric-mining-drill": {
         "or": [
+            "electric-mining-drill",
             {
                 "and": [
+                    "Access recycler",
                     "Automate big-mining-drill",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "electric-mining-drill",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
                 ]
             }
         ]
     },
     "Automate electrolyte": {
         "and": [
-            "Access pipe",
+            "Access electromagnetic-plant",
             "Automate heavy-oil",
             "Automate holmium-solution",
-            "Operate electromagnetic-plant",
             "electromagnetic-plant"
         ]
     },
@@ -6665,21 +5544,20 @@ raw_logic_events = {
             "electromagnetic-plant",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access electromagnetic-plant"
                 ]
             }
         ]
     },
     "Automate electromagnetic-science-pack": {
         "and": [
-            "Access pipe",
+            "Access electromagnetic-plant",
             "Automate accumulator",
             "Automate electrolyte",
             "Automate holmium-solution",
             "Automate supercapacitor",
-            "Operate electromagnetic-plant",
             "Reach fulgora",
             "electromagnetic-science-pack",
             {
@@ -6690,106 +5568,20 @@ raw_logic_events = {
             }
         ]
     },
-    "Automate electronic-circuit": {
-        "or": [
-            {
-                "and": [
-                    "Automate copper-cable",
-                    "electronics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate active-provider-chest",
-                            "Automate advanced-circuit",
-                            "Automate agricultural-tower",
-                            "Automate arithmetic-combinator",
-                            "Automate assembling-machine-1",
-                            "Automate assembling-machine-2",
-                            "Automate beacon",
-                            "Automate biochamber",
-                            "Automate buffer-chest",
-                            "Automate bulk-inserter",
-                            "Automate chemical-plant",
-                            "Automate constant-combinator",
-                            "Automate construction-robot",
-                            "Automate decider-combinator",
-                            "Automate defender-capsule",
-                            "Automate display-panel",
-                            "Automate efficiency-module",
-                            "Automate electric-engine-unit",
-                            "Automate electric-mining-drill",
-                            "Automate fast-inserter",
-                            "Automate fast-splitter",
-                            "Automate flying-robot-frame",
-                            "Automate foundry",
-                            "Automate gate",
-                            "Automate inserter",
-                            "Automate lab",
-                            "Automate laser-turret",
-                            "Automate locomotive",
-                            "Automate oil-refinery",
-                            "Automate passive-provider-chest",
-                            "Automate poison-capsule",
-                            "Automate power-switch",
-                            "Automate processing-unit",
-                            "Automate productivity-module",
-                            "Automate programmable-speaker",
-                            "Automate pumpjack",
-                            "Automate quality-module",
-                            "Automate radar",
-                            "Automate rail-chain-signal",
-                            "Automate rail-signal",
-                            "Automate repair-pack",
-                            "Automate requester-chest",
-                            "Automate rocket-launcher",
-                            "Automate slowdown-capsule",
-                            "Automate small-lamp",
-                            "Automate solar-panel",
-                            "Automate speed-module",
-                            "Automate splitter",
-                            "Automate storage-chest",
-                            "Automate supercapacitor",
-                            "Automate train-stop"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "Automate energy-shield-equipment": {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate steel-plate",
-                    "energy-shield-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate energy-shield-mk2-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate energy-shield-mk2-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate steel-plate",
+                    "energy-shield-equipment"
                 ]
             }
         ]
@@ -6799,36 +5591,14 @@ raw_logic_events = {
             "Automate energy-shield-equipment",
             "Automate low-density-structure",
             "Automate processing-unit",
-            "energy-shield-mk2-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "energy-shield-mk2-equipment"
         ]
     },
     "Automate engine-unit": {
         "or": [
             {
                 "and": [
-                    "Automate iron-gear-wheel",
-                    "Automate pipe",
-                    "Automate steel-plate",
-                    "engine",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -6842,6 +5612,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate steel-plate",
+                    "engine"
+                ]
             }
         ]
     },
@@ -6849,24 +5625,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate electric-engine-unit",
-                    "Automate processing-unit",
-                    "Automate steel-plate",
-                    "exoskeleton-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate spidertron",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate spidertron",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate electric-engine-unit",
+                    "Automate processing-unit",
+                    "Automate steel-plate",
+                    "exoskeleton-equipment"
                 ]
             }
         ]
@@ -6875,8 +5644,8 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate explosive-uranium-cannon-shell",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -6885,14 +5654,7 @@ raw_logic_events = {
                     "Automate explosives",
                     "Automate plastic-bar",
                     "Automate steel-plate",
-                    "tank",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "tank"
                 ]
             }
         ]
@@ -6901,48 +5663,21 @@ raw_logic_events = {
         "and": [
             "Automate explosives",
             "Automate rocket",
-            "explosive-rocketry",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "explosive-rocketry"
         ]
     },
     "Automate explosive-uranium-cannon-shell": {
         "and": [
             "Automate explosive-cannon-shell",
             "Automate uranium-238",
-            "uranium-ammo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "uranium-ammo"
         ]
     },
     "Automate explosives": {
         "or": [
             {
                 "and": [
-                    "Automate sulfur",
-                    "Automate water",
-                    "explosives",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -6959,6 +5694,18 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate sulfur",
+                    "explosives",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -6966,25 +5713,24 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate fast-splitter",
-                    "Automate iron-gear-wheel",
-                    "Automate lubricant",
-                    "logistics-3",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate turbo-splitter",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate turbo-splitter",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate fast-splitter",
+                    "Automate lubricant",
+                    "logistics-3",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
+                        ]
+                    }
                 ]
             }
         ]
@@ -6993,24 +5739,23 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate fast-transport-belt",
-                    "Automate iron-gear-wheel",
-                    "Automate lubricant",
-                    "logistics-3",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate turbo-transport-belt",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate turbo-transport-belt",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate fast-transport-belt",
+                    "Automate lubricant",
+                    "logistics-3",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
+                        ]
+                    }
                 ]
             }
         ]
@@ -7019,49 +5764,35 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate fast-underground-belt",
-                    "Automate iron-gear-wheel",
-                    "Automate lubricant",
-                    "logistics-3",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate turbo-underground-belt",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate turbo-underground-belt",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate fast-underground-belt",
+                    "Automate lubricant",
+                    "logistics-3",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
+                        ]
+                    }
                 ]
             }
         ]
     },
     "Automate fast-inserter": {
         "or": [
+            "fast-inserter",
             {
                 "and": [
+                    "Access recycler",
                     "Automate bulk-inserter",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Automate electronic-circuit",
-                    "Automate inserter",
-                    "fast-inserter",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
                 ]
             }
         ]
@@ -7070,51 +5801,27 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "Automate splitter",
-                    "logistics-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate express-splitter",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate express-splitter",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate splitter",
+                    "logistics-2"
                 ]
             }
         ]
     },
     "Automate fast-transport-belt": {
         "or": [
+            "logistics-2",
             {
                 "and": [
+                    "Access recycler",
                     "Automate express-transport-belt",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Automate iron-gear-wheel",
-                    "Automate transport-belt",
-                    "logistics-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
                 ]
             }
         ]
@@ -7123,38 +5830,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate express-underground-belt",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate iron-gear-wheel",
                     "Automate underground-belt",
-                    "logistics-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate firearm-magazine": {
-        "or": [
-            "Operate assembling-machine-1",
-            "Operate assembling-machine-2",
-            "Operate assembling-machine-3",
-            {
-                "and": [
-                    "Automate piercing-rounds-magazine",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "logistics-2"
                 ]
             }
         ]
@@ -7163,22 +5847,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate low-density-structure",
-                    "Automate processing-unit",
-                    "Automate uranium-fuel-cell",
-                    "fission-reactor-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7187,60 +5856,42 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate low-density-structure",
+                    "Automate processing-unit",
+                    "Automate uranium-fuel-cell",
+                    "fission-reactor-equipment"
+                ]
             }
         ]
     },
     "Automate flamethrower": {
         "and": [
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
-            "flamethrower",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "flamethrower"
         ]
     },
     "Automate flamethrower-turret": {
         "and": [
             "Automate engine-unit",
-            "Automate iron-gear-wheel",
-            "Automate pipe",
             "Automate steel-plate",
-            "flamethrower",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "flamethrower"
         ]
     },
     "Automate fluid-wagon": {
         "and": [
-            "Automate iron-gear-wheel",
-            "Automate pipe",
             "Automate steel-plate",
             "Automate storage-tank",
-            "fluid-wagon",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "fluid-wagon"
         ]
     },
     "Automate fluorine": {
         "and": [
+            "Access pumpjack",
             "Can build on ice platforms",
             "Can heat buildings",
-            "Operate pumpjack",
             "Reach aquilo"
         ]
     },
@@ -7248,21 +5899,21 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate fluoroketone-cold-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access cryogenic-plant",
+                    "Automate fluoroketone-hot",
+                    "cryogenic-plant"
                 ]
             },
             {
                 "and": [
-                    "Automate fluoroketone-hot",
-                    "Operate cryogenic-plant",
-                    "cryogenic-plant"
+                    "Automate fluoroketone-cold-barrel",
+                    "fluid-handling",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
                 ]
             }
         ]
@@ -7274,8 +5925,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -7284,12 +5935,11 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access pipe",
+                    "Access cryogenic-plant",
                     "Automate ammonia",
                     "Automate fluorine",
                     "Automate lithium",
                     "Automate solid-fuel",
-                    "Operate cryogenic-plant",
                     "cryogenic-plant"
                 ]
             },
@@ -7299,8 +5949,8 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -7314,8 +5964,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -7324,23 +5974,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate battery",
-                    "Automate electric-engine-unit",
-                    "Automate electronic-circuit",
-                    "Automate steel-plate",
-                    "robotics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7349,6 +5983,14 @@ raw_logic_events = {
                             "Automate logistic-robot"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Automate battery",
+                    "Automate electric-engine-unit",
+                    "Automate steel-plate",
+                    "robotics"
                 ]
             }
         ]
@@ -7362,15 +6004,14 @@ raw_logic_events = {
             "foundation",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
     },
     "Automate foundry": {
         "and": [
-            "Automate electronic-circuit",
             "Automate lubricant",
             "Automate refined-concrete",
             "Automate steel-plate",
@@ -7379,19 +6020,19 @@ raw_logic_events = {
             "foundry",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate foundry"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
+                    "Access foundry"
                 ]
             }
         ]
     },
     "Automate fusion-generator": {
         "and": [
+            "Access cryogenic-plant",
             "Automate quantum-processor",
             "Automate superconductor",
             "Automate tungsten-plate",
-            "Operate cryogenic-plant",
             "Reach aquilo",
             "fusion-reactor"
         ]
@@ -7400,17 +6041,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access cryogenic-plant",
                     "Automate ammonia",
                     "Automate holmium-plate",
                     "Automate lithium-plate",
-                    "Operate cryogenic-plant",
                     "fusion-reactor"
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Automate fusion-reactor-equipment",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -7418,10 +6059,10 @@ raw_logic_events = {
     },
     "Automate fusion-reactor": {
         "and": [
+            "Access cryogenic-plant",
             "Automate quantum-processor",
             "Automate superconductor",
             "Automate tungsten-plate",
-            "Operate cryogenic-plant",
             "Reach aquilo",
             "fusion-reactor"
         ]
@@ -7434,36 +6075,22 @@ raw_logic_events = {
             "Automate quantum-processor",
             "Automate supercapacitor",
             "Automate tungsten-plate",
-            "fusion-reactor-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "fusion-reactor-equipment"
         ]
     },
     "Automate gate": {
         "and": [
-            "Automate electronic-circuit",
             "Automate steel-plate",
             "Automate stone-wall",
-            "gate",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "gate"
         ]
     },
     "Automate grenade": {
         "or": [
+            "military-2",
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7472,178 +6099,69 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            },
-            {
-                "and": [
-                    "military-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate gun-turret": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "gun-turret",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
             }
         ]
     },
     "Automate hazard-concrete": {
         "and": [
             "Automate concrete",
-            "concrete",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "concrete"
         ]
     },
     "Automate heat-exchanger": {
         "and": [
-            "Automate pipe",
             "Automate steel-plate",
-            "Learn heat-exchanger",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "Learn heat-exchanger"
         ]
     },
     "Automate heat-pipe": {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate heating-tower",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
                     "Automate steel-plate",
-                    "Learn heat-pipe",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Learn heat-pipe"
                 ]
             }
         ]
     },
     "Automate heating-tower": {
         "and": [
-            "Automate boiler",
             "Automate concrete",
             "Automate heat-pipe",
-            "heating-tower",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "heating-tower"
         ]
     },
     "Automate heavy-armor": {
         "and": [
             "Automate steel-plate",
-            "heavy-armor",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "heavy-armor"
         ]
     },
     "Automate heavy-oil": {
         "or": [
             {
                 "and": [
-                    "Access offshore-pump",
-                    "Can harness lightning",
-                    "Reach fulgora"
-                ]
-            },
-            {
-                "and": [
-                    "Automate heavy-oil-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate oil-refinery",
+                    "Access oil-refinery",
                     {
                         "or": [
                             {
                                 "and": [
-                                    "Access pipe",
+                                    "Access heavy-oil",
+                                    "coal-liquefaction",
                                     {
                                         "or": [
+                                            "Option direct_pipes_is_good_enough",
                                             {
                                                 "and": [
-                                                    "Access heavy-oil",
-                                                    "Automate steam",
-                                                    "coal-liquefaction",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "and": [
-                                                    "Automate crude-oil",
-                                                    "Automate water",
-                                                    "advanced-oil-processing",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
+                                                    "Access pump",
+                                                    "Access storage-tank"
                                                 ]
                                             }
                                         ]
@@ -7656,9 +6174,44 @@ raw_logic_events = {
                                     "Automate sulfuric-acid",
                                     "calcite-processing"
                                 ]
+                            },
+                            {
+                                "and": [
+                                    "Automate crude-oil",
+                                    "advanced-oil-processing",
+                                    {
+                                        "or": [
+                                            "Option direct_pipes_is_good_enough",
+                                            {
+                                                "and": [
+                                                    "Access pump",
+                                                    "Access storage-tank"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Automate heavy-oil-barrel",
+                    "fluid-handling",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "Can harness lightning",
+                    "Reach fulgora"
                 ]
             }
         ]
@@ -7670,16 +6223,16 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
     },
     "Automate holmium-ore": {
         "and": [
+            "Access recycler",
             "Automate scrap",
-            "Operate recycler",
             "recycling"
         ]
     },
@@ -7687,20 +6240,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate holmium-solution",
-                    "holmium-processing",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7711,14 +6251,26 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate holmium-solution",
+                    "holmium-processing",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access foundry"
+                        ]
+                    }
+                ]
             }
         ]
     },
     "Automate holmium-solution": {
         "and": [
+            "Access chemical-plant",
             "Automate holmium-ore",
-            "Automate water",
-            "Operate chemical-plant",
             "holmium-processing"
         ]
     },
@@ -7726,31 +6278,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate ammoniacal-solution",
-                    "planet-discovery-aquilo",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Automate oxide-asteroid-chunk",
-                    "Operate crusher",
-                    {
-                        "or": [
-                            "advanced-asteroid-processing",
-                            "space-platform"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -7768,6 +6296,30 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate ammoniacal-solution",
+                    "planet-discovery-aquilo",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "Automate oxide-asteroid-chunk",
+                    "Operate crusher",
+                    {
+                        "or": [
+                            "advanced-asteroid-processing",
+                            "space-platform"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -7778,147 +6330,25 @@ raw_logic_events = {
             "planet-discovery-aquilo",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate inserter": {
-        "or": [
-            {
-                "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "electronics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate fast-inserter",
-                            "Automate long-handed-inserter"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate iron-gear-wheel": {
-        "or": [
-            "Operate assembling-machine-1",
-            "Operate assembling-machine-2",
-            "Operate assembling-machine-3",
-            {
-                "and": [
-                    "Automate molten-iron",
-                    "Operate foundry",
-                    "foundry"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Automate scrap",
-                                    "recycling"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Option backwards_recycling_is_interesting",
-                                    {
-                                        "or": [
-                                            "Automate artillery-turret",
-                                            "Automate artillery-wagon",
-                                            "Automate assembling-machine-1",
-                                            "Automate assembling-machine-2",
-                                            "Automate bulk-inserter",
-                                            "Automate burner-inserter",
-                                            "Automate burner-mining-drill",
-                                            "Automate cargo-wagon",
-                                            "Automate centrifuge",
-                                            "Automate chemical-plant",
-                                            "Automate combat-shotgun",
-                                            "Automate defender-capsule",
-                                            "Automate electric-mining-drill",
-                                            "Automate engine-unit",
-                                            "Automate express-splitter",
-                                            "Automate express-transport-belt",
-                                            "Automate express-underground-belt",
-                                            "Automate fast-splitter",
-                                            "Automate fast-transport-belt",
-                                            "Automate fast-underground-belt",
-                                            "Automate flamethrower",
-                                            "Automate flamethrower-turret",
-                                            "Automate fluid-wagon",
-                                            "Automate gun-turret",
-                                            "Automate inserter",
-                                            "Automate lab",
-                                            "Automate long-handed-inserter",
-                                            "Automate offshore-pump",
-                                            "Automate oil-refinery",
-                                            "Automate personal-roboport-equipment",
-                                            "Automate pumpjack",
-                                            "Automate radar",
-                                            "Automate recycler",
-                                            "Automate repair-pack",
-                                            "Automate roboport",
-                                            "Automate rocket-launcher",
-                                            "Automate rocket-turret",
-                                            "Automate shotgun",
-                                            "Automate steam-engine",
-                                            "Automate steam-turbine",
-                                            "Automate submachine-gun",
-                                            "Automate tank",
-                                            "Automate transport-belt"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
     },
     "Automate iron-stick": {
         "or": [
+            "Learn iron-stick",
             {
                 "and": [
+                    "Access foundry",
                     "Automate molten-iron",
-                    "Operate foundry",
                     "foundry"
                 ]
             },
             {
                 "and": [
-                    "Learn iron-stick",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7938,30 +6368,30 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate jellynut",
-                    "jellynut",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate biochamber"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate stack-inserter",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate stack-inserter",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate jellynut",
+                    "jellynut",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Operate biochamber"
+                        ]
+                    }
                 ]
             }
         ]
     },
     "Automate jellynut": {
         "and": [
+            "Access agricultural-tower",
             "Access jellynut-seed",
-            "Operate agricultural-tower",
             "Reach gleba"
         ]
     },
@@ -7969,20 +6399,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate jellynut",
-                    "jellynut",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate biochamber"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -7991,20 +6408,18 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            }
-        ]
-    },
-    "Automate lab": {
-        "and": [
-            "Automate electronic-circuit",
-            "Automate iron-gear-wheel",
-            "Automate transport-belt",
-            "electronics",
+            },
             {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                "and": [
+                    "Automate jellynut",
+                    "jellynut",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Operate biochamber"
+                        ]
+                    }
                 ]
             }
         ]
@@ -8013,21 +6428,15 @@ raw_logic_events = {
         "and": [
             "Automate explosives",
             "Automate steel-plate",
-            "land-mine",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "land-mine"
         ]
     },
     "Automate landfill": {
         "or": [
+            "landfill",
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -8038,18 +6447,6 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            },
-            {
-                "and": [
-                    "landfill",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
             }
         ]
     },
@@ -8057,22 +6454,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate battery",
-                    "Automate electronic-circuit",
-                    "Automate steel-plate",
-                    "laser-turret",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -8081,6 +6463,13 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate battery",
+                    "Automate steel-plate",
+                    "laser-turret"
+                ]
             }
         ]
     },
@@ -8088,15 +6477,43 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access pipe",
+                    "Access heavy-oil",
+                    "Access oil-refinery",
+                    "coal-liquefaction",
+                    {
+                        "or": [
+                            "Option direct_pipes_is_good_enough",
+                            {
+                                "and": [
+                                    "Access pump",
+                                    "Access storage-tank"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "Automate light-oil-barrel",
+                    "fluid-handling",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "advanced-oil-processing",
                     {
                         "or": [
                             {
                                 "and": [
-                                    "Access heavy-oil",
-                                    "Automate steam",
-                                    "Operate oil-refinery",
-                                    "coal-liquefaction",
+                                    "Access oil-refinery",
+                                    "Automate crude-oil",
                                     {
                                         "or": [
                                             "Option direct_pipes_is_good_enough",
@@ -8112,54 +6529,15 @@ raw_logic_events = {
                             },
                             {
                                 "and": [
-                                    "Automate water",
-                                    "advanced-oil-processing",
+                                    "Automate heavy-oil",
                                     {
                                         "or": [
-                                            {
-                                                "and": [
-                                                    "Automate crude-oil",
-                                                    "Operate oil-refinery",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "and": [
-                                                    "Automate heavy-oil",
-                                                    {
-                                                        "or": [
-                                                            "Operate biochamber",
-                                                            "Operate chemical-plant"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Access chemical-plant",
+                                            "Operate biochamber"
                                         ]
                                     }
                                 ]
                             }
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Automate light-oil-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
                         ]
                     }
                 ]
@@ -8173,19 +6551,19 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
     },
     "Automate lightning-collector": {
         "and": [
+            "Access electromagnetic-plant",
             "Automate accumulator",
             "Automate electrolyte",
             "Automate lightning-rod",
             "Automate supercapacitor",
-            "Operate electromagnetic-plant",
             "Reach fulgora",
             "lightning-collector"
         ]
@@ -8194,49 +6572,39 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate copper-cable",
-                    "Automate steel-plate",
-                    "Reach fulgora",
-                    "planet-discovery-fulgora",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate lightning-collector",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate lightning-collector",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate steel-plate",
+                    "Reach fulgora",
+                    "planet-discovery-fulgora"
                 ]
             }
         ]
     },
     "Automate lithium": {
         "and": [
-            "Access pipe",
             "Automate ammonia",
             "Automate holmium-plate",
             "Automate lithium-brine",
             "lithium-processing",
             {
                 "or": [
-                    "Operate chemical-plant",
-                    "Operate cryogenic-plant"
+                    "Access chemical-plant",
+                    "Access cryogenic-plant"
                 ]
             }
         ]
     },
     "Automate lithium-brine": {
         "and": [
+            "Access pumpjack",
             "Can build on ice platforms",
             "Can heat buildings",
-            "Operate pumpjack",
             "Reach aquilo"
         ]
     },
@@ -8244,13 +6612,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate lithium",
-                    "lithium-processing"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -8260,42 +6622,31 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate lithium",
+                    "lithium-processing"
+                ]
             }
         ]
     },
     "Automate locomotive": {
         "and": [
-            "Automate electronic-circuit",
             "Automate engine-unit",
             "Automate steel-plate",
-            "railway",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "railway"
         ]
     },
     "Automate logistic-robot": {
         "and": [
             "Automate advanced-circuit",
             "Automate flying-robot-frame",
-            "logistic-robotics",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "logistic-robotics"
         ]
     },
     "Automate logistic-science-pack": {
         "and": [
-            "Automate inserter",
-            "Automate transport-belt",
             "logistic-science-pack",
             {
                 "or": [
@@ -8311,13 +6662,6 @@ raw_logic_events = {
             },
             {
                 "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            },
-            {
-                "or": [
                     "Option inserter_balancing_is_good_enough",
                     {
                         "and": [
@@ -8329,56 +6673,11 @@ raw_logic_events = {
             }
         ]
     },
-    "Automate long-handed-inserter": {
-        "and": [
-            "Automate inserter",
-            "Automate iron-gear-wheel",
-            "automation",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
     "Automate low-density-structure": {
         "or": [
             {
                 "and": [
-                    "Automate plastic-bar",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access pipe",
-                                    "Automate molten-copper",
-                                    "Automate molten-iron",
-                                    "Operate foundry",
-                                    "foundry"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate steel-plate",
-                                    "low-density-structure",
-                                    {
-                                        "or": [
-                                            "Operate assembling-machine-1",
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -8407,6 +6706,29 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate plastic-bar",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "Access foundry",
+                                    "Automate molten-copper",
+                                    "Automate molten-iron",
+                                    "foundry"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "Automate steel-plate",
+                                    "low-density-structure"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -8414,8 +6736,8 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access chemical-plant",
                     "Automate heavy-oil",
-                    "Operate chemical-plant",
                     "lubricant"
                 ]
             },
@@ -8432,8 +6754,8 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
                 ]
@@ -8447,8 +6769,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -8460,30 +6782,14 @@ raw_logic_events = {
             "Automate processing-unit",
             "Automate supercapacitor",
             "Automate superconductor",
-            "mech-armor",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "mech-armor"
         ]
     },
     "Automate medium-electric-pole": {
         "and": [
-            "Automate copper-cable",
             "Automate iron-stick",
             "Automate steel-plate",
-            "electric-energy-distribution-1",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "electric-energy-distribution-1"
         ]
     },
     "Automate metallic-asteroid-chunk": {
@@ -8561,10 +6867,10 @@ raw_logic_events = {
     },
     "Automate metallurgic-science-pack": {
         "and": [
+            "Access foundry",
             "Automate molten-copper",
             "Automate tungsten-carbide",
             "Automate tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "metallurgic-science-pack"
         ]
@@ -8574,41 +6880,27 @@ raw_logic_events = {
             "Automate grenade",
             "Automate piercing-rounds-magazine",
             "Automate stone-wall",
-            "military-science-pack",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military-science-pack"
         ]
     },
     "Automate modular-armor": {
         "and": [
             "Automate advanced-circuit",
             "Automate steel-plate",
-            "modular-armor",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "modular-armor"
         ]
     },
     "Automate molten-copper": {
         "and": [
+            "Access foundry",
             "Automate calcite",
-            "Operate foundry",
             "foundry"
         ]
     },
     "Automate molten-iron": {
         "and": [
+            "Access foundry",
             "Automate calcite",
-            "Operate foundry",
             "foundry"
         ]
     },
@@ -8616,21 +6908,14 @@ raw_logic_events = {
         "and": [
             "Automate advanced-circuit",
             "Automate steel-plate",
-            "night-vision-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "night-vision-equipment"
         ]
     },
     "Automate nuclear-fuel": {
         "and": [
+            "Access centrifuge",
             "Automate rocket-fuel",
             "Automate uranium-235",
-            "Operate centrifuge",
             "kovarex-enrichment-process"
         ]
     },
@@ -8639,26 +6924,32 @@ raw_logic_events = {
             "Automate advanced-circuit",
             "Automate concrete",
             "Automate steel-plate",
-            "nuclear-power",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "nuclear-power"
         ]
     },
     "Automate nutrients": {
         "or": [
             {
                 "and": [
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting",
+                    {
+                        "or": [
+                            "Automate artificial-jellynut-soil",
+                            "Automate artificial-yumako-soil",
+                            "Automate biochamber"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
                     "Automate biter-egg",
                     "captivity",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
                             "Operate biochamber"
                         ]
                     }
@@ -8670,8 +6961,8 @@ raw_logic_events = {
                     "fish-breeding",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
                             "Operate biochamber"
                         ]
                     }
@@ -8697,50 +6988,13 @@ raw_logic_events = {
                         ]
                     }
                 ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate artificial-jellynut-soil",
-                            "Automate artificial-yumako-soil",
-                            "Automate biochamber"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate offshore-pump": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "Automate pipe",
-            "steam-power",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
             }
         ]
     },
     "Automate oil-refinery": {
         "and": [
-            "Automate electronic-circuit",
-            "Automate iron-gear-wheel",
-            "Automate pipe",
             "Automate steel-plate",
-            "oil-processing",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "oil-processing"
         ]
     },
     "Automate overgrowth-jellynut-soil": {
@@ -8749,13 +7003,12 @@ raw_logic_events = {
             "Automate biter-egg",
             "Automate jellynut-seed",
             "Automate spoilage",
-            "Automate water",
             "Reach gleba",
             "overgrowth-soil",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -8765,14 +7018,13 @@ raw_logic_events = {
             "Automate artificial-yumako-soil",
             "Automate biter-egg",
             "Automate spoilage",
-            "Automate water",
             "Automate yumako-seed",
             "Reach gleba",
             "overgrowth-soil",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -8853,16 +7105,8 @@ raw_logic_events = {
     "Automate passive-provider-chest": {
         "and": [
             "Automate advanced-circuit",
-            "Automate electronic-circuit",
             "Automate steel-chest",
-            "Learn passive-provider-chest",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "Learn passive-provider-chest"
         ]
     },
     "Automate pentapod-egg": {
@@ -8871,7 +7115,6 @@ raw_logic_events = {
                 "and": [
                     "Access pentapod-egg",
                     "Automate nutrients",
-                    "Automate water",
                     "Operate biochamber",
                     "Reach gleba",
                     "biochamber"
@@ -8879,8 +7122,8 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Access recycler",
                     "Automate biochamber",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -8891,39 +7134,24 @@ raw_logic_events = {
             "Automate laser-turret",
             "Automate low-density-structure",
             "Automate processing-unit",
-            "personal-laser-defense-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "personal-laser-defense-equipment"
         ]
     },
     "Automate personal-roboport-equipment": {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate battery",
-                    "Automate iron-gear-wheel",
-                    "Automate steel-plate",
-                    "personal-roboport-equipment",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate personal-roboport-mk2-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate personal-roboport-mk2-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate battery",
+                    "Automate steel-plate",
+                    "personal-roboport-equipment"
                 ]
             }
         ]
@@ -8933,28 +7161,19 @@ raw_logic_events = {
             "Automate personal-roboport-equipment",
             "Automate processing-unit",
             "Automate superconductor",
-            "personal-roboport-mk2-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "personal-roboport-mk2-equipment"
         ]
     },
     "Automate petroleum-gas": {
         "or": [
             {
                 "and": [
-                    "Access pipe",
+                    "Access oil-refinery",
                     {
                         "or": [
                             {
                                 "and": [
                                     "Access heavy-oil",
-                                    "Automate steam",
-                                    "Operate oil-refinery",
                                     "coal-liquefaction",
                                     {
                                         "or": [
@@ -8971,40 +7190,8 @@ raw_logic_events = {
                             },
                             {
                                 "and": [
-                                    "Automate water",
-                                    "advanced-oil-processing",
-                                    {
-                                        "or": [
-                                            {
-                                                "and": [
-                                                    "Automate crude-oil",
-                                                    "Operate oil-refinery",
-                                                    {
-                                                        "or": [
-                                                            "Option direct_pipes_is_good_enough",
-                                                            {
-                                                                "and": [
-                                                                    "Access pump",
-                                                                    "Access storage-tank"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "and": [
-                                                    "Automate light-oil",
-                                                    {
-                                                        "or": [
-                                                            "Operate biochamber",
-                                                            "Operate chemical-plant"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
+                                    "Automate crude-oil",
+                                    "oil-processing"
                                 ]
                             }
                         ]
@@ -9013,19 +7200,49 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Automate crude-oil",
-                    "Operate oil-refinery",
-                    "oil-processing"
-                ]
-            },
-            {
-                "and": [
                     "Automate petroleum-gas-barrel",
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "and": [
+                    "advanced-oil-processing",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "Access oil-refinery",
+                                    "Automate crude-oil",
+                                    {
+                                        "or": [
+                                            "Option direct_pipes_is_good_enough",
+                                            {
+                                                "and": [
+                                                    "Access pump",
+                                                    "Access storage-tank"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "Automate light-oil",
+                                    {
+                                        "or": [
+                                            "Access chemical-plant",
+                                            "Operate biochamber"
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ]
@@ -9039,8 +7256,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -9049,21 +7266,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate firearm-magazine",
-                    "Automate steel-plate",
-                    "military-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -9072,6 +7275,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate steel-plate",
+                    "military-2"
+                ]
             }
         ]
     },
@@ -9079,93 +7288,27 @@ raw_logic_events = {
         "and": [
             "Automate shotgun-shell",
             "Automate steel-plate",
-            "military-4",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate pipe": {
-        "or": [
-            {
-                "and": [
-                    "Automate molten-iron",
-                    "Operate foundry",
-                    "foundry"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate boiler",
-                            "Automate chemical-plant",
-                            "Automate engine-unit",
-                            "Automate flamethrower-turret",
-                            "Automate fluid-wagon",
-                            "Automate heat-exchanger",
-                            "Automate offshore-pump",
-                            "Automate oil-refinery",
-                            "Automate pipe-to-ground",
-                            "Automate pump",
-                            "Automate pumpjack",
-                            "Automate rocket-silo",
-                            "Automate steam-engine",
-                            "Automate steam-turbine"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "steam-power",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate pipe-to-ground": {
-        "and": [
-            "Automate pipe",
-            {
-                "or": [
-                    {
-                        "and": [
-                            "Automate molten-iron",
-                            "Operate foundry",
-                            "foundry"
-                        ]
-                    },
-                    {
-                        "and": [
-                            "steam-power",
-                            {
-                                "or": [
-                                    "Operate assembling-machine-1",
-                                    "Operate assembling-machine-2",
-                                    "Operate assembling-machine-3"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
+            "military-4"
         ]
     },
     "Automate plastic-bar": {
         "or": [
+            {
+                "and": [
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting",
+                    {
+                        "or": [
+                            "Automate advanced-circuit",
+                            "Automate cannon-shell",
+                            "Automate explosive-cannon-shell",
+                            "Automate low-density-structure",
+                            "Automate tesla-ammo",
+                            "Automate teslagun"
+                        ]
+                    }
+                ]
+            },
             {
                 "and": [
                     "Automate bioflux",
@@ -9180,24 +7323,8 @@ raw_logic_events = {
                     "plastics",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate advanced-circuit",
-                            "Automate cannon-shell",
-                            "Automate explosive-cannon-shell",
-                            "Automate low-density-structure",
-                            "Automate tesla-ammo",
-                            "Automate teslagun"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -9206,16 +7333,8 @@ raw_logic_events = {
     },
     "Automate poison-capsule": {
         "and": [
-            "Automate electronic-circuit",
             "Automate steel-plate",
-            "military-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military-3"
         ]
     },
     "Automate power-armor": {
@@ -9223,18 +7342,18 @@ raw_logic_events = {
             "Automate electric-engine-unit",
             "Automate processing-unit",
             "Automate steel-plate",
-            "power-armor",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "power-armor"
         ]
     },
     "Automate power-armor-mk2": {
         "or": [
+            {
+                "and": [
+                    "Access recycler",
+                    "Automate mech-armor",
+                    "Option backwards_recycling_is_interesting"
+                ]
+            },
             {
                 "and": [
                     "Automate efficiency-module",
@@ -9242,35 +7361,7 @@ raw_logic_events = {
                     "Automate low-density-structure",
                     "Automate processing-unit",
                     "Automate speed-module",
-                    "power-armor-mk2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Automate mech-armor",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            }
-        ]
-    },
-    "Automate power-switch": {
-        "and": [
-            "Automate copper-cable",
-            "Automate electronic-circuit",
-            "circuit-network",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "power-armor-mk2"
                 ]
             }
         ]
@@ -9279,22 +7370,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "Automate sulfuric-acid",
-                    "processing-unit",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -9352,6 +7428,20 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate advanced-circuit",
+                    "Automate sulfuric-acid",
+                    "processing-unit",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Access electromagnetic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -9361,13 +7451,6 @@ raw_logic_events = {
             "Automate productivity-module",
             "Automate rail",
             "production-science-pack",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            },
             {
                 "or": [
                     "Option hand_building_is_good_enough",
@@ -9386,24 +7469,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "productivity-module",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate productivity-module-2",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate productivity-module-2",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "productivity-module"
                 ]
             }
         ]
@@ -9412,25 +7486,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate processing-unit",
-                    "Automate productivity-module",
-                    "productivity-module-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate productivity-module-3",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate productivity-module-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate processing-unit",
+                    "Automate productivity-module",
+                    "productivity-module-2"
                 ]
             }
         ]
@@ -9441,30 +7507,13 @@ raw_logic_events = {
             "Automate biter-egg",
             "Automate processing-unit",
             "Automate productivity-module-2",
-            "productivity-module-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "productivity-module-3"
         ]
     },
     "Automate programmable-speaker": {
         "and": [
-            "Automate copper-cable",
-            "Automate electronic-circuit",
             "Automate iron-stick",
-            "circuit-network",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "circuit-network"
         ]
     },
     "Automate promethium-asteroid-chunk": {
@@ -9483,10 +7532,10 @@ raw_logic_events = {
     },
     "Automate promethium-science-pack": {
         "and": [
+            "Access cryogenic-plant",
             "Automate biter-egg",
             "Automate promethium-asteroid-chunk",
             "Automate quantum-processor",
-            "Operate cryogenic-plant",
             "promethium-science-pack",
             {
                 "or": [
@@ -9513,56 +7562,29 @@ raw_logic_events = {
     "Automate pump": {
         "and": [
             "Automate engine-unit",
-            "Automate pipe",
             "Automate steel-plate",
-            "fluid-handling",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "fluid-handling"
         ]
     },
     "Automate pumpjack": {
         "and": [
-            "Automate electronic-circuit",
-            "Automate iron-gear-wheel",
-            "Automate pipe",
             "Automate steel-plate",
-            "oil-gathering",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "oil-gathering"
         ]
     },
     "Automate quality-module": {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "quality-module",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate quality-module-2",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate quality-module-2",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "quality-module"
                 ]
             }
         ]
@@ -9571,25 +7593,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate processing-unit",
-                    "Automate quality-module",
-                    "quality-module-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate quality-module-3",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate quality-module-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate processing-unit",
+                    "Automate quality-module",
+                    "quality-module-2"
                 ]
             }
         ]
@@ -9600,28 +7614,20 @@ raw_logic_events = {
             "Automate processing-unit",
             "Automate quality-module-2",
             "Automate superconductor",
-            "quality-module-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "quality-module-3"
         ]
     },
     "Automate quantum-processor": {
         "or": [
             {
                 "and": [
+                    "Access electromagnetic-plant",
                     "Automate carbon-fiber",
                     "Automate fluoroketone-cold",
                     "Automate lithium-plate",
                     "Automate processing-unit",
                     "Automate superconductor",
                     "Automate tungsten-carbide",
-                    "Operate electromagnetic-plant",
                     "quantum-processor",
                     {
                         "or": [
@@ -9648,7 +7654,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -9665,23 +7671,10 @@ raw_logic_events = {
     },
     "Automate radar": {
         "or": [
+            "radar",
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "radar",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -9697,36 +7690,16 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate iron-stick",
-                    "Automate steel-plate",
-                    "railway",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate rail-ramp",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate rail-ramp",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
-                ]
-            }
-        ]
-    },
-    "Automate rail-chain-signal": {
-        "and": [
-            "Automate electronic-circuit",
-            "automated-rail-transportation",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Automate iron-stick",
+                    "Automate steel-plate",
+                    "railway"
                 ]
             }
         ]
@@ -9736,76 +7709,41 @@ raw_logic_events = {
             "Automate rail",
             "Automate refined-concrete",
             "Automate steel-plate",
-            "elevated-rail",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate rail-signal": {
-        "and": [
-            "Automate electronic-circuit",
-            "automated-rail-transportation",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "elevated-rail"
         ]
     },
     "Automate rail-support": {
         "and": [
             "Automate refined-concrete",
             "Automate steel-plate",
-            "elevated-rail",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "elevated-rail"
         ]
     },
     "Automate railgun": {
         "and": [
+            "Access cryogenic-plant",
             "Automate fluoroketone-cold",
             "Automate quantum-processor",
             "Automate superconductor",
             "Automate tungsten-plate",
-            "Operate cryogenic-plant",
             "railgun"
         ]
     },
     "Automate railgun-ammo": {
         "and": [
-            "Automate copper-cable",
             "Automate explosives",
             "Automate steel-plate",
-            "railgun",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "railgun"
         ]
     },
     "Automate railgun-turret": {
         "and": [
+            "Access cryogenic-plant",
             "Automate carbon-fiber",
             "Automate fluoroketone-cold",
             "Automate quantum-processor",
             "Automate superconductor",
             "Automate tungsten-plate",
-            "Operate cryogenic-plant",
             "railgun"
         ]
     },
@@ -9813,22 +7751,21 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate nutrients",
-                    "Automate water",
-                    "fish-breeding",
-                    {
-                        "or": [
-                            "Operate biochamber",
-                            "Operate chemical-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate spidertron",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate spidertron",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate nutrients",
+                    "fish-breeding",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Operate biochamber"
+                        ]
+                    }
                 ]
             }
         ]
@@ -9836,40 +7773,17 @@ raw_logic_events = {
     "Automate recycler": {
         "and": [
             "Automate concrete",
-            "Automate iron-gear-wheel",
             "Automate processing-unit",
             "Automate steel-plate",
             "Reach fulgora",
-            "recycling",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "recycling"
         ]
     },
     "Automate refined-concrete": {
         "or": [
             {
                 "and": [
-                    "Automate concrete",
-                    "Automate iron-stick",
-                    "Automate steel-plate",
-                    "Automate water",
-                    "concrete",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -9884,86 +7798,56 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate concrete",
+                    "Automate iron-stick",
+                    "Automate steel-plate",
+                    "concrete",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
             }
         ]
     },
     "Automate refined-hazard-concrete": {
         "and": [
             "Automate refined-concrete",
-            "concrete",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate repair-pack": {
-        "and": [
-            "Automate electronic-circuit",
-            "Automate iron-gear-wheel",
-            "repair-pack",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "concrete"
         ]
     },
     "Automate requester-chest": {
         "and": [
             "Automate advanced-circuit",
-            "Automate electronic-circuit",
             "Automate steel-chest",
-            "logistic-system",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "logistic-system"
         ]
     },
     "Automate roboport": {
         "and": [
             "Automate advanced-circuit",
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
-            "Learn roboport",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "Learn roboport"
         ]
     },
     "Automate rocket": {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate explosive-rocket",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
                     "Automate explosives",
-                    "rocketry",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "rocketry"
                 ]
             }
         ]
@@ -9972,18 +7856,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate bioflux",
-                    "Automate jelly",
-                    "Automate water",
-                    "Operate biochamber",
-                    "bioflux-processing"
+                    "Access recycler",
+                    "Automate nuclear-fuel",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate nuclear-fuel",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate bioflux",
+                    "Automate jelly",
+                    "Operate biochamber",
+                    "bioflux-processing"
                 ]
             },
             {
@@ -9993,14 +7876,12 @@ raw_logic_events = {
                         "or": [
                             {
                                 "and": [
-                                    "Access pipe",
                                     "Automate ammonia",
-                                    "Automate water",
                                     "planet-discovery-aquilo",
                                     {
                                         "or": [
-                                            "Operate chemical-plant",
-                                            "Operate cryogenic-plant"
+                                            "Access chemical-plant",
+                                            "Access cryogenic-plant"
                                         ]
                                     }
                                 ]
@@ -10011,8 +7892,8 @@ raw_logic_events = {
                                     "rocket-fuel",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3",
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3",
                                             "Operate biochamber"
                                         ]
                                     }
@@ -10026,24 +7907,11 @@ raw_logic_events = {
     },
     "Automate rocket-launcher": {
         "or": [
+            "rocketry",
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate iron-gear-wheel",
-                    "rocketry",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
+                    "Access recycler",
                     "Automate rocket-turret",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -10051,10 +7919,10 @@ raw_logic_events = {
     },
     "Automate rocket-part": {
         "and": [
+            "Access rocket-silo",
             "Automate low-density-structure",
             "Automate processing-unit",
             "Automate rocket-fuel",
-            "Operate rocket-silo",
             "rocket-silo"
         ]
     },
@@ -10062,43 +7930,27 @@ raw_logic_events = {
         "and": [
             "Automate concrete",
             "Automate electric-engine-unit",
-            "Automate pipe",
             "Automate processing-unit",
             "Automate steel-plate",
-            "rocket-silo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "rocket-silo"
         ]
     },
     "Automate rocket-turret": {
         "or": [
             {
                 "and": [
-                    "Automate carbon-fiber",
-                    "Automate iron-gear-wheel",
-                    "Automate processing-unit",
-                    "Automate rocket-launcher",
-                    "Automate steel-plate",
-                    "rocket-turret",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate spidertron",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate spidertron",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate carbon-fiber",
+                    "Automate processing-unit",
+                    "Automate rocket-launcher",
+                    "Automate steel-plate",
+                    "rocket-turret"
                 ]
             }
         ]
@@ -10113,118 +7965,46 @@ raw_logic_events = {
         "and": [
             "Automate advanced-circuit",
             "Automate decider-combinator",
-            "advanced-combinators",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "advanced-combinators"
         ]
     },
     "Automate shotgun": {
         "and": [
-            "Automate iron-gear-wheel",
             "Automate wood",
-            "military",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military"
         ]
     },
     "Automate shotgun-shell": {
         "or": [
+            "military",
             {
                 "and": [
+                    "Access recycler",
                     "Automate piercing-shotgun-shell",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "military",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
                 ]
             }
         ]
     },
     "Automate slowdown-capsule": {
         "and": [
-            "Automate electronic-circuit",
             "Automate steel-plate",
-            "military-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate small-electric-pole": {
-        "and": [
-            "Automate copper-cable",
-            "Automate wood",
-            "electronics",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
-        ]
-    },
-    "Automate small-lamp": {
-        "and": [
-            "Automate copper-cable",
-            "Automate electronic-circuit",
-            "lamp",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "military-3"
         ]
     },
     "Automate solar-panel": {
         "or": [
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate steel-plate",
-                    "solar-energy",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate solar-panel-equipment",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate solar-panel-equipment",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate steel-plate",
+                    "solar-energy"
                 ]
             }
         ]
@@ -10234,35 +8014,14 @@ raw_logic_events = {
             "Automate advanced-circuit",
             "Automate solar-panel",
             "Automate steel-plate",
-            "solar-panel-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "solar-panel-equipment"
         ]
     },
     "Automate solid-fuel": {
         "or": [
             {
                 "and": [
-                    "Access pipe",
-                    "Automate ammonia",
-                    "Automate crude-oil",
-                    "planet-discovery-aquilo",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate chemical-plant",
+                    "Access chemical-plant",
                     {
                         "or": [
                             {
@@ -10288,7 +8047,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -10306,6 +8065,19 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate ammonia",
+                    "Automate crude-oil",
+                    "planet-discovery-aquilo",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -10313,23 +8085,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate copper-cable",
-                    "Automate steel-plate",
-                    "rocket-silo",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate space-platform-starter-pack",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate space-platform-starter-pack",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate steel-plate",
+                    "rocket-silo"
                 ]
             }
         ]
@@ -10339,14 +8103,7 @@ raw_logic_events = {
             "Automate processing-unit",
             "Automate space-platform-foundation",
             "Automate steel-plate",
-            "rocket-silo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "rocket-silo"
         ]
     },
     "Automate space-science-pack": {
@@ -10356,19 +8113,12 @@ raw_logic_events = {
             "space-science-pack",
             {
                 "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            },
-            {
-                "or": [
                     "Option launching_metal_is_good_enough",
                     {
                         "and": [
+                            "Access electric-furnace",
                             "Operate asteroid-collector",
-                            "Operate crusher",
-                            "Operate electric-furnace"
+                            "Operate crusher"
                         ]
                     }
                 ]
@@ -10399,22 +8149,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate electronic-circuit",
-                    "speed-module",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -10424,6 +8159,12 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate advanced-circuit",
+                    "speed-module"
+                ]
             }
         ]
     },
@@ -10431,25 +8172,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate advanced-circuit",
-                    "Automate processing-unit",
-                    "Automate speed-module",
-                    "speed-module-2",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate electromagnetic-plant"
-                        ]
-                    }
+                    "Access recycler",
+                    "Automate speed-module-3",
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
-                    "Automate speed-module-3",
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting"
+                    "Automate advanced-circuit",
+                    "Automate processing-unit",
+                    "Automate speed-module",
+                    "speed-module-2"
                 ]
             }
         ]
@@ -10460,15 +8193,7 @@ raw_logic_events = {
             "Automate processing-unit",
             "Automate speed-module-2",
             "Automate tungsten-carbide",
-            "speed-module-3",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "speed-module-3"
         ]
     },
     "Automate spidertron": {
@@ -10478,37 +8203,16 @@ raw_logic_events = {
             "Automate radar",
             "Automate raw-fish",
             "Automate rocket-turret",
-            "spidertron",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "spidertron"
         ]
     },
     "Automate splitter": {
         "or": [
+            "logistics",
             {
                 "and": [
-                    "Automate electronic-circuit",
-                    "Automate transport-belt",
-                    "logistics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
+                    "Access recycler",
                     "Automate fast-splitter",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -10525,13 +8229,7 @@ raw_logic_events = {
             "Automate yumako-mash",
             {
                 "and": [
-                    "Automate raw-fish",
-                    "Option wait_hours_for_fish_to_spoil"
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -10546,6 +8244,12 @@ raw_logic_events = {
             },
             {
                 "and": [
+                    "Automate raw-fish",
+                    "Option wait_hours_for_fish_to_spoil"
+                ]
+            },
+            {
+                "and": [
                     "Reach gleba",
                     {
                         "or": [
@@ -10555,8 +8259,8 @@ raw_logic_events = {
                                     "jellynut",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3",
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3",
                                             "Operate biochamber"
                                         ]
                                     }
@@ -10568,8 +8272,8 @@ raw_logic_events = {
                                     "yumako",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3",
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3",
                                             "Operate biochamber"
                                         ]
                                     }
@@ -10587,91 +8291,14 @@ raw_logic_events = {
             "Automate carbon-fiber",
             "Automate jelly",
             "Automate processing-unit",
-            "stack-inserter",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate steam": {
-        "or": [
-            {
-                "and": [
-                    "Automate calcite",
-                    "Automate sulfuric-acid",
-                    "Reach vulcanus",
-                    "calcite-processing",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Automate water",
-                    {
-                        "or": [
-                            "Access boiler",
-                            "Operate heat-exchanger"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate steam-engine": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "Automate pipe",
-            "steam-power",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate steam-turbine": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "Automate pipe",
-            "Learn steam-turbine",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "stack-inserter"
         ]
     },
     "Automate steel-chest": {
         "or": [
             {
                 "and": [
-                    "Automate steel-plate",
-                    "steel-processing",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -10683,20 +8310,19 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate steel-plate",
+                    "steel-processing"
+                ]
             }
         ]
     },
     "Automate steel-furnace": {
         "and": [
             "Automate steel-plate",
-            "advanced-material-processing",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "advanced-material-processing"
         ]
     },
     "Automate steel-plate": {
@@ -10704,14 +8330,14 @@ raw_logic_events = {
             "steel-processing",
             {
                 "and": [
+                    "Access foundry",
                     "Automate molten-iron",
-                    "Operate foundry",
                     "foundry"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     {
                         "or": [
                             {
@@ -10808,44 +8434,14 @@ raw_logic_events = {
             }
         ]
     },
-    "Automate stone-furnace": {
-        "or": [
-            "Operate assembling-machine-1",
-            "Operate assembling-machine-2",
-            "Operate assembling-machine-3",
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate boiler",
-                            "Automate burner-mining-drill"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "Automate stone-wall": {
         "or": [
+            "stone-wall",
             {
                 "and": [
+                    "Access recycler",
                     "Automate gate",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "stone-wall",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
                 ]
             }
         ]
@@ -10853,51 +8449,23 @@ raw_logic_events = {
     "Automate storage-chest": {
         "and": [
             "Automate advanced-circuit",
-            "Automate electronic-circuit",
             "Automate steel-chest",
-            "Learn storage-chest",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "Learn storage-chest"
         ]
     },
     "Automate storage-tank": {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate fluid-wagon",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
             {
                 "and": [
                     "Automate steel-plate",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Automate submachine-gun": {
-        "and": [
-            "Automate iron-gear-wheel",
-            "military",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "fluid-handling"
                 ]
             }
         ]
@@ -10905,35 +8473,12 @@ raw_logic_events = {
     "Automate substation": {
         "and": [
             "Automate advanced-circuit",
-            "Automate copper-cable",
             "Automate steel-plate",
-            "electric-energy-distribution-2",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
-                    "Operate electromagnetic-plant"
-                ]
-            }
+            "electric-energy-distribution-2"
         ]
     },
     "Automate sulfur": {
         "or": [
-            {
-                "and": [
-                    "Access pipe",
-                    "Automate petroleum-gas",
-                    "Automate water",
-                    "sulfur-processing",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
             {
                 "and": [
                     "Automate bioflux",
@@ -10948,6 +8493,18 @@ raw_logic_events = {
                     "Operate crusher",
                     "advanced-asteroid-processing"
                 ]
+            },
+            {
+                "and": [
+                    "Automate petroleum-gas",
+                    "sulfur-processing",
+                    {
+                        "or": [
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -10955,13 +8512,18 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access pumpjack",
+                    "Reach vulcanus"
+                ]
+            },
+            {
+                "and": [
                     "Automate sulfur",
-                    "Automate water",
                     "sulfur-processing",
                     {
                         "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
+                            "Access chemical-plant",
+                            "Access cryogenic-plant"
                         ]
                     }
                 ]
@@ -10972,16 +8534,10 @@ raw_logic_events = {
                     "fluid-handling",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
                         ]
                     }
-                ]
-            },
-            {
-                "and": [
-                    "Operate pumpjack",
-                    "Reach vulcanus"
                 ]
             }
         ]
@@ -10993,8 +8549,8 @@ raw_logic_events = {
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -11003,18 +8559,17 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access electromagnetic-plant",
                     "Automate battery",
                     "Automate electrolyte",
-                    "Automate electronic-circuit",
                     "Automate holmium-plate",
                     "Automate superconductor",
-                    "Operate electromagnetic-plant",
                     "electromagnetic-plant"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11034,16 +8589,16 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access electromagnetic-plant",
                     "Automate holmium-plate",
                     "Automate light-oil",
                     "Automate plastic-bar",
-                    "Operate electromagnetic-plant",
                     "electromagnetic-plant"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11069,35 +8624,27 @@ raw_logic_events = {
         "and": [
             "Automate advanced-circuit",
             "Automate engine-unit",
-            "Automate iron-gear-wheel",
             "Automate steel-plate",
-            "tank",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "tank"
         ]
     },
     "Automate tesla-ammo": {
         "and": [
+            "Access electromagnetic-plant",
             "Automate electrolyte",
             "Automate plastic-bar",
             "Automate supercapacitor",
-            "Operate electromagnetic-plant",
             "tesla-weapons"
         ]
     },
     "Automate tesla-turret": {
         "and": [
+            "Access electromagnetic-plant",
             "Automate electrolyte",
             "Automate processing-unit",
             "Automate supercapacitor",
             "Automate superconductor",
             "Automate teslagun",
-            "Operate electromagnetic-plant",
             "tesla-weapons"
         ]
     },
@@ -11105,18 +8652,18 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access electromagnetic-plant",
                     "Automate electrolyte",
                     "Automate holmium-plate",
                     "Automate plastic-bar",
                     "Automate superconductor",
-                    "Operate electromagnetic-plant",
                     "tesla-weapons"
                 ]
             },
             {
                 "and": [
+                    "Access recycler",
                     "Automate tesla-turret",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             }
@@ -11127,21 +8674,13 @@ raw_logic_events = {
             "Automate electric-engine-unit",
             "Automate processing-unit",
             "Automate steel-plate",
-            "space-platform-thruster",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "space-platform-thruster"
         ]
     },
     "Automate thruster-fuel": {
         "and": [
+            "Access chemical-plant",
             "Automate carbon",
-            "Automate water",
-            "Operate chemical-plant",
             {
                 "or": [
                     {
@@ -11201,8 +8740,7 @@ raw_logic_events = {
     },
     "Automate thruster-oxidizer": {
         "and": [
-            "Automate water",
-            "Operate chemical-plant",
+            "Access chemical-plant",
             {
                 "or": [
                     {
@@ -11264,81 +8802,21 @@ raw_logic_events = {
         "and": [
             "Automate advanced-circuit",
             "Automate carbon-fiber",
-            "toolbelt-equipment",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "toolbelt-equipment"
         ]
     },
     "Automate train-stop": {
         "and": [
-            "Automate electronic-circuit",
             "Automate iron-stick",
             "Automate steel-plate",
-            "automated-rail-transportation",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
-    "Automate transport-belt": {
-        "or": [
-            {
-                "and": [
-                    "Automate iron-gear-wheel",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Automate fast-transport-belt",
-                            "Automate lab",
-                            "Automate splitter",
-                            "Automate underground-belt"
-                        ]
-                    }
-                ]
-            }
+            "automated-rail-transportation"
         ]
     },
     "Automate tungsten-carbide": {
         "or": [
             {
                 "and": [
-                    "Automate carbon",
-                    "Automate sulfuric-acid",
-                    "Automate tungsten-ore",
-                    "tungsten-carbide",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11349,12 +8827,26 @@ raw_logic_events = {
                         ]
                     }
                 ]
+            },
+            {
+                "and": [
+                    "Automate carbon",
+                    "Automate sulfuric-acid",
+                    "Automate tungsten-ore",
+                    "tungsten-carbide",
+                    {
+                        "or": [
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3"
+                        ]
+                    }
+                ]
             }
         ]
     },
     "Automate tungsten-ore": {
         "and": [
-            "Operate big-mining-drill",
+            "Access big-mining-drill",
             "Reach vulcanus"
         ]
     },
@@ -11362,15 +8854,15 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access foundry",
                     "Automate molten-iron",
                     "Automate tungsten-ore",
-                    "Operate foundry",
                     "tungsten-steel"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11394,56 +8886,43 @@ raw_logic_events = {
     },
     "Automate turbo-splitter": {
         "and": [
+            "Access foundry",
             "Automate express-splitter",
             "Automate lubricant",
             "Automate processing-unit",
             "Automate tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
     },
     "Automate turbo-transport-belt": {
         "and": [
+            "Access foundry",
             "Automate express-transport-belt",
             "Automate lubricant",
             "Automate tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
     },
     "Automate turbo-underground-belt": {
         "and": [
+            "Access foundry",
             "Automate express-underground-belt",
             "Automate lubricant",
             "Automate tungsten-plate",
-            "Operate foundry",
             "Reach vulcanus",
             "turbo-transport-belt"
         ]
     },
     "Automate underground-belt": {
         "or": [
+            "logistics",
             {
                 "and": [
+                    "Access recycler",
                     "Automate fast-underground-belt",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Automate transport-belt",
-                    "logistics",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate foundry"
-                        ]
-                    }
                 ]
             }
         ]
@@ -11452,7 +8931,7 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Operate centrifuge",
+                    "Access centrifuge",
                     {
                         "or": [
                             {
@@ -11474,7 +8953,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11490,14 +8969,14 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access centrifuge",
                     "Automate uranium-ore",
-                    "Operate centrifuge",
                     "uranium-processing"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
@@ -11514,22 +8993,15 @@ raw_logic_events = {
         "and": [
             "Automate cannon-shell",
             "Automate uranium-238",
-            "uranium-ammo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "uranium-ammo"
         ]
     },
     "Automate uranium-fuel-cell": {
         "or": [
             {
                 "and": [
+                    "Access recycler",
                     "Automate fission-reactor-equipment",
-                    "Operate recycler",
                     "Option backwards_recycling_is_interesting"
                 ]
             },
@@ -11537,14 +9009,7 @@ raw_logic_events = {
                 "and": [
                     "Automate uranium-235",
                     "Automate uranium-238",
-                    "nuclear-power",
-                    {
-                        "or": [
-                            "Operate assembling-machine-1",
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
+                    "nuclear-power"
                 ]
             }
         ]
@@ -11559,14 +9024,7 @@ raw_logic_events = {
         "and": [
             "Automate piercing-rounds-magazine",
             "Automate uranium-238",
-            "uranium-ammo",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
+            "uranium-ammo"
         ]
     },
     "Automate utility-science-pack": {
@@ -11575,13 +9033,6 @@ raw_logic_events = {
             "Automate low-density-structure",
             "Automate processing-unit",
             "utility-science-pack",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            },
             {
                 "or": [
                     "Option hand_building_is_good_enough",
@@ -11596,51 +9047,14 @@ raw_logic_events = {
             }
         ]
     },
-    "Automate water": {
-        "or": [
-            "Access offshore-pump",
-            {
-                "and": [
-                    "Automate ice",
-                    "Operate chemical-plant",
-                    "space-platform-thruster"
-                ]
-            },
-            {
-                "and": [
-                    "Automate steam",
-                    "calcite-processing",
-                    {
-                        "or": [
-                            "Operate chemical-plant",
-                            "Operate cryogenic-plant"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Automate water-barrel",
-                    "fluid-handling",
-                    {
-                        "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
     "Automate water-barrel": {
         "and": [
             "Automate barrel",
-            "Automate water",
             "fluid-handling",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3"
                 ]
             }
         ]
@@ -11649,42 +9063,29 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Operate agricultural-tower",
+                    "Access agricultural-tower",
                     "tree-seeding"
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
+                    "Access recycler",
                     "Option backwards_recycling_is_interesting",
                     {
                         "or": [
                             "Automate combat-shotgun",
                             "Automate shotgun",
-                            "Automate small-electric-pole",
-                            "Automate wooden-chest"
+                            "Automate wood"
                         ]
                     }
                 ]
             }
         ]
     },
-    "Automate wooden-chest": {
-        "and": [
-            "Automate wood",
-            {
-                "or": [
-                    "Operate assembling-machine-1",
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3"
-                ]
-            }
-        ]
-    },
     "Automate yumako": {
         "and": [
+            "Access agricultural-tower",
             "Access yumako-seed",
-            "Operate agricultural-tower",
             "Reach gleba"
         ]
     },
@@ -11694,8 +9095,8 @@ raw_logic_events = {
             "yumako",
             {
                 "or": [
-                    "Operate assembling-machine-2",
-                    "Operate assembling-machine-3",
+                    "Access assembling-machine-2",
+                    "Access assembling-machine-3",
                     "Operate biochamber"
                 ]
             }
@@ -11705,25 +9106,25 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Automate yumako",
-                    "yumako",
+                    "Access recycler",
+                    "Option backwards_recycling_is_interesting",
                     {
                         "or": [
-                            "Operate assembling-machine-2",
-                            "Operate assembling-machine-3",
-                            "Operate biochamber"
+                            "Automate artificial-yumako-soil",
+                            "Automate overgrowth-yumako-soil"
                         ]
                     }
                 ]
             },
             {
                 "and": [
-                    "Operate recycler",
-                    "Option backwards_recycling_is_interesting",
+                    "Automate yumako",
+                    "yumako",
                     {
                         "or": [
-                            "Automate artificial-yumako-soil",
-                            "Automate overgrowth-yumako-soil"
+                            "Access assembling-machine-2",
+                            "Access assembling-machine-3",
+                            "Operate biochamber"
                         ]
                     }
                 ]
@@ -11769,28 +9170,17 @@ raw_logic_events = {
     },
     "Can destroy huge asteroids": {
         "and": [
-            "Automate railgun-ammo",
-            "Operate railgun-turret"
+            "Access railgun-turret",
+            "Automate railgun-ammo"
         ]
     },
     "Can destroy medium asteroids": {
         "or": [
+            "gun-turret",
             {
                 "and": [
                     "Automate stone-wall",
                     "Option walls_to_destroy_medium_asteroids_is_good_enough"
-                ]
-            },
-            {
-                "and": [
-                    "gun-turret",
-                    {
-                        "or": [
-                            "Automate firearm-magazine",
-                            "Automate piercing-rounds-magazine",
-                            "Automate uranium-rounds-magazine"
-                        ]
-                    }
                 ]
             }
         ]
@@ -11817,8 +9207,8 @@ raw_logic_events = {
                         "or": [
                             {
                                 "and": [
+                                    "Access chemical-plant",
                                     "Automate ice",
-                                    "Operate chemical-plant",
                                     "space-platform-thruster"
                                 ]
                             },
@@ -11829,8 +9219,8 @@ raw_logic_events = {
                                     "fluid-handling",
                                     {
                                         "or": [
-                                            "Operate assembling-machine-2",
-                                            "Operate assembling-machine-3"
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3"
                                         ]
                                     }
                                 ]
@@ -11864,8 +9254,8 @@ raw_logic_events = {
             "uranium-mining",
             {
                 "or": [
-                    "Operate big-mining-drill",
-                    "Operate electric-mining-drill"
+                    "Access big-mining-drill",
+                    "Access electric-mining-drill"
                 ]
             }
         ]
@@ -11913,9 +9303,9 @@ raw_logic_events = {
                     "Option launching_metal_is_good_enough",
                     {
                         "and": [
+                            "Access electric-furnace",
                             "Operate asteroid-collector",
-                            "Operate crusher",
-                            "Operate electric-furnace"
+                            "Operate crusher"
                         ]
                     }
                 ]
@@ -11966,34 +9356,9 @@ raw_logic_events = {
             "logistic-robotics"
         ]
     },
-    "Operate agricultural-tower": {
-        "and": [
-            "Access agricultural-tower",
-            "Supply electricity"
-        ]
-    },
-    "Operate assembling-machine-1": {
-        "and": [
-            "Access assembling-machine-1",
-            "Supply electricity"
-        ]
-    },
-    "Operate assembling-machine-2": {
-        "and": [
-            "Access assembling-machine-2",
-            "Supply electricity"
-        ]
-    },
-    "Operate assembling-machine-3": {
-        "and": [
-            "Access assembling-machine-3",
-            "Supply electricity"
-        ]
-    },
     "Operate asteroid-collector": {
         "and": [
             "Access asteroid-collector",
-            "Supply electricity",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",
@@ -12016,22 +9381,10 @@ raw_logic_events = {
             }
         ]
     },
-    "Operate big-mining-drill": {
-        "and": [
-            "Access big-mining-drill",
-            "Supply electricity"
-        ]
-    },
     "Operate biochamber": {
         "and": [
             "Access biochamber",
             "Access nutrients"
-        ]
-    },
-    "Operate biolab": {
-        "and": [
-            "Access biolab",
-            "Supply electricity"
         ]
     },
     "Operate captive-biter-spawner": {
@@ -12045,22 +9398,9 @@ raw_logic_events = {
             }
         ]
     },
-    "Operate centrifuge": {
-        "and": [
-            "Access centrifuge",
-            "Supply electricity"
-        ]
-    },
-    "Operate chemical-plant": {
-        "and": [
-            "Access chemical-plant",
-            "Supply electricity"
-        ]
-    },
     "Operate crusher": {
         "and": [
             "Access crusher",
-            "Supply electricity",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",
@@ -12083,36 +9423,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Operate cryogenic-plant": {
-        "and": [
-            "Access cryogenic-plant",
-            "Supply electricity"
-        ]
-    },
-    "Operate electric-furnace": {
-        "and": [
-            "Access electric-furnace",
-            "Supply electricity"
-        ]
-    },
-    "Operate electric-mining-drill": {
-        "and": [
-            "Access electric-mining-drill",
-            "Supply electricity"
-        ]
-    },
-    "Operate electromagnetic-plant": {
-        "and": [
-            "Access electromagnetic-plant",
-            "Supply electricity"
-        ]
-    },
-    "Operate foundry": {
-        "and": [
-            "Access foundry",
-            "Supply electricity"
-        ]
-    },
     "Operate fusion-generator": {
         "and": [
             "Access fusion-generator",
@@ -12123,8 +9433,7 @@ raw_logic_events = {
         "and": [
             "Access fluoroketone-cold",
             "Access fusion-power-cell",
-            "Access fusion-reactor",
-            "Supply electricity"
+            "Access fusion-reactor"
         ]
     },
     "Operate heat-exchanger": {
@@ -12133,58 +9442,16 @@ raw_logic_events = {
             "Supply heat"
         ]
     },
-    "Operate lab": {
-        "and": [
-            "Access lab",
-            "Supply electricity"
-        ]
-    },
     "Operate nuclear-reactor": {
         "and": [
             "Access nuclear-reactor",
             "Access uranium-fuel-cell"
         ]
     },
-    "Operate oil-refinery": {
-        "and": [
-            "Access oil-refinery",
-            "Supply electricity"
-        ]
-    },
-    "Operate pumpjack": {
-        "and": [
-            "Access pumpjack",
-            "Supply electricity"
-        ]
-    },
-    "Operate railgun-turret": {
-        "and": [
-            "Access railgun-turret",
-            "Supply electricity"
-        ]
-    },
-    "Operate recycler": {
-        "and": [
-            "Access recycler",
-            "Supply electricity"
-        ]
-    },
-    "Operate rocket-silo": {
-        "and": [
-            "Access rocket-silo",
-            "Supply electricity"
-        ]
-    },
-    "Operate steam-engine": {
-        "and": [
-            "Access steam",
-            "Access steam-engine"
-        ]
-    },
     "Operate steam-turbine": {
         "and": [
-            "Access steam-turbine",
-            "Access steam_500C"
+            "Access steam_500C",
+            "Learn steam-turbine"
         ]
     },
     "Operate thruster": {
@@ -12607,28 +9874,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Supply electricity": {
-        "and": [
-            {
-                "or": [
-                    "Access big-electric-pole",
-                    "Access medium-electric-pole",
-                    "Access small-electric-pole",
-                    "Access substation"
-                ]
-            },
-            {
-                "or": [
-                    "Access lightning-collector",
-                    "Access lightning-rod",
-                    "Access solar-panel",
-                    "Operate fusion-generator",
-                    "Operate steam-engine",
-                    "Operate steam-turbine"
-                ]
-            }
-        ]
-    },
     "Supply heat": {
         "and": [
             "Access heat-pipe",
@@ -12642,7 +9887,6 @@ raw_logic_events = {
     },
     "Supply thruster fuel": {
         "and": [
-            "Access pipe",
             "Automate thruster-fuel",
             "Automate thruster-oxidizer",
             {
@@ -12666,7 +9910,6 @@ raw_logic_events = {
     "advanced-asteroid-processing": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -12674,20 +9917,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -12695,14 +9931,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -12711,29 +9940,14 @@ raw_logic_events = {
     },
     "advanced-circuit": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -12742,91 +9956,33 @@ raw_logic_events = {
     },
     "advanced-combinators": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "advanced-material-processing": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "advanced-material-processing": "Automate logistic-science-pack",
     "advanced-material-processing-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -12835,30 +9991,15 @@ raw_logic_events = {
     },
     "advanced-oil-processing": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -12875,23 +10016,15 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate nutrients",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -12906,20 +10039,12 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -12934,21 +10059,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -12957,7 +10074,6 @@ raw_logic_events = {
     },
     "artillery": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
@@ -12966,21 +10082,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
@@ -12988,14 +10097,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13004,7 +10106,6 @@ raw_logic_events = {
     },
     "artillery-shell-damage-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
@@ -13013,21 +10114,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate metallurgic-science-pack",
@@ -13036,14 +10130,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13052,7 +10139,6 @@ raw_logic_events = {
     },
     "artillery-shell-range-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
@@ -13061,21 +10147,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate metallurgic-science-pack",
@@ -13084,14 +10163,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13100,7 +10172,6 @@ raw_logic_events = {
     },
     "artillery-shell-speed-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
@@ -13109,21 +10180,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate metallurgic-science-pack",
@@ -13132,14 +10196,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13149,7 +10206,6 @@ raw_logic_events = {
     "asteroid-productivity": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -13157,21 +10213,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -13181,14 +10230,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13197,17 +10239,10 @@ raw_logic_events = {
     },
     "asteroid-reprocessing": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -13215,23 +10250,15 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13240,7 +10267,6 @@ raw_logic_events = {
     },
     "atomic-bomb": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -13248,18 +10274,11 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
@@ -13267,14 +10286,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Can mine with fluid",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -13283,141 +10295,44 @@ raw_logic_events = {
     },
     "automated-rail-transportation": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "automation": {
-        "and": [
-            "automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
+                    "Automate logistic-science-pack",
                     "Option bypass_technology_prerequisites"
                 ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
             }
         ]
     },
-    "automation-2": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "automation": "(always)",
+    "automation-2": "Automate logistic-science-pack",
     "automation-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "automation-science-pack": "Access lab",
+    "automation-science-pack": "(always)",
     "automobilism": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
@@ -13431,22 +10346,14 @@ raw_logic_events = {
                     {
                         "and": [
                             "Access biochamber",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13455,29 +10362,14 @@ raw_logic_events = {
     },
     "battery": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13486,29 +10378,14 @@ raw_logic_events = {
     },
     "battery-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13517,32 +10394,17 @@ raw_logic_events = {
     },
     "battery-mk2-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13551,7 +10413,6 @@ raw_logic_events = {
     },
     "battery-mk3-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -13559,34 +10420,20 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -13595,29 +10442,14 @@ raw_logic_events = {
     },
     "belt-immunity-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13632,22 +10464,14 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -13662,21 +10486,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13691,22 +10507,14 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13722,22 +10530,14 @@ raw_logic_events = {
                     {
                         "and": [
                             "Access biochamber",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13747,7 +10547,6 @@ raw_logic_events = {
     "biolab": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -13756,22 +10555,15 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -13782,14 +10574,7 @@ raw_logic_events = {
                             "Can capture biter spawners",
                             "Can mine with fluid",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13806,10 +10591,9 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -13818,14 +10602,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -13834,30 +10611,15 @@ raw_logic_events = {
     },
     "braking-force-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13866,31 +10628,16 @@ raw_logic_events = {
     },
     "braking-force-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13899,32 +10646,17 @@ raw_logic_events = {
     },
     "braking-force-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -13933,33 +10665,18 @@ raw_logic_events = {
     },
     "braking-force-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -13968,33 +10685,18 @@ raw_logic_events = {
     },
     "braking-force-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -14003,34 +10705,19 @@ raw_logic_events = {
     },
     "braking-force-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -14039,35 +10726,20 @@ raw_logic_events = {
     },
     "braking-force-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate production-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -14076,29 +10748,14 @@ raw_logic_events = {
     },
     "bulk-inserter": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -14113,20 +10770,12 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -14136,7 +10785,6 @@ raw_logic_events = {
     "captive-biter-spawner": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -14146,12 +10794,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14164,15 +10806,14 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -14187,17 +10828,10 @@ raw_logic_events = {
                             "Can capture biter spawners",
                             "Can mine with fluid",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -14207,17 +10841,10 @@ raw_logic_events = {
     "captivity": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14225,9 +10852,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -14236,14 +10862,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -14253,16 +10872,9 @@ raw_logic_events = {
     "carbon-fiber": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14270,9 +10882,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -14280,14 +10891,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -14296,77 +10900,27 @@ raw_logic_events = {
     },
     "chemical-science-pack": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "circuit-network": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "circuit-network": "Automate logistic-science-pack",
     "cliff-explosives": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14374,23 +10928,15 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -14399,17 +10945,10 @@ raw_logic_events = {
     },
     "coal-liquefaction": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14417,23 +10956,15 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -14442,61 +10973,27 @@ raw_logic_events = {
     },
     "concrete": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "construction-robotics": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -14517,13 +11014,12 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -14536,17 +11032,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -14567,14 +11056,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -14587,17 +11075,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -14606,66 +11087,32 @@ raw_logic_events = {
     },
     "defender": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "destroyer": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -14674,33 +11121,18 @@ raw_logic_events = {
     },
     "discharge-defense-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -14709,33 +11141,18 @@ raw_logic_events = {
     },
     "distractor": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -14744,32 +11161,17 @@ raw_logic_events = {
     },
     "effect-transmission": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -14778,29 +11180,14 @@ raw_logic_events = {
     },
     "efficiency-module": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -14809,34 +11196,19 @@ raw_logic_events = {
     },
     "efficiency-module-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -14846,16 +11218,9 @@ raw_logic_events = {
     "efficiency-module-3": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -14863,9 +11228,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -14873,14 +11237,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -14889,90 +11246,32 @@ raw_logic_events = {
     },
     "electric-energy-accumulators": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "electric-energy-distribution-1": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "electric-energy-distribution-1": "Automate logistic-science-pack",
     "electric-energy-distribution-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -14981,85 +11280,39 @@ raw_logic_events = {
     },
     "electric-engine": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "electric-mining-drill": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "electric-mining-drill": "(always)",
     "electric-weapons-damage-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -15068,7 +11321,6 @@ raw_logic_events = {
     },
     "electric-weapons-damage-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -15076,30 +11328,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -15108,7 +11346,6 @@ raw_logic_events = {
     },
     "electric-weapons-damage-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -15117,20 +11354,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
                             "Automate logistic-science-pack",
@@ -15139,14 +11369,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -15155,7 +11378,6 @@ raw_logic_events = {
     },
     "electric-weapons-damage-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -15164,20 +11386,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
                             "Automate logistic-science-pack",
@@ -15186,14 +11401,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -15209,21 +11417,13 @@ raw_logic_events = {
                     {
                         "and": [
                             "Access holmium-ore",
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -15240,21 +11440,13 @@ raw_logic_events = {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -15264,32 +11456,17 @@ raw_logic_events = {
     "electronics": "(always)",
     "elevated-rail": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -15298,30 +11475,15 @@ raw_logic_events = {
     },
     "energy-shield-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -15330,7 +11492,6 @@ raw_logic_events = {
     },
     "energy-shield-mk2-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -15339,20 +11500,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
@@ -15360,63 +11514,21 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
             }
         ]
     },
-    "engine": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "engine": "Automate logistic-science-pack",
     "epic-quality": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -15424,9 +11536,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -15434,14 +11545,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -15450,31 +11554,16 @@ raw_logic_events = {
     },
     "exoskeleton-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -15483,33 +11572,18 @@ raw_logic_events = {
     },
     "explosive-rocketry": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -15518,62 +11592,25 @@ raw_logic_events = {
     },
     "explosives": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "fast-inserter": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "fast-inserter": "(always)",
     "fish-breeding": {
         "and": [
             "Automate agricultural-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -15581,10 +11618,9 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -15592,14 +11628,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -15608,35 +11637,20 @@ raw_logic_events = {
     },
     "fission-reactor-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Can mine with fluid",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Can mine with fluid"
                         ]
                     }
                 ]
@@ -15645,30 +11659,15 @@ raw_logic_events = {
     },
     "flamethrower": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -15677,29 +11676,14 @@ raw_logic_events = {
     },
     "flammables": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -15708,90 +11692,37 @@ raw_logic_events = {
     },
     "fluid-handling": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "fluid-wagon": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "follower-robot-count-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -15800,30 +11731,15 @@ raw_logic_events = {
     },
     "follower-robot-count-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -15832,32 +11748,17 @@ raw_logic_events = {
     },
     "follower-robot-count-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -15866,35 +11767,20 @@ raw_logic_events = {
     },
     "follower-robot-count-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -15903,7 +11789,6 @@ raw_logic_events = {
     },
     "follower-robot-count-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -15912,30 +11797,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -15945,7 +11816,6 @@ raw_logic_events = {
     "foundation": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -15954,12 +11824,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -15972,14 +11836,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -15992,17 +11855,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -16017,21 +11873,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -16041,7 +11889,6 @@ raw_logic_events = {
     "fusion-reactor": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -16050,12 +11897,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -16068,14 +11909,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -16089,17 +11929,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -16109,7 +11942,6 @@ raw_logic_events = {
     "fusion-reactor-equipment": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -16118,12 +11950,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -16136,15 +11962,14 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -16159,17 +11984,10 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can mine with fluid",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -16178,51 +11996,16 @@ raw_logic_events = {
     },
     "gate": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "gun-turret": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
+                    "Automate logistic-science-pack",
                     "Option bypass_technology_prerequisites"
                 ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
             }
         ]
     },
+    "gun-turret": "(always)",
     "health": {
         "and": [
             "Automate agricultural-science-pack",
@@ -16230,20 +12013,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -16251,14 +12027,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -16273,54 +12042,19 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
             }
         ]
     },
-    "heavy-armor": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "heavy-armor": "(always)",
     "holmium-processing": {
         "and": [
             "Access holmium-ore",
@@ -16329,21 +12063,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -16352,29 +12078,14 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16383,29 +12094,14 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16414,30 +12110,15 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16446,32 +12127,17 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16480,33 +12146,18 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -16515,33 +12166,18 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -16550,34 +12186,19 @@ raw_logic_events = {
     },
     "inserter-capacity-bonus-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -16592,21 +12213,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -16615,146 +12228,57 @@ raw_logic_events = {
     },
     "kovarex-enrichment-process": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
                             "Can mine with fluid",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
             }
         ]
     },
-    "lamp": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "lamp": "(always)",
     "land-mine": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "landfill": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "landfill": "Automate logistic-science-pack",
     "laser": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16763,32 +12287,17 @@ raw_logic_events = {
     },
     "laser-shooting-speed-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -16797,33 +12306,18 @@ raw_logic_events = {
     },
     "laser-shooting-speed-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -16832,33 +12326,18 @@ raw_logic_events = {
     },
     "laser-shooting-speed-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -16867,33 +12346,18 @@ raw_logic_events = {
     },
     "laser-shooting-speed-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -16902,34 +12366,19 @@ raw_logic_events = {
     },
     "laser-shooting-speed-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -16938,35 +12387,20 @@ raw_logic_events = {
     },
     "laser-shooting-speed-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -16975,35 +12409,20 @@ raw_logic_events = {
     },
     "laser-shooting-speed-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -17012,32 +12431,17 @@ raw_logic_events = {
     },
     "laser-turret": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17046,32 +12450,17 @@ raw_logic_events = {
     },
     "laser-weapons-damage-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17080,33 +12469,18 @@ raw_logic_events = {
     },
     "laser-weapons-damage-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -17115,33 +12489,18 @@ raw_logic_events = {
     },
     "laser-weapons-damage-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -17150,33 +12509,18 @@ raw_logic_events = {
     },
     "laser-weapons-damage-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -17185,34 +12529,19 @@ raw_logic_events = {
     },
     "laser-weapons-damage-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -17221,35 +12550,20 @@ raw_logic_events = {
     },
     "laser-weapons-damage-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -17258,7 +12572,6 @@ raw_logic_events = {
     },
     "laser-weapons-damage-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -17266,30 +12579,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -17299,7 +12598,6 @@ raw_logic_events = {
     "legendary-quality": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -17308,12 +12606,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -17326,14 +12618,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -17346,17 +12637,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -17365,17 +12649,10 @@ raw_logic_events = {
     },
     "lightning-collector": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -17383,22 +12660,14 @@ raw_logic_events = {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -17419,13 +12688,12 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -17438,16 +12706,9 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -17456,164 +12717,59 @@ raw_logic_events = {
     },
     "logistic-robotics": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "logistic-science-pack": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "logistic-science-pack": "(always)",
     "logistic-system": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
             }
         ]
     },
-    "logistics": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
-    "logistics-2": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "logistics": "(always)",
+    "logistics-2": "Automate logistic-science-pack",
     "logistics-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17622,30 +12778,15 @@ raw_logic_events = {
     },
     "low-density-structure": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17654,17 +12795,10 @@ raw_logic_events = {
     },
     "low-density-structure-productivity": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -17672,23 +12806,15 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -17697,31 +12823,16 @@ raw_logic_events = {
     },
     "lubricant": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17730,7 +12841,6 @@ raw_logic_events = {
     },
     "mech-armor": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -17739,20 +12849,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
@@ -17760,14 +12863,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -17784,101 +12880,34 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
             }
         ]
     },
-    "military": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
-    "military-2": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "military": "(always)",
+    "military-2": "Automate logistic-science-pack",
     "military-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17887,34 +12916,19 @@ raw_logic_events = {
     },
     "military-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -17923,59 +12937,25 @@ raw_logic_events = {
     },
     "military-science-pack": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "mining-productivity-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -17984,30 +12964,15 @@ raw_logic_events = {
     },
     "mining-productivity-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18016,32 +12981,17 @@ raw_logic_events = {
     },
     "mining-productivity-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18050,29 +13000,14 @@ raw_logic_events = {
     },
     "modular-armor": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18081,29 +13016,14 @@ raw_logic_events = {
     },
     "modules": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18112,29 +13032,14 @@ raw_logic_events = {
     },
     "night-vision-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18143,34 +13048,19 @@ raw_logic_events = {
     },
     "nuclear-fuel-reprocessing": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Can mine with fluid",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Can mine with fluid"
                         ]
                     }
                 ]
@@ -18179,33 +13069,18 @@ raw_logic_events = {
     },
     "nuclear-power": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Can mine with fluid",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Can mine with fluid"
                         ]
                     }
                 ]
@@ -18214,53 +13089,22 @@ raw_logic_events = {
     },
     "oil-gathering": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "oil-processing": {
         "and": [
-            "Operate pumpjack",
+            "Access pumpjack",
             {
                 "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
@@ -18268,7 +13112,6 @@ raw_logic_events = {
     "overgrowth-soil": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -18276,21 +13119,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -18300,14 +13136,7 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can capture biter spawners",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -18316,33 +13145,18 @@ raw_logic_events = {
     },
     "personal-laser-defense-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -18351,31 +13165,16 @@ raw_logic_events = {
     },
     "personal-roboport-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18384,7 +13183,6 @@ raw_logic_events = {
     },
     "personal-roboport-mk2-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -18392,153 +13190,50 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
             }
         ]
     },
-    "physical-projectile-damage-1": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "physical-projectile-damage-2": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "physical-projectile-damage-1": "(always)",
+    "physical-projectile-damage-2": "Automate logistic-science-pack",
     "physical-projectile-damage-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "physical-projectile-damage-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -18547,32 +13242,17 @@ raw_logic_events = {
     },
     "physical-projectile-damage-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -18581,34 +13261,19 @@ raw_logic_events = {
     },
     "physical-projectile-damage-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -18617,7 +13282,6 @@ raw_logic_events = {
     },
     "physical-projectile-damage-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -18625,30 +13289,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -18658,7 +13308,6 @@ raw_logic_events = {
     "planet-discovery-aquilo": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -18666,12 +13315,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -18683,13 +13326,12 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -18701,16 +13343,9 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -18719,35 +13354,20 @@ raw_logic_events = {
     },
     "planet-discovery-fulgora": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -18756,35 +13376,20 @@ raw_logic_events = {
     },
     "planet-discovery-gleba": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -18793,35 +13398,20 @@ raw_logic_events = {
     },
     "planet-discovery-vulcanus": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -18831,16 +13421,9 @@ raw_logic_events = {
     "plastic-bar-productivity": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -18848,9 +13431,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -18858,14 +13440,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -18874,29 +13449,14 @@ raw_logic_events = {
     },
     "plastics": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18905,31 +13465,16 @@ raw_logic_events = {
     },
     "power-armor": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -18938,35 +13483,20 @@ raw_logic_events = {
     },
     "power-armor-mk2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -18975,30 +13505,15 @@ raw_logic_events = {
     },
     "processing-unit": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -19007,17 +13522,10 @@ raw_logic_events = {
     },
     "processing-unit-productivity": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19025,22 +13533,14 @@ raw_logic_events = {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -19049,31 +13549,16 @@ raw_logic_events = {
     },
     "production-science-pack": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -19082,29 +13567,14 @@ raw_logic_events = {
     },
     "productivity-module": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -19113,34 +13583,19 @@ raw_logic_events = {
     },
     "productivity-module-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -19150,16 +13605,9 @@ raw_logic_events = {
     "productivity-module-3": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19167,10 +13615,9 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -19180,14 +13627,7 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can capture biter spawners",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -19197,7 +13637,6 @@ raw_logic_events = {
     "promethium-science-pack": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -19206,12 +13645,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19224,14 +13657,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -19246,17 +13678,10 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can capture biter spawners",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -19265,29 +13690,14 @@ raw_logic_events = {
     },
     "quality-module": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -19296,34 +13706,19 @@ raw_logic_events = {
     },
     "quality-module-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -19332,17 +13727,10 @@ raw_logic_events = {
     },
     "quality-module-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19350,22 +13738,14 @@ raw_logic_events = {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -19375,7 +13755,6 @@ raw_logic_events = {
     "quantum-processor": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -19384,12 +13763,6 @@ raw_logic_events = {
             "Automate production-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19402,14 +13775,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -19422,43 +13794,19 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
             }
         ]
     },
-    "radar": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "radar": "(always)",
     "rail-support-foundations": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -19468,12 +13816,6 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
@@ -19481,26 +13823,18 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate production-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach fulgora",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -19510,7 +13844,6 @@ raw_logic_events = {
     "railgun": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -19519,12 +13852,6 @@ raw_logic_events = {
             "Automate military-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19537,14 +13864,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -19558,17 +13884,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -19578,19 +13897,12 @@ raw_logic_events = {
     "railgun-damage-1": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate military-science-pack",
             "Automate space-science-pack",
             "Automate utility-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -19603,14 +13915,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -19624,17 +13935,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -19643,7 +13947,6 @@ raw_logic_events = {
     },
     "railgun-shooting-speed-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -19653,12 +13956,6 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
@@ -19669,14 +13966,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -19690,17 +13986,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -19709,30 +13998,11 @@ raw_logic_events = {
     },
     "railway": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
@@ -19745,20 +14015,12 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -19767,31 +14029,16 @@ raw_logic_events = {
     },
     "refined-flammables-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -19800,31 +14047,16 @@ raw_logic_events = {
     },
     "refined-flammables-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -19833,32 +14065,17 @@ raw_logic_events = {
     },
     "refined-flammables-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -19867,34 +14084,19 @@ raw_logic_events = {
     },
     "refined-flammables-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -19903,35 +14105,20 @@ raw_logic_events = {
     },
     "refined-flammables-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -19940,7 +14127,6 @@ raw_logic_events = {
     },
     "refined-flammables-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -19948,30 +14134,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -19981,7 +14153,6 @@ raw_logic_events = {
     "refined-flammables-7": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -19989,20 +14160,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -20012,41 +14176,17 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
             }
         ]
     },
-    "repair-pack": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "repair-pack": "(always)",
     "research-productivity": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate electromagnetic-science-pack",
@@ -20059,12 +14199,6 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
@@ -20075,14 +14209,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate cryogenic-science-pack",
@@ -20097,17 +14230,10 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can capture biter spawners",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -20116,90 +14242,37 @@ raw_logic_events = {
     },
     "research-speed-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "research-speed-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "research-speed-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20208,31 +14281,16 @@ raw_logic_events = {
     },
     "research-speed-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20241,32 +14299,17 @@ raw_logic_events = {
     },
     "research-speed-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20275,34 +14318,19 @@ raw_logic_events = {
     },
     "research-speed-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -20311,31 +14339,16 @@ raw_logic_events = {
     },
     "robotics": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20344,31 +14357,16 @@ raw_logic_events = {
     },
     "rocket-fuel": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20378,16 +14376,9 @@ raw_logic_events = {
     "rocket-fuel-productivity": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -20395,9 +14386,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -20405,14 +14395,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -20421,17 +14404,10 @@ raw_logic_events = {
     },
     "rocket-part-productivity": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate cryogenic-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -20444,14 +14420,13 @@ raw_logic_events = {
                             "Access foundry",
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
                             "Access lithium-plate",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access supercapacitor",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate electromagnetic-science-pack",
@@ -20464,17 +14439,10 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
                             "Reach aquilo",
                             "Reach fulgora",
                             "Reach gleba",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -20483,31 +14451,16 @@ raw_logic_events = {
     },
     "rocket-silo": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20517,17 +14470,10 @@ raw_logic_events = {
     "rocket-turret": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -20535,10 +14481,9 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -20547,14 +14492,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -20563,30 +14501,15 @@ raw_logic_events = {
     },
     "rocketry": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20595,17 +14518,10 @@ raw_logic_events = {
     },
     "scrap-recycling-productivity": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -20613,82 +14529,31 @@ raw_logic_events = {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
             }
         ]
     },
-    "solar-energy": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "solar-energy": "Automate logistic-science-pack",
     "solar-panel-equipment": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20703,17 +14568,9 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20722,34 +14579,19 @@ raw_logic_events = {
     },
     "space-platform-thruster": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -20764,18 +14606,10 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Can build space platforms",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Can build space platforms"
                         ]
                     }
                 ]
@@ -20784,29 +14618,14 @@ raw_logic_events = {
     },
     "speed-module": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -20815,34 +14634,19 @@ raw_logic_events = {
     },
     "speed-module-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -20851,17 +14655,10 @@ raw_logic_events = {
     },
     "speed-module-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -20869,23 +14666,15 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -20895,7 +14684,6 @@ raw_logic_events = {
     "spidertron": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -20904,22 +14692,15 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -20930,14 +14711,7 @@ raw_logic_events = {
                             "Can build space platforms",
                             "Can mine with fluid",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -20947,7 +14721,6 @@ raw_logic_events = {
     "stack-inserter": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -20955,21 +14728,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -20977,14 +14743,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -20992,185 +14751,64 @@ raw_logic_events = {
         ]
     },
     "steam-power": "(always)",
-    "steel-axe": {
-        "and": [
-            "Access steel-plate",
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "steel-axe": "Access steel-plate",
     "steel-plate-productivity": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "steel-processing": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
-    "stone-wall": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Access lab",
-                    "Option bypass_technology_prerequisites"
-                ]
-            },
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            }
-        ]
-    },
+    "steel-processing": "(always)",
+    "stone-wall": "(always)",
     "stronger-explosives-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "stronger-explosives-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "stronger-explosives-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -21179,34 +14817,19 @@ raw_logic_events = {
     },
     "stronger-explosives-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -21215,7 +14838,6 @@ raw_logic_events = {
     },
     "stronger-explosives-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -21223,30 +14845,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -21255,7 +14863,6 @@ raw_logic_events = {
     },
     "stronger-explosives-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -21263,31 +14870,17 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate space-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -21297,7 +14890,6 @@ raw_logic_events = {
     "stronger-explosives-7": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
@@ -21305,20 +14897,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -21328,14 +14913,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -21344,29 +14922,14 @@ raw_logic_events = {
     },
     "sulfur-processing": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -21375,33 +14938,18 @@ raw_logic_events = {
     },
     "tank": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -21410,7 +14958,6 @@ raw_logic_events = {
     },
     "tesla-weapons": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -21419,20 +14966,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
@@ -21440,62 +14980,20 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
             }
         ]
     },
-    "toolbelt": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "toolbelt": "Automate logistic-science-pack",
     "toolbelt-equipment": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -21503,10 +15001,9 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -21514,14 +15011,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -21531,7 +15021,6 @@ raw_logic_events = {
     "transport-belt-capacity-1": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -21539,21 +15028,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -21563,14 +15045,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -21580,7 +15055,6 @@ raw_logic_events = {
     "transport-belt-capacity-2": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -21588,21 +15062,14 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
+                            "Access pumpjack",
                             "Automate agricultural-science-pack",
-                            "Automate automation-science-pack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -21612,14 +15079,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -21629,16 +15089,9 @@ raw_logic_events = {
     "tree-seeding": {
         "and": [
             "Automate agricultural-science-pack",
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate space-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -21646,9 +15099,8 @@ raw_logic_events = {
                         "and": [
                             "Access biochamber",
                             "Access bioflux",
-                            "Access lab",
                             "Access nutrients",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate bioflux",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -21656,14 +15108,7 @@ raw_logic_events = {
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]
@@ -21678,20 +15123,12 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -21707,22 +15144,14 @@ raw_logic_events = {
                     {
                         "and": [
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -21731,7 +15160,6 @@ raw_logic_events = {
     },
     "turbo-transport-belt": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate metallurgic-science-pack",
@@ -21739,35 +15167,21 @@ raw_logic_events = {
             "Automate space-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access tungsten-carbide",
                             "Access tungsten-plate",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate production-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach vulcanus",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach vulcanus"
                         ]
                     }
                 ]
@@ -21776,37 +15190,22 @@ raw_logic_events = {
     },
     "uranium-ammo": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
+                            "Access pumpjack",
                             "Access sulfuric-acid",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate military-science-pack",
                             "Automate utility-science-pack",
-                            "Can mine with fluid",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Can mine with fluid"
                         ]
                     }
                 ]
@@ -21815,30 +15214,15 @@ raw_logic_events = {
     },
     "uranium-mining": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Access pumpjack",
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -21854,17 +15238,9 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -21873,151 +15249,47 @@ raw_logic_events = {
     },
     "utility-science-pack": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
             }
         ]
     },
-    "weapon-shooting-speed-1": {
-        "and": [
-            "Automate automation-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "weapon-shooting-speed-2": {
-        "and": [
-            "Automate automation-science-pack",
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
+    "weapon-shooting-speed-1": "(always)",
+    "weapon-shooting-speed-2": "Automate logistic-science-pack",
     "weapon-shooting-speed-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
-                    "Option bypass_technology_prerequisites",
-                    {
-                        "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
-                            "Automate logistic-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
-                        ]
-                    }
+                    "Automate logistic-science-pack",
+                    "Option bypass_technology_prerequisites"
                 ]
             }
         ]
     },
     "weapon-shooting-speed-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -22026,32 +15298,17 @@ raw_logic_events = {
     },
     "weapon-shooting-speed-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -22060,34 +15317,19 @@ raw_logic_events = {
     },
     "weapon-shooting-speed-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate military-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate military-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate military-science-pack"
                         ]
                     }
                 ]
@@ -22096,31 +15338,16 @@ raw_logic_events = {
     },
     "worker-robots-speed-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -22129,31 +15356,16 @@ raw_logic_events = {
     },
     "worker-robots-speed-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -22162,32 +15374,17 @@ raw_logic_events = {
     },
     "worker-robots-speed-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -22196,33 +15393,18 @@ raw_logic_events = {
     },
     "worker-robots-speed-4": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -22231,34 +15413,19 @@ raw_logic_events = {
     },
     "worker-robots-speed-5": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate utility-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate utility-science-pack"
                         ]
                     }
                 ]
@@ -22267,7 +15434,6 @@ raw_logic_events = {
     },
     "worker-robots-speed-6": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
@@ -22275,30 +15441,16 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate production-science-pack",
                             "Automate utility-science-pack",
                             "Can build space platforms",
-                            "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Operate asteroid-collector"
                         ]
                     }
                 ]
@@ -22307,7 +15459,6 @@ raw_logic_events = {
     },
     "worker-robots-speed-7": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate electromagnetic-science-pack",
             "Automate logistic-science-pack",
@@ -22316,20 +15467,13 @@ raw_logic_events = {
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
                             "Access holmium-ore",
                             "Access holmium-plate",
-                            "Access lab",
+                            "Access pumpjack",
                             "Access supercapacitor",
-                            "Automate automation-science-pack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate production-science-pack",
@@ -22337,14 +15481,7 @@ raw_logic_events = {
                             "Automate utility-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach fulgora",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach fulgora"
                         ]
                     }
                 ]
@@ -22353,31 +15490,16 @@ raw_logic_events = {
     },
     "worker-robots-storage-1": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -22386,32 +15508,17 @@ raw_logic_events = {
     },
     "worker-robots-storage-2": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
-                            "Automate logistic-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate logistic-science-pack"
                         ]
                     }
                 ]
@@ -22420,34 +15527,19 @@ raw_logic_events = {
     },
     "worker-robots-storage-3": {
         "and": [
-            "Automate automation-science-pack",
             "Automate chemical-science-pack",
             "Automate logistic-science-pack",
             "Automate production-science-pack",
             "Automate utility-science-pack",
             {
                 "or": [
-                    "Operate biolab",
-                    "Operate lab"
-                ]
-            },
-            {
-                "or": [
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
-                            "Automate production-science-pack",
-                            "Operate pumpjack",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Automate production-science-pack"
                         ]
                     }
                 ]
@@ -22462,21 +15554,13 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access lab",
-                            "Automate automation-science-pack",
+                            "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
                             "Automate space-science-pack",
                             "Can build space platforms",
                             "Operate asteroid-collector",
-                            "Operate pumpjack",
-                            "Reach gleba",
-                            {
-                                "or": [
-                                    "Operate biolab",
-                                    "Operate lab"
-                                ]
-                            }
+                            "Reach gleba"
                         ]
                     }
                 ]

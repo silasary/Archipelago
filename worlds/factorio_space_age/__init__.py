@@ -120,7 +120,7 @@ class Factorio(World):
             infinite_technologies,
             technology_name_to_location_name,
             technology_name_to_progressive_group_name, progressive_group_name_to_category,
-            never_inline_events,
+            never_inline_events, never_delete_events, unrandomized_events,
         )
         from .data.generated3 import raw_logic_events
         player = self.player
@@ -156,7 +156,7 @@ class Factorio(World):
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
-        self.logic_events = instantiate_options(raw_logic_events, never_inline_events, {
+        self.logic_events = instantiate_options(raw_logic_events, never_inline_events, never_delete_events, {
             LogicOption.bypass_technology_prerequisites:     self.options.technology_prerequisites.current_key == "removed",
             LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
             LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
@@ -197,15 +197,7 @@ class Factorio(World):
             if event_type == "Technology":
                 # This is a proper item and corresponding location.
                 # TODO: shuffle infinite techs.
-                locked = sub_name in (
-                    # These are critical at the start.
-                    # The algorithm might swap things around, but starting with these vanilla location/item locks
-                    # prevents a naive shuffle from failing to find a path out of early game.
-                    "steam-power",
-                    "electronics",
-                    "automation-science-pack",
-                    "automation",
-                )
+                locked = sub_name in unrandomized_events
                 if sub_name in infinite_technologies:
                     if self.options.infinite_technologies.current_key == "removed":
                         continue

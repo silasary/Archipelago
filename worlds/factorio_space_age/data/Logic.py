@@ -46,16 +46,16 @@ energy_link_bridge_recipes = {
 }
 
 
-def instantiate_options(raw_logic_events, never_inline_events: set[str], options_dict: dict[LogicOption, bool]):
+def instantiate_options(raw_logic_events, never_inline_events: set[str], never_delete_events: set[str], options_dict: dict[LogicOption, bool]):
     assert set(LogicOption) == options_dict.keys(), repr(set(LogicOption) - options_dict.keys())
     logic_events = {**raw_logic_events, **{
         fmt_option(option): ALWAYS if value else NEVER
         for option, value in options_dict.items()
     }}
-    logic_events, _ = inline_exprs(logic_events, never_inline_events)
+    logic_events, _ = inline_exprs(logic_events, never_inline_events, never_delete_events)
     return logic_events
 
-def inline_exprs(logic_events, never_inline_events):
+def inline_exprs(logic_events, never_inline_events, never_delete_events):
     def visit_readonly(expr, fn):
         if type(expr) != dict:
             fn(expr)
@@ -85,8 +85,9 @@ def inline_exprs(logic_events, never_inline_events):
                 **logic_events,
             )
 
-        unused_events = logic_events.keys() - all_used_names - never_inline_events
+        unused_events = logic_events.keys() - all_used_names - never_delete_events
         logic_events = {k: v for k, v in logic_events.items() if k not in unused_events}
+        did_anything = len(unused_events) > 0
 
         # Inline trivial events.
         inline_these = {}
@@ -96,7 +97,6 @@ def inline_exprs(logic_events, never_inline_events):
             # Simple enough to inline.
             inline_these[event_name] = expr
         new_logic_events = {}
-        did_anything = False
         for event_name, expr in logic_events.items():
             new_expr = visit_replace(expr, lambda expr: inline_these.get(expr, expr))
             if new_expr != expr:
