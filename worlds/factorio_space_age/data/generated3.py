@@ -9199,6 +9199,17 @@ raw_logic_events = {
                     "Automate explosive-rocket",
                     "Automate rocket"
                 ]
+            },
+            {
+                "or": [
+                    "Option basic_asteroid_processing_is_good_enough",
+                    {
+                        "and": [
+                            "advanced-asteroid-processing",
+                            "asteroid-reprocessing"
+                        ]
+                    }
+                ]
             }
         ]
     },
@@ -9279,6 +9290,12 @@ raw_logic_events = {
                 "or": [
                     "Access heating-tower",
                     "Operate nuclear-reactor"
+                ]
+            },
+            {
+                "or": [
+                    "Access heating-tower",
+                    "Option nuclear_heating_is_good_enough"
                 ]
             }
         ]
@@ -9604,6 +9621,7 @@ raw_logic_events = {
     },
     "Option assembling_machine_1_is_good_enough": "Option assembling_machine_1_is_good_enough",
     "Option backwards_recycling_is_interesting": "Option backwards_recycling_is_interesting",
+    "Option basic_asteroid_processing_is_good_enough": "Option basic_asteroid_processing_is_good_enough",
     "Option belt_logistics_is_good_enough": "Option belt_logistics_is_good_enough",
     "Option burner_mining_drill_is_good_enough": "Option burner_mining_drill_is_good_enough",
     "Option bypass_technology_prerequisites": "Option bypass_technology_prerequisites",
@@ -9616,6 +9634,7 @@ raw_logic_events = {
     "Option inserter_balancing_is_good_enough": "Option inserter_balancing_is_good_enough",
     "Option launching_metal_is_good_enough": "Option launching_metal_is_good_enough",
     "Option lightning_schmightning": "Option lightning_schmightning",
+    "Option nuclear_heating_is_good_enough": "Option nuclear_heating_is_good_enough",
     "Option playing_without_energy_link_early_game_is_good_enough": "Option playing_without_energy_link_early_game_is_good_enough",
     "Option playing_without_energy_link_fulgora_is_good_enough": "Option playing_without_energy_link_fulgora_is_good_enough",
     "Option playing_without_energy_link_mid_game_is_good_enough": "Option playing_without_energy_link_mid_game_is_good_enough",

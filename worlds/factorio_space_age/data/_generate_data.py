@@ -1266,6 +1266,10 @@ def generate_everything(the_data: dict):
             expr = {"and": [
                 {"or": [fmt_operate_machine(name) for name in heat_producing_machines]},
                 {"or": [fmt_access_item(name) for name in heat_conduit_machines]},
+                {"or": [
+                    fmt_option(LogicOption.nuclear_heating_is_good_enough),
+                    fmt_operate_machine(RawItem.heating_tower),
+                ]}
             ]}
         elif capability == Capability.build_on_ice_platforms:
             expr = {"or": [fmt_automate_item(name) for name in heat_insulation_flooring_items]}
@@ -1358,6 +1362,13 @@ def generate_everything(the_data: dict):
                     # atomic bomb and capture robot rocket are not what you need.
                     # Just hardcoding the answer i guess.
                     if item in (RawItem.rocket, RawItem.explosive_rocket)
+                ]},
+                {"or": [
+                    fmt_option(LogicOption.basic_asteroid_processing_is_good_enough),
+                    {"and": [
+                        fmt_unlock_research(RawTechnology.asteroid_reprocessing),
+                        fmt_unlock_research(RawTechnology.advanced_asteroid_processing),
+                    ]},
                 ]},
             ]}
         elif capability == Capability.destroy_huge_asteroids:

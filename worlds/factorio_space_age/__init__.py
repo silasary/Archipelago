@@ -184,6 +184,8 @@ class Factorio(World):
             LogicOption.direct_pipes_is_good_enough:         not self.options.require_fluid_handling.value,
             LogicOption.hand_building_is_good_enough:        not self.options.require_construction_robots.value,
             LogicOption.belt_logistics_is_good_enough:       not self.options.require_logistic_robots.value,
+            LogicOption.basic_asteroid_processing_is_good_enough: not self.options.require_asteroid_processing,
+            LogicOption.nuclear_heating_is_good_enough:      not self.options.require_heating_tower,
 
             LogicOption.energy_link_recipe_early_game:       el_enabled and el_recipe == "early_game",
             LogicOption.energy_link_recipe_mid_game:         el_enabled and el_recipe == "mid_game",

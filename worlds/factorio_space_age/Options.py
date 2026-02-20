@@ -208,6 +208,7 @@ class ShuffleFinalTechnology(Toggle):
     """
     Should the "last" technology (see below) be shuffled as a multiworld item?
     Otherwise, it will be unlocked at its vanilla research location and require all the usual science packs.
+    Setting this option to 'true' can reduce the number of science packs needed to complete the goal.
 
     The "last" technology depends on the goal:
     space platform: rocket-silo, which requires 3 science packs.
@@ -378,7 +379,7 @@ class LogicMiningDrill(DefaultOnToggle):
 @auto_group
 class LogicLogistics(DefaultOnToggle):
     """
-    Logically require logistics (underground belts and splitters) for logistic science pack automation (green science).
+    Logically require underground belts and splitters for logistic science pack automation (green science).
     """
 
 @auto_group
@@ -453,6 +454,19 @@ class LogicConstructionRobots(Toggle):
 class LogicLogisticRobots(Toggle):
     """
     Logically require requester chests and logistic robots before traveling to another planet.
+    """
+
+@auto_group
+class LogicAsteroidProcessing(Toggle):
+    """
+    Logically require asteroid reprocessing and advanced asteroid processing to reach Aquilo.
+    """
+
+@auto_group
+class LogicHeatingTower(Toggle):
+    """
+    Logically require heating tower to heat buildings on Aquilo.
+    Otherwise, you may need to ship in nuclear fuel cells.
     """
 
 
@@ -609,6 +623,8 @@ class FactorioOptions(PerGameCommonOptions):
     require_fluid_handling: LogicFluidHandling
     require_construction_robots: LogicConstructionRobots
     require_logistic_robots: LogicLogisticRobots
+    require_asteroid_processing: LogicAsteroidProcessing
+    require_heating_tower: LogicHeatingTower
 
     energy_link: EnergyLink
     energy_link_recipe: EnergyLinkRecipe

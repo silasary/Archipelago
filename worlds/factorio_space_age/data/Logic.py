@@ -22,6 +22,8 @@ class LogicOption(StrEnum):
     direct_pipes_is_good_enough = "direct_pipes_is_good_enough"
     hand_building_is_good_enough = "hand_building_is_good_enough"
     belt_logistics_is_good_enough = "belt_logistics_is_good_enough"
+    basic_asteroid_processing_is_good_enough = "basic_asteroid_processing_is_good_enough"
+    nuclear_heating_is_good_enough = "nuclear_heating_is_good_enough"
     energy_link_recipe_early_game = "energy_link_recipe_early_game"
     energy_link_recipe_mid_game = "energy_link_recipe_mid_game"
     energy_link_recipe_fulgora = "energy_link_recipe_fulgora"
