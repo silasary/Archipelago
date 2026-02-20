@@ -491,7 +491,6 @@ _override_recipe_data = {
     },
 }
 
-# TODO: this is unimplemented
 _effective_technology_name_for_progressive_grouping = {
     RawTechnology.turbo_transport_belt: "logistics-4",
     RawTechnology.epic_quality: "quality-upgrade-1",
@@ -1073,25 +1072,24 @@ def generate_everything(the_data: dict):
 
         # Technology with levels is usually something we want to make progressive.
         level = technology_data["level"]
+        effective_technology_name = _effective_technology_name_for_progressive_grouping.get(technology_name, technology_name)
         try:
             # The tech name ending with "-1" or another number is actually meaningful.
             # This is documented here: https://lua-api.factorio.com/latest/types/TechnologyUnit.html#count_formula
-            progressive_group_name, level_from_name = technology_name.rsplit("-", 1)
-            level_from_name = int(level_from_name)
+            progressive_group_name, level_from_name = effective_technology_name.rsplit("-", 1)
+            level = int(level_from_name)
         except ValueError: # It doesn't end with a number.
             progressive_group_name = None
-        else:
-            assert level_from_name == level, "technology name lies about the level: " + technology_name
         if level != 1:
-            assert progressive_group_name != None, "leveled technology doesn't have a number in the name: " + technology_name
+            assert progressive_group_name != None, "leveled technology doesn't have a number in the name: " + effective_technology_name
         # Infinite research.
         if technology.is_infinite():
             assert technology_data["max_level"] == 4294967295, "consider evaluating the cost at each finite level instead of using an 'infinite' formula"
-            assert not does_something_important, "infinite research is doing something important: " + technology_name
+            assert not does_something_important, "infinite research is doing something important: " + effective_technology_name
             if progressive_group_name == None:
                 # The technology that starts infinite from level 1 doesn't include numbers in the names.
                 # e.g. 'steel-plate-productivity', 'health'
-                progressive_group_name = technology_name
+                progressive_group_name = effective_technology_name
         if progressive_group_name != None:
             progressive_technology_chains[progressive_group_name][level] = technology_name
     # Fill in sneaky progressive technologies like 'automation' as level 1 despite not being called 'automation-1'.
@@ -1128,6 +1126,7 @@ def generate_everything(the_data: dict):
                 {"bulk-inserter-capacity-bonus", "inserter-stack-size-bonus"},
                 {"belt-stack-size-bonus", "inserter-stack-size-bonus"},
                 {"laboratory-speed"}, {"laboratory-productivity"},
+                {"unlock-quality"},
             ):
                 category = "bonuses"
             elif effect_types in (

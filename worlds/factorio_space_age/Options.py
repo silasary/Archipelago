@@ -224,6 +224,9 @@ class ProgressiveTechs(Choice):
     off: All technologies will be separate items, which means you might received inserter-capacity-bonus-7 before inserter-capacity-bonus-2.
     bonuses: Technologies that grant global bonuses will be grouped together and received in sequence, for example there will be 7 copies of progressive-inserter-capacity-bonus instead of the individual -1, -2, etc. items.
     all: In addition, technologies that unlock recipes will also be grouped, for example 3 copies of progressive-automation, 4 copies of progressive-military, 3 copies of progressive-speed-module, etc.
+
+    In addition to technology names that end with numbers, epic-quality and legendary-quality are bonuses called progressive-quality-upgrade,
+    and turbo-transport-belt is the fourth recipe unlock in the progressive-logistics chain.
     """
     display_name = "Progressive Technologies"
     option_off = 0

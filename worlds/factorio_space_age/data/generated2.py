@@ -2467,7 +2467,8 @@ progressive_technology_stacks = {
     "progressive-logistics": [
         "logistics",
         "logistics-2",
-        "logistics-3"
+        "logistics-3",
+        "turbo-transport-belt"
     ],
     "progressive-low-density-structure-productivity": [
         "low-density-structure-productivity"
@@ -2507,6 +2508,10 @@ progressive_technology_stacks = {
         "quality-module",
         "quality-module-2",
         "quality-module-3"
+    ],
+    "progressive-quality-upgrade": [
+        "epic-quality",
+        "legendary-quality"
     ],
     "progressive-railgun-damage": [
         "railgun-damage-1"
@@ -2614,6 +2619,7 @@ technology_name_to_progressive_group_name = {
     "electric-weapons-damage-2": "progressive-electric-weapons-damage",
     "electric-weapons-damage-3": "progressive-electric-weapons-damage",
     "electric-weapons-damage-4": "progressive-electric-weapons-damage",
+    "epic-quality": "progressive-quality-upgrade",
     "follower-robot-count-1": "progressive-follower-robot-count",
     "follower-robot-count-2": "progressive-follower-robot-count",
     "follower-robot-count-3": "progressive-follower-robot-count",
@@ -2641,6 +2647,7 @@ technology_name_to_progressive_group_name = {
     "laser-weapons-damage-5": "progressive-laser-weapons-damage",
     "laser-weapons-damage-6": "progressive-laser-weapons-damage",
     "laser-weapons-damage-7": "progressive-laser-weapons-damage",
+    "legendary-quality": "progressive-quality-upgrade",
     "logistics": "progressive-logistics",
     "logistics-2": "progressive-logistics",
     "logistics-3": "progressive-logistics",
@@ -2699,6 +2706,7 @@ technology_name_to_progressive_group_name = {
     "stronger-explosives-7": "progressive-stronger-explosives",
     "transport-belt-capacity-1": "progressive-transport-belt-capacity",
     "transport-belt-capacity-2": "progressive-transport-belt-capacity",
+    "turbo-transport-belt": "progressive-logistics",
     "weapon-shooting-speed-1": "progressive-weapon-shooting-speed",
     "weapon-shooting-speed-2": "progressive-weapon-shooting-speed",
     "weapon-shooting-speed-3": "progressive-weapon-shooting-speed",
@@ -2742,6 +2750,7 @@ progressive_group_name_to_category = {
     "progressive-processing-unit-productivity": "bonuses",
     "progressive-productivity-module": "recipes",
     "progressive-quality-module": "recipes",
+    "progressive-quality-upgrade": "bonuses",
     "progressive-railgun-damage": "bonuses",
     "progressive-railgun-shooting-speed": "bonuses",
     "progressive-refined-flammables": "bonuses",
