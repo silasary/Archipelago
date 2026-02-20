@@ -9393,6 +9393,7 @@ raw_logic_events = {
     "Operate asteroid-collector": {
         "and": [
             "Access asteroid-collector",
+            "Access solar-panel",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",
@@ -9435,6 +9436,7 @@ raw_logic_events = {
     "Operate crusher": {
         "and": [
             "Access crusher",
+            "Access solar-panel",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",

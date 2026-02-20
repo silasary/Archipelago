@@ -1,4 +1,3 @@
-# TODO: Operate asteroid-collector should depend on Can generate_electricity_in_space
 import itertools, typing
 from collections import defaultdict
 from dataclasses import dataclass
@@ -1394,6 +1393,13 @@ def generate_everything(the_data: dict):
         if machine_name in fusion_plasma_producing_machines:
             # You also need coolant for this machine.
             expr["and"].append(fmt_access_item(RawFluid.fluoroketone_cold))
+        if (
+            machine.locations != None and
+            all(space_locations[name].surface_properties.gravity == 0 for name in machine.locations) and
+            PowerType.electricity in machine.power_required
+        ):
+            # Space requires special electricity.
+            expr["and"].append(fmt_capability(Capability.generate_electricity_in_space))
         raw_logic_events[fmt_operate_machine(machine_name)] = expr
 
     # Power
