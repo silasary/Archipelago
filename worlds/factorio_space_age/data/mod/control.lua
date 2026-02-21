@@ -365,20 +365,21 @@ script.on_event(defines.events.on_research_finished, function(event)
         --are worked on exclusively in editor mode.
         return
     end
-    if PARAMS.goal == "any_other_planet_science" then
-        -- Did we win?
-        for name, amount in pairs(technology.prototype.ingredients) do
-            if  name == "metallurgic-science-pack" or
-                name == "agricultural-science-pack" or
-                name == "electromagnetic-science-pack"
-            then
-                trigger_victory()
-            end
-        end
-    end
     if technology.researched and string.find(technology.name, "ap%-") == 1 then
         -- Notify the server that we've unlocked an AP location.
         dumpInfo(technology.force)
+        if PARAMS.goal == "any_other_planet_science" then
+            -- Did we win?
+            for _, pair in pairs(technology.research_unit_ingredients) do
+                local name = pair.name
+                if  name == "metallurgic-science-pack" or
+                    name == "agricultural-science-pack" or
+                    name == "electromagnetic-science-pack"
+                then
+                    trigger_victory(technology.force)
+                end
+            end
+        end
         return
     end
     -- We've received an AP item, or this technology isn't randomized.
