@@ -1,3 +1,4 @@
+# TODO: asteroid chunk automation logic looks funky
 import itertools, typing
 from collections import defaultdict
 from dataclasses import dataclass

@@ -126,6 +126,9 @@ def optimize_expr(expr):
                 if clause == NEVER: continue # A or False == A
                 if clause == ALWAYS: return ALWAYS # A or True == True
                 if clause in new_clauses: continue # A or A == A
+                if type(clause) == dict and "and" in clause:
+                    # A or (A and B) == A
+                    if any(sub_clause in new_clauses for sub_clause in clause["and"]): continue
                 if type(clause) == dict and "or" in clause:
                     # A or (B or C) == A or B or C
                     new_clauses.extend(clause["or"])
@@ -259,3 +262,10 @@ def compile_expr(expr) -> typing.Callable[[dict[str, int]], bool]:
         code = recurse(expr)
         fn = eval("lambda d: " + code)
         return fn
+
+if __name__ == "__main__":
+    # Some tests
+    assert optimize_expr({"or": [
+        "Reach gleba",
+        {"and": ["Access agricultural-tower", "Access jellynut-seed", "Reach gleba"]}
+    ]}) == "Reach gleba"

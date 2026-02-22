@@ -85,7 +85,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             }
@@ -426,12 +426,6 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            },
-            {
-                "and": [
                     "Access sulfuric-acid",
                     "battery",
                     {
@@ -440,6 +434,12 @@ raw_logic_events = {
                             "Access cryogenic-plant"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Reach fulgora",
+                    "recycling"
                 ]
             }
         ]
@@ -755,29 +755,19 @@ raw_logic_events = {
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -892,7 +882,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             },
@@ -913,34 +903,6 @@ raw_logic_events = {
         "and": [
             "Access flying-robot-frame",
             "construction-robotics"
-        ]
-    },
-    "Access copper-bacteria": {
-        "or": [
-            "Reach gleba",
-            {
-                "and": [
-                    "Reach gleba",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access bioflux",
-                                    "Access copper-bacteria",
-                                    "Operate biochamber",
-                                    "bacteria-cultivation"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access yumako-mash",
-                                    "yumako"
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
         ]
     },
     "Access crude-oil": {
@@ -1856,17 +1818,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access holmium-ore": {
-        "or": [
-            "Reach fulgora",
-            {
-                "and": [
-                    "Access scrap",
-                    "recycling"
-                ]
-            }
-        ]
-    },
     "Access holmium-plate": {
         "or": [
             {
@@ -1901,7 +1852,7 @@ raw_logic_events = {
     "Access holmium-solution": {
         "and": [
             "Access chemical-plant",
-            "Access holmium-ore",
+            "Reach fulgora",
             "holmium-processing"
         ]
     },
@@ -1941,7 +1892,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             }
@@ -1959,34 +1910,6 @@ raw_logic_events = {
                         "or": [
                             "Access assembling-machine-2",
                             "Access assembling-machine-3"
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "Access iron-bacteria": {
-        "or": [
-            "Reach gleba",
-            {
-                "and": [
-                    "Reach gleba",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access bioflux",
-                                    "Access iron-bacteria",
-                                    "Operate biochamber",
-                                    "bacteria-cultivation"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access jelly",
-                                    "jellynut"
-                                ]
-                            }
                         ]
                     }
                 ]
@@ -2026,39 +1949,21 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
-                    "Access jellynut",
-                    "jellynut"
-                ]
-            },
-            {
-                "and": [
                     "Access recycler",
                     "Access stack-inserter",
                     "Option backwards_recycling_is_interesting"
                 ]
-            }
-        ]
-    },
-    "Access jellynut": {
-        "or": [
-            "Reach gleba",
+            },
             {
                 "and": [
-                    "Access agricultural-tower",
-                    "Access jellynut-seed",
-                    "Reach gleba"
+                    "Reach gleba",
+                    "jellynut"
                 ]
             }
         ]
     },
     "Access jellynut-seed": {
         "or": [
-            {
-                "and": [
-                    "Access jellynut",
-                    "jellynut"
-                ]
-            },
             {
                 "and": [
                     "Access recycler",
@@ -2069,6 +1974,12 @@ raw_logic_events = {
                             "Access overgrowth-jellynut-soil"
                         ]
                     }
+                ]
+            },
+            {
+                "and": [
+                    "Reach gleba",
+                    "jellynut"
                 ]
             }
         ]
@@ -2345,7 +2256,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             }
@@ -2432,33 +2343,23 @@ raw_logic_events = {
                                         "or": [
                                             "Reach fulgora_orbit",
                                             "Reach gleba_orbit",
-                                            "Reach vulcanus_orbit",
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -2636,35 +2537,25 @@ raw_logic_events = {
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
                                             "Reach gleba_orbit",
                                             "Reach vulcanus_orbit",
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -2706,15 +2597,6 @@ raw_logic_events = {
                     "Access biochamber",
                     "Access recycler",
                     "Option backwards_recycling_is_interesting"
-                ]
-            },
-            {
-                "and": [
-                    "Access nutrients",
-                    "Access pentapod-egg",
-                    "Operate biochamber",
-                    "Reach gleba",
-                    "biochamber"
                 ]
             }
         ]
@@ -3022,7 +2904,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             }
@@ -3436,17 +3318,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access scrap": {
-        "or": [
-            "Reach fulgora",
-            {
-                "and": [
-                    "Can harness lightning",
-                    "Reach fulgora"
-                ]
-            }
-        ]
-    },
     "Access selector-combinator": {
         "and": [
             "Access advanced-circuit",
@@ -3547,7 +3418,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access scrap",
+                    "Reach fulgora",
                     "recycling"
                 ]
             }
@@ -3655,9 +3526,7 @@ raw_logic_events = {
             "Access agricultural-science-pack",
             "Access bioflux",
             "Access jelly",
-            "Access jellynut",
             "Access nutrients",
-            "Access yumako",
             "Access yumako-mash",
             "Option wait_hours_for_fish_to_spoil",
             "Reach gleba",
@@ -3672,27 +3541,6 @@ raw_logic_events = {
                             "Access nutrients",
                             "Access overgrowth-jellynut-soil",
                             "Access overgrowth-yumako-soil"
-                        ]
-                    }
-                ]
-            },
-            {
-                "and": [
-                    "Reach gleba",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Access jelly",
-                                    "jellynut"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Access yumako-mash",
-                                    "yumako"
-                                ]
-                            }
                         ]
                     }
                 ]
@@ -3850,12 +3698,6 @@ raw_logic_events = {
                             "Access train-stop"
                         ]
                     }
-                ]
-            },
-            {
-                "and": [
-                    "Access scrap",
-                    "recycling"
                 ]
             }
         ]
@@ -4125,7 +3967,7 @@ raw_logic_events = {
                 "and": [
                     "Access carbon",
                     "Access sulfuric-acid",
-                    "Access tungsten-ore",
+                    "Reach vulcanus",
                     "tungsten-carbide",
                     {
                         "or": [
@@ -4151,24 +3993,13 @@ raw_logic_events = {
             }
         ]
     },
-    "Access tungsten-ore": {
-        "or": [
-            "Reach vulcanus",
-            {
-                "and": [
-                    "Access big-mining-drill",
-                    "Reach vulcanus"
-                ]
-            }
-        ]
-    },
     "Access tungsten-plate": {
         "or": [
             {
                 "and": [
                     "Access foundry",
                     "Access molten-iron",
-                    "Access tungsten-ore",
+                    "Reach vulcanus",
                     "tungsten-steel"
                 ]
             },
@@ -4351,21 +4182,9 @@ raw_logic_events = {
             }
         ]
     },
-    "Access yumako": {
-        "or": [
-            "Reach gleba",
-            {
-                "and": [
-                    "Access agricultural-tower",
-                    "Access yumako-seed",
-                    "Reach gleba"
-                ]
-            }
-        ]
-    },
     "Access yumako-mash": {
         "and": [
-            "Access yumako",
+            "Reach gleba",
             "yumako"
         ]
     },
@@ -4385,7 +4204,7 @@ raw_logic_events = {
             },
             {
                 "and": [
-                    "Access yumako",
+                    "Reach gleba",
                     "yumako"
                 ]
             }
@@ -5136,29 +4955,19 @@ raw_logic_events = {
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -6844,33 +6653,23 @@ raw_logic_events = {
                                         "or": [
                                             "Reach fulgora_orbit",
                                             "Reach gleba_orbit",
-                                            "Reach vulcanus_orbit",
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -7079,35 +6878,25 @@ raw_logic_events = {
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
                                             "Reach gleba_orbit",
                                             "Reach vulcanus_orbit",
                                             {
                                                 "and": [
                                                     "Can destroy big asteroids",
+                                                    "Can destroy huge asteroids",
                                                     {
                                                         "or": [
-                                                            "Reach aquilo_orbit",
-                                                            {
-                                                                "and": [
-                                                                    "Can destroy huge asteroids",
-                                                                    {
-                                                                        "or": [
-                                                                            "Reach aquilo-solar-system-edge",
-                                                                            "Reach fulgora-aquilo",
-                                                                            "Reach gleba-aquilo",
-                                                                            "Reach gleba-fulgora",
-                                                                            "Reach nauvis-fulgora",
-                                                                            "Reach nauvis-gleba",
-                                                                            "Reach nauvis-vulcanus",
-                                                                            "Reach shattered-planet",
-                                                                            "Reach solar-system-edge",
-                                                                            "Reach solar-system-edge-shattered-planet",
-                                                                            "Reach vulcanus-gleba"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
+                                                            "Reach aquilo-solar-system-edge",
+                                                            "Reach fulgora-aquilo",
+                                                            "Reach gleba-aquilo",
+                                                            "Reach gleba-fulgora",
+                                                            "Reach nauvis-fulgora",
+                                                            "Reach nauvis-gleba",
+                                                            "Reach nauvis-vulcanus",
+                                                            "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
+                                                            "Reach solar-system-edge-shattered-planet",
+                                                            "Reach vulcanus-gleba"
                                                         ]
                                                     }
                                                 ]
@@ -8280,41 +8069,6 @@ raw_logic_events = {
                     "Automate raw-fish",
                     "Option wait_hours_for_fish_to_spoil"
                 ]
-            },
-            {
-                "and": [
-                    "Reach gleba",
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "Automate jelly",
-                                    "jellynut",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3",
-                                            "Operate biochamber"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "Automate yumako-mash",
-                                    "yumako",
-                                    {
-                                        "or": [
-                                            "Access assembling-machine-2",
-                                            "Access assembling-machine-3",
-                                            "Operate biochamber"
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
             }
         ]
     },
@@ -9352,7 +9106,6 @@ raw_logic_events = {
                                     "Option bypass_technology_prerequisites",
                                     {
                                         "and": [
-                                            "Access holmium-ore",
                                             "Access holmium-plate",
                                             "Access pumpjack",
                                             "Access supercapacitor",
@@ -10565,7 +10318,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -10946,7 +10698,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -11154,7 +10905,6 @@ raw_logic_events = {
                             "Access biochamber",
                             "Access bioflux",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access nutrients",
                             "Access pumpjack",
@@ -11196,7 +10946,6 @@ raw_logic_events = {
                             "Access biochamber",
                             "Access bioflux",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -11499,7 +11248,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -11531,7 +11279,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -11558,7 +11305,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access pumpjack",
                             "Automate chemical-science-pack",
                             "Automate logistic-science-pack",
@@ -11580,7 +11326,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Automate chemical-science-pack",
@@ -11645,7 +11390,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -11976,7 +11720,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -12049,7 +11792,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -12102,7 +11844,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -12199,7 +11940,7 @@ raw_logic_events = {
     "heavy-armor": "(always)",
     "holmium-processing": {
         "and": [
-            "Access holmium-ore",
+            "Reach fulgora",
             {
                 "or": [
                     "Option bypass_technology_prerequisites",
@@ -12758,7 +12499,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -12800,7 +12540,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -12828,7 +12567,6 @@ raw_logic_events = {
                             "Access biochamber",
                             "Access bioflux",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access nutrients",
                             "Access pumpjack",
@@ -12994,7 +12732,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -13335,7 +13072,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -13466,7 +13202,6 @@ raw_logic_events = {
                             "Access biochamber",
                             "Access bioflux",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access nutrients",
                             "Access pumpjack",
@@ -13673,7 +13408,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -13797,7 +13531,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -13878,7 +13611,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -13915,7 +13647,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -13963,7 +13694,6 @@ raw_logic_events = {
                         "and": [
                             "Access big-mining-drill",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -14004,7 +13734,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -14055,7 +13784,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -14106,7 +13834,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -14349,7 +14076,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -14560,7 +14286,6 @@ raw_logic_events = {
                             "Access bioflux",
                             "Access cryogenic-plant",
                             "Access foundry",
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access lithium-plate",
                             "Access nutrients",
@@ -14669,7 +14394,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -15111,7 +14835,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
@@ -15612,7 +15335,6 @@ raw_logic_events = {
                     "Option bypass_technology_prerequisites",
                     {
                         "and": [
-                            "Access holmium-ore",
                             "Access holmium-plate",
                             "Access pumpjack",
                             "Access supercapacitor",
