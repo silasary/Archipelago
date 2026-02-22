@@ -186,6 +186,9 @@ def optimize_expr(expr):
                 if clause == ALWAYS: continue # A and True == A
                 if clause == NEVER: return NEVER # A and False == False
                 if clause in new_clauses: continue # A and A == A
+                if type(clause) == dict and "or" in clause:
+                    # A and (A or B) == A
+                    if any(sub_clause in new_clauses for sub_clause in clause["or"]): continue
                 if type(clause) == dict and "and" in clause:
                     # A and (B and C) == A and B and C
                     new_clauses.extend(clause["and"])

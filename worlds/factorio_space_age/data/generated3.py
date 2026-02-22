@@ -766,6 +766,7 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -802,20 +803,6 @@ raw_logic_events = {
             "space-platform"
         ]
     },
-    "Access cargo-landing-pad": {
-        "and": [
-            "Access concrete",
-            "Access processing-unit",
-            "Access steel-plate",
-            "rocket-silo"
-        ]
-    },
-    "Access cargo-wagon": {
-        "and": [
-            "Access steel-plate",
-            "railway"
-        ]
-    },
     "Access centrifuge": {
         "and": [
             "Access advanced-circuit",
@@ -847,12 +834,6 @@ raw_logic_events = {
             "military-4"
         ]
     },
-    "Access combat-shotgun": {
-        "and": [
-            "Access steel-plate",
-            "military-3"
-        ]
-    },
     "Access concrete": {
         "or": [
             {
@@ -865,19 +846,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access cargo-landing-pad",
-                            "Access centrifuge",
-                            "Access hazard-concrete",
-                            "Access heating-tower",
-                            "Access nuclear-reactor",
-                            "Access recycler",
-                            "Access refined-concrete",
-                            "Access rocket-silo"
-                        ]
-                    }
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
@@ -1453,12 +1422,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access flamethrower": {
-        "and": [
-            "Access steel-plate",
-            "flamethrower"
-        ]
-    },
     "Access flamethrower-turret": {
         "and": [
             "Access engine-unit",
@@ -1690,12 +1653,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access hazard-concrete": {
-        "and": [
-            "Access concrete",
-            "concrete"
-        ]
-    },
     "Access heat-exchanger": {
         "and": [
             "Access steel-plate",
@@ -1724,12 +1681,6 @@ raw_logic_events = {
             "Access concrete",
             "Access heat-pipe",
             "heating-tower"
-        ]
-    },
-    "Access heavy-armor": {
-        "and": [
-            "Access steel-plate",
-            "heavy-armor"
         ]
     },
     "Access heavy-oil": {
@@ -2357,7 +2308,6 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -2537,7 +2487,7 @@ raw_logic_events = {
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach gleba_orbit",
+                                            "Reach fulgora_orbit",
                                             "Reach vulcanus_orbit",
                                             {
                                                 "and": [
@@ -2553,7 +2503,6 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -2804,12 +2753,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access poison-capsule": {
-        "and": [
-            "Access steel-plate",
-            "military-3"
-        ]
-    },
     "Access power-armor": {
         "and": [
             "Access electric-engine-unit",
@@ -2858,48 +2801,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access artillery-turret",
-                            "Access artillery-wagon",
-                            "Access asteroid-collector",
-                            "Access atomic-bomb",
-                            "Access battery-mk2-equipment",
-                            "Access capture-robot-rocket",
-                            "Access cargo-bay",
-                            "Access cargo-landing-pad",
-                            "Access cryogenic-plant",
-                            "Access destroyer-capsule",
-                            "Access discharge-defense-equipment",
-                            "Access efficiency-module-2",
-                            "Access efficiency-module-3",
-                            "Access electromagnetic-plant",
-                            "Access energy-shield-mk2-equipment",
-                            "Access exoskeleton-equipment",
-                            "Access fission-reactor-equipment",
-                            "Access mech-armor",
-                            "Access personal-laser-defense-equipment",
-                            "Access personal-roboport-mk2-equipment",
-                            "Access power-armor",
-                            "Access power-armor-mk2",
-                            "Access productivity-module-2",
-                            "Access productivity-module-3",
-                            "Access quality-module-2",
-                            "Access quality-module-3",
-                            "Access quantum-processor",
-                            "Access recycler",
-                            "Access rocket-silo",
-                            "Access rocket-turret",
-                            "Access space-platform-starter-pack",
-                            "Access speed-module-2",
-                            "Access speed-module-3",
-                            "Access stack-inserter",
-                            "Access tesla-turret",
-                            "Access thruster",
-                            "Access turbo-splitter"
-                        ]
-                    }
+                    "Option backwards_recycling_is_interesting"
                 ]
             },
             {
@@ -3337,12 +3239,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access slowdown-capsule": {
-        "and": [
-            "Access steel-plate",
-            "military-3"
-        ]
-    },
     "Access solar-panel": {
         "or": [
             {
@@ -3538,7 +3434,6 @@ raw_logic_events = {
                         "or": [
                             "Access agricultural-tower",
                             "Access efficiency-module-3",
-                            "Access nutrients",
                             "Access overgrowth-jellynut-soil",
                             "Access overgrowth-yumako-soil"
                         ]
@@ -3600,12 +3495,6 @@ raw_logic_events = {
             }
         ]
     },
-    "Access steel-furnace": {
-        "and": [
-            "Access steel-plate",
-            "advanced-material-processing"
-        ]
-    },
     "Access steel-plate": {
         "or": [
             "Reach fulgora",
@@ -3620,84 +3509,7 @@ raw_logic_events = {
             {
                 "and": [
                     "Access recycler",
-                    "Option backwards_recycling_is_interesting",
-                    {
-                        "or": [
-                            "Access agricultural-tower",
-                            "Access assembling-machine-2",
-                            "Access barrel",
-                            "Access battery-equipment",
-                            "Access beacon",
-                            "Access belt-immunity-equipment",
-                            "Access big-electric-pole",
-                            "Access cannon-shell",
-                            "Access capture-robot-rocket",
-                            "Access car",
-                            "Access cargo-bay",
-                            "Access cargo-landing-pad",
-                            "Access cargo-wagon",
-                            "Access centrifuge",
-                            "Access chemical-plant",
-                            "Access cluster-grenade",
-                            "Access combat-shotgun",
-                            "Access crusher",
-                            "Access destroyer-capsule",
-                            "Access discharge-defense-equipment",
-                            "Access electric-furnace",
-                            "Access electromagnetic-plant",
-                            "Access energy-shield-equipment",
-                            "Access engine-unit",
-                            "Access exoskeleton-equipment",
-                            "Access explosive-cannon-shell",
-                            "Access flamethrower",
-                            "Access flamethrower-turret",
-                            "Access fluid-wagon",
-                            "Access flying-robot-frame",
-                            "Access foundry",
-                            "Access gate",
-                            "Access heat-exchanger",
-                            "Access heat-pipe",
-                            "Access heavy-armor",
-                            "Access land-mine",
-                            "Access laser-turret",
-                            "Access lightning-rod",
-                            "Access locomotive",
-                            "Access low-density-structure",
-                            "Access medium-electric-pole",
-                            "Access modular-armor",
-                            "Access night-vision-equipment",
-                            "Access nuclear-reactor",
-                            "Access oil-refinery",
-                            "Access personal-roboport-equipment",
-                            "Access piercing-rounds-magazine",
-                            "Access piercing-shotgun-shell",
-                            "Access poison-capsule",
-                            "Access power-armor",
-                            "Access pump",
-                            "Access pumpjack",
-                            "Access rail",
-                            "Access rail-ramp",
-                            "Access rail-support",
-                            "Access railgun-ammo",
-                            "Access recycler",
-                            "Access refined-concrete",
-                            "Access roboport",
-                            "Access rocket-silo",
-                            "Access rocket-turret",
-                            "Access slowdown-capsule",
-                            "Access solar-panel",
-                            "Access solar-panel-equipment",
-                            "Access space-platform-foundation",
-                            "Access space-platform-starter-pack",
-                            "Access steel-chest",
-                            "Access steel-furnace",
-                            "Access storage-tank",
-                            "Access substation",
-                            "Access tank",
-                            "Access thruster",
-                            "Access train-stop"
-                        ]
-                    }
+                    "Option backwards_recycling_is_interesting"
                 ]
             }
         ]
@@ -4966,6 +4778,7 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
+                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -6667,7 +6480,6 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -6878,7 +6690,7 @@ raw_logic_events = {
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach gleba_orbit",
+                                            "Reach fulgora_orbit",
                                             "Reach vulcanus_orbit",
                                             {
                                                 "and": [
@@ -6894,7 +6706,6 @@ raw_logic_events = {
                                                             "Reach nauvis-gleba",
                                                             "Reach nauvis-vulcanus",
                                                             "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
                                                             "Reach solar-system-edge-shattered-planet",
                                                             "Reach vulcanus-gleba"
                                                         ]
@@ -8057,7 +7868,6 @@ raw_logic_events = {
                         "or": [
                             "Automate agricultural-tower",
                             "Automate efficiency-module-3",
-                            "Automate nutrients",
                             "Automate overgrowth-jellynut-soil",
                             "Automate overgrowth-yumako-soil"
                         ]
@@ -10188,17 +9998,7 @@ raw_logic_events = {
             }
         ]
     },
-    "automated-rail-transportation": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "automated-rail-transportation": "Automate logistic-science-pack",
     "automation": "(always)",
     "automation-2": "Automate logistic-science-pack",
     "automation-3": {
@@ -10221,17 +10021,7 @@ raw_logic_events = {
         ]
     },
     "automation-science-pack": "(always)",
-    "automobilism": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "automobilism": "Automate logistic-science-pack",
     "bacteria-cultivation": {
         "and": [
             "Access bioflux",
@@ -10864,17 +10654,7 @@ raw_logic_events = {
             }
         ]
     },
-    "concrete": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "concrete": "Automate logistic-science-pack",
     "construction-robotics": {
         "and": [
             "Automate chemical-science-pack",
@@ -10979,13 +10759,7 @@ raw_logic_events = {
     "defender": {
         "and": [
             "Automate logistic-science-pack",
-            "Automate military-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
+            "Automate military-science-pack"
         ]
     },
     "destroyer": {
@@ -11576,28 +11350,8 @@ raw_logic_events = {
             }
         ]
     },
-    "fluid-handling": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
-    "fluid-wagon": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "fluid-handling": "Automate logistic-science-pack",
+    "fluid-wagon": "Automate logistic-science-pack",
     "follower-robot-count-1": {
         "and": [
             "Automate logistic-science-pack",
@@ -11877,17 +11631,7 @@ raw_logic_events = {
             }
         ]
     },
-    "gate": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "gate": "Automate logistic-science-pack",
     "gun-turret": "(always)",
     "health": {
         "and": [
@@ -12814,17 +12558,7 @@ raw_logic_events = {
             }
         ]
     },
-    "military-science-pack": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "military-science-pack": "Automate logistic-science-pack",
     "mining-productivity-1": {
         "and": [
             "Automate logistic-science-pack",
@@ -12966,17 +12700,7 @@ raw_logic_events = {
             }
         ]
     },
-    "oil-gathering": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "oil-gathering": "Automate logistic-science-pack",
     "oil-processing": {
         "and": [
             "Access pumpjack",
@@ -13092,13 +12816,7 @@ raw_logic_events = {
     "physical-projectile-damage-3": {
         "and": [
             "Automate logistic-science-pack",
-            "Automate military-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
+            "Automate military-science-pack"
         ]
     },
     "physical-projectile-damage-4": {
@@ -13865,17 +13583,7 @@ raw_logic_events = {
             }
         ]
     },
-    "railway": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "railway": "Automate logistic-science-pack",
     "recycling": {
         "and": [
             "Reach fulgora",
@@ -14108,28 +13816,8 @@ raw_logic_events = {
             }
         ]
     },
-    "research-speed-1": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
-    "research-speed-2": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "research-speed-1": "Automate logistic-science-pack",
+    "research-speed-2": "Automate logistic-science-pack",
     "research-speed-3": {
         "and": [
             "Automate chemical-science-pack",
@@ -14639,27 +14327,11 @@ raw_logic_events = {
     },
     "steel-processing": "(always)",
     "stone-wall": "(always)",
-    "stronger-explosives-1": {
-        "and": [
-            "Automate logistic-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
-        ]
-    },
+    "stronger-explosives-1": "Automate logistic-science-pack",
     "stronger-explosives-2": {
         "and": [
             "Automate logistic-science-pack",
-            "Automate military-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
+            "Automate military-science-pack"
         ]
     },
     "stronger-explosives-3": {
@@ -15135,13 +14807,7 @@ raw_logic_events = {
     "weapon-shooting-speed-3": {
         "and": [
             "Automate logistic-science-pack",
-            "Automate military-science-pack",
-            {
-                "or": [
-                    "Automate logistic-science-pack",
-                    "Option bypass_technology_prerequisites"
-                ]
-            }
+            "Automate military-science-pack"
         ]
     },
     "weapon-shooting-speed-4": {
