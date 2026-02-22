@@ -16,7 +16,21 @@ CURRENTLY_DEATH_LOCK = 0
 -- Handle the pathfinding result of teleport traps
 script.on_event(defines.events.on_script_path_request_finished, handle_teleport_attempt)
 
-function count_energy_bridges()
+-- EnergyLink
+local function validate_energy_link_bridge(unit_number, entity)
+    if not entity then
+        if storage.energy_link_bridges[unit_number] == nil then return false end
+        storage.energy_link_bridges[unit_number] = nil
+        return false
+    end
+    if not entity.valid then
+        if storage.energy_link_bridges[unit_number] == nil then return false end
+        storage.energy_link_bridges[unit_number] = nil
+        return false
+    end
+    return true
+end
+local function count_energy_bridges()
     local count = 0
     for i, bridge in pairs(storage.energy_link_bridges) do
         if validate_energy_link_bridge(i, bridge) then
@@ -25,12 +39,10 @@ function count_energy_bridges()
     end
     return count
 end
-
-function get_energy_increment(bridge)
+local function get_energy_increment(bridge)
     return ENERGY_INCREMENT + (ENERGY_INCREMENT * 0.3 * bridge.quality.level)
 end
-
-function on_check_energy_link(event)
+local function on_check_energy_link(event)
     --- assuming 1 MJ increment and 5MJ battery:
     --- first 2 MJ request fill, last 2 MJ push energy, middle 1 MJ does nothing
     if event.tick % 60 == 30 then
@@ -66,30 +78,17 @@ function on_check_energy_link(event)
         end
     end
 end
-function string_starts_with(str, start)
+local function string_starts_with(str, start)
     return str:sub(1, #start) == start
 end
-function validate_energy_link_bridge(unit_number, entity)
-    if not entity then
-        if storage.energy_link_bridges[unit_number] == nil then return false end
-        storage.energy_link_bridges[unit_number] = nil
-        return false
-    end
-    if not entity.valid then
-        if storage.energy_link_bridges[unit_number] == nil then return false end
-        storage.energy_link_bridges[unit_number] = nil
-        return false
-    end
-    return true
-end
-function on_energy_bridge_constructed(entity)
+local function on_energy_bridge_constructed(entity)
     if entity and entity.valid then
         if string_starts_with(entity.prototype.name, "ap-energy-bridge") then
             storage.energy_link_bridges[entity.unit_number] = entity
         end
     end
 end
-function on_energy_bridge_removed(entity)
+local function on_energy_bridge_removed(entity)
     if string_starts_with(entity.prototype.name, "ap-energy-bridge") then
         if storage.energy_link_bridges[entity.unit_number] == nil then return end
         storage.energy_link_bridges[entity.unit_number] = nil
@@ -110,7 +109,7 @@ if ENERGY_INCREMENT > 0 then
     script.on_event({defines.events.on_robot_mined_entity}, function(event) on_energy_bridge_removed(event.entity) end)
 end
 
-function set_permissions()
+local function set_permissions()
     if not PARAMS.allow_imported_blueprints then
         local group = game.permissions.get_group("Default")
         group.set_allows_action(defines.input_action.open_blueprint_library_gui, false)
@@ -120,9 +119,16 @@ function set_permissions()
     end
 end
 
+local function is_ap_technology(technology_name)
+    if string.match(technology_name, "_location$") ~= nil then
+        return true
+    else
+        return false
+    end
+end
 
 -- Initialize force data, either from it being created or already being part of the game when the mod was added.
-function on_force_created(event)
+local function on_force_created(event)
     local force = event.force
     if type(event.force) == "string" then  -- should be of type LuaForce
         force = game.forces[force]
@@ -138,8 +144,12 @@ end
 script.on_event(defines.events.on_force_created, on_force_created)
 
 -- Destroy force data.  This doesn't appear to be currently possible with the Factorio API, but here for completeness.
-function on_force_destroyed(event)
+local function on_force_destroyed(event)
     storage.forcedata[event.force.name] = nil
+end
+
+local function dumpInfo(force)
+    log("Archipelago Bridge Data available for game tick ".. game.tick .. ".") -- notifies client
 end
 
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
@@ -162,69 +172,8 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
     end
 end)
 
--- Initialize player data, either from them joining the game or them already being part of the game when the mod was
--- added.`
-function on_player_created(event)
-    local player = game.players[event.player_index]
-    -- FIXME: This (probably) fires before any other mod has a chance to change the player's force
-    -- For now, they will (probably) always be on the 'player' force when this event fires.
-    local data = {}
-    data["pending_samples"] = table.deepcopy(storage.forcedata[player.force.name]["earned_samples"])
-    storage.playerdata[player.index] = data
-    update_player(player.index)  -- Attempt to send pending free samples, if relevant.
-    dumpInfo(player.force)
-end
-script.on_event(defines.events.on_player_created, on_player_created)
-
-script.on_event(defines.events.on_player_removed, function(event)
-    storage.playerdata[event.player_index] = nil
-end)
-
--- Goal checking
-function trigger_victory(force)
-    if storage.forcedata[force.name]["victory"] == 0 then
-        storage.forcedata[force.name]["victory"] = 1
-        dumpInfo(force)
-        game.set_game_state({
-            game_finished = true,
-            player_won = true,
-            can_continue = true,
-            victorious_force = force,
-        })
-    end
-end
-if PARAMS.goal == "solar_system_edge" then
-    script.on_event(defines.events.on_tick, function(event)
-        local force = game.forces["player"]
-        for _, platform in pairs(force.platforms) do
-            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "solar-system-edge" then
-                trigger_victory(force)
-            end
-        end
-    end)
-elseif PARAMS.goal == "aquilo_orbit" then
-    script.on_event(defines.events.on_tick, function(event)
-        local force = game.forces["player"]
-        for _, platform in pairs(force.platforms) do
-            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "aquilo" then
-                trigger_victory(force)
-            end
-        end
-    end)
-elseif PARAMS.goal == "any_other_planet_science" then
-    -- Handled in on_research_finished.
-elseif PARAMS.goal == "space_platform" then
-    script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
-        if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
-            trigger_victory(event.cargo_pod.force)
-        end
-    end)
-else
-    error("unrecognized goal: " .. tostring(PARAMS.goal))
-end
-
 -- Updates a player, attempting to send them any pending samples (if relevant)
-function update_player(index)
+local function update_player(index)
     local player = game.players[index]
     if not player or not player.valid then     -- Do nothing if we reference an invalid player somehow
         return
@@ -275,10 +224,71 @@ function update_player(index)
 
 end
 
+-- Initialize player data, either from them joining the game or them already being part of the game when the mod was
+-- added.`
+local function on_player_created(event)
+    local player = game.players[event.player_index]
+    -- FIXME: This (probably) fires before any other mod has a chance to change the player's force
+    -- For now, they will (probably) always be on the 'player' force when this event fires.
+    local data = {}
+    data["pending_samples"] = table.deepcopy(storage.forcedata[player.force.name]["earned_samples"])
+    storage.playerdata[player.index] = data
+    update_player(player.index)  -- Attempt to send pending free samples, if relevant.
+    dumpInfo(player.force)
+end
+script.on_event(defines.events.on_player_created, on_player_created)
+
+script.on_event(defines.events.on_player_removed, function(event)
+    storage.playerdata[event.player_index] = nil
+end)
+
+-- Goal checking
+local function trigger_victory(force)
+    if storage.forcedata[force.name]["victory"] == 0 then
+        storage.forcedata[force.name]["victory"] = 1
+        dumpInfo(force)
+        game.set_game_state({
+            game_finished = true,
+            player_won = true,
+            can_continue = true,
+            victorious_force = force,
+        })
+    end
+end
+if PARAMS.goal == "solar_system_edge" then
+    script.on_event(defines.events.on_tick, function(event)
+        local force = game.forces["player"]
+        for _, platform in pairs(force.platforms) do
+            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "solar-system-edge" then
+                trigger_victory(force)
+            end
+        end
+    end)
+elseif PARAMS.goal == "aquilo_orbit" then
+    script.on_event(defines.events.on_tick, function(event)
+        local force = game.forces["player"]
+        for _, platform in pairs(force.platforms) do
+            if platform.last_visited_space_location ~= nil and platform.last_visited_space_location.name == "aquilo" then
+                trigger_victory(force)
+            end
+        end
+    end)
+elseif PARAMS.goal == "any_other_planet_science" then
+    -- Handled in on_research_finished.
+elseif PARAMS.goal == "space_platform" then
+    script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
+        if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
+            trigger_victory(event.cargo_pod.force)
+        end
+    end)
+else
+    error("unrecognized goal: " .. tostring(PARAMS.goal))
+end
+
 -- Update players upon them connecting, since updates while they're offline are suppressed.
 script.on_event(defines.events.on_player_joined_game, function(event) update_player(event.player_index) end)
 
-function update_player_event(event)
+local function update_player_event(event)
     update_player(event.player_index)
 end
 
@@ -288,7 +298,7 @@ script.on_event(defines.events.on_player_main_inventory_changed, update_player_e
 script.on_event(defines.events.on_cutscene_cancelled, update_player_event)
 script.on_event(defines.events.on_cutscene_finished, update_player_event)
 
-function add_samples(force, name, count)
+local function add_samples(force, name, count)
     local function add_to_table(t)
         if count <= 0 then
             -- Fixes a bug with single craft, if a recipe gives 0 of a given item.
@@ -365,7 +375,7 @@ script.on_event(defines.events.on_research_finished, function(event)
         --are worked on exclusively in editor mode.
         return
     end
-    if technology.researched and string.find(technology.name, "ap%-") == 1 then
+    if technology.researched and is_ap_technology(technology.name) then
         -- Notify the server that we've unlocked an AP location.
         dumpInfo(technology.force)
         if PARAMS.goal == "any_other_planet_science" then
@@ -411,13 +421,7 @@ script.on_event(defines.events.on_research_finished, function(event)
     end
 end)
 
-
-function dumpInfo(force)
-    log("Archipelago Bridge Data available for game tick ".. game.tick .. ".") -- notifies client
-end
-
-
-function chain_lookup(table, ...)
+local function chain_lookup(table, ...)
     for _, k in ipairs{...} do
         table = table[k]
         if not table then
@@ -427,7 +431,7 @@ function chain_lookup(table, ...)
     return table
 end
 
-function kill_players(force)
+local function kill_players(force)
     CURRENTLY_DEATH_LOCK = 1
     local current_character = nil
     for _, player in ipairs(force.players) do
@@ -476,7 +480,7 @@ commands.add_command("ap-sync", "Used by the Archipelago client to get progress 
     }
 
     for tech_name, tech in pairs(force.technologies) do
-        if tech.researched and string.find(tech_name, "ap%-") == 1 then
+        if tech.researched and is_ap_technology(tech_name) then
             research_done[tech_name] = tech.researched
         end
     end
@@ -488,46 +492,46 @@ commands.add_command("ap-print", "Used by the Archipelago client to print messag
 end)
 
 TRAP_TABLE = {
-["Attack Trap"] = function ()
-    game.surfaces["nauvis"].build_enemy_base(game.forces["player"].get_spawn_position(game.get_surface(1)), 25)
-end,
-["Evolution Trap"] = function ()
-    local new_factor = game.forces["enemy"].get_evolution_factor("nauvis") +
-        (PARAMS.trap_evo_factor * (1 - game.forces["enemy"].get_evolution_factor("nauvis")))
-    game.forces["enemy"].set_evolution_factor(new_factor, "nauvis")
-    game.print({"", "New evolution factor:", new_factor})
-end,
-["Teleport Trap"] = function()
-    for _, player in ipairs(game.forces["player"].players) do
-        if player.character then
-            attempt_teleport_player(player, 1)
+    ["Attack Trap"] = function ()
+        game.surfaces["nauvis"].build_enemy_base(game.forces["player"].get_spawn_position(game.get_surface(1)), 25)
+    end,
+    ["Evolution Trap"] = function ()
+        local new_factor = game.forces["enemy"].get_evolution_factor("nauvis") +
+            (PARAMS.trap_evo_factor * (1 - game.forces["enemy"].get_evolution_factor("nauvis")))
+        game.forces["enemy"].set_evolution_factor(new_factor, "nauvis")
+        game.print({"", "New evolution factor:", new_factor})
+    end,
+    ["Teleport Trap"] = function()
+        for _, player in ipairs(game.forces["player"].players) do
+            if player.character then
+                attempt_teleport_player(player, 1)
+            end
         end
-    end
-end,
-["Grenade Trap"] = function ()
-    fire_entity_at_players("grenade", 0.1)
-end,
-["Cluster Grenade Trap"] = function ()
-    fire_entity_at_players("cluster-grenade", 0.1)
-end,
-["Artillery Trap"] = function ()
-    fire_entity_at_players("artillery-projectile", 1)
-end,
-["Atomic Rocket Trap"] = function ()
-    fire_entity_at_players("atomic-rocket", 0.1)
-end,
-["Atomic Cliff Remover Trap"] = function ()
-    local cliffs = game.surfaces["nauvis"].find_entities_filtered{type = "cliff"}
+    end,
+    ["Grenade Trap"] = function ()
+        fire_entity_at_players("grenade", 0.1)
+    end,
+    ["Cluster Grenade Trap"] = function ()
+        fire_entity_at_players("cluster-grenade", 0.1)
+    end,
+    ["Artillery Trap"] = function ()
+        fire_entity_at_players("artillery-projectile", 1)
+    end,
+    ["Atomic Rocket Trap"] = function ()
+        fire_entity_at_players("atomic-rocket", 0.1)
+    end,
+    ["Atomic Cliff Remover Trap"] = function ()
+        local cliffs = game.surfaces["nauvis"].find_entities_filtered{type = "cliff"}
 
-    if #cliffs > 0 then
-        fire_entity_at_entities("atomic-rocket", {cliffs[math.random(#cliffs)]}, 0.1)
-    end
-end,
-["Inventory Spill Trap"] = function ()
-    for _, player in ipairs(game.forces["player"].players) do
-        spill_character_inventory(player.character)
-    end
-end,
+        if #cliffs > 0 then
+            fire_entity_at_entities("atomic-rocket", {cliffs[math.random(#cliffs)]}, 0.1)
+        end
+    end,
+    ["Inventory Spill Trap"] = function ()
+        for _, player in ipairs(game.forces["player"].players) do
+            spill_character_inventory(player.character)
+        end
+    end,
 }
 
 commands.add_command("ap-get-technology", "Grant a technology, used by the Archipelago Client.", function(call)

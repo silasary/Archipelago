@@ -1759,16 +1759,8 @@ def generate_everything(the_data: dict):
     id_cursor = factorio_base_id
     for technology_name in sorted(raw_logic_events.keys()):
         if " " in technology_name: continue # Not a technology.
-        assert not technology_name.startswith("ap-"), "would cause an ambiguity in control.lua"
-        location_name = "ap-" + technology_name
-        try: int(location_name.rsplit("-", 1)[-1])
-        except ValueError:
-            pass # This name isn't special
-        else:
-            # Names that end with -1 or another number are special.
-            # We don't intend anything special about the relationship between all the levels of the locations,
-            # so disable that special handling.
-            location_name += "-"
+        assert not technology_name.endswith("_location"), "would cause an ambiguity in control.lua"
+        location_name = technology_name + "_location"
         technology_name_to_location_name[technology_name] = location_name
         location_name_to_technology_name[location_name] = technology_name
         ap_location_name_to_id[location_name] = id_cursor
