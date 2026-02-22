@@ -536,11 +536,11 @@ def generate_everything(the_data: dict):
     # ===============
     # Space Locations
     # ===============
+    asteroid_chunk_and_location_to_mining_sources: dict[tuple[str, str], set[MiningSource]] = defaultdict(set)
     item_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
     item_to_forage_locations: dict[str, set[str]] = defaultdict(set)
     entity_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
     entity_to_forage_locations: dict[str, set[str]] = defaultdict(set)
-
     natural_entity_to_locations: dict[str, set[str]] = defaultdict(set)
     natural_tile_to_locations: dict[str, set[str]] = defaultdict(set)
     space_locations: dict[str, SpaceLocation] = {}
@@ -589,7 +589,7 @@ def generate_everything(the_data: dict):
             threats, item = _get_asteroid_info(spawn_data)
             space_location.threats |= threats
             # Add a natural resource for this now, because we already know everything.
-            item_to_mining_sources[item].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
+            asteroid_chunk_and_location_to_mining_sources[(item, space_location.name)].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
         space_location.threats |= Capability.generate_electricity_in_space
         if space_location_data["solar_power_in_space"] < 100:
             # This is true for aquilo and beyond.
@@ -613,10 +613,10 @@ def generate_everything(the_data: dict):
             space_locations[name].thrust_to.append(space_location.name)
         # Asteroid info.
         for spawn_data in space_connection_data.get("asteroid_spawn_definitions", []):
-            capabilities, item = _get_asteroid_info(spawn_data)
-            space_location.threats |= capabilities
+            threats, item = _get_asteroid_info(spawn_data)
+            space_location.threats |= threats
             # Add a natural resource for this now, because we already know everything.
-            item_to_mining_sources[item].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
+            asteroid_chunk_and_location_to_mining_sources[(item, space_location.name)].add(MiningSource(item, space_location.name, threats | Capability.collect_asteroids, ()))
         space_location.threats |= Capability.generate_electricity_in_space
         solar_power_in_space = min(
             the_data["space_location"][space_connection_data["from"]["name"]]["solar_power_in_space"],
@@ -625,6 +625,20 @@ def generate_everything(the_data: dict):
         if solar_power_in_space < 100:
             # This is true for all of aquilo's connections and beyond.
             space_location.threats |= Capability.generate_electricity_in_dark_space
+
+    # The generic expression optimizer has trouble with the complexity of asteroid chunk sourcing.
+    # Do a little bit of simplification now.
+    for (item, space_location_name), sources in asteroid_chunk_and_location_to_mining_sources.items():
+        sources = sorted(sources, key=lambda mining_source: mining_source.required_capabilities)
+        easiest_source = sources[0]
+        item_to_mining_sources[item].add(easiest_source)
+        for mining_source in sources[1:]:
+            if mining_source.required_capabilities & easiest_source.required_capabilities == easiest_source.required_capabilities:
+                # This is strictly harder. Logic only needs to know about the easiest one.
+                continue
+            # This never happens, but would mean that mining some sources of asteroid chunks aren't strictly easier or harder than other sources.
+            assert False, "incomparable asteroid mining capabilities? if this really happens, just delete this assertion"
+            item_to_mining_sources[item].add(mining_source)
 
     # =================
     # Natural Resources

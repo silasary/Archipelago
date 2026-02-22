@@ -738,41 +738,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach gleba_orbit",
-                                            "Reach vulcanus_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
@@ -2281,39 +2269,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach gleba_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
@@ -2476,39 +2454,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach vulcanus_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
@@ -4750,41 +4718,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach gleba_orbit",
-                                            "Reach vulcanus_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
@@ -6453,39 +6409,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach gleba_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
@@ -6679,39 +6625,29 @@ raw_logic_events = {
                     "Operate asteroid-collector",
                     {
                         "or": [
+                            "Reach aquilo-solar-system-edge",
                             "Reach aquilo_orbit",
+                            "Reach fulgora-aquilo",
                             "Reach fulgora_orbit",
+                            "Reach gleba-aquilo",
+                            "Reach gleba-fulgora",
                             "Reach gleba_orbit",
+                            "Reach nauvis-fulgora",
+                            "Reach nauvis-gleba",
+                            "Reach nauvis-vulcanus",
                             "Reach nauvis_orbit",
                             "Reach solar-system-edge",
+                            "Reach vulcanus-gleba",
                             "Reach vulcanus_orbit",
                             {
                                 "and": [
+                                    "Can destroy big asteroids",
+                                    "Can destroy huge asteroids",
                                     "Can destroy medium asteroids",
                                     {
                                         "or": [
-                                            "Reach fulgora_orbit",
-                                            "Reach vulcanus_orbit",
-                                            {
-                                                "and": [
-                                                    "Can destroy big asteroids",
-                                                    "Can destroy huge asteroids",
-                                                    {
-                                                        "or": [
-                                                            "Reach aquilo-solar-system-edge",
-                                                            "Reach fulgora-aquilo",
-                                                            "Reach gleba-aquilo",
-                                                            "Reach gleba-fulgora",
-                                                            "Reach nauvis-fulgora",
-                                                            "Reach nauvis-gleba",
-                                                            "Reach nauvis-vulcanus",
-                                                            "Reach shattered-planet",
-                                                            "Reach solar-system-edge-shattered-planet",
-                                                            "Reach vulcanus-gleba"
-                                                        ]
-                                                    }
-                                                ]
-                                            }
+                                            "Reach shattered-planet",
+                                            "Reach solar-system-edge-shattered-planet"
                                         ]
                                     }
                                 ]
