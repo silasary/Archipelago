@@ -18,6 +18,7 @@ from .data.generated2 import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks, infinite_technologies,
     technology_name_to_location_name, location_name_to_technology_name,
+    technology_name_to_progressive_group_name,
     technology_props_lua,
 )
 
@@ -168,6 +169,9 @@ def generate_mod(
             elif options.infinite_technologies.current_key == "shuffled":
                 item_name = infinite_technology_shuffle[technology_name]
             else: assert False
+            target_props_item_name = item_name
+            if options.progressive_technologies.current_key != "off":
+                item_name = technology_name_to_progressive_group_name[item_name]
             target_player = player
             is_advancement = False
             is_useful = True
@@ -243,7 +247,7 @@ def generate_mod(
                 # Infinite.
                 tech_data["level"] = technology_props["level"]
                 tech_data["max_level"] = technology_props["max_level"]
-                target_props = technology_props_lua[item_name]
+                target_props = technology_props_lua[target_props_item_name]
                 tech_data["effects"] = target_props["effects"]
         else:
             tech_data["research_trigger"] = technology_props["research_trigger"]
