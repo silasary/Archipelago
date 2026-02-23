@@ -255,6 +255,7 @@ class Factorio(World):
             LogicOption.playing_without_energy_link_early_game_is_good_enough: not (el_enabled and el_logic and el_recipe == "early_game"),
             LogicOption.playing_without_energy_link_mid_game_is_good_enough:   not (el_enabled and el_logic and el_recipe == "mid_game"),
             LogicOption.playing_without_energy_link_fulgora_is_good_enough:    not (el_enabled and el_logic and el_recipe == "fulgora"),
+            LogicOption.allow_energy_link_to_satisfy_logic:  el_enabled and self.options.energy_link_satisfies_requirements,
         })
 
         enabled_progressive_categories = {

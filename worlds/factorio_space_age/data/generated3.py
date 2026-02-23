@@ -3407,6 +3407,7 @@ raw_logic_events = {
                         "or": [
                             "Access agricultural-tower",
                             "Access efficiency-module-3",
+                            "Access nutrients",
                             "Access overgrowth-jellynut-soil",
                             "Access overgrowth-yumako-soil"
                         ]
@@ -7809,6 +7810,7 @@ raw_logic_events = {
                         "or": [
                             "Automate agricultural-tower",
                             "Automate efficiency-module-3",
+                            "Automate nutrients",
                             "Automate overgrowth-jellynut-soil",
                             "Automate overgrowth-yumako-soil"
                         ]
@@ -8739,6 +8741,12 @@ raw_logic_events = {
         "or": [
             {
                 "and": [
+                    "Access ap-energy-bridge",
+                    "Option allow_energy_link_to_satisfy_logic"
+                ]
+            },
+            {
+                "and": [
                     "Access fluoroketone-cold-barrel",
                     "Operate fusion-generator"
                 ]
@@ -8777,6 +8785,17 @@ raw_logic_events = {
                             }
                         ]
                     }
+                ]
+            }
+        ]
+    },
+    "Can generate electricity in space": {
+        "or": [
+            "Access solar-panel",
+            {
+                "and": [
+                    "Access ap-energy-bridge",
+                    "Option allow_energy_link_to_satisfy_logic"
                 ]
             }
         ]
@@ -9000,7 +9019,7 @@ raw_logic_events = {
     "Operate asteroid-collector": {
         "and": [
             "Access asteroid-collector",
-            "Access solar-panel",
+            "Can generate electricity in space",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",
@@ -9043,7 +9062,7 @@ raw_logic_events = {
     "Operate crusher": {
         "and": [
             "Access crusher",
-            "Access solar-panel",
+            "Can generate electricity in space",
             {
                 "or": [
                     "Reach aquilo-solar-system-edge",
@@ -9123,6 +9142,7 @@ raw_logic_events = {
             }
         ]
     },
+    "Option allow_energy_link_to_satisfy_logic": "Option allow_energy_link_to_satisfy_logic",
     "Option assembling_machine_1_is_good_enough": "Option assembling_machine_1_is_good_enough",
     "Option backwards_recycling_is_interesting": "Option backwards_recycling_is_interesting",
     "Option basic_asteroid_processing_is_good_enough": "Option basic_asteroid_processing_is_good_enough",
@@ -9156,10 +9176,10 @@ raw_logic_events = {
     },
     "Reach aquilo-solar-system-edge": {
         "and": [
-            "Access solar-panel",
             "Can destroy big asteroids",
             "Can destroy medium asteroids",
             "Can generate electricity in dark space",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-aquilo",
             "promethium-science-pack",
@@ -9183,10 +9203,16 @@ raw_logic_events = {
                 "or": [
                     {
                         "and": [
-                            "Access solar-panel",
+                            "Automate rocket-part",
+                            "Reach aquilo"
+                        ]
+                    },
+                    {
+                        "and": [
                             "Can destroy big asteroids",
                             "Can destroy medium asteroids",
                             "Can generate electricity in dark space",
+                            "Can generate electricity in space",
                             "Can travel space",
                             {
                                 "or": [
@@ -9201,12 +9227,6 @@ raw_logic_events = {
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "and": [
-                            "Automate rocket-part",
-                            "Reach aquilo"
-                        ]
                     }
                 ]
             }
@@ -9220,8 +9240,8 @@ raw_logic_events = {
     },
     "Reach fulgora-aquilo": {
         "and": [
-            "Access solar-panel",
             "Can destroy medium asteroids",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-aquilo",
             "planet-discovery-fulgora",
@@ -9246,8 +9266,14 @@ raw_logic_events = {
                 "or": [
                     {
                         "and": [
-                            "Access solar-panel",
+                            "Automate rocket-part",
+                            "Reach fulgora"
+                        ]
+                    },
+                    {
+                        "and": [
                             "Can destroy medium asteroids",
+                            "Can generate electricity in space",
                             "Can travel space",
                             {
                                 "or": [
@@ -9263,12 +9289,6 @@ raw_logic_events = {
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "and": [
-                            "Automate rocket-part",
-                            "Reach fulgora"
-                        ]
                     }
                 ]
             }
@@ -9282,8 +9302,8 @@ raw_logic_events = {
     },
     "Reach gleba-aquilo": {
         "and": [
-            "Access solar-panel",
             "Can destroy medium asteroids",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-aquilo",
             "planet-discovery-gleba",
@@ -9303,8 +9323,8 @@ raw_logic_events = {
     },
     "Reach gleba-fulgora": {
         "and": [
-            "Access solar-panel",
             "Can destroy medium asteroids",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-fulgora",
             "planet-discovery-gleba",
@@ -9323,8 +9343,14 @@ raw_logic_events = {
                 "or": [
                     {
                         "and": [
-                            "Access solar-panel",
+                            "Automate rocket-part",
+                            "Reach gleba"
+                        ]
+                    },
+                    {
+                        "and": [
                             "Can destroy medium asteroids",
+                            "Can generate electricity in space",
                             "Can travel space",
                             {
                                 "or": [
@@ -9341,12 +9367,6 @@ raw_logic_events = {
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "and": [
-                            "Automate rocket-part",
-                            "Reach gleba"
-                        ]
                     }
                 ]
             }
@@ -9354,7 +9374,7 @@ raw_logic_events = {
     },
     "Reach nauvis-fulgora": {
         "and": [
-            "Access solar-panel",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-fulgora",
             {
@@ -9372,7 +9392,7 @@ raw_logic_events = {
     },
     "Reach nauvis-gleba": {
         "and": [
-            "Access solar-panel",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-gleba",
             {
@@ -9390,7 +9410,7 @@ raw_logic_events = {
     },
     "Reach nauvis-vulcanus": {
         "and": [
-            "Access solar-panel",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-vulcanus",
             {
@@ -9411,8 +9431,8 @@ raw_logic_events = {
             "Automate rocket-part",
             {
                 "and": [
-                    "Access solar-panel",
                     "Can destroy medium asteroids",
+                    "Can generate electricity in space",
                     "Can travel space",
                     {
                         "or": [
@@ -9427,11 +9447,11 @@ raw_logic_events = {
     },
     "Reach shattered-planet": {
         "and": [
-            "Access solar-panel",
             "Can destroy big asteroids",
             "Can destroy huge asteroids",
             "Can destroy medium asteroids",
             "Can generate electricity in dark space",
+            "Can generate electricity in space",
             "Can travel space",
             "Reach solar-system-edge-shattered-planet",
             "promethium-science-pack"
@@ -9439,11 +9459,11 @@ raw_logic_events = {
     },
     "Reach solar-system-edge": {
         "and": [
-            "Access solar-panel",
             "Can destroy big asteroids",
             "Can destroy huge asteroids",
             "Can destroy medium asteroids",
             "Can generate electricity in dark space",
+            "Can generate electricity in space",
             "Can travel space",
             "promethium-science-pack",
             {
@@ -9456,11 +9476,11 @@ raw_logic_events = {
     },
     "Reach solar-system-edge-shattered-planet": {
         "and": [
-            "Access solar-panel",
             "Can destroy big asteroids",
             "Can destroy huge asteroids",
             "Can destroy medium asteroids",
             "Can generate electricity in dark space",
+            "Can generate electricity in space",
             "Can travel space",
             "promethium-science-pack",
             {
@@ -9479,8 +9499,8 @@ raw_logic_events = {
     },
     "Reach vulcanus-gleba": {
         "and": [
-            "Access solar-panel",
             "Can destroy medium asteroids",
+            "Can generate electricity in space",
             "Can travel space",
             "planet-discovery-gleba",
             "planet-discovery-vulcanus",
@@ -9499,8 +9519,14 @@ raw_logic_events = {
                 "or": [
                     {
                         "and": [
-                            "Access solar-panel",
+                            "Automate rocket-part",
+                            "Reach vulcanus"
+                        ]
+                    },
+                    {
+                        "and": [
                             "Can destroy medium asteroids",
+                            "Can generate electricity in space",
                             "Can travel space",
                             {
                                 "or": [
@@ -9508,12 +9534,6 @@ raw_logic_events = {
                                     "Reach vulcanus-gleba"
                                 ]
                             }
-                        ]
-                    },
-                    {
-                        "and": [
-                            "Automate rocket-part",
-                            "Reach vulcanus"
                         ]
                     }
                 ]

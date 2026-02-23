@@ -463,7 +463,7 @@ class LogicAsteroidProcessing(Toggle):
 @auto_group
 class LogicHeatingTower(Toggle):
     """
-    Logically require heating tower to heat buildings on Aquilo.
+    Logically require heating towers to heat buildings on Aquilo.
     Otherwise, you may need to ship in nuclear fuel cells.
     """
 
@@ -482,7 +482,6 @@ class EnergyLink(Toggle):
     Donkey Kong Country (Bananas), etc. is left to the apworld developers.
 
     EnergyLink can also be used to transport energy between planets in Factorio: Space Age or to/from space platforms.
-    (TODO: Consider this in logic.)
     """
     display_name = "Energy Link"
 
@@ -513,6 +512,13 @@ class LogicEnergyLink(Toggle):
     early_game: logistic science pack automation (green science).
     mid_game: chemical science pack automation (blue science).
     fulgora: electromagnetic science pack automation.
+    """
+
+@auto_group
+class LogicEnergyLinkInSpace(Toggle):
+    """
+    Allow Archipelago EnergyLink Bridges to satisfy the logical requirement for generating power in space, including in dark space.
+    This may make solar panels unnecessary.
     """
 
 
@@ -713,6 +719,7 @@ class FactorioOptions(PerGameCommonOptions):
     energy_link_recipe: EnergyLinkRecipe
     energy_link_technology: EnergyLinkTechnology
     require_energy_link: LogicEnergyLink
+    energy_link_satisfies_requirements: LogicEnergyLinkInSpace
 
     filler_count: FillerCount
     filler_nothing_weight: FillerNothingWeight

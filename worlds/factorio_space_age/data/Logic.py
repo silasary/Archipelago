@@ -32,6 +32,7 @@ class LogicOption(StrEnum):
     playing_without_energy_link_early_game_is_good_enough = "playing_without_energy_link_early_game_is_good_enough"
     playing_without_energy_link_mid_game_is_good_enough = "playing_without_energy_link_mid_game_is_good_enough"
     playing_without_energy_link_fulgora_is_good_enough = "playing_without_energy_link_fulgora_is_good_enough"
+    allow_energy_link_to_satisfy_logic = "allow_energy_link_to_satisfy_logic"
 fmt_option = lambda option: "Option {}".format(option.value)
 
 energy_link_bridge_recipes = {

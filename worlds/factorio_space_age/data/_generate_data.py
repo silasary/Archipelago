@@ -1291,8 +1291,14 @@ def generate_everything(the_data: dict):
                 optionally_operate_construction_robots,
             ]}
         elif capability == Capability.generate_electricity_in_space:
-            # FIXME: i'm just giving up and hard coding the answer here.
-            expr = fmt_operate_machine(RawEntity.solar_panel)
+            expr = {"or": [
+                # FIXME: i'm just giving up and hard coding the answer here.
+                fmt_operate_machine(RawEntity.solar_panel),
+                {"and": [
+                    fmt_option(LogicOption.allow_energy_link_to_satisfy_logic),
+                    fmt_access_item(energy_link_bridge_name),
+                ]},
+            ]}
         elif capability == Capability.generate_electricity_in_dark_space:
             # FIXME: i'm just giving up and hard coding the answers here.
             expr = {"or": [
@@ -1331,6 +1337,11 @@ def generate_everything(the_data: dict):
                 {"and": [
                     fmt_option(LogicOption.solar_panels_into_darkness),
                     fmt_operate_machine(RawEntity.solar_panel),
+                ]},
+                # The Easy Way(TM).
+                {"and": [
+                    fmt_option(LogicOption.allow_energy_link_to_satisfy_logic),
+                    fmt_access_item(energy_link_bridge_name),
                 ]},
             ]}
         elif capability == Capability.destroy_medium_asteroids:

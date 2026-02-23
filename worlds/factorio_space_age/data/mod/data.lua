@@ -60,8 +60,8 @@ if PARAMS.energy_link_increment > 0 then
     entity.minable.result = "ap-energy-bridge"
     entity.localised_name = "Archipelago EnergyLink Bridge" -- TODO: move to locale.cfg
     entity.energy_source.buffer_capacity = "50MJ"
-    entity.energy_source.input_flow_limit = "10MW"
-    entity.energy_source.output_flow_limit = "10MW"
+    entity.energy_source.input_flow_limit = "1MW"
+    entity.energy_source.output_flow_limit = "1MW"
     tint_icon(entity, energy_bridge_tint())
     entity.chargable_graphics.picture.layers[1].tint = energy_bridge_tint()
     entity.chargable_graphics.charge_animation.layers[1].layers[1].tint = energy_bridge_tint()
