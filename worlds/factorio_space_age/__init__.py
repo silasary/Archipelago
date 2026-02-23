@@ -182,7 +182,6 @@ class Factorio(World):
         """
         from .data.generated2 import (
             infinite_technologies,
-            technology_name_to_location_name,
             technology_name_to_progressive_group_name, progressive_group_name_to_category,
             never_inline_events, never_delete_events, unrandomized_events as base_unrandomized_events,
         )
@@ -279,7 +278,7 @@ class Factorio(World):
                     item_name = progressive_group_name
                 else:
                     item_name = sub_name
-                location = new_location(technology_name_to_location_name[sub_name], compile_expr(expr))
+                location = new_location(sub_name + "_location", compile_expr(expr))
                 item = self.create_item(item_name)
                 if locked:
                     location.place_locked_item(item)

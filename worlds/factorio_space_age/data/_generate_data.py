@@ -50,8 +50,6 @@ never_delete_events: set[str] = set()
 unrandomized_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
-technology_name_to_location_name: dict[str, str] = {}
-location_name_to_technology_name: dict[str, str] = {}
 never_give_free_samples_from_recipes: set[str] = set()
 
 
@@ -1774,8 +1772,6 @@ def generate_everything(the_data: dict):
         if " " in technology_name: continue # Not a technology.
         assert not "_" in technology_name, "that's the delimiter we use for our special suffixes: " + technology_name
         location_name = technology_name + "_location"
-        technology_name_to_location_name[technology_name] = location_name
-        location_name_to_technology_name[location_name] = technology_name
         ap_location_name_to_id[location_name] = next_id()
         if not (
             technology_name in unrandomized_events or
@@ -1836,8 +1832,6 @@ def generate_everything(the_data: dict):
         f.write(generate_decl("all_item_names", all_item_names))
         f.write(generate_decl("all_recipe_names", all_recipe_names))
         f.write(generate_decl("never_give_free_samples_from_recipes", never_give_free_samples_from_recipes))
-        f.write(generate_decl("location_name_to_technology_name", location_name_to_technology_name))
-        f.write(generate_decl("technology_name_to_location_name", technology_name_to_location_name))
         f.write(generate_decl("advancement_technologies", advancement_technologies))
         f.write(generate_decl("empty_technologies", empty_technologies))
         f.write(generate_decl("infinite_technologies", infinite_technologies))
@@ -1846,10 +1840,10 @@ def generate_everything(the_data: dict):
         f.write(generate_decl("progressive_group_name_to_category", progressive_group_name_to_category))
         f.write(generate_decl("technology_props_lua", technology_props_lua))
         f.write(generate_decl("unrandomized_events", unrandomized_events))
-        assert    never_inline_events == technology_name_to_location_name.keys() - unrandomized_events
-        f.write("\nnever_inline_events = technology_name_to_location_name.keys() - unrandomized_events\n")
-        assert    never_delete_events == technology_name_to_location_name.keys() | {fmt_capability(Capability.research_any_other_planet_science)}
-        f.write("\nnever_delete_events = technology_name_to_location_name.keys() | {%s}\n" % repr(fmt_capability(Capability.research_any_other_planet_science)))
+        assert    never_inline_events == technology_props_lua.keys() - unrandomized_events
+        f.write("\nnever_inline_events = technology_props_lua.keys() - unrandomized_events\n")
+        assert    never_delete_events == technology_props_lua.keys() | {fmt_capability(Capability.research_any_other_planet_science)}
+        f.write("\nnever_delete_events = technology_props_lua.keys() | {%s}\n" % repr(fmt_capability(Capability.research_any_other_planet_science)))
 
     with open(output3_py, "w") as f:
         f.write(header)

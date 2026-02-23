@@ -17,7 +17,6 @@ from .data.Logic import energy_link_bridge_recipes
 from .data.generated2 import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks, infinite_technologies,
-    technology_name_to_location_name, location_name_to_technology_name,
     technology_name_to_progressive_group_name,
     technology_props_lua,
 )
@@ -160,7 +159,7 @@ def generate_mod(
     locale_locations: list[LocaleLocation] = []
     new_technology_data: dict[str, dict] = {}
     for location in world_locations:
-        technology_name = location_name_to_technology_name[location.name.replace("_other_location", "_location")]
+        technology_name = location.name.replace("_other_location", "_location").replace("_location", "")
         if technology_name in infinite_technologies:
             if options.infinite_technologies.current_key == "removed":
                 continue
@@ -226,7 +225,7 @@ def generate_mod(
         technology_props = technology_props_lua[technology_name]
         if options.technology_prerequisites.current_key == "vanilla":
             # Translate preprequisite tech names to the AP names.
-            prerequisites = [technology_name_to_location_name[name] for name in technology_props["prerequisites"]]
+            prerequisites = [name + "_location" for name in technology_props["prerequisites"]]
         elif options.technology_prerequisites.current_key == "removed":
             prerequisites = []
         else: assert False, options.technology_prerequisites.current_key
