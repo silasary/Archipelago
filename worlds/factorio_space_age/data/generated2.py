@@ -1094,13 +1094,22 @@ advancement_technologies = {
     "productivity-module-2",
     "productivity-module-3",
     "progressive-advanced-material-processing",
+    "progressive-armor",
     "progressive-automation",
     "progressive-efficiency-module",
     "progressive-electric-energy-distribution",
+    "progressive-energy-shield",
+    "progressive-follower-robot",
+    "progressive-inserter",
     "progressive-logistics",
     "progressive-military",
+    "progressive-mining-drill",
+    "progressive-personal-battery",
+    "progressive-personal-roboport",
+    "progressive-portable-reactor",
     "progressive-productivity-module",
     "progressive-quality-module",
+    "progressive-soil",
     "progressive-speed-module",
     "promethium-science-pack",
     "quality-module",
@@ -1181,6 +1190,13 @@ progressive_technology_stacks = {
         "advanced-material-processing",
         "advanced-material-processing-2"
     ],
+    "progressive-armor": [
+        "heavy-armor",
+        "modular-armor",
+        "power-armor",
+        "power-armor-mk2",
+        "mech-armor"
+    ],
     "progressive-artillery-shell-damage": [
         "artillery-shell-damage-1"
     ],
@@ -1222,6 +1238,15 @@ progressive_technology_stacks = {
         "electric-weapons-damage-3",
         "electric-weapons-damage-4"
     ],
+    "progressive-energy-shield": [
+        "energy-shield-equipment",
+        "energy-shield-mk2-equipment"
+    ],
+    "progressive-follower-robot": [
+        "defender",
+        "distractor",
+        "destroyer"
+    ],
     "progressive-follower-robot-count": [
         "follower-robot-count-1",
         "follower-robot-count-2",
@@ -1231,6 +1256,11 @@ progressive_technology_stacks = {
     ],
     "progressive-health": [
         "health"
+    ],
+    "progressive-inserter": [
+        "fast-inserter",
+        "bulk-inserter",
+        "stack-inserter"
     ],
     "progressive-inserter-capacity-bonus": [
         "inserter-capacity-bonus-1",
@@ -1274,10 +1304,23 @@ progressive_technology_stacks = {
         "military-3",
         "military-4"
     ],
+    "progressive-mining-drill": [
+        "electric-mining-drill",
+        "big-mining-drill"
+    ],
     "progressive-mining-productivity": [
         "mining-productivity-1",
         "mining-productivity-2",
         "mining-productivity-3"
+    ],
+    "progressive-personal-battery": [
+        "battery-equipment",
+        "battery-mk2-equipment",
+        "battery-mk3-equipment"
+    ],
+    "progressive-personal-roboport": [
+        "personal-roboport-equipment",
+        "personal-roboport-mk2-equipment"
     ],
     "progressive-physical-projectile-damage": [
         "physical-projectile-damage-1",
@@ -1290,6 +1333,10 @@ progressive_technology_stacks = {
     ],
     "progressive-plastic-bar-productivity": [
         "plastic-bar-productivity"
+    ],
+    "progressive-portable-reactor": [
+        "fusion-reactor-equipment",
+        "fission-reactor-equipment"
     ],
     "progressive-processing-unit-productivity": [
         "processing-unit-productivity"
@@ -1343,6 +1390,10 @@ progressive_technology_stacks = {
     "progressive-scrap-recycling-productivity": [
         "scrap-recycling-productivity"
     ],
+    "progressive-soil": [
+        "artificial-soil",
+        "overgrowth-soil"
+    ],
     "progressive-speed-module": [
         "speed-module",
         "speed-module-2",
@@ -1391,6 +1442,7 @@ progressive_technology_stacks = {
 technology_name_to_progressive_group_name = {
     "advanced-material-processing": "progressive-advanced-material-processing",
     "advanced-material-processing-2": "progressive-advanced-material-processing",
+    "artificial-soil": "progressive-soil",
     "artillery-shell-damage-1": "progressive-artillery-shell-damage",
     "artillery-shell-range-1": "progressive-artillery-shell-range",
     "artillery-shell-speed-1": "progressive-artillery-shell-speed",
@@ -1398,6 +1450,10 @@ technology_name_to_progressive_group_name = {
     "automation": "progressive-automation",
     "automation-2": "progressive-automation",
     "automation-3": "progressive-automation",
+    "battery-equipment": "progressive-personal-battery",
+    "battery-mk2-equipment": "progressive-personal-battery",
+    "battery-mk3-equipment": "progressive-personal-battery",
+    "big-mining-drill": "progressive-mining-drill",
     "braking-force-1": "progressive-braking-force",
     "braking-force-2": "progressive-braking-force",
     "braking-force-3": "progressive-braking-force",
@@ -1405,22 +1461,33 @@ technology_name_to_progressive_group_name = {
     "braking-force-5": "progressive-braking-force",
     "braking-force-6": "progressive-braking-force",
     "braking-force-7": "progressive-braking-force",
+    "bulk-inserter": "progressive-inserter",
+    "defender": "progressive-follower-robot",
+    "destroyer": "progressive-follower-robot",
+    "distractor": "progressive-follower-robot",
     "efficiency-module": "progressive-efficiency-module",
     "efficiency-module-2": "progressive-efficiency-module",
     "efficiency-module-3": "progressive-efficiency-module",
     "electric-energy-distribution-1": "progressive-electric-energy-distribution",
     "electric-energy-distribution-2": "progressive-electric-energy-distribution",
+    "electric-mining-drill": "progressive-mining-drill",
     "electric-weapons-damage-1": "progressive-electric-weapons-damage",
     "electric-weapons-damage-2": "progressive-electric-weapons-damage",
     "electric-weapons-damage-3": "progressive-electric-weapons-damage",
     "electric-weapons-damage-4": "progressive-electric-weapons-damage",
+    "energy-shield-equipment": "progressive-energy-shield",
+    "energy-shield-mk2-equipment": "progressive-energy-shield",
     "epic-quality": "progressive-quality-upgrade",
+    "fast-inserter": "progressive-inserter",
+    "fission-reactor-equipment": "progressive-portable-reactor",
     "follower-robot-count-1": "progressive-follower-robot-count",
     "follower-robot-count-2": "progressive-follower-robot-count",
     "follower-robot-count-3": "progressive-follower-robot-count",
     "follower-robot-count-4": "progressive-follower-robot-count",
     "follower-robot-count-5": "progressive-follower-robot-count",
+    "fusion-reactor-equipment": "progressive-portable-reactor",
     "health": "progressive-health",
+    "heavy-armor": "progressive-armor",
     "inserter-capacity-bonus-1": "progressive-inserter-capacity-bonus",
     "inserter-capacity-bonus-2": "progressive-inserter-capacity-bonus",
     "inserter-capacity-bonus-3": "progressive-inserter-capacity-bonus",
@@ -1447,6 +1514,7 @@ technology_name_to_progressive_group_name = {
     "logistics-2": "progressive-logistics",
     "logistics-3": "progressive-logistics",
     "low-density-structure-productivity": "progressive-low-density-structure-productivity",
+    "mech-armor": "progressive-armor",
     "military": "progressive-military",
     "military-2": "progressive-military",
     "military-3": "progressive-military",
@@ -1454,6 +1522,10 @@ technology_name_to_progressive_group_name = {
     "mining-productivity-1": "progressive-mining-productivity",
     "mining-productivity-2": "progressive-mining-productivity",
     "mining-productivity-3": "progressive-mining-productivity",
+    "modular-armor": "progressive-armor",
+    "overgrowth-soil": "progressive-soil",
+    "personal-roboport-equipment": "progressive-personal-roboport",
+    "personal-roboport-mk2-equipment": "progressive-personal-roboport",
     "physical-projectile-damage-1": "progressive-physical-projectile-damage",
     "physical-projectile-damage-2": "progressive-physical-projectile-damage",
     "physical-projectile-damage-3": "progressive-physical-projectile-damage",
@@ -1462,6 +1534,8 @@ technology_name_to_progressive_group_name = {
     "physical-projectile-damage-6": "progressive-physical-projectile-damage",
     "physical-projectile-damage-7": "progressive-physical-projectile-damage",
     "plastic-bar-productivity": "progressive-plastic-bar-productivity",
+    "power-armor": "progressive-armor",
+    "power-armor-mk2": "progressive-armor",
     "processing-unit-productivity": "progressive-processing-unit-productivity",
     "productivity-module": "progressive-productivity-module",
     "productivity-module-2": "progressive-productivity-module",
@@ -1491,6 +1565,7 @@ technology_name_to_progressive_group_name = {
     "speed-module": "progressive-speed-module",
     "speed-module-2": "progressive-speed-module",
     "speed-module-3": "progressive-speed-module",
+    "stack-inserter": "progressive-inserter",
     "steel-plate-productivity": "progressive-steel-plate-productivity",
     "stronger-explosives-1": "progressive-stronger-explosives",
     "stronger-explosives-2": "progressive-stronger-explosives",
@@ -1522,6 +1597,7 @@ technology_name_to_progressive_group_name = {
 
 progressive_group_name_to_category = {
     "progressive-advanced-material-processing": "recipes",
+    "progressive-armor": "recipes",
     "progressive-artillery-shell-damage": "bonuses",
     "progressive-artillery-shell-range": "bonuses",
     "progressive-artillery-shell-speed": "bonuses",
@@ -1531,17 +1607,24 @@ progressive_group_name_to_category = {
     "progressive-efficiency-module": "recipes",
     "progressive-electric-energy-distribution": "recipes",
     "progressive-electric-weapons-damage": "bonuses",
+    "progressive-energy-shield": "recipes",
+    "progressive-follower-robot": "recipes",
     "progressive-follower-robot-count": "bonuses",
     "progressive-health": "bonuses",
+    "progressive-inserter": "recipes",
     "progressive-inserter-capacity-bonus": "bonuses",
     "progressive-laser-shooting-speed": "bonuses",
     "progressive-laser-weapons-damage": "bonuses",
     "progressive-logistics": "recipes",
     "progressive-low-density-structure-productivity": "bonuses",
     "progressive-military": "recipes",
+    "progressive-mining-drill": "recipes",
     "progressive-mining-productivity": "bonuses",
+    "progressive-personal-battery": "recipes",
+    "progressive-personal-roboport": "recipes",
     "progressive-physical-projectile-damage": "bonuses",
     "progressive-plastic-bar-productivity": "bonuses",
+    "progressive-portable-reactor": "recipes",
     "progressive-processing-unit-productivity": "bonuses",
     "progressive-productivity-module": "recipes",
     "progressive-quality-module": "recipes",
@@ -1554,6 +1637,7 @@ progressive_group_name_to_category = {
     "progressive-rocket-fuel-productivity": "bonuses",
     "progressive-rocket-part-productivity": "bonuses",
     "progressive-scrap-recycling-productivity": "bonuses",
+    "progressive-soil": "recipes",
     "progressive-speed-module": "recipes",
     "progressive-steel-plate-productivity": "bonuses",
     "progressive-stronger-explosives": "bonuses",

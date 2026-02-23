@@ -236,13 +236,13 @@ class TechnologyPrerequisites(Choice):
 @auto_group
 class ProgressiveTechs(Choice):
     """
-    Which technologies that end with -1, -2, -3, etc. to group into a sequence of progressive items so that they are always received in sequential order.
+    Technologies that conceptionally form a progressive sequence will be received in order sequence.
+    If the vanilla technology name ends with -1, -2, -3, etc. or a building or piece of equipment is crafted as an upgrade from another item,
+    then this apworld probably puts it into a progressive sequence.
+    See progressive_technology_stacks in data/generated2.py in this apworld's source code for the full definition.
 
     bonuses: Only technologies that grant global bonuses will be grouped together and received in sequence, for example there will be 7 copies of progressive-inserter-capacity-bonus.
-    recipes: In addition, technologies that unlock recipes will also be grouped, for example 3 copies of progressive-automation, 4 copies of progressive-military, 3 copies of progressive-speed-module, etc.
-
-    In addition to technology names that end with numbers, epic-quality and legendary-quality are two bonuses called progressive-quality-upgrade,
-    and turbo-transport-belt is the fourth recipe unlock in the progressive-logistics chain.
+    recipes: In addition, technologies that unlock recipes will also be grouped, for example 3 copies of progressive-automation, 4 copies of progressive-military, 3 copies of progressive-inserter, etc.
     """
     display_name = "Progressive Technologies"
     option_bonuses = 0

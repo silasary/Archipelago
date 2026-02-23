@@ -485,9 +485,56 @@ _override_recipe_data = {
 }
 
 _effective_technology_name_for_progressive_grouping = {
+    # Tack these on.
     RawTechnology.turbo_transport_belt: "logistics-4",
     RawTechnology.epic_quality: "quality-upgrade-1",
     RawTechnology.legendary_quality: "quality-upgrade-2",
+
+    RawTechnology.fast_inserter:  "inserter-1",
+    RawTechnology.bulk_inserter:  "inserter-2",
+    RawTechnology.stack_inserter: "inserter-3",
+
+    RawTechnology.electric_mining_drill: "mining-drill-1",
+    RawTechnology.big_mining_drill:      "mining-drill-2",
+
+    RawTechnology.artificial_soil: "soil-1",
+    RawTechnology.overgrowth_soil: "soil-2",
+
+    RawTechnology.heavy_armor:     "armor-1",
+    RawTechnology.modular_armor:   "armor-2",
+    RawTechnology.power_armor:     "armor-3",
+    RawTechnology.power_armor_mk2: "armor-4",
+    RawTechnology.mech_armor:      "armor-5",
+
+    RawTechnology.fusion_reactor_equipment:  "portable-reactor-1",
+    RawTechnology.fission_reactor_equipment: "portable-reactor-2",
+
+    RawTechnology.battery_equipment:     "personal-battery-1",
+    RawTechnology.battery_mk2_equipment: "personal-battery-2",
+    RawTechnology.battery_mk3_equipment: "personal-battery-3",
+
+    RawTechnology.personal_roboport_equipment:     "personal-roboport-1",
+    RawTechnology.personal_roboport_mk2_equipment: "personal-roboport-2",
+
+    RawTechnology.energy_shield_equipment:     "energy-shield-1",
+    RawTechnology.energy_shield_mk2_equipment: "energy-shield-2",
+
+    RawTechnology.defender:   "follower-robot-1",
+    RawTechnology.distractor: "follower-robot-2",
+    RawTechnology.destroyer:  "follower-robot-3",
+
+    # Not included, but maybe arguable:
+    # * railway -> automated-rail-transportation
+    # * railway -> elevated rails
+    # * captivity -> captive-biter-spawner
+    # * rocket-turret -> spidertron
+    # * stone-wall -> gate
+    # * circuit-network -> advanced-combinators
+
+    # Hard to make a case for these:
+    # * planet-discovery-fulgora -> lightning-collector
+    # * electronics (not randomized) -> biolab
+    # * steam-power (not randomized) -> heating-tower
 }
 
 def _get_asteroid_info(spawn_data):
@@ -1078,9 +1125,6 @@ def generate_everything(the_data: dict):
         if not technology_data["effects"]:
             empty_technologies.add(technology_name)
 
-        if type(requirement) != ResearchRequirement:
-            continue # No more complexity to consider for now.
-
         # Technology with levels is usually something we want to make progressive.
         level = technology_data["level"]
         effective_technology_name = _effective_technology_name_for_progressive_grouping.get(technology_name, technology_name)
@@ -1143,6 +1187,8 @@ def generate_everything(the_data: dict):
             elif effect_types in (
                 {"unlock-recipe"},
                 {"unlock-recipe", "unlock-quality"},
+                {"unlock-recipe", "maximum-following-robots-count"},
+                {"unlock-recipe", "bulk-inserter-capacity-bonus", "belt-stack-size-bonus"},
             ):
                 category = "recipes"
             else:
