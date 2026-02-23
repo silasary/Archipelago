@@ -6,10 +6,19 @@ for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
     local new_tech = {
         type = "technology",
         name = tech_name,
+        level = tech_data.level,
+        max_level = tech_data.max_level,
         unit = tech_data.unit,
         research_trigger = tech_data.research_trigger,
         prerequisites = tech_data.prerequisites,
+        effects = tech_data.effects,
     }
+
+    if new_tech.level ~= nil then
+        -- Infinite technologies should not send to the multiworld.
+        -- Change the name suffix to keep them local.
+        new_tech.name = new_tech.name .. "-" .. tostring(new_tech.level)
+    end
 
     -- Set icon.
     if string.sub(tech_data.icon, 1, 1) == "/" then

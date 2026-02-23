@@ -35,7 +35,7 @@ class Goal(Choice):
     """
     Goal required to complete the game.
     space platform: Build a space platform. (Note: this makes for a very short game, often only requiring automating two science packs, and for reasons unknown to me also causes random generation failures sometimes.)
-    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science (TODO: unimplemented).
+    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science.
     aquilo orbit: Reach Aquilo orbit with a space platform.
     solar system edge: (default) The victory condition in the normal game.
     """
@@ -255,15 +255,15 @@ class ProgressiveTechs(Choice):
 class InfiniteTechs(Choice):
     """
     How to handle infinitely researchable technologies, e.g. steel-plate-productivity.
-    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs (TODO: unimplemented).
-    shuffled: The cost and prerequisites of each infinite tech is shuffled, e.g. research productivity mighty require only military, utility, and agricultural science packs (normally the health technology) (TODO: unimplemented).
+    vanilla: They are not randomized, e.g. research productivity always requires promethium science packs.
+    shuffled: The cost and prerequisites of the infinite techs are shuffled, e.g. research productivity might require only military, utility, and agricultural science packs (the location of the health technology).
     removed: Infinite technologies are removed.
     """
     display_name = "Infinite Technologies"
     option_vanilla = 0
     option_shuffled = 1
     option_removed = 2
-    default = 2
+    default = 1
 
 @auto_group
 class TechTreeInformation(Choice):

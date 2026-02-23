@@ -1,4 +1,3 @@
-# TODO: asteroid chunk automation logic looks funky
 import itertools, typing
 from collections import defaultdict
 from dataclasses import dataclass
@@ -127,10 +126,6 @@ class RecipeClassification(IntEnum):
 class ResearchRequirement:
     ingredients: dict[str, int]
     """ the keys are the science pack names for 1 unit of research. the values are always 1. """
-    units: int | str
-    """ how many units of research, e.g. 'automation' costs 10. A str means this is the cost formula for an infinite research. """
-    energy: int
-    """ lab time for 1 unit of research in seconds. """
     uses_tech_cost_multiplier: bool
     """ whether the units scale with the tech cost multiplier map gen setting. """
 @dataclass(frozen=True)
@@ -164,9 +159,6 @@ class Technology:
         CaptureSpawnerRequirement |
         CreateSpacePlatformRequirement)
     """ usually a ResearchRequirement """
-
-    def is_infinite(self):
-        return type(self.requirement) == ResearchRequirement and type(self.requirement.units) == str
 
 @dataclass
 class Recipe:
@@ -1027,29 +1019,30 @@ def generate_everything(the_data: dict):
         if len(ingredients) > 0:
             # Research technology (using science packs and labs).
             assert set(ingredients.values()) == {1}, "update comment on ResearchRequirement.ingredients to no longer claim the amount is always 1"
-            if "research_unit_count_formula" in technology_data:
-                # infinite
-                units = technology_data["research_unit_count_formula"]
-                assert type(units) == str
-                infinite_technologies.add(technology_name)
-            else:
-                units = technology_data["research_unit_count"]
+            requirement = ResearchRequirement(ingredients, not technology_data["ignore_tech_cost_multiplier"])
+
+            # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
             energy_in_ticks = technology_data["research_unit_energy"]
             assert energy_in_ticks % 60 == 0, "update Technology.energy type from int to float"
             energy = energy_in_ticks // 60
-            requirement = ResearchRequirement(ingredients, units, energy, not technology_data["ignore_tech_cost_multiplier"])
-
-            # https://lua-api.factorio.com/latest/types/TechnologyUnit.html
             unit = {
                 "time": energy,
                 "ingredients": [[ingredient_name, amount] for ingredient_name, amount in ingredients.items()],
             }
-            if type(units) == str:
-                unit["count_formula"] = units
-                # TODO: Also need to adjust the level appropriately?
+            if "research_unit_count_formula" in technology_data:
+                # infinite
+                infinite_technologies.add(technology_name)
+                unit["count_formula"] = technology_data["research_unit_count_formula"]
+                technology_props["unit"] = unit
+                # laser-weapons-damage goes infinite at level 7,
+                # and the count formula assumes L=7 will be the first instantiation.
+                technology_props["level"] = technology_data.get("level", 1)
+                technology_props["max_level"] = technology_data["max_level"]
+                technology_props["effects"] = technology_data["effects"]
             else:
+                units = technology_data["research_unit_count"]
                 unit["count"] = units
-            technology_props["unit"] = unit
+                technology_props["unit"] = unit
         elif "research_trigger" in technology_data:
             # Trigger technology.
             trigger = technology_data["research_trigger"]
@@ -1104,7 +1097,7 @@ def generate_everything(the_data: dict):
         if level != 1:
             assert progressive_group_name != None, "leveled technology doesn't have a number in the name: " + effective_technology_name
         # Infinite research.
-        if technology.is_infinite():
+        if technology_name in infinite_technologies:
             assert technology_data["max_level"] == 4294967295, "consider evaluating the cost at each finite level instead of using an 'infinite' formula"
             assert not does_something_important, "infinite research is doing something important: " + effective_technology_name
             if progressive_group_name == None:
@@ -1121,8 +1114,8 @@ def generate_everything(the_data: dict):
         # Make sure our assumptions are correct about the way progressive technologies are defined.
         assert set(progressive_chain.keys()) == set(range(1, len(progressive_chain)+1)), "skipped progressive levels: " + progressive_group_name
         if len(progressive_chain) == 1:
-            assert technologies[progressive_chain[1]].is_infinite(), "technology ends with -1 without any other levels: " + progressive_chain[1]
-        assert not any(technologies[progressive_chain[level]].is_infinite() for level in range(1, len(progressive_chain)+1-1)), "infinite technology must be the highest level defined in the group: " + progressive_group_name
+            assert progressive_chain[1] in infinite_technologies, "technology ends with -1 without any other levels: " + progressive_chain[1]
+        assert not any(progressive_chain[level] in infinite_technologies for level in range(1, len(progressive_chain)+1-1)), "infinite technology must be the highest level defined in the group: " + progressive_group_name
 
         # Export the final stack
         progressive_group_name = "progressive-" + progressive_group_name
@@ -1553,7 +1546,6 @@ def generate_everything(the_data: dict):
         if len(prerequisite_science_packs) > 0:
             prerequisite_requirements.append(ResearchRequirement(
                 ingredients=prerequisite_science_packs,
-                units=67, energy=69, # fake values that don't matter.
                 # FIXME: This does matter and is not accurate, but for vanilla, it gets the right answer every time anyway,
                 # because only 1 technology doesn't use tech cost multiplier, and every technology that depends on it does.
                 # And so the prerequisite never introduces a *new* requirement to automate automation science packs.

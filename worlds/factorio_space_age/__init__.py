@@ -81,6 +81,7 @@ class Factorio(World):
 
     locations: list[FactorioLocation]
     logic_events: dict
+    infinite_technology_shuffle: dict[str, str] | None = None
 
     def __init__(self, world, player: int):
         self.locations = []
@@ -96,12 +97,13 @@ class Factorio(World):
             options=self.options,
             multiworld=self.multiworld,
             logic_events=self.logic_events,
+            infinite_technology_shuffle=self.infinite_technology_shuffle,
             output_directory=output_directory,
         )
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
-        from .data.generated2 import all_recipe_names, all_item_names
+        from .data.generated2 import all_recipe_names, all_item_names, infinite_technologies
         unrecognized_recipes = self.options.free_sample_excludes.value - all_recipe_names
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
@@ -110,6 +112,12 @@ class Factorio(World):
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
         if self.options.energy_link_technology.value:
             raise NotImplementedError("TODO: energy_link_technology must be 'false'")
+        if self.options.infinite_technologies.current_key == "shuffled":
+            infinite_list = sorted(infinite_technologies)
+            target_list = list(infinite_list)
+            self.random.shuffle(target_list)
+            self.infinite_technology_shuffle = {src: dst for src, dst in zip(infinite_list, target_list)}
+        else: assert self.options.infinite_technologies.current_key in ("removed", "vanilla")
 
     def create_regions(self):
         """
@@ -210,13 +218,7 @@ class Factorio(World):
                 event_type, sub_name = "Technology", event_name
             if event_type == "Technology":
                 # This is a proper item and corresponding location.
-                # TODO: shuffle infinite techs.
-                locked = sub_name in unrandomized_events
-                if sub_name in infinite_technologies:
-                    if self.options.infinite_technologies.current_key == "removed":
-                        continue
-                    else:
-                        raise NotImplementedError("infinite_technologies must be set to 'removed' for now")
+                locked = sub_name in unrandomized_events or sub_name in infinite_technologies
                 progressive_group_name = technology_name_to_progressive_group_name.get(sub_name, None)
                 if progressive_group_name != None and progressive_group_name_to_category[progressive_group_name] in enabled_progressive_categories:
                     item_name = progressive_group_name

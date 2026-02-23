@@ -123,6 +123,7 @@ def generate_mod(
     options: Options,
     multiworld: "Multiworld",
     logic_events: dict,
+    infinite_technology_shuffle: dict[str, str] | None,
     output_directory: str,
 ):
 
@@ -160,40 +161,53 @@ def generate_mod(
     for location in world_locations:
         technology_name = location_name_to_technology_name[location.name]
         if technology_name in infinite_technologies:
-            continue # TODO: support infinite technologies
+            if options.infinite_technologies.current_key == "removed":
+                continue
+            elif options.infinite_technologies.current_key == "vanilla":
+                item_name = technology_name
+            elif options.infinite_technologies.current_key == "shuffled":
+                item_name = infinite_technology_shuffle[technology_name]
+            else: assert False
+            target_player = player
+            is_advancement = False
+            is_useful = True
+            is_trap = False
+        else:
+            item = location.item
+            item_name = item.name
+            target_player = item.player
+            is_advancement = item.advancement
+            is_useful = item.useful
+            is_trap = item.trap
 
-        item = location.item
         if location.revealed or options.tech_tree_information.current_key == "full":
-            receiver_name = multiworld.player_name[item.player]
-            display_name = f"{receiver_name}'s {item.name} ({location.name})"
-            if item.advancement:
+            receiver_name = multiworld.player_name[target_player]
+            display_name = f"{receiver_name}'s {item_name} ({location.name})"
+            if is_advancement:
                 helpfulness_clause = ", which is considered a logical advancement"
                 icon = "/ap.png"
-            elif item.useful:
+            elif is_useful:
                 helpfulness_clause = ", which is considered useful"
                 icon = "/ap_unimportant.png"
-            elif item.trap:
+            elif is_trap:
                 helpfulness_clause = ", which is considered fun"
                 icon = "/ap_unimportant.png"
             else:
                 helpfulness_clause = ""
                 icon = "/ap_unimportant.png"
-            description = f"Researching this technology sends {item.name} to {receiver_name}{helpfulness_clause}."
-            if item.name in technology_props_lua:
+            description = f"Researching this technology sends {item_name} to {receiver_name}{helpfulness_clause}."
+            if item_name in technology_props_lua:
                 # This is an item for Factorio (probably). Use the built in icon.
-                icon = item.name
-            elif item.name in progressive_technology_stacks:
+                icon = item_name
+            elif item_name in progressive_technology_stacks:
                 # This is a progressive item for Factorio (probably). Use one of the icons in the stack.
-                icon = progressive_technology_stacks[item.name][0]
+                icon = progressive_technology_stacks[item_name][0]
         elif options.tech_tree_information.current_key == "advancement":
-            if item.advancement:
+            if is_advancement or is_trap:
                 helpfulness_clause = ", which is considered a logical advancement"
                 icon = "/ap.png"
-            elif item.useful:
+            elif is_useful:
                 helpfulness_clause = ", which is considered useful"
-                icon = "/ap_unimportant.png"
-            elif item.trap:
-                helpfulness_clause = ", which is considered fun"
                 icon = "/ap_unimportant.png"
             else:
                 helpfulness_clause = ""
@@ -216,14 +230,21 @@ def generate_mod(
         # https://lua-api.factorio.com/latest/prototypes/TechnologyPrototype.html
         tech_data = {
             "icon": icon,
-            # Mimic the same prerequisite map.
             "prerequisites": prerequisites,
         }
         if "unit" in technology_props:
             tech_data["unit"] = {
                 **technology_props["unit"],
-                "count": max(1, technology_props["unit"]["count"] // options.tech_cost_divisor),
             }
+            if "count" in technology_props["unit"]:
+                # Adjust finite tech cost according to settings.
+                tech_data["unit"]["count"] = max(1, technology_props["unit"]["count"] // options.tech_cost_divisor)
+            else:
+                # Infinite.
+                tech_data["level"] = technology_props["level"]
+                tech_data["max_level"] = technology_props["max_level"]
+                target_props = technology_props_lua[item_name]
+                tech_data["effects"] = target_props["effects"]
         else:
             tech_data["research_trigger"] = technology_props["research_trigger"]
 

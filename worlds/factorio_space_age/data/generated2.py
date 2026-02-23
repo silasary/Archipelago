@@ -2900,6 +2900,15 @@ technology_props_lua = {
         }
     },
     "artillery-shell-damage-1": {
+        "effects": [
+            {
+                "ammo_category": "artillery-shell",
+                "modifier": 0.1,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "artillery"
         ],
@@ -2939,6 +2948,14 @@ technology_props_lua = {
         }
     },
     "artillery-shell-range-1": {
+        "effects": [
+            {
+                "modifier": 0.3,
+                "type": "artillery-range"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "artillery"
         ],
@@ -2978,6 +2995,15 @@ technology_props_lua = {
         }
     },
     "artillery-shell-speed-1": {
+        "effects": [
+            {
+                "ammo_category": "artillery-shell",
+                "modifier": 1,
+                "type": "gun-speed"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "artillery"
         ],
@@ -3017,6 +3043,40 @@ technology_props_lua = {
         }
     },
     "asteroid-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "carbonic-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "oxide-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "metallic-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "advanced-carbonic-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "advanced-oxide-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "advanced-metallic-asteroid-crushing",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "advanced-asteroid-processing"
         ],
@@ -4428,6 +4488,25 @@ technology_props_lua = {
         }
     },
     "electric-weapons-damage-4": {
+        "effects": [
+            {
+                "ammo_category": "tesla",
+                "modifier": 0.7,
+                "type": "ammo-damage"
+            },
+            {
+                "ammo_category": "electric",
+                "modifier": 0.7,
+                "type": "ammo-damage"
+            },
+            {
+                "ammo_category": "beam",
+                "modifier": 0.3,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 4,
+        "max_level": 4294967295,
         "prerequisites": [
             "electric-weapons-damage-3"
         ],
@@ -4981,6 +5060,14 @@ technology_props_lua = {
         }
     },
     "follower-robot-count-5": {
+        "effects": [
+            {
+                "modifier": 25,
+                "type": "maximum-following-robots-count"
+            }
+        ],
+        "level": 5,
+        "max_level": 4294967295,
         "prerequisites": [
             "follower-robot-count-4",
             "production-science-pack",
@@ -5224,6 +5311,14 @@ technology_props_lua = {
         }
     },
     "health": {
+        "effects": [
+            {
+                "modifier": 50,
+                "type": "character-health-bonus"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "agricultural-science-pack",
             "military-science-pack",
@@ -5984,6 +6079,15 @@ technology_props_lua = {
         }
     },
     "laser-weapons-damage-7": {
+        "effects": [
+            {
+                "ammo_category": "laser",
+                "modifier": 0.7,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 7,
+        "max_level": 4294967295,
         "prerequisites": [
             "laser-weapons-damage-6",
             "space-science-pack"
@@ -6264,6 +6368,20 @@ technology_props_lua = {
         }
     },
     "low-density-structure-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "low-density-structure",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "casting-low-density-structure",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "metallurgic-science-pack",
             "production-science-pack"
@@ -6531,6 +6649,14 @@ technology_props_lua = {
         }
     },
     "mining-productivity-3": {
+        "effects": [
+            {
+                "modifier": 0.1,
+                "type": "mining-drill-productivity-bonus"
+            }
+        ],
+        "level": 3,
+        "max_level": 4294967295,
         "prerequisites": [
             "mining-productivity-2",
             "production-science-pack"
@@ -6971,6 +7097,30 @@ technology_props_lua = {
         }
     },
     "physical-projectile-damage-7": {
+        "effects": [
+            {
+                "ammo_category": "bullet",
+                "modifier": 0.2,
+                "type": "ammo-damage"
+            },
+            {
+                "modifier": 0.2,
+                "turret_id": "gun-turret",
+                "type": "turret-attack"
+            },
+            {
+                "ammo_category": "shotgun-shell",
+                "modifier": 0.4,
+                "type": "ammo-damage"
+            },
+            {
+                "ammo_category": "cannon-shell",
+                "modifier": 1,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 7,
+        "max_level": 4294967295,
         "prerequisites": [
             "physical-projectile-damage-6",
             "space-science-pack"
@@ -7141,6 +7291,20 @@ technology_props_lua = {
         }
     },
     "plastic-bar-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "plastic-bar",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "bioplastic",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "agricultural-science-pack",
             "production-science-pack"
@@ -7274,6 +7438,15 @@ technology_props_lua = {
         }
     },
     "processing-unit-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "processing-unit",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "electromagnetic-science-pack",
             "production-science-pack"
@@ -7704,6 +7877,15 @@ technology_props_lua = {
         }
     },
     "railgun-damage-1": {
+        "effects": [
+            {
+                "ammo_category": "railgun",
+                "modifier": 0.4,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "railgun"
         ],
@@ -7747,6 +7929,15 @@ technology_props_lua = {
         }
     },
     "railgun-shooting-speed-1": {
+        "effects": [
+            {
+                "ammo_category": "railgun",
+                "modifier": 0.15,
+                "type": "gun-speed"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "railgun"
         ],
@@ -7992,6 +8183,20 @@ technology_props_lua = {
         }
     },
     "refined-flammables-7": {
+        "effects": [
+            {
+                "ammo_category": "flamethrower",
+                "modifier": 0.2,
+                "type": "ammo-damage"
+            },
+            {
+                "modifier": 0.2,
+                "turret_id": "flamethrower-turret",
+                "type": "turret-attack"
+            }
+        ],
+        "level": 7,
+        "max_level": 4294967295,
         "prerequisites": [
             "agricultural-science-pack",
             "refined-flammables-6"
@@ -8047,6 +8252,14 @@ technology_props_lua = {
         }
     },
     "research-productivity": {
+        "effects": [
+            {
+                "modifier": 0.1,
+                "type": "laboratory-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "promethium-science-pack"
         ],
@@ -8299,6 +8512,25 @@ technology_props_lua = {
         }
     },
     "rocket-fuel-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "rocket-fuel",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "rocket-fuel-from-jelly",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "ammonia-rocket-fuel",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "agricultural-science-pack",
             "production-science-pack"
@@ -8331,6 +8563,15 @@ technology_props_lua = {
         }
     },
     "rocket-part-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "rocket-part",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "cryogenic-science-pack"
         ],
@@ -8452,6 +8693,15 @@ technology_props_lua = {
         }
     },
     "scrap-recycling-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "scrap-recycling",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "electromagnetic-science-pack",
             "production-science-pack"
@@ -8761,6 +9011,20 @@ technology_props_lua = {
         }
     },
     "steel-plate-productivity": {
+        "effects": [
+            {
+                "change": 0.10000000149011612,
+                "recipe": "steel-plate",
+                "type": "change-recipe-productivity"
+            },
+            {
+                "change": 0.10000000149011612,
+                "recipe": "casting-steel",
+                "type": "change-recipe-productivity"
+            }
+        ],
+        "level": 1,
+        "max_level": 4294967295,
         "prerequisites": [
             "production-science-pack"
         ],
@@ -8992,6 +9256,25 @@ technology_props_lua = {
         }
     },
     "stronger-explosives-7": {
+        "effects": [
+            {
+                "ammo_category": "rocket",
+                "modifier": 0.5,
+                "type": "ammo-damage"
+            },
+            {
+                "ammo_category": "grenade",
+                "modifier": 0.2,
+                "type": "ammo-damage"
+            },
+            {
+                "ammo_category": "landmine",
+                "modifier": 0.2,
+                "type": "ammo-damage"
+            }
+        ],
+        "level": 7,
+        "max_level": 4294967295,
         "prerequisites": [
             "agricultural-science-pack",
             "stronger-explosives-6"
@@ -9740,6 +10023,14 @@ technology_props_lua = {
         }
     },
     "worker-robots-speed-7": {
+        "effects": [
+            {
+                "modifier": 0.65,
+                "type": "worker-robot-speed"
+            }
+        ],
+        "level": 7,
+        "max_level": 4294967295,
         "prerequisites": [
             "electromagnetic-science-pack",
             "worker-robots-speed-6"
