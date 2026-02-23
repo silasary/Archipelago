@@ -268,15 +268,18 @@ class TechTreeInformation(Choice):
     """
     How much information should be displayed in the tech tree.
     None: No indication of what a research unlocks.
-    Advancement: Indicates if a research unlocks an item that is considered logical advancement, but not who it is for.
-    Full: Labels with exact names and recipients of unlocked items; all researches are prefilled into the !hint command.
+    Advancement: Indicates if it's a logical advancement for the recipient.
+    Recipient: Reveals who the recipient is.
+    Recipient Advancement: Says both who it's for and whether it's an advancement.
+    Full: Reveals exact names and recipients of unlocked items; all researches are prefilled into the !hint command.
     """
     display_name = "Technology Tree Information"
     option_none = 0
     option_advancement = 1
-    option_full = 2
-    # TODO: option to reveal recipient
-    default = 2
+    option_recipient = 2
+    option_recipient_advancement = 3
+    option_full = 4
+    default = 3
 
 
 option_groups.append(OptionGroup("Speedups/Balance", []))
@@ -285,13 +288,13 @@ option_groups.append(OptionGroup("Speedups/Balance", []))
 class StartingItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
-    default = {"burner-mining-drill": 4, "stone-furnace": 4,  "raw-fish": 50}
+    default = {"burner-mining-drill": 4, "stone-furnace": 4, "wood": 4}
     schema = Schema(
         {
             str: And(int, lambda n: n > 0,
                      error="amount of starting items has to be a positive integer"),
         }
-        # TODO: move the additional validation from generate_early() into the schema
+        # Additional validation is in generate_early().
     )
 
 @auto_group
@@ -338,7 +341,7 @@ class FreeSampleExcludes(OptionSet):
         "cryogenic-science-pack",
         "promethium-science-pack",
     }
-    # TODO: move the validation from generate_early() into a schema here.
+    # This is validated in generate_early().
 
 @auto_group
 class TechCostDivisor(Range):

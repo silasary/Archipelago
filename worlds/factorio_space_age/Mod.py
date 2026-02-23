@@ -182,9 +182,16 @@ def generate_mod(
             is_useful = item.useful
             is_trap = item.trap
 
+        display_name = location.name
+        helpfulness_clause = ""
+        icon = "/ap_unimportant.png"
+        display_item_name = "something"
+        receiver_name = "someone"
         if location.revealed or options.tech_tree_information.current_key == "full":
+            # Full information
             receiver_name = multiworld.player_name[target_player]
             display_name = f"{receiver_name}'s {item_name} ({location.name})"
+            display_item_name = item_name
             if is_advancement:
                 helpfulness_clause = ", which is considered a logical advancement"
                 icon = "/ap.png"
@@ -194,10 +201,6 @@ def generate_mod(
             elif is_trap:
                 helpfulness_clause = ", which is considered fun"
                 icon = "/ap_unimportant.png"
-            else:
-                helpfulness_clause = ""
-                icon = "/ap_unimportant.png"
-            description = f"Researching this technology sends {item_name} to {receiver_name}{helpfulness_clause}."
             if item_name in technology_props_lua:
                 # This is an item for Factorio (probably). Use the built in icon.
                 icon = item_name
@@ -207,22 +210,20 @@ def generate_mod(
             elif item_name == "ap-energy-bridge":
                 # Handled specially in data.lua.
                 icon = item_name
-        elif options.tech_tree_information.current_key == "advancement":
-            if is_advancement or is_trap:
-                helpfulness_clause = ", which is considered a logical advancement"
-                icon = "/ap.png"
-            elif is_useful:
-                helpfulness_clause = ", which is considered useful"
-                icon = "/ap_unimportant.png"
-            else:
-                helpfulness_clause = ""
-                icon = "/ap_unimportant.png"
-            display_name = location.name
-            description = f"Researching this technology sends something to someone{helpfulness_clause}."
         else:
-            display_name = location.name
-            description = "Researching this technology sends something to someone."
-            icon = "/ap_unimportant.png"
+            # Partial or no information.
+            if options.tech_tree_information.current_key in ("advancement", "recipient_advancement"):
+                # Reveal flags.
+                if is_advancement or is_trap:
+                    helpfulness_clause = ", which is considered a logical advancement"
+                    icon = "/ap.png"
+                elif is_useful:
+                    helpfulness_clause = ", which is considered useful"
+                    icon = "/ap_unimportant.png"
+            if options.tech_tree_information.current_key in ("recipient", "recipient_advancement"):
+                # Reveal recipient.
+                receiver_name = multiworld.player_name[target_player]
+        description = f"Researching this technology sends {display_item_name} to {receiver_name}{helpfulness_clause}."
         locale_location = LocaleLocation(location.name, display_name, description)
 
         technology_props = technology_props_lua[technology_name]
