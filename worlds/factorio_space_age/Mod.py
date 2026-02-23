@@ -160,7 +160,7 @@ def generate_mod(
     locale_locations: list[LocaleLocation] = []
     new_technology_data: dict[str, dict] = {}
     for location in world_locations:
-        technology_name = location_name_to_technology_name[location.name]
+        technology_name = location_name_to_technology_name[location.name.replace("_other_location", "_location")]
         if technology_name in infinite_technologies:
             if options.infinite_technologies.current_key == "removed":
                 continue
@@ -170,8 +170,7 @@ def generate_mod(
                 item_name = infinite_technology_shuffle[technology_name]
             else: assert False
             target_props_item_name = item_name
-            if options.progressive_technologies.current_key != "off":
-                item_name = technology_name_to_progressive_group_name[item_name]
+            item_name = technology_name_to_progressive_group_name[item_name]
             target_player = player
             is_advancement = False
             is_useful = True

@@ -82,6 +82,9 @@ class Factorio(World):
     locations: list[FactorioLocation]
     logic_events: dict
     infinite_technology_shuffle: dict[str, str] | None = None
+    empty_technologies: list[str]
+    filler_weights_argv: tuple[list[str], list[int]]
+    locations_to_duplicate: set[str]
 
     def __init__(self, world, player: int):
         self.locations = []
@@ -103,7 +106,10 @@ class Factorio(World):
 
     def generate_early(self) -> None:
         # if max < min, then swap max and min
-        from .data.generated2 import all_recipe_names, all_item_names, infinite_technologies
+        from .data.generated2 import (
+            all_recipe_names, all_item_names,
+            infinite_technologies, empty_technologies,
+        )
         unrecognized_recipes = self.options.free_sample_excludes.value - all_recipe_names
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
@@ -119,10 +125,60 @@ class Factorio(World):
             self.infinite_technology_shuffle = {src: dst for src, dst in zip(infinite_list, target_list)}
         else: assert self.options.infinite_technologies.current_key in ("removed", "vanilla")
 
+        filler_weights = {
+            "": self.options.filler_nothing_weight.value,
+            "progressive-artillery-shell-damage"             : self.options.filler_artillery_shell_damage_weight.value,
+            "progressive-artillery-shell-range"              : self.options.filler_artillery_shell_range_weight.value,
+            "progressive-artillery-shell-speed"              : self.options.filler_artillery_shell_speed_weight.value,
+            "progressive-asteroid-productivity"              : self.options.filler_asteroid_productivity_weight.value,
+            "progressive-electric-weapons-damage"            : self.options.filler_electric_weapons_damage_weight.value,
+            "progressive-follower-robot-count"               : self.options.filler_follower_robot_count_weight.value,
+            "progressive-health"                             : self.options.filler_health_weight.value,
+            "progressive-laser-weapons-damage"               : self.options.filler_laser_weapons_damage_weight.value,
+            "progressive-low-density-structure-productivity" : self.options.filler_low_density_structure_productivity_weight.value,
+            "progressive-mining-productivity"                : self.options.filler_mining_productivity_weight.value,
+            "progressive-physical-projectile-damage"         : self.options.filler_physical_projectile_damage_weight.value,
+            "progressive-plastic-bar-productivity"           : self.options.filler_plastic_bar_productivity_weight.value,
+            "progressive-processing-unit-productivity"       : self.options.filler_processing_unit_productivity_weight.value,
+            "progressive-railgun-damage"                     : self.options.filler_railgun_damage_weight.value,
+            "progressive-railgun-shooting-speed"             : self.options.filler_railgun_shooting_speed_weight.value,
+            "progressive-refined-flammables"                 : self.options.filler_refined_flammables_weight.value,
+            "progressive-research-productivity"              : self.options.filler_research_productivity_weight.value,
+            "progressive-rocket-fuel-productivity"           : self.options.filler_rocket_fuel_productivity_weight.value,
+            "progressive-rocket-part-productivity"           : self.options.filler_rocket_part_productivity_weight.value,
+            "progressive-scrap-recycling-productivity"       : self.options.filler_scrap_recycling_productivity_weight.value,
+            "progressive-steel-plate-productivity"           : self.options.filler_steel_plate_productivity_weight.value,
+            "progressive-stronger-explosives"                : self.options.filler_stronger_explosives_weight.value,
+            "progressive-worker-robots-speed"                : self.options.filler_worker_robots_speed_weight.value,
+            "Artillery Trap"            : self.options.artillery_trap_weight.value,
+            "Atomic Cliff Remover Trap" : self.options.atomic_cliff_remover_trap_weight.value,
+            "Atomic Rocket Trap"        : self.options.atomic_rocket_trap_weight.value,
+            "Attack Trap"               : self.options.attack_trap_weight.value,
+            "Cluster Grenade Trap"      : self.options.cluster_grenade_trap_weight.value,
+            "Evolution Trap"            : self.options.evolution_trap_weight.value,
+            "Grenade Trap"              : self.options.grenade_trap_weight.value,
+            "Inventory Spill Trap"      : self.options.inventory_spill_trap_weight.value,
+            "Teleport Trap"             : self.options.teleport_trap_weight.value,
+        }
+        if sum(filler_weights.values()) == 0:
+            # If you ask for no filler, we'll give you nothing, which is filler.
+            filler_weights[""] = 1
+        self.filler_weights_argv = list(zip(*filler_weights.items()))
+
+        self.empty_technologies = sorted(empty_technologies)
+        self.random.shuffle(self.empty_technologies)
+
+        extra_location_count = self.options.filler_count.value + int(self.options.energy_link_technology.value) - 4
+        if extra_location_count > 0:
+            other_location_names = [name for name in ap_location_name_to_id.keys() if name.endswith("_other_location")]
+            chosen_other_locations = self.random.choices(other_location_names, k=extra_location_count)
+            self.locations_to_duplicate = {name.replace("_other_location", "_location") for name in chosen_other_locations}
+        else:
+            self.locations_to_duplicate = set()
+
     def create_regions(self):
         """
         This implementation covers create_regions(), create_items(), and set_rules().
-        TODO: create traps.
         """
         from .data.generated2 import (
             infinite_technologies,
@@ -205,9 +261,8 @@ class Factorio(World):
         })
 
         enabled_progressive_categories = {
-            "off": (),
             "bonuses": ("bonuses",),
-            "all": ("bonuses", "recipes"),
+            "recipes": ("bonuses", "recipes"),
         }[self.options.progressive_technologies.current_key]
 
         found_victory_event = False
@@ -231,6 +286,10 @@ class Factorio(World):
                     location.revealed = True
                 else:
                     self.multiworld.itempool.append(item)
+                    if location.name in self.locations_to_duplicate:
+                        # Another one.
+                        new_location(location.name.replace("_location", "_other_location"), compile_expr(expr))
+                        self.multiworld.itempool.append(self.create_item(self.get_filler_item_name()))
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))
@@ -272,10 +331,12 @@ class Factorio(World):
         return None
 
     def get_filler_item_name(self) -> str:
-        # TODO: option for infinite techs to be filler items instead of nothing technologies.
-        from .data.generated2 import empty_technologies
-        empty_technologies_list = sorted(empty_technologies)
-        return self.random.choice(empty_technologies_list)
+        [item_name] = self.random.choices(*self.filler_weights_argv)
+        if item_name == "":
+            # Use the next name in a (shuffled) rotation so you always see all 4 before any repeats.
+            self.empty_technologies.append(self.empty_technologies.pop(0))
+            item_name = self.empty_technologies[-1]
+        return item_name
 
     def create_item(self, item_name: str) -> FactorioItem:
         from .data.generated2 import advancement_technologies, empty_technologies
@@ -285,6 +346,18 @@ class Factorio(World):
             classification = ItemClassification.progression
         elif item_name in empty_technologies:
             classification = ItemClassification.filler
+        elif item_name in {
+            "Artillery Trap",
+            "Atomic Cliff Remover Trap",
+            "Atomic Rocket Trap",
+            "Attack Trap",
+            "Cluster Grenade Trap",
+            "Evolution Trap",
+            "Grenade Trap",
+            "Inventory Spill Trap",
+            "Teleport Trap",
+        }:
+            classification = ItemClassification.trap
         else:
             classification = ItemClassification.useful
         return FactorioItem(item_name, classification, code, self.player)

@@ -47,7 +47,6 @@ or {"or": [expression, ...]} or {"and": [expression, ...]}
 advancement_technologies: set[str] = set()
 infinite_technologies: set[str] = set()
 never_delete_events: set[str] = set()
-never_inline_events: set[str] = set()
 unrandomized_events: set[str] = set()
 ap_location_name_to_id: dict[str, int] = {}
 ap_item_name_to_id: dict[str, int] = {}
@@ -1471,6 +1470,7 @@ def generate_everything(the_data: dict):
         del expr # give me a NameError if i forget to assign to expr in this loop.
 
     # Research
+    all_technology_names: set[str] = set()
     def get_logic_expr_for_requirement(requirement):
         if type(requirement) == ResearchRequirement:
             fmt_automate_or_access = fmt_automate_item if requirement.uses_tech_cost_multiplier else fmt_access_item
@@ -1574,9 +1574,7 @@ def generate_everything(the_data: dict):
             RawTechnology.automation,
         ):
             unrandomized_events.add(fmt_unlock_research(technology_name))
-        else:
-            never_inline_events.add(fmt_unlock_research(technology_name))
-        never_delete_events.add(fmt_unlock_research(technology_name))
+        all_technology_names.add(technology_name)
     # EnergyLink technology
     raw_logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
 
@@ -1749,9 +1747,12 @@ def generate_everything(the_data: dict):
 
     # Optimize.
     raw_logic_events = {k: optimize_expr(v) for k, v in raw_logic_events.items()}
+    never_delete_events.update(all_technology_names)
+    never_inline_events = all_technology_names - unrandomized_events
 
     raw_logic_events, all_used_names = inline_exprs(raw_logic_events, never_inline_events, never_delete_events)
-    advancement_technologies.update(all_used_names)
+    advancement_technologies.update(name for name in all_used_names if " " not in name)
+    advancement_technologies.remove(ALWAYS)
     # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
     # e.g. progressive-automation is advancement even though automation-3 isn't.
     advancement_technologies.update(
@@ -1764,18 +1765,42 @@ def generate_everything(the_data: dict):
     # id codes
     # ========
     id_cursor = factorio_base_id
+    def next_id():
+        nonlocal id_cursor
+        id_cursor += 1
+        return id_cursor
+    # Technology locations and items
     for technology_name in sorted(raw_logic_events.keys()):
         if " " in technology_name: continue # Not a technology.
-        assert not technology_name.endswith("_location"), "would cause an ambiguity in control.lua"
+        assert not "_" in technology_name, "that's the delimiter we use for our special suffixes: " + technology_name
         location_name = technology_name + "_location"
         technology_name_to_location_name[technology_name] = location_name
         location_name_to_technology_name[location_name] = technology_name
-        ap_location_name_to_id[location_name] = id_cursor
-        ap_item_name_to_id[technology_name] = id_cursor
-        id_cursor += 1
+        ap_location_name_to_id[location_name] = next_id()
+        if not (
+            technology_name in unrandomized_events or
+            technology_name in infinite_technologies or
+            type(technologies[technology_name].requirement) != ResearchRequirement
+        ):
+            second_location_name = technology_name + "_other_location"
+            ap_location_name_to_id[second_location_name] = next_id()
+        ap_item_name_to_id[technology_name] = next_id()
+    # Progressive pseudo items
     for progressive_technology_name in sorted(progressive_technology_stacks.keys()):
-        ap_item_name_to_id[progressive_technology_name] = id_cursor
-        id_cursor += 1
+        ap_item_name_to_id[progressive_technology_name] = next_id()
+    # Traps
+    for trap_name in [
+        "Artillery Trap",
+        "Atomic Cliff Remover Trap",
+        "Atomic Rocket Trap",
+        "Attack Trap",
+        "Cluster Grenade Trap",
+        "Evolution Trap",
+        "Grenade Trap",
+        "Inventory Spill Trap",
+        "Teleport Trap",
+    ]:
+        ap_item_name_to_id[trap_name] = next_id()
 
 
     # ============
@@ -1821,8 +1846,10 @@ def generate_everything(the_data: dict):
         f.write(generate_decl("progressive_group_name_to_category", progressive_group_name_to_category))
         f.write(generate_decl("technology_props_lua", technology_props_lua))
         f.write(generate_decl("unrandomized_events", unrandomized_events))
-        f.write(generate_decl("never_inline_events", never_inline_events))
-        f.write(generate_decl("never_delete_events", never_delete_events))
+        assert    never_inline_events == technology_name_to_location_name.keys() - unrandomized_events
+        f.write("\nnever_inline_events = technology_name_to_location_name.keys() - unrandomized_events\n")
+        assert    never_delete_events == technology_name_to_location_name.keys() | {fmt_capability(Capability.research_any_other_planet_science)}
+        f.write("\nnever_delete_events = technology_name_to_location_name.keys() | {%s}\n" % repr(fmt_capability(Capability.research_any_other_planet_science)))
 
     with open(output3_py, "w") as f:
         f.write(header)
