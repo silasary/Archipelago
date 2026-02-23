@@ -116,8 +116,6 @@ class Factorio(World):
         unrecognized_items = self.options.starting_items.value.keys() - all_item_names
         if unrecognized_items:
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
-        if self.options.energy_link_technology.value:
-            raise NotImplementedError("TODO: energy_link_technology must be 'false'")
         if self.options.infinite_technologies.current_key == "shuffled":
             infinite_list = sorted(infinite_technologies)
             target_list = list(infinite_list)
@@ -168,10 +166,10 @@ class Factorio(World):
         self.empty_technologies = sorted(empty_technologies)
         self.random.shuffle(self.empty_technologies)
 
-        extra_location_count = self.options.filler_count.value + int(self.options.energy_link_technology.value) - 4
+        extra_location_count = self.options.filler_count.value + int(self.options.energy_link_technology.value) - sum(self.options.start_inventory_from_pool.values()) - 4
         if extra_location_count > 0:
             other_location_names = [name for name in ap_location_name_to_id.keys() if name.endswith("_other_location")]
-            chosen_other_locations = self.random.choices(other_location_names, k=extra_location_count)
+            chosen_other_locations = self.random.sample(other_location_names, extra_location_count)
             self.locations_to_duplicate = {name.replace("_other_location", "_location") for name in chosen_other_locations}
         else:
             self.locations_to_duplicate = set()
@@ -181,7 +179,7 @@ class Factorio(World):
         This implementation covers create_regions(), create_items(), and set_rules().
         """
         from .data.generated2 import (
-            infinite_technologies,
+            infinite_technologies, empty_technologies,
             technology_name_to_progressive_group_name, progressive_group_name_to_category,
             never_inline_events, never_delete_events, unrandomized_events as base_unrandomized_events,
         )
@@ -266,19 +264,21 @@ class Factorio(World):
 
         found_victory_event = False
         for event_name, expr in sorted(self.logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
-            try:
-                event_type, sub_name = event_name.split(" ", 1)
-            except ValueError:
-                event_type, sub_name = "Technology", event_name
-            if event_type == "Technology":
+            if " " not in event_name:
                 # This is a proper item and corresponding location.
-                locked = sub_name in unrandomized_events or sub_name in infinite_technologies
-                progressive_group_name = technology_name_to_progressive_group_name.get(sub_name, None)
+                locked = event_name in unrandomized_events or event_name in infinite_technologies
+                progressive_group_name = technology_name_to_progressive_group_name.get(event_name, None)
                 if progressive_group_name != None and progressive_group_name_to_category[progressive_group_name] in enabled_progressive_categories:
                     item_name = progressive_group_name
+                elif self.options.energy_link_technology.value and event_name == "laser":
+                    # The do-nothing laser item becomes the energy link bridge unlock.
+                    item_name = "ap-energy-bridge"
+                elif event_name in empty_technologies:
+                    # Otherwise, do-nothing items become filler items as configured by the yaml.
+                    item_name = self.get_filler_item_name()
                 else:
-                    item_name = sub_name
-                location = new_location(sub_name + "_location", compile_expr(expr))
+                    item_name = event_name
+                location = new_location(event_name + "_location", compile_expr(expr))
                 item = self.create_item(item_name)
                 if locked:
                     location.place_locked_item(item)

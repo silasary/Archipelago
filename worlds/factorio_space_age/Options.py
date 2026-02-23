@@ -504,7 +504,6 @@ class EnergyLinkTechnology(Toggle):
     """
     Should the Archipelago EnergyLink Bridge recipe be unlocked by a technology, which is an item in the multiworld?
     Note that this interacts with the free samples option.
-    (TODO: unimplemented)
     """
 
 @auto_group

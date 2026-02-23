@@ -982,6 +982,7 @@ advancement_technologies = {
     "advanced-oil-processing",
     "agricultural-science-pack",
     "agriculture",
+    "ap-energy-bridge",
     "artificial-soil",
     "artillery",
     "asteroid-reprocessing",
@@ -9065,4 +9066,4 @@ unrandomized_events = {
 
 never_inline_events = technology_props_lua.keys() - unrandomized_events
 
-never_delete_events = technology_props_lua.keys() | {'Can research any other planet science'}
+never_delete_events = technology_props_lua.keys() | {'ap-energy-bridge', 'Can research any other planet science'}

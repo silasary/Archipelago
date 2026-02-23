@@ -1,5 +1,15 @@
 require "template_parameters" -- defines PARAMS
 
+local function energy_bridge_tint()
+    return { r = 0, g = 1, b = 0.667, a = 1}
+end
+local function tint_icon(obj, tint)
+    obj.icons = { {icon = obj.icon, icon_size = obj.icon_size, icon_mipmaps = obj.icon_mipmaps, tint = tint} }
+    obj.icon = nil
+    obj.icon_size = nil
+    obj.icon_mipmaps = nil
+end
+
 -- Create new technologies.
 for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
     -- https://lua-api.factorio.com/stable/prototypes/TechnologyPrototype.html
@@ -26,6 +36,10 @@ for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
         new_tech.icon = "__" .. PARAMS.mod_name .. "__/graphics/icons" .. tech_data.icon
         new_tech.icon_size = 128
         new_tech.icons = nil
+    elseif tech_data.icon == "ap-energy-bridge" then
+        -- Give it the energy link icon.
+        new_tech.icon = data.raw["item"]["accumulator"].icon
+        tint_icon(new_tech, energy_bridge_tint())
     else
         -- Copy icon from a technology.
         local source_tech = data.raw["technology"][tech_data.icon]
@@ -38,16 +52,6 @@ for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
 end
 
 -- Create new items.
-local function energy_bridge_tint()
-    return { r = 0, g = 1, b = 0.667, a = 1}
-end
-local function tint_icon(obj, tint)
-    obj.icons = { {icon = obj.icon, icon_size = obj.icon_size, icon_mipmaps = obj.icon_mipmaps, tint = tint} }
-    obj.icon = nil
-    obj.icon_size = nil
-    obj.icon_mipmaps = nil
-end
-
 if PARAMS.energy_link_increment > 0 then
     -- TODO: Replace the tinting code with an actual rendered picture of the energy bridge icon.
     -- This tint is so that one is less likely to accidentally mass-produce energy-bridges, then wonder why their rocket is not building.
@@ -76,9 +80,22 @@ if PARAMS.energy_link_increment > 0 then
     recipe.ingredients = PARAMS.energy_link_bridge_ingredients
     recipe.results = { {type = "item", name = item.name, amount = 1} }
     recipe.energy_required = 10
-    recipe.enabled = PARAMS.energy_link_increment > 0
+    recipe.enabled = PARAMS.energy_link_bridge_starts_unlocked
     recipe.localised_name = "Archipelago EnergyLink Bridge"
     data.raw["recipe"]["ap-energy-bridge"] = recipe
+
+    local technology = {
+        type = "technology",
+        name = "ap-energy-bridge",
+        icons = table.deepcopy(item.icons),
+        effects = {
+            {type="unlock-recipe", recipe="ap-energy-bridge"},
+        },
+        research_trigger = {type="scripted"},
+        hidden = true,
+        hidden_in_factoriopedia = true,
+    }
+    data:extend{technology}
 end
 
 -- Create map preset.

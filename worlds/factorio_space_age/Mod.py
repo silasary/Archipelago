@@ -204,6 +204,9 @@ def generate_mod(
             elif item_name in progressive_technology_stacks:
                 # This is a progressive item for Factorio (probably). Use one of the icons in the stack.
                 icon = progressive_technology_stacks[item_name][0]
+            elif item_name == "ap-energy-bridge":
+                # Handled specially in data.lua.
+                icon = item_name
         elif options.tech_tree_information.current_key == "advancement":
             if is_advancement or is_trap:
                 helpfulness_clause = ", which is considered a logical advancement"
@@ -294,6 +297,7 @@ def generate_mod(
         "trap_evo_factor": options.evolution_trap_increase.value / 100,
         "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
         "energy_link_bridge_ingredients": energy_link_bridge_recipes["energy_link_recipe_" + options.energy_link_recipe.current_key],
+        "energy_link_bridge_starts_unlocked": not options.energy_link_technology.value,
 
         "starting_items": options.starting_items.value,
         "free_sample_amount": options.free_samples.current_key,

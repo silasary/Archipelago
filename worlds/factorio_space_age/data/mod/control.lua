@@ -18,17 +18,12 @@ script.on_event(defines.events.on_script_path_request_finished, handle_teleport_
 
 -- EnergyLink
 local function validate_energy_link_bridge(unit_number, entity)
-    if not entity then
-        if storage.energy_link_bridges[unit_number] == nil then return false end
-        storage.energy_link_bridges[unit_number] = nil
-        return false
+    if entity ~= nil and entity.valid then
+        return true
     end
-    if not entity.valid then
-        if storage.energy_link_bridges[unit_number] == nil then return false end
-        storage.energy_link_bridges[unit_number] = nil
-        return false
-    end
-    return true
+    game.print("bridge failed: " .. tostring(unit_number))
+    storage.energy_link_bridges[unit_number] = nil
+    return false
 end
 local function count_energy_bridges()
     local count = 0
@@ -42,38 +37,36 @@ end
 local function get_energy_increment(bridge)
     return ENERGY_INCREMENT + (ENERGY_INCREMENT * 0.3 * bridge.quality.level)
 end
-local function on_check_energy_link(event)
+local function on_check_energy_link()
     --- assuming 1 MJ increment and 5MJ battery:
     --- first 2 MJ request fill, last 2 MJ push energy, middle 1 MJ does nothing
-    if event.tick % 60 == 30 then
-        local force = "player"
-        local bridges = storage.energy_link_bridges
-        local bridgecount = count_energy_bridges()
-        storage.forcedata[force].energy_bridges = bridgecount
-        if storage.forcedata[force].energy == nil then
-            storage.forcedata[force].energy = 0
-        end
-        if storage.forcedata[force].energy < ENERGY_INCREMENT * bridgecount * 5 then
-            for i, bridge in pairs(bridges) do
-                if validate_energy_link_bridge(i, bridge) then
-                    local energy_increment = get_energy_increment(bridge)
-                    if bridge.energy > energy_increment*3 then
-                        storage.forcedata[force].energy = storage.forcedata[force].energy + (energy_increment * ENERGY_LINK_EFFICIENCY)
-                        bridge.energy = bridge.energy - energy_increment
-                    end
-                end
-            end
-        end
+    local force = "player"
+    local bridges = storage.energy_link_bridges
+    local bridgecount = count_energy_bridges()
+    storage.forcedata[force].energy_bridges = bridgecount
+    if storage.forcedata[force].energy == nil then
+        storage.forcedata[force].energy = 0
+    end
+    if storage.forcedata[force].energy < ENERGY_INCREMENT * bridgecount * 5 then
         for i, bridge in pairs(bridges) do
             if validate_energy_link_bridge(i, bridge) then
                 local energy_increment = get_energy_increment(bridge)
-                if storage.forcedata[force].energy < energy_increment and bridge.quality.level == 0 then
-                    break
+                if bridge.energy > energy_increment*3 then
+                    storage.forcedata[force].energy = storage.forcedata[force].energy + (energy_increment * ENERGY_LINK_EFFICIENCY)
+                    bridge.energy = bridge.energy - energy_increment
                 end
-                if bridge.energy < energy_increment*2 and storage.forcedata[force].energy > energy_increment then
-                    storage.forcedata[force].energy = storage.forcedata[force].energy - energy_increment
-                    bridge.energy = bridge.energy + energy_increment
-                end
+            end
+        end
+    end
+    for i, bridge in pairs(bridges) do
+        if validate_energy_link_bridge(i, bridge) then
+            local energy_increment = get_energy_increment(bridge)
+            if storage.forcedata[force].energy < energy_increment and bridge.quality.level == 0 then
+                break
+            end
+            if bridge.energy < energy_increment*2 and storage.forcedata[force].energy > energy_increment then
+                storage.forcedata[force].energy = storage.forcedata[force].energy - energy_increment
+                bridge.energy = bridge.energy + energy_increment
             end
         end
     end
@@ -83,19 +76,19 @@ local function string_starts_with(str, start)
 end
 local function on_energy_bridge_constructed(entity)
     if entity and entity.valid then
-        if string_starts_with(entity.prototype.name, "ap-energy-bridge") then
+        if entity.prototype.name == "ap-energy-bridge" then
+            game.print("built a bridge: " .. tostring(entity.unit_number))
             storage.energy_link_bridges[entity.unit_number] = entity
         end
     end
 end
 local function on_energy_bridge_removed(entity)
-    if string_starts_with(entity.prototype.name, "ap-energy-bridge") then
-        if storage.energy_link_bridges[entity.unit_number] == nil then return end
+    if entity.prototype.name == "ap-energy-bridge" then
         storage.energy_link_bridges[entity.unit_number] = nil
     end
 end
 if ENERGY_INCREMENT > 0 then
-    script.on_event(defines.events.on_tick, on_check_energy_link)
+    script.on_nth_tick(60, on_check_energy_link)
 
     script.on_event({defines.events.on_built_entity}, function(event) on_energy_bridge_constructed(event.entity) end)
     script.on_event({defines.events.on_robot_built_entity}, function(event) on_energy_bridge_constructed(event.entity) end)

@@ -129,7 +129,6 @@ raw_logic_events = {
     },
     "Access ap-energy-bridge": {
         "and": [
-            "Option energy_link_unlocked_from_the_start",
             {
                 "or": [
                     "Option energy_link_recipe_early_game",
@@ -154,6 +153,12 @@ raw_logic_events = {
                             }
                         ]
                     }
+                ]
+            },
+            {
+                "or": [
+                    "Option energy_link_unlocked_from_the_start",
+                    "ap-energy-bridge"
                 ]
             }
         ]

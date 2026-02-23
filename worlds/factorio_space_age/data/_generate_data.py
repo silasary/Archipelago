@@ -1574,8 +1574,9 @@ def generate_everything(the_data: dict):
             unrandomized_events.add(fmt_unlock_research(technology_name))
         all_technology_names.add(technology_name)
     # EnergyLink technology
-    raw_logic_events[fmt_unlock_research(energy_link_bridge_name)] = NEVER # TODO: implement energy_link_technology
-
+    if True:
+        # This is (sometimes) an item, but never a location.
+        never_delete_events.add(fmt_unlock_research(energy_link_bridge_name))
     # Define Capability.research_any_other_planet_science by manually inlining a few example researches.
     if True:
         raw_logic_events[fmt_capability(Capability.research_any_other_planet_science)] = {"or": [
@@ -1784,6 +1785,8 @@ def generate_everything(the_data: dict):
     # Progressive pseudo items
     for progressive_technology_name in sorted(progressive_technology_stacks.keys()):
         ap_item_name_to_id[progressive_technology_name] = next_id()
+    # EnergyLink technology item
+    ap_item_name_to_id[fmt_unlock_research(energy_link_bridge_name)] = next_id()
     # Traps
     for trap_name in [
         "Artillery Trap",
@@ -1842,8 +1845,8 @@ def generate_everything(the_data: dict):
         f.write(generate_decl("unrandomized_events", unrandomized_events))
         assert    never_inline_events == technology_props_lua.keys() - unrandomized_events
         f.write("\nnever_inline_events = technology_props_lua.keys() - unrandomized_events\n")
-        assert    never_delete_events == technology_props_lua.keys() | {fmt_capability(Capability.research_any_other_planet_science)}
-        f.write("\nnever_delete_events = technology_props_lua.keys() | {%s}\n" % repr(fmt_capability(Capability.research_any_other_planet_science)))
+        assert    never_delete_events == technology_props_lua.keys() | {fmt_unlock_research(energy_link_bridge_name), fmt_capability(Capability.research_any_other_planet_science)}
+        f.write("\nnever_delete_events = technology_props_lua.keys() | {}\n".format(repr({fmt_unlock_research(energy_link_bridge_name), fmt_capability(Capability.research_any_other_planet_science)})))
 
     with open(output3_py, "w") as f:
         f.write(header)

@@ -81,7 +81,7 @@ def inline_exprs(logic_events, never_inline_events, never_delete_events):
         all_used_names = set()
         for expr in logic_events.values():
             visit_readonly(expr, all_used_names.add)
-        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER}
+        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER} - never_delete_events
         if len(unreachable_events) > 0:
             # e.g. 'Automate infinity-chest', 'Access pistol'
             logic_events = dict(
