@@ -266,9 +266,10 @@ class GithubRepository(Repository):
                         'id': world_id,
                         'game': '',
                         'world_version': tag,
-                        'description': '',
+                        'description': release.get('body', ''),
                         'created_at': release.get('created_at') or release.get('published_at'),
                         'title': release.get('name'),
+                        'html_url': release.get('html_url')
                     }
                     world['source_url'] = self.url
                     world['world'] = asset['browser_download_url']
