@@ -16,7 +16,7 @@ Due to this complex multiplayer-within-multiworld situation, it's important to d
 
 For the Factorio Player(s):
 - [Factorio](https://factorio.com) with the Space Age expansion.
-    - Obtained via: factorio.com, Steam, GoG, (Untested: Nintendo Switch 2)
+    - Obtained via: factorio.com, Steam, GoG
 - Recommended: Respawn to Any Planet mod: https://mods.factorio.com/mod/respawn-to-any-planet
 - (Later in the process) a custom built Factorio mod generated for the multiworld.
 
