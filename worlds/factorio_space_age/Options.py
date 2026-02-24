@@ -236,7 +236,7 @@ class TechnologyPrerequisites(Choice):
 @auto_group
 class ProgressiveTechs(Choice):
     """
-    Technologies that conceptionally form a progressive sequence will be received in order sequence.
+    Technologies that conceptually form a progressive sequence will be received in sequential order.
     If the vanilla technology name ends with -1, -2, -3, etc. or a building or piece of equipment is crafted as an upgrade from another item,
     then this apworld probably puts it into a progressive sequence.
     See progressive_technology_stacks in data/generated2.py in this apworld's source code for the full definition.
