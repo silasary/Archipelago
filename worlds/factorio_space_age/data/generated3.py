@@ -3407,7 +3407,6 @@ raw_logic_events = {
                         "or": [
                             "Access agricultural-tower",
                             "Access efficiency-module-3",
-                            "Access nutrients",
                             "Access overgrowth-jellynut-soil",
                             "Access overgrowth-yumako-soil"
                         ]
@@ -4110,7 +4109,14 @@ raw_logic_events = {
             "Automate pentapod-egg",
             "Operate biochamber",
             "Reach gleba",
-            "agricultural-science-pack"
+            "agricultural-science-pack",
+            {
+                "or": [
+                    "Access heating-tower",
+                    "Access recycler",
+                    "Option storing_seeds_is_good_eough"
+                ]
+            }
         ]
     },
     "Automate agricultural-tower": {
@@ -7822,7 +7828,6 @@ raw_logic_events = {
                         "or": [
                             "Automate agricultural-tower",
                             "Automate efficiency-module-3",
-                            "Automate nutrients",
                             "Automate overgrowth-jellynut-soil",
                             "Automate overgrowth-yumako-soil"
                         ]
@@ -9177,6 +9182,7 @@ raw_logic_events = {
     "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
     "Option small_electric_pole_is_good_enough": "Option small_electric_pole_is_good_enough",
     "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
+    "Option storing_seeds_is_good_eough": "Option storing_seeds_is_good_eough",
     "Option unbarreling_is_interesting": "Option unbarreling_is_interesting",
     "Option wait_hours_for_fish_to_spoil": "Option wait_hours_for_fish_to_spoil",
     "Option walls_to_destroy_medium_asteroids_is_good_enough": "Option walls_to_destroy_medium_asteroids_is_good_enough",

@@ -1391,7 +1391,6 @@ def generate_everything(the_data: dict):
                 ]},
             ]}
         elif capability == Capability.destroy_medium_asteroids:
-            # TODO: or the bigger guns work too.
             ammo_category = "bullet"
             expr = {"or": [
                 {"and": [
@@ -1775,6 +1774,12 @@ def generate_everything(the_data: dict):
                     recipe_exprs.append({"or": [
                         fmt_option(LogicOption.small_electric_pole_is_good_enough),
                         fmt_access_item(RawItem.medium_electric_pole),
+                    ]})
+                if recipe_name == RawItem.agricultural_science_pack and fmt_automate_or_access is fmt_automate_item:
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.storing_seeds_is_good_eough),
+                        fmt_access_item(RawItem.heating_tower),
+                        fmt_access_item(RawItem.recycler),
                     ]})
                 if recipe_name == RawItem.electromagnetic_science_pack and fmt_automate_or_access is fmt_automate_item:
                     recipe_exprs.append({"or": [

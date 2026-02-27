@@ -420,6 +420,12 @@ class LogicSpoilage(DefaultOnToggle):
     """
 
 @auto_group
+class LogicSeedDisposal(DefaultOnToggle):
+    """
+    Logically require either heating towers or recyclers to automate agricultural science pack.
+    """
+
+@auto_group
 class LogicLightningRod(DefaultOnToggle):
     """
     Logically require lightning rods for setting up mining drills on Fulgora.
@@ -717,6 +723,7 @@ class FactorioOptions(PerGameCommonOptions):
     require_lightning_rod: LogicLightningRod
     require_medium_electric_pole: LogicElectricPole
     require_gleba_for_spoilage: LogicSpoilage
+    require_seed_disposal: LogicSeedDisposal
     require_dark_power: LogicDarkPower
     require_fast_inserter: LogicFastInserter
     require_assembling_machine_2: LogicAssemblingMachine2
