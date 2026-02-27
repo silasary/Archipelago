@@ -2,7 +2,7 @@
     "game": "Factorio: Space Age",
     "authors": ["Berserker", "Josh Wolfe"],
     "minimum_ap_version": "0.6.6",
-    "world_version": "1.0.1",
+    "world_version": "1.0.2",
     "version": 7,
     "compatible_version": 7
 }

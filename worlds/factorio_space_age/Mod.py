@@ -29,8 +29,10 @@ locale_template: Optional[jinja2.Template] = None
 
 template_load_lock = threading.Lock()
 
+__version__ = "1.0.2"
+
 base_info = {
-    "version": "1.0.1",
+    "version": __version__,
     "title": "Archipelago",
     "author": "Berserker, Josh Wolfe",
     "homepage": "https://archipelago.gg",
@@ -145,7 +147,7 @@ def generate_mod(
 
     # get data for templates
     mod_name = f"AP-{multiworld.seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
-    versioned_mod_name = f"{mod_name}_{Utils.__version__}"
+    versioned_mod_name = f"{mod_name}_{__version__}"
 
     death_link_setting_name = "archipelago-death-link-{}-{}".format(player, multiworld.seed_name)
 
