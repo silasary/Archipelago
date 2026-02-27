@@ -406,6 +406,13 @@ class LogicGunTurret(DefaultOnToggle):
     """
 
 @auto_group
+class LogicElectricPole(DefaultOnToggle):
+    """
+    Logically require medium electric poles for automating metallurgic and electromagnetic science packs.
+    Otherwise, you may need to ship in wood to make electric poles.
+    """
+
+@auto_group
 class LogicSpoilage(DefaultOnToggle):
     """
     Logically require Gleba for access to spoilage.
@@ -708,6 +715,7 @@ class FactorioOptions(PerGameCommonOptions):
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret
     require_lightning_rod: LogicLightningRod
+    require_medium_electric_pole: LogicElectricPole
     require_gleba_for_spoilage: LogicSpoilage
     require_dark_power: LogicDarkPower
     require_fast_inserter: LogicFastInserter

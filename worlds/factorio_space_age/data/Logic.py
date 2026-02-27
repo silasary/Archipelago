@@ -14,6 +14,7 @@ class LogicOption(StrEnum):
     backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
     unbarreling_is_interesting = "unbarreling_is_interesting"
     walls_to_destroy_medium_asteroids_is_good_enough = "walls_to_destroy_medium_asteroids_is_good_enough"
+    small_electric_pole_is_good_enough = "small_electric_pole_is_good_enough"
     wait_hours_for_fish_to_spoil = "wait_hours_for_fish_to_spoil"
     lightning_schmightning = "lightning_schmightning"
     solar_panels_into_darkness = "solar_panels_into_darkness"

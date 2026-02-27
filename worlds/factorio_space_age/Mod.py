@@ -30,7 +30,7 @@ locale_template: Optional[jinja2.Template] = None
 template_load_lock = threading.Lock()
 
 base_info = {
-    "version": Utils.__version__,
+    "version": "1.0.1",
     "title": "Archipelago",
     "author": "Berserker, Josh Wolfe",
     "homepage": "https://archipelago.gg",

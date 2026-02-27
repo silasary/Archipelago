@@ -237,6 +237,7 @@ class Factorio(World):
             LogicOption.backwards_recycling_is_interesting:  False, # Fulgora start is not implemented.
             LogicOption.unbarreling_is_interesting:          False, # Full chaos recipe rando is not implemented.
             LogicOption.walls_to_destroy_medium_asteroids_is_good_enough: not self.options.require_gun_turret.value,
+            LogicOption.small_electric_pole_is_good_enough:  not self.options.require_medium_electric_pole.value,
             LogicOption.wait_hours_for_fish_to_spoil:        not self.options.require_gleba_for_spoilage.value,
             LogicOption.lightning_schmightning:              not self.options.require_lightning_rod.value,
             LogicOption.solar_panels_into_darkness:          not self.options.require_dark_power.value,

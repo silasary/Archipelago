@@ -1391,6 +1391,7 @@ def generate_everything(the_data: dict):
                 ]},
             ]}
         elif capability == Capability.destroy_medium_asteroids:
+            # TODO: or the bigger guns work too.
             ammo_category = "bullet"
             expr = {"or": [
                 {"and": [
@@ -1746,7 +1747,7 @@ def generate_everything(the_data: dict):
                         fmt_option(LogicOption.playing_without_energy_link_early_game_is_good_enough),
                         fmt_access_item(energy_link_bridge_name),
                     ]})
-                elif item_name == RawItem.advanced_circuit and RawItem.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
+                if item_name == RawItem.advanced_circuit and RawItem.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
                     # Require faster machines to get through the blue science phase of the game.
                     recipe_exprs.append({"or": [
                         fmt_option(LogicOption.slow_inserter_is_good_enough),
@@ -1756,26 +1757,31 @@ def generate_everything(the_data: dict):
                         fmt_option(LogicOption.assembling_machine_1_is_good_enough),
                         fmt_access_item(RawItem.assembling_machine_2),
                     ]})
-                elif recipe_name in (RawRecipe.advanced_oil_processing, RawRecipe.coal_liquefaction):
+                if recipe_name in (RawRecipe.advanced_oil_processing, RawRecipe.coal_liquefaction):
                     # You could probably do without this, but it sure is easier with fluid handling.
                     recipe_exprs.append(optionally_access_pumps_and_tanks)
-                elif recipe_name == RawItem.chemical_science_pack and fmt_automate_or_access is fmt_automate_item:
+                if item_name == RawItem.chemical_science_pack and fmt_automate_or_access is fmt_automate_item:
                     recipe_exprs.append({"or": [
                         fmt_option(LogicOption.playing_without_energy_link_mid_game_is_good_enough),
                         fmt_access_item(energy_link_bridge_name),
                     ]})
-                elif item_name in (RawItem.production_science_pack, RawItem.utility_science_pack) and fmt_automate_or_access is fmt_automate_item:
+                if item_name in (RawItem.production_science_pack, RawItem.utility_science_pack) and fmt_automate_or_access is fmt_automate_item:
                     # Require construction robots to scale up your factory for purple/yellow science.
                     recipe_exprs.append(optionally_operate_construction_robots)
-                elif item_name == RawItem.space_science_pack and fmt_automate_or_access is fmt_automate_item:
+                if item_name == RawItem.space_science_pack and fmt_automate_or_access is fmt_automate_item:
                     # Require electric furnaces to make space science.
                     recipe_exprs.append(automate_iron_plates_in_space)
-                elif recipe_name == RawItem.electromagnetic_science_pack and fmt_automate_or_access is fmt_automate_item:
+                if recipe_name in (RawItem.metallurgic_science_pack, RawItem.electromagnetic_science_pack) and fmt_automate_or_access is fmt_automate_item:
+                    recipe_exprs.append({"or": [
+                        fmt_option(LogicOption.small_electric_pole_is_good_enough),
+                        fmt_access_item(RawItem.medium_electric_pole),
+                    ]})
+                if recipe_name == RawItem.electromagnetic_science_pack and fmt_automate_or_access is fmt_automate_item:
                     recipe_exprs.append({"or": [
                         fmt_option(LogicOption.playing_without_energy_link_fulgora_is_good_enough),
                         fmt_access_item(energy_link_bridge_name),
                     ]})
-                elif recipe_name in unbarreling_recipes:
+                if recipe_name in unbarreling_recipes:
                     # Unbarreling is never a source of an item.
                     recipe_exprs.append(fmt_option(LogicOption.unbarreling_is_interesting))
                 source_exprs.append({"and": recipe_exprs})

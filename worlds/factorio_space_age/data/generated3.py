@@ -5176,6 +5176,12 @@ raw_logic_events = {
                     "Access ap-energy-bridge",
                     "Option playing_without_energy_link_fulgora_is_good_enough"
                 ]
+            },
+            {
+                "or": [
+                    "Access medium-electric-pole",
+                    "Option small_electric_pole_is_good_enough"
+                ]
             }
         ]
     },
@@ -6467,7 +6473,13 @@ raw_logic_events = {
             "Automate tungsten-carbide",
             "Automate tungsten-plate",
             "Reach vulcanus",
-            "metallurgic-science-pack"
+            "metallurgic-science-pack",
+            {
+                "or": [
+                    "Access medium-electric-pole",
+                    "Option small_electric_pole_is_good_enough"
+                ]
+            }
         ]
     },
     "Automate military-science-pack": {
@@ -9163,6 +9175,7 @@ raw_logic_events = {
     "Option playing_without_energy_link_fulgora_is_good_enough": "Option playing_without_energy_link_fulgora_is_good_enough",
     "Option playing_without_energy_link_mid_game_is_good_enough": "Option playing_without_energy_link_mid_game_is_good_enough",
     "Option slow_inserter_is_good_enough": "Option slow_inserter_is_good_enough",
+    "Option small_electric_pole_is_good_enough": "Option small_electric_pole_is_good_enough",
     "Option solar_panels_into_darkness": "Option solar_panels_into_darkness",
     "Option unbarreling_is_interesting": "Option unbarreling_is_interesting",
     "Option wait_hours_for_fish_to_spoil": "Option wait_hours_for_fish_to_spoil",
