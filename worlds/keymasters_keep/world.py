@@ -145,6 +145,7 @@ class KeymastersKeepWorld(World):
     include_modern_console_games: bool
     include_time_consuming_objectives: bool
     keep_areas: int
+    objective_selection_bag_size: int
     keep_data: Any
     lock_combinations: Dict[KeymastersKeepRegions, Optional[List[KeymastersKeepItems]]]
     lock_magic_keys_maximum: int
@@ -302,6 +303,8 @@ class KeymastersKeepWorld(World):
         self.game_selection = list(self.options.game_selection.value)
         self.game_selection_bag_size = self.options.game_selection_bag_size.value
         self.game_selection_force_select = list(self.options.game_selection_force_select)
+
+        self.objective_selection_bag_size = self.options.objective_selection_bag_size.value
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
         self.include_modern_console_games = bool(self.options.include_modern_console_games)
@@ -902,6 +905,7 @@ class KeymastersKeepWorld(World):
             self.game_medley_mode,
             self.game_medley_percentage_chance,
             self.game_medley_game_selection_bag_size,
+            self.objective_selection_bag_size,
         )
 
         self.area_games = dict()

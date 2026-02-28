@@ -1,6 +1,6 @@
 import logging
 from random import Random
-from typing import Any, List, Set, Type, Union
+from typing import Any, Dict, List, Type, Union
 
 from Options import OptionError
 
@@ -84,6 +84,7 @@ class GameObjectiveGenerator:
         game_medley_mode: bool = False,
         game_medley_percentage_chance: int = 100,
         game_medley_bag_size: int = 1,
+        objective_bag_size: int = 1,
     ) -> GameObjectiveGeneratorData:
         if plan is None or not len(plan):
             return list()
@@ -141,7 +142,7 @@ class GameObjectiveGenerator:
             random.shuffle(game_selection)
 
         data: GameObjectiveGeneratorData = list()
-        objectives_in_use: Set[str] = set()
+        objectives_in_use: Dict[str, int] = dict()
 
         i: int
         count: int
@@ -169,6 +170,7 @@ class GameObjectiveGenerator:
                         excluded_games_time_consuming=excluded_games_time_consuming,
                         excluded_games_difficult=excluded_games_difficult,
                         objectives_in_use=objectives_in_use,
+                        objective_bag_size=objective_bag_size,
                     )
                 )
 
@@ -208,6 +210,7 @@ class GameObjectiveGenerator:
                         include_difficult=include_difficult,
                         include_time_consuming=include_time_consuming,
                         objectives_in_use=objectives_in_use,
+                        objective_bag_size=objective_bag_size,
                     )
                 except Exception as e:
                     raise GameObjectiveGeneratorException(

@@ -389,6 +389,23 @@ class GameSelectionForceSelect(OptionList):
     default = []
 
 
+class ObjectiveSelectionBagSize(Range):
+    """
+    Determines how many times an identical objective can appear across the entire keep.
+
+    0: No uniquification — objectives may repeat freely across the keep.
+    1: Each objective can appear at most once globally (default behavior).
+    2+: Each objective can appear up to the chosen number of times before being excluded.
+    """
+
+    display_name: str = "Objective Selection Bag Size"
+
+    range_start: int = 0
+    range_end: int = 5
+
+    default = 1
+
+
 class IncludeAdultOnlyOrUnratedGames(Toggle):
     """
     Determines if adult only or unrated games should be considered for the game pool.
@@ -501,6 +518,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     game_selection: GameSelection
     game_selection_bag_size: GameSelectionBagSize
     game_selection_force_select: GameSelectionForceSelect
+    objective_selection_bag_size: ObjectiveSelectionBagSize
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
@@ -559,6 +577,7 @@ option_groups: list[OptionGroup] = [
             GameSelection,
             GameSelectionBagSize,
             GameSelectionForceSelect,
+            ObjectiveSelectionBagSize,
         ],
     ),
 ]
