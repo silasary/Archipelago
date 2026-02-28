@@ -104,6 +104,25 @@ class Game(metaclass=AutoGameRegister):
 
         return filtered_objectives
 
+    def filter_game_constraint_templates(
+        self,
+        include_difficult: bool = False,
+        include_time_consuming: bool = False,
+    ) -> List[GameObjectiveTemplate]:
+        filtered_constraints: List[GameObjectiveTemplate] = list()
+
+        template: GameObjectiveTemplate
+        for template in self.optional_game_constraint_templates():
+            if not include_difficult and template.is_difficult:
+                continue
+
+            if not include_time_consuming and template.is_time_consuming:
+                continue
+
+            filtered_constraints.append(template)
+
+        return filtered_constraints
+
     def generate_objectives(
         self,
         count: int = 1,
@@ -114,10 +133,14 @@ class Game(metaclass=AutoGameRegister):
         objectives_in_use = objectives_in_use or set()
 
         optional_constraints: List[str] = list()
-        optional_constraint_templates: List[GameObjectiveTemplate] = self.optional_game_constraint_templates()
+        optional_constraint_templates: List[GameObjectiveTemplate] = self.filter_game_constraint_templates(
+            include_difficult=include_difficult,
+            include_time_consuming=include_time_consuming,
+        )
 
         if len(optional_constraint_templates):
-            template: GameObjectiveTemplate = self.random.choice(self.optional_game_constraint_templates())
+            constraint_weights: List[int] = [t.weight for t in optional_constraint_templates]
+            template: GameObjectiveTemplate = self.random.choices(optional_constraint_templates, weights=constraint_weights, k=1)[0]
             optional_constraints.append(template.generate_game_objective(self.random))
 
         filtered_templates: List[GameObjectiveTemplate] = self.filter_game_objective_templates(
