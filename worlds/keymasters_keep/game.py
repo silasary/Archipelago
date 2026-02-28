@@ -85,43 +85,47 @@ class Game(metaclass=AutoGameRegister):
     def game_objective_templates(self) -> List[GameObjectiveTemplate]:
         ...
 
-    def filter_game_objective_templates(
-        self,
+    @staticmethod
+    def _filter_templates(
+        templates: List[GameObjectiveTemplate],
         include_difficult: bool = False,
         include_time_consuming: bool = False,
     ) -> List[GameObjectiveTemplate]:
-        filtered_objectives: List[GameObjectiveTemplate] = list()
+        filtered: List[GameObjectiveTemplate] = list()
 
         template: GameObjectiveTemplate
-        for template in self.game_objective_templates():
+        for template in templates:
             if not include_difficult and template.is_difficult:
                 continue
 
             if not include_time_consuming and template.is_time_consuming:
                 continue
 
-            filtered_objectives.append(template)
+            filtered.append(template)
 
-        return filtered_objectives
+        return filtered
+
+    def filter_game_objective_templates(
+        self,
+        include_difficult: bool = False,
+        include_time_consuming: bool = False,
+    ) -> List[GameObjectiveTemplate]:
+        return self._filter_templates(
+            self.game_objective_templates(),
+            include_difficult=include_difficult,
+            include_time_consuming=include_time_consuming,
+        )
 
     def filter_game_constraint_templates(
         self,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
     ) -> List[GameObjectiveTemplate]:
-        filtered_constraints: List[GameObjectiveTemplate] = list()
-
-        template: GameObjectiveTemplate
-        for template in self.optional_game_constraint_templates():
-            if not include_difficult and template.is_difficult:
-                continue
-
-            if not include_time_consuming and template.is_time_consuming:
-                continue
-
-            filtered_constraints.append(template)
-
-        return filtered_constraints
+        return self._filter_templates(
+            self.optional_game_constraint_templates(),
+            include_difficult=include_difficult,
+            include_time_consuming=include_time_consuming,
+        )
 
     def generate_objectives(
         self,
