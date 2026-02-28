@@ -394,8 +394,11 @@ class ObjectiveSelectionBagSize(Range):
     Determines how many times an identical objective can appear across the entire keep.
 
     0: No uniquification — objectives may repeat freely across the keep.
-    1: Each objective can appear at most once globally (default behavior).
-    2+: Each objective can appear up to the chosen number of times before being excluded.
+    1: Each objective should appear at most once globally (default behavior).
+    2+: Each objective should appear up to the chosen number of times before being excluded.
+
+    Note: This is best-effort. If the available objective pool for a game is too small to fill the requested number of
+    trials without exceeding the cap, duplicate objectives may still appear.
     """
 
     display_name: str = "Objective Selection Bag Size"
