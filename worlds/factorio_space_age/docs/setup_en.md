@@ -90,7 +90,8 @@ factorio_options:
 
 Once the multiworld is generated:
 
-1. Acquire the **Archipelago mod** for this seed. It should be named `AP-*.zip`, where `*` is the seed number and slot name.
+1. Acquire the **Archipelago mod** for this seed. It should be named `AP-{seed}-P{n}-{slot}_{version}.zip`.
+    * WARNING: The archipelago.gg webhost "Download Patch" button is broken for Factorio: Space Age. You must acquire the mod directly from whomever generated the seed. If the file name ends with a version number like `_1.0.0.zip`, then it should be good.
 2. Obtain the **Archipelago Server address** from the website's host room, or from the server host.
 3. Copy the mod file into your Factorio server `mods` folder.
 4. Run the Archipelago Launcher, and run the `Factorio: Space Age Client`.
@@ -110,7 +111,8 @@ If you are hosting for multiple Factorio Players, then:
 
 Once the Factorio Host is running:
 
-1. Acquire the **Archipelago mod** for this seed. It should be named `AP-*.zip`, where `*` is the seed number and slot name.
+1. Acquire the **Archipelago mod** for this seed. It should be named `AP-{seed}-P{n}-{slot}_{version}.zip`.
+    * WARNING: The archipelago.gg webhost "Download Patch" button is broken for Factorio: Space Age. You must acquire the mod directly from whomever generated the seed. If the file name ends with a version number like `_1.0.0.zip`, then it should be good.
 2. Get the **Factorio Host address** (*not* the Archipelago server address).
     * If you're the only Factorio Player and the Factorio Host is on the same machine, the Factorio Host address is `localhost`.
     * If you're the only Factorio Player and you don't think you need to run a server, you do. See above.
