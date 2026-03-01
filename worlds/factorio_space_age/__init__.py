@@ -66,7 +66,7 @@ class Factorio(World):
     https://www.factorio.com/
     """
     game = "Factorio: Space Age"
-    required_client_version = (0, 6, 0)
+    required_client_version = (0, 6, 6)
 
     web = FactorioWeb()
     settings: typing.ClassVar[FactorioSettings]

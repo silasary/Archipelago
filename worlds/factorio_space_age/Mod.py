@@ -29,7 +29,7 @@ locale_template: Optional[jinja2.Template] = None
 
 template_load_lock = threading.Lock()
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 base_info = {
     "version": __version__,
