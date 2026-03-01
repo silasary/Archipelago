@@ -21,7 +21,6 @@ local function validate_energy_link_bridge(unit_number, entity)
     if entity ~= nil and entity.valid then
         return true
     end
-    game.print("bridge failed: " .. tostring(unit_number))
     storage.energy_link_bridges[unit_number] = nil
     return false
 end
@@ -77,7 +76,6 @@ end
 local function on_energy_bridge_constructed(entity)
     if entity and entity.valid then
         if entity.prototype.name == "ap-energy-bridge" then
-            game.print("built a bridge: " .. tostring(entity.unit_number))
             storage.energy_link_bridges[entity.unit_number] = entity
         end
     end
