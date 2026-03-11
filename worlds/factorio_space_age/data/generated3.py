@@ -3407,6 +3407,7 @@ raw_logic_events = {
                         "or": [
                             "Access agricultural-tower",
                             "Access efficiency-module-3",
+                            "Access nutrients",
                             "Access overgrowth-jellynut-soil",
                             "Access overgrowth-yumako-soil"
                         ]
@@ -7828,6 +7829,7 @@ raw_logic_events = {
                         "or": [
                             "Automate agricultural-tower",
                             "Automate efficiency-module-3",
+                            "Automate nutrients",
                             "Automate overgrowth-jellynut-soil",
                             "Automate overgrowth-yumako-soil"
                         ]
@@ -7838,6 +7840,41 @@ raw_logic_events = {
                 "and": [
                     "Automate raw-fish",
                     "Option wait_hours_for_fish_to_spoil"
+                ]
+            },
+            {
+                "and": [
+                    "Reach gleba",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "Automate jelly",
+                                    "jellynut",
+                                    {
+                                        "or": [
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3",
+                                            "Operate biochamber"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "Automate yumako-mash",
+                                    "yumako",
+                                    {
+                                        "or": [
+                                            "Access assembling-machine-2",
+                                            "Access assembling-machine-3",
+                                            "Operate biochamber"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }
         ]
