@@ -177,24 +177,24 @@ class KeymastersKeepWorld(World):
         self.artifacts_of_resolve_total = self.options.artifacts_of_resolve_total.value
 
         if self.artifacts_of_resolve_required > self.artifacts_of_resolve_total:
-            self.artifacts_of_resolve_total = self.artifacts_of_resolve_required
+            self.artifacts_of_resolve_required, self.artifacts_of_resolve_total = self.artifacts_of_resolve_total, self.artifacts_of_resolve_required
 
             if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
                 logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required artifacts than total artifacts. Using "
-                    "required amount for total."
+                    f"Keymaster's Keep: {self.player_name} has more required artifacts than total artifacts. "
+                    "Swapping required and total values."
                 )
 
         self.magic_keys_required = self.options.magic_keys_required.value
         self.magic_keys_total = self.options.magic_keys_total.value
 
         if self.magic_keys_required > self.magic_keys_total:
-            self.magic_keys_total = self.magic_keys_required
+            self.magic_keys_required, self.magic_keys_total = self.magic_keys_total, self.magic_keys_required
 
             if self.goal == KeymastersKeepGoals.MAGIC_KEY_HEIST:
                 logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required magic keys than total magic keys. Using "
-                    "required amount for total."
+                    f"Keymaster's Keep: {self.player_name} has more required magic keys than total magic keys. "
+                    "Swapping required and total values."
                 )
 
         self.keep_areas = self.options.keep_areas.value
@@ -207,13 +207,10 @@ class KeymastersKeepWorld(World):
         if self.lock_magic_keys_minimum > self.lock_magic_keys_maximum:
             self.lock_magic_keys_minimum, self.lock_magic_keys_maximum = self.lock_magic_keys_maximum, self.lock_magic_keys_minimum
 
-            warning_message = (
+            logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum lock magic keys value greater than the maximum. "
                 "Swapping minimum and maximum values."
             )
-
-            print(warning_message)
-            logging.warning(warning_message)
 
         self.area_trials_minimum = self.options.area_trials_minimum.value
         self.area_trials_maximum = self.options.area_trials_maximum.value
@@ -221,13 +218,10 @@ class KeymastersKeepWorld(World):
         if self.area_trials_minimum > self.area_trials_maximum:
             self.area_trials_minimum, self.area_trials_maximum = self.area_trials_maximum, self.area_trials_minimum
 
-            warning_message = (
+            logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum area trials value greater than the maximum. "
                 "Swapping minimum and maximum values."
             )
-
-            print(warning_message)
-            logging.warning(warning_message)
 
         self.shops = bool(self.options.shops_)
         self.shops_percentage_chance = self.options.shops_percentage_chance.value
@@ -238,13 +232,10 @@ class KeymastersKeepWorld(World):
         if self.shop_items_minimum > self.shop_items_maximum:
             self.shop_items_minimum, self.shop_items_maximum = self.shop_items_maximum, self.shop_items_minimum
 
-            warning_message = (
+            logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum shop items value greater than the maximum. "
                 "Swapping minimum and maximum values."
             )
-
-            print(warning_message)
-            logging.warning(warning_message)
 
         self.shop_items_progression_percentage_chance = self.options.shop_items_progression_percentage_chance.value
         self.shop_hints = bool(self.options.shop_hints)
