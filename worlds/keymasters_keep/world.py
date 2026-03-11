@@ -205,23 +205,29 @@ class KeymastersKeepWorld(World):
         self.lock_magic_keys_maximum = self.options.lock_magic_keys_maximum.value
 
         if self.lock_magic_keys_minimum > self.lock_magic_keys_maximum:
-            self.lock_magic_keys_maximum = self.lock_magic_keys_minimum
+            self.lock_magic_keys_minimum, self.lock_magic_keys_maximum = self.lock_magic_keys_maximum, self.lock_magic_keys_minimum
 
-            logging.warning(
+            warning_message = (
                 f"Keymaster's Keep: {self.player_name} has a minimum lock magic keys value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
+
+            print(warning_message)
+            logging.warning(warning_message)
 
         self.area_trials_minimum = self.options.area_trials_minimum.value
         self.area_trials_maximum = self.options.area_trials_maximum.value
 
         if self.area_trials_minimum > self.area_trials_maximum:
-            self.area_trials_maximum = self.area_trials_minimum
+            self.area_trials_minimum, self.area_trials_maximum = self.area_trials_maximum, self.area_trials_minimum
 
-            logging.warning(
+            warning_message = (
                 f"Keymaster's Keep: {self.player_name} has a minimum area trials value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
+
+            print(warning_message)
+            logging.warning(warning_message)
 
         self.shops = bool(self.options.shops_)
         self.shops_percentage_chance = self.options.shops_percentage_chance.value
@@ -230,12 +236,15 @@ class KeymastersKeepWorld(World):
         self.shop_items_maximum = self.options.shop_items_maximum.value
 
         if self.shop_items_minimum > self.shop_items_maximum:
-            self.shop_items_maximum = self.shop_items_minimum
+            self.shop_items_minimum, self.shop_items_maximum = self.shop_items_maximum, self.shop_items_minimum
 
-            logging.warning(
+            warning_message = (
                 f"Keymaster's Keep: {self.player_name} has a minimum shop items value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
+
+            print(warning_message)
+            logging.warning(warning_message)
 
         self.shop_items_progression_percentage_chance = self.options.shop_items_progression_percentage_chance.value
         self.shop_hints = bool(self.options.shop_hints)
