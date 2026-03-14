@@ -117,10 +117,13 @@ class FactorioModFile(worlds.Files.APPlayerContainer):
         # now we can add extras.
         super().write_contents(opened_zipfile)
 
+def read_local_path(name: str) -> bytes:
+    import pkgutil
+    return pkgutil.get_data(__name__, name)
+
 def generate_mod(
     player: int,
     player_name: str,
-    world_zip_path: str | None,
     world_locations: "list[FactorioLocation]",
     options: Options,
     multiworld: "Multiworld",
@@ -326,21 +329,23 @@ def generate_mod(
     zf_path = os.path.join(output_directory, versioned_mod_name + ".zip")
     mod = FactorioModFile(zf_path, player=player, player_name=player_name)
 
-    if world_zip_path:
-        with zipfile.ZipFile(world_zip_path) as zf:
-            for file in zf.infolist():
-                if not file.is_dir() and "/data/mod/" in file.filename:
-                    path_part = Utils.get_text_after(file.filename, "/data/mod/")
-                    mod.writing_tasks.append(lambda arcpath=versioned_mod_name+"/"+path_part, content=zf.read(file):
-                                             (arcpath, content))
-    else:
-        basepath = os.path.join(os.path.dirname(__file__), "data", "mod")
-        for dirpath, dirnames, filenames in os.walk(basepath):
-            base_arc_path = (versioned_mod_name+"/"+os.path.relpath(dirpath, basepath)).rstrip("/.\\")
-            for filename in filenames:
-                mod.writing_tasks.append(lambda arcpath=base_arc_path+"/"+filename,
-                                                file_path=os.path.join(dirpath, filename):
-                                         (arcpath, open(file_path, "rb").read()))
+    for path in [
+        "LICENSE.md",
+        "thumbnail.png",
+        "settings.lua",
+        "data.lua",
+        "data-updates.lua",
+        "control.lua",
+        "lib.lua",
+        "graphics/icons/ap.png",
+        "graphics/icons/ap_unimportant.png",
+    ]:
+        def f(
+            arcpath=base_arc_path+"/"+name,
+            file_path="data/mod/" + name,
+        ):
+            return arcpath, read_local_path(file_path)
+        mod.writing_tasks.append(f)
 
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/template_parameters.lua",
                                       template_parameters_contents))

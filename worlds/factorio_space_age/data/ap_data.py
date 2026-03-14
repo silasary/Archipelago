@@ -283,3 +283,14 @@ progressive_technology_stacks = {
         "worker-robots-storage-3",
     ],
 }
+
+technology_name_to_progressive_group_name = {
+    technology_name: progressive_group_name
+    for progressive_group_name, stack in progressive_technology_stacks.items()
+    for technology_name in stack
+}
+assert all(
+    technology_name_to_progressive_group_name[technology_name] == progressive_group_name
+    for progressive_group_name, stack in progressive_technology_stacks.items()
+    for technology_name in stack
+), "progressive technology listed in multiple stacks"

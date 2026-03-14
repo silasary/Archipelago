@@ -11,7 +11,7 @@ from .data.Logic import (
     LogicOption,
     compile_expr, instantiate_options,
 )
-from .data.generated1 import (
+from .data.generated_ids import (
     ap_item_name_to_id, ap_location_name_to_id,
 )
 # NOTE: avoid importing .data.generated2 and 3 until someone actually instantiates a Factorio apworld.
@@ -95,7 +95,6 @@ class Factorio(World):
         generate_mod(
             player=self.player,
             player_name=self.player_name,
-            world_zip_path=self.zip_path,
             world_locations=self.locations,
             options=self.options,
             multiworld=self.multiworld,
@@ -105,19 +104,18 @@ class Factorio(World):
         )
 
     def generate_early(self) -> None:
-        # if max < min, then swap max and min
-        from .data.generated2 import (
-            all_recipe_names, all_item_names,
-            infinite_technologies, empty_technologies,
-        )
-        unrecognized_recipes = self.options.free_sample_excludes.value - all_recipe_names
+        import json
+        the_data = json.loads(read_local_path("data/ap-dump-pruned.json"))
+        from .FactorioData import FactorioData
+        self.factorio_data = FactorioData(the_data)
+        unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
-        unrecognized_items = self.options.starting_items.value.keys() - all_item_names
+        unrecognized_items = self.factorio_data.unrecognized_item_names(self.options.starting_items.value.keys())
         if unrecognized_items:
             raise KeyError("starting_items contains unrecognized item names: " + repr(unrecognized_items))
         if self.options.infinite_technologies.current_key == "shuffled":
-            infinite_list = sorted(infinite_technologies)
+            infinite_list = sorted(self.factorio_data.infinite_technology_names)
             target_list = list(infinite_list)
             self.random.shuffle(target_list)
             self.infinite_technology_shuffle = {src: dst for src, dst in zip(infinite_list, target_list)}
@@ -163,10 +161,15 @@ class Factorio(World):
             filler_weights[""] = 1
         self.filler_weights_argv = list(zip(*filler_weights.items()))
 
-        self.empty_technologies = sorted(empty_technologies)
+        self.empty_technologies = sorted(self.factorio_data.empty_technology_names)
         self.random.shuffle(self.empty_technologies)
 
-        extra_location_count = self.options.filler_count.value + int(self.options.energy_link_technology.value) - sum(self.options.start_inventory_from_pool.values()) - 4
+        extra_location_count = self.options.filler_count.value + (
+            - 4 # The builtin do-nothing technologies.
+            + int(self.options.energy_link_technology.value)
+            + 3*int(self.options.goal.current_key == "any_other_planet_science")
+            - sum(self.options.start_inventory_from_pool.values())
+        )
         if extra_location_count > 0:
             other_location_names = [name for name in ap_location_name_to_id.keys() if name.endswith("_other_location")]
             chosen_other_locations = self.random.sample(other_location_names, extra_location_count)
@@ -178,12 +181,11 @@ class Factorio(World):
         """
         This implementation covers create_regions(), create_items(), and set_rules().
         """
-        from .data.generated2 import (
-            infinite_technologies, empty_technologies,
-            technology_name_to_progressive_group_name, progressive_group_name_to_category,
-            never_inline_events, never_delete_events, unrandomized_events as base_unrandomized_events,
+        from .data import generated_names as names
+        from .data.ap_data import (
+            technology_name_to_progressive_group_name,
+            unrandomized_technologies as base_unrandomized_technologies
         )
-        from .data.generated3 import raw_logic_events
         player = self.player
 
         # Regions don't map well onto anything useful in Factorio, because all the AP Locations are globally unlocked research.
@@ -204,79 +206,107 @@ class Factorio(World):
             location = new_location(location_name, access_rule_fn)
             event = self.create_item(item_name)
             location.place_locked_item(event)
+        def lock_item(location, item):
+            assert item != None
+            location.place_locked_item(item)
+            location.revealed = True
 
         if self.options.goal.current_key == "solar_system_edge":
-            victory_event_name = "Reach solar-system-edge"
+            victory_event = "Reach solar-system-edge"
             final_technology_name = "promethium-science-pack"
         elif self.options.goal.current_key == "aquilo_orbit":
-            victory_event_name = "Reach aquilo_orbit"
+            victory_event = "Reach aquilo_orbit"
             final_technology_name = "planet-discovery-aquilo"
         elif self.options.goal.current_key == "any_other_planet_science":
-            victory_event_name = "Can research any other planet science"
+            victory_event = (
+                names.vulcanus_victory_item,
+                names.gleba_victory_item,
+                names.fulgora_victory_item,
+            )
             final_technology_name = None
         elif self.options.goal.current_key == "space_platform":
-            victory_event_name = "Can build space platforms"
+            victory_event = "Can build space platforms"
             final_technology_name = "rocket-silo"
         else: assert False
-        self.multiworld.completion_condition[player] = lambda state: state.has(victory_event_name, player)
+        if type(victory_event) == tuple:
+            self.multiworld.completion_condition[player] = lambda state: state.has_any(victory_event, player)
+        elif type(victory_event) == str:
+            self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
+        else: assert False
 
-        unrandomized_events = set(base_unrandomized_events)
+        unrandomized_technologies = set(base_unrandomized_technologies)
         if final_technology_name != None and not self.options.shuffle_final_technology.value:
             # Lock the goal tech also.
-            unrandomized_events.add(final_technology_name)
+            unrandomized_technologies.add(final_technology_name)
 
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
-        self.logic_events = instantiate_options(raw_logic_events, never_inline_events, never_delete_events, {
-            LogicOption.bypass_technology_prerequisites:     self.options.technology_prerequisites.current_key == "removed",
-            LogicOption.burner_mining_drill_is_good_enough:  not self.options.require_electric_mining_drill.value,
-            LogicOption.inserter_balancing_is_good_enough:   not self.options.require_logistics.value,
-            LogicOption.water_barrel_is_good_enough:         not self.options.require_ice_melting.value,
-            LogicOption.launching_metal_is_good_enough:      not self.options.require_electric_furnace.value,
-            LogicOption.backwards_recycling_is_interesting:  False, # Fulgora start is not implemented.
-            LogicOption.unbarreling_is_interesting:          False, # Full chaos recipe rando is not implemented.
-            LogicOption.walls_to_destroy_medium_asteroids_is_good_enough: not self.options.require_gun_turret.value,
-            LogicOption.small_electric_pole_is_good_enough:  not self.options.require_medium_electric_pole.value,
-            LogicOption.wait_hours_for_fish_to_spoil:        not self.options.require_gleba_for_spoilage.value,
-            LogicOption.storing_seeds_is_good_eough:         not self.options.require_seed_disposal,
-            LogicOption.lightning_schmightning:              not self.options.require_lightning_rod.value,
-            LogicOption.solar_panels_into_darkness:          not self.options.require_dark_power.value,
-            LogicOption.slow_inserter_is_good_enough:        not self.options.require_fast_inserter.value,
-            LogicOption.assembling_machine_1_is_good_enough: not self.options.require_assembling_machine_2.value,
-            LogicOption.direct_pipes_is_good_enough:         not self.options.require_fluid_handling.value,
-            LogicOption.hand_building_is_good_enough:        not self.options.require_construction_robots.value,
-            LogicOption.belt_logistics_is_good_enough:       not self.options.require_logistic_robots.value,
-            LogicOption.basic_asteroid_processing_is_good_enough: not self.options.require_asteroid_processing,
-            LogicOption.nuclear_heating_is_good_enough:      not self.options.require_heating_tower,
+        import pdb; pdb.set_trace()
+        self.logic_events = self.factorio_data.build_logic(
+            bypass_technology_prerequisites=     self.options.technology_prerequisites.current_key == "removed",
+            burner_mining_drill_is_good_enough=  not self.options.require_electric_mining_drill.value,
+            inserter_balancing_is_good_enough=   not self.options.require_logistics.value,
+            water_barrel_is_good_enough=         not self.options.require_ice_melting.value,
+            launching_metal_is_good_enough=      not self.options.require_electric_furnace.value,
+            backwards_recycling_is_interesting=  False, # Fulgora start is not implemented.
+            unbarreling_is_interesting=          False, # Full chaos recipe rando is not implemented.
+            walls_to_destroy_medium_asteroids_is_good_enough= not self.options.require_gun_turret.value,
+            small_electric_pole_is_good_enough=  not self.options.require_medium_electric_pole.value,
+            wait_hours_for_fish_to_spoil=        not self.options.require_gleba_for_spoilage.value,
+            storing_seeds_is_good_eough=         not self.options.require_seed_disposal,
+            lightning_schmightning=              not self.options.require_lightning_rod.value,
+            solar_panels_into_darkness=          not self.options.require_dark_power.value,
+            slow_inserter_is_good_enough=        not self.options.require_fast_inserter.value,
+            assembling_machine_1_is_good_enough= not self.options.require_assembling_machine_2.value,
+            direct_pipes_is_good_enough=         not self.options.require_fluid_handling.value,
+            hand_building_is_good_enough=        not self.options.require_construction_robots.value,
+            belt_logistics_is_good_enough=       not self.options.require_logistic_robots.value,
+            basic_asteroid_processing_is_good_enough= not self.options.require_asteroid_processing,
+            nuclear_heating_is_good_enough=      not self.options.require_heating_tower,
 
-            LogicOption.energy_link_recipe_early_game:       el_enabled and el_recipe == "early_game",
-            LogicOption.energy_link_recipe_mid_game:         el_enabled and el_recipe == "mid_game",
-            LogicOption.energy_link_recipe_fulgora:          el_enabled and el_recipe == "fulgora",
-            LogicOption.energy_link_unlocked_from_the_start: el_enabled and not self.options.energy_link_technology.value,
-            LogicOption.playing_without_energy_link_early_game_is_good_enough: not (el_enabled and el_logic and el_recipe == "early_game"),
-            LogicOption.playing_without_energy_link_mid_game_is_good_enough:   not (el_enabled and el_logic and el_recipe == "mid_game"),
-            LogicOption.playing_without_energy_link_fulgora_is_good_enough:    not (el_enabled and el_logic and el_recipe == "fulgora"),
-            LogicOption.allow_energy_link_to_satisfy_logic:  el_enabled and self.options.energy_link_satisfies_requirements,
-        })
+            energy_link_recipe_early_game=       el_enabled and el_recipe == "early_game",
+            energy_link_recipe_mid_game=         el_enabled and el_recipe == "mid_game",
+            energy_link_recipe_fulgora=          el_enabled and el_recipe == "fulgora",
+            energy_link_unlocked_from_the_start= el_enabled and not self.options.energy_link_technology.value,
+            playing_without_energy_link_early_game_is_good_enough= not (el_enabled and el_logic and el_recipe == "early_game"),
+            playing_without_energy_link_mid_game_is_good_enough=   not (el_enabled and el_logic and el_recipe == "mid_game"),
+            playing_without_energy_link_fulgora_is_good_enough=    not (el_enabled and el_logic and el_recipe == "fulgora"),
+            allow_energy_link_to_satisfy_logic=  el_enabled and self.options.energy_link_satisfies_requirements,
+        )
 
-        enabled_progressive_categories = {
-            "bonuses": ("bonuses",),
-            "recipes": ("bonuses", "recipes"),
-        }[self.options.progressive_technologies.current_key]
+        # TODO: self.options.progressive_technologies.current_key
+
+        # Capture these for any_other_planet_science goal.
+        asteroid_reprocessing_location = None
+        carbon_fiber_location = None
+        lightning_collector_location = None
+        vulcanus_victory_item = None
+        gleba_victory_item = None
+        fulgora_victory_item = None
 
         found_victory_event = False
         for event_name, expr in sorted(self.logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
             if " " not in event_name:
                 # This is a proper item and corresponding location.
-                locked = event_name in unrandomized_events or event_name in infinite_technologies
+                locked = event_name in unrandomized_technologies or event_name in self.factorio_data.infinite_technology_names
                 progressive_group_name = technology_name_to_progressive_group_name.get(event_name, None)
-                if progressive_group_name != None and progressive_group_name_to_category[progressive_group_name] in enabled_progressive_categories:
+                add_item_to_pool = True
+                if progressive_group_name != None:
                     item_name = progressive_group_name
-                elif self.options.energy_link_technology.value and event_name == "laser":
-                    # The do-nothing laser item becomes the energy link bridge unlock.
-                    item_name = "ap-energy-bridge"
-                elif event_name in empty_technologies:
+                # Do-nothing technologies becomes our new items, if enabled.
+                elif self.options.energy_link_technology.value and event_name == names.laser:
+                    item_name = names.ap_energy_link_bridge
+                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.flammables:
+                    item_name = names.vulcanus_victory
+                    add_item_to_pool = False
+                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.biter_egg_handling:
+                    item_name = names.gleba_victory
+                    add_item_to_pool = False
+                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.modules:
+                    item_name = names.fulgora_victory
+                    add_item_to_pool = False
+                elif event_name in self.factorio_data.empty_technology_names:
                     # Otherwise, do-nothing items become filler items as configured by the yaml.
                     item_name = self.get_filler_item_name()
                 else:
@@ -284,10 +314,18 @@ class Factorio(World):
                 location = new_location(event_name + "_location", compile_expr(expr))
                 item = self.create_item(item_name)
                 if locked:
-                    location.place_locked_item(item)
-                    location.revealed = True
+                    lock_item(location, item)
                 else:
-                    self.multiworld.itempool.append(item)
+                    if add_item_to_pool:
+                        self.multiworld.itempool.append(item)
+
+                    if   event_name == names.asteroid_reprocessing: asteroid_reprocessing_location = location
+                    elif event_name == names.carbon_fiber:          carbon_fiber_location          = location
+                    elif event_name == names.lightning_collector:   lightning_collector_location   = location
+                    if   item_name == names.vulcanus_victory: vulcanus_victory_item = item
+                    elif item_name == names.gleba_victory:    gleba_victory_item    = item
+                    elif item_name == names.fulgora_victory:  fulgora_victory_item  = item
+
                     if location.name in self.locations_to_duplicate:
                         # Another one.
                         new_location(location.name.replace("_location", "_other_location"), compile_expr(expr))
@@ -295,9 +333,14 @@ class Factorio(World):
             else:
                 # This is an abstract event.
                 event = new_event(event_name, event_name, compile_expr(expr))
-            if event_name == victory_event_name:
+            if event_name == victory_event:
                 found_victory_event = True
-        assert found_victory_event, "event not found in logic: " + victory_event_name
+        if self.options.goal.current_key == "any_other_planet_science":
+            lock_item(asteroid_reprocessing_location, vulcanus_victory_item)
+            lock_item(carbon_fiber_location, gleba_victory_item)
+            lock_item(lightning_collector_location, fulgora_victory_item)
+        if type(victory_event) == str:
+            assert found_victory_event, "event not found in logic: " + victory_event
 
 
     def generate_basic(self):
@@ -364,3 +407,6 @@ class Factorio(World):
             classification = ItemClassification.useful
         return FactorioItem(item_name, classification, code, self.player)
 
+def read_local_path(name: str) -> bytes:
+    import pkgutil
+    return pkgutil.get_data(__name__, name)
