@@ -1102,7 +1102,8 @@
   },
   "fish": {
     "fish": {
-      "minable": {"result": "raw-fish"}
+      "minable": {"result": "raw-fish"},
+      "autoplace": {"probability_expression": 0.01}
     }
   },
   "fluid": {
@@ -1738,7 +1739,8 @@
           {"name": "steel-plate"},
           {"name": "stone-brick"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "min(place_every_n(15,15,1,1),0.1 * fulgora_artificial_mask + 0.2 * (fulgora_decorative_machine_density - 1.5))+ max(0, 10 * (1.5 - distance))"}
     }
   },
   "logistic-container": {
@@ -2840,6 +2842,7 @@
         {"asteroid": "oxide-asteroid-chunk"}
       ],
       "map_gen_settings": {
+        "property_expression_names": {},
         "autoplace_settings": {
           "tile": {
             "settings": {
@@ -2909,6 +2912,22 @@
         {"asteroid": "medium-oxide-asteroid"}
       ],
       "map_gen_settings": {
+        "property_expression_names": {
+          "elevation": "vulcanus_elevation",
+          "temperature": "vulcanus_temperature",
+          "moisture": "vulcanus_moisture",
+          "aux": "vulcanus_aux",
+          "cliffiness": "cliffiness_basic",
+          "cliff_elevation": "cliff_elevation_from_elevation",
+          "entity:tungsten-ore:probability": "vulcanus_tungsten_ore_probability",
+          "entity:tungsten-ore:richness": "vulcanus_tungsten_ore_richness",
+          "entity:coal:probability": "vulcanus_coal_probability",
+          "entity:coal:richness": "vulcanus_coal_richness",
+          "entity:calcite:probability": "vulcanus_calcite_probability",
+          "entity:calcite:richness": "vulcanus_calcite_richness",
+          "entity:sulfuric-acid-geyser:probability": "vulcanus_sulfuric_acid_geyser_probability",
+          "entity:sulfuric-acid-geyser:richness": "vulcanus_sulfuric_acid_geyser_richness"
+        },
         "autoplace_settings": {
           "tile": {
             "settings": {
@@ -2986,6 +3005,32 @@
         {"asteroid": "medium-oxide-asteroid"}
       ],
       "map_gen_settings": {
+        "property_expression_names": {
+          "elevation": "gleba_elevation",
+          "aux": "gleba_aux",
+          "moisture": "gleba_moisture",
+          "temperature": "gleba_temperature",
+          "cliffiness": "gleba_cliffiness",
+          "cliff_elevation": "cliff_elevation_from_elevation",
+          "enemy_base_radius": "gleba_enemy_base_radius",
+          "enemy_base_frequency": "gleba_enemy_base_frequency",
+          "entity:stone:richness": "gleba_stone_richness",
+          "entity:stone:probability": "gleba_stone_probability",
+          "decorative:red-desert-bush:probability": "gleba_red_desert_bush_probability",
+          "decorative:white-desert-bush:probability": "gleba_white_desert_bush_probability",
+          "decorative:red-pita:probability": "gleba_red_pita_probability",
+          "decorative:green-bush-mini:probability": "gleba_green_bush_probability",
+          "decorative:green-croton:probability": "gleba_green_cronton_probability",
+          "decorative:green-pita:probability": "gleba_green_pita_probability",
+          "decorative:green-pita-mini:probability": "gleba_green_pita_mini_probability",
+          "decorative:lichen-decal:probability": "gleba_orange_lichen_probability",
+          "decorative:shroom-decal:probability": "gleba_carpet_shroom_probability",
+          "decorative:cracked-mud-decal:probability": "gleba_cracked_mud_probability",
+          "decorative:light-mud-decal:probability": "gleba_light_mud_probability",
+          "decorative:dark-mud-decal:probability": "gleba_dark_mud_probability",
+          "decorative:green-carpet-grass:probability": "gleba_green_carpet_grass_probability",
+          "decorative:green-hairy-grass:probability": "gleba_green_hairy_grass_probability"
+        },
         "autoplace_settings": {
           "tile": {
             "settings": {
@@ -3067,6 +3112,14 @@
         {"asteroid": "medium-oxide-asteroid"}
       ],
       "map_gen_settings": {
+        "property_expression_names": {
+          "elevation": "fulgora_elevation",
+          "temperature": "temperature_basic",
+          "moisture": "moisture_basic",
+          "aux": "aux_basic",
+          "cliffiness": "fulgora_cliffiness",
+          "cliff_elevation": "cliff_elevation_from_elevation"
+        },
         "autoplace_settings": {
           "tile": {
             "settings": {
@@ -3124,6 +3177,16 @@
         {"asteroid": "big-oxide-asteroid"}
       ],
       "map_gen_settings": {
+        "property_expression_names": {
+          "elevation": "aquilo_elevation",
+          "temperature": "aquilo_temperature",
+          "moisture": "moisture_basic",
+          "aux": "aquilo_aux",
+          "cliffiness": "cliffiness_basic",
+          "cliff_elevation": "cliff_elevation_from_elevation",
+          "entity:crude-oil:probability": "aquilo_crude_oil_probability",
+          "entity:crude-oil:richness": "aquilo_crude_oil_richness"
+        },
         "autoplace_settings": {
           "tile": {
             "settings": {
@@ -19306,16 +19369,48 @@
           {"name": "stone"},
           {"name": "coal"}
         ]
+      },
+      "autoplace": {
+        "control": "rocks",
+        "probability_expression": "multiplier * control * (region_box + rock_density - penalty)",
+        "local_expressions": {
+          "multiplier": 0.07,
+          "penalty": 1.7,
+          "region_box": "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
+          "control": "control:rocks:size"
+        }
       }
     },
     "big-rock": {
-      "minable": {"result": "stone"}
+      "minable": {"result": "stone"},
+      "autoplace": {
+        "control": "rocks",
+        "probability_expression": "multiplier * control * (region_box + rock_density - penalty)",
+        "local_expressions": {
+          "multiplier": 0.17,
+          "penalty": 1.6,
+          "region_box": "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
+          "control": "control:rocks:size"
+        }
+      }
     },
     "big-sand-rock": {
       "minable": {
         "results": [
           {"name": "stone"}
         ]
+      },
+      "autoplace": {
+        "control": "rocks",
+        "probability_expression": "multiplier * control * (region_box + rock_density - penalty)",
+        "local_expressions": {
+          "multiplier": 0.1,
+          "penalty": 1.6,
+          "region_box": "min(aux_range, moisture_range)",
+          "aux_range": "range_select_base(aux, 0.3, 1, 0.3, -10, 0)",
+          "moisture_range": "range_select_base(moisture, 0, 0.3, 0.2, -10, 0)",
+          "control": "control:rocks:size"
+        }
       }
     },
     "wube-logo-space-platform": {},
@@ -19351,21 +19446,24 @@
         "results": [
           {"name": "tungsten-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_rock_huge"}
     },
     "medium-demolisher-corpse": {
       "minable": {
         "results": [
           {"name": "tungsten-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_rock_huge"}
     },
     "big-demolisher-corpse": {
       "minable": {
         "results": [
           {"name": "tungsten-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_rock_huge"}
     },
     "vulcanus-chimney": {
       "minable": {
@@ -19373,7 +19471,8 @@
           {"name": "stone"},
           {"name": "sulfur"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_chimney_sulfuric"}
     },
     "vulcanus-chimney-faded": {
       "minable": {
@@ -19381,7 +19480,8 @@
           {"name": "stone"},
           {"name": "sulfur"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_chimney_faded"}
     },
     "vulcanus-chimney-cold": {
       "minable": {
@@ -19389,21 +19489,24 @@
           {"name": "stone"},
           {"name": "sulfur"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_chimney_cold"}
     },
     "vulcanus-chimney-short": {
       "minable": {
         "results": [
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_chimney_faded / 2"}
     },
     "vulcanus-chimney-truncated": {
       "minable": {
         "results": [
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_chimney_truncated"}
     },
     "huge-volcanic-rock": {
       "minable": {
@@ -19413,7 +19516,8 @@
           {"name": "copper-ore"},
           {"name": "tungsten-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_rock_huge"}
     },
     "big-volcanic-rock": {
       "minable": {
@@ -19423,7 +19527,8 @@
           {"name": "copper-ore"},
           {"name": "tungsten-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "vulcanus_rock_big"}
     },
     "fulgoran-ruin-small": {
       "minable": {
@@ -19435,7 +19540,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0005 * (0.1 * fulgora_natural_mask + fulgora_mesa)+ (0.005 + 0.005 * (fulgora_decorative_machine_density - 0.1))* (fulgora_artificial_mask + 0.2 * fulgora_mesa * max(0, fulgora_scrap_medium))"}
     },
     "fulgoran-ruin-medium": {
       "minable": {
@@ -19447,7 +19553,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0001 * (0.1 * fulgora_natural_mask )+ (0.001 + 0.006 * (fulgora_decorative_machine_density - 0.3))* (fulgora_artificial_mask + 0.2 * fulgora_mesa * max(0, fulgora_scrap_medium))"}
     },
     "fulgoran-ruin-stonehenge": {
       "minable": {
@@ -19459,7 +19566,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0005 * fulgora_artificial_mask + 0.004 * (fulgora_decorative_machine_density - 1.5)"}
     },
     "fulgoran-ruin-big": {
       "minable": {
@@ -19471,7 +19579,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0001 * fulgora_artificial_mask + 0.003 * (fulgora_decorative_machine_density - 2)"}
     },
     "fulgoran-ruin-huge": {
       "minable": {
@@ -19483,7 +19592,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0001 * fulgora_artificial_mask + 0.002 * (fulgora_decorative_machine_density - 3)"}
     },
     "fulgoran-ruin-colossal": {
       "minable": {
@@ -19495,7 +19605,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "0.0001 * fulgora_artificial_mask + 0.001 * (fulgora_decorative_machine_density - 4)"}
     },
     "fulgoran-ruin-vault": {
       "minable": {
@@ -19507,7 +19618,8 @@
           {"name": "copper-cable"},
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "(min(fulgora_spots, (1 - fulgora_starting_vault_cone) / 2) < 0.015) * min(fulgora_vaults_and_starting_vault, 1 - fulgora_starting_mask)"}
     },
     "fulgurite-small": {
       "minable": {
@@ -19515,7 +19627,8 @@
           {"name": "stone"},
           {"name": "holmium-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": 0}
     },
     "fulgurite": {
       "minable": {
@@ -19523,14 +19636,16 @@
           {"name": "stone"},
           {"name": "holmium-ore"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "min(0.1, fulgora_natural_mask * max(0, -fulgora_scrap_medium - fulgora_rock - 0.8))"}
     },
     "big-fulgora-rock": {
       "minable": {
         "results": [
           {"name": "stone"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "(1 - fulgora_oil_mask) * (fulgora_natural_mask + fulgora_mesa)* min(0.05,0.3 * 1 - 2.4 + fulgora_rock - 0.5 * fulgora_mix_oil + 0.7 * fulgora_basis_oil)"}
     },
     "iron-stromatolite": {
       "minable": {
@@ -19539,7 +19654,8 @@
           {"name": "iron-ore"},
           {"name": "iron-bacteria"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "gleba_select(gleba_iron_stromatolite - clamp(gleba_decorative_knockout, 0, 1), 1.3, 2, 0.2, 0, 1)"}
     },
     "copper-stromatolite": {
       "minable": {
@@ -19548,7 +19664,8 @@
           {"name": "copper-ore"},
           {"name": "copper-bacteria"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "gleba_select(gleba_copper_stromatolite - clamp(gleba_decorative_knockout, 0, 1), 1.3, 2, 0.2, 0, 1)"}
     },
     "lithium-iceberg-huge": {
       "minable": {
@@ -19557,7 +19674,8 @@
           {"name": "ice"},
           {"name": "lithium"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "(aquilo_high_frequency_peaks - 0.8) * 0.1"}
     },
     "lithium-iceberg-big": {
       "minable": {
@@ -19566,7 +19684,8 @@
           {"name": "ice"},
           {"name": "lithium"}
         ]
-      }
+      },
+      "autoplace": {"probability_expression": "(aquilo_high_frequency_peaks - 0.7) * 0.8"}
     }
   },
   "solar-panel": {
@@ -26103,31 +26222,75 @@
     "tile-unknown": {"hidden": true},
     "water-wube": {"hidden": true},
     "out-of-map": {},
-    "deepwater": {"fluid": "water"},
+    "deepwater": {
+      "autoplace": {"probability_expression": "water_base(-2, 200)"},
+      "fluid": "water"
+    },
     "deepwater-green": {"fluid": "water"},
-    "water": {"fluid": "water"},
+    "water": {
+      "autoplace": {"probability_expression": "water_base(0, 100)"},
+      "fluid": "water"
+    },
     "water-green": {"fluid": "water"},
     "water-shallow": {"fluid": "water"},
     "water-mud": {"fluid": "water"},
-    "grass-1": {},
-    "grass-2": {},
-    "grass-3": {},
-    "grass-4": {},
-    "dry-dirt": {},
-    "dirt-1": {},
-    "dirt-2": {},
-    "dirt-3": {},
-    "dirt-4": {},
-    "dirt-5": {},
-    "dirt-6": {},
-    "dirt-7": {},
-    "sand-1": {},
-    "sand-2": {},
-    "sand-3": {},
-    "red-desert-0": {},
-    "red-desert-1": {},
-    "red-desert-2": {},
-    "red-desert-3": {},
+    "grass-1": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.7, 11, 11) + noise_layer_noise(19)"}
+    },
+    "grass-2": {
+      "autoplace": {"probability_expression": "expression_in_range_base(0.45, 0.45, 11, 0.8) + noise_layer_noise(20)"}
+    },
+    "grass-3": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.6, 0.65, 0.9) + noise_layer_noise(21)"}
+    },
+    "grass-4": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.5, 0.55, 0.7) + noise_layer_noise(22)"}
+    },
+    "dry-dirt": {
+      "autoplace": {"probability_expression": "expression_in_range_base(0.45, -10, 0.55, 0.35) + noise_layer_noise(13)"}
+    },
+    "dirt-1": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(-10, 0.25, 0.45, 0.3),expression_in_range_base(0.4, -10, 0.45, 0.25)) + noise_layer_noise(6)"}
+    },
+    "dirt-2": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.3, 0.45, 0.35) + noise_layer_noise(7)"}
+    },
+    "dirt-3": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.35, 0.55, 0.4) + noise_layer_noise(8)"}
+    },
+    "dirt-4": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(0.55, -10, 0.6, 0.35),expression_in_range_base(0.6, 0.3, 11, 0.35)) + noise_layer_noise(9)"}
+    },
+    "dirt-5": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.4, 0.55, 0.45) + noise_layer_noise(10)"}
+    },
+    "dirt-6": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.45, 0.55, 0.5) + noise_layer_noise(11)"}
+    },
+    "dirt-7": {
+      "autoplace": {"probability_expression": "expression_in_range_base(-10, 0.5, 0.55, 0.55) + noise_layer_noise(12)"}
+    },
+    "sand-1": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(-10, -10, 0.25, 0.15),expression_in_range(5, inf, elevation, aux, -1.5, 0.5, 1.5, 1)) +noise_layer_noise(36)"}
+    },
+    "sand-2": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(-10, 0.15, 0.3, 0.2),expression_in_range_base(0.25, -10, 0.3, 0.15)) + noise_layer_noise(37)"}
+    },
+    "sand-3": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(-10, 0.2, 0.4, 0.25),expression_in_range_base(0.3, -10, 0.4, 0.2)) + noise_layer_noise(38)"}
+    },
+    "red-desert-0": {
+      "autoplace": {"probability_expression": "expression_in_range_base(0.55, 0.35, 11, 0.5) + noise_layer_noise(30)"}
+    },
+    "red-desert-1": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(0.6, -10, 0.7, 0.3),expression_in_range_base(0.7, 0.25, 11, 0.3)) + noise_layer_noise(31)"}
+    },
+    "red-desert-2": {
+      "autoplace": {"probability_expression": "max(expression_in_range_base(0.7, -10, 0.8, 0.25),expression_in_range_base(0.8, 0.2, 11, 0.25)) + noise_layer_noise(32)"}
+    },
+    "red-desert-3": {
+      "autoplace": {"probability_expression": "expression_in_range_base(0.8, -10, 11, 0.2) + noise_layer_noise(33)"}
+    },
     "nuclear-ground": {},
     "stone-path": {
       "minable": {"result": "stone-brick"}
@@ -26168,32 +26331,74 @@
     "brown-refined-concrete": {"hidden": true},
     "cyan-refined-concrete": {"hidden": true},
     "acid-refined-concrete": {"hidden": true},
-    "empty-space": {},
+    "empty-space": {
+      "autoplace": {"probability_expression": 1}
+    },
     "space-platform-foundation": {
       "minable": {"result": "space-platform-foundation"}
     },
     "foundation": {
       "minable": {"result": "foundation"}
     },
-    "volcanic-jagged-ground": {},
-    "lava": {"fluid": "lava"},
-    "lava-hot": {"fluid": "lava"},
-    "volcanic-cracks-hot": {},
-    "volcanic-cracks-warm": {},
-    "volcanic-cracks": {},
-    "volcanic-folds-flat": {},
-    "volcanic-ash-light": {},
-    "volcanic-ash-dark": {},
-    "volcanic-ash-flats": {},
-    "volcanic-pumice-stones": {},
-    "volcanic-smooth-stone": {},
-    "volcanic-smooth-stone-warm": {},
-    "volcanic-ash-cracks": {},
-    "volcanic-folds": {},
-    "volcanic-folds-warm": {},
-    "volcanic-soil-dark": {},
-    "volcanic-soil-light": {},
-    "volcanic-ash-soil": {},
+    "volcanic-jagged-ground": {
+      "autoplace": {"probability_expression": "volcanic_jagged_ground_range"}
+    },
+    "lava": {
+      "autoplace": {"probability_expression": "max(lava_basalts_range, lava_mountains_range)"},
+      "fluid": "lava"
+    },
+    "lava-hot": {
+      "autoplace": {"probability_expression": "max(lava_hot_basalts_range, lava_hot_mountains_range)"},
+      "fluid": "lava"
+    },
+    "volcanic-cracks-hot": {
+      "autoplace": {"probability_expression": "volcanic_cracks_hot_range"}
+    },
+    "volcanic-cracks-warm": {
+      "autoplace": {"probability_expression": "volcanic_cracks_warm_range"}
+    },
+    "volcanic-cracks": {
+      "autoplace": {"probability_expression": "volcanic_cracks_cold_range"}
+    },
+    "volcanic-folds-flat": {
+      "autoplace": {"probability_expression": "volcanic_folds_flat_range"}
+    },
+    "volcanic-ash-light": {
+      "autoplace": {"probability_expression": "volcanic_ash_light_range"}
+    },
+    "volcanic-ash-dark": {
+      "autoplace": {"probability_expression": "volcanic_ash_dark_range"}
+    },
+    "volcanic-ash-flats": {
+      "autoplace": {"probability_expression": "volcanic_ash_flats_range"}
+    },
+    "volcanic-pumice-stones": {
+      "autoplace": {"probability_expression": "volcanic_pumice_stones_range"}
+    },
+    "volcanic-smooth-stone": {
+      "autoplace": {"probability_expression": "volcanic_smooth_stone_range"}
+    },
+    "volcanic-smooth-stone-warm": {
+      "autoplace": {"probability_expression": "volcanic_smooth_stone_warm_range"}
+    },
+    "volcanic-ash-cracks": {
+      "autoplace": {"probability_expression": "volcanic_ash_cracks_range"}
+    },
+    "volcanic-folds": {
+      "autoplace": {"probability_expression": "volcanic_folds_range"}
+    },
+    "volcanic-folds-warm": {
+      "autoplace": {"probability_expression": "volcanic_folds_warm_range"}
+    },
+    "volcanic-soil-dark": {
+      "autoplace": {"probability_expression": "volcanic_soil_dark_range"}
+    },
+    "volcanic-soil-light": {
+      "autoplace": {"probability_expression": "volcanic_soil_light_range"}
+    },
+    "volcanic-ash-soil": {
+      "autoplace": {"probability_expression": "volcanic_ash_soil_range"}
+    },
     "artificial-yumako-soil": {
       "minable": {"result": "artificial-yumako-soil"}
     },
@@ -26206,73 +26411,210 @@
     "overgrowth-jellynut-soil": {
       "minable": {"result": "overgrowth-jellynut-soil"}
     },
-    "natural-yumako-soil": {},
-    "natural-jellynut-soil": {},
-    "lowland-olive-blubber": {},
-    "lowland-olive-blubber-2": {},
-    "lowland-olive-blubber-3": {},
-    "lowland-brown-blubber": {},
-    "lowland-pale-green": {},
-    "lowland-cream-cauliflower-2": {},
-    "lowland-cream-cauliflower": {},
-    "lowland-dead-skin": {},
-    "lowland-dead-skin-2": {},
-    "lowland-cream-red": {},
-    "lowland-red-vein-2": {},
-    "lowland-red-vein": {},
-    "lowland-red-vein-3": {},
-    "lowland-red-vein-4": {},
-    "lowland-red-vein-dead": {},
-    "lowland-red-infection": {},
-    "midland-cracked-lichen": {},
-    "midland-cracked-lichen-dull": {},
-    "midland-cracked-lichen-dark": {},
-    "midland-turquoise-bark-2": {},
-    "midland-turquoise-bark": {},
-    "midland-yellow-crust-3": {},
-    "midland-yellow-crust-2": {},
-    "midland-yellow-crust": {},
-    "midland-yellow-crust-4": {},
-    "highland-dark-rock": {},
-    "highland-dark-rock-2": {},
-    "highland-yellow-rock": {},
-    "pit-rock": {},
-    "wetland-yumako": {"fluid": "water"},
-    "wetland-jellynut": {"fluid": "water"},
-    "wetland-dead-skin": {"fluid": "water"},
-    "wetland-light-dead-skin": {"fluid": "water"},
-    "wetland-green-slime": {"fluid": "water"},
-    "wetland-light-green-slime": {"fluid": "water"},
-    "wetland-red-tentacle": {"fluid": "water"},
-    "wetland-pink-tentacle": {"fluid": "water"},
-    "wetland-blue-slime": {"fluid": "water"},
-    "gleba-deep-lake": {"fluid": "water"},
-    "fulgoran-dust": {},
-    "fulgoran-dunes": {},
-    "fulgoran-sand": {},
-    "fulgoran-rock": {},
-    "fulgoran-paving": {},
-    "fulgoran-walls": {},
-    "fulgoran-conduit": {},
-    "fulgoran-machinery": {},
-    "oil-ocean-shallow": {"fluid": "heavy-oil"},
-    "oil-ocean-deep": {"fluid": "heavy-oil"},
-    "ammoniacal-ocean": {"fluid": "ammoniacal-solution"},
-    "ammoniacal-ocean-2": {"fluid": "ammoniacal-solution"},
-    "snow-flat": {},
+    "natural-yumako-soil": {
+      "autoplace": {"probability_expression": "gleba_fertile_solid * 50000 - 40000 - gleba_biome_mask_green * 1000000"}
+    },
+    "natural-jellynut-soil": {
+      "autoplace": {"probability_expression": "gleba_fertile_solid * 50000 - 40000 - gleba_biome_mask_red * 1000000"}
+    },
+    "lowland-olive-blubber": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0, 0.4, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, 0.3, 0.8, 0.005, 0, 1)"}
+    },
+    "lowland-olive-blubber-2": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0, 0.2, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, 0, 0.4, 0.005, 0, 1)"}
+    },
+    "lowland-olive-blubber-3": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0, 0.4, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, 0.8, 1, 0.005, 0, 1)"}
+    },
+    "lowland-brown-blubber": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0, 0.4, 0.005, 0, 1) + 0.1 * (gleba_plants_noise_b - 0.8)"}
+    },
+    "lowland-pale-green": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.2, 0.4, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, 0, 0.3, 0.005, 0, 1)"}
+    },
+    "lowland-cream-cauliflower-2": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.3, 0.45, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, -0.2, 1, 0.005, 0, 1)"}
+    },
+    "lowland-cream-cauliflower": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.45, 0.65, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, -0.2, 1, 0.005, 0, 1)"}
+    },
+    "lowland-dead-skin": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.45, 0.65, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, -1, -0.2, 0.005, 0, 1)"}
+    },
+    "lowland-dead-skin-2": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.3, 0.45, 0.005, 0, 1) + 0.1 * gleba_select(gleba_temperature_normalised, -1, -0.2, 0.005, 0, 1)"}
+    },
+    "lowland-cream-red": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.62, 0.77, 0.005, 0, 1) * gleba_select(gleba_temperature_normalised, 0.25, 1, 0.005, 0, 1)"}
+    },
+    "lowland-red-vein-2": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.75, 1, 0.005, 0, 1) + 0.1 * (gleba_plants_noise_b - 1)"}
+    },
+    "lowland-red-vein": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.7, 1, 0.005, 0, 1) * gleba_select(gleba_temperature_normalised, 0.45, 0.75, 0.005, 0, 1)"}
+    },
+    "lowland-red-vein-3": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.7, 1, 0.005, 0, 1) * gleba_select(gleba_temperature_normalised, 0.25, 0.45, 0.005, 0, 1)"}
+    },
+    "lowland-red-vein-4": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.7, 1, 0.005, 0, 1) * gleba_select(gleba_temperature_normalised, 0.75, 1, 0.005, 0, 1)"}
+    },
+    "lowland-red-vein-dead": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.6, 1, 0.005, 0, 1) * gleba_select(gleba_temperature_normalised, 0, 0.25, 0.005, 0, 1)"}
+    },
+    "lowland-red-infection": {
+      "autoplace": {"probability_expression": "gleba_lowland * gleba_select(gleba_aux, 0.7, 1, 0.05, 0, 1) + 0.1 * (gleba_plants_noise - 1)"}
+    },
+    "midland-cracked-lichen": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.55, 0.65, 0.15, 0, 1) - 0.2 * gleba_temperature_normalised"}
+    },
+    "midland-cracked-lichen-dull": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.45, 0.55, 0.15, 0, 1) + 0.2 * gleba_temperature_normalised"}
+    },
+    "midland-cracked-lichen-dark": {
+      "autoplace": {"probability_expression": "max(1.08 * gleba_midland * gleba_select(gleba_aux, 0, 0.55, 0.1, 0, 1), 1.15 * gleba_highland) + 0.3 * (gleba_plants_noise_b - 0.7)"}
+    },
+    "midland-turquoise-bark-2": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.05, 0.4, 0.2, 0, 1) - 0.2 * gleba_temperature_normalised"}
+    },
+    "midland-turquoise-bark": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0, 0.35, 0.2, 0, 1) + 0.2 * gleba_temperature_normalised"}
+    },
+    "midland-yellow-crust-3": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.65, 1, 0.1, 0, 1)"}
+    },
+    "midland-yellow-crust-2": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.8, 1, 0.15, 0, 1) * (0.93 + 0.1 * gleba_select(gleba_moisture, 0.5, 0.5, 0.25, 0, 1) - 0.1 * gleba_temperature_normalised)"}
+    },
+    "midland-yellow-crust": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.7, 1, 0.1, 0, 1) * (1 + 0.1 * (gleba_aux - 0.75) + 0.05 * gleba_plants_noise_b)"}
+    },
+    "midland-yellow-crust-4": {
+      "autoplace": {"probability_expression": "gleba_midland * gleba_select(gleba_aux, 0.8, 1, 0.15, 0, 1) * (0.9 + 0.1 * gleba_select(gleba_moisture, 0.25, 0.25, 0.25, 0, 1) + 0.1 * gleba_temperature_normalised)"}
+    },
+    "highland-dark-rock": {
+      "autoplace": {"probability_expression": "gleba_highland * max(0, 1.05 + 0.1 * (1 - gleba_aux) + 0.2 * gleba_temperature_normalised)"}
+    },
+    "highland-dark-rock-2": {
+      "autoplace": {"probability_expression": "gleba_highland * max(0, 1.13 + 0.1 * (min(gleba_aux + 0.1, 1-gleba_aux)))"}
+    },
+    "highland-yellow-rock": {
+      "autoplace": {"probability_expression": "gleba_highland * max(0, 1 + 0.1 * gleba_aux - 0.2 * gleba_temperature_normalised)"}
+    },
+    "pit-rock": {
+      "autoplace": {"probability_expression": "2 * gleba_rockpools_pitrock"}
+    },
+    "wetland-yumako": {
+      "autoplace": {"probability_expression": "gleba_fertile_spots_coastal * 5000 * (1 - gleba_biome_mask_green) * gleba_above_deep_water_mask"},
+      "fluid": "water"
+    },
+    "wetland-jellynut": {
+      "autoplace": {"probability_expression": "gleba_fertile_spots_coastal * 5000 * (1 - gleba_biome_mask_red) * gleba_above_deep_water_mask"},
+      "fluid": "water"
+    },
+    "wetland-dead-skin": {
+      "autoplace": {"probability_expression": "gleba_shallows_aux_2 + 2 * min(gleba_select(gleba_aux, 0.3, 0.7, 0.005, 0, 1), gleba_rockpools_shallow)"},
+      "fluid": "water"
+    },
+    "wetland-light-dead-skin": {
+      "autoplace": {"probability_expression": "gleba_shallows_edge_aux_2 + 2 * min(gleba_select(gleba_aux, 0.3, 0.7, 0.005, 0, 1), gleba_rockpools_shallow)"},
+      "fluid": "water"
+    },
+    "wetland-green-slime": {
+      "autoplace": {"probability_expression": "gleba_shallows_aux_1 + 2 * min(gleba_select(gleba_aux, 0, 0.3, 0.005, 0, 1), gleba_rockpools_shallow)"},
+      "fluid": "water"
+    },
+    "wetland-light-green-slime": {
+      "autoplace": {"probability_expression": "gleba_shallows_edge_aux_1 + 2 * min(gleba_select(gleba_aux, 0, 0.3, 0.005, 0, 1), gleba_rockpools_shallow)"},
+      "fluid": "water"
+    },
+    "wetland-red-tentacle": {
+      "autoplace": {"probability_expression": "gleba_shallows_aux_3 + 2 * min(gleba_select(gleba_aux, 0.7, 2, 0.005, 0, 1), gleba_rockpools_shallow)"},
+      "fluid": "water"
+    },
+    "wetland-pink-tentacle": {
+      "autoplace": {"probability_expression": "gleba_shallows_edge_aux_3"},
+      "fluid": "water"
+    },
+    "wetland-blue-slime": {
+      "autoplace": {"probability_expression": "6 * gleba_select(gleba_elevation, gleba_deep_water_level, -4, 0.5, 0, 1) + 5 * gleba_rockpools_bluewater"},
+      "fluid": "water"
+    },
+    "gleba-deep-lake": {
+      "autoplace": {"probability_expression": "10 * gleba_select(elevation, -500, gleba_deep_water_level, 0.5, 0, 1) + 10 * gleba_rockpools_deepwater"},
+      "fluid": "water"
+    },
+    "fulgoran-dust": {
+      "autoplace": {"probability_expression": "fulgora_scrap_medium + max(0, fulgora_natural, 2 * fulgora_mesa * fulgora_pyramids) * 2 - 0.9 + fulgora_rock + fulgora_road_dust * fulgora_sprawl"}
+    },
+    "fulgoran-dunes": {
+      "autoplace": {"probability_expression": "1 + fulgora_dunes"}
+    },
+    "fulgoran-sand": {
+      "autoplace": {"probability_expression": "1 - fulgora_dunes"}
+    },
+    "fulgoran-rock": {
+      "autoplace": {"probability_expression": "0.8 + fulgora_rock * 2 - max(0, fulgora_mix_oil) * 6"}
+    },
+    "fulgoran-paving": {
+      "autoplace": {"probability_expression": "fulgora_tile_ruin_paving"}
+    },
+    "fulgoran-walls": {
+      "autoplace": {"probability_expression": "fulgora_tile_ruin_walls"}
+    },
+    "fulgoran-conduit": {
+      "autoplace": {"probability_expression": "fulgora_tile_ruin_conduit"}
+    },
+    "fulgoran-machinery": {
+      "autoplace": {"probability_expression": "fulgora_tile_ruin_machinery"}
+    },
+    "oil-ocean-shallow": {
+      "autoplace": {"probability_expression": "50 * fulgora_oil_mask * water_base(fulgora_coastline, 1000)"},
+      "fluid": "heavy-oil"
+    },
+    "oil-ocean-deep": {
+      "autoplace": {"probability_expression": "100 * fulgora_oil_mask * water_base(fulgora_coastline - 50 - fulgora_coastline_drop / 2, 2000)"},
+      "fluid": "heavy-oil"
+    },
+    "ammoniacal-ocean": {
+      "autoplace": {"probability_expression": "ammoniacal_ocean"},
+      "fluid": "ammoniacal-solution"
+    },
+    "ammoniacal-ocean-2": {
+      "autoplace": {"probability_expression": "ammoniacal_ocean_2"},
+      "fluid": "ammoniacal-solution"
+    },
+    "snow-flat": {
+      "autoplace": {"probability_expression": "snow_flat"}
+    },
     "dust-flat": {},
-    "snow-crests": {},
+    "snow-crests": {
+      "autoplace": {"probability_expression": "snow_crests"}
+    },
     "dust-crests": {},
-    "snow-lumpy": {},
-    "dust-lumpy": {},
-    "snow-patchy": {},
+    "snow-lumpy": {
+      "autoplace": {"probability_expression": "snow_lumpy"}
+    },
+    "dust-lumpy": {
+      "autoplace": {"probability_expression": "10 * aquilo_snow_ice + 10 * aquilo_tile_variant"}
+    },
+    "snow-patchy": {
+      "autoplace": {"probability_expression": "snow_patchy"}
+    },
     "dust-patchy": {},
-    "ice-rough": {},
-    "ice-smooth": {},
+    "ice-rough": {
+      "autoplace": {"probability_expression": "ice_rough"}
+    },
+    "ice-smooth": {
+      "autoplace": {"probability_expression": "ice_smooth"}
+    },
     "ice-platform": {
       "minable": {"result": "ice-platform"}
     },
-    "brash-ice": {"fluid": "ammoniacal-solution"},
+    "brash-ice": {
+      "autoplace": {"probability_expression": "brash_ice"},
+      "fluid": "ammoniacal-solution"
+    },
     "frozen-stone-path": {
       "minable": {"result": "stone-brick"}
     },
