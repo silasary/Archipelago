@@ -65,8 +65,6 @@ def process(input_path):
     with open(pruned_input, "w") as f:
         json_dump(the_data, f)
 
-    the_data = derrive_info(the_data)
-
     generate_names(the_data)
     generate_ids(the_data)
 
@@ -75,6 +73,7 @@ def generate_names(the_data):
     already_generated = {}
     builtin_name_lines = []
     for prototype_type, prototype_decls in the_data.items():
+        if prototype_type == "projectile": continue # Never interesting.
         for name in prototype_decls.keys():
             python_name = to_snake(name)
             line = "{} = {}".format(python_name, json.dumps(name))
@@ -159,224 +158,13 @@ def to_snake(name):
         name = "_" + name
     return name.lower().replace("-", "_")
 
-def derrive_info(the_data):
-    thing_to_planets: dict[str, set[str]] = defaultdict(set)
-    control_variable_to_planets: dict[str, set[str]] = defaultdict(set)
-    planet_to_shadow_variable_defs: dict[str, dict[str, set[str]]] = {}
-    for planet_name, data in the_data["planet"].items():
-        for thing in itertools.chain.from_iterable(settings["settings"] for settings in data["map_gen_settings"]["autoplace_settings"].values()):
-            thing_to_planets[thing].add(planet_name)
-        for control_name in data["map_gen_settings"]["autoplace_controls"].keys():
-            for subvariable in ["size", "frequency", "richness"]:
-                control_variable_to_planets["control:{}:{}".format(control_name, subvariable)].add(planet_name)
-        shadow_variable_defs = {}
-        for variable_name, expr in data["map_gen_settings"]["property_expression_names"].items():
-            shadow_variable_defs[variable_name] = parse_refs(expr)
-        planet_to_shadow_variable_defs[planet_name] = shadow_variable_defs
-
-    expr_to_refs: dict[str, set[str]] = {
-        name: set() for name in the_data["noise-function"].keys()
-    }
-    for name, data in the_data["noise-expression"].items():
-        expr_to_refs[name] = parse_refs_with_local_expressions(data["expression"], data.get("local_expressions", {}))
-
-    @functools.lru_cache()
-    def resolve_refs(ref: str) -> tuple[str, ...]:
-        """get the unresolved refs recursively depended on by this set of refs."""
-        try:
-            indirect_refs = expr_to_refs[ref]
-        except KeyError:
-            return (ref,)
-        result = set()
-        for indirect_ref in indirect_refs:
-            result.update(resolve_refs(indirect_ref))
-        return tuple(sorted(result))
-
-    planet_to_natural_thing: dict[str, set[str]] = {
-        name: set() for name in the_data["planet"].keys()
-    }
-    for prototype_type in [
-        "fish",
-        "lightning-attractor",
-        "plant",
-        "simple-entity",
-        "tile",
-        "tree",
-        "unit-spawner",
-    ]:
-        for name, data in the_data[prototype_type].items():
-            if "autoplace" not in data:
-                assert name not in thing_to_planets, "planet autoplacing something without autoplace specification: " + name
-                continue
-            which_planet_clues = set()
-            if name in thing_to_planets:
-                # The planet calls out this thing.
-                which_planet_clues.add(tuple(sorted(thing_to_planets[name])))
-            if "control" in data:
-                # We should find corresponding controls in one of the planets.
-                example_control_variable = "control:{}:size".format(data["control"])
-                assert example_control_variable in control_variable_to_planets
-                which_planet_clues.add(tuple(sorted(control_variable_to_planets)))
-
-            refs = parse_refs_with_local_expressions(
-                data["autoplace"]["probability_expression"],
-                data["autoplace"].get("local_expressions", {}),
-            )
-            planet_variables = set(itertools.chain.from_iterable(resolve_refs(ref) for ref in refs))
-            for variable in planet_variables:
-                # The probability expression references control variables from some planets.
-                assert variable in control_variable_to_planets, variable
-                which_planet_clues.add(tuple(sorted(control_variable_to_planets[variable])))
-            if len(which_planet_clues) == 0:
-                # e.g. tree-plant has autoplace controls but doesn't actually auto place anywhere.
-                continue
-            #if len(which_planet_clues) > 1 and ("nauvis",) in which_planet_clues:
-            #    # Apparently everyone refernces Nauvis's moisture functions and stuff, which is just ok and ignored??
-            #    which_planet_clues.remove(("nauvis",))
-            assert len(which_planet_clues) == 1, "unclear where this autoplaces: {} -> {}".format(name, repr(which_planet_clues))
-            [which_planets] = which_planet_clues
-            for planet_name in which_planets:
-                planet_things = planet_to_natural_thing[planet_name]
-                assert name not in planet_things, "name collision: " + name
-                planet_things.add(name)
-
-    # TODO: territory_settings.
-    import pdb; pdb.set_trace()
-    return {
-        prototype_type: prototype_data for prototype_type, prototype_data in the_data.items()
-        if prototype_type not in (
-            "noise-expression",
-            "noise-function",
-            "projectile",
-        )
-    }
-
-import re
-token_re = re.compile(
-    # Reference: https://lua-api.factorio.com/latest/types/NoiseExpression.html
-    r'(?P<Whitespace>[ \n\r\t]+)|'
-    r'(?P<Identifier>[a-zA-Z_][a-zA-Z0-9_:]*)|'
-    r'(?P<Number>0x[0-9a-f]+|([0-9]+\.?[0-9]*|\.[0-9]+)(e-?[0-9]+)?)|'
-    r'''(?P<String>"[^"]*"|'[^']*')|'''
-    r'(?P<Operator>==|~=|!=|%%|<=|>=|[(){}=,^*/%+<>&~|-])|'
-    r'(?P<Invalid>.)'
-)
-noise_expression_builtins = {
-    # Reference: https://lua-api.factorio.com/latest/auxiliary/noise-expressions.html
-    # Built-in variables
-    "x",
-    "y",
-    # Built-in constants
-    "true",
-    "false",
-    "e",
-    "pi",
-    "inf",
-    "map_seed",
-    "map_seed_small",
-    "map_seed_normalized",
-    "map_width",
-    "map_height",
-    "starting_area_radius",
-    "cliff_elevation_0",
-    "cliff_elevation_interval",
-    "cliff_smoothing",
-    "cliff_richness",
-    "starting_positions",
-    "starting_lake_positions",
-    "peaceful_mode",
-    "no_enemies_mode",
-    "control:moisture:frequency",
-    "control:moisture:bias",
-    "control:aux:frequency",
-    "control:aux:bias",
-    "control:temperature:frequency",
-    "control:temperature:bias",
-    # Built-in functions
-    "abs",
-    "atan2",
-    "basis_noise",
-    "ceil",
-    "clamp",
-    "cos",
-    "distance_from_nearest_point",
-    "distance_from_nearest_point_x",
-    "distance_from_nearest_point_y",
-    "expression_in_range",
-    "floor",
-    "if",
-    "log2",
-    "max",
-    "min",
-    "multisample",
-    "multioctave_noise",
-    "noise_layer_id",
-    "pow",
-    "pow_precise",
-    "quick_multioctave_noise",
-    "random_penalty",
-    "ridge",
-    "sin",
-    "spot_noise",
-    "sqrt",
-    "terrace",
-    #"var", # Handled specially.
-    "variable_persistence_multioctave_noise",
-    "voronoi_spot_noise",
-    "voronoi_facet_noise",
-    "voronoi_pyramid_noise",
-    "voronoi_cell_id",
-}
-def parse_refs(expr: str|bool|int) -> set[str]:
-    if type(expr) != str: return set()
-    refs = []
-    var_function_state = 0
-    for match in token_re.finditer(expr):
-        if match.group("Whitespace"): continue
-        if match.group("Invalid"):
-            import pdb; pdb.set_trace()
-            assert False, "invalid token in expr: {}: {}".format(repr(match.group()), repr(expr))
-        if var_function_state == 0:
-            if match.group("Identifier") == "var":
-                var_function_state = 1
-            elif match.group("Identifier"):
-                refs.append(match.group("Identifier"))
-            elif match.group("Operator") == "=":
-                # We just thought a parameter name was a ref. Undo.
-                refs.pop()
-        elif var_function_state == 1:
-            assert match.group("Operator") == "(", "expected var to be followed by ("
-            var_function_state = 2
-        elif var_function_state == 2:
-            assert match.group("String"), "expected var( to be followed by string"
-            refs.append(match.group("String")[1:-1])
-            var_function_state = 3
-        elif var_function_state == 3:
-            assert match.group("Operator") == ")", "expected var('string' to be followed by )"
-            var_function_state = 0
-    return set(refs) - noise_expression_builtins
-
-assert parse_refs("distance_from_nearest_point{x = x, y = y, points = starting_positions}") == set()
-assert parse_refs("clamp(x, -1, 1)") == set()
-assert parse_refs("clamp(sea_level_temperature + var('control:temperature:bias') + quick_multioctave_noise{x = x,y = y,seed0 = map_seed,seed1 = 5,octaves = 4,input_scale = var('control:temperature:frequency') / 32,output_scale = 1/20,offset_x = 40000 / var('control:temperature:frequency'),octave_output_scale_multiplier = 3,octave_input_scale_multiplier = 1/3},-20, 50)") == {"sea_level_temperature"}
-
-def parse_refs_with_local_expressions(main_expr: str, local_expressions: dict[str, str]) -> set[str]:
-    local_expr_to_refs: dict[str, set[str]] = {
-        local_name: parse_refs(expr)
-        for local_name, expr in local_expressions.items()
-    }
-    return set(itertools.chain(
-        parse_refs(main_expr),
-        *local_expr_to_refs.values(),
-    )) - local_expr_to_refs.keys()
-
-    
 
 # These are the properties we care about in the randomizer logic.
 Base = {
     "minable": {
         "results": [{"name": str}],
         "result": str,
+        "required_fluid": str,
     },
     # Does anything power this machine?
     "energy_source": {
@@ -385,17 +173,20 @@ Base = {
         "fuel_categories": [str], # for type=burner
         # TODO: can't figure out how to get useful information out of type=heat.
     },
+    "burner": {
+        # Some machines (e.g. fusion-reactor) specify an additional energy source with this field.
+        "fuel_categories": [str],
+    },
     # Steel furances cannot be build on space platforms, for example.
     "surface_conditions": [{
         "property": str,
         "min": float,
         "max": float,
     }],
+    "heating_energy": str,
     # Several entities and tiles get autoplaced in various ways. This is one of the ways.
     "autoplace": {
         "control": str,
-        "probability_expression": object,
-        "local_expressions": object,
         "tile_restriction": [str],
     },
     # If either of these are true, we probably don't care about this.
@@ -421,6 +212,16 @@ Vehicle = {**Base,
     "guns": [str],
 }
 
+Item = {**Base,
+    "place_result": str,
+    "place_as_tile": {"result": str},
+    "plant_result": str,
+    "fuel_category": str,
+    "burnt_result": str,
+    "spoil_ticks": int,
+    "spoil_result": str,
+}
+
 keep_props = {
     "accumulator": {str: Base},
     "agricultural-tower": {str: Base},
@@ -435,6 +236,8 @@ keep_props = {
     "ammo-turret": {str: {**Base,
         "attack_parameters": {"ammo_category": str},
     }},
+    # This is never logically relevant, and it's a little special. Descope for now:
+    #"artillery-wagon": {str: Vehicle},
     "assembling-machine": {str: CraftingMachine},
     "asteroid": {str: {
         "dying_trigger_effect": [{
@@ -454,6 +257,7 @@ keep_props = {
     "boiler": {str: {**Base,
         "target_temperature": float,
     }},
+    "capsule": {str: Item},
     "capture-robot": {str: {}},
     "car": {str: Vehicle},
     "cargo-landing-pad": {str: {}},
@@ -476,16 +280,9 @@ keep_props = {
     "gun": {str: {**Base,
         "attack_parameters": {"ammo_category": str},
     }},
-    "heat-pipe": {str: {}},
-    "item": {str: {**Base,
-        "place_result": str,
-        "place_as_tile": {"result": str},
-        "plant_result": str,
-        "fuel_category": str,
-        "burnt_result": str,
-        "spoil_ticks": int,
-        "spoil_result": str,
-    }},
+    "heat-pipe": {str: Base},
+    "item": {str: Item},
+    "item-with-entity-data": {str: Item},
     "lab": {str: {**Base,
         "inputs": [str],
     }},
@@ -498,18 +295,11 @@ keep_props = {
         "resource_categories": [str],
         "input_fluid_box": {}, # Burner mining drill cannot mine uranium.
     }},
-    "noise-expression": {str: {
-        "expression": object,
-        "local_expressions": object,
-    }},
-    "noise-function": {str: {}},
     "offshore-pump": {str: Base},
     "pipe": {str: Base},
     "pipe-to-ground": {str: Base},
     "planet": {str: {**SpaceLocation,
         "map_gen_settings": {
-            # In addition to a tile/entity's own .autoplace spec, this also matters for placing entities somehow.
-            "property_expression_names": {str: str},
             "autoplace_settings": {
                 "tile": {"settings": {str: {}}},
                 "entity": {"settings": {str: {}}},
@@ -535,6 +325,7 @@ keep_props = {
     }},
     "reactor": {str: Base},
     "recipe": {str: {**Base,
+        "enabled": bool,
         "category": str,
         "ingredients": [{
             "name": str,
@@ -552,9 +343,12 @@ keep_props = {
             "extra_count_fraction": float,
             "temperature": float,
         }],
+        "hide_from_player_crafting": bool,
     }},
     "repair-tool": {str: {}},
-    "resource": {str: {}},
+    "resource": {str: {**Base,
+        "category": str,
+    }},
     "roboport": {str: Base},
     "rocket-silo": {str: CraftingMachine},
     "segmented-unit": {str: {

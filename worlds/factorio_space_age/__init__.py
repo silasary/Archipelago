@@ -7,14 +7,10 @@ from worlds.AutoWorld import World, WebWorld
 
 from .settings import FactorioSettings
 from .Options import FactorioOptions, option_groups
-from .data.Logic import (
-    LogicOption,
-    compile_expr, instantiate_options,
-)
 from .data.generated_ids import (
     ap_item_name_to_id, ap_location_name_to_id,
 )
-# NOTE: avoid importing .data.generated2 and 3 until someone actually instantiates a Factorio apworld.
+# NOTE: avoid importing FactorioData and other large modules until someone actually instantiates a Factorio apworld.
 # This improves startup time for the launcher.
 
 
@@ -186,6 +182,7 @@ class Factorio(World):
             technology_name_to_progressive_group_name,
             unrandomized_technologies as base_unrandomized_technologies
         )
+        from .Logic import compile_expr
         player = self.player
 
         # Regions don't map well onto anything useful in Factorio, because all the AP Locations are globally unlocked research.
@@ -242,7 +239,6 @@ class Factorio(World):
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
-        import pdb; pdb.set_trace()
         self.logic_events = self.factorio_data.build_logic(
             bypass_technology_prerequisites=     self.options.technology_prerequisites.current_key == "removed",
             burner_mining_drill_is_good_enough=  not self.options.require_electric_mining_drill.value,
@@ -274,6 +270,7 @@ class Factorio(World):
             playing_without_energy_link_fulgora_is_good_enough=    not (el_enabled and el_logic and el_recipe == "fulgora"),
             allow_energy_link_to_satisfy_logic=  el_enabled and self.options.energy_link_satisfies_requirements,
         )
+        import pdb; pdb.set_trace()
 
         # TODO: self.options.progressive_technologies.current_key
 

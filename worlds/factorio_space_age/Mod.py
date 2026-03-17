@@ -13,7 +13,7 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
-from .data.Logic import energy_link_bridge_recipes
+from .data.ap_data import energy_link_bridge_recipes
 from .data.generated2 import (
     never_give_free_samples_from_recipes,
     progressive_technology_stacks, infinite_technologies,
@@ -302,7 +302,7 @@ def generate_mod(
         "death_link_setting": death_link_setting_name,
         "trap_evo_factor": options.evolution_trap_increase.value / 100,
         "energy_link_increment": 10_000_000 if options.energy_link.value else 0,
-        "energy_link_bridge_ingredients": energy_link_bridge_recipes["energy_link_recipe_" + options.energy_link_recipe.current_key],
+        "energy_link_bridge_ingredients": energy_link_bridge_recipes[options.energy_link_recipe.current_key],
         "energy_link_bridge_starts_unlocked": not options.energy_link_technology.value,
 
         "starting_items": options.starting_items.value,

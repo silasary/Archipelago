@@ -4,6 +4,8 @@
 factorio_base_id = 2 ** 17
 
 unrandomized_technologies = {
+    # These are critical at the start.
+    # The fill algorithm crumbles if you let it attempt to random a way out of the early game.
     "steam-power",
     "electronics",
     "automation-science-pack",
@@ -294,3 +296,18 @@ assert all(
     for progressive_group_name, stack in progressive_technology_stacks.items()
     for technology_name in stack
 ), "progressive technology listed in multiple stacks"
+
+energy_link_bridge_recipes = {
+    "early_game": [
+        dict(type="item", amount=50, name="iron-plate"),
+        dict(type="item", amount=50, name="copper-plate"),
+    ],
+    "mid_game": [
+        dict(type="item", amount=1, name="accumulator"),
+        dict(type="item", amount=1, name="radar"),
+    ],
+    "fulgora": [
+        dict(type="item", amount=10, name="supercapacitor"),
+        dict(type="item", amount=1,  name="radar"),
+    ],
+}

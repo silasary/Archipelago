@@ -1,68 +1,15 @@
 import itertools, typing
 from collections import Counter
-from enum import StrEnum
+
+# Type hints
+_AndExpr = typing.TypedDict("_AndExpr", {"and": list["Expr"]})
+_OrExpr  = typing.TypedDict("_OrExpr",  {"or":  list["Expr"]})
+Expr = str | _AndExpr | _OrExpr
 
 ALWAYS = "(always)"
 NEVER = "(never)"
 
-class LogicOption(StrEnum):
-    bypass_technology_prerequisites = "bypass_technology_prerequisites"
-    burner_mining_drill_is_good_enough = "burner_mining_drill_is_good_enough"
-    inserter_balancing_is_good_enough = "inserter_balancing_is_good_enough"
-    water_barrel_is_good_enough = "water_barrel_is_good_enough"
-    launching_metal_is_good_enough = "launching_metal_is_good_enough"
-    backwards_recycling_is_interesting = "backwards_recycling_is_interesting"
-    unbarreling_is_interesting = "unbarreling_is_interesting"
-    walls_to_destroy_medium_asteroids_is_good_enough = "walls_to_destroy_medium_asteroids_is_good_enough"
-    small_electric_pole_is_good_enough = "small_electric_pole_is_good_enough"
-    wait_hours_for_fish_to_spoil = "wait_hours_for_fish_to_spoil"
-    storing_seeds_is_good_eough = "storing_seeds_is_good_eough"
-    lightning_schmightning = "lightning_schmightning"
-    solar_panels_into_darkness = "solar_panels_into_darkness"
-    slow_inserter_is_good_enough = "slow_inserter_is_good_enough"
-    assembling_machine_1_is_good_enough = "assembling_machine_1_is_good_enough"
-    direct_pipes_is_good_enough = "direct_pipes_is_good_enough"
-    hand_building_is_good_enough = "hand_building_is_good_enough"
-    belt_logistics_is_good_enough = "belt_logistics_is_good_enough"
-    basic_asteroid_processing_is_good_enough = "basic_asteroid_processing_is_good_enough"
-    nuclear_heating_is_good_enough = "nuclear_heating_is_good_enough"
-
-    energy_link_recipe_early_game = "energy_link_recipe_early_game"
-    energy_link_recipe_mid_game = "energy_link_recipe_mid_game"
-    energy_link_recipe_fulgora = "energy_link_recipe_fulgora"
-    energy_link_unlocked_from_the_start = "energy_link_unlocked_from_the_start"
-    playing_without_energy_link_early_game_is_good_enough = "playing_without_energy_link_early_game_is_good_enough"
-    playing_without_energy_link_mid_game_is_good_enough = "playing_without_energy_link_mid_game_is_good_enough"
-    playing_without_energy_link_fulgora_is_good_enough = "playing_without_energy_link_fulgora_is_good_enough"
-    allow_energy_link_to_satisfy_logic = "allow_energy_link_to_satisfy_logic"
-fmt_option = lambda option: "Option {}".format(option.value)
-
-energy_link_bridge_recipes = {
-    LogicOption.energy_link_recipe_early_game: [
-        dict(type="item", amount=50, name="iron-plate"),
-        dict(type="item", amount=50, name="copper-plate"),
-    ],
-    LogicOption.energy_link_recipe_mid_game: [
-        dict(type="item", amount=1, name="accumulator"),
-        dict(type="item", amount=1, name="radar"),
-    ],
-    LogicOption.energy_link_recipe_fulgora: [
-        dict(type="item", amount=10, name="supercapacitor"),
-        dict(type="item", amount=1,  name="radar"),
-    ],
-}
-
-
-def instantiate_options(raw_logic_events, never_inline_events: set[str], never_delete_events: set[str], options_dict: dict[LogicOption, bool]):
-    assert set(LogicOption) == options_dict.keys(), repr(set(LogicOption) - options_dict.keys())
-    logic_events = {**raw_logic_events, **{
-        fmt_option(option): ALWAYS if value else NEVER
-        for option, value in options_dict.items()
-    }}
-    logic_events, _ = inline_exprs(logic_events, never_inline_events, never_delete_events)
-    return logic_events
-
-def inline_exprs(logic_events, never_inline_events, never_delete_events):
+def inline_exprs(logic_events: dict[str, Expr], never_inline_events: set[set], never_delete_events: set[set]) -> dict[str, Expr]:
     def visit_readonly(expr, fn):
         if type(expr) != dict:
             fn(expr)
@@ -116,7 +63,7 @@ def inline_exprs(logic_events, never_inline_events, never_delete_events):
 
     return logic_events, all_used_names
 
-def optimize_expr(expr):
+def optimize_expr(expr: Expr):
     def recurse(expr):
         if type(expr) != dict: return expr
         if "or" in expr:
