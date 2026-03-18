@@ -14,8 +14,8 @@ from ap_data import (
 )
 
 here = os.path.dirname(__file__)
-informative_input = os.path.join(here, "ap-dump.json")
-pruned_input = os.path.join(here, "ap-dump-pruned.json")
+informative_input = os.path.join(here, "ap-dump-full.json")
+pruned_input = os.path.join(here, "ap-dump.json")
 output_names_py = os.path.join(here, "generated_names.py")
 output_ids_py = os.path.join(here, "generated_ids.py")
 

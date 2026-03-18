@@ -103,7 +103,7 @@ class Factorio(World):
 
     def generate_early(self) -> None:
         import json
-        the_data = json.loads(read_local_path("data/ap-dump-pruned.json"))
+        the_data = json.loads(read_local_path("data/ap-dump.json"))
         from .FactorioData import FactorioData
         from .data.ap_data import (
             trap_names,
