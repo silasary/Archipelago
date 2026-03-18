@@ -1795,7 +1795,7 @@ def generate_yaml_templates(target_folder: typing.Union[str, "pathlib.Path"], ge
                 cleandoc=cleandoc,
             )
 
-            with open(os.path.join(target_folder, get_file_safe_name(game_name) + ".yaml"), "w", encoding="utf-8-sig") as f:
+            with open(os.path.join(target_folder, get_file_safe_name(game_name) + ".yaml"), "w", encoding="utf-8") as f:
                 f.write(res)
 
 

@@ -324,7 +324,7 @@ class FreeSampleExcludes(OptionSet):
     Fluids, barreling/unbarreling, and biter eggs are always excluded.
     """
     display_name = "Free Sample Blacklist"
-    default = {
+    default = [
         "automation-science-pack",
         "logistic-science-pack",
         "military-science-pack",
@@ -337,7 +337,7 @@ class FreeSampleExcludes(OptionSet):
         "electromagnetic-science-pack",
         "cryogenic-science-pack",
         "promethium-science-pack",
-    }
+    ]
     # This is validated in generate_early().
 
 @auto_group

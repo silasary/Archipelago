@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
 from .data.ap_data import (
-    energy_link_bridge_recipes,
     unrandomized_technologies,
     technology_name_to_progressive_group_name,
 )
@@ -93,13 +92,11 @@ class FactorioData:
         basic_asteroid_processing_is_good_enough: bool,
         nuclear_heating_is_good_enough: bool,
 
-        energy_link_recipe_early_game: bool,
-        energy_link_recipe_mid_game: bool,
-        energy_link_recipe_fulgora: bool,
-        energy_link_unlocked_from_the_start: bool,
-        playing_without_energy_link_early_game_is_good_enough: bool, # TODO: use an enum to avoid this redundancy.
-        playing_without_energy_link_mid_game_is_good_enough: bool,
-        playing_without_energy_link_fulgora_is_good_enough: bool,
+        any_other_planet_science: bool,
+
+        energy_link_bridge_recipe: dict | None,
+        energy_link_bridge_technology: bool,
+        energy_link_bridge_required_for: str | None,
         allow_energy_link_to_satisfy_logic: bool,
     ):
         the_data = self.the_data
@@ -787,7 +784,6 @@ class FactorioData:
         # Logic
         # =====
         logic_events = {}
-        never_delete_events: set[str] = set()
 
         # Thanks to an assertion above, we can conflate item names with machine names here for simplicity.
         fmt_discover_location = "Discover {}".format
@@ -1183,10 +1179,19 @@ class FactorioData:
             logic_events[fmt_unlock_research(technology_name)] = expr
             del expr # give me a NameError if i forget to assign to expr in this loop.
             all_technology_names.add(technology_name)
-        # EnergyLink technology
-        if True:
-            # This is (sometimes) an item, but never a location.
-            never_delete_events.add(fmt_unlock_research(names.ap_energy_link_bridge))
+        # EnergyLink technology, victory technologies.
+        ap_item_names = []
+        if energy_link_bridge_technology:
+            ap_item_names.append(names.ap_energy_link_bridge)
+        if any_other_planet_science:
+            ap_item_names.extend([
+                names.vulcanus_victory,
+                names.gleba_victory,
+                names.fulgora_victory,
+            ])
+        for technology_name in ap_item_names:
+            # Create what looks like technologies for these items in logic.
+            logic_events[fmt_unlock_research(technology_name)] = ALWAYS # Fake condition
 
         # Recipes
         for recipe_name, recipe in recipes.items():
@@ -1293,8 +1298,6 @@ class FactorioData:
                                 fmt_access_item(names.underground_belt),
                                 fmt_access_item(names.splitter),
                             ])
-                        if not playing_without_energy_link_early_game_is_good_enough:
-                            recipe_exprs.append(fmt_access_item(names.ap_energy_link_bridge))
                     if item_name == names.advanced_circuit and names.assembling_machine_2 in recipe.machines and fmt_automate_or_access is fmt_automate_item:
                         # Require faster machines to get through the blue science phase of the game.
                         if not slow_inserter_is_good_enough:
@@ -1304,9 +1307,6 @@ class FactorioData:
                     if recipe_name in (names.advanced_oil_processing, names.coal_liquefaction):
                         # You could probably do without this, but it sure is easier with fluid handling.
                         recipe_exprs.append(optionally_access_pumps_and_tanks)
-                    if item_name == names.chemical_science_pack and fmt_automate_or_access is fmt_automate_item:
-                        if not playing_without_energy_link_mid_game_is_good_enough:
-                            recipe_exprs.append(fmt_access_item(names.ap_energy_link_bridge))
                     if item_name in (names.production_science_pack, names.utility_science_pack) and fmt_automate_or_access is fmt_automate_item:
                         # Require construction robots to scale up your factory for purple/yellow science.
                         recipe_exprs.append(optionally_operate_construction_robots)
@@ -1322,38 +1322,30 @@ class FactorioData:
                                 fmt_access_item(names.heating_tower),
                                 fmt_access_item(names.recycler),
                             ]})
-                    if recipe_name == names.electromagnetic_science_pack and fmt_automate_or_access is fmt_automate_item:
-                        if not playing_without_energy_link_fulgora_is_good_enough:
-                            recipe_exprs.append(fmt_access_item(names.ap_energy_link_bridge))
                     if recipe_name in unbarreling_recipes:
                         if not unbarreling_is_interesting:
                             # Unbarreling is never a source of an item.
                             recipe_exprs.append(NEVER)
+                    if energy_link_bridge_required_for == item_name and fmt_automate_or_access is fmt_automate_item:
+                        recipe_exprs.append(fmt_access_item(names.ap_energy_link_bridge))
                     source_exprs.append({"and": recipe_exprs})
                 logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 
         # Access Archipelago EnergyLink Bridge
-        if energy_link_recipe_early_game:
-            energy_link_bridge_recipe = energy_link_bridge_recipes["early_game"]
-        elif energy_link_recipe_mid_game:
-            energy_link_bridge_recipe = energy_link_bridge_recipes["mid_game"]
-        elif energy_link_recipe_fulgora:
-            energy_link_bridge_recipe = energy_link_bridge_recipes["fulgora"]
-        else:
-            energy_link_bridge_recipe = None
         if energy_link_bridge_recipe != None:
             expr = {"and": [
                 # Craft it according to configurable recipe.
                 fmt_access_item(ingredient_data["name"]) for ingredient_data in energy_link_bridge_recipe
             ]}
-            if not energy_link_unlocked_from_the_start:
+            if energy_link_bridge_technology:
                 # Unlock the recipe.
                 expr["and"].append(fmt_unlock_research(names.ap_energy_link_bridge))
+            logic_events[fmt_access_item(names.ap_energy_link_bridge)] = expr
 
         # Optimize.
         logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
-        never_delete_events.update(all_technology_names)
-        never_inline_events = all_technology_names - unrandomized_technologies
+        never_delete_events: set[str] = all_technology_names | set(ap_item_names)
+        never_inline_events: set[str] = (all_technology_names | set(ap_item_names)) - unrandomized_technologies
 
         logic_events, all_used_names = inline_exprs(logic_events, never_inline_events, never_delete_events)
         advancement_technologies = set(name for name in all_used_names if " " not in name)
