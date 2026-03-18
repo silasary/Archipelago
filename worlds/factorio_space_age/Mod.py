@@ -13,12 +13,14 @@ import jinja2
 import Utils
 import worlds.Files
 from . import Options
-from .data.ap_data import energy_link_bridge_recipes
-from .data.generated2 import (
+from .data.ap_data import (
+    energy_link_bridge_recipes,
+    progressive_technology_stacks, technology_name_to_progressive_group_name,
+)
+from .data.json_dumps_but_smaller import json_dumps
+from .data.ap_data import (
     never_give_free_samples_from_recipes,
-    progressive_technology_stacks, infinite_technologies,
-    technology_name_to_progressive_group_name,
-    technology_props_lua,
+    infinite_technology_names,
 )
 
 if TYPE_CHECKING:
@@ -129,6 +131,7 @@ def generate_mod(
     multiworld: "Multiworld",
     logic_events: dict,
     infinite_technology_shuffle: dict[str, str] | None,
+    technology_props_lua: dict[str, dict],
     output_directory: str,
 ):
 
@@ -165,7 +168,7 @@ def generate_mod(
     new_technology_data: dict[str, dict] = {}
     for location in world_locations:
         technology_name = location.name.replace("_other_location", "_location").replace("_location", "")
-        if technology_name in infinite_technologies:
+        if technology_name in infinite_technology_names:
             if options.infinite_technologies.current_key == "removed":
                 continue
             elif options.infinite_technologies.current_key == "vanilla":
@@ -341,8 +344,8 @@ def generate_mod(
         "graphics/icons/ap_unimportant.png",
     ]:
         def f(
-            arcpath=base_arc_path+"/"+name,
-            file_path="data/mod/" + name,
+            arcpath=versioned_mod_name+"/"+path,
+            file_path="data/mod/" + path,
         ):
             return arcpath, read_local_path(file_path)
         mod.writing_tasks.append(f)
@@ -357,7 +360,7 @@ def generate_mod(
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/info.json",
                                       json.dumps(info, indent=4) + "\n"))
     mod.writing_tasks.append(lambda: ("logic.json",
-                                      json.dumps(logic_events, indent=2, sort_keys=True) + "\n"))
+                                      json_dumps(logic_events) + "\n"))
 
     # write the mod file
     mod.write()

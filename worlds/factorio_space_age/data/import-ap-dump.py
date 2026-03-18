@@ -236,6 +236,7 @@ keep_props = {
     "ammo-turret": {str: {**Base,
         "attack_parameters": {"ammo_category": str},
     }},
+    "armor": {str: Item},
     # This is never logically relevant, and it's a little special. Descope for now:
     #"artillery-wagon": {str: Vehicle},
     "assembling-machine": {str: CraftingMachine},
@@ -286,7 +287,9 @@ keep_props = {
     "lab": {str: {**Base,
         "inputs": [str],
     }},
-    "lightning-attractor": {str: Base},
+    "lightning-attractor": {str: {**Base,
+        "efficiency": float,
+    }},
     "logistic-container": {str: {**Base,
         "logistic_mode": str,
     }},
@@ -295,6 +298,7 @@ keep_props = {
         "resource_categories": [str],
         "input_fluid_box": {}, # Burner mining drill cannot mine uranium.
     }},
+    "module": {str: Item},
     "offshore-pump": {str: Base},
     "pipe": {str: Base},
     "pipe-to-ground": {str: Base},
@@ -323,6 +327,7 @@ keep_props = {
     "quality": {str: {**Base,
         "next": str,
     }},
+    "rail-planner": {str: Item}, # rail and rail-ramp are in here.
     "reactor": {str: Base},
     "recipe": {str: {**Base,
         "enabled": bool,
@@ -361,6 +366,7 @@ keep_props = {
         "to": str,
     }},
     "space-location": {str: SpaceLocation},
+    "space-platform-starter-pack": {str: Item},
     "spider-vehicle": {str: Vehicle},
     "storage-tank": {str: Base},
     "surface-property": {str: {
@@ -389,6 +395,7 @@ keep_props = {
     "tile": {str: {**Base,
         "fluid": str,
     }},
+    "tool": {str: Item},
     "tree": {str: Base},
     "unit-spawner": {str: {**Base,
         "loot": [{"item": str}],

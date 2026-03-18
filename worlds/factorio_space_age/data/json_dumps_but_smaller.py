@@ -6,6 +6,11 @@
 # Which looks better than putting those single digits each on their own line.
 import io, json
 
+def json_dumps(obj):
+    f = io.StringIO()
+    json_dump(obj, f)
+    return f.getvalue()
+
 def json_dump(obj, f):
     def indented_dict(obj, indentation):
         f.write("{")
@@ -45,6 +50,17 @@ def json_dump(obj, f):
                 f.write(json.dumps(obj))
             elif len(obj) == 2 and all(is_short(v) for v in obj.values()):
                 f.write(json.dumps(obj))
+            elif len(obj) == 1:
+                # {"k": {"k": {"k": []}}}
+                # {"k": [
+                #   ...
+                # ]}
+                f.write("{")
+                [(k, v)] = obj.items()
+                f.write(json.dumps(k))
+                f.write(": ")
+                recurse(v, indentation) # No extra indent.
+                f.write("}")
             else:
                 indented_dict(obj, indentation)
         elif type(obj) == list:
@@ -54,6 +70,14 @@ def json_dump(obj, f):
                 f.write(json.dumps(obj))
             elif len(obj) <= 4 and all(is_short(v) for v in obj):
                 f.write(json.dumps(obj))
+            elif len(obj) == 1:
+                # [{"k": [{"k": []}]}]
+                # [{"k": [
+                #   ...
+                # ]}]
+                f.write("[")
+                recurse(obj[0], indentation) # No extra indent.
+                f.write("]")
             else:
                 indented_list(obj, indentation)
         elif is_primitive(obj):

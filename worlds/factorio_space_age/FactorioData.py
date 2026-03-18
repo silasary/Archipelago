@@ -40,11 +40,28 @@ class FactorioData:
             name for name, prototype in self.the_data["technology"].items()
             if len(prototype.get("effects", [])) == 0
         }
+        self.combined_items: dict[str, dict] = {
+            prototype_name: prototype_data for prototype_name, prototype_data in itertools.chain(
+                the_data["ammo"].items(),
+                the_data["armor"].items(),
+                the_data["capsule"].items(),
+                the_data["fluid"].items(),
+                the_data["gun"].items(),
+                the_data["item"].items(),
+                the_data["item-with-entity-data"].items(),
+                the_data["module"].items(),
+                the_data["rail-planner"].items(),
+                the_data["repair-tool"].items(),
+                the_data["space-platform-starter-pack"].items(),
+                the_data["tool"].items(),
+            )
+            if not prototype_data.get("parameter", False)
+        }
 
     def unrecognized_recipe_names(self, possible_names: set[str]) -> set[str]:
         return self._unrecognized_names(possible_names, self.the_data["recipe"])
     def unrecognized_item_names(self, possible_names: set[str]) -> set[str]:
-        return self._unrecognized_names(possible_names, self.the_data["item"])
+        return self._unrecognized_names(possible_names, self.combined_items)
     def _unrecognized_names(self, possible_names: set[str], prototypes: dict[str, dict]) -> set[str]:
         bad_names = possible_names - prototypes.keys()
         for name in (possible_names & prototypes.keys()):
@@ -86,6 +103,7 @@ class FactorioData:
         allow_energy_link_to_satisfy_logic: bool,
     ):
         the_data = self.the_data
+        combined_items = self.combined_items
         # Throughout this code, we assume there's no ambiguity between item and fluid names. Assert that assumption.
         fluid_item_name_collisions = {
             name for name in the_data["fluid"].keys() & (
@@ -96,16 +114,6 @@ class FactorioData:
             if not the_data["fluid"][name].get("parameter", False)
         }
         assert len(fluid_item_name_collisions) == 0, "so it's come to this, has it. we need to add 'type' fields to fluid and item references due to name collisions. :NotLikeThis: " + repr(fluid_item_name_collisions)
-        combined_items: dict[str, dict] = {
-            prototype_name: prototype_data for prototype_name, prototype_data in itertools.chain(
-                the_data["capsule"].items(),
-                the_data["fluid"].items(),
-                the_data["item"].items(),
-                the_data["item-with-entity-data"].items(),
-            )
-            if not (prototype_data.get("hidden", False) or prototype_data.get("parameter", False))
-        }
-
 
         # These will be used for logic later.
         item_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
@@ -161,6 +169,7 @@ class FactorioData:
             the_data["planet"].items(),
             the_data["space-location"].items(),
         ):
+            if space_location_data.get("hidden", False): continue
             unlock_names = {location_name}
             if "surface_properties" in space_location_data:
                 # There is a surface here.
@@ -318,7 +327,7 @@ class FactorioData:
         # Plants: yumako-tree, jellystem, tree-plant.
         plant_to_seed = {
             prototype_data["plant_result"]: prototype_name
-            for prototype_name, prototype_data in the_data["item"].items()
+            for prototype_name, prototype_data in combined_items.items()
             if "plant_result" in prototype_data
         }
         for prototype_name, prototype_data in the_data["plant"].items():
@@ -517,6 +526,9 @@ class FactorioData:
                 if prototype_type == "agricultural-tower":
                     automated_planting_machines.add(prototype_name)
                 if prototype_type == "lightning-attractor":
+                    if prototype_data["efficiency"] == 0:
+                        # fulgoran-ruin-attractor doesn't count.
+                        continue
                     lightning_harnessing_machines.add(prototype_name)
                 if prototype_type == "asteroid-collector":
                     asteroid_collecting_machines.add(prototype_name)
@@ -584,7 +596,6 @@ class FactorioData:
         recipes: dict[str, Recipe] = {}
         starting_recipes: set[str] = set()
         unbarreling_recipes: set[str] = set()
-        never_give_free_samples_from_recipes: set[str] = set() # TODO: unused.
         for recipe_name, recipe_data in the_data["recipe"].items():
             if recipe_data.get("parameter", False): continue
             energy = recipe_data.get("energy_required", 0.5) # crafting time in seconds.
@@ -650,9 +661,6 @@ class FactorioData:
 
             if recipe_data.get("enabled", True):
                 starting_recipes.add(recipe_name)
-            if recipe_data.get("hide_from_player_crafting", False):
-                # Exclude barreling/unbarreling, rocket part, and biter egg from free samples.
-                never_give_free_samples_from_recipes.add(recipe_name)
 
         # Spoiling is like a recipe.
         for item_name, item_data in combined_items.items():
@@ -691,6 +699,9 @@ class FactorioData:
                 machines={machine_name}, locations=None,
             )
             starting_recipes.add(recipe_name)
+
+        # TODO: pseduo recipes for burnt_result (depleted_uranium_fuel_cell)
+        # TODO: pseudo recipes for fusion_reactor producing fusion_plasma.
 
         product_to_recipes: dict[str, set[str]] = defaultdict(set)
         for recipe_name, recipe in recipes.items():
@@ -775,7 +786,7 @@ class FactorioData:
         # =====
         # Logic
         # =====
-        raw_logic_events = {}
+        logic_events = {}
         never_delete_events: set[str] = set()
 
         # Thanks to an assertion above, we can conflate item names with machine names here for simplicity.
@@ -844,7 +855,7 @@ class FactorioData:
         # Reach locations.
         for space_location in space_locations.values():
             # Inbound connections
-            raw_logic_events[fmt_reach_location(space_location.name)] = {"and": [
+            logic_events[fmt_reach_location(space_location.name)] = {"and": [
                 {"and": [fmt_discover_location(name) for name in space_location.unlock_names]},
                 {"or": [
                     *[{"and": [
@@ -866,10 +877,10 @@ class FactorioData:
             ]}
         # Discover them too.
         for name, techs in space_location_to_unlocking_technologies.items():
-            raw_logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
+            logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
         # Start on Nauvis
-        raw_logic_events[fmt_discover_location(names.nauvis)] = ALWAYS
-        raw_logic_events[fmt_reach_location(names.nauvis)] = ALWAYS
+        logic_events[fmt_discover_location(names.nauvis)] = ALWAYS
+        logic_events[fmt_reach_location(names.nauvis)] = ALWAYS
 
         # Capabilities.
         for capability in Capability:
@@ -1007,11 +1018,9 @@ class FactorioData:
                     {"or": [fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]]},
                     {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
                 ]}
-            elif capability == Capability.research_any_other_planet_science:
-                continue # Handled below, after technology.
             else: assert False, "forgot a capability: " + repr(capability)
 
-            raw_logic_events[fmt_capability(capability)] = expr
+            logic_events[fmt_capability(capability)] = expr
             del expr # give me a NameError if i forget to assign to expr in this loop.
 
         # Machines
@@ -1044,7 +1053,7 @@ class FactorioData:
             ):
                 # Space requires special electricity.
                 expr["and"].append(fmt_capability(Capability.generate_electricity_in_space))
-            raw_logic_events[fmt_operate_machine(machine_name)] = expr
+            logic_events[fmt_operate_machine(machine_name)] = expr
 
         # Power
         for power_type in PowerType:
@@ -1078,7 +1087,7 @@ class FactorioData:
                     can_get_water_in_space,
                 ]}
             else: assert False, "forgot a PowerType: " + repr(power_type)
-            raw_logic_events[fmt_supply_power(power_type)] = expr
+            logic_events[fmt_supply_power(power_type)] = expr
             del expr # give me a NameError if i forget to assign to expr in this loop.
 
         # Research
@@ -1171,42 +1180,36 @@ class FactorioData:
                     ]},
                 ]}
 
-            raw_logic_events[fmt_unlock_research(technology_name)] = expr
+            logic_events[fmt_unlock_research(technology_name)] = expr
             del expr # give me a NameError if i forget to assign to expr in this loop.
             all_technology_names.add(technology_name)
         # EnergyLink technology
         if True:
             # This is (sometimes) an item, but never a location.
             never_delete_events.add(fmt_unlock_research(names.ap_energy_link_bridge))
-        # Define Capability.research_any_other_planet_science by manually inlining a few example researches.
-        if True:
-            raw_logic_events[fmt_capability(Capability.research_any_other_planet_science)] = {"or": [
-                raw_logic_events[fmt_unlock_research(names.asteroid_reprocessing)], # metallurgic
-                raw_logic_events[fmt_unlock_research(names.carbon_fiber)],          # aggricultural
-                raw_logic_events[fmt_unlock_research(names.lightning_collector)],   # electromagnetic
-            ]}
-            never_delete_events.add(fmt_capability(Capability.research_any_other_planet_science))
 
         # Recipes
         for recipe_name, recipe in recipes.items():
             if recipe_name.endswith(pseudo_recipe_suffixes): continue # not a real recipe.
             if recipe_name in starting_recipes:
                 expr = ALWAYS
+            elif recipe_name == names.iron_stick:
+                # Prevent circuit-network from getting flagged as advancmenet because it could be a provider of the iron stick recipe for concrete.
+                # Really every recipe that needs sticks also comes with the sticks, so just remove this recipe from logical consideration.
+                # TODO: maybe just do more inlining and then the optimizer would solve this?
+                expr = ALWAYS
             else:
                 expr = {"or": [
                     fmt_unlock_research(technology_name)
                     for technology_name in recipe_to_unlocking_technologies.get(recipe_name, [])
                 ]}
-            raw_logic_events[fmt_learn_recipe(recipe_name)] = expr
+            logic_events[fmt_learn_recipe(recipe_name)] = expr
 
         # Items
         for item_name, prototype_data in itertools.chain(
-            the_data["item"].items(),
-            the_data["fluid"].items(),
+            combined_items.items(),
             [(STEAM_500C, {})],
         ):
-            if prototype_data.get("hidden", False) or prototype_data.get("parameter", False): continue
-
             for fmt_automate_or_access in [fmt_access_item, fmt_automate_item]:
                 source_exprs = []
                 # Foraging sources only count for accessing the item, not for automating it.
@@ -1327,7 +1330,7 @@ class FactorioData:
                             # Unbarreling is never a source of an item.
                             recipe_exprs.append(NEVER)
                     source_exprs.append({"and": recipe_exprs})
-                raw_logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
+                logic_events[fmt_automate_or_access(item_name)] = {"or": source_exprs}
 
         # Access Archipelago EnergyLink Bridge
         if energy_link_recipe_early_game:
@@ -1348,11 +1351,11 @@ class FactorioData:
                 expr["and"].append(fmt_unlock_research(names.ap_energy_link_bridge))
 
         # Optimize.
-        raw_logic_events = {k: optimize_expr(v) for k, v in raw_logic_events.items()}
+        logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
         never_delete_events.update(all_technology_names)
         never_inline_events = all_technology_names - unrandomized_technologies
 
-        raw_logic_events, all_used_names = inline_exprs(raw_logic_events, never_inline_events, never_delete_events)
+        logic_events, all_used_names = inline_exprs(logic_events, never_inline_events, never_delete_events)
         advancement_technologies = set(name for name in all_used_names if " " not in name)
         advancement_technologies.remove(ALWAYS)
         # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
@@ -1363,7 +1366,7 @@ class FactorioData:
             if technology_name in technology_name_to_progressive_group_name
         )
 
-        return raw_logic_events
+        return logic_events, advancement_technologies, technology_props_lua
 
 
 def parse_level_from_technology_prototype_name(prototype_name):
@@ -1401,7 +1404,6 @@ class Capability(IntFlag):
     destroy_medium_asteroids           = 1<<15 # gun turret
     destroy_big_asteroids              = 1<<16 # rocket turret
     destroy_huge_asteroids             = 1<<17 # railgun turret
-    research_any_other_planet_science  = 1<<18 # sometimes a goal TODO: update this.
 
 
 class PowerType(IntFlag):

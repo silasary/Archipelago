@@ -32,12 +32,7 @@ def inline_exprs(logic_events: dict[str, Expr], never_inline_events: set[set], n
         for expr in logic_events.values():
             visit_readonly(expr, all_used_names.add)
         unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER} - never_delete_events
-        if len(unreachable_events) > 0:
-            # e.g. 'Automate infinity-chest', 'Access pistol'
-            logic_events = dict(
-                **{event_name: NEVER for event_name in unreachable_events},
-                **logic_events,
-            )
+        assert len(unreachable_events) == 0, "logic events not defined: " + repr(unreachable_events)
 
         unused_events = logic_events.keys() - all_used_names - never_delete_events
         logic_events = {k: v for k, v in logic_events.items() if k not in unused_events}

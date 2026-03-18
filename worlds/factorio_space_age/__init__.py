@@ -77,6 +77,7 @@ class Factorio(World):
 
     locations: list[FactorioLocation]
     logic_events: dict
+    advancement_technologies: set[str]
     infinite_technology_shuffle: dict[str, str] | None = None
     empty_technologies: list[str]
     filler_weights_argv: tuple[list[str], list[int]]
@@ -96,6 +97,7 @@ class Factorio(World):
             multiworld=self.multiworld,
             logic_events=self.logic_events,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
+            technology_props_lua=self.technology_props_lua,
             output_directory=output_directory,
         )
 
@@ -103,6 +105,11 @@ class Factorio(World):
         import json
         the_data = json.loads(read_local_path("data/ap-dump-pruned.json"))
         from .FactorioData import FactorioData
+        from .data.ap_data import (
+            trap_names,
+            progressive_technology_stacks,
+        )
+        from .data import generated_names as names
         self.factorio_data = FactorioData(the_data)
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:
@@ -118,45 +125,60 @@ class Factorio(World):
         else: assert self.options.infinite_technologies.current_key in ("removed", "vanilla")
 
         filler_weights = {
-            "": self.options.filler_nothing_weight.value,
-            "progressive-artillery-shell-damage"             : self.options.filler_artillery_shell_damage_weight.value,
-            "progressive-artillery-shell-range"              : self.options.filler_artillery_shell_range_weight.value,
-            "progressive-artillery-shell-speed"              : self.options.filler_artillery_shell_speed_weight.value,
-            "progressive-asteroid-productivity"              : self.options.filler_asteroid_productivity_weight.value,
-            "progressive-electric-weapons-damage"            : self.options.filler_electric_weapons_damage_weight.value,
-            "progressive-follower-robot-count"               : self.options.filler_follower_robot_count_weight.value,
-            "progressive-health"                             : self.options.filler_health_weight.value,
-            "progressive-laser-weapons-damage"               : self.options.filler_laser_weapons_damage_weight.value,
-            "progressive-low-density-structure-productivity" : self.options.filler_low_density_structure_productivity_weight.value,
-            "progressive-mining-productivity"                : self.options.filler_mining_productivity_weight.value,
-            "progressive-physical-projectile-damage"         : self.options.filler_physical_projectile_damage_weight.value,
-            "progressive-plastic-bar-productivity"           : self.options.filler_plastic_bar_productivity_weight.value,
-            "progressive-processing-unit-productivity"       : self.options.filler_processing_unit_productivity_weight.value,
-            "progressive-railgun-damage"                     : self.options.filler_railgun_damage_weight.value,
-            "progressive-railgun-shooting-speed"             : self.options.filler_railgun_shooting_speed_weight.value,
-            "progressive-refined-flammables"                 : self.options.filler_refined_flammables_weight.value,
-            "progressive-research-productivity"              : self.options.filler_research_productivity_weight.value,
-            "progressive-rocket-fuel-productivity"           : self.options.filler_rocket_fuel_productivity_weight.value,
-            "progressive-rocket-part-productivity"           : self.options.filler_rocket_part_productivity_weight.value,
-            "progressive-scrap-recycling-productivity"       : self.options.filler_scrap_recycling_productivity_weight.value,
-            "progressive-steel-plate-productivity"           : self.options.filler_steel_plate_productivity_weight.value,
-            "progressive-stronger-explosives"                : self.options.filler_stronger_explosives_weight.value,
-            "progressive-worker-robots-speed"                : self.options.filler_worker_robots_speed_weight.value,
-            "Artillery Trap"            : self.options.artillery_trap_weight.value,
-            "Atomic Cliff Remover Trap" : self.options.atomic_cliff_remover_trap_weight.value,
-            "Atomic Rocket Trap"        : self.options.atomic_rocket_trap_weight.value,
-            "Attack Trap"               : self.options.attack_trap_weight.value,
-            "Cluster Grenade Trap"      : self.options.cluster_grenade_trap_weight.value,
-            "Evolution Trap"            : self.options.evolution_trap_weight.value,
-            "Grenade Trap"              : self.options.grenade_trap_weight.value,
-            "Inventory Spill Trap"      : self.options.inventory_spill_trap_weight.value,
-            "Teleport Trap"             : self.options.teleport_trap_weight.value,
+            names.artillery_shell_damage:             self.options.filler_artillery_shell_damage_weight.value,
+            names.artillery_shell_range:              self.options.filler_artillery_shell_range_weight.value,
+            names.artillery_shell_speed:              self.options.filler_artillery_shell_speed_weight.value,
+            names.asteroid_productivity:              self.options.filler_asteroid_productivity_weight.value,
+            names.electric_weapons_damage:            self.options.filler_electric_weapons_damage_weight.value,
+            names.follower_robot_count:               self.options.filler_follower_robot_count_weight.value,
+            names.health:                             self.options.filler_health_weight.value,
+            names.laser_weapons_damage:               self.options.filler_laser_weapons_damage_weight.value,
+            names.low_density_structure_productivity: self.options.filler_low_density_structure_productivity_weight.value,
+            names.mining_productivity:                self.options.filler_mining_productivity_weight.value,
+            names.physical_projectile_damage:         self.options.filler_physical_projectile_damage_weight.value,
+            names.plastic_bar_productivity:           self.options.filler_plastic_bar_productivity_weight.value,
+            names.processing_unit_productivity:       self.options.filler_processing_unit_productivity_weight.value,
+            names.railgun_damage:                     self.options.filler_railgun_damage_weight.value,
+            names.railgun_shooting_speed:             self.options.filler_railgun_shooting_speed_weight.value,
+            names.refined_flammables:                 self.options.filler_refined_flammables_weight.value,
+            names.research_productivity:              self.options.filler_research_productivity_weight.value,
+            names.rocket_fuel_productivity:           self.options.filler_rocket_fuel_productivity_weight.value,
+            names.rocket_part_productivity:           self.options.filler_rocket_part_productivity_weight.value,
+            names.scrap_recycling_productivity:       self.options.filler_scrap_recycling_productivity_weight.value,
+            names.steel_plate_productivity:           self.options.filler_steel_plate_productivity_weight.value,
+            names.stronger_explosives:                self.options.filler_stronger_explosives_weight.value,
+            names.worker_robots_speed:                self.options.filler_worker_robots_speed_weight.value,
         }
+        assert self.factorio_data.infinite_technology_names == {
+            progressive_technology_stacks[progressive_technology_name][-1]
+            for progressive_technology_name in filler_weights.keys()
+        }, "need to sync list of infinite technologies"
+        trap_filler_weights = {
+            names.artillery_trap:            self.options.artillery_trap_weight.value,
+            names.atomic_cliff_remover_trap: self.options.atomic_cliff_remover_trap_weight.value,
+            names.atomic_rocket_trap:        self.options.atomic_rocket_trap_weight.value,
+            names.attack_trap:               self.options.attack_trap_weight.value,
+            names.cluster_grenade_trap:      self.options.cluster_grenade_trap_weight.value,
+            names.evolution_trap:            self.options.evolution_trap_weight.value,
+            names.grenade_trap:              self.options.grenade_trap_weight.value,
+            names.inventory_spill_trap:      self.options.inventory_spill_trap_weight.value,
+            names.teleport_trap:             self.options.teleport_trap_weight.value,
+        }
+        assert set(trap_names) == trap_filler_weights.keys(), "need to sync list of trap names"
+        filler_weights.update(trap_filler_weights)
+        filler_weights[""] = self.options.filler_nothing_weight.value
+
         if sum(filler_weights.values()) == 0:
             # If you ask for no filler, we'll give you nothing, which is filler.
             filler_weights[""] = 1
         self.filler_weights_argv = list(zip(*filler_weights.items()))
 
+        assert self.factorio_data.empty_technology_names == {
+            names.laser,
+            names.flammables,
+            names.biter_egg_handling,
+            names.modules,
+        }, "we have assumptions in __init__.py about the set of empty technologies"
         self.empty_technologies = sorted(self.factorio_data.empty_technology_names)
         self.random.shuffle(self.empty_technologies)
 
@@ -239,7 +261,7 @@ class Factorio(World):
         el_enabled = self.options.energy_link.value
         el_recipe = self.options.energy_link_recipe.current_key
         el_logic = self.options.require_energy_link.value
-        self.logic_events = self.factorio_data.build_logic(
+        self.logic_events, self.advancement_technologies, self.technology_props_lua = self.factorio_data.build_logic(
             bypass_technology_prerequisites=     self.options.technology_prerequisites.current_key == "removed",
             burner_mining_drill_is_good_enough=  not self.options.require_electric_mining_drill.value,
             inserter_balancing_is_good_enough=   not self.options.require_logistics.value,
@@ -270,7 +292,6 @@ class Factorio(World):
             playing_without_energy_link_fulgora_is_good_enough=    not (el_enabled and el_logic and el_recipe == "fulgora"),
             allow_energy_link_to_satisfy_logic=  el_enabled and self.options.energy_link_satisfies_requirements,
         )
-        import pdb; pdb.set_trace()
 
         # TODO: self.options.progressive_technologies.current_key
 
@@ -352,7 +373,7 @@ class Factorio(World):
                 location.revealed = True
 
     def collect_item(self, state, item, remove=False):
-        from .data.generated2 import progressive_technology_stacks
+        from .data.ap_data import progressive_technology_stacks
         # Convert a progressive technology name into what it would be at this state.
         try:
             stack = progressive_technology_stacks[item.name]
@@ -381,12 +402,11 @@ class Factorio(World):
         return item_name
 
     def create_item(self, item_name: str) -> FactorioItem:
-        from .data.generated2 import advancement_technologies, empty_technologies
         code = ap_item_name_to_id.get(item_name, None)
-        if code == None or item_name in advancement_technologies:
+        if code == None or item_name in self.advancement_technologies:
             # Events are always advancement (that's the point.).
             classification = ItemClassification.progression
-        elif item_name in empty_technologies:
+        elif item_name in self.empty_technologies:
             classification = ItemClassification.filler
         elif item_name in {
             "Artillery Trap",
