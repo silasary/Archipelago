@@ -276,101 +276,87 @@ class Factorio(World):
             location.place_locked_item(item)
             location.revealed = True
 
-        if self.options.goal.current_key == "solar_system_edge":
-            victory_event = "Reach solar-system-edge"
-            final_technology_name = "promethium-science-pack"
-        elif self.options.goal.current_key == "aquilo_orbit":
-            victory_event = "Reach aquilo_orbit"
-            final_technology_name = "planet-discovery-aquilo"
-        elif self.options.goal.current_key == "any_other_planet_science":
-            new_event("Can research any other planet science", "Can research any other planet science",
-                lambda state: any(item in state for item in (
-                    names.vulcanus_victory,
-                    names.gleba_victory,
-                    names.fulgora_victory,
-                )),
-            )
-            victory_event = "Can research any other planet science"
-            final_technology_name = None
-        elif self.options.goal.current_key == "space_platform":
-            victory_event = "Can build space platforms"
-            final_technology_name = "rocket-silo"
-        else: assert False
-        self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
-
         unrandomized_technologies = set(base_unrandomized_technologies)
-        if final_technology_name != None and not self.options.shuffle_final_technology.value:
-            # Lock the goal tech also.
-            unrandomized_technologies.add(final_technology_name)
+        if self.options.goal.current_key == "any_other_planet_science":
+            victory_events = (
+                names.vulcanus_victory,
+                names.gleba_victory,
+                names.fulgora_victory,
+            )
+            assert all(event_name in self.logic_events for event_name in victory_events), "goal techs not in logic"
+            self.multiworld.completion_condition[player] = lambda state: state.has_any(victory_events, player)
+        else:
+            if self.options.goal.current_key == "solar_system_edge":
+                victory_event = "Reach solar-system-edge"
+                final_technology_name = names.promethium_science_pack
+            elif self.options.goal.current_key == "aquilo_orbit":
+                victory_event = "Reach aquilo_orbit"
+                final_technology_name = names.planet_discovery_aquilo
+            elif self.options.goal.current_key == "space_platform":
+                victory_event = "Can build space platforms"
+                final_technology_name = names.rocket_silo
+            else: assert False
+            assert victory_event in self.logic_events, "event not found in logic: " + victory_event
+            self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
+
+            if not self.options.shuffle_final_technology.value:
+                # Lock the goal tech also.
+                unrandomized_technologies.add(final_technology_name)
 
         # TODO: self.options.progressive_technologies.current_key
 
-        # Capture these for any_other_planet_science goal.
-        asteroid_reprocessing_location = None
-        carbon_fiber_location = None
-        lightning_collector_location = None
-        vulcanus_victory_item = None
-        gleba_victory_item = None
-        fulgora_victory_item = None
-
-        found_victory_event = False
-        for event_name, expr in sorted(self.logic_events.items(), key=lambda kv: (" " in kv[0], kv[0])):
-            if event_name in ap_item_names: continue
-            if " " not in event_name:
-                # This is a proper item and corresponding location.
-                locked = event_name in unrandomized_technologies or event_name in self.factorio_data.infinite_technology_names
-                progressive_group_name = technology_name_to_progressive_group_name.get(event_name, None)
-                should_add_item_to_pool = True
-                if progressive_group_name != None:
-                    item_name = progressive_group_name
-                # Do-nothing technologies becomes our new items, if enabled.
-                elif self.options.energy_link_technology.value and event_name == names.laser:
-                    item_name = names.ap_energy_link_bridge
-                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.flammables:
-                    item_name = names.vulcanus_victory
-                    should_add_item_to_pool = False
-                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.biter_egg_handling:
-                    item_name = names.gleba_victory
-                    should_add_item_to_pool = False
-                elif self.options.goal.current_key == "any_other_planet_science" and event_name == names.modules:
-                    item_name = names.fulgora_victory
-                    should_add_item_to_pool = False
-                elif event_name in self.factorio_data.empty_technology_names:
-                    # Otherwise, do-nothing items become filler items as configured by the yaml.
-                    item_name = self.get_filler_item_name()
-                else:
-                    item_name = event_name
-
-                location = new_location(event_name + "_location", compile_expr(expr))
-                item = self.create_item(item_name)
-                if locked:
-                    lock_item(location, item)
-                else:
-                    if should_add_item_to_pool:
-                        self.multiworld.itempool.append(item)
-
-                    if   event_name == names.asteroid_reprocessing: asteroid_reprocessing_location = location
-                    elif event_name == names.carbon_fiber:          carbon_fiber_location          = location
-                    elif event_name == names.lightning_collector:   lightning_collector_location   = location
-                    if   item_name == names.vulcanus_victory: vulcanus_victory_item = item
-                    elif item_name == names.gleba_victory:    gleba_victory_item    = item
-                    elif item_name == names.fulgora_victory:  fulgora_victory_item  = item
-
-                    if location.name in self.locations_to_duplicate:
-                        # Another one.
-                        new_location(event_name + "_other_location", compile_expr(expr))
-                        self.multiworld.itempool.append(self.create_item(self.get_filler_item_name()))
-            else:
+        event_names = []
+        location_names = []
+        item_names = []
+        for event_name in sorted(self.logic_events.keys()):
+            if " " in event_name:
                 # This is an abstract event.
-                new_event(event_name, event_name, compile_expr(expr))
-            if event_name == victory_event:
-                found_victory_event = True
-        if self.options.goal.current_key == "any_other_planet_science":
-            lock_item(asteroid_reprocessing_location, vulcanus_victory_item)
-            lock_item(carbon_fiber_location, gleba_victory_item)
-            lock_item(lightning_collector_location, fulgora_victory_item)
-        if final_technology_name != None:
-            assert found_victory_event, "event not found in logic: " + victory_event
+                event_names.append(event_name)
+            elif event_name.endswith("_location"):
+                # This is a research objective location.
+                location_names.append(event_name)
+            else:
+                # This is a receivable technology item.
+                item_names.append(event_name)
+
+        technology_name_to_location = {}
+        for location_name in location_names:
+            access_rule_fn = compile_expr(self.logic_events[location_name])
+            location = new_location(location_name, access_rule_fn)
+            origin_technology_name = location_name[:-len("_location")]
+            technology_name_to_location[origin_technology_name] = location
+            if location_name in self.locations_to_duplicate:
+                # Another one.
+                new_location(origin_technology_name + "_other_location", access_rule_fn)
+        randomized_items = []
+        for technology_name in item_names:
+            # This is a receivable technology item.
+            if technology_name in self.factorio_data.empty_technology_names:
+                # Let filler fill in later.
+                continue
+            item_name = technology_name_to_progressive_group_name.get(technology_name, technology_name)
+            item = self.create_item(item_name)
+            # Where should it go?
+            if technology_name in unrandomized_technologies or technology_name in self.factorio_data.infinite_technology_names:
+                lock_item(technology_name_to_location[technology_name], item)
+            elif item_name == names.vulcanus_victory:
+                lock_item(technology_name_to_location[names.asteroid_reprocessing], item)
+            elif item_name == names.gleba_victory:
+                lock_item(technology_name_to_location[names.carbon_fiber], item)
+            elif item_name == names.fulgora_victory:
+                lock_item(technology_name_to_location[names.lightning_collector], item)
+            else:
+                randomized_items.append(item)
+
+        # Create filler items.
+        empty_slots = sum(1 for location in self.locations if location.item == None)
+        while len(randomized_items) < empty_slots:
+            randomized_items.append(self.create_item(self.get_filler_item_name()))
+        self.multiworld.itempool.extend(randomized_items)
+
+        # Put these at the end of the spoiler log listing.
+        for event_name in event_names:
+            new_event(event_name, event_name, compile_expr(self.logic_events[event_name]))
 
 
     def generate_basic(self):
@@ -414,23 +400,14 @@ class Factorio(World):
         return item_name
 
     def create_item(self, item_name: str) -> FactorioItem:
+        from .data.ap_data import trap_names
         code = ap_item_name_to_id.get(item_name, None)
         if code == None or item_name in self.advancement_technologies:
             # Events are always advancement (that's the point.).
             classification = ItemClassification.progression
         elif item_name in self.empty_technologies:
             classification = ItemClassification.filler
-        elif item_name in {
-            "Artillery Trap",
-            "Atomic Cliff Remover Trap",
-            "Atomic Rocket Trap",
-            "Attack Trap",
-            "Cluster Grenade Trap",
-            "Evolution Trap",
-            "Grenade Trap",
-            "Inventory Spill Trap",
-            "Teleport Trap",
-        }:
+        elif item_name in trap_names:
             classification = ItemClassification.trap
         else:
             classification = ItemClassification.useful

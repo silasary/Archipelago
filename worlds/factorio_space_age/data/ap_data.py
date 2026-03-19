@@ -106,7 +106,7 @@ progressive_technology_stacks = {
         "asteroid-productivity",
     ],
     "progressive-automation": [
-        "automation",
+        #"automation", # This is unrandomized.
         "automation-2",
         "automation-3",
     ],

@@ -1,6 +1,7 @@
 # This module translates a (pruned) export of data from factorio into a static description of the logic for a given set of options.
-# The only "public" export of this module is FactorioData.
-__all__ = ["FactorioData"]
+
+# These are the only "public" exports of this module.
+__all__ = ["FactorioData", "parse_level_from_technology_prototype_name"]
 
 import itertools, typing
 from functools import lru_cache
@@ -14,9 +15,20 @@ from .data.ap_data import (
 )
 from .data import generated_names as names
 from .Logic import (
-    inline_exprs, optimize_expr, ALWAYS, NEVER,
+    inline_exprs, optimize_expr, ALWAYS, NEVER, EXTERNAL,
 )
 
+
+def parse_level_from_technology_prototype_name(prototype_name):
+    # https://lua-api.factorio.com/latest/types/TechnologyUnit.html#count_formula
+    try:
+        [_, level_str] = prototype_name.rsplit("-", 1)
+    except ValueError:
+        return 1
+    try:
+        return int(level_str)
+    except ValueError:
+        return 1
 
 class FactorioData:
     """
@@ -793,7 +805,8 @@ class FactorioData:
         fmt_capability = lambda capability: "Can {}".format(capability.name.replace("_", " "))
         fmt_operate_machine = "Operate {}".format
         fmt_supply_power = lambda power_type: "Supply {}".format(power_type.name.replace("_", " "))
-        fmt_unlock_research = lambda name: name # These are proper Archipelago items.
+        fmt_technology_location = "{}_location".format # These are proper Archipelago items.
+        fmt_unlock_technology = lambda name: name # These are proper Archipelago items.
         fmt_learn_recipe = "Learn {}".format
 
         can_launch_rockets = fmt_automate_item(names.rocket_part)
@@ -873,7 +886,7 @@ class FactorioData:
             ]}
         # Discover them too.
         for name, techs in space_location_to_unlocking_technologies.items():
-            logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_research(technology) for technology in techs]}
+            logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_technology(technology) for technology in techs]}
         # Start on Nauvis
         logic_events[fmt_discover_location(names.nauvis)] = ALWAYS
         logic_events[fmt_reach_location(names.nauvis)] = ALWAYS
@@ -887,7 +900,7 @@ class FactorioData:
                 ]}
             elif capability == Capability.mine_with_fluid:
                 expr = {"and": [
-                    {"or": [fmt_unlock_research(name) for name in mining_with_fluid_unlocking_technologies]},
+                    {"or": [fmt_unlock_technology(name) for name in mining_with_fluid_unlocking_technologies]},
                     {"or": [fmt_operate_machine(name) for name in mining_drills_with_fluid_connections]},
                 ]}
             elif capability == Capability.pump_tiles:
@@ -1005,8 +1018,8 @@ class FactorioData:
                 ]}
                 if not basic_asteroid_processing_is_good_enough:
                     expr["and"].extend([
-                        fmt_unlock_research(names.asteroid_reprocessing),
-                        fmt_unlock_research(names.advanced_asteroid_processing),
+                        fmt_unlock_technology(names.asteroid_reprocessing),
+                        fmt_unlock_technology(names.advanced_asteroid_processing),
                     ])
             elif capability == Capability.destroy_huge_asteroids:
                 ammo_category = "railgun"
@@ -1087,7 +1100,6 @@ class FactorioData:
             del expr # give me a NameError if i forget to assign to expr in this loop.
 
         # Research
-        all_technology_names: set[str] = set()
         def get_logic_expr_for_requirement(requirement):
             if type(requirement) == ResearchRequirement:
                 fmt_automate_or_access = fmt_automate_item if requirement.uses_tech_cost_multiplier else fmt_access_item
@@ -1176,22 +1188,22 @@ class FactorioData:
                     ]},
                 ]}
 
-            logic_events[fmt_unlock_research(technology_name)] = expr
+            logic_events[fmt_technology_location(technology_name)] = expr
+            if technology_name in unrandomized_technologies:
+                # Tell the optimizer how to inline these.
+                logic_events[fmt_unlock_technology(technology_name)] = expr
+            else:
+                # The multiworld decides how to get it.
+                logic_events[fmt_unlock_technology(technology_name)] = EXTERNAL
             del expr # give me a NameError if i forget to assign to expr in this loop.
-            all_technology_names.add(technology_name)
         # EnergyLink technology, victory technologies.
-        ap_item_names = []
         if energy_link_bridge_technology:
-            ap_item_names.append(names.ap_energy_link_bridge)
+            logic_events[fmt_unlock_technology(names.ap_energy_link_bridge)] = EXTERNAL
         if any_other_planet_science:
-            ap_item_names.extend([
-                names.vulcanus_victory,
-                names.gleba_victory,
-                names.fulgora_victory,
-            ])
-        for technology_name in ap_item_names:
-            # Create what looks like technologies for these items in logic.
-            logic_events[fmt_unlock_research(technology_name)] = ALWAYS # Fake condition
+            # These aren't really randomized, but no need to describe the details to the optimizer.
+            logic_events[fmt_unlock_technology(names.vulcanus_victory)] = EXTERNAL
+            logic_events[fmt_unlock_technology(names.gleba_victory)]    = EXTERNAL
+            logic_events[fmt_unlock_technology(names.fulgora_victory)]  = EXTERNAL
 
         # Recipes
         for recipe_name, recipe in recipes.items():
@@ -1205,7 +1217,7 @@ class FactorioData:
                 expr = ALWAYS
             else:
                 expr = {"or": [
-                    fmt_unlock_research(technology_name)
+                    fmt_unlock_technology(technology_name)
                     for technology_name in recipe_to_unlocking_technologies.get(recipe_name, [])
                 ]}
             logic_events[fmt_learn_recipe(recipe_name)] = expr
@@ -1339,17 +1351,16 @@ class FactorioData:
             ]}
             if energy_link_bridge_technology:
                 # Unlock the recipe.
-                expr["and"].append(fmt_unlock_research(names.ap_energy_link_bridge))
+                expr["and"].append(fmt_unlock_technology(names.ap_energy_link_bridge))
             logic_events[fmt_access_item(names.ap_energy_link_bridge)] = expr
 
         # Optimize.
         logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
-        never_delete_events: set[str] = all_technology_names | set(ap_item_names)
-        never_inline_events: set[str] = (all_technology_names | set(ap_item_names)) - unrandomized_technologies
+        never_delete_events = {event_name for event_name in logic_events.keys() if " " not in event_name}
 
-        logic_events, all_used_names = inline_exprs(logic_events, never_inline_events, never_delete_events)
+        logic_events, all_used_names = inline_exprs(logic_events, never_delete_events)
         advancement_technologies = set(name for name in all_used_names if " " not in name)
-        advancement_technologies.remove(ALWAYS)
+        advancement_technologies -= {ALWAYS, EXTERNAL}
         # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
         # e.g. progressive-automation is advancement even though automation-3 isn't.
         advancement_technologies.update(
@@ -1357,20 +1368,16 @@ class FactorioData:
             for technology_name in all_used_names
             if technology_name in technology_name_to_progressive_group_name
         )
+        if any_other_planet_science:
+            # Winning is indeed an advancement item.
+            advancement_technologies.update([
+                names.vulcanus_victory,
+                names.gleba_victory,
+                names.fulgora_victory,
+            ])
 
         return logic_events, advancement_technologies, technology_props_lua
 
-
-def parse_level_from_technology_prototype_name(prototype_name):
-    # https://lua-api.factorio.com/latest/types/TechnologyUnit.html#count_formula
-    try:
-        [_, level_str] = prototype_name.rsplit("-", 1)
-    except ValueError:
-        return 1
-    try:
-        return int(level_str)
-    except ValueError:
-        return 1
 
 
 

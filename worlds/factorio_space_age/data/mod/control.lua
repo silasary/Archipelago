@@ -96,7 +96,7 @@ if ENERGY_INCREMENT > 0 then
     script.on_event({defines.events.script_raised_revive}, function(event) on_energy_bridge_constructed(event.entity) end)
     script.on_event({defines.events.script_raised_built},  function(event) on_energy_bridge_constructed(event.entity) end)
 
-    script.on_event({defines.events.on_entity_died},                 function(event) on_energy_bridge_removed(event.entity) end)
+    -- see below for defines.events.on_entity_died
     script.on_event({defines.events.on_player_mined_entity},         function(event) on_energy_bridge_removed(event.entity) end)
     script.on_event({defines.events.on_robot_mined_entity},          function(event) on_energy_bridge_removed(event.entity) end)
     script.on_event({defines.events.on_space_platform_mined_entity}, function(event) on_energy_bridge_removed(event.entity) end)
@@ -267,7 +267,7 @@ elseif PARAMS.goal == "aquilo_orbit" then
         end
     end)
 elseif PARAMS.goal == "any_other_planet_science" then
-    -- Handled in on_research_finished.
+    -- Handled in ap-get-technology.
 elseif PARAMS.goal == "space_platform" then
     script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
         if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
@@ -371,18 +371,6 @@ script.on_event(defines.events.on_research_finished, function(event)
     if technology.researched and is_ap_technology(technology.name) then
         -- Notify the server that we've unlocked an AP location.
         dumpInfo(technology.force)
-        if PARAMS.goal == "any_other_planet_science" then
-            -- Did we win?
-            for _, pair in pairs(technology.research_unit_ingredients) do
-                local name = pair.name
-                if  name == "metallurgic-science-pack" or
-                    name == "agricultural-science-pack" or
-                    name == "electromagnetic-science-pack"
-                then
-                    trigger_victory(technology.force)
-                end
-            end
-        end
         return
     end
     -- We've received an AP item, or this technology isn't randomized.
@@ -438,18 +426,23 @@ end
 
 
 script.on_event(defines.events.on_entity_died, function(event)
-    if DEATH_LINK == 0 then
-        return
-    end
-    if CURRENTLY_DEATH_LOCK == 1 then -- don't re-trigger on same event
-        return
-    end
+    local entity = event.entity
+    if entity.name == "character" then
+        if DEATH_LINK == 0 then
+            return
+        end
+        if CURRENTLY_DEATH_LOCK == 1 then -- don't re-trigger on same event
+            return
+        end
 
-    local force = event.entity.force
-    storage.forcedata[force.name].death_link_tick = game.tick
-    dumpInfo(force)
-    kill_players(force)
-end, {LuaEntityDiedEventFilter = {["filter"] = "name", ["name"] = "character"}})
+        local force = event.entity.force
+        storage.forcedata[force.name].death_link_tick = game.tick
+        dumpInfo(force)
+        kill_players(force)
+    else
+        on_energy_bridge_removed(entity)
+    end
+end)
 
 
 -- add / commands
@@ -543,7 +536,8 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
     if index == nil then
         game.print("ap-get-technology is only to be used by the Archipelago Factorio Client")
         return
-    elseif index == -1 then -- for coop sync and restoring from an older savegame
+    end
+    if index == -1 then -- for coop sync and restoring from an older savegame
         local tech = force.technologies[item_name]
         if tech.researched ~= true then
             game.print({"", "Received [technology=" .. tech.name .. "] as it is already checked."})
@@ -551,7 +545,8 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
             tech.researched = true
         end
         return
-    elseif PARAMS.progressive_technology_stacks[item_name] ~= nil then
+    end
+    if PARAMS.progressive_technology_stacks[item_name] ~= nil then
         if storage.index_sync[index] ~= item_name then -- not yet received prog item
             storage.index_sync[index] = item_name
             local tech_stack = PARAMS.progressive_technology_stacks[item_name]
@@ -565,10 +560,17 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
                 end
             end
         end
-    elseif force.technologies[item_name] ~= nil then
+        return
+    end
+    if PARAMS.infinite_technology_name_corrections[item_name] ~= nil then
+        -- Infinite technology names include the level at the end of the name.
+        -- e.g. "electric-weapons-damage-4_location" is at force.technologies["electric-weapons-damage-4_location-4"]
+        item_name = PARAMS.infinite_technology_name_corrections[item_name]
+    end
+    if force.technologies[item_name] ~= nil then
         local tech = force.technologies[item_name]
         if tech ~= nil then
-            storage.index_sync[index] = tech
+            storage.index_sync[index] = item_name
             if tech.researched ~= true then
                 game.print({"", "Received [technology=" .. tech.name .. "] from ", source})
                 game.play_sound({path="utility/research_completed"})
@@ -581,8 +583,15 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
             game.print({"", "Received ", item_name, " from ", source})
             TRAP_TABLE[item_name]()
         end
+    elseif PARAMS.goal == "any_other_planet_science" and (
+        item_name == "vulcanus-victory" or
+        item_name == "gleba-victory" or
+        item_name == "fulgora-victory"
+    ) then
+        trigger_victory(force)
     else
         game.print("Unknown Item " .. item_name)
+        log("DEBUG: Unknown Item " .. item_name)
     end
 end)
 

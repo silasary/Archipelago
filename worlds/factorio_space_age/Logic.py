@@ -8,8 +8,9 @@ Expr = str | _AndExpr | _OrExpr
 
 ALWAYS = "(always)"
 NEVER = "(never)"
+EXTERNAL = "(external)" # never inlined
 
-def inline_exprs(logic_events: dict[str, Expr], never_inline_events: set[set], never_delete_events: set[set]) -> dict[str, Expr]:
+def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[set]) -> dict[str, Expr]:
     def visit_readonly(expr, fn):
         if type(expr) != dict:
             fn(expr)
@@ -31,7 +32,7 @@ def inline_exprs(logic_events: dict[str, Expr], never_inline_events: set[set], n
         all_used_names = set()
         for expr in logic_events.values():
             visit_readonly(expr, all_used_names.add)
-        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER} - never_delete_events
+        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER, EXTERNAL} - never_delete_events
         assert len(unreachable_events) == 0, "logic events not defined: " + repr(unreachable_events)
 
         unused_events = logic_events.keys() - all_used_names - never_delete_events
@@ -41,7 +42,7 @@ def inline_exprs(logic_events: dict[str, Expr], never_inline_events: set[set], n
         # Inline trivial events.
         inline_these = {}
         for event_name, expr in logic_events.items():
-            if event_name in never_inline_events: continue
+            if expr == EXTERNAL: continue # Can't inline this.
             if type(expr) == dict: continue # too complex
             # Simple enough to inline.
             inline_these[event_name] = expr
