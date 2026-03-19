@@ -23,6 +23,7 @@ from .data.ap_data import (
     never_give_free_samples_from_recipes,
     infinite_technology_names,
 )
+from .data import generated_names as names
 
 if TYPE_CHECKING:
     from . import Factorio
@@ -187,6 +188,7 @@ def generate_mod(
             target_props_item_name = item_name
             item_name = technology_name_to_progressive_group_name[item_name]
             target_player = player
+            is_goal = False
             is_advancement = False
             is_useful = True
             is_trap = False
@@ -194,6 +196,11 @@ def generate_mod(
             item = location.item
             item_name = item.name
             target_player = item.player
+            is_goal = item_name in (
+                names.vulcanus_victory,
+                names.gleba_victory,
+                names.fulgora_victory,
+            )
             is_advancement = item.advancement
             is_useful = item.useful
             is_trap = item.trap
@@ -208,7 +215,10 @@ def generate_mod(
             receiver_name = multiworld.player_name[target_player]
             display_name = f"{receiver_name}'s {item_name} ({location.name})"
             display_item_name = item_name
-            if is_advancement:
+            if is_goal:
+                helpfulness_clause = ", which completes your goal"
+                icon = "/trophy.png"
+            elif is_advancement:
                 helpfulness_clause = ", which is considered a logical advancement"
                 icon = "/ap.png"
             elif is_useful:
@@ -351,6 +361,7 @@ def generate_mod(
         "lib.lua",
         "graphics/icons/ap.png",
         "graphics/icons/ap_unimportant.png",
+        "graphics/icons/trophy.png",
     ]:
         def f(
             arcpath=versioned_mod_name+"/"+path,
