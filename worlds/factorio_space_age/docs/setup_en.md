@@ -66,6 +66,7 @@ Factorio product code. This will allow you to download the game directly from th
 
 Download the installer by clicking on the button appropriate to your operating system, and extract the folder to a convenient location.
 The best place to do this for Archipelago is to place the extracted game folder into the `Archipelago` directory and rename it to just be "Factorio".
+(Note that the default Windows installer may create shortcuts that complicate the setup, so the ZIP package is recommended instead.)
 
 ![Factorio Download Options](factorio-download.png)
 
