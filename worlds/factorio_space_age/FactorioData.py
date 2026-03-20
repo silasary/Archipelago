@@ -11,7 +11,6 @@ from enum import IntEnum, IntFlag
 
 from .data.ap_data import (
     unrandomized_technologies,
-    technology_name_to_progressive_group_name,
 )
 from .data import generated_names as names
 from .Logic import (
@@ -37,11 +36,13 @@ class FactorioData:
     such as logical dependencies.
     """
     the_data: dict[str, dict[str, dict]]
+    technology_name_to_progressive_group_name: dict[str, str]
     # Derrived:
     infinite_technology_names: set[str]
     empty_technology_names: set[str]
-    def __init__(self, the_data):
+    def __init__(self, the_data, technology_name_to_progressive_group_name):
         self.the_data = the_data
+        self.technology_name_to_progressive_group_name = technology_name_to_progressive_group_name
         # Derrived:
         self.infinite_technology_names = {
             name for name, prototype in self.the_data["technology"].items()
@@ -1363,9 +1364,9 @@ class FactorioData:
         # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.
         # e.g. progressive-automation is advancement even though automation-3 isn't.
         advancement_technologies.update(
-            technology_name_to_progressive_group_name[technology_name]
+            self.technology_name_to_progressive_group_name[technology_name]
             for technology_name in all_used_names
-            if technology_name in technology_name_to_progressive_group_name
+            if technology_name in self.technology_name_to_progressive_group_name
         )
         if any_other_planet_science:
             # Winning is indeed an advancement item.

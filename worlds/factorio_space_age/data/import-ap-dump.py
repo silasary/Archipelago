@@ -2,7 +2,7 @@
 
 import os, sys, json
 import itertools, functools
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 from json_dumps_but_smaller import json_dump
 from ap_data import (
@@ -10,7 +10,7 @@ from ap_data import (
     unrandomized_technologies,
     ap_item_names,
     trap_names,
-    progressive_technology_stacks,
+    small_progressive_groups, large_progressive_groups,
 )
 
 here = os.path.dirname(__file__)
@@ -68,6 +68,8 @@ def process(input_path):
     generate_names(the_data)
     generate_ids(the_data)
 
+progressive_pseudo_item_names = set()
+
 def generate_names(the_data):
     # Generate spellchecking names.
     already_generated = {}
@@ -91,12 +93,19 @@ def generate_names(the_data):
         assert python_name not in already_generated, "identifier collision: " + line
         already_generated[python_name] = line
         artificial_name_lines.append(line + "\n")
-    for name, technology_names in progressive_technology_stacks.items():
-        for technology_name in technology_names:
-            assert technology_name in the_data["technology"].keys(), "technology not found: " + technology_name
-        if name in the_data["technology"].keys():
-            # Some of the progressive stacks are just the name of the infinite tech.
-            continue
+
+    # Progressive pseudo item names.
+    assert all(v == 1 for v in Counter(itertools.chain.from_iterable(small_progressive_groups.values())).values()), "duplicate technology"
+    assert all(v == 1 for v in Counter(itertools.chain.from_iterable(large_progressive_groups.values())).values()), "duplicate technology"
+    for progressive_technology_stacks in [small_progressive_groups, large_progressive_groups]:
+        for name, technology_names in progressive_technology_stacks.items():
+            for technology_name in technology_names:
+                assert technology_name in the_data["technology"].keys(), "technology not found: " + technology_name
+            if name in the_data["technology"].keys():
+                # Some of the progressive stacks are just the name of the infinite tech.
+                continue
+            progressive_pseudo_item_names.add(name)
+    for name in sorted(progressive_pseudo_item_names):
         python_name = to_snake(name)
         line = "{} = {}".format(python_name, json.dumps(name))
         assert python_name not in already_generated, "identifier collision: " + line
@@ -134,7 +143,7 @@ def generate_ids(the_data):
             ap_location_name_to_id[second_location_name] = next_id()
         ap_item_name_to_id[technology_name] = next_id()
     # Progressive pseudo items
-    for progressive_technology_name in sorted(progressive_technology_stacks):
+    for progressive_technology_name in sorted(progressive_pseudo_item_names):
         if progressive_technology_name in ap_item_name_to_id:
             # Some of the progressive stacks are just the name of the infinite tech.
             continue

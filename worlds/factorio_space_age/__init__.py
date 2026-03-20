@@ -94,6 +94,8 @@ class Factorio(World):
             options=self.options,
             multiworld=self.multiworld,
             logic_events=self.logic_events,
+            progressive_technology_stacks=self.progressive_technology_stacks,
+            technology_name_to_progressive_group_name=self.technology_name_to_progressive_group_name,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
             technology_props_lua=self.technology_props_lua,
             output_directory=output_directory,
@@ -105,9 +107,19 @@ class Factorio(World):
         from .FactorioData import FactorioData
         from .data.ap_data import (
             trap_names, energy_link_bridge_recipes,
-            progressive_technology_stacks,
+            small_progressive_groups, large_progressive_groups,
         )
         from .data import generated_names as names
+
+        self.progressive_technology_stacks = {
+            "only_related": small_progressive_groups,
+            "large_groups": large_progressive_groups,
+        }[self.options.progressive_technologies.current_key]
+        self.technology_name_to_progressive_group_name = {
+            technology_name: progressive_group_name
+            for progressive_group_name, stack in self.progressive_technology_stacks.items()
+            for technology_name in stack
+        }
 
         if self.options.quick_start.value:
             # quick_start effectively modifies starting_items.
@@ -139,14 +151,14 @@ class Factorio(World):
                     self.options.starting_items.value[k] = v
             # Quick start also makes bots faster.
             for k, v in {
-                names.worker_robots_speed: 5
+                names.worker_robots_speed_7: 5
             }.items():
                 try:
                     self.options.start_inventory.value[k] += v
                 except KeyError:
                     self.options.start_inventory.value[k] = v
 
-        self.factorio_data = FactorioData(the_data)
+        self.factorio_data = FactorioData(the_data, self.technology_name_to_progressive_group_name)
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
@@ -161,34 +173,35 @@ class Factorio(World):
         else: assert self.options.infinite_technologies.current_key in ("removed", "vanilla")
 
         filler_weights = {
-            names.artillery_shell_damage:             self.options.filler_artillery_shell_damage_weight.value,
-            names.artillery_shell_range:              self.options.filler_artillery_shell_range_weight.value,
-            names.artillery_shell_speed:              self.options.filler_artillery_shell_speed_weight.value,
+            names.artillery_shell_damage_1:           self.options.filler_artillery_shell_damage_weight.value,
+            names.artillery_shell_range_1:            self.options.filler_artillery_shell_range_weight.value,
+            names.artillery_shell_speed_1:            self.options.filler_artillery_shell_speed_weight.value,
             names.asteroid_productivity:              self.options.filler_asteroid_productivity_weight.value,
-            names.electric_weapons_damage:            self.options.filler_electric_weapons_damage_weight.value,
-            names.follower_robot_count:               self.options.filler_follower_robot_count_weight.value,
+            names.electric_weapons_damage_4:          self.options.filler_electric_weapons_damage_weight.value,
+            names.follower_robot_count_5:             self.options.filler_follower_robot_count_weight.value,
             names.health:                             self.options.filler_health_weight.value,
-            names.laser_weapons_damage:               self.options.filler_laser_weapons_damage_weight.value,
+            names.laser_weapons_damage_7:             self.options.filler_laser_weapons_damage_weight.value,
             names.low_density_structure_productivity: self.options.filler_low_density_structure_productivity_weight.value,
-            names.mining_productivity:                self.options.filler_mining_productivity_weight.value,
-            names.physical_projectile_damage:         self.options.filler_physical_projectile_damage_weight.value,
+            names.mining_productivity_3:              self.options.filler_mining_productivity_weight.value,
+            names.physical_projectile_damage_7:       self.options.filler_physical_projectile_damage_weight.value,
             names.plastic_bar_productivity:           self.options.filler_plastic_bar_productivity_weight.value,
             names.processing_unit_productivity:       self.options.filler_processing_unit_productivity_weight.value,
-            names.railgun_damage:                     self.options.filler_railgun_damage_weight.value,
-            names.railgun_shooting_speed:             self.options.filler_railgun_shooting_speed_weight.value,
-            names.refined_flammables:                 self.options.filler_refined_flammables_weight.value,
+            names.railgun_damage_1:                   self.options.filler_railgun_damage_weight.value,
+            names.railgun_shooting_speed_1:           self.options.filler_railgun_shooting_speed_weight.value,
+            names.refined_flammables_7:               self.options.filler_refined_flammables_weight.value,
             names.research_productivity:              self.options.filler_research_productivity_weight.value,
             names.rocket_fuel_productivity:           self.options.filler_rocket_fuel_productivity_weight.value,
             names.rocket_part_productivity:           self.options.filler_rocket_part_productivity_weight.value,
             names.scrap_recycling_productivity:       self.options.filler_scrap_recycling_productivity_weight.value,
             names.steel_plate_productivity:           self.options.filler_steel_plate_productivity_weight.value,
-            names.stronger_explosives:                self.options.filler_stronger_explosives_weight.value,
-            names.worker_robots_speed:                self.options.filler_worker_robots_speed_weight.value,
+            names.stronger_explosives_7:              self.options.filler_stronger_explosives_weight.value,
+            names.worker_robots_speed_7:              self.options.filler_worker_robots_speed_weight.value,
         }
-        assert self.factorio_data.infinite_technology_names == {
-            progressive_technology_stacks[progressive_technology_name][-1]
-            for progressive_technology_name in filler_weights.keys()
-        }, "need to sync list of infinite technologies"
+        assert self.factorio_data.infinite_technology_names == filler_weights.keys(), "need to sync list of infinite technologies"
+        assert all(
+            name == self.progressive_technology_stacks[self.technology_name_to_progressive_group_name[name]][-1]
+            for name in filler_weights.keys()
+        ), "filler weight key needs to be the last item of a progressive stack"
         trap_filler_weights = {
             names.artillery_trap:            self.options.artillery_trap_weight.value,
             names.atomic_cliff_remover_trap: self.options.atomic_cliff_remover_trap_weight.value,
@@ -283,7 +296,7 @@ class Factorio(World):
         """
         from .data import generated_names as names
         from .data.ap_data import (
-            technology_name_to_progressive_group_name, ap_item_names,
+            ap_item_names,
             unrandomized_technologies as base_unrandomized_technologies
         )
         from .Logic import compile_expr
@@ -339,8 +352,6 @@ class Factorio(World):
                 # Lock the goal tech also.
                 unrandomized_technologies.add(final_technology_name)
 
-        # TODO: self.options.progressive_technologies.current_key
-
         event_names = []
         location_names = []
         item_names = []
@@ -370,7 +381,7 @@ class Factorio(World):
             if technology_name in self.factorio_data.empty_technology_names:
                 # Let filler fill in later.
                 continue
-            item_name = technology_name_to_progressive_group_name.get(technology_name, technology_name)
+            item_name = self.technology_name_to_progressive_group_name.get(technology_name, technology_name)
             item = self.create_item(item_name)
             # Where should it go?
             if technology_name in unrandomized_technologies or technology_name in self.factorio_data.infinite_technology_names:
@@ -407,10 +418,9 @@ class Factorio(World):
                 location.revealed = True
 
     def collect_item(self, state, item, remove=False):
-        from .data.ap_data import progressive_technology_stacks
         # Convert a progressive technology name into what it would be at this state.
         try:
-            stack = progressive_technology_stacks[item.name]
+            stack = self.progressive_technology_stacks[item.name]
         except KeyError:
             # Normal item
             return super().collect_item(state, item, remove)

@@ -237,14 +237,20 @@ class TechnologyPrerequisites(Choice):
 @auto_group
 class ProgressiveTechs(Choice):
     """
-    TODO: unimplemented.
+    Group technologies together as progressive item chains.
+    For example, there are 3 copies of 'progressive-speed-module' in the multiworld item pool,
+    the first one you receive gives the recipe for speed module 1, the second gives speed module 2, and so on.
+    See https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py for the full definitions of these.
 
-    bonuses: Only technologies that grant global bonuses will be grouped together and received in sequence, for example there will be 7 copies of progressive-inserter-capacity-bonus.
-    recipes: In addition, technologies that unlock recipes will also be grouped, for example 3 copies of progressive-automation, 4 copies of progressive-military, 3 copies of progressive-inserter, etc.
+    only_related: Technologies with similar names will be grouped together in a progress chain.
+    This requires several specific items to progress, such as oil-gathering, oil-processing, plastics, and advanced-circuit all as individual items.
+    large_groups: Loosely-related technologies will be grouped together with more critical recipes near the start and less critical bonuses near the end.
+    This allows many more ways to get critical technologies, for example 2/9+ progressive-oil and 2/9+ progressive-circuit to get the same set of recipes listed in the previous example.
+    Additional copies of progressive-circuit can be added to the pool with filler_processing_unit_productivity_weight, and similarly with other infinite technologies as filler items.
     """
     display_name = "Progressive Technologies"
-    option_bonuses = 0
-    option_recipes = 1
+    option_only_related = 0
+    option_large_groups = 1
     default = 1
 
 @auto_group

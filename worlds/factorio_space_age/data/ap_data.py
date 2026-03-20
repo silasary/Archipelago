@@ -81,7 +81,7 @@ trap_names = [
     "Teleport Trap",
 ]
 
-progressive_technology_stacks = {
+small_progressive_groups = {
     #"progressive-advanced-material-processing": [
     #    "advanced-material-processing",
     #    "advanced-material-processing-2",
@@ -336,16 +336,250 @@ progressive_technology_stacks = {
     ],
 }
 
-technology_name_to_progressive_group_name = {
-    technology_name: progressive_group_name
-    for progressive_group_name, stack in progressive_technology_stacks.items()
-    for technology_name in stack
+large_progressive_groups = {
+
+    "progressive-mining": [
+        "electric-mining-drill",
+        "mining-productivity-1",
+        "mining-productivity-2",
+        "mining-productivity-3", # infinite
+    ],
+    "progressive-oil": [
+        "oil-gathering",
+        "oil-processing",
+        "sulfur-processing",
+        "chemical-science-pack",
+        "fluid-handling",
+        "advanced-oil-processing",
+        "coal-liquefaction",
+        "fluid-wagon",
+        "plastic-bar-productivity", # infinite
+    ],
+    "progressive-production": [
+        "steel-processing",
+        "steel-axe",
+        "advanced-material-processing",
+        "advanced-material-processing-2",
+        "production-science-pack",
+        "effect-transmission",
+        "steel-plate-productivity", # infinite
+    ],
+
+    "progressive-logistics": [
+        "logistics",
+        "logistic-science-pack",
+        "logistics-2",
+        "logistics-3",
+        "turbo-transport-belt",
+        "transport-belt-capacity-1",
+        "transport-belt-capacity-2",
+    ],
+    "progressive-inserter": [
+        "fast-inserter",
+        "bulk-inserter",
+        "inserter-capacity-bonus-1",
+        "inserter-capacity-bonus-2",
+        "inserter-capacity-bonus-3",
+        "stack-inserter",
+        "inserter-capacity-bonus-4",
+        "inserter-capacity-bonus-5",
+        "inserter-capacity-bonus-6",
+        "inserter-capacity-bonus-7",
+    ],
+    "progressive-circuit": [
+        "plastics",
+        "advanced-circuit",
+        "automation-2",
+        "processing-unit",
+        "circuit-network",
+        "quantum-processor",
+        "automation-3",
+        "advanced-combinators",
+        "processing-unit-productivity", # infinite
+    ],
+
+    "progressive-robotics": [
+        "engine",
+        "lubricant",
+        "electric-engine",
+        "battery",
+        "robotics",
+        "utility-science-pack",
+        "construction-robotics",
+        "worker-robots-speed-1",
+        "worker-robots-speed-2",
+        "worker-robots-speed-3",
+        "worker-robots-speed-4",
+        "worker-robots-speed-5",
+        "worker-robots-speed-6",
+        "worker-robots-speed-7", # infinite
+    ],
+    "progressive-logistic-robotics": [
+        "logistic-robotics",
+        "logistic-system",
+        "worker-robots-storage-1",
+        "worker-robots-storage-2",
+        "worker-robots-storage-3",
+    ],
+    "progressive-train-network": [
+        "railway",
+        "automated-rail-transportation",
+        "elevated-rail",
+        "rail-support-foundations",
+        "braking-force-1",
+        "braking-force-2",
+        "braking-force-3",
+        "braking-force-4",
+        "braking-force-5",
+        "braking-force-6",
+        "braking-force-7",
+    ],
+    "progressive-uranium": [
+        "uranium-mining",
+        "uranium-processing",
+        "nuclear-power",
+        "uranium-ammo",
+        "kovarex-enrichment-process",
+        "nuclear-fuel-reprocessing",
+    ],
+
+    "progressive-space": [
+        "concrete",
+        "low-density-structure",
+        "rocket-fuel",
+        "rocket-silo",
+        "space-platform",
+        "space-science-pack",
+        "space-platform-thruster",
+        "advanced-asteroid-processing",
+        "asteroid-reprocessing",
+        "asteroid-productivity", # infinite
+    ],
+    "progressive-vulcanus": [
+        "planet-discovery-vulcanus",
+        "tungsten-carbide",
+        "foundry",
+        "big-mining-drill",
+        "tungsten-steel",
+        "metallurgic-science-pack",
+        "calcite-processing",
+        "cliff-explosives",
+        "low-density-structure-productivity", # infinite
+    ],
+    "progressive-gleba": [
+        "landfill",
+        "planet-discovery-gleba",
+        "yumako",
+        "biochamber",
+        "jellynut",
+        "bioflux",
+        "agriculture",
+        "agricultural-science-pack",
+        "bacteria-cultivation",
+        "bioflux-processing",
+        "artificial-soil",
+        "overgrowth-soil",
+        "rocket-fuel-productivity", # infinite
+    ],
+    "progressive-fulgora": [
+        "electric-energy-accumulators",
+        "planet-discovery-fulgora",
+        "recycling",
+        "holmium-processing",
+        "electromagnetic-plant",
+        "electromagnetic-science-pack",
+        "lightning-collector",
+        "scrap-recycling-productivity", # infinite
+    ],
+    "progressive-aquilo": [
+        "planet-discovery-aquilo",
+        "lithium-processing",
+        "cryogenic-plant",
+        "cryogenic-science-pack",
+        "rocket-part-productivity", # infinite
+    ],
+    "progressive-promethium": [
+        "railgun",
+        "promethium-science-pack",
+        "research-productivity", # infinite
+    ],
+
+    "progressive-captivity": [
+        "captivity",
+        "biolab",
+        "captive-biter-spawner",
+    ],
+
+    "progressive-military": [
+        "military",
+        "gun-turret",
+        "stone-wall",
+        "military-2",
+        "military-science-pack",
+        "physical-projectile-damage-1",
+        "weapon-shooting-speed-1",
+        "physical-projectile-damage-2",
+        "weapon-shooting-speed-2",
+        "military-3",
+        "physical-projectile-damage-3",
+        "weapon-shooting-speed-3",
+        "physical-projectile-damage-4",
+        "weapon-shooting-speed-4",
+        "military-4",
+        "physical-projectile-damage-5",
+        "weapon-shooting-speed-5",
+        "physical-projectile-damage-6",
+        "weapon-shooting-speed-6",
+        "physical-projectile-damage-7", # infinite
+    ],
+    "progressive-explosives": [
+        "explosives",
+        "rocketry",
+        "land-mine",
+        "stronger-explosives-1",
+        "stronger-explosives-2",
+        "explosive-rocketry",
+        "carbon-fiber",
+        "rocket-turret",
+        "stronger-explosives-3",
+        "stronger-explosives-4",
+        "stronger-explosives-5",
+        "stronger-explosives-6",
+        "atomic-bomb",
+        "stronger-explosives-7", # infinite
+    ],
+
+    # These are unchanged:
+    **{k: small_progressive_groups[k] for k in [
+        "progressive-efficiency-module",
+        "progressive-productivity-module",
+        "progressive-speed-module",
+        "progressive-quality-module",
+        "progressive-quality",
+
+        "research-speed",
+
+        "progressive-armor",
+        "progressive-portable-power",
+        "progressive-personal-battery",
+        "progressive-personal-roboport",
+        "progressive-energy-shield",
+        "progressive-follower-robot",
+
+        "artillery-shell-damage",  # infinite
+        "artillery-shell-range",   # infinite
+        "artillery-shell-speed",   # infinite
+        "electric-weapons-damage", # infinite
+        "follower-robot-count",    # infinite
+        "health",                  # infinite
+        "laser-shooting-speed",    # infinite
+        "laser-weapons-damage",    # infinite
+        "railgun-shooting-speed",  # infinite
+        "railgun-damage",          # infinite
+        "refined-flammables",      # infinite
+    ]},
 }
-assert all(
-    technology_name_to_progressive_group_name[technology_name] == progressive_group_name
-    for progressive_group_name, stack in progressive_technology_stacks.items()
-    for technology_name in stack
-), "progressive technology listed in multiple stacks"
+
 
 energy_link_bridge_recipes = {
     "early_game": [

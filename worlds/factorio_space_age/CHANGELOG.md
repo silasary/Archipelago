@@ -6,23 +6,25 @@
 
 Default options are now a significantly accelerated experience relative to vanilla.
 
-* Added `quick_start` option enabled by default that gives you personal construction bots and a chunk of basic resources at the start.
+* Added `quick_start` option, enabled by default, that gives personal construction bots and a chunk of basic resources at the start.
+* Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with optional technologies at the ends of the chains. This makes it less likely to get stuck waiting for someone to find a specific item.
 * `goal: any_other_planet_science` now creates victory technologies to research instead of reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
 * Steel furnace and electric furnace are no longer progressive advanced material processing, because neither is an ingredient for the other, and getting them out of order is interesting for a randomizer.
 * Electric energy distribution is no longer progressive for the same reason. Getting substations before medium electric poles sounds interesting.
-* `military` through `military-4` are no longer progressive. All 4 individual military technologies are separate. (`military-4` items are crafted out of `military-2` items, but I made the whole set not progressive for simplicity.) This makes it slightly harder to find all requirements for `military-science-pack`, since now `military-2` specifically is required instead of 2/4 `progressive-military`.
+* With `progressive_technologies: only_related`, `military` through `military-4` are no longer progressive. All 4 individual military technologies are separate. (`military-4` items are crafted out of `military-2` items, but I made the whole set not progressive for simplicity.) This makes it slightly harder to find all requirements for `military-science-pack`, since now `military-2` specifically is required instead of 2/4 `progressive-military`. (All 4 are part of `progressive-military` with `progressive_technologies: large_groups` as well as several other loosely related technologies, such as `physical-projectile-damage`.)
 
 ### Breaking changes to options
 
 These may require updates to your player yaml configuration.
 
-* `progressive_technologies` has changed: TODO.
-* `automation` (the first assembling machine technology) is no longer part of `progressive-automation` because it is not randomized.
-* Simplified several progressive pseudo item names to remove the `progressive-` prefix. E.g. `progressive-steel-plate-productivity` is now just called `steel-plate-productivity`, and `worker-robot-speed-1` through `worker-robot-speed-7` are part of a progressive group called simply `worker-robot-speed`. The rough generalization is that recipe unlock chains still say `progressive-` but bonus unlock chains don't.
+* `progressive_technologies` has been completely overhauled. The old `bonuses` option is gone. The old `recipes` option is very similar to `only_related`.
+* `automation` (the first assembling machine technology) is no longer part of any progressive chain because it is not randomized.
+* With `progressive_technologies: only_related`, several progressive pseudo item names have been simplified to remove the `progressive-` prefix. E.g. `progressive-steel-plate-productivity` is now just called `steel-plate-productivity`, and `worker-robot-speed-1` through `worker-robot-speed-7` are part of a progressive group called simply `worker-robot-speed`. The rough generalization is that recipe unlock chains still say `progressive-` but bonus unlock chains don't.
+* With `progressive_technologies: large_groups`, if you want to give yourself levels of an infinite tech that's part of a progressive group, name the last item in the chain rather than the chain itself. e.g. `!getitem worker-robot-speed-7` or `start_inventory_from_pool: {mining-productivity-3: 5}`.
 
 ### Internal changes
 
-* Internal logic overhaul to better prepare for recipe randomization and other hypothetical future flexibility. The data pipeline starts with prototype data instead of runtime data, and we shipped a pruned-down json version instead of the generated python code in previous versions. This should make this code base more friendly to contributions by way of being less confusing/clever/innovative/messy/etc. We do lose the git-controlled representation of the logic graph, which is a little disappointing, but necessary to make it more flexible.
+* Internal logic overhaul to support configurable progressive groups and other hypothetical future flexibility. The data pipeline starts with prototype data instead of runtime data, and we ship a pruned-down json version instead of generated python code. This should make this code base more friendly to contributions by being less confusing/clever/innovative/messy/etc. We do lose the git-controlled representation of the logic graph, which is a little disappointing, but necessary to make it more flexible.
 * Fixed subtle bug with `on_entity_died` event handler clobbering found by @CostmicWolf. No observable change to the player.
 * Fixed `/collect` on your own world printing `Unknown Item` warnings related to infinite technologies.
 

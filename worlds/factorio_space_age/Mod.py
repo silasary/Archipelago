@@ -16,7 +16,6 @@ from . import Options
 from .FactorioData import parse_level_from_technology_prototype_name
 from .data.ap_data import (
     energy_link_bridge_recipes,
-    progressive_technology_stacks, technology_name_to_progressive_group_name,
 )
 from .data.json_dumps_but_smaller import json_dumps
 from .data.ap_data import (
@@ -132,6 +131,8 @@ def generate_mod(
     options: Options,
     multiworld: "Multiworld",
     logic_events: dict,
+    progressive_technology_stacks: dict[str, dict[str, str]],
+    technology_name_to_progressive_group_name: dict[str, str],
     infinite_technology_shuffle: dict[str, str] | None,
     technology_props_lua: dict[str, dict],
     output_directory: str,
@@ -232,7 +233,17 @@ def generate_mod(
                 icon = item_name
             elif item_name in progressive_technology_stacks:
                 # This is a progressive item for Factorio (probably). Use one of the icons in the stack.
-                icon = progressive_technology_stacks[item_name][0]
+                icon = {
+                    # Override a few of the large group icons, because the first item in the list isn't always a good representative.
+                    names.progressive_oil: names.oil_processing,
+                    names.progressive_circuit: names.advanced_circuit,
+                    names.progressive_robotics: names.construction_robotics,
+                    names.progressive_uranium: names.uranium_processing,
+                    names.progressive_space: names.space_platform_thruster,
+                    names.progressive_gleba: names.planet_discovery_gleba,
+                    names.progressive_fulgora: names.planet_discovery_fulgora,
+                    names.progressive_promethium: names.promethium_science_pack,
+                }.get(item_name, progressive_technology_stacks[item_name][0])
             elif item_name == "ap-energy-bridge":
                 # Handled specially in data.lua.
                 icon = item_name
