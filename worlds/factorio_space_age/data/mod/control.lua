@@ -75,13 +75,13 @@ local function string_starts_with(str, start)
 end
 local function on_energy_bridge_constructed(entity)
     if entity and entity.valid then
-        if entity.prototype.name == "ap-energy-bridge" then
+        if entity.prototype.name == "ap-energy-link-bridge" then
             storage.energy_link_bridges[entity.unit_number] = entity
         end
     end
 end
 local function on_energy_bridge_removed(entity)
-    if entity.prototype.name == "ap-energy-bridge" then
+    if entity.prototype.name == "ap-energy-link-bridge" then
         storage.energy_link_bridges[entity.unit_number] = nil
     end
 end

@@ -245,7 +245,7 @@ def generate_mod(
                     names.progressive_fulgora: names.planet_discovery_fulgora,
                     names.progressive_promethium: names.promethium_science_pack,
                 }.get(item_name, progressive_technology_stacks[item_name][0])
-            elif item_name == "ap-energy-bridge":
+            elif item_name == names.ap_energy_link_bridge:
                 # Handled specially in data.lua.
                 icon = item_name
         else:

@@ -36,7 +36,7 @@ for tech_name, tech_data in pairs(PARAMS.new_technology_data) do
         new_tech.icon = "__" .. PARAMS.mod_name .. "__/graphics/icons" .. tech_data.icon
         new_tech.icon_size = 128
         new_tech.icons = nil
-    elseif tech_data.icon == "ap-energy-bridge" then
+    elseif tech_data.icon == "ap-energy-link-bridge" then
         -- Give it the energy link icon.
         new_tech.icon = data.raw["item"]["accumulator"].icon
         tint_icon(new_tech, energy_bridge_tint())
@@ -56,8 +56,8 @@ if PARAMS.energy_link_increment > 0 then
     -- TODO: Replace the tinting code with an actual rendered picture of the energy bridge icon.
     -- This tint is so that one is less likely to accidentally mass-produce energy-bridges, then wonder why their rocket is not building.
     local entity = table.deepcopy(data.raw["accumulator"]["accumulator"])
-    entity.name = "ap-energy-bridge"
-    entity.minable.result = "ap-energy-bridge"
+    entity.name = "ap-energy-link-bridge"
+    entity.minable.result = "ap-energy-link-bridge"
     entity.localised_name = "Archipelago EnergyLink Bridge" -- TODO: move to locale.cfg
     entity.energy_source.buffer_capacity = "50MJ"
     entity.energy_source.input_flow_limit = "1MW"
@@ -66,30 +66,30 @@ if PARAMS.energy_link_increment > 0 then
     entity.chargable_graphics.picture.layers[1].tint = energy_bridge_tint()
     entity.chargable_graphics.charge_animation.layers[1].layers[1].tint = energy_bridge_tint()
     entity.chargable_graphics.discharge_animation.layers[1].layers[1].tint = energy_bridge_tint()
-    data.raw["accumulator"]["ap-energy-bridge"] = entity
+    data.raw["accumulator"]["ap-energy-link-bridge"] = entity
 
     local item = table.deepcopy(data.raw["item"]["accumulator"])
-    item.name = "ap-energy-bridge"
+    item.name = "ap-energy-link-bridge"
     item.localised_name = "Archipelago EnergyLink Bridge"
     item.place_result = entity.name
     tint_icon(item, energy_bridge_tint())
-    data.raw["item"]["ap-energy-bridge"] = item
+    data.raw["item"]["ap-energy-link-bridge"] = item
 
     local recipe = table.deepcopy(data.raw["recipe"]["accumulator"])
-    recipe.name = "ap-energy-bridge"
+    recipe.name = "ap-energy-link-bridge"
     recipe.ingredients = PARAMS.energy_link_bridge_ingredients
     recipe.results = { {type = "item", name = item.name, amount = 1} }
     recipe.energy_required = 10
     recipe.enabled = PARAMS.energy_link_bridge_starts_unlocked
     recipe.localised_name = "Archipelago EnergyLink Bridge"
-    data.raw["recipe"]["ap-energy-bridge"] = recipe
+    data.raw["recipe"]["ap-energy-link-bridge"] = recipe
 
     local technology = {
         type = "technology",
-        name = "ap-energy-bridge",
+        name = "ap-energy-link-bridge",
         icons = table.deepcopy(item.icons),
         effects = {
-            {type="unlock-recipe", recipe="ap-energy-bridge"},
+            {type="unlock-recipe", recipe="ap-energy-link-bridge"},
         },
         research_trigger = {type="scripted"},
         hidden = true,

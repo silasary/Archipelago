@@ -1,86 +1,7 @@
 # This file is somewhat arbitrary constants chosen for the randomizer.
 # This file is inputs to both import-ap-dump.py and also the apworld proper.
 
-factorio_base_id = 2 ** 17
-
-unrandomized_technologies = {
-    # These are critical at the start.
-    # The fill algorithm crumbles if you let it attempt to random a way out of the early game.
-    "steam-power",
-    "electronics",
-    "automation-science-pack",
-    "automation",
-}
-
-never_give_free_samples_from_recipes = {
-    # Originally derrived from the .hide_from_player_crafting recipe prototype property.
-    "rocket-part",
-    "biter-egg",
-    "empty-crude-oil-barrel",
-    "empty-fluoroketone-cold-barrel",
-    "empty-fluoroketone-hot-barrel",
-    "empty-heavy-oil-barrel",
-    "empty-light-oil-barrel",
-    "empty-lubricant-barrel",
-    "empty-petroleum-gas-barrel",
-    "empty-sulfuric-acid-barrel",
-    "empty-water-barrel",
-    "crude-oil-barrel",
-    "fluoroketone-cold-barrel",
-    "fluoroketone-hot-barrel",
-    "heavy-oil-barrel",
-    "light-oil-barrel",
-    "lubricant-barrel",
-    "petroleum-gas-barrel",
-    "sulfuric-acid-barrel",
-    "water-barrel",
-}
-
-infinite_technology_names = {
-    "artillery-shell-damage-1",
-    "artillery-shell-range-1",
-    "artillery-shell-speed-1",
-    "asteroid-productivity",
-    "electric-weapons-damage-4",
-    "follower-robot-count-5",
-    "health",
-    "laser-weapons-damage-7",
-    "low-density-structure-productivity",
-    "mining-productivity-3",
-    "physical-projectile-damage-7",
-    "plastic-bar-productivity",
-    "processing-unit-productivity",
-    "railgun-damage-1",
-    "railgun-shooting-speed-1",
-    "refined-flammables-7",
-    "research-productivity",
-    "rocket-fuel-productivity",
-    "rocket-part-productivity",
-    "scrap-recycling-productivity",
-    "steel-plate-productivity",
-    "stronger-explosives-7",
-    "worker-robots-speed-7",
-}
-
-ap_item_names = [
-    "ap-energy-link-bridge", # TODO: rename everything to use this name.
-    "vulcanus-victory",
-    "gleba-victory",
-    "fulgora-victory",
-]
-
-trap_names = [
-    "Artillery Trap",
-    "Atomic Cliff Remover Trap",
-    "Atomic Rocket Trap",
-    "Attack Trap",
-    "Cluster Grenade Trap",
-    "Evolution Trap",
-    "Grenade Trap",
-    "Inventory Spill Trap",
-    "Teleport Trap",
-]
-
+# progressive_technologies: only_related
 small_progressive_groups = {
     #"progressive-advanced-material-processing": [
     #    "advanced-material-processing",
@@ -336,6 +257,7 @@ small_progressive_groups = {
     ],
 }
 
+# progressive_technologies: large_groups
 large_progressive_groups = {
 
     "progressive-mining": [
@@ -580,7 +502,6 @@ large_progressive_groups = {
     ]},
 }
 
-
 energy_link_bridge_recipes = {
     "early_game": [
         dict(type="item", amount=50, name="iron-plate"),
@@ -595,3 +516,83 @@ energy_link_bridge_recipes = {
         dict(type="item", amount=1,  name="radar"),
     ],
 }
+
+factorio_base_id = 2 ** 17
+
+unrandomized_technologies = {
+    # These are critical at the start.
+    # The fill algorithm crumbles if you let it attempt to random a way out of the early game.
+    "steam-power",
+    "electronics",
+    "automation-science-pack",
+    "automation",
+}
+
+never_give_free_samples_from_recipes = {
+    # Originally derrived from the .hide_from_player_crafting recipe prototype property.
+    "rocket-part",
+    "biter-egg",
+    "empty-crude-oil-barrel",
+    "empty-fluoroketone-cold-barrel",
+    "empty-fluoroketone-hot-barrel",
+    "empty-heavy-oil-barrel",
+    "empty-light-oil-barrel",
+    "empty-lubricant-barrel",
+    "empty-petroleum-gas-barrel",
+    "empty-sulfuric-acid-barrel",
+    "empty-water-barrel",
+    "crude-oil-barrel",
+    "fluoroketone-cold-barrel",
+    "fluoroketone-hot-barrel",
+    "heavy-oil-barrel",
+    "light-oil-barrel",
+    "lubricant-barrel",
+    "petroleum-gas-barrel",
+    "sulfuric-acid-barrel",
+    "water-barrel",
+}
+
+infinite_technology_names = {
+    "artillery-shell-damage-1",
+    "artillery-shell-range-1",
+    "artillery-shell-speed-1",
+    "asteroid-productivity",
+    "electric-weapons-damage-4",
+    "follower-robot-count-5",
+    "health",
+    "laser-weapons-damage-7",
+    "low-density-structure-productivity",
+    "mining-productivity-3",
+    "physical-projectile-damage-7",
+    "plastic-bar-productivity",
+    "processing-unit-productivity",
+    "railgun-damage-1",
+    "railgun-shooting-speed-1",
+    "refined-flammables-7",
+    "research-productivity",
+    "rocket-fuel-productivity",
+    "rocket-part-productivity",
+    "scrap-recycling-productivity",
+    "steel-plate-productivity",
+    "stronger-explosives-7",
+    "worker-robots-speed-7",
+}
+
+ap_item_names = [
+    "ap-energy-link-bridge",
+    "vulcanus-victory",
+    "gleba-victory",
+    "fulgora-victory",
+]
+
+trap_names = [
+    "Artillery Trap",
+    "Atomic Cliff Remover Trap",
+    "Atomic Rocket Trap",
+    "Attack Trap",
+    "Cluster Grenade Trap",
+    "Evolution Trap",
+    "Grenade Trap",
+    "Inventory Spill Trap",
+    "Teleport Trap",
+]
