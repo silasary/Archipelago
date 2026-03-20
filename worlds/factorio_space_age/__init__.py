@@ -71,9 +71,7 @@ class Factorio(World):
 
     item_name_to_id = ap_item_name_to_id
     location_name_to_id = ap_location_name_to_id
-    item_name_groups = {
-        # TODO: progressive item groups here?
-    }
+    item_name_groups = {}
 
     locations: list[FactorioLocation]
     logic_events: dict
@@ -110,6 +108,44 @@ class Factorio(World):
             progressive_technology_stacks,
         )
         from .data import generated_names as names
+
+        if self.options.quick_start.value:
+            # quick_start effectively modifies starting_items.
+            # TODO: use the freeplay remote interface to load some of this stuff into the crashed ship instead,
+            # so that newly joining multiplayers of the factorio world don't get all these starting items.
+            # Something like this maybe: https://github.com/ouk-ouk/Factorio-NoRespawnGun/blob/c3f55d2dc5bf8a832ba8c110e23a71122252dd88/src/control.lua#L20C112-L20C129
+            # See /path/to/factorio/data/base/script/freeplay.lua for the definition of the remote interface.
+            for k, v in {
+                # Run fast. Build fast. Fun fast.
+                names.power_armor: 1,
+                names.fission_reactor_equipment: 1,
+                names.battery_equipment: 2,
+                names.personal_roboport_equipment: 1,
+                names.exoskeleton_equipment: 3,
+                names.construction_robot: 50,
+                # Also get through the burner phase faster.
+                names.burner_mining_drill: 49, # +1 from scenario
+                names.stone_furnace: 49,       # +1 from scenario
+                names.wood: 99,                # +1 from scenario
+                names.iron_plate: 500,
+                names.iron_gear_wheel: 200,
+                names.copper_cable: 200,       # +200 from free samples (if enabled)
+                # Assembling machines cost 10 secience packs to unlock (not configurable).
+                names.automation_science_pack: 10,
+            }.items():
+                try:
+                    self.options.starting_items.value[k] += v
+                except KeyError:
+                    self.options.starting_items.value[k] = v
+            # Quick start also makes bots faster.
+            for k, v in {
+                names.worker_robots_speed: 5
+            }.items():
+                try:
+                    self.options.start_inventory.value[k] += v
+                except KeyError:
+                    self.options.start_inventory.value[k] = v
+
         self.factorio_data = FactorioData(the_data)
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:

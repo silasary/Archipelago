@@ -227,6 +227,7 @@ class TechnologyPrerequisites(Choice):
 
     Note that with prerequisites removed, the technology GUI lists all the trigger techs for planets you haven't visited yet
     before the research techs that you're actually looking for, which can be a little annoying.
+    However, with prerequisites included, triggers can block large swaths of other techs, such as pumping oil and mining uranium.
     """
     display_name = "Technology Prerequisites"
     option_vanilla = 0
@@ -282,17 +283,18 @@ class TechTreeInformation(Choice):
 option_groups.append(OptionGroup("Speedups/Balance", []))
 
 @auto_group
+class QuickStart(DefaultOnToggle):
+    """
+    Start with power armor, some personal bots, some bot speed upgrades,
+    and a chunk of materials to help get through the early game.
+    """
+
+@auto_group
 class StartingItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
-    default = {"burner-mining-drill": 4, "stone-furnace": 4, "wood": 4}
-    schema = Schema(
-        {
-            str: And(int, lambda n: n > 0,
-                     error="amount of starting items has to be a positive integer"),
-        }
-        # Additional validation is in generate_early().
-    )
+    default = {}
+    # Validation is in generate_early().
 
 @auto_group
 class FreeSamples(Choice):
@@ -704,6 +706,7 @@ class FactorioOptions(PerGameCommonOptions):
     infinite_technologies: InfiniteTechs
     tech_tree_information: TechTreeInformation
 
+    quick_start: QuickStart
     starting_items: StartingItems
     free_samples: FreeSamples
     free_samples_quality: FreeSamplesQuality

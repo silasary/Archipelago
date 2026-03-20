@@ -1211,9 +1211,8 @@ class FactorioData:
             if recipe_name in starting_recipes:
                 expr = ALWAYS
             elif recipe_name == names.iron_stick:
-                # Prevent circuit-network from getting flagged as advancmenet because it could be a provider of the iron stick recipe for concrete.
+                # Prevent circuit-network from getting flagged as advancmenet because it could be a provider of the iron stick recipe for refined concrete.
                 # Really every recipe that needs sticks also comes with the sticks, so just remove this recipe from logical consideration.
-                # TODO: maybe just do more inlining and then the optimizer would solve this?
                 expr = ALWAYS
             else:
                 expr = {"or": [
@@ -1423,12 +1422,6 @@ class PowerType(IntFlag):
     fusion_plasma = 1<< 9 # produced by fusion reactor, required by fusion generator
     thruster_fuel = 1<<10 # both fuel and oxidizer, required by thruster
     free          = 0 # offshore pump requires no power.
-
-class HeatBufferMode(IntEnum):
-    conduct = 0, # heat pipe TODO: delete this
-    produce = 1, # nuclear reactor, heating tower
-    consume = 2, # heat exchanger
-    editor_only = -1, # heat interface TODO: delete this
 
 class RecipeClassification(IntEnum):
     standard = 0 # Produce "better" items.

@@ -4,13 +4,15 @@
 
 ### Gameplay changes
 
-* `goal: any_other_planet_science` now creates victory technologies to research instead of reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
-* split up some progressive item chains to be individual instead:
-    * steel furnace and electric furnace are no longer progressive, because neither is an ingredient for the other, and getting them out of order is interesting for a randomizer.
-    * electric energy distribution is no longer progressive for the same reason. Getting substations before medium electric poles sounds interesting.
-    * `progressive-military` is removed. all 4 individual military technologies are separate. (`military-4` items are crafted out of `military-2` items, but I made the whole set not progressive for simplicity.) This makes it slightly harder to find all requirements for `military-science-pack`, since now `military-2` specifically is required instead of 2/4 `progressive-military`.
+Default options are now a significantly accelerated experience relative to vanilla.
 
-### Options changes
+* Added `quick_start` option enabled by default that gives you personal construction bots and a chunk of basic resources at the start.
+* `goal: any_other_planet_science` now creates victory technologies to research instead of reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
+* Steel furnace and electric furnace are no longer progressive advanced material processing, because neither is an ingredient for the other, and getting them out of order is interesting for a randomizer.
+* Electric energy distribution is no longer progressive for the same reason. Getting substations before medium electric poles sounds interesting.
+* `military` through `military-4` are no longer progressive. All 4 individual military technologies are separate. (`military-4` items are crafted out of `military-2` items, but I made the whole set not progressive for simplicity.) This makes it slightly harder to find all requirements for `military-science-pack`, since now `military-2` specifically is required instead of 2/4 `progressive-military`.
+
+### Breaking changes to options
 
 These may require updates to your player yaml configuration.
 
