@@ -4,6 +4,7 @@ set -e
 
 files=(
     LICENSE
+    CHANGELOG.md
     archipelago.json
     requirements.txt
 
@@ -12,12 +13,14 @@ files=(
     Mod.py
     Options.py
     settings.py
+    Logic.py
+    FactorioData.py
 
     data/__init__.py
-    data/Logic.py
-    data/generated1.py
-    data/generated2.py
-    data/generated3.py
+    data/ap_data.py
+    data/generated_names.py
+    data/generated_ids.py
+    data/ap-dump.json
 
     data/mod/LICENSE.md
     data/mod/thumbnail.png
