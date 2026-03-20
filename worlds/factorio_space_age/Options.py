@@ -359,18 +359,36 @@ class TechCostDivisor(Range):
     default = 1
 
 @auto_group
-class RocketPartsPerRocket(Range):
-    """Normally a rocket requires 50 of each ingredient."""
-    range_start = 1
-    range_end = 200
-    default = 50
+class SpaceTechnologyLevel(Choice):
+    """
+    Downgrade space-related crafting ingredients to make space travel accessible earlier in the game:
+    vanilla               -> mid game         -> early game;
+    processing unit       -> advanced circuit -> electronic circuit;
+    low density structure -> plastic bar      -> copper plate;
+    rocket fuel           -> sulfur           -> coal;
+    electric engine unit  -> engine unit      -> iron gear wheel;
+    steel plate           -> steel plate      -> iron plate;
+    concrete              -> concrete         -> stone brick;
 
-@auto_group
-class IngredientsPerSpacePlatformFoundation(Range):
-    """Normally a space platform foundation requires 20 of each ingredient."""
-    range_start = 1
-    range_end = 400
-    default = 20
+    Changes apply to these recipes: rocket-silo, rocket-part, space-platform-foundation,
+    space-platform-starter-pack, cargo-landing-pad, cargo-bay, asteroid-collector, crusher,
+    thruster, chemical-plant, solar-panel.
+
+    If require_electric_furnace is enabled, then electric-furnace will also be included in the list.
+
+    Additionally, small and medium asteroid health is reduced by 1/2 for mid game or 1/4 for early game.
+
+    To get the most out of this option, you might be interested in these other changes:
+      technology_prerequisites: removed
+      require_logistic_robots: 'false'
+      progression: minimal
+      progressive_technologies: only_related # TODO: make a better option for this mode.
+    """
+    option_early_game = 0
+    option_mid_game = 1
+    option_vanilla = 2
+    default = 2
+
 
 
 option_groups.append(OptionGroup("Logic", []))
@@ -718,8 +736,7 @@ class FactorioOptions(PerGameCommonOptions):
     free_samples_quality: FreeSamplesQuality
     free_sample_excludes: FreeSampleExcludes
     tech_cost_divisor: TechCostDivisor
-    rocket_parts_per_rocket: RocketPartsPerRocket
-    ingredients_per_space_platform_foundation: IngredientsPerSpacePlatformFoundation
+    space_technology_level: SpaceTechnologyLevel
 
     require_electric_mining_drill: LogicMiningDrill
     require_logistics: LogicLogistics

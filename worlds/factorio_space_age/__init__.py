@@ -74,6 +74,7 @@ class Factorio(World):
     item_name_groups = {}
 
     locations: list[FactorioLocation]
+    ingredient_changes: dict[str, list[dict]]
     logic_events: dict
     advancement_technologies: set[str]
     infinite_technology_shuffle: dict[str, str] | None = None
@@ -83,6 +84,7 @@ class Factorio(World):
 
     def __init__(self, world, player: int):
         self.locations = []
+        self.ingredient_changes = {}
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
@@ -98,6 +100,7 @@ class Factorio(World):
             technology_name_to_progressive_group_name=self.technology_name_to_progressive_group_name,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
             technology_props_lua=self.technology_props_lua,
+            ingredient_changes=self.ingredient_changes,
             output_directory=output_directory,
         )
 
@@ -158,6 +161,34 @@ class Factorio(World):
                 except KeyError:
                     self.options.start_inventory.value[k] = v
 
+        # Data modifications.
+        if self.options.space_technology_level.current_key != "vanilla":
+            index = {"mid_game": 0, "early_game": 1}[self.options.space_technology_level.current_key]
+            ingredient_replacements = {
+                names.processing_unit:       [names.advanced_circuit, names.electronic_circuit][index],
+                names.advanced_circuit:      [names.advanced_circuit, names.electronic_circuit][index],
+                names.low_density_structure: [names.plastic_bar,      names.copper_plate][index],
+                names.rocket_fuel:           [names.sulfur,           names.coal][index],
+                names.electric_engine_unit:  [names.engine_unit,      names.iron_gear_wheel][index],
+                names.steel_plate:           [names.steel_plate,      names.iron_plate][index],
+                names.concrete:              [names.concrete,         names.stone_brick][index],
+            }
+            recipes_to_modify = [
+                names.rocket_silo, names.rocket_part, names.space_platform_foundation,
+                names.space_platform_starter_pack, names.cargo_landing_pad, names.cargo_bay, names.asteroid_collector, names.crusher,
+                names.thruster, names.chemical_plant, names.solar_panel,
+            ]
+            if self.options.require_electric_furnace.value:
+                recipes_to_modify.append(names.electric_furnace)
+            for recipe_name in recipes_to_modify:
+                recipe_data = the_data["recipe"][recipe_name]
+                for ingredient_data in recipe_data["ingredients"]:
+                    ingredient_name = ingredient_data["name"]
+                    new_ingredient_name = ingredient_replacements.get(ingredient_name, ingredient_name)
+                    ingredient_data["name"] = new_ingredient_name # modify the_data in place.
+                self.ingredient_changes[recipe_name] = recipe_data["ingredients"]
+
+        # Data analysis.
         self.factorio_data = FactorioData(the_data, self.technology_name_to_progressive_group_name)
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:

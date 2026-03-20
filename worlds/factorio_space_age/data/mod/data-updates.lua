@@ -1,11 +1,9 @@
 require "template_parameters" -- defines PARAMS
 
--- Balance tuning.
-data.raw["rocket-silo"]["rocket-silo"].rocket_parts_required = PARAMS.rocket_parts_per_rocket
-data.raw["recipe"]["space-platform-foundation"].ingredients = {
-    {type="item", name="steel-plate",  amount=PARAMS.ingredients_per_space_platform_foundation},
-    {type="item", name="copper-cable", amount=PARAMS.ingredients_per_space_platform_foundation},
-}
+-- Recipe changes.
+for name, ingredients in pairs(PARAMS.ingredient_changes) do
+    data.raw["recipe"][name].ingredients = ingredients
+end
 
 -- Disable and hide base technologies.
 for _, tech_name in pairs(PARAMS.hide_base_technologies) do

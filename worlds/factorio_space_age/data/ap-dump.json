@@ -2476,10 +2476,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -2495,14 +2497,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -2518,18 +2523,22 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "speed-module-2",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 1
         }
@@ -2545,10 +2554,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -2564,14 +2575,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "productivity-module",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -2587,18 +2601,22 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "productivity-module-2",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 1
         }
@@ -2614,10 +2632,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -2633,14 +2653,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "efficiency-module",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -2656,18 +2679,22 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "efficiency-module-2",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 5
         }
@@ -2682,18 +2709,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "fast-inserter",
           "amount": 1
         }
@@ -2707,8 +2738,10 @@
       "enabled": false,
       "category": "oil-processing",
       "ingredients": [{
+        "type": "fluid",
         "name": "crude-oil",
-        "amount": 100
+        "amount": 100,
+        "fluidbox_index": 2
       }],
       "energy_required": 5,
       "results": [{
@@ -2721,10 +2754,12 @@
       "category": "oil-processing",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "crude-oil",
           "amount": 100
         }
@@ -2750,15 +2785,18 @@
       "category": "oil-processing",
       "ingredients": [
         {
+          "type": "item",
           "name": "coal",
           "amount": 10
         },
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 25,
           "ignored_by_stats": 25
         },
         {
+          "type": "fluid",
           "name": "steam",
           "amount": 50
         }
@@ -2785,10 +2823,12 @@
       "category": "organic-or-chemistry",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 30
         },
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 40
         }
@@ -2804,10 +2844,12 @@
       "category": "organic-or-chemistry",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 30
         },
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 30
         }
@@ -2823,14 +2865,17 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "sulfur",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -2846,10 +2891,12 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 1
         }
@@ -2864,6 +2911,7 @@
       "enabled": false,
       "category": "chemistry",
       "ingredients": [{
+        "type": "fluid",
         "name": "light-oil",
         "amount": 10
       }],
@@ -2877,6 +2925,7 @@
       "enabled": false,
       "category": "chemistry",
       "ingredients": [{
+        "type": "fluid",
         "name": "petroleum-gas",
         "amount": 20
       }],
@@ -2890,6 +2939,7 @@
       "enabled": false,
       "category": "chemistry",
       "ingredients": [{
+        "type": "fluid",
         "name": "heavy-oil",
         "amount": 20
       }],
@@ -2904,10 +2954,12 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 30
         },
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 30
         }
@@ -2922,6 +2974,7 @@
       "enabled": false,
       "category": "chemistry",
       "ingredients": [{
+        "type": "fluid",
         "name": "heavy-oil",
         "amount": 10
       }],
@@ -2935,6 +2988,7 @@
       "enabled": false,
       "category": "crafting",
       "ingredients": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 1
       }],
@@ -2948,10 +3002,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -2966,10 +3022,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -2984,10 +3042,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -3002,14 +3062,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "energy-shield-equipment",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5
         }
@@ -3024,10 +3087,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "battery",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -3042,14 +3107,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "battery-equipment",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5
         }
@@ -3064,14 +3132,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "solar-panel",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         }
@@ -3086,14 +3157,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "uranium-fuel-cell",
           "amount": 4
         }
@@ -3108,14 +3182,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "laser-turret",
           "amount": 5
         }
@@ -3131,14 +3208,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "laser-turret",
           "amount": 10
         }
@@ -3153,14 +3233,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         }
@@ -3175,18 +3258,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 45
         }
@@ -3201,14 +3288,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "personal-roboport-equipment",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 50
         }
@@ -3223,14 +3313,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 12
         }
@@ -3245,18 +3338,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 5
         }
@@ -3271,18 +3368,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         }
@@ -3297,14 +3398,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 20
         }
@@ -3317,6 +3421,7 @@
     },
     "wooden-chest": {
       "ingredients": [{
+        "type": "item",
         "name": "wood",
         "amount": 2
       }],
@@ -3329,10 +3434,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1
         }
@@ -3345,6 +3452,7 @@
     "iron-stick": {
       "enabled": false,
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1
       }],
@@ -3355,6 +3463,7 @@
     },
     "stone-furnace": {
       "ingredients": [{
+        "type": "item",
         "name": "stone",
         "amount": 5
       }],
@@ -3367,10 +3476,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "stone-furnace",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 4
         }
@@ -3384,14 +3495,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         }
@@ -3403,6 +3517,7 @@
     },
     "iron-gear-wheel": {
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 2
       }],
@@ -3416,10 +3531,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 3
         }
@@ -3433,10 +3550,12 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         }
@@ -3450,14 +3569,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         }
@@ -3471,14 +3593,17 @@
     "burner-mining-drill": {
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "stone-furnace",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 3
         }
@@ -3493,14 +3618,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         }
@@ -3514,14 +3642,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "inserter",
           "amount": 1
         }
@@ -3535,14 +3666,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "inserter",
           "amount": 1
         }
@@ -3555,10 +3689,12 @@
     "burner-inserter": {
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         }
@@ -3571,6 +3707,7 @@
     "pipe": {
       "enabled": false,
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1
       }],
@@ -3583,10 +3720,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2
         }
@@ -3600,6 +3739,7 @@
       "enabled": false,
       "category": "electronics",
       "ingredients": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 1
       }],
@@ -3613,10 +3753,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "wood",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 2
         }
@@ -3631,10 +3773,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         }
@@ -3649,14 +3793,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         }
@@ -3669,6 +3816,7 @@
     },
     "firearm-magazine": {
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 4
       }],
@@ -3681,6 +3829,7 @@
     "light-armor": {
       "enabled": true,
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 40
       }],
@@ -3694,14 +3843,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         }
@@ -3715,14 +3867,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         }
@@ -3736,10 +3891,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         }
@@ -3753,14 +3910,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 9
         }
@@ -3774,10 +3934,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2
         }
@@ -3791,10 +3953,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         }
@@ -3809,10 +3973,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "inserter",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 1
         }
@@ -3827,14 +3993,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 4
         }
@@ -3848,6 +4017,7 @@
     "stone-wall": {
       "enabled": false,
       "ingredients": [{
+        "type": "item",
         "name": "stone-brick",
         "amount": 5
       }],
@@ -3860,18 +4030,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "assembling-machine-1",
           "amount": 1
         }
@@ -3886,14 +4060,17 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 4
         }
@@ -3909,10 +4086,12 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 5
         }
@@ -3928,22 +4107,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "inserter",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 5
         }
@@ -3958,14 +4142,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         }
@@ -3981,14 +4168,17 @@
       "category": "advanced-crafting",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2
         }
@@ -4002,6 +4192,7 @@
     "iron-chest": {
       "enabled": true,
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 8
       }],
@@ -4015,14 +4206,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 4
         }
@@ -4037,14 +4231,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 2
         }
@@ -4058,18 +4255,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "wood",
           "amount": 5
         }
@@ -4084,10 +4285,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2
         }
@@ -4102,14 +4305,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "firearm-magazine",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 2
         }
@@ -4124,10 +4330,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 10
         }
@@ -4142,10 +4350,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 6
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 10
         }
@@ -4160,14 +4370,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "stone-wall",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         }
@@ -4181,10 +4394,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         }
@@ -4198,6 +4413,7 @@
     "steel-chest": {
       "enabled": false,
       "ingredients": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 8
       }],
@@ -4211,10 +4427,12 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "underground-belt",
           "amount": 2
         }
@@ -4230,14 +4448,17 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "splitter",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 10
         }
@@ -4253,14 +4474,17 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -4275,6 +4499,7 @@
       "enabled": false,
       "category": "crafting",
       "ingredients": [{
+        "type": "item",
         "name": "concrete",
         "amount": 10
       }],
@@ -4289,18 +4514,22 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -4315,6 +4544,7 @@
       "enabled": false,
       "category": "crafting",
       "ingredients": [{
+        "type": "item",
         "name": "refined-concrete",
         "amount": 10
       }],
@@ -4328,6 +4558,7 @@
       "enabled": false,
       "category": "crafting",
       "ingredients": [{
+        "type": "item",
         "name": "stone",
         "amount": 50
       }],
@@ -4342,10 +4573,12 @@
       "category": "pressing",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 1
         }
@@ -4360,14 +4593,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5
         }
@@ -4382,14 +4618,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "stone",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         }
@@ -4403,14 +4642,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 30
         }
@@ -4425,14 +4667,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         }
@@ -4447,10 +4692,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         }
@@ -4464,10 +4711,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         }
@@ -4481,18 +4730,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 6
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 6
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 3
         }
@@ -4505,6 +4758,7 @@
     "copper-plate": {
       "category": "smelting",
       "ingredients": [{
+        "type": "item",
         "name": "copper-ore",
         "amount": 1
       }],
@@ -4517,6 +4771,7 @@
     "iron-plate": {
       "category": "smelting",
       "ingredients": [{
+        "type": "item",
         "name": "iron-ore",
         "amount": 1
       }],
@@ -4530,6 +4785,7 @@
       "enabled": true,
       "category": "smelting",
       "ingredients": [{
+        "type": "item",
         "name": "stone",
         "amount": 2
       }],
@@ -4543,6 +4799,7 @@
       "enabled": false,
       "category": "smelting",
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 5
       }],
@@ -4556,10 +4813,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -4573,10 +4832,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -4590,10 +4851,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         }
@@ -4607,10 +4870,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "decider-combinator",
           "amount": 5
         }
@@ -4624,14 +4889,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         }
@@ -4646,18 +4914,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 4
         }
@@ -4672,14 +4944,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 10
         }
@@ -4694,14 +4969,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 5
         }
@@ -4716,14 +4994,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "grenade",
           "amount": 7
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         }
@@ -4738,14 +5019,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "piercing-rounds-magazine",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 3
         }
@@ -4760,10 +5044,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "defender-capsule",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 3
         }
@@ -4778,14 +5064,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "distractor-capsule",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1
         }
@@ -4800,18 +5089,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "explosives",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "grenade",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1
         }
@@ -4826,10 +5119,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "piercing-rounds-magazine",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 1
         }
@@ -4844,10 +5139,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "explosives",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2
         }
@@ -4862,10 +5159,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "rocket",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2
         }
@@ -4880,14 +5179,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 100
         }
@@ -4902,14 +5204,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "shotgun-shell",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         }
@@ -4924,14 +5229,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 1
         }
@@ -4946,14 +5254,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2
         }
@@ -4968,10 +5279,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "cannon-shell",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 1
         }
@@ -4986,10 +5299,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "explosive-cannon-shell",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 1
         }
@@ -5004,18 +5319,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "radar",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 8
         }
@@ -5031,10 +5350,12 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "fluid",
           "name": "crude-oil",
           "amount": 100
         }
@@ -5050,14 +5371,17 @@
       "category": "crafting-with-fluid-or-metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "fast-transport-belt",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 20
         }
@@ -5071,10 +5395,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "assembling-machine-2",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 4
         }
@@ -5088,18 +5414,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 32
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 10
         }
@@ -5114,22 +5444,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "exoskeleton-equipment",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "fission-reactor-equipment",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "rocket-turret",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "radar",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "raw-fish",
           "amount": 1
         }
@@ -5144,18 +5479,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 16
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "storage-tank",
           "amount": 1
         }
@@ -5170,22 +5509,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         }
@@ -5200,10 +5544,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         }
@@ -5218,14 +5564,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 40
         }
@@ -5240,22 +5589,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "efficiency-module",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 30
         }
@@ -5270,10 +5624,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         }
@@ -5288,10 +5644,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2
         }
@@ -5306,14 +5664,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -5328,18 +5689,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "wood",
           "amount": 10
         }
@@ -5354,14 +5719,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "sulfur",
           "amount": 1
         }
@@ -5376,14 +5744,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "piercing-rounds-magazine",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "grenade",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "stone-wall",
           "amount": 2
         }
@@ -5398,14 +5769,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electric-furnace",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "productivity-module",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "rail",
           "amount": 30
         }
@@ -5420,14 +5794,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 1
         }
@@ -5443,14 +5820,17 @@
       "category": "crafting-with-fluid-or-metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 80
         },
         {
+          "type": "item",
           "name": "fast-underground-belt",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 40
         }
@@ -5466,10 +5846,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "fast-transport-belt",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "loader",
           "amount": 1
         }
@@ -5485,10 +5867,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "express-transport-belt",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "fast-loader",
           "amount": 1
         }
@@ -5504,18 +5888,22 @@
       "category": "crafting-with-fluid-or-metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "fast-splitter",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 10
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 80
         }
@@ -5531,14 +5919,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 4
         }
@@ -5554,14 +5945,17 @@
       "category": "electronics-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 5
         }
@@ -5576,10 +5970,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2
         }
@@ -5593,10 +5989,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         }
@@ -5610,14 +6008,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         }
@@ -5631,14 +6032,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         }
@@ -5652,14 +6056,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         }
@@ -5673,14 +6080,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         }
@@ -5694,14 +6104,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1
         }
@@ -5715,22 +6128,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1000
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 1000
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 200
         }
@@ -5745,14 +6163,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         }
@@ -5767,14 +6188,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 45
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 45
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 45
         }
@@ -5790,14 +6214,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 6
         }
@@ -5812,10 +6239,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 5
         }
@@ -5830,14 +6259,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 10
         }
@@ -5853,18 +6285,22 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 10
         }
@@ -5879,18 +6315,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         }
@@ -5905,22 +6345,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         }
@@ -5936,14 +6381,17 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2
         }
@@ -5958,18 +6406,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         }
@@ -5985,14 +6437,17 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "sulfur",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 10
         }
@@ -6008,14 +6463,17 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1
         }
@@ -6030,10 +6488,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         }
@@ -6048,14 +6508,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1
         }
@@ -6070,18 +6533,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 5
         }
@@ -6097,14 +6564,17 @@
       "category": "crafting",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 5
         }
@@ -6120,10 +6590,12 @@
       "category": "organic-or-assembling",
       "ingredients": [
         {
+          "type": "item",
           "name": "solid-fuel",
           "amount": 10
         },
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 10
         }
@@ -6139,14 +6611,17 @@
       "category": "rocket-building",
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "rocket-fuel",
           "amount": 1
         }
@@ -6162,18 +6637,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 500
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 500
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 500
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 500
         }
@@ -6188,18 +6667,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 100
         }
@@ -6214,6 +6697,7 @@
       "enabled": false,
       "category": "centrifuging",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-ore",
         "amount": 10
       }],
@@ -6236,11 +6720,13 @@
       "category": "centrifuging",
       "ingredients": [
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 40,
           "ignored_by_stats": 40
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 5,
           "ignored_by_stats": 2
@@ -6265,10 +6751,12 @@
       "category": "centrifuging",
       "ingredients": [
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "rocket-fuel",
           "amount": 1
         }
@@ -6283,6 +6771,7 @@
       "enabled": false,
       "category": "centrifuging",
       "ingredients": [{
+        "type": "item",
         "name": "depleted-uranium-fuel-cell",
         "amount": 5
       }],
@@ -6296,14 +6785,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 19
         }
@@ -6318,14 +6810,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         }
@@ -6340,10 +6835,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 20
         }
@@ -6358,14 +6855,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 20
         }
@@ -6380,10 +6880,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -6397,14 +6899,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "rail",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         }
@@ -6419,10 +6924,12 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         }
@@ -6438,14 +6945,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "quality-module",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -6461,18 +6971,22 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "quality-module-2",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 1
         }
@@ -6492,18 +7006,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 6
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 20
         }
@@ -6519,14 +7037,17 @@
       "category": "oil-processing",
       "ingredients": [
         {
+          "type": "item",
           "name": "coal",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 25
         }
@@ -6541,6 +7062,7 @@
       "enabled": false,
       "category": "organic-or-hand-crafting",
       "ingredients": [{
+        "type": "item",
         "name": "yumako",
         "amount": 1
       }],
@@ -6561,6 +7083,7 @@
       "enabled": false,
       "category": "organic-or-hand-crafting",
       "ingredients": [{
+        "type": "item",
         "name": "jellynut",
         "amount": 1
       }],
@@ -6586,6 +7109,7 @@
       "enabled": false,
       "category": "organic-or-hand-crafting",
       "ingredients": [{
+        "type": "item",
         "name": "yumako-mash",
         "amount": 3
       }],
@@ -6612,10 +7136,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-bacteria",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 1
         }
@@ -6635,6 +7161,7 @@
       "enabled": false,
       "category": "organic-or-hand-crafting",
       "ingredients": [{
+        "type": "item",
         "name": "jelly",
         "amount": 6
       }],
@@ -6661,10 +7188,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-bacteria",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 1
         }
@@ -6685,14 +7214,17 @@
       "category": "crafting",
       "ingredients": [
         {
+          "type": "item",
           "name": "yumako-seed",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 5
         }
@@ -6713,22 +7245,27 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "artificial-yumako-soil",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "yumako-seed",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -6749,14 +7286,17 @@
       "category": "crafting",
       "ingredients": [
         {
+          "type": "item",
           "name": "jellynut-seed",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 5
         }
@@ -6777,22 +7317,27 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "artificial-jellynut-soil",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "jellynut-seed",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -6807,6 +7352,7 @@
       "enabled": false,
       "category": "organic-or-assembling",
       "ingredients": [{
+        "type": "item",
         "name": "spoilage",
         "amount": 10
       }],
@@ -6820,6 +7366,7 @@
       "enabled": false,
       "category": "organic",
       "ingredients": [{
+        "type": "item",
         "name": "yumako-mash",
         "amount": 4
       }],
@@ -6833,6 +7380,7 @@
       "enabled": false,
       "category": "organic",
       "ingredients": [{
+        "type": "item",
         "name": "bioflux",
         "amount": 5
       }],
@@ -6852,15 +7400,18 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "pentapod-egg",
           "amount": 1,
           "ignored_by_stats": 1
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 30
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 60
         }
@@ -6877,14 +7428,17 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "jelly",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 2
         }
@@ -6900,10 +7454,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "yumako-mash",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "jelly",
           "amount": 12
         }
@@ -6919,10 +7475,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "yumako-mash",
           "amount": 4
         }
@@ -6938,10 +7496,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 1
         }
@@ -6956,6 +7516,7 @@
       "enabled": false,
       "category": "organic",
       "ingredients": [{
+        "type": "item",
         "name": "jelly",
         "amount": 60
       }],
@@ -6970,10 +7531,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "yumako-mash",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "carbon",
           "amount": 1
         }
@@ -6988,10 +7551,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 10
         }
@@ -7006,10 +7571,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "battery-mk2-equipment",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 10
         }
@@ -7025,10 +7592,12 @@
       "category": "crafting",
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 20
         }
@@ -7043,18 +7612,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "bulk-inserter",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "jelly",
           "amount": 10
         }
@@ -7069,22 +7642,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "rocket-launcher",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 20
         }
@@ -7100,10 +7678,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -7119,10 +7699,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -7138,10 +7720,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "heat-pipe",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         }
@@ -7156,14 +7740,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "space-platform-foundation",
           "amount": 60
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 20
         }
@@ -7178,14 +7765,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -7200,14 +7790,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5
         }
@@ -7222,14 +7815,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 10
         }
@@ -7244,14 +7840,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 5
         }
@@ -7271,14 +7870,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "carbon",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "ice",
           "amount": 1
         }
@@ -7299,14 +7901,17 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "molten-copper",
           "amount": 200
         }
@@ -7327,10 +7932,12 @@
       "category": "organic",
       "ingredients": [
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "pentapod-egg",
           "amount": 1
         }
@@ -7351,18 +7958,22 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "accumulator",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 25
         },
         {
+          "type": "fluid",
           "name": "holmium-solution",
           "amount": 25
         }
@@ -7383,14 +7994,17 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "ice",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 6,
           "ignored_by_stats": 3
@@ -7413,6 +8027,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "metallic-asteroid-chunk",
         "amount": 1
       }],
@@ -7433,6 +8048,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "carbonic-asteroid-chunk",
         "amount": 1
       }],
@@ -7453,6 +8069,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "oxide-asteroid-chunk",
         "amount": 1
       }],
@@ -7473,6 +8090,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "metallic-asteroid-chunk",
         "amount": 1
       }],
@@ -7497,6 +8115,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "carbonic-asteroid-chunk",
         "amount": 1
       }],
@@ -7521,6 +8140,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "oxide-asteroid-chunk",
         "amount": 1
       }],
@@ -7545,6 +8165,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "metallic-asteroid-chunk",
         "amount": 1
       }],
@@ -7571,6 +8192,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "carbonic-asteroid-chunk",
         "amount": 1
       }],
@@ -7597,6 +8219,7 @@
       "enabled": false,
       "category": "crushing",
       "ingredients": [{
+        "type": "item",
         "name": "oxide-asteroid-chunk",
         "amount": 1
       }],
@@ -7629,10 +8252,12 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "carbon",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 10
         }
@@ -7653,10 +8278,12 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 10
         }
@@ -7671,6 +8298,7 @@
       "enabled": false,
       "category": "chemistry",
       "ingredients": [{
+        "type": "item",
         "name": "ice",
         "amount": 1
       }],
@@ -7690,14 +8318,17 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "carbon",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -7718,14 +8349,17 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -7746,10 +8380,12 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 1000
         }
@@ -7765,6 +8401,7 @@
       "enabled": false,
       "category": "chemistry-or-cryogenics",
       "ingredients": [{
+        "type": "fluid",
         "name": "steam",
         "amount": 1000
       }],
@@ -7779,10 +8416,12 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "coal",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 20
         }
@@ -7798,14 +8437,17 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-ore",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "carbon",
           "amount": 1
         }
@@ -7826,22 +8468,27 @@
       "category": "metallurgy-or-assembling",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 20
         }
@@ -7857,10 +8504,12 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "lava",
           "amount": 500
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         }
@@ -7882,10 +8531,12 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "lava",
           "amount": 500
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         }
@@ -7907,10 +8558,12 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         }
@@ -7926,10 +8579,12 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-ore",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 1
         }
@@ -7944,8 +8599,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-iron",
-        "amount": 20
+        "amount": 20,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 3.2,
       "results": [{
@@ -7957,8 +8614,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-iron",
-        "amount": 30
+        "amount": 30,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 3.2,
       "results": [{
@@ -7970,8 +8629,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-copper",
-        "amount": 20
+        "amount": 20,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 3.2,
       "results": [{
@@ -7983,8 +8644,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-iron",
-        "amount": 10
+        "amount": 10,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 1,
       "results": [{
@@ -7996,8 +8659,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-iron",
-        "amount": 20
+        "amount": 20,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 1,
       "results": [{
@@ -8009,8 +8674,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-iron",
-        "amount": 10
+        "amount": 10,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 1,
       "results": [{
@@ -8023,10 +8690,13 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "molten-iron",
-          "amount": 50
+          "amount": 50,
+          "fluidbox_multiplier": 10
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 10
         }
@@ -8042,14 +8712,17 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "molten-iron",
           "amount": 80
         },
         {
+          "type": "fluid",
           "name": "molten-copper",
           "amount": 250
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 5
         }
@@ -8065,14 +8738,17 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "molten-iron",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 5
         }
@@ -8087,8 +8763,10 @@
       "enabled": false,
       "category": "metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "molten-copper",
-        "amount": 5
+        "amount": 5,
+        "fluidbox_multiplier": 5
       }],
       "energy_required": 1,
       "results": [{
@@ -8101,10 +8779,12 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-ore",
           "amount": 4
         },
         {
+          "type": "fluid",
           "name": "molten-iron",
           "amount": 10
         }
@@ -8125,14 +8805,17 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "express-transport-belt",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 20
         }
@@ -8152,14 +8835,17 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "express-underground-belt",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 40
         }
@@ -8180,18 +8866,22 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "express-splitter",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 15
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 80
         }
@@ -8207,10 +8897,12 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "turbo-transport-belt",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "express-loader",
           "amount": 1
         }
@@ -8231,22 +8923,27 @@
       "category": "metallurgy",
       "ingredients": [
         {
+          "type": "item",
           "name": "electric-mining-drill",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "molten-iron",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 10
         }
@@ -8261,22 +8958,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "power-armor-mk2",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 50
         }
@@ -8292,18 +8994,22 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 10
         }
@@ -8319,22 +9025,27 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 30
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 100
         }
@@ -8349,14 +9060,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2
         }
@@ -8371,18 +9085,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 1
         }
@@ -8403,22 +9121,27 @@
       "category": "organic-or-assembling",
       "ingredients": [
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "pentapod-egg",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 1
         }
@@ -8433,6 +9156,7 @@
       "enabled": false,
       "category": "organic",
       "ingredients": [{
+        "type": "item",
         "name": "spoilage",
         "amount": 6
       }],
@@ -8447,14 +9171,17 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "carbon",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "sulfur",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 10
         }
@@ -8469,18 +9196,22 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2
         }
@@ -8495,22 +9226,27 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "lab",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 25
         },
         {
+          "type": "item",
           "name": "capture-robot-rocket",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 3
         }
@@ -8526,18 +9262,22 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "capture-robot-rocket",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 15
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 100
         }
@@ -8569,15 +9309,18 @@
       "category": "organic-or-chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "raw-fish",
           "amount": 2,
           "ignored_by_stats": 2
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 100
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 100
         }
@@ -8593,6 +9336,7 @@
       "enabled": false,
       "category": "organic-or-assembling",
       "ingredients": [{
+        "type": "item",
         "name": "raw-fish",
         "amount": 1
       }],
@@ -8606,6 +9350,7 @@
       "enabled": false,
       "category": "organic-or-assembling",
       "ingredients": [{
+        "type": "item",
         "name": "biter-egg",
         "amount": 1
       }],
@@ -8619,6 +9364,7 @@
       "enabled": false,
       "category": "recycling-or-hand-crafting",
       "ingredients": [{
+        "type": "item",
         "name": "scrap",
         "amount": 1
       }],
@@ -8696,14 +9442,17 @@
       "category": "electronics",
       "ingredients": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 12
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 4
         }
@@ -8719,14 +9468,17 @@
       "category": "chemistry",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-ore",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 10
         }
@@ -8741,8 +9493,10 @@
       "enabled": false,
       "category": "crafting-with-fluid-or-metallurgy",
       "ingredients": [{
+        "type": "fluid",
         "name": "holmium-solution",
-        "amount": 20
+        "amount": 20,
+        "fluidbox_multiplier": 10
       }],
       "energy_required": 1,
       "results": [{
@@ -8759,18 +9513,22 @@
       "category": "electronics-or-assembling",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 150
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 50
         }
@@ -8786,18 +9544,22 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 5
         }
@@ -8813,22 +9575,27 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 10
         }
@@ -8844,14 +9611,17 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "stone",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 10
         },
         {
+          "type": "fluid",
           "name": "holmium-solution",
           "amount": 10
         }
@@ -8872,18 +9642,22 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "lightning-rod",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 8
         },
         {
+          "type": "item",
           "name": "accumulator",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 80
         }
@@ -8899,18 +9673,22 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 30
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 100
         }
@@ -8926,22 +9704,27 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "teslagun",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 500
         }
@@ -8957,14 +9740,17 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "electrolyte",
           "amount": 10
         }
@@ -8979,14 +9765,17 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "boiler",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "heat-pipe",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 20
         }
@@ -9002,14 +9791,17 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "lithium-brine",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 50
         }
@@ -9024,6 +9816,7 @@
       "enabled": false,
       "category": "smelting",
       "ingredients": [{
+        "type": "item",
         "name": "lithium",
         "amount": 1
       }],
@@ -9038,18 +9831,22 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "fluorine",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 50
         },
         {
+          "type": "item",
           "name": "solid-fuel",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "lithium",
           "amount": 1
         }
@@ -9065,6 +9862,7 @@
       "enabled": false,
       "category": "cryogenics",
       "ingredients": [{
+        "type": "fluid",
         "name": "fluoroketone-hot",
         "amount": 10,
         "ignored_by_stats": 10
@@ -9087,18 +9885,22 @@
       "category": "cryogenics-or-assembling",
       "ingredients": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 40
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 20
         }
@@ -9118,26 +9920,32 @@
       "category": "electromagnetics",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 2
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 10,
           "ignored_by_stats": 5
@@ -9161,6 +9969,7 @@
       "enabled": false,
       "category": "chemistry-or-cryogenics",
       "ingredients": [{
+        "type": "fluid",
         "name": "ammoniacal-solution",
         "amount": 50
       }],
@@ -9180,26 +9989,32 @@
       "enabled": false,
       "ingredients": [
         {
+          "type": "item",
           "name": "fission-reactor-equipment",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "fusion-power-cell",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 250
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 25
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 250
         }
@@ -9215,14 +10030,17 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 100
         }
@@ -9243,14 +10061,17 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 200
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 250
         }
@@ -9271,14 +10092,17 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 100
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 50
         }
@@ -9294,10 +10118,12 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 400
         },
         {
+          "type": "item",
           "name": "ice",
           "amount": 50
         }
@@ -9313,10 +10139,12 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 15
         },
         {
+          "type": "fluid",
           "name": "crude-oil",
           "amount": 6
         }
@@ -9332,14 +10160,17 @@
       "category": "chemistry-or-cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "solid-fuel",
           "amount": 10
         },
         {
+          "type": "fluid",
           "name": "water",
           "amount": 50
         },
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 500
         }
@@ -9355,22 +10186,27 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 20
         }
@@ -9391,14 +10227,17 @@
       "category": "cryogenics",
       "ingredients": [
         {
+          "type": "item",
           "name": "promethium-asteroid-chunk",
           "amount": 25
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 1
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 10
         }
@@ -9418,6 +10257,7 @@
       "enabled": false,
       "category": "organic-or-assembling",
       "ingredients": [{
+        "type": "item",
         "name": "wood",
         "amount": 2
       }],
@@ -9432,11 +10272,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9454,6 +10296,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "water-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9478,11 +10321,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9500,6 +10345,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "sulfuric-acid-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9524,11 +10370,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "crude-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9546,6 +10394,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "crude-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9570,11 +10419,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9592,6 +10443,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "heavy-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9616,11 +10468,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9638,6 +10492,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "light-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9662,11 +10517,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9684,6 +10541,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "petroleum-gas-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9708,11 +10566,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9730,6 +10590,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "lubricant-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9754,11 +10615,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9776,6 +10639,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "fluoroketone-cold-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9800,11 +10664,13 @@
       "category": "crafting-with-fluid",
       "ingredients": [
         {
+          "type": "fluid",
           "name": "fluoroketone-hot",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -9822,6 +10688,7 @@
       "enabled": false,
       "category": "crafting-with-fluid",
       "ingredients": [{
+        "type": "item",
         "name": "fluoroketone-hot-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -9845,6 +10712,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "speed-module",
         "amount": 1
       }],
@@ -9866,6 +10734,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "speed-module-2",
         "amount": 1
       }],
@@ -9892,6 +10761,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "speed-module-3",
         "amount": 1
       }],
@@ -9923,6 +10793,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "productivity-module",
         "amount": 1
       }],
@@ -9944,6 +10815,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "productivity-module-2",
         "amount": 1
       }],
@@ -9970,6 +10842,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "productivity-module-3",
         "amount": 1
       }],
@@ -10001,6 +10874,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "efficiency-module",
         "amount": 1
       }],
@@ -10022,6 +10896,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "efficiency-module-2",
         "amount": 1
       }],
@@ -10048,6 +10923,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "efficiency-module-3",
         "amount": 1
       }],
@@ -10079,6 +10955,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "bulk-inserter",
         "amount": 1
       }],
@@ -10110,6 +10987,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "barrel",
         "amount": 1
       }],
@@ -10124,6 +11002,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "night-vision-equipment",
         "amount": 1
       }],
@@ -10145,6 +11024,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "belt-immunity-equipment",
         "amount": 1
       }],
@@ -10166,6 +11046,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "energy-shield-equipment",
         "amount": 1
       }],
@@ -10187,6 +11068,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "energy-shield-mk2-equipment",
         "amount": 1
       }],
@@ -10213,6 +11095,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "battery-equipment",
         "amount": 1
       }],
@@ -10234,6 +11117,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "battery-mk2-equipment",
         "amount": 1
       }],
@@ -10260,6 +11144,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "solar-panel-equipment",
         "amount": 1
       }],
@@ -10286,6 +11171,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fission-reactor-equipment",
         "amount": 1
       }],
@@ -10312,6 +11198,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "personal-laser-defense-equipment",
         "amount": 1
       }],
@@ -10338,6 +11225,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "discharge-defense-equipment",
         "amount": 1
       }],
@@ -10364,6 +11252,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "exoskeleton-equipment",
         "amount": 1
       }],
@@ -10390,6 +11279,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "personal-roboport-equipment",
         "amount": 1
       }],
@@ -10421,6 +11311,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "personal-roboport-mk2-equipment",
         "amount": 1
       }],
@@ -10447,6 +11338,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "laser-turret",
         "amount": 1
       }],
@@ -10473,6 +11365,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "flamethrower-turret",
         "amount": 1
       }],
@@ -10504,6 +11397,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "artillery-turret",
         "amount": 1
       }],
@@ -10535,6 +11429,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "gun-turret",
         "amount": 1
       }],
@@ -10561,6 +11456,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "wooden-chest",
         "amount": 1
       }],
@@ -10575,6 +11471,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "display-panel",
         "amount": 1
       }],
@@ -10596,6 +11493,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-stick",
         "amount": 1
       }],
@@ -10610,6 +11508,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "stone-furnace",
         "amount": 1
       }],
@@ -10624,6 +11523,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "boiler",
         "amount": 1
       }],
@@ -10645,6 +11545,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "steam-engine",
         "amount": 1
       }],
@@ -10671,6 +11572,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-gear-wheel",
         "amount": 1
       }],
@@ -10685,6 +11587,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electronic-circuit",
         "amount": 1
       }],
@@ -10706,6 +11609,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "transport-belt",
         "amount": 1
       }],
@@ -10727,6 +11631,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electric-mining-drill",
         "amount": 1
       }],
@@ -10753,6 +11658,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "burner-mining-drill",
         "amount": 1
       }],
@@ -10779,6 +11685,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "inserter",
         "amount": 1
       }],
@@ -10805,6 +11712,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fast-inserter",
         "amount": 1
       }],
@@ -10831,6 +11739,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "long-handed-inserter",
         "amount": 1
       }],
@@ -10857,6 +11766,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "burner-inserter",
         "amount": 1
       }],
@@ -10878,6 +11788,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pipe",
         "amount": 1
       }],
@@ -10892,6 +11803,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "offshore-pump",
         "amount": 1
       }],
@@ -10913,6 +11825,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "copper-cable",
         "amount": 1
       }],
@@ -10927,6 +11840,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "small-electric-pole",
         "amount": 1
       }],
@@ -10948,6 +11862,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pistol",
         "amount": 1
       }],
@@ -10969,6 +11884,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "submachine-gun",
         "amount": 1
       }],
@@ -10995,6 +11911,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "firearm-magazine",
         "amount": 1
       }],
@@ -11009,6 +11926,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "light-armor",
         "amount": 1
       }],
@@ -11023,6 +11941,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "radar",
         "amount": 1
       }],
@@ -11049,6 +11968,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "small-lamp",
         "amount": 1
       }],
@@ -11075,6 +11995,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pipe-to-ground",
         "amount": 1
       }],
@@ -11096,6 +12017,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "assembling-machine-1",
         "amount": 1
       }],
@@ -11122,6 +12044,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "repair-pack",
         "amount": 1
       }],
@@ -11143,6 +12066,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lab",
         "amount": 1
       }],
@@ -11169,6 +12093,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "stone-wall",
         "amount": 1
       }],
@@ -11183,6 +12108,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "assembling-machine-2",
         "amount": 1
       }],
@@ -11214,6 +12140,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "splitter",
         "amount": 1
       }],
@@ -11240,6 +12167,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "underground-belt",
         "amount": 1
       }],
@@ -11261,6 +12189,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "loader",
         "amount": 1
       }],
@@ -11297,6 +12226,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "car",
         "amount": 1
       }],
@@ -11323,6 +12253,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "engine-unit",
         "amount": 1
       }],
@@ -11349,6 +12280,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-chest",
         "amount": 1
       }],
@@ -11363,6 +12295,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "big-electric-pole",
         "amount": 1
       }],
@@ -11389,6 +12322,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "medium-electric-pole",
         "amount": 1
       }],
@@ -11415,6 +12349,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "shotgun",
         "amount": 1
       }],
@@ -11446,6 +12381,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "shotgun-shell",
         "amount": 1
       }],
@@ -11467,6 +12403,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "piercing-rounds-magazine",
         "amount": 1
       }],
@@ -11493,6 +12430,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "grenade",
         "amount": 1
       }],
@@ -11514,6 +12452,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "steel-furnace",
         "amount": 1
       }],
@@ -11535,6 +12474,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "gate",
         "amount": 1
       }],
@@ -11561,6 +12501,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heavy-armor",
         "amount": 1
       }],
@@ -11582,6 +12523,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "steel-chest",
         "amount": 1
       }],
@@ -11596,6 +12538,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fast-underground-belt",
         "amount": 1
       }],
@@ -11617,6 +12560,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fast-splitter",
         "amount": 1
       }],
@@ -11643,6 +12587,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "concrete",
         "amount": 1
       }],
@@ -11664,6 +12609,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "hazard-concrete",
         "amount": 1
       }],
@@ -11678,6 +12624,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "refined-concrete",
         "amount": 1
       }],
@@ -11704,6 +12651,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "refined-hazard-concrete",
         "amount": 1
       }],
@@ -11718,6 +12666,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fast-transport-belt",
         "amount": 1
       }],
@@ -11739,6 +12688,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "solar-panel",
         "amount": 1
       }],
@@ -11765,6 +12715,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rail",
         "amount": 1
       }],
@@ -11791,6 +12742,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "locomotive",
         "amount": 1
       }],
@@ -11817,6 +12769,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cargo-wagon",
         "amount": 1
       }],
@@ -11843,6 +12796,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rail-signal",
         "amount": 1
       }],
@@ -11864,6 +12818,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rail-chain-signal",
         "amount": 1
       }],
@@ -11885,6 +12840,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "train-stop",
         "amount": 1
       }],
@@ -11916,6 +12872,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "arithmetic-combinator",
         "amount": 1
       }],
@@ -11937,6 +12894,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "decider-combinator",
         "amount": 1
       }],
@@ -11958,6 +12916,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "constant-combinator",
         "amount": 1
       }],
@@ -11979,6 +12938,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "selector-combinator",
         "amount": 1
       }],
@@ -12000,6 +12960,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "power-switch",
         "amount": 1
       }],
@@ -12026,6 +12987,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "programmable-speaker",
         "amount": 1
       }],
@@ -12057,6 +13019,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "poison-capsule",
         "amount": 1
       }],
@@ -12083,6 +13046,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "slowdown-capsule",
         "amount": 1
       }],
@@ -12109,6 +13073,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cluster-grenade",
         "amount": 1
       }],
@@ -12135,6 +13100,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "defender-capsule",
         "amount": 1
       }],
@@ -12161,6 +13127,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "distractor-capsule",
         "amount": 1
       }],
@@ -12182,6 +13149,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "destroyer-capsule",
         "amount": 1
       }],
@@ -12208,6 +13176,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cliff-explosives",
         "amount": 1
       }],
@@ -12239,6 +13208,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-rounds-magazine",
         "amount": 1
       }],
@@ -12260,6 +13230,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rocket",
         "amount": 1
       }],
@@ -12281,6 +13252,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "explosive-rocket",
         "amount": 1
       }],
@@ -12302,6 +13274,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "atomic-bomb",
         "amount": 1
       }],
@@ -12328,6 +13301,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "piercing-shotgun-shell",
         "amount": 1
       }],
@@ -12354,6 +13328,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cannon-shell",
         "amount": 1
       }],
@@ -12380,6 +13355,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "explosive-cannon-shell",
         "amount": 1
       }],
@@ -12406,6 +13382,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-cannon-shell",
         "amount": 1
       }],
@@ -12427,6 +13404,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "explosive-uranium-cannon-shell",
         "amount": 1
       }],
@@ -12448,6 +13426,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "artillery-shell",
         "amount": 1
       }],
@@ -12479,6 +13458,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "express-transport-belt",
         "amount": 1
       }],
@@ -12500,6 +13480,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "assembling-machine-3",
         "amount": 1
       }],
@@ -12521,6 +13502,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tank",
         "amount": 1
       }],
@@ -12552,6 +13534,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "spidertron",
         "amount": 1
       }],
@@ -12588,6 +13571,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fluid-wagon",
         "amount": 1
       }],
@@ -12619,6 +13603,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "artillery-wagon",
         "amount": 1
       }],
@@ -12655,6 +13640,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "modular-armor",
         "amount": 1
       }],
@@ -12676,6 +13662,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "power-armor",
         "amount": 1
       }],
@@ -12702,6 +13689,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "power-armor-mk2",
         "amount": 1
       }],
@@ -12738,6 +13726,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "flamethrower",
         "amount": 1
       }],
@@ -12759,6 +13748,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "land-mine",
         "amount": 1
       }],
@@ -12780,6 +13770,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rocket-launcher",
         "amount": 1
       }],
@@ -12806,6 +13797,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "combat-shotgun",
         "amount": 1
       }],
@@ -12837,6 +13829,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "express-underground-belt",
         "amount": 1
       }],
@@ -12858,6 +13851,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fast-loader",
         "amount": 1
       }],
@@ -12879,6 +13873,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "express-loader",
         "amount": 1
       }],
@@ -12900,6 +13895,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "express-splitter",
         "amount": 1
       }],
@@ -12926,6 +13922,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "advanced-circuit",
         "amount": 1
       }],
@@ -12952,6 +13949,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "processing-unit",
         "amount": 1
       }],
@@ -12973,6 +13971,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "logistic-robot",
         "amount": 1
       }],
@@ -12994,6 +13993,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "construction-robot",
         "amount": 1
       }],
@@ -13015,6 +14015,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "passive-provider-chest",
         "amount": 1
       }],
@@ -13041,6 +14042,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "active-provider-chest",
         "amount": 1
       }],
@@ -13067,6 +14069,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "storage-chest",
         "amount": 1
       }],
@@ -13093,6 +14096,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "buffer-chest",
         "amount": 1
       }],
@@ -13119,6 +14123,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "requester-chest",
         "amount": 1
       }],
@@ -13145,6 +14150,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rocket-silo",
         "amount": 1
       }],
@@ -13181,6 +14187,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cargo-landing-pad",
         "amount": 1
       }],
@@ -13207,6 +14214,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "roboport",
         "amount": 1
       }],
@@ -13233,6 +14241,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "substation",
         "amount": 1
       }],
@@ -13259,6 +14268,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "accumulator",
         "amount": 1
       }],
@@ -13280,6 +14290,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electric-furnace",
         "amount": 1
       }],
@@ -13306,6 +14317,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "beacon",
         "amount": 1
       }],
@@ -13337,6 +14349,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pumpjack",
         "amount": 1
       }],
@@ -13368,6 +14381,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "oil-refinery",
         "amount": 1
       }],
@@ -13404,6 +14418,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electric-engine-unit",
         "amount": 1
       }],
@@ -13425,6 +14440,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "flying-robot-frame",
         "amount": 1
       }],
@@ -13456,6 +14472,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "battery",
         "amount": 1
       }],
@@ -13477,6 +14494,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "storage-tank",
         "amount": 1
       }],
@@ -13498,6 +14516,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pump",
         "amount": 1
       }],
@@ -13524,6 +14543,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "chemical-plant",
         "amount": 1
       }],
@@ -13555,6 +14575,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "low-density-structure",
         "amount": 1
       }],
@@ -13581,6 +14602,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rocket-fuel",
         "amount": 1
       }],
@@ -13595,6 +14617,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "nuclear-reactor",
         "amount": 1
       }],
@@ -13626,6 +14649,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "centrifuge",
         "amount": 1
       }],
@@ -13657,6 +14681,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "nuclear-fuel",
         "amount": 1
       }],
@@ -13678,6 +14703,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heat-exchanger",
         "amount": 1
       }],
@@ -13704,6 +14730,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heat-pipe",
         "amount": 1
       }],
@@ -13725,6 +14752,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "steam-turbine",
         "amount": 1
       }],
@@ -13751,6 +14779,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rail-support",
         "amount": 1
       }],
@@ -13772,6 +14801,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rail-ramp",
         "amount": 1
       }],
@@ -13798,6 +14828,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "quality-module",
         "amount": 1
       }],
@@ -13819,6 +14850,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "quality-module-2",
         "amount": 1
       }],
@@ -13845,6 +14877,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "quality-module-3",
         "amount": 1
       }],
@@ -13876,6 +14909,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "recycler",
         "amount": 1
       }],
@@ -13907,6 +14941,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "artificial-yumako-soil",
         "amount": 1
       }],
@@ -13933,6 +14968,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "overgrowth-yumako-soil",
         "amount": 1
       }],
@@ -13964,6 +15000,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "artificial-jellynut-soil",
         "amount": 1
       }],
@@ -13990,6 +15027,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "overgrowth-jellynut-soil",
         "amount": 1
       }],
@@ -14021,6 +15059,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 1
       }],
@@ -14035,6 +15074,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "toolbelt-equipment",
         "amount": 1
       }],
@@ -14056,6 +15096,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "battery-mk3-equipment",
         "amount": 1
       }],
@@ -14077,6 +15118,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "space-platform-foundation",
         "amount": 1
       }],
@@ -14098,6 +15140,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "stack-inserter",
         "amount": 1
       }],
@@ -14129,6 +15172,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "rocket-turret",
         "amount": 1
       }],
@@ -14165,6 +15209,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "infinity-chest",
         "amount": 1
       }],
@@ -14186,6 +15231,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "infinity-pipe",
         "amount": 1
       }],
@@ -14207,6 +15253,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heat-interface",
         "amount": 1
       }],
@@ -14228,6 +15275,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "space-platform-starter-pack",
         "amount": 1
       }],
@@ -14254,6 +15302,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cargo-bay",
         "amount": 1
       }],
@@ -14280,6 +15329,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "asteroid-collector",
         "amount": 1
       }],
@@ -14306,6 +15356,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "crusher",
         "amount": 1
       }],
@@ -14332,6 +15383,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "thruster",
         "amount": 1
       }],
@@ -14358,6 +15410,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "foundry",
         "amount": 1
       }],
@@ -14389,6 +15442,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "turbo-transport-belt",
         "amount": 1
       }],
@@ -14410,6 +15464,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "turbo-underground-belt",
         "amount": 1
       }],
@@ -14431,6 +15486,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "turbo-splitter",
         "amount": 1
       }],
@@ -14457,6 +15513,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "turbo-loader",
         "amount": 1
       }],
@@ -14478,6 +15535,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "big-mining-drill",
         "amount": 1
       }],
@@ -14509,6 +15567,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "mech-armor",
         "amount": 1
       }],
@@ -14545,6 +15604,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "railgun",
         "amount": 1
       }],
@@ -14571,6 +15631,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "railgun-turret",
         "amount": 1
       }],
@@ -14602,6 +15663,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "railgun-ammo",
         "amount": 1
       }],
@@ -14628,6 +15690,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "agricultural-tower",
         "amount": 1
       }],
@@ -14659,6 +15722,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "biochamber",
         "amount": 1
       }],
@@ -14695,6 +15759,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "capture-robot-rocket",
         "amount": 1
       }],
@@ -14726,6 +15791,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lightning-rod",
         "amount": 1
       }],
@@ -14752,6 +15818,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electromagnetic-plant",
         "amount": 1
       }],
@@ -14783,6 +15850,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "supercapacitor",
         "amount": 1
       }],
@@ -14814,6 +15882,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lightning-collector",
         "amount": 1
       }],
@@ -14840,6 +15909,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "teslagun",
         "amount": 1
       }],
@@ -14866,6 +15936,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tesla-turret",
         "amount": 1
       }],
@@ -14897,6 +15968,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tesla-ammo",
         "amount": 1
       }],
@@ -14918,6 +15990,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heating-tower",
         "amount": 1
       }],
@@ -14944,6 +16017,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cryogenic-plant",
         "amount": 1
       }],
@@ -14975,6 +16049,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "quantum-processor",
         "amount": 1
       }],
@@ -15011,6 +16086,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fusion-reactor-equipment",
         "amount": 1
       }],
@@ -15052,6 +16128,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fusion-reactor",
         "amount": 1
       }],
@@ -15078,6 +16155,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fusion-generator",
         "amount": 1
       }],
@@ -15104,6 +16182,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "ice-platform",
         "amount": 1
       }],
@@ -15118,6 +16197,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "foundation",
         "amount": 1
       }],
@@ -15149,6 +16229,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "water-barrel",
         "amount": 1
       }],
@@ -15163,6 +16244,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "sulfuric-acid-barrel",
         "amount": 1
       }],
@@ -15177,6 +16259,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "crude-oil-barrel",
         "amount": 1
       }],
@@ -15191,6 +16274,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "heavy-oil-barrel",
         "amount": 1
       }],
@@ -15205,6 +16289,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "light-oil-barrel",
         "amount": 1
       }],
@@ -15219,6 +16304,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "petroleum-gas-barrel",
         "amount": 1
       }],
@@ -15233,6 +16319,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lubricant-barrel",
         "amount": 1
       }],
@@ -15247,6 +16334,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fluoroketone-cold-barrel",
         "amount": 1
       }],
@@ -15261,6 +16349,7 @@
       "hidden": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fluoroketone-hot-barrel",
         "amount": 1
       }],
@@ -15276,6 +16365,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "flamethrower-ammo",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15293,6 +16383,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "blueprint",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15310,6 +16401,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "blueprint-book",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15327,6 +16419,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "raw-fish",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15344,6 +16437,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "yumako",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15361,6 +16455,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "jellynut",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15378,6 +16473,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "yumako-mash",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15395,6 +16491,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "jelly",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15412,6 +16509,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "bioflux",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15429,6 +16527,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "deconstruction-planner",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15446,6 +16545,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "item-unknown",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15463,6 +16563,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "stone-brick",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15480,6 +16581,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "wood",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15497,6 +16599,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "coal",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15514,6 +16617,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "stone",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15531,6 +16635,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-ore",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15548,6 +16653,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "copper-ore",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15565,6 +16671,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15582,6 +16689,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15599,6 +16707,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15616,6 +16725,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15633,6 +16743,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "landfill",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15650,6 +16761,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-ore",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15667,6 +16779,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lane-splitter",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15684,6 +16797,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "coin",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15701,6 +16815,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "sulfur",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15718,6 +16833,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "plastic-bar",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15735,6 +16851,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "explosives",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15752,6 +16869,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electric-energy-interface",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15769,6 +16887,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-235",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15786,6 +16905,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-238",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15803,6 +16923,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "uranium-fuel-cell",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15820,6 +16941,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "depleted-uranium-fuel-cell",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15837,6 +16959,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "simple-entity-with-force",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15854,6 +16977,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "simple-entity-with-owner",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15871,6 +16995,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "infinity-cargo-wagon",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15888,6 +17013,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "burner-generator",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15905,6 +17031,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "linked-chest",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15922,6 +17049,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "proxy-container",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15939,6 +17067,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "bottomless-chest",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15956,6 +17085,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "linked-belt",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15973,6 +17103,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "one-way-valve",
         "amount": 1,
         "ignored_by_stats": 1
@@ -15990,6 +17121,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "overflow-valve",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16007,6 +17139,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "top-up-valve",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16024,6 +17157,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "empty-module-slot",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16041,6 +17175,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "science",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16058,6 +17193,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "metallic-asteroid-chunk",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16075,6 +17211,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "carbonic-asteroid-chunk",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16092,6 +17229,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "oxide-asteroid-chunk",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16109,6 +17247,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "promethium-asteroid-chunk",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16126,6 +17265,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "ice",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16143,6 +17283,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "carbon",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16160,6 +17301,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "calcite",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16177,6 +17319,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tungsten-ore",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16194,6 +17337,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tungsten-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16211,6 +17355,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tungsten-carbide",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16228,6 +17373,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "copper-bacteria",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16245,6 +17391,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "iron-bacteria",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16262,6 +17409,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "yumako-seed",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16279,6 +17427,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "jellynut-seed",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16296,6 +17445,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "biolab",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16313,6 +17463,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "captive-biter-spawner",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16330,6 +17481,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "biter-egg",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16347,6 +17499,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "pentapod-egg",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16364,6 +17517,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "carbon-fiber",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16381,6 +17535,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "holmium-ore",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16398,6 +17553,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "holmium-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16415,6 +17571,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lithium",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16432,6 +17589,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "lithium-plate",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16449,6 +17607,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "superconductor",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16466,6 +17625,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "fusion-power-cell",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16483,6 +17643,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "spoilage",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16500,6 +17661,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "space-platform-hub",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16517,6 +17679,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "tree-seed",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16534,6 +17697,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "selection-tool",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16551,6 +17715,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "automation-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16568,6 +17733,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "logistic-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16585,6 +17751,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "chemical-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16602,6 +17769,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "military-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16619,6 +17787,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "production-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16636,6 +17805,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "utility-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16653,6 +17823,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "space-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16670,6 +17841,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "metallurgic-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16687,6 +17859,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "agricultural-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16704,6 +17877,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "electromagnetic-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16721,6 +17895,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "cryogenic-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16738,6 +17913,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "promethium-science-pack",
         "amount": 1,
         "ignored_by_stats": 1
@@ -16755,6 +17931,7 @@
       "enabled": true,
       "category": "recycling",
       "ingredients": [{
+        "type": "item",
         "name": "upgrade-planner",
         "amount": 1,
         "ignored_by_stats": 1

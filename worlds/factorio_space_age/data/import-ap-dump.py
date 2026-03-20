@@ -342,10 +342,16 @@ keep_props = {
         "enabled": bool,
         "category": str,
         "ingredients": [{
+            "type": str,
             "name": str,
-            "amount": int,
-            "ignored_by_stats": int,
-            # ignoring temperature settings, as they are never used in vanilla.
+            "amount": float, # uint16 for item, fixed-precision decimal for fluid.
+            "ignored_by_stats": float,
+            # Capturing all fields because we need to preserve all fields when doing modifications to recipes.
+            "temperature": float,
+            "minimum_temperature": float,
+            "maximum_temperature": float,
+            "fluidbox_index": int,
+            "fluidbox_multiplier": int,
         }],
         "energy_required": float,
         "results": [{
