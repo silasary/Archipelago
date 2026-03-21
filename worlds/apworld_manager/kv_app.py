@@ -256,8 +256,8 @@ def launch(*launch_args: str):
 
     import argparse
     parser = argparse.ArgumentParser()
-    if sys.stdout:  # If terminal output exists, offer gui-less mode
-        parser.add_argument('--nogui', default=False, action='store_true', help="Turns off Client GUI.")
+
+    parser.add_argument("--nogui", default=False, action="store_true", help="Turns off Client GUI.")
 
     parser.add_argument("--update-all", action="store_true", help="Run in non-GUI mode to just install/update worlds then exit")
     parser.add_argument("--install", nargs="+", help="Install/update a world by name and then exit.")
