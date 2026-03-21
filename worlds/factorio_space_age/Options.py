@@ -242,15 +242,20 @@ class ProgressiveTechs(Choice):
     the first one you receive gives the recipe for speed module 1, the second gives speed module 2, and so on.
     See https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py for the full definitions of these.
 
-    only_related: Technologies with similar names will be grouped together in a progress chain.
+    only_related: Technologies with similar names are grouped together in a progress chain.
     This requires several specific items to progress, such as oil-gathering, oil-processing, plastics, and advanced-circuit all as individual items.
-    large_groups: Loosely-related technologies will be grouped together with more critical recipes near the start and less critical bonuses near the end.
+    large_groups: Loosely-related technologies are grouped together with more critical recipes near the start and less critical bonuses near the end.
     This allows many more ways to get critical technologies, for example 2/9+ progressive-oil and 2/9+ progressive-circuit to get the same set of recipes listed in the previous example.
     Additional copies of progressive-circuit can be added to the pool with filler_processing_unit_productivity_weight, and similarly with other infinite technologies as filler items.
+    bundles: Loosely-related technologies are grouped together and you receive several at once.
+    For example, 1/6+ progressive-oil-bundle gives you oil-gathering, oil-processing, and fluid-handling all together;
+    2/6+ progressive-oil-bundle additionally gives sulfur-processing and chemical-science-pack.
+    This setting results in the least chance of getting stuck, but may result in randomizer experiences feeling a bit familiar compared to other options.
     """
     display_name = "Progressive Technologies"
     option_only_related = 0
     option_large_groups = 1
+    option_bundles = 2
     default = 1
 
 @auto_group
@@ -382,7 +387,7 @@ class SpaceTechnologyLevel(Choice):
       technology_prerequisites: removed
       require_logistic_robots: 'false'
       progression: minimal
-      progressive_technologies: only_related # TODO: make a better option for this mode.
+      progressive_technologies: bundles
     """
     option_early_game = 0
     option_mid_game = 1

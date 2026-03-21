@@ -110,19 +110,22 @@ class Factorio(World):
         from .FactorioData import FactorioData
         from .data.ap_data import (
             trap_names, energy_link_bridge_recipes,
-            small_progressive_groups, large_progressive_groups,
+            small_progressive_groups, large_progressive_groups, technology_bundles,
         )
         from .data import generated_names as names
 
         self.progressive_technology_stacks = {
             "only_related": small_progressive_groups,
             "large_groups": large_progressive_groups,
+            "bundles":      technology_bundles,
         }[self.options.progressive_technologies.current_key]
         self.technology_name_to_progressive_group_name = {
             technology_name: progressive_group_name
             for progressive_group_name, stack in self.progressive_technology_stacks.items()
-            for technology_name in stack
+            for group in stack
+            for technology_name in (group if type(group) == list else [group])
         }
+        import pdb; pdb.set_trace()
 
         if self.options.quick_start.value:
             # quick_start effectively modifies starting_items.
