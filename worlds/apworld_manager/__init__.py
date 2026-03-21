@@ -1,6 +1,6 @@
 from typing import ClassVar
 from settings import Group
-from worlds.LauncherComponents import Component, Type, components, launch_subprocess, icon_paths
+from worlds.LauncherComponents import Component, Type, components, launch, icon_paths
 
 from worlds.AutoWorld import World
 
@@ -30,8 +30,8 @@ class RepoWorld(World):
     location_name_to_id = {}
 
 def launch_client(*args: str) -> None:
-    from .kv_app import launch
-    launch_subprocess(launch, name="APManager", args=args)
+    from .kv_app import launch as launch_kv_app
+    launch(launch_kv_app, name="APManager", args=args)
 
 icon_paths["apworld_manager"] = f"ap:{__name__}/apworld_manager.png"
 
