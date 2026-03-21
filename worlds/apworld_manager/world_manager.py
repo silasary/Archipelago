@@ -486,6 +486,7 @@ class SortStages(IntEnum):
 
 class WorldInfo(typing.TypedDict):
     title: str
+    id: str
     description: str
     installed: bool
     manifest: dict[str, typing.Any]
@@ -575,6 +576,7 @@ def populate_installed_worlds() -> tuple[list[WorldInfo], set[str]]:
         description = "Placeholder text"
         data: WorldInfo = {
                 "title": name,
+                "id": file.stem,
                 "installed": True,
                 "manifest": manifest_data,
                 "remotes": remote,
@@ -655,7 +657,8 @@ def populate_available_worlds(installed) -> list[WorldInfo]:
             continue
         highest_remote_version = sorted(remote.values(), key=lambda x: x.version_tuple)[-1]
         data: WorldInfo = {
-                "title": highest_remote_version.name or f'{world}.apworld',
+                "title": highest_remote_version.name or f"{world}.apworld",
+                "id": world,
                 "description": "Available to install",
                 "latest_version": highest_remote_version,
                 "update_available": True,

@@ -1,6 +1,6 @@
 from typing import ClassVar
 from settings import Group
-from worlds.LauncherComponents import Component, Type, components, launch_subprocess
+from worlds.LauncherComponents import Component, Type, components, launch_subprocess, icon_paths
 
 from worlds.AutoWorld import World
 
@@ -33,5 +33,7 @@ def launch_client(*args: str) -> None:
     from .kv_app import launch
     launch_subprocess(launch, name="APManager", args=args)
 
-components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL))
+icon_paths["apworld_manager"] = f"ap:{__name__}/apworld_manager.png"
+
+components.append(Component("Install/Update Apworlds", None, func=launch_client, component_type=Type.TOOL, icon="apworld_manager"))
 components.append(Component("worldman", None, func=launch_client, component_type=Type.HIDDEN))

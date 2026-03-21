@@ -260,6 +260,7 @@ def launch(*launch_args: str):
         parser.add_argument('--nogui', default=False, action='store_true', help="Turns off Client GUI.")
 
     parser.add_argument("--update-all", action="store_true", help="Run in non-GUI mode to just install/update worlds then exit")
+    parser.add_argument("--install", nargs="+", help="Install/update a world by name and then exit.")
 
     args, rest = parser.parse_known_args(launch_args)
 
@@ -271,8 +272,19 @@ def launch(*launch_args: str):
         repositories.cleanup_downloads()
         return
 
-    app = DirectoryApp(apworlds=apworlds)
-    app.run()
+    if args.install:
+        for world_name in args.install:
+            world = next((world for world in apworlds if world['title'].lower() == world_name.lower() or world['id'].lower() == world_name.lower()), None)
+            if world is None:
+                print(f"World '{world_name}' not found.")
+            else:
+                print(f"Installing/updating {world['title']} to version {world['latest_version'].world_version}...")
+                install_world(world)
+        return
+
+    if not args.nogui:
+        app = DirectoryApp(apworlds=apworlds)
+        app.run()
 
     repositories.cleanup_downloads()
 
