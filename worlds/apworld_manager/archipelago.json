@@ -1,7 +1,9 @@
 {
     "game": "APWorld Manager",
-    "world_version": "0.0.22",
+    "world_version": "0.0.23",
     "changelog": [
-        "Fixed bug when trying to hash a world from a custom github repo."
+        "* Added support for --install command line argument.",
+        "  * You can use this with `./Launcher worldman -- --install <world name or world_id>`.",
+        "* Added a Launcher icon"
     ]
 }
