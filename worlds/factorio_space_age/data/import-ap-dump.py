@@ -10,7 +10,7 @@ from ap_data import (
     unrandomized_technologies,
     ap_item_names,
     trap_names,
-    small_progressive_groups, large_progressive_groups, technology_bundles,
+    small_progressive_groups, large_progressive_groups,
 )
 
 here = os.path.dirname(__file__)
@@ -95,30 +95,16 @@ def generate_names(the_data):
         artificial_name_lines.append(line + "\n")
 
     # Progressive pseudo item names.
-    name_list = []
-    for group_name, bundle_stack in technology_bundles.items():
-        for bundle in bundle_stack:
-            if type(bundle) == list:
-                name_list.extend(bundle)
-            else:
-                name_list.append(bundle)
-        if group_name not in the_data["technology"]:
-            progressive_pseudo_item_names.add(group_name)
-    found_already = set()
-    for technology_name in name_list:
-        assert technology_name in the_data["technology"], "technology not found: " + technology_name
-        assert technology_name not in found_already, "duplicate: " + technology_name
-        found_already.add(technology_name)
-
+    assert all(v == 1 for v in Counter(itertools.chain.from_iterable(small_progressive_groups.values())).values()), "duplicate technology"
+    assert all(v == 1 for v in Counter(itertools.chain.from_iterable(large_progressive_groups.values())).values()), "duplicate technology"
     for progressive_technology_stacks in [small_progressive_groups, large_progressive_groups]:
-        found_already = set()
-        for group_name, technology_names in progressive_technology_stacks.items():
+        for name, technology_names in progressive_technology_stacks.items():
             for technology_name in technology_names:
-                assert technology_name in the_data["technology"], "technology not found: " + technology_name
-                assert technology_name not in found_already, "duplicate: " + technology_name
-                found_already.add(technology_name)
-            if group_name not in the_data["technology"]:
-                progressive_pseudo_item_names.add(group_name)
+                assert technology_name in the_data["technology"].keys(), "technology not found: " + technology_name
+            if name in the_data["technology"].keys():
+                # Some of the progressive stacks are just the name of the infinite tech.
+                continue
+            progressive_pseudo_item_names.add(name)
     for name in sorted(progressive_pseudo_item_names):
         python_name = to_snake(name)
         line = "{} = {}".format(python_name, json.dumps(name))
