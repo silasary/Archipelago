@@ -198,11 +198,7 @@ def generate_mod(
             item = location.item
             item_name = item.name
             target_player = item.player
-            is_goal = item_name in (
-                names.vulcanus_victory,
-                names.gleba_victory,
-                names.fulgora_victory,
-            )
+            is_goal = item_name == names.victory
             is_advancement = item.advancement
             is_useful = item.useful
             is_trap = item.trap

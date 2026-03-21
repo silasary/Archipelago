@@ -313,8 +313,6 @@ class Factorio(World):
             basic_asteroid_processing_is_good_enough= not self.options.require_asteroid_processing,
             nuclear_heating_is_good_enough=      not self.options.require_heating_tower,
 
-            any_other_planet_science=self.options.goal.current_key == "any_other_planet_science",
-
             energy_link_bridge_recipe=energy_link_bridge_recipe,
             energy_link_bridge_technology=energy_link_bridge_technology,
             energy_link_bridge_required_for=energy_link_bridge_required_for,
@@ -357,31 +355,22 @@ class Factorio(World):
             location.revealed = True
 
         unrandomized_technologies = set(base_unrandomized_technologies)
-        if self.options.goal.current_key == "any_other_planet_science":
-            victory_events = (
-                names.vulcanus_victory,
-                names.gleba_victory,
-                names.fulgora_victory,
-            )
-            assert all(event_name in self.logic_events for event_name in victory_events), "goal techs not in logic"
-            self.multiworld.completion_condition[player] = lambda state: state.has_any(victory_events, player)
-        else:
-            if self.options.goal.current_key == "solar_system_edge":
-                victory_event = "Reach solar-system-edge"
-                final_technology_name = names.promethium_science_pack
-            elif self.options.goal.current_key == "aquilo_orbit":
-                victory_event = "Reach aquilo_orbit"
-                final_technology_name = names.planet_discovery_aquilo
-            elif self.options.goal.current_key == "space_platform":
-                victory_event = "Can build space platforms"
-                final_technology_name = names.rocket_silo
-            else: assert False
-            assert victory_event in self.logic_events, "event not found in logic: " + victory_event
-            self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
+        final_technology_name = None
+        if self.options.goal.current_key in ("any_other_planet_science", "space_science"):
+            victory_event = names.victory
+        elif self.options.goal.current_key == "solar_system_edge":
+            victory_event = "Reach solar-system-edge"
+            final_technology_name = names.promethium_science_pack
+        elif self.options.goal.current_key == "aquilo_orbit":
+            victory_event = "Reach aquilo_orbit"
+            final_technology_name = names.planet_discovery_aquilo
+        else: assert False
 
-            if not self.options.shuffle_final_technology.value:
-                # Lock the goal tech also.
-                unrandomized_technologies.add(final_technology_name)
+        if final_technology_name != None and not self.options.shuffle_final_technology.value:
+            # Lock the goal tech also.
+            unrandomized_technologies.add(final_technology_name)
+        assert victory_event in self.logic_events, "event not found in logic: " + victory_event
+        self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
 
         event_names = []
         location_names = []
@@ -417,12 +406,16 @@ class Factorio(World):
             # Where should it go?
             if technology_name in unrandomized_technologies or technology_name in self.factorio_data.infinite_technology_names:
                 lock_item(technology_name_to_location[technology_name], item)
-            elif item_name == names.vulcanus_victory:
-                lock_item(technology_name_to_location[names.asteroid_reprocessing], item)
-            elif item_name == names.gleba_victory:
-                lock_item(technology_name_to_location[names.carbon_fiber], item)
-            elif item_name == names.fulgora_victory:
-                lock_item(technology_name_to_location[names.lightning_collector], item)
+            elif item_name == names.victory:
+                if self.options.goal.current_key == "space_science":
+                    lock_item(technology_name_to_location[names.logistic_system], item)
+                elif self.options.goal.current_key == "any_other_planet_science":
+                    # We actually want 3 of these.
+                    lock_item(technology_name_to_location[names.asteroid_reprocessing], item)
+                    lock_item(technology_name_to_location[names.carbon_fiber], self.create_item(names.victory))
+                    lock_item(technology_name_to_location[names.lightning_collector], self.create_item(names.victory))
+                else:
+                    pass # Don't create victory items for this goal.
             else:
                 randomized_items.append(item)
 

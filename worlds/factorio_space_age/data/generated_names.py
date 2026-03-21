@@ -1186,9 +1186,7 @@ yumako_tree = "yumako-tree"
 
 # This next block of names comes from ap_data.py rather than from Factorio itself.
 ap_energy_link_bridge = "ap-energy-link-bridge"
-vulcanus_victory = "vulcanus-victory"
-gleba_victory = "gleba-victory"
-fulgora_victory = "fulgora-victory"
+victory = "victory"
 artillery_trap = "Artillery Trap"
 atomic_cliff_remover_trap = "Atomic Cliff Remover Trap"
 atomic_rocket_trap = "Atomic Rocket Trap"

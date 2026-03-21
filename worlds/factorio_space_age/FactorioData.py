@@ -105,8 +105,6 @@ class FactorioData:
         basic_asteroid_processing_is_good_enough: bool,
         nuclear_heating_is_good_enough: bool,
 
-        any_other_planet_science: bool,
-
         energy_link_bridge_recipe: dict | None,
         energy_link_bridge_technology: bool,
         energy_link_bridge_required_for: str | None,
@@ -1200,11 +1198,8 @@ class FactorioData:
         # EnergyLink technology, victory technologies.
         if energy_link_bridge_technology:
             logic_events[fmt_unlock_technology(names.ap_energy_link_bridge)] = EXTERNAL
-        if any_other_planet_science:
-            # These aren't really randomized, but no need to describe the details to the optimizer.
-            logic_events[fmt_unlock_technology(names.vulcanus_victory)] = EXTERNAL
-            logic_events[fmt_unlock_technology(names.gleba_victory)]    = EXTERNAL
-            logic_events[fmt_unlock_technology(names.fulgora_victory)]  = EXTERNAL
+        # This isn't ever randomized, but no need to describe the details to the optimizer.
+        logic_events[fmt_unlock_technology(names.victory)] = EXTERNAL
 
         # Recipes
         for recipe_name, recipe in recipes.items():
@@ -1368,13 +1363,8 @@ class FactorioData:
             for technology_name in all_used_names
             if technology_name in self.technology_name_to_progressive_group_name
         )
-        if any_other_planet_science:
-            # Winning is indeed an advancement item.
-            advancement_technologies.update([
-                names.vulcanus_victory,
-                names.gleba_victory,
-                names.fulgora_victory,
-            ])
+        # Winning is indeed an advancement item.
+        advancement_technologies.add(names.victory)
 
         return logic_events, advancement_technologies, technology_props_lua
 

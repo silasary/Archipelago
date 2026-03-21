@@ -40,11 +40,11 @@ class Goal(Choice):
     solar system edge: (default) The victory condition in the normal game.
     """
     display_name = "Goal"
-    option_space_platform = 0
+    option_space_science = 0
     option_any_other_planet_science = 1
     option_aquilo_orbit = 2
     option_solar_system_edge = 3
-    default = 3
+    default = 1
 
 class AllowImportedBlueprints(DefaultOnToggle):
     """Allow blueprints imported from outside the current game."""
@@ -381,8 +381,15 @@ class SpaceTechnologyLevel(Choice):
     To get the most out of this option, you might be interested in these other changes:
       technology_prerequisites: removed
       require_logistic_robots: 'false'
-      progression: minimal
       progressive_technologies: only_related # TODO: make a better option for this mode.
+    And if you really want to go straight into space at the start of the multiworld:
+      start_inventory_from_pool:
+        rocket-silo: 1
+        space-platform: 1
+        solar-energy: 1                    # or use energy link
+        advanced-material-processing-2: 1  # if you want furnaces in space
+        space-platform-thruster: 1
+        oil-processing: 1                  # chemical plants are needed for thruster fuel
     """
     option_early_game = 0
     option_mid_game = 1

@@ -268,12 +268,8 @@ elseif PARAMS.goal == "aquilo_orbit" then
     end)
 elseif PARAMS.goal == "any_other_planet_science" then
     -- Handled in ap-get-technology.
-elseif PARAMS.goal == "space_platform" then
-    script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
-        if event.cargo_pod.get_item_count("space-platform-starter-pack") > 0 then
-            trigger_victory(event.cargo_pod.force)
-        end
-    end)
+elseif PARAMS.goal == "space_science" then
+    -- Handled in ap-get-technology.
 else
     error("unrecognized goal: " .. tostring(PARAMS.goal))
 end
@@ -583,11 +579,7 @@ commands.add_command("ap-get-technology", "Grant a technology, used by the Archi
             game.print({"", "Received ", item_name, " from ", source})
             TRAP_TABLE[item_name]()
         end
-    elseif PARAMS.goal == "any_other_planet_science" and (
-        item_name == "vulcanus-victory" or
-        item_name == "gleba-victory" or
-        item_name == "fulgora-victory"
-    ) then
+    elseif item_name == "victory" then
         trigger_victory(force)
     else
         game.print("Unknown Item " .. item_name)

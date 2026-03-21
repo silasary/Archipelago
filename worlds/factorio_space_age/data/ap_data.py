@@ -580,9 +580,7 @@ infinite_technology_names = {
 
 ap_item_names = [
     "ap-energy-link-bridge",
-    "vulcanus-victory",
-    "gleba-victory",
-    "fulgora-victory",
+    "victory",
 ]
 
 trap_names = [
