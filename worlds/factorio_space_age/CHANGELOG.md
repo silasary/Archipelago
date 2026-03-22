@@ -7,13 +7,14 @@
 Default options are now a significantly accelerated experience relative to vanilla.
 
 * Added `quick_start` option, enabled by default, that gives personal construction bots and a chunk of basic resources at the start.
-* Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with optional technologies at the ends of the chains. This makes it less likely to get stuck waiting for someone to find a specific item. Details here: https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py
+* Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with non-critical bonuses later in the chains. This makes it less likely to get stuck waiting for someone to find a specific item. Details here: https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py
 * `goal: any_other_planet_science` is now the default goal, and creates victory technologies to research instead of reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
 * `goal: space_platform` replaced by `goal: space_science`, which requires researching a victory technology with 4 science packs including space science (red, green, blue, white).
 * Added `space_technology_level` option to enable space flight with early or mid game technology, effectively downgrading all the ingredients for rocket silo, space platform, thruster, etc. to more primitive items. Puts the Space in Factorio: Space Age sooner rather than near the end of the game. (This could someday be obsoleted by recipe randomization.)
 
 Minor adjustments:
 
+* Energy Link is now enabled by default, and the recipe is now unlocked by a multiworld item.
 * Steel furnace and electric furnace are no longer progressive with each other, because neither is an ingredient for the other, and getting them out of order is interesting for a randomizer.
 * Electric energy distribution is no longer progressive for the same reason. Getting substations before medium electric poles sounds interesting.
 * With `progressive_technologies: only_related`, `military` through `military-4` are no longer progressive. All 4 individual military technologies are separate. (`military-4` items are crafted out of `military-2` items, but I made the whole set not progressive for simplicity.) This makes it slightly harder to find all requirements for `military-science-pack`, since now `military-2` specifically is required instead of 2/4 `progressive-military`. (All 4 are part of `progressive-military` with `progressive_technologies: large_groups` as well as several other loosely related technologies, such as `physical-projectile-damage`.)

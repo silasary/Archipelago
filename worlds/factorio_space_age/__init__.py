@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import typing
+from collections import defaultdict
 
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
@@ -74,7 +75,10 @@ class Factorio(World):
     item_name_groups = {}
 
     locations: list[FactorioLocation]
-    ingredient_changes: dict[str, list[dict]]
+    recipe_changes: dict[str, dict[str, object]]
+    rocket_parts_per_rocket: int
+    asteroid_hp_changes: dict[str, float]
+    technology_effect_additions: dict[str, dict]
     logic_events: dict
     advancement_technologies: set[str]
     infinite_technology_shuffle: dict[str, str] | None = None
@@ -84,7 +88,9 @@ class Factorio(World):
 
     def __init__(self, world, player: int):
         self.locations = []
-        self.ingredient_changes = {}
+        self.recipe_changes = {}
+        self.asteroid_hp_changes = {}
+        self.technology_effect_additions = defaultdict(list)
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
@@ -100,7 +106,10 @@ class Factorio(World):
             technology_name_to_progressive_group_name=self.technology_name_to_progressive_group_name,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
             technology_props_lua=self.technology_props_lua,
-            ingredient_changes=self.ingredient_changes,
+            recipe_changes=self.recipe_changes,
+            rocket_parts_per_rocket=self.rocket_parts_per_rocket,
+            asteroid_hp_changes=self.asteroid_hp_changes,
+            technology_effect_additions=dict(self.technology_effect_additions),
             output_directory=output_directory,
         )
 
@@ -162,8 +171,13 @@ class Factorio(World):
                     self.options.start_inventory.value[k] = v
 
         # Data modifications.
+        # Note that this modifies the_data in place.
         if self.options.space_technology_level.current_key != "vanilla":
             index = {"mid_game": 0, "early_game": 1}[self.options.space_technology_level.current_key]
+            small_divisor = {"mid_game": 2, "early_game": 4}[self.options.space_technology_level.current_key]
+            large_divisor = {"mid_game": 4, "early_game": 10}[self.options.space_technology_level.current_key]
+
+            # Recipes
             ingredient_replacements = {
                 names.processing_unit:       [names.advanced_circuit, names.electronic_circuit][index],
                 names.advanced_circuit:      [names.advanced_circuit, names.electronic_circuit][index],
@@ -180,13 +194,47 @@ class Factorio(World):
             ]
             if self.options.require_electric_furnace.value:
                 recipes_to_modify.append(names.electric_furnace)
+            recipes_to_shrink = {
+                names.rocket_silo,
+                names.space_platform_foundation,
+            }
             for recipe_name in recipes_to_modify:
                 recipe_data = the_data["recipe"][recipe_name]
                 for ingredient_data in recipe_data["ingredients"]:
                     ingredient_name = ingredient_data["name"]
                     new_ingredient_name = ingredient_replacements.get(ingredient_name, ingredient_name)
-                    ingredient_data["name"] = new_ingredient_name # modify the_data in place.
-                self.ingredient_changes[recipe_name] = recipe_data["ingredients"]
+                    ingredient_data["name"] = new_ingredient_name
+                    if recipe_name in recipes_to_shrink:
+                        ingredient_data["amount"] //= large_divisor
+                if recipe_name in recipes_to_shrink:
+                    recipe_data["energy_required"] /= small_divisor
+                self.recipe_changes[recipe_name] = recipe_data
+            the_data["rocket-silo"][names.rocket_silo]["rocket_parts_required"] //= large_divisor
+            self.rocket_parts_per_rocket = the_data["rocket-silo"][names.rocket_silo]["rocket_parts_required"]
+
+            # Asteroid HP
+            for asteroid_name in [
+                names.small_metallic_asteroid,
+                names.small_carbonic_asteroid,
+                names.small_oxide_asteroid,
+                names.medium_metallic_asteroid,
+                names.medium_carbonic_asteroid,
+                names.medium_oxide_asteroid,
+            ]:
+                self.asteroid_hp_changes[asteroid_name] = the_data["asteroid"][asteroid_name]["max_health"] / small_divisor
+
+            # Technology
+            if self.options.space_technology_level.current_key == "early_game":
+                # Instead of requiring oil-processing to get to space, have thruster fuel give chemical plant recipe also.
+                self.technology_effect_additions[names.space_platform_thruster].append({
+                    "type": "unlock-recipe",
+                    "recipe": names.chemical_plant,
+                })
+        self.technology_effect_additions[names.rocket_silo].append({
+            # See https://github.com/thejoshwolfe/Archipelago/issues/9
+            "type": "create-ghost-on-entity-death",
+            "modifier": True,
+        })
 
         # Data analysis.
         self.factorio_data = FactorioData(the_data, self.technology_name_to_progressive_group_name)

@@ -1,8 +1,23 @@
 require "template_parameters" -- defines PARAMS
 
 -- Recipe changes.
-for name, ingredients in pairs(PARAMS.ingredient_changes) do
-    data.raw["recipe"][name].ingredients = ingredients
+for name, updates in pairs(PARAMS.recipe_changes) do
+    for k, v in pairs(updates) do
+        data.raw["recipe"][name][k] = v
+    end
+end
+data.raw["rocket-silo"]["rocket-silo"].rocket_parts_required = PARAMS.rocket_parts_per_rocket
+
+-- Asteroid HP changes.
+for name, health in pairs(PARAMS.asteroid_hp_changes) do
+    data.raw["asteroid"][name].max_health = health
+end
+
+-- Technology changes.
+for name, effects in pairs(PARAMS.technology_effect_additions) do
+    for _, effect in pairs(effects) do
+        table.insert(data.raw["technology"][name].effects, effect)
+    end
 end
 
 -- Disable and hide base technologies.

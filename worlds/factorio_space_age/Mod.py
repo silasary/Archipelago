@@ -135,7 +135,10 @@ def generate_mod(
     technology_name_to_progressive_group_name: dict[str, str],
     infinite_technology_shuffle: dict[str, str] | None,
     technology_props_lua: dict[str, dict],
-    ingredient_changes: dict[str, list[dict]],
+    recipe_changes: dict[str, dict[str, object]],
+    rocket_parts_per_rocket: int,
+    asteroid_hp_changes: dict[str, float],
+    technology_effect_additions: dict[str, dict],
     output_directory: str,
 ):
 
@@ -338,7 +341,10 @@ def generate_mod(
         "free_sample_amount": options.free_samples.current_key,
         "free_sample_quality": options.free_samples_quality.current_key,
         "free_sample_excludes": set_to_1(free_sample_excludes),
-        "ingredient_changes": ingredient_changes,
+        "recipe_changes": recipe_changes,
+        "rocket_parts_per_rocket": rocket_parts_per_rocket,
+        "asteroid_hp_changes": asteroid_hp_changes,
+        "technology_effect_additions": technology_effect_additions,
 
         "hide_base_technologies": sorted(technology_props_lua.keys()),
         "new_technology_data": new_technology_data,

@@ -34,10 +34,11 @@ def auto_group(cls):
 class Goal(Choice):
     """
     Goal required to complete the game.
-    space platform: Build a space platform. (Note: this makes for a very short game, often only requiring automating two science packs, and for reasons unknown to me also causes random generation failures sometimes.)
-    any other planet science: Research anything with metallurgic, agricultural, or electromagnetic science.
+    space science: Research victory with 4 science packs: automation, logistic, chemical, space (red, green, blue, white).
+    any other planet science: (default) Research victory with 5 science packs: automation, logistic, chemical, space, and one of metallurgic, agricultural, or electromagnetic.
     aquilo orbit: Reach Aquilo orbit with a space platform.
-    solar system edge: (default) The victory condition in the normal game.
+    solar system edge: The victory condition in the normal game.
+    TODO: merge shuffle_final_technology into this option.
     """
     display_name = "Goal"
     option_space_science = 0
@@ -375,21 +376,25 @@ class SpaceTechnologyLevel(Choice):
     thruster, chemical-plant, solar-panel.
 
     If require_electric_furnace is enabled, then electric-furnace will also be included in the list.
+    The early_game setting unlocks chemical plants as part of space-platform-thruster so you can melt ice and make fuel.
 
-    Additionally, small and medium asteroid health is reduced by 1/2 for mid game or 1/4 for early game.
+    This setting also reduces small and medium asteroid health,
+    and reduces item counts for rocket-silo, space-platform-foundation, and rocket parts per rocket.
 
     To get the most out of this option, you might be interested in these other changes:
       technology_prerequisites: removed
-      require_logistic_robots: 'false'
       progressive_technologies: only_related # TODO: make a better option for this mode.
+      energy_link_recipe: early_game
     And if you really want to go straight into space at the start of the multiworld:
       start_inventory_from_pool:
         rocket-silo: 1
         space-platform: 1
-        solar-energy: 1                    # or use energy link
         advanced-material-processing-2: 1  # if you want furnaces in space
         space-platform-thruster: 1
-        oil-processing: 1                  # chemical plants are needed for thruster fuel
+        gun-turret: 1
+        # One of these:
+        solar-energy: 1
+        ap-energy-link-bridge: 1
     """
     option_early_game = 0
     option_mid_game = 1
@@ -517,7 +522,7 @@ class LogicHeatingTower(Toggle):
 option_groups.append(OptionGroup("Energy Link", [], start_collapsed=True))
 
 @auto_group
-class EnergyLink(Toggle):
+class EnergyLink(DefaultOnToggle):
     """
     Allow sending and receiving energy to/from a shared pool in the multiworld.
     The Archipelago EnergyLink Bridge item is craftable in-game and functions like an accumulator for sending and receiving energy.
@@ -545,7 +550,7 @@ class EnergyLinkRecipe(Choice):
     default = 1
 
 @auto_group
-class EnergyLinkTechnology(Toggle):
+class EnergyLinkTechnology(DefaultOnToggle):
     """
     Should the Archipelago EnergyLink Bridge recipe be unlocked by a technology, which is an item in the multiworld?
     Note that this interacts with the free samples option.

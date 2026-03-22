@@ -355,6 +355,7 @@ keep_props = {
         }],
         "energy_required": float,
         "results": [{
+            "type": str,
             "name": str,
             "amount": int,
             # ignoring amount_min and amount_max, as they are never used in vanilla.
@@ -370,7 +371,9 @@ keep_props = {
         "category": str,
     }},
     "roboport": {str: Base},
-    "rocket-silo": {str: CraftingMachine},
+    "rocket-silo": {str: {**CraftingMachine,
+        "rocket_parts_required": int,
+    }},
     "segmented-unit": {str: {
         "corpse": str,
     }},

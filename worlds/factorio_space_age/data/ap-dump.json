@@ -2488,6 +2488,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "speed-module",
         "amount": 1
       }]
@@ -2514,6 +2515,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "speed-module-2",
         "amount": 1
       }]
@@ -2545,6 +2547,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "speed-module-3",
         "amount": 1
       }]
@@ -2566,6 +2569,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "productivity-module",
         "amount": 1
       }]
@@ -2592,6 +2596,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "productivity-module-2",
         "amount": 1
       }]
@@ -2623,6 +2628,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "productivity-module-3",
         "amount": 1
       }]
@@ -2644,6 +2650,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "efficiency-module",
         "amount": 1
       }]
@@ -2670,6 +2677,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "efficiency-module-2",
         "amount": 1
       }]
@@ -2701,6 +2709,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "efficiency-module-3",
         "amount": 1
       }]
@@ -2730,6 +2739,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "bulk-inserter",
         "amount": 1
       }]
@@ -2745,6 +2755,7 @@
       }],
       "energy_required": 5,
       "results": [{
+        "type": "fluid",
         "name": "petroleum-gas",
         "amount": 45
       }]
@@ -2767,14 +2778,17 @@
       "energy_required": 5,
       "results": [
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 25
         },
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 45
         },
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 55
         }
@@ -2804,15 +2818,18 @@
       "energy_required": 5,
       "results": [
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 90,
           "ignored_by_stats": 25
         },
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 20
         },
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 10
         }
@@ -2835,6 +2852,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "fluid",
         "name": "light-oil",
         "amount": 30
       }]
@@ -2856,6 +2874,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "fluid",
         "name": "petroleum-gas",
         "amount": 20
       }]
@@ -2882,6 +2901,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "fluid",
         "name": "sulfuric-acid",
         "amount": 50
       }]
@@ -2903,6 +2923,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "plastic-bar",
         "amount": 2
       }]
@@ -2917,6 +2938,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1
       }]
@@ -2931,6 +2953,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1
       }]
@@ -2945,6 +2968,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1
       }]
@@ -2966,6 +2990,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "sulfur",
         "amount": 2
       }]
@@ -2980,6 +3005,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "fluid",
         "name": "lubricant",
         "amount": 10
       }]
@@ -2994,6 +3020,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 1
       }]
@@ -3014,6 +3041,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "night-vision-equipment",
         "amount": 1
       }]
@@ -3034,6 +3062,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "belt-immunity-equipment",
         "amount": 1
       }]
@@ -3054,6 +3083,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "energy-shield-equipment",
         "amount": 1
       }]
@@ -3079,6 +3109,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "energy-shield-mk2-equipment",
         "amount": 1
       }]
@@ -3099,6 +3130,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "battery-equipment",
         "amount": 1
       }]
@@ -3124,6 +3156,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "battery-mk2-equipment",
         "amount": 1
       }]
@@ -3149,6 +3182,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "solar-panel-equipment",
         "amount": 1
       }]
@@ -3174,6 +3208,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "fission-reactor-equipment",
         "amount": 1
       }]
@@ -3199,6 +3234,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "personal-laser-defense-equipment",
         "amount": 1
       }]
@@ -3225,6 +3261,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "discharge-defense-equipment",
         "amount": 1
       }]
@@ -3250,6 +3287,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "exoskeleton-equipment",
         "amount": 1
       }]
@@ -3280,6 +3318,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "personal-roboport-equipment",
         "amount": 1
       }]
@@ -3305,6 +3344,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "personal-roboport-mk2-equipment",
         "amount": 1
       }]
@@ -3330,6 +3370,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "laser-turret",
         "amount": 1
       }]
@@ -3360,6 +3401,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "flamethrower-turret",
         "amount": 1
       }]
@@ -3390,6 +3432,7 @@
       ],
       "energy_required": 40,
       "results": [{
+        "type": "item",
         "name": "artillery-turret",
         "amount": 1
       }]
@@ -3415,6 +3458,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "gun-turret",
         "amount": 1
       }]
@@ -3426,6 +3470,7 @@
         "amount": 2
       }],
       "results": [{
+        "type": "item",
         "name": "wooden-chest",
         "amount": 1
       }]
@@ -3445,6 +3490,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "display-panel",
         "amount": 1
       }]
@@ -3457,6 +3503,7 @@
         "amount": 1
       }],
       "results": [{
+        "type": "item",
         "name": "iron-stick",
         "amount": 2
       }]
@@ -3468,6 +3515,7 @@
         "amount": 5
       }],
       "results": [{
+        "type": "item",
         "name": "stone-furnace",
         "amount": 1
       }]
@@ -3487,6 +3535,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "boiler",
         "amount": 1
       }]
@@ -3511,6 +3560,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "steam-engine",
         "amount": 1
       }]
@@ -3522,6 +3572,7 @@
         "amount": 2
       }],
       "results": [{
+        "type": "item",
         "name": "iron-gear-wheel",
         "amount": 1
       }]
@@ -3542,6 +3593,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "electronic-circuit",
         "amount": 1
       }]
@@ -3561,6 +3613,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "transport-belt",
         "amount": 2
       }]
@@ -3586,6 +3639,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "electric-mining-drill",
         "amount": 1
       }]
@@ -3610,6 +3664,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "burner-mining-drill",
         "amount": 1
       }]
@@ -3634,6 +3689,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "inserter",
         "amount": 1
       }]
@@ -3658,6 +3714,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "fast-inserter",
         "amount": 1
       }]
@@ -3682,6 +3739,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "long-handed-inserter",
         "amount": 1
       }]
@@ -3700,6 +3758,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "burner-inserter",
         "amount": 1
       }]
@@ -3712,6 +3771,7 @@
         "amount": 1
       }],
       "results": [{
+        "type": "item",
         "name": "pipe",
         "amount": 1
       }]
@@ -3731,6 +3791,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "offshore-pump",
         "amount": 1
       }]
@@ -3744,6 +3805,7 @@
         "amount": 1
       }],
       "results": [{
+        "type": "item",
         "name": "copper-cable",
         "amount": 2
       }]
@@ -3764,6 +3826,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "small-electric-pole",
         "amount": 2
       }]
@@ -3785,6 +3848,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "pistol",
         "amount": 1
       }]
@@ -3810,6 +3874,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "submachine-gun",
         "amount": 1
       }]
@@ -3822,6 +3887,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "firearm-magazine",
         "amount": 1
       }]
@@ -3835,6 +3901,7 @@
       }],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "light-armor",
         "amount": 1
       }]
@@ -3859,6 +3926,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "radar",
         "amount": 1
       }]
@@ -3883,6 +3951,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "small-lamp",
         "amount": 1
       }]
@@ -3902,6 +3971,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "pipe-to-ground",
         "amount": 2
       }]
@@ -3926,6 +3996,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "assembling-machine-1",
         "amount": 1
       }]
@@ -3945,6 +4016,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "repair-pack",
         "amount": 1
       }]
@@ -3965,6 +4037,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "automation-science-pack",
         "amount": 1
       }]
@@ -3985,6 +4058,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "logistic-science-pack",
         "amount": 1
       }]
@@ -4010,6 +4084,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "lab",
         "amount": 1
       }]
@@ -4022,6 +4097,7 @@
         "amount": 5
       }],
       "results": [{
+        "type": "item",
         "name": "stone-wall",
         "amount": 1
       }]
@@ -4051,6 +4127,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "assembling-machine-2",
         "amount": 1
       }]
@@ -4077,6 +4154,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "splitter",
         "amount": 1
       }]
@@ -4098,6 +4176,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "underground-belt",
         "amount": 2
       }]
@@ -4134,6 +4213,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "loader",
         "amount": 1
       }]
@@ -4159,6 +4239,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "car",
         "amount": 1
       }]
@@ -4185,6 +4266,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "engine-unit",
         "amount": 1
       }]
@@ -4197,6 +4279,7 @@
         "amount": 8
       }],
       "results": [{
+        "type": "item",
         "name": "iron-chest",
         "amount": 1
       }]
@@ -4222,6 +4305,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "big-electric-pole",
         "amount": 1
       }]
@@ -4247,6 +4331,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "medium-electric-pole",
         "amount": 1
       }]
@@ -4277,6 +4362,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "shotgun",
         "amount": 1
       }]
@@ -4297,6 +4383,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "shotgun-shell",
         "amount": 1
       }]
@@ -4322,6 +4409,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "piercing-rounds-magazine",
         "amount": 2
       }]
@@ -4342,6 +4430,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "grenade",
         "amount": 1
       }]
@@ -4362,6 +4451,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "steel-furnace",
         "amount": 1
       }]
@@ -4386,6 +4476,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "gate",
         "amount": 1
       }]
@@ -4406,6 +4497,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "heavy-armor",
         "amount": 1
       }]
@@ -4418,6 +4510,7 @@
         "amount": 8
       }],
       "results": [{
+        "type": "item",
         "name": "steel-chest",
         "amount": 1
       }]
@@ -4439,6 +4532,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "fast-underground-belt",
         "amount": 2
       }]
@@ -4465,6 +4559,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "fast-splitter",
         "amount": 1
       }]
@@ -4491,6 +4586,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "concrete",
         "amount": 10
       }]
@@ -4505,6 +4601,7 @@
       }],
       "energy_required": 0.25,
       "results": [{
+        "type": "item",
         "name": "hazard-concrete",
         "amount": 10
       }]
@@ -4536,6 +4633,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "refined-concrete",
         "amount": 10
       }]
@@ -4550,6 +4648,7 @@
       }],
       "energy_required": 0.25,
       "results": [{
+        "type": "item",
         "name": "refined-hazard-concrete",
         "amount": 10
       }]
@@ -4564,6 +4663,7 @@
       }],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "landfill",
         "amount": 1
       }]
@@ -4584,6 +4684,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "fast-transport-belt",
         "amount": 1
       }]
@@ -4610,6 +4711,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "solar-panel",
         "amount": 1
       }]
@@ -4634,6 +4736,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "rail",
         "amount": 2
       }]
@@ -4659,6 +4762,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "locomotive",
         "amount": 1
       }]
@@ -4684,6 +4788,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "cargo-wagon",
         "amount": 1
       }]
@@ -4703,6 +4808,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "rail-signal",
         "amount": 1
       }]
@@ -4722,6 +4828,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "rail-chain-signal",
         "amount": 1
       }]
@@ -4751,6 +4858,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "train-stop",
         "amount": 1
       }]
@@ -4764,6 +4872,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 1
       }]
@@ -4777,6 +4886,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1
       }]
@@ -4791,6 +4901,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "stone-brick",
         "amount": 1
       }]
@@ -4805,6 +4916,7 @@
       }],
       "energy_required": 16,
       "results": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 1
       }]
@@ -4824,6 +4936,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "arithmetic-combinator",
         "amount": 1
       }]
@@ -4843,6 +4956,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "decider-combinator",
         "amount": 1
       }]
@@ -4862,6 +4976,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "constant-combinator",
         "amount": 1
       }]
@@ -4881,6 +4996,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "selector-combinator",
         "amount": 1
       }]
@@ -4906,6 +5022,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "power-switch",
         "amount": 1
       }]
@@ -4936,6 +5053,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "programmable-speaker",
         "amount": 1
       }]
@@ -4961,6 +5079,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "poison-capsule",
         "amount": 1
       }]
@@ -4986,6 +5105,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "slowdown-capsule",
         "amount": 1
       }]
@@ -5011,6 +5131,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "cluster-grenade",
         "amount": 1
       }]
@@ -5036,6 +5157,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "defender-capsule",
         "amount": 1
       }]
@@ -5056,6 +5178,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "distractor-capsule",
         "amount": 1
       }]
@@ -5081,6 +5204,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "destroyer-capsule",
         "amount": 1
       }]
@@ -5111,6 +5235,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "cliff-explosives",
         "amount": 1
       }]
@@ -5131,6 +5256,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "uranium-rounds-magazine",
         "amount": 1
       }]
@@ -5151,6 +5277,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "rocket",
         "amount": 1
       }]
@@ -5171,6 +5298,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "explosive-rocket",
         "amount": 1
       }]
@@ -5196,6 +5324,7 @@
       ],
       "energy_required": 50,
       "results": [{
+        "type": "item",
         "name": "atomic-bomb",
         "amount": 1
       }]
@@ -5221,6 +5350,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "piercing-shotgun-shell",
         "amount": 1
       }]
@@ -5246,6 +5376,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "cannon-shell",
         "amount": 1
       }]
@@ -5271,6 +5402,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "explosive-cannon-shell",
         "amount": 1
       }]
@@ -5291,6 +5423,7 @@
       ],
       "energy_required": 12,
       "results": [{
+        "type": "item",
         "name": "uranium-cannon-shell",
         "amount": 1
       }]
@@ -5311,6 +5444,7 @@
       ],
       "energy_required": 12,
       "results": [{
+        "type": "item",
         "name": "explosive-uranium-cannon-shell",
         "amount": 1
       }]
@@ -5341,6 +5475,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "artillery-shell",
         "amount": 1
       }]
@@ -5362,6 +5497,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "flamethrower-ammo",
         "amount": 1
       }]
@@ -5387,6 +5523,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "express-transport-belt",
         "amount": 1
       }]
@@ -5406,6 +5543,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "assembling-machine-3",
         "amount": 1
       }]
@@ -5436,6 +5574,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "tank",
         "amount": 1
       }]
@@ -5471,6 +5610,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "spidertron",
         "amount": 1
       }]
@@ -5501,6 +5641,7 @@
       ],
       "energy_required": 1.5,
       "results": [{
+        "type": "item",
         "name": "fluid-wagon",
         "amount": 1
       }]
@@ -5536,6 +5677,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "artillery-wagon",
         "amount": 1
       }]
@@ -5556,6 +5698,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "modular-armor",
         "amount": 1
       }]
@@ -5581,6 +5724,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "power-armor",
         "amount": 1
       }]
@@ -5616,6 +5760,7 @@
       ],
       "energy_required": 25,
       "results": [{
+        "type": "item",
         "name": "power-armor-mk2",
         "amount": 1
       }]
@@ -5636,6 +5781,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "flamethrower",
         "amount": 1
       }]
@@ -5656,6 +5802,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "land-mine",
         "amount": 4
       }]
@@ -5681,6 +5828,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "rocket-launcher",
         "amount": 1
       }]
@@ -5711,6 +5859,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "combat-shotgun",
         "amount": 1
       }]
@@ -5736,6 +5885,7 @@
       ],
       "energy_required": 24,
       "results": [{
+        "type": "item",
         "name": "chemical-science-pack",
         "amount": 2
       }]
@@ -5761,6 +5911,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "military-science-pack",
         "amount": 2
       }]
@@ -5786,6 +5937,7 @@
       ],
       "energy_required": 21,
       "results": [{
+        "type": "item",
         "name": "production-science-pack",
         "amount": 3
       }]
@@ -5811,6 +5963,7 @@
       ],
       "energy_required": 21,
       "results": [{
+        "type": "item",
         "name": "utility-science-pack",
         "amount": 3
       }]
@@ -5837,6 +5990,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "express-underground-belt",
         "amount": 2
       }]
@@ -5858,6 +6012,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "fast-loader",
         "amount": 1
       }]
@@ -5879,6 +6034,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "express-loader",
         "amount": 1
       }]
@@ -5910,6 +6066,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "express-splitter",
         "amount": 1
       }]
@@ -5936,6 +6093,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "advanced-circuit",
         "amount": 1
       }]
@@ -5962,6 +6120,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "processing-unit",
         "amount": 1
       }]
@@ -5981,6 +6140,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "logistic-robot",
         "amount": 1
       }]
@@ -6000,6 +6160,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "construction-robot",
         "amount": 1
       }]
@@ -6024,6 +6185,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "passive-provider-chest",
         "amount": 1
       }]
@@ -6048,6 +6210,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "active-provider-chest",
         "amount": 1
       }]
@@ -6072,6 +6235,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "storage-chest",
         "amount": 1
       }]
@@ -6096,6 +6260,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "buffer-chest",
         "amount": 1
       }]
@@ -6120,6 +6285,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "requester-chest",
         "amount": 1
       }]
@@ -6155,6 +6321,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "rocket-silo",
         "amount": 1
       }]
@@ -6180,6 +6347,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "cargo-landing-pad",
         "amount": 1
       }]
@@ -6205,6 +6373,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "roboport",
         "amount": 1
       }]
@@ -6230,6 +6399,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "substation",
         "amount": 1
       }]
@@ -6251,6 +6421,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "accumulator",
         "amount": 1
       }]
@@ -6276,6 +6447,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "electric-furnace",
         "amount": 1
       }]
@@ -6307,6 +6479,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "beacon",
         "amount": 1
       }]
@@ -6337,6 +6510,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "pumpjack",
         "amount": 1
       }]
@@ -6372,6 +6546,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "oil-refinery",
         "amount": 1
       }]
@@ -6398,6 +6573,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "electric-engine-unit",
         "amount": 1
       }]
@@ -6428,6 +6604,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "flying-robot-frame",
         "amount": 1
       }]
@@ -6454,6 +6631,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "explosives",
         "amount": 2
       }]
@@ -6480,6 +6658,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "battery",
         "amount": 1
       }]
@@ -6500,6 +6679,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "storage-tank",
         "amount": 1
       }]
@@ -6525,6 +6705,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "pump",
         "amount": 1
       }]
@@ -6555,6 +6736,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "chemical-plant",
         "amount": 1
       }]
@@ -6581,6 +6763,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "low-density-structure",
         "amount": 1
       }]
@@ -6602,6 +6785,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "rocket-fuel",
         "amount": 1
       }]
@@ -6628,6 +6812,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "rocket-part",
         "amount": 1
       }],
@@ -6659,6 +6844,7 @@
       ],
       "energy_required": 8,
       "results": [{
+        "type": "item",
         "name": "nuclear-reactor",
         "amount": 1
       }]
@@ -6689,6 +6875,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "centrifuge",
         "amount": 1
       }]
@@ -6704,11 +6891,13 @@
       "energy_required": 12,
       "results": [
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 1,
           "probability": 0.007000000000000001
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 1,
           "probability": 0.993
@@ -6735,11 +6924,13 @@
       "energy_required": 60,
       "results": [
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 41,
           "ignored_by_stats": 40
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 2,
           "ignored_by_stats": 2
@@ -6763,6 +6954,7 @@
       ],
       "energy_required": 90,
       "results": [{
+        "type": "item",
         "name": "nuclear-fuel",
         "amount": 1
       }]
@@ -6777,6 +6969,7 @@
       }],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "uranium-238",
         "amount": 3
       }]
@@ -6802,6 +6995,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "uranium-fuel-cell",
         "amount": 10
       }]
@@ -6827,6 +7021,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "heat-exchanger",
         "amount": 1
       }]
@@ -6847,6 +7042,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "heat-pipe",
         "amount": 1
       }]
@@ -6872,6 +7068,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "steam-turbine",
         "amount": 1
       }]
@@ -6891,6 +7088,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "rail-support",
         "amount": 1
       }]
@@ -6915,6 +7113,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "rail-ramp",
         "amount": 1
       }]
@@ -6936,6 +7135,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "quality-module",
         "amount": 1
       }]
@@ -6962,6 +7162,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "quality-module-2",
         "amount": 1
       }]
@@ -6993,6 +7194,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "quality-module-3",
         "amount": 1
       }]
@@ -7028,6 +7230,7 @@
       ],
       "energy_required": 3,
       "results": [{
+        "type": "item",
         "name": "recycler",
         "amount": 1
       }]
@@ -7054,6 +7257,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "fluid",
         "name": "heavy-oil",
         "amount": 50
       }]
@@ -7069,11 +7273,13 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "yumako-seed",
           "amount": 1,
           "probability": 0.02
         },
         {
+          "type": "item",
           "name": "yumako-mash",
           "amount": 2
         }
@@ -7090,11 +7296,13 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "jellynut-seed",
           "amount": 1,
           "probability": 0.02
         },
         {
+          "type": "item",
           "name": "jelly",
           "amount": 4
         }
@@ -7116,11 +7324,13 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "copper-bacteria",
           "amount": 1,
           "probability": 0.1
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 1
         }
@@ -7148,6 +7358,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "copper-bacteria",
         "amount": 4
       }]
@@ -7168,11 +7379,13 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "iron-bacteria",
           "amount": 1,
           "probability": 0.1
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 4
         }
@@ -7200,6 +7413,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "iron-bacteria",
         "amount": 4
       }]
@@ -7231,6 +7445,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "artificial-yumako-soil",
         "amount": 10
       }]
@@ -7272,6 +7487,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "overgrowth-yumako-soil",
         "amount": 1
       }]
@@ -7303,6 +7519,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "artificial-jellynut-soil",
         "amount": 10
       }]
@@ -7344,6 +7561,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "overgrowth-jellynut-soil",
         "amount": 1
       }]
@@ -7358,6 +7576,7 @@
       }],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 1
       }]
@@ -7372,6 +7591,7 @@
       }],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 6
       }]
@@ -7386,6 +7606,7 @@
       }],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 40
       }]
@@ -7418,6 +7639,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "pentapod-egg",
         "amount": 2,
         "ignored_by_stats": 1
@@ -7445,6 +7667,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "rocket-fuel",
         "amount": 1
       }]
@@ -7466,6 +7689,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "bioflux",
         "amount": 4
       }]
@@ -7487,6 +7711,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "plastic-bar",
         "amount": 3
       }]
@@ -7508,6 +7733,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "sulfur",
         "amount": 2
       }]
@@ -7522,6 +7748,7 @@
       }],
       "energy_required": 3,
       "results": [{
+        "type": "fluid",
         "name": "lubricant",
         "amount": 20
       }]
@@ -7543,6 +7770,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "carbon-fiber",
         "amount": 1
       }]
@@ -7563,6 +7791,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "toolbelt-equipment",
         "amount": 1
       }]
@@ -7583,6 +7812,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "battery-mk3-equipment",
         "amount": 1
       }]
@@ -7604,6 +7834,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "space-platform-foundation",
         "amount": 1
       }]
@@ -7634,6 +7865,7 @@
       ],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "stack-inserter",
         "amount": 1
       }]
@@ -7669,6 +7901,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "rocket-turret",
         "amount": 1
       }]
@@ -7690,6 +7923,7 @@
       ],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "infinity-chest",
         "amount": 1
       }]
@@ -7711,6 +7945,7 @@
       ],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "infinity-pipe",
         "amount": 1
       }]
@@ -7732,6 +7967,7 @@
       ],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "heat-interface",
         "amount": 1
       }]
@@ -7757,6 +7993,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "space-platform-starter-pack",
         "amount": 1
       }]
@@ -7782,6 +8019,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "cargo-bay",
         "amount": 1
       }]
@@ -7807,6 +8045,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "asteroid-collector",
         "amount": 1
       }]
@@ -7832,6 +8071,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "crusher",
         "amount": 1
       }]
@@ -7857,6 +8097,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "thruster",
         "amount": 1
       }]
@@ -7887,6 +8128,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "space-science-pack",
         "amount": 5
       }]
@@ -7918,6 +8160,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "metallurgic-science-pack",
         "amount": 1
       }]
@@ -7944,6 +8187,7 @@
       ],
       "energy_required": 4,
       "results": [{
+        "type": "item",
         "name": "agricultural-science-pack",
         "amount": 1
       }]
@@ -7980,6 +8224,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "electromagnetic-science-pack",
         "amount": 1
       }]
@@ -8013,10 +8258,12 @@
       "energy_required": 20,
       "results": [
         {
+          "type": "item",
           "name": "cryogenic-science-pack",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-hot",
           "amount": 3,
           "ignored_by_stats": 3
@@ -8034,10 +8281,12 @@
       "energy_required": 2,
       "results": [
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 20
         },
         {
+          "type": "item",
           "name": "metallic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8055,10 +8304,12 @@
       "energy_required": 2,
       "results": [
         {
+          "type": "item",
           "name": "carbon",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "carbonic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8076,10 +8327,12 @@
       "energy_required": 2,
       "results": [
         {
+          "type": "item",
           "name": "ice",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "oxide-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8097,14 +8350,17 @@
       "energy_required": 5,
       "results": [
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 10
         },
         {
+          "type": "item",
           "name": "copper-ore",
           "amount": 4
         },
         {
+          "type": "item",
           "name": "metallic-asteroid-chunk",
           "amount": 1,
           "probability": 0.05
@@ -8122,14 +8378,17 @@
       "energy_required": 5,
       "results": [
         {
+          "type": "item",
           "name": "carbon",
           "amount": 5
         },
         {
+          "type": "item",
           "name": "sulfur",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "carbonic-asteroid-chunk",
           "amount": 1,
           "probability": 0.05
@@ -8147,14 +8406,17 @@
       "energy_required": 5,
       "results": [
         {
+          "type": "item",
           "name": "ice",
           "amount": 3
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 2
         },
         {
+          "type": "item",
           "name": "oxide-asteroid-chunk",
           "amount": 1,
           "probability": 0.05
@@ -8172,16 +8434,19 @@
       "energy_required": 2,
       "results": [
         {
+          "type": "item",
           "name": "metallic-asteroid-chunk",
           "amount": 1,
           "probability": 0.4
         },
         {
+          "type": "item",
           "name": "carbonic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
         },
         {
+          "type": "item",
           "name": "oxide-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8199,16 +8464,19 @@
       "energy_required": 2,
       "results": [
         {
+          "type": "item",
           "name": "carbonic-asteroid-chunk",
           "amount": 1,
           "probability": 0.4
         },
         {
+          "type": "item",
           "name": "metallic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
         },
         {
+          "type": "item",
           "name": "oxide-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8226,16 +8494,19 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "oxide-asteroid-chunk",
           "amount": 1,
           "probability": 0.4
         },
         {
+          "type": "item",
           "name": "metallic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
         },
         {
+          "type": "item",
           "name": "carbonic-asteroid-chunk",
           "amount": 1,
           "probability": 0.2
@@ -8264,6 +8535,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "fluid",
         "name": "thruster-fuel",
         "amount": 75
       }]
@@ -8290,6 +8562,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "fluid",
         "name": "thruster-oxidizer",
         "amount": 75
       }]
@@ -8304,6 +8577,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "fluid",
         "name": "water",
         "amount": 20
       }]
@@ -8335,6 +8609,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "fluid",
         "name": "thruster-fuel",
         "amount": 1500
       }]
@@ -8366,6 +8641,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "fluid",
         "name": "thruster-oxidizer",
         "amount": 1500
       }]
@@ -8392,6 +8668,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "fluid",
         "name": "steam",
         "amount": 10000,
         "temperature": 500
@@ -8407,6 +8684,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "fluid",
         "name": "water",
         "amount": 90
       }]
@@ -8428,6 +8706,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "carbon",
         "amount": 1
       }]
@@ -8454,6 +8733,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "tungsten-carbide",
         "amount": 1
       }]
@@ -8495,6 +8775,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "foundry",
         "amount": 1
       }]
@@ -8517,10 +8798,12 @@
       "energy_required": 16,
       "results": [
         {
+          "type": "fluid",
           "name": "molten-iron",
           "amount": 250
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 10
         }
@@ -8544,10 +8827,12 @@
       "energy_required": 16,
       "results": [
         {
+          "type": "fluid",
           "name": "molten-copper",
           "amount": 250
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 15
         }
@@ -8570,6 +8855,7 @@
       ],
       "energy_required": 32,
       "results": [{
+        "type": "fluid",
         "name": "molten-iron",
         "amount": 500
       }]
@@ -8591,6 +8877,7 @@
       ],
       "energy_required": 32,
       "results": [{
+        "type": "fluid",
         "name": "molten-copper",
         "amount": 500
       }]
@@ -8606,6 +8893,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 2
       }]
@@ -8621,6 +8909,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 1
       }]
@@ -8636,6 +8925,7 @@
       }],
       "energy_required": 3.2,
       "results": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 2
       }]
@@ -8651,6 +8941,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "iron-gear-wheel",
         "amount": 1
       }]
@@ -8666,6 +8957,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "iron-stick",
         "amount": 4
       }]
@@ -8681,6 +8973,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "pipe",
         "amount": 1
       }]
@@ -8703,6 +8996,7 @@
       ],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "pipe-to-ground",
         "amount": 2
       }]
@@ -8729,6 +9023,7 @@
       ],
       "energy_required": 15,
       "results": [{
+        "type": "item",
         "name": "low-density-structure",
         "amount": 1
       }]
@@ -8755,6 +9050,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "concrete",
         "amount": 10
       }]
@@ -8770,6 +9066,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "copper-cable",
         "amount": 2
       }]
@@ -8791,6 +9088,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "tungsten-plate",
         "amount": 1
       }]
@@ -8821,6 +9119,7 @@
         }
       ],
       "results": [{
+        "type": "item",
         "name": "turbo-transport-belt",
         "amount": 1
       }]
@@ -8852,6 +9151,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "turbo-underground-belt",
         "amount": 2
       }]
@@ -8888,6 +9188,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "turbo-splitter",
         "amount": 1
       }]
@@ -8909,6 +9210,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "turbo-loader",
         "amount": 1
       }]
@@ -8950,6 +9252,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "big-mining-drill",
         "amount": 1
       }]
@@ -8985,6 +9288,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "mech-armor",
         "amount": 1
       }]
@@ -9016,6 +9320,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "railgun",
         "amount": 1
       }]
@@ -9052,6 +9357,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "railgun-turret",
         "amount": 1
       }]
@@ -9077,6 +9383,7 @@
       ],
       "energy_required": 25,
       "results": [{
+        "type": "item",
         "name": "railgun-ammo",
         "amount": 1
       }]
@@ -9107,6 +9414,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "agricultural-tower",
         "amount": 1
       }]
@@ -9148,6 +9456,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "biochamber",
         "amount": 1
       }]
@@ -9162,6 +9471,7 @@
       }],
       "energy_required": 12,
       "results": [{
+        "type": "item",
         "name": "carbon",
         "amount": 1
       }]
@@ -9188,6 +9498,7 @@
       ],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "coal",
         "amount": 1
       }]
@@ -9218,6 +9529,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "capture-robot-rocket",
         "amount": 1
       }]
@@ -9253,6 +9565,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "biolab",
         "amount": 1
       }]
@@ -9284,6 +9597,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "captive-biter-spawner",
         "amount": 1
       }]
@@ -9294,6 +9608,7 @@
       "ingredients": {},
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "biter-egg",
         "amount": 5
       }],
@@ -9327,6 +9642,7 @@
       ],
       "energy_required": 6,
       "results": [{
+        "type": "item",
         "name": "raw-fish",
         "amount": 3,
         "ignored_by_stats": 2
@@ -9342,6 +9658,7 @@
       }],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 20
       }]
@@ -9356,6 +9673,7 @@
       }],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "nutrients",
         "amount": 20
       }]
@@ -9371,61 +9689,73 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "probability": 0.2
         },
         {
+          "type": "item",
           "name": "solid-fuel",
           "amount": 1,
           "probability": 0.07
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 1,
           "probability": 0.06
         },
         {
+          "type": "item",
           "name": "ice",
           "amount": 1,
           "probability": 0.05
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "probability": 0.04
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 1,
           "probability": 0.04
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 1,
           "probability": 0.04
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "probability": 0.03
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "probability": 0.03
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "probability": 0.02
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 1,
           "probability": 0.01
         },
         {
+          "type": "item",
           "name": "holmium-ore",
           "amount": 1,
           "probability": 0.01
@@ -9459,6 +9789,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "lightning-rod",
         "amount": 1
       }]
@@ -9485,6 +9816,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "fluid",
         "name": "holmium-solution",
         "amount": 100
       }]
@@ -9500,6 +9832,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "holmium-plate",
         "amount": 1
       }]
@@ -9535,6 +9868,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "electromagnetic-plant",
         "amount": 1
       }]
@@ -9566,6 +9900,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "superconductor",
         "amount": 2
       }]
@@ -9602,6 +9937,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "supercapacitor",
         "amount": 1
       }]
@@ -9628,6 +9964,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "fluid",
         "name": "electrolyte",
         "amount": 10
       }]
@@ -9664,6 +10001,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "lightning-collector",
         "amount": 1
       }]
@@ -9695,6 +10033,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "teslagun",
         "amount": 1
       }]
@@ -9731,6 +10070,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "tesla-turret",
         "amount": 1
       }]
@@ -9757,6 +10097,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "tesla-ammo",
         "amount": 1
       }]
@@ -9782,6 +10123,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "heating-tower",
         "amount": 1
       }]
@@ -9808,6 +10150,7 @@
       ],
       "energy_required": 20,
       "results": [{
+        "type": "item",
         "name": "lithium",
         "amount": 5
       }]
@@ -9822,6 +10165,7 @@
       }],
       "energy_required": 6.4,
       "results": [{
+        "type": "item",
         "name": "lithium-plate",
         "amount": 1
       }]
@@ -9853,6 +10197,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "fluid",
         "name": "fluoroketone-hot",
         "amount": 50,
         "temperature": 180
@@ -9869,6 +10214,7 @@
       }],
       "energy_required": 5,
       "results": [{
+        "type": "fluid",
         "name": "fluoroketone-cold",
         "amount": 10,
         "ignored_by_stats": 10,
@@ -9907,6 +10253,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "cryogenic-plant",
         "amount": 1
       }]
@@ -9954,10 +10301,12 @@
       "energy_required": 30,
       "results": [
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 1
         },
         {
+          "type": "fluid",
           "name": "fluoroketone-hot",
           "amount": 5,
           "ignored_by_stats": 5,
@@ -9976,10 +10325,12 @@
       "energy_required": 1,
       "results": [
         {
+          "type": "item",
           "name": "ice",
           "amount": 5
         },
         {
+          "type": "fluid",
           "name": "ammonia",
           "amount": 50
         }
@@ -10021,6 +10372,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "fusion-reactor-equipment",
         "amount": 1
       }]
@@ -10047,6 +10399,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "fusion-power-cell",
         "amount": 1
       }]
@@ -10078,6 +10431,7 @@
       ],
       "energy_required": 60,
       "results": [{
+        "type": "item",
         "name": "fusion-reactor",
         "amount": 1
       }]
@@ -10109,6 +10463,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "fusion-generator",
         "amount": 1
       }]
@@ -10130,6 +10485,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "ice-platform",
         "amount": 1
       }]
@@ -10151,6 +10507,7 @@
       ],
       "energy_required": 0.5,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1
       }]
@@ -10177,6 +10534,7 @@
       ],
       "energy_required": 10,
       "results": [{
+        "type": "item",
         "name": "rocket-fuel",
         "amount": 1
       }]
@@ -10213,6 +10571,7 @@
       ],
       "energy_required": 30,
       "results": [{
+        "type": "item",
         "name": "foundation",
         "amount": 1
       }]
@@ -10244,6 +10603,7 @@
       ],
       "energy_required": 5,
       "results": [{
+        "type": "item",
         "name": "promethium-science-pack",
         "amount": 10
       }]
@@ -10263,6 +10623,7 @@
       }],
       "energy_required": 2,
       "results": [{
+        "type": "item",
         "name": "tree-seed",
         "amount": 1
       }]
@@ -10286,6 +10647,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "water-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10304,11 +10666,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "water",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10335,6 +10699,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "sulfuric-acid-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10353,11 +10718,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "sulfuric-acid",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10384,6 +10751,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "crude-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10402,11 +10770,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "crude-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10433,6 +10803,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "heavy-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10451,11 +10822,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "heavy-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10482,6 +10855,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "light-oil-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10500,11 +10874,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "light-oil",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10531,6 +10907,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "petroleum-gas-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10549,11 +10926,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "petroleum-gas",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10580,6 +10959,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "lubricant-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10598,11 +10978,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "lubricant",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10629,6 +11011,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "fluoroketone-cold-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10647,11 +11030,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "fluoroketone-cold",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10678,6 +11063,7 @@
       ],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "fluoroketone-hot-barrel",
         "amount": 1,
         "ignored_by_stats": 1
@@ -10696,11 +11082,13 @@
       "energy_required": 0.2,
       "results": [
         {
+          "type": "fluid",
           "name": "fluoroketone-hot",
           "amount": 50,
           "ignored_by_stats": 50
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 1,
           "ignored_by_stats": 1
@@ -10719,11 +11107,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10741,16 +11131,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10768,21 +11161,25 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "speed-module-2",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -10800,11 +11197,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10822,16 +11221,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "productivity-module",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10849,21 +11251,25 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "productivity-module-2",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -10881,11 +11287,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10903,16 +11311,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "efficiency-module",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10930,21 +11341,25 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "efficiency-module-2",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -10962,21 +11377,25 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "fast-inserter",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -10993,6 +11412,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -11009,11 +11429,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11031,11 +11453,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11053,11 +11477,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11075,16 +11501,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "energy-shield-equipment",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11102,11 +11531,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "battery",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11124,16 +11555,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "battery-equipment",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11151,16 +11585,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "solar-panel",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11178,16 +11615,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "uranium-fuel-cell",
           "amount": 1,
           "extra_count_fraction": 0
@@ -11205,16 +11645,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "laser-turret",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11232,16 +11675,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "laser-turret",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11259,16 +11705,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 7,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
@@ -11286,21 +11735,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 11,
           "extra_count_fraction": 0.25
@@ -11318,16 +11771,19 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "personal-roboport-equipment",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -11345,16 +11801,19 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 3,
           "extra_count_fraction": 0
@@ -11372,21 +11831,25 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 7,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11404,21 +11867,25 @@
       "energy_required": 2.5,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11436,16 +11903,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5,
           "extra_count_fraction": 0
@@ -11462,6 +11932,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "wood",
         "amount": 0,
         "extra_count_fraction": 0.5
@@ -11478,11 +11949,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11499,6 +11972,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 0,
         "extra_count_fraction": 0.125
@@ -11514,6 +11988,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "stone",
         "amount": 1,
         "extra_count_fraction": 0.25
@@ -11530,11 +12005,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "stone-furnace",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1,
           "extra_count_fraction": 0
@@ -11552,16 +12029,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11578,6 +12058,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 0,
         "extra_count_fraction": 0.5
@@ -11594,11 +12075,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -11616,11 +12099,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.125
@@ -11638,16 +12123,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11665,16 +12153,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "stone-furnace",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -11692,16 +12183,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11719,16 +12213,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "inserter",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11746,16 +12243,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "inserter",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11773,11 +12273,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11794,6 +12296,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -11810,11 +12313,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -11831,6 +12336,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 0,
         "extra_count_fraction": 0.125
@@ -11847,11 +12353,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "wood",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -11869,11 +12377,13 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -11891,16 +12401,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11917,6 +12430,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1,
         "extra_count_fraction": 0
@@ -11932,6 +12446,7 @@
       }],
       "energy_required": 0.1875,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 10,
         "extra_count_fraction": 0
@@ -11948,16 +12463,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -11975,16 +12493,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -12002,11 +12523,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.625
@@ -12024,16 +12547,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 2,
           "extra_count_fraction": 0.25
@@ -12051,11 +12577,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12073,16 +12601,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 1,
           "extra_count_fraction": 0
@@ -12099,6 +12630,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "stone-brick",
         "amount": 1,
         "extra_count_fraction": 0.25
@@ -12115,21 +12647,25 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "assembling-machine-1",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -12147,16 +12683,19 @@
       "energy_required": 0.0625,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 1,
           "extra_count_fraction": 0
@@ -12174,11 +12713,13 @@
       "energy_required": 0.0625,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 0,
           "extra_count_fraction": 0.625
@@ -12196,26 +12737,31 @@
       "energy_required": 0.0625,
       "results": [
         {
+          "type": "item",
           "name": "inserter",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12233,16 +12779,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12260,16 +12809,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12286,6 +12838,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 2,
         "extra_count_fraction": 0
@@ -12302,16 +12855,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0
@@ -12329,16 +12885,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12356,21 +12915,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "wood",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12388,11 +12951,13 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12410,16 +12975,19 @@
       "energy_required": 0.375,
       "results": [
         {
+          "type": "item",
           "name": "firearm-magazine",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -12437,11 +13005,13 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -12459,11 +13029,13 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -12481,16 +13053,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "stone-wall",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12508,11 +13083,13 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -12529,6 +13106,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 2,
         "extra_count_fraction": 0
@@ -12545,11 +13123,13 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "underground-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -12567,16 +13147,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "splitter",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -12594,11 +13177,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "iron-ore",
           "amount": 0,
           "extra_count_fraction": 0.025
@@ -12615,6 +13200,7 @@
       }],
       "energy_required": 0.015625,
       "results": [{
+        "type": "item",
         "name": "concrete",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -12631,16 +13217,19 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 0,
           "extra_count_fraction": 0.2
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.025
@@ -12657,6 +13246,7 @@
       }],
       "energy_required": 0.015625,
       "results": [{
+        "type": "item",
         "name": "refined-concrete",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -12673,11 +13263,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "transport-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -12695,16 +13287,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12722,16 +13317,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "stone",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 0,
           "extra_count_fraction": 0.125
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.125
@@ -12749,16 +13347,19 @@
       "energy_required": 0.25,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 7,
           "extra_count_fraction": 0.5
@@ -12776,16 +13377,19 @@
       "energy_required": 0.0625,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
@@ -12803,11 +13407,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12825,11 +13431,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12847,21 +13455,25 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 1,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -12879,11 +13491,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12901,11 +13515,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12923,11 +13539,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12945,11 +13563,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "decider-combinator",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -12967,16 +13587,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -12994,21 +13617,25 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-stick",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0
@@ -13026,16 +13653,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13053,16 +13683,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "coal",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -13080,16 +13713,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "grenade",
           "amount": 1,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -13107,16 +13743,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "piercing-rounds-magazine",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -13134,11 +13773,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "defender-capsule",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -13156,16 +13797,19 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "distractor-capsule",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13183,21 +13827,25 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "grenade",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "barrel",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13215,11 +13863,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "piercing-rounds-magazine",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13237,11 +13887,13 @@
       "energy_required": 0.25,
       "results": [
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -13259,11 +13911,13 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "rocket",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -13281,16 +13935,19 @@
       "energy_required": 3.125,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 25,
           "extra_count_fraction": 0
@@ -13308,16 +13965,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "shotgun-shell",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -13335,16 +13995,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13362,16 +14025,19 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -13389,11 +14055,13 @@
       "energy_required": 0.75,
       "results": [
         {
+          "type": "item",
           "name": "cannon-shell",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13411,11 +14079,13 @@
       "energy_required": 0.75,
       "results": [
         {
+          "type": "item",
           "name": "explosive-cannon-shell",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "uranium-238",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13433,21 +14103,25 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "radar",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "calcite",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 2,
           "extra_count_fraction": 0
@@ -13465,11 +14139,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "fast-transport-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13487,11 +14163,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "assembling-machine-2",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 1,
           "extra_count_fraction": 0
@@ -13509,21 +14187,25 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 8,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13541,26 +14223,31 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "exoskeleton-equipment",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "fission-reactor-equipment",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "rocket-turret",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "radar",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "raw-fish",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13578,21 +14265,25 @@
       "energy_required": 0.09375,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 4,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "storage-tank",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13610,26 +14301,31 @@
       "energy_required": 0.25,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13647,11 +14343,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 7,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -13669,16 +14367,19 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 10,
           "extra_count_fraction": 0
@@ -13696,26 +14397,31 @@
       "energy_required": 1.5625,
       "results": [
         {
+          "type": "item",
           "name": "efficiency-module",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "speed-module",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 7,
           "extra_count_fraction": 0.5
@@ -13733,11 +14439,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13755,11 +14463,13 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.0625
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.125
@@ -13777,16 +14487,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -13804,21 +14517,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "wood",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13836,11 +14553,13 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "fast-underground-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13858,11 +14577,13 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "fast-transport-belt",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "loader",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13880,11 +14601,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "express-transport-belt",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "fast-loader",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -13902,16 +14625,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "fast-splitter",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -13929,16 +14655,19 @@
       "energy_required": 0.375,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0
@@ -13956,11 +14685,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -13978,11 +14709,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -14000,11 +14733,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -14022,16 +14757,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14049,16 +14787,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14076,16 +14817,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14103,16 +14847,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14130,16 +14877,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14157,26 +14907,31 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 250,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 250,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 50,
           "extra_count_fraction": 0
@@ -14194,16 +14949,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 6,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14221,16 +14979,19 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 11,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 11,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 11,
           "extra_count_fraction": 0.25
@@ -14248,16 +15009,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 1,
           "extra_count_fraction": 0.5
@@ -14275,11 +15039,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14297,16 +15063,19 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14324,21 +15093,25 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14356,21 +15129,25 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14388,26 +15165,31 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14425,11 +15207,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -14447,21 +15231,25 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
@@ -14479,11 +15267,13 @@
       "energy_required": 0.25,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14501,11 +15291,13 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14523,16 +15315,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "engine-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14550,21 +15345,25 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14582,16 +15381,19 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14608,6 +15410,7 @@
       }],
       "energy_required": 0.9375,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 2,
         "extra_count_fraction": 0.5
@@ -14624,21 +15427,25 @@
       "energy_required": 0.5,
       "results": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 125,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 125,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 125,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 125,
           "extra_count_fraction": 0
@@ -14656,21 +15463,25 @@
       "energy_required": 0.25,
       "results": [
         {
+          "type": "item",
           "name": "concrete",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 25,
           "extra_count_fraction": 0
@@ -14688,11 +15499,13 @@
       "energy_required": 5.625,
       "results": [
         {
+          "type": "item",
           "name": "uranium-235",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "rocket-fuel",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14710,16 +15523,19 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14737,11 +15553,13 @@
       "energy_required": 0.0625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 5,
           "extra_count_fraction": 0
@@ -14759,16 +15577,19 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "copper-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "pipe",
           "amount": 5,
           "extra_count_fraction": 0
@@ -14786,11 +15607,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14808,16 +15631,19 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "rail",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -14835,11 +15661,13 @@
       "energy_required": 0.9375,
       "results": [
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14857,16 +15685,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "quality-module",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -14884,21 +15715,25 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "quality-module-2",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -14916,21 +15751,25 @@
       "energy_required": 0.1875,
       "results": [
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 5,
           "extra_count_fraction": 0
@@ -14948,16 +15787,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "yumako-seed",
           "amount": 0,
           "extra_count_fraction": 0.05
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 0,
           "extra_count_fraction": 0.125
@@ -14975,21 +15817,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "artificial-yumako-soil",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "yumako-seed",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -15007,16 +15853,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "jellynut-seed",
           "amount": 0,
           "extra_count_fraction": 0.05
         },
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 0,
           "extra_count_fraction": 0.125
@@ -15034,21 +15883,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "artificial-jellynut-soil",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "jellynut-seed",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "biter-egg",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -15065,6 +15918,7 @@
       }],
       "energy_required": 0.125,
       "results": [{
+        "type": "item",
         "name": "spoilage",
         "amount": 2,
         "extra_count_fraction": 0.5
@@ -15081,11 +15935,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -15103,11 +15959,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "battery-mk2-equipment",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -15125,11 +15983,13 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15147,21 +16007,25 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "bulk-inserter",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "jelly",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -15179,26 +16043,31 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "rocket-launcher",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "iron-gear-wheel",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15216,11 +16085,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "steel-chest",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15238,11 +16109,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "pipe",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15260,11 +16133,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "heat-pipe",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15282,16 +16157,19 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "space-platform-foundation",
           "amount": 15,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15309,16 +16187,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15336,16 +16217,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15363,16 +16247,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "low-density-structure",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -15390,16 +16277,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 1,
           "extra_count_fraction": 0.25
@@ -15417,21 +16307,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 7,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15449,11 +16343,13 @@
       "energy_required": 0.03125,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "express-transport-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15471,11 +16367,13 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "express-underground-belt",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15493,16 +16391,19 @@
       "energy_required": 0.125,
       "results": [
         {
+          "type": "item",
           "name": "express-splitter",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 3,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -15520,11 +16421,13 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "turbo-transport-belt",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "express-loader",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15542,21 +16445,25 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "electric-mining-drill",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electric-engine-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "advanced-circuit",
           "amount": 2,
           "extra_count_fraction": 0.5
@@ -15574,26 +16481,31 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "power-armor-mk2",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -15611,16 +16523,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15638,21 +16553,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 7,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 5,
           "extra_count_fraction": 0
@@ -15670,16 +16589,19 @@
       "energy_required": 1.5625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "explosives",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -15697,21 +16619,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 0,
           "extra_count_fraction": 0.75
         },
         {
+          "type": "item",
           "name": "spoilage",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15729,26 +16655,31 @@
       "energy_required": 1.25,
       "results": [
         {
+          "type": "item",
           "name": "nutrients",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "pentapod-egg",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "iron-plate",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "landfill",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15766,21 +16697,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "flying-robot-frame",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "bioflux",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -15798,16 +16733,19 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "copper-cable",
           "amount": 3,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "stone-brick",
           "amount": 1,
           "extra_count_fraction": 0
@@ -15825,21 +16763,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 37,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "steel-plate",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 12,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -15857,21 +16799,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "electronic-circuit",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "battery",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15889,16 +16835,19 @@
       "energy_required": 0.3125,
       "results": [
         {
+          "type": "item",
           "name": "lightning-rod",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 2,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "accumulator",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15916,16 +16865,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "holmium-plate",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 7,
           "extra_count_fraction": 0.5
@@ -15943,21 +16895,25 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "teslagun",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -15975,11 +16931,13 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "plastic-bar",
           "amount": 0,
           "extra_count_fraction": 0.25
@@ -15997,16 +16955,19 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "boiler",
           "amount": 0,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "heat-pipe",
           "amount": 1,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "concrete",
           "amount": 5,
           "extra_count_fraction": 0
@@ -16024,21 +16985,25 @@
       "energy_required": 0.625,
       "results": [
         {
+          "type": "item",
           "name": "refined-concrete",
           "amount": 10,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 5,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 5,
           "extra_count_fraction": 0
@@ -16056,26 +17021,31 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-carbide",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "processing-unit",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 0,
           "extra_count_fraction": 0.5
@@ -16093,31 +17063,37 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "fission-reactor-equipment",
           "amount": 0,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "fusion-power-cell",
           "amount": 2,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 62,
           "extra_count_fraction": 0.5
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "supercapacitor",
           "amount": 6,
           "extra_count_fraction": 0.25
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 62,
           "extra_count_fraction": 0.5
@@ -16135,16 +17111,19 @@
       "energy_required": 3.75,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 50,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 62,
           "extra_count_fraction": 0.5
@@ -16162,16 +17141,19 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "superconductor",
           "amount": 25,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "quantum-processor",
           "amount": 12,
           "extra_count_fraction": 0.5
@@ -16188,6 +17170,7 @@
       }],
       "energy_required": 1.875,
       "results": [{
+        "type": "item",
         "name": "ice",
         "amount": 12,
         "extra_count_fraction": 0.5
@@ -16204,21 +17187,25 @@
       "energy_required": 1.875,
       "results": [
         {
+          "type": "item",
           "name": "tungsten-plate",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "lithium-plate",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "carbon-fiber",
           "amount": 1,
           "extra_count_fraction": 0
         },
         {
+          "type": "item",
           "name": "stone",
           "amount": 5,
           "extra_count_fraction": 0
@@ -16235,6 +17222,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16250,6 +17238,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16265,6 +17254,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16280,6 +17270,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16295,6 +17286,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16310,6 +17302,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16325,6 +17318,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16340,6 +17334,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16355,6 +17350,7 @@
       }],
       "energy_required": 0.0125,
       "results": [{
+        "type": "item",
         "name": "barrel",
         "amount": 0,
         "extra_count_fraction": 0.25
@@ -16372,6 +17368,7 @@
       }],
       "energy_required": 0.375,
       "results": [{
+        "type": "item",
         "name": "flamethrower-ammo",
         "amount": 1,
         "probability": 0.25,
@@ -16390,6 +17387,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "blueprint",
         "amount": 1,
         "probability": 0.25,
@@ -16408,6 +17406,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "blueprint-book",
         "amount": 1,
         "probability": 0.25,
@@ -16426,6 +17425,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "raw-fish",
         "amount": 1,
         "probability": 0.25,
@@ -16444,6 +17444,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "yumako",
         "amount": 1,
         "probability": 0.25,
@@ -16462,6 +17463,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "jellynut",
         "amount": 1,
         "probability": 0.25,
@@ -16480,6 +17482,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "yumako-mash",
         "amount": 1,
         "probability": 0.25,
@@ -16498,6 +17501,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "jelly",
         "amount": 1,
         "probability": 0.25,
@@ -16516,6 +17520,7 @@
       }],
       "energy_required": 0.375,
       "results": [{
+        "type": "item",
         "name": "bioflux",
         "amount": 1,
         "probability": 0.25,
@@ -16534,6 +17539,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "deconstruction-planner",
         "amount": 1,
         "probability": 0.25,
@@ -16552,6 +17558,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "item-unknown",
         "amount": 1,
         "probability": 0.25,
@@ -16570,6 +17577,7 @@
       }],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "stone-brick",
         "amount": 1,
         "probability": 0.25,
@@ -16588,6 +17596,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "wood",
         "amount": 1,
         "probability": 0.25,
@@ -16606,6 +17615,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "coal",
         "amount": 1,
         "probability": 0.25,
@@ -16624,6 +17634,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "stone",
         "amount": 1,
         "probability": 0.25,
@@ -16642,6 +17653,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "iron-ore",
         "amount": 1,
         "probability": 0.25,
@@ -16660,6 +17672,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "copper-ore",
         "amount": 1,
         "probability": 0.25,
@@ -16678,6 +17691,7 @@
       }],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "iron-plate",
         "amount": 1,
         "probability": 0.25,
@@ -16696,6 +17710,7 @@
       }],
       "energy_required": 0.2,
       "results": [{
+        "type": "item",
         "name": "copper-plate",
         "amount": 1,
         "probability": 0.25,
@@ -16714,6 +17729,7 @@
       }],
       "energy_required": 1,
       "results": [{
+        "type": "item",
         "name": "steel-plate",
         "amount": 1,
         "probability": 0.25,
@@ -16732,6 +17748,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "solid-fuel",
         "amount": 1,
         "probability": 0.25,
@@ -16750,6 +17767,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "landfill",
         "amount": 1,
         "probability": 0.25,
@@ -16768,6 +17786,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "uranium-ore",
         "amount": 1,
         "probability": 0.25,
@@ -16786,6 +17805,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "lane-splitter",
         "amount": 1,
         "probability": 0.25,
@@ -16804,6 +17824,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "coin",
         "amount": 1,
         "probability": 0.25,
@@ -16822,6 +17843,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "sulfur",
         "amount": 1,
         "probability": 0.25,
@@ -16840,6 +17862,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "plastic-bar",
         "amount": 1,
         "probability": 0.25,
@@ -16858,6 +17881,7 @@
       }],
       "energy_required": 0.25,
       "results": [{
+        "type": "item",
         "name": "explosives",
         "amount": 1,
         "probability": 0.25,
@@ -16876,6 +17900,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "electric-energy-interface",
         "amount": 1,
         "probability": 0.25,
@@ -16894,6 +17919,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "uranium-235",
         "amount": 1,
         "probability": 0.25,
@@ -16912,6 +17938,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "uranium-238",
         "amount": 1,
         "probability": 0.25,
@@ -16930,6 +17957,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "uranium-fuel-cell",
         "amount": 1,
         "probability": 0.25,
@@ -16948,6 +17976,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "depleted-uranium-fuel-cell",
         "amount": 1,
         "probability": 0.25,
@@ -16966,6 +17995,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "simple-entity-with-force",
         "amount": 1,
         "probability": 0.25,
@@ -16984,6 +18014,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "simple-entity-with-owner",
         "amount": 1,
         "probability": 0.25,
@@ -17002,6 +18033,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "infinity-cargo-wagon",
         "amount": 1,
         "probability": 0.25,
@@ -17020,6 +18052,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "burner-generator",
         "amount": 1,
         "probability": 0.25,
@@ -17038,6 +18071,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "linked-chest",
         "amount": 1,
         "probability": 0.25,
@@ -17056,6 +18090,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "proxy-container",
         "amount": 1,
         "probability": 0.25,
@@ -17074,6 +18109,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "bottomless-chest",
         "amount": 1,
         "probability": 0.25,
@@ -17092,6 +18128,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "linked-belt",
         "amount": 1,
         "probability": 0.25,
@@ -17110,6 +18147,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "one-way-valve",
         "amount": 1,
         "probability": 0.25,
@@ -17128,6 +18166,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "overflow-valve",
         "amount": 1,
         "probability": 0.25,
@@ -17146,6 +18185,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "top-up-valve",
         "amount": 1,
         "probability": 0.25,
@@ -17164,6 +18204,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "empty-module-slot",
         "amount": 1,
         "probability": 0.25,
@@ -17182,6 +18223,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "science",
         "amount": 1,
         "probability": 0.25,
@@ -17200,6 +18242,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "metallic-asteroid-chunk",
         "amount": 1,
         "probability": 0.25,
@@ -17218,6 +18261,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "carbonic-asteroid-chunk",
         "amount": 1,
         "probability": 0.25,
@@ -17236,6 +18280,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "oxide-asteroid-chunk",
         "amount": 1,
         "probability": 0.25,
@@ -17254,6 +18299,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "promethium-asteroid-chunk",
         "amount": 1,
         "probability": 0.25,
@@ -17272,6 +18318,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "ice",
         "amount": 1,
         "probability": 0.25,
@@ -17290,6 +18337,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "carbon",
         "amount": 1,
         "probability": 0.25,
@@ -17308,6 +18356,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "calcite",
         "amount": 1,
         "probability": 0.25,
@@ -17326,6 +18375,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "tungsten-ore",
         "amount": 1,
         "probability": 0.25,
@@ -17344,6 +18394,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "tungsten-plate",
         "amount": 1,
         "probability": 0.25,
@@ -17362,6 +18413,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "tungsten-carbide",
         "amount": 1,
         "probability": 0.25,
@@ -17380,6 +18432,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "copper-bacteria",
         "amount": 1,
         "probability": 0.25,
@@ -17398,6 +18451,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "iron-bacteria",
         "amount": 1,
         "probability": 0.25,
@@ -17416,6 +18470,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "yumako-seed",
         "amount": 1,
         "probability": 0.25,
@@ -17434,6 +18489,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "jellynut-seed",
         "amount": 1,
         "probability": 0.25,
@@ -17452,6 +18508,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "biolab",
         "amount": 1,
         "probability": 0.25,
@@ -17470,6 +18527,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "captive-biter-spawner",
         "amount": 1,
         "probability": 0.25,
@@ -17488,6 +18546,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "biter-egg",
         "amount": 1,
         "probability": 0.25,
@@ -17506,6 +18565,7 @@
       }],
       "energy_required": 0.9375,
       "results": [{
+        "type": "item",
         "name": "pentapod-egg",
         "amount": 1,
         "probability": 0.25,
@@ -17524,6 +18584,7 @@
       }],
       "energy_required": 0.3125,
       "results": [{
+        "type": "item",
         "name": "carbon-fiber",
         "amount": 1,
         "probability": 0.25,
@@ -17542,6 +18603,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "holmium-ore",
         "amount": 1,
         "probability": 0.25,
@@ -17560,6 +18622,7 @@
       }],
       "energy_required": 0.0625,
       "results": [{
+        "type": "item",
         "name": "holmium-plate",
         "amount": 1,
         "probability": 0.25,
@@ -17578,6 +18641,7 @@
       }],
       "energy_required": 1.25,
       "results": [{
+        "type": "item",
         "name": "lithium",
         "amount": 1,
         "probability": 0.25,
@@ -17596,6 +18660,7 @@
       }],
       "energy_required": 0.4,
       "results": [{
+        "type": "item",
         "name": "lithium-plate",
         "amount": 1,
         "probability": 0.25,
@@ -17614,6 +18679,7 @@
       }],
       "energy_required": 0.3125,
       "results": [{
+        "type": "item",
         "name": "superconductor",
         "amount": 1,
         "probability": 0.25,
@@ -17632,6 +18698,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "fusion-power-cell",
         "amount": 1,
         "probability": 0.25,
@@ -17650,6 +18717,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "spoilage",
         "amount": 1,
         "probability": 0.25,
@@ -17668,6 +18736,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "space-platform-hub",
         "amount": 1,
         "probability": 0.25,
@@ -17686,6 +18755,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "tree-seed",
         "amount": 1,
         "probability": 0.25,
@@ -17704,6 +18774,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "selection-tool",
         "amount": 1,
         "probability": 0.25,
@@ -17722,6 +18793,7 @@
       }],
       "energy_required": 0.3125,
       "results": [{
+        "type": "item",
         "name": "automation-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17740,6 +18812,7 @@
       }],
       "energy_required": 0.375,
       "results": [{
+        "type": "item",
         "name": "logistic-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17758,6 +18831,7 @@
       }],
       "energy_required": 1.5,
       "results": [{
+        "type": "item",
         "name": "chemical-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17776,6 +18850,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "military-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17794,6 +18869,7 @@
       }],
       "energy_required": 1.3125,
       "results": [{
+        "type": "item",
         "name": "production-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17812,6 +18888,7 @@
       }],
       "energy_required": 1.3125,
       "results": [{
+        "type": "item",
         "name": "utility-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17830,6 +18907,7 @@
       }],
       "energy_required": 0.9375,
       "results": [{
+        "type": "item",
         "name": "space-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17848,6 +18926,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "metallurgic-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17866,6 +18945,7 @@
       }],
       "energy_required": 0.25,
       "results": [{
+        "type": "item",
         "name": "agricultural-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17884,6 +18964,7 @@
       }],
       "energy_required": 0.625,
       "results": [{
+        "type": "item",
         "name": "electromagnetic-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17902,6 +18983,7 @@
       }],
       "energy_required": 1.25,
       "results": [{
+        "type": "item",
         "name": "cryogenic-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17920,6 +19002,7 @@
       }],
       "energy_required": 0.3125,
       "results": [{
+        "type": "item",
         "name": "promethium-science-pack",
         "amount": 1,
         "probability": 0.25,
@@ -17938,6 +19021,7 @@
       }],
       "energy_required": 0.03125,
       "results": [{
+        "type": "item",
         "name": "upgrade-planner",
         "amount": 1,
         "probability": 0.25,
@@ -18028,7 +19112,8 @@
     }],
     "heating_energy": "300kW",
     "crafting_categories": ["rocket-building"],
-    "fixed_recipe": "rocket-part"
+    "fixed_recipe": "rocket-part",
+    "rocket_parts_required": 50
   }},
   "segmented-unit": {
     "small-demolisher": {"corpse": "small-demolisher-corpse"},
