@@ -33,9 +33,9 @@ These changes may require updates to your player yaml configuration.
 ### Internal changes
 
 * Internal logic overhaul to support configurable progressive groups, swappable recipes, and other hypothetical future flexibility. The data pipeline starts with Factorio's "prototype" data instead of "runtime" data, and we ship a pruned-down json file instead of generated python code. This change should make this apworld more friendly to contributions by being less confusing/clever/innovative/messy/etc. We do lose the git-controlled representation of the logic graph, which is a little disappointing, but necessary to make it more flexible.
-* Fixed subtle bug with `on_entity_died` event handler clobbering found by @CostmicWolf. No observable change to the player.
+* Fixed subtle bug with `on_entity_died` event handler clobbering found by @CostmicWolf. No observable change for the player.
 * Fixed `/collect` on your own world printing `Unknown Item` warnings related to infinite technologies.
-* TODO: migrate the data exporter into this repo.
+* Migrated the data exporter into this repo. Previously located here: https://github.com/thejoshwolfe/FactorioInformationExtractor
 
 ## 1.1.2
 

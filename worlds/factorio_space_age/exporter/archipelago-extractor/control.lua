@@ -1,0 +1,5 @@
+commands.add_command("ap-get-info-dump", "Dump Game Info, used by Archipelago.", function(call)
+    helpers.write_file("ap-dump.json", helpers.table_to_json(prototypes.mod_data["ap-data-dump"].data), false)
+    game.print("Exported All Data")
+    log("Exported All Data")
+end)

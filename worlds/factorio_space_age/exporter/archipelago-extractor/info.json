@@ -1,0 +1,9 @@
+{
+    "name": "archipelago-extractor",
+    "version": "3.0.0",
+    "title": "Archipelago Extractor",
+    "author": "Berserker, Josh Wolfe",
+    "homepage": "https://archipelago.gg",
+    "description": "Information Extractor for use with the Archipelago Randomizer",
+    "factorio_version": "2.0"
+}

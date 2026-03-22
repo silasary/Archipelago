@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# First see ../exporter/ for how to generate the inputs to this program.
+
 import os, sys, json
 import itertools, functools
 from collections import defaultdict, Counter
@@ -22,8 +24,8 @@ output_ids_py = os.path.join(here, "generated_ids.py")
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", metavar="path/to/script-output/ap-dump.json", help=
-        "See FactorioInformationExtractor for how to generate this.")
+    parser.add_argument("input", metavar="~/software/factorio/script-output/ap-dump.json", help=
+        "See ../exporter/ for how to generate this.")
     args = parser.parse_args()
 
     process(args.input)
