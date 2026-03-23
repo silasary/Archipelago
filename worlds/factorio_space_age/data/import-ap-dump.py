@@ -16,19 +16,34 @@ from ap_data import (
 )
 
 here = os.path.dirname(__file__)
-informative_input = os.path.join(here, "ap-dump-full.json")
-pruned_input = os.path.join(here, "ap-dump.json")
+formatted_input = os.path.join(here, "ap-dump-full.json")
+formatted_input_planets = {
+    planet: os.path.join(here, "ap-dump-full-{}.json".format(planet))
+    for planet in ["vulcanus", "gleba", "fulgora"]
+}
+main_output = os.path.join(here, "ap-dump.json")
+output_planets = {
+    planet: os.path.join(here, "ap-dump-{}.json".format(planet))
+    for planet in ["vulcanus", "gleba", "fulgora"]
+}
 output_names_py = os.path.join(here, "generated_names.py")
 output_ids_py = os.path.join(here, "generated_ids.py")
 
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", metavar="~/software/factorio/script-output/ap-dump.json", help=
+    parser.add_argument("input", nargs="?", metavar="~/software/factorio/script-output/ap-dump.json", help=
         "See ../exporter/ for how to generate this.")
     args = parser.parse_args()
 
-    process(args.input)
+    if args.input:
+        recieve_input(args.input)
+
+    ready_yet = check_inputs()
+    if not ready_yet:
+        sys.exit("Keep exporting more data with various any-planet-start mod settings")
+    process()
+    print("Done!")
 
 header = """\
 #################################################
@@ -57,18 +72,68 @@ ids_header = """\
 
 """
 
-def process(input_path):
-    # Import the json data and gzip it.
+def recieve_input(input_path):
+    # Import the json data and format it.
     with open(input_path, "rb") as f:
         the_data = json.load(f)
-    with open(informative_input, "w") as f:
-        json_dump(the_data, f)
-    the_data = prune_data(the_data)
-    with open(pruned_input, "w") as f:
-        json_dump(the_data, f)
+    starting_planet = "nauvis"
+    if "planet-discovery-nauvis" in the_data["technology"]:
+        # This is using Any Planet Start mod by _CodeGreen.
+        if the_data["technology"]["planet-discovery-vulcanus"].get("hidden", False):
+            starting_planet = "vulcanus"
+        elif the_data["technology"]["planet-discovery-gleba"].get("hidden", False):
+            starting_planet = "gleba"
+        elif the_data["technology"]["planet-discovery-fulgora"].get("hidden", False):
+            starting_planet = "fulgora"
+        else: assert False, "which planet start is this?"
+        with open(formatted_input_planets[starting_planet], "w") as f:
+            json_dump(the_data, f)
+    else:
+        with open(formatted_input, "w") as f:
+            json_dump(the_data, f)
 
-    generate_names(the_data)
-    generate_ids(the_data)
+def check_inputs():
+    ready_yet = True
+    for file_name in [formatted_input] + list(formatted_input_planets.values()):
+        got_it = os.path.isfile(file_name)
+        if got_it:
+            print("FOUND: " + file_name)
+        else:
+            print("MISSING: " + file_name)
+        if not got_it:
+            ready_yet = False
+    return ready_yet
+
+def process():
+    with open(formatted_input, "rb") as f:
+        main_data = prune_data(json.load(f))
+    with open(main_output, "w") as f:
+        json_dump(main_data, f)
+
+    # Store a diff of the data for each planet start,
+    # and merge it all together for generating names and ids.
+    merged_data = {k: dict(v) for k, v in main_data.items()}
+    for planet, planet_file_name in formatted_input_planets.items():
+        with open(formatted_input_planets[planet], "rb") as f:
+            planet_data = prune_data(json.load(f))
+
+        assert planet_data.keys() == main_data.keys(), "there's no way any-planet-start mod introduced new prototype types"
+        diff_data = defaultdict(dict)
+        for prototype_type in main_data.keys():
+            main_prototypes = main_data[prototype_type]
+            planet_prototypes = planet_data[prototype_type]
+            for deleted_prototype_name in main_prototypes.keys() - planet_prototypes.keys():
+                # e.g. fulgora removes scrap-recycling-productivity and adds -1 through -4 instead.
+                diff_data[prototype_type][deleted_prototype_name] = None
+            for prototype_name, prototype_data in planet_prototypes.items():
+                if prototype_data != main_prototypes.get(prototype_name, None):
+                    diff_data[prototype_type][prototype_name] = prototype_data
+            merged_data[prototype_type].update(planet_prototypes)
+        with open(output_planets[planet], "w") as f:
+            json_dump(dict(diff_data), f)
+
+    generate_names(merged_data)
+    generate_ids(merged_data)
 
 progressive_pseudo_item_names = set()
 
@@ -132,28 +197,28 @@ def generate_ids(the_data):
     # Technology locations and items
     ap_location_name_to_id = {}
     ap_item_name_to_id = {}
-    for technology_name, technology_data in sorted(the_data["technology"].items()):
+    # Synthetic locations first, because they never change (smaller git diff when there are later changes).
+    for i in range(1000):
+        ap_location_name_to_id["ap-{:03}_location".format(i)] = next_id()
+    id_cursor = factorio_base_id * 2
+    for technology_name in sorted(the_data["technology"].keys()):
         assert not "_" in technology_name, "that's the delimiter we use for our special suffixes: " + technology_name
         location_name = technology_name + "_location"
         ap_location_name_to_id[location_name] = next_id()
-        if (
-            technology_name not in unrandomized_technologies and
-            technology_data.get("max_level", 1) != "infinite" and
-            "unit" in technology_data # Researched with science packs, not a trigger.
-        ):
-            second_location_name = technology_name + "_other_location"
-            ap_location_name_to_id[second_location_name] = next_id()
         ap_item_name_to_id[technology_name] = next_id()
     # Progressive pseudo items
+    id_cursor = factorio_base_id * 3
     for progressive_technology_name in sorted(progressive_pseudo_item_names):
         if progressive_technology_name in ap_item_name_to_id:
             # Some of the progressive stacks are just the name of the infinite tech.
             continue
         ap_item_name_to_id[progressive_technology_name] = next_id()
     # New items
+    id_cursor = factorio_base_id * 4
     for name in ap_item_names:
         ap_item_name_to_id[name] = next_id()
     # Traps
+    id_cursor = factorio_base_id * 5
     for trap_name in trap_names:
         ap_item_name_to_id[trap_name] = next_id()
 
@@ -450,6 +515,8 @@ def prune_data(data):
             [v_schema] = schema
             if type(data) == list:
                 return [recurse(v, v_schema) for v in data]
+            elif data == {}:
+                return [] # Lua makes no distinction between [] and {}.
             else:
                 return recurse(data, v_schema) # Fallback to guessing the list is instead a single item.
         if type(schema) == tuple:

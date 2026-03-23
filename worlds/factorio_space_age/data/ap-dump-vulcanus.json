@@ -1,0 +1,986 @@
+{
+  "planet": {
+    "nauvis": {
+      "solar_power_in_space": 300,
+      "asteroid_spawn_definitions": [
+        {"asteroid": "metallic-asteroid-chunk"},
+        {"asteroid": "carbonic-asteroid-chunk"},
+        {"asteroid": "oxide-asteroid-chunk"},
+        {"asteroid": "medium-metallic-asteroid"},
+        {"asteroid": "medium-carbonic-asteroid"},
+        {"asteroid": "medium-oxide-asteroid"}
+      ],
+      "map_gen_settings": {
+        "autoplace_settings": {
+          "tile": {"settings": {
+            "grass-1": {},
+            "grass-2": {},
+            "grass-3": {},
+            "grass-4": {},
+            "dry-dirt": {},
+            "dirt-1": {},
+            "dirt-2": {},
+            "dirt-3": {},
+            "dirt-4": {},
+            "dirt-5": {},
+            "dirt-6": {},
+            "dirt-7": {},
+            "sand-1": {},
+            "sand-2": {},
+            "sand-3": {},
+            "red-desert-0": {},
+            "red-desert-1": {},
+            "red-desert-2": {},
+            "red-desert-3": {},
+            "water": {},
+            "deepwater": {}
+          }},
+          "entity": {"settings": {
+            "iron-ore": {},
+            "copper-ore": {},
+            "stone": {},
+            "coal": {},
+            "crude-oil": {},
+            "uranium-ore": {},
+            "fish": {},
+            "big-sand-rock": {},
+            "huge-rock": {},
+            "big-rock": {}
+          }}
+        },
+        "autoplace_controls": {
+          "iron-ore": {},
+          "copper-ore": {},
+          "stone": {},
+          "coal": {},
+          "uranium-ore": {},
+          "crude-oil": {},
+          "water": {},
+          "trees": {},
+          "enemy-base": {},
+          "rocks": {},
+          "starting_area_moisture": {},
+          "nauvis_cliff": {}
+        }
+      },
+      "surface_properties": {"day-night-cycle": 25200}
+    },
+    "vulcanus": {
+      "solar_power_in_space": 600,
+      "asteroid_spawn_definitions": [
+        {"asteroid": "metallic-asteroid-chunk"},
+        {"asteroid": "carbonic-asteroid-chunk"},
+        {"asteroid": "oxide-asteroid-chunk"}
+      ],
+      "map_gen_settings": {
+        "autoplace_settings": {
+          "tile": {"settings": {
+            "volcanic-soil-dark": {},
+            "volcanic-soil-light": {},
+            "volcanic-ash-soil": {},
+            "volcanic-ash-flats": {},
+            "volcanic-ash-light": {},
+            "volcanic-ash-dark": {},
+            "volcanic-cracks": {},
+            "volcanic-cracks-warm": {},
+            "volcanic-folds": {},
+            "volcanic-folds-flat": {},
+            "lava": {},
+            "lava-hot": {},
+            "volcanic-folds-warm": {},
+            "volcanic-pumice-stones": {},
+            "volcanic-cracks-hot": {},
+            "volcanic-jagged-ground": {},
+            "volcanic-smooth-stone": {},
+            "volcanic-smooth-stone-warm": {},
+            "volcanic-ash-cracks": {}
+          }},
+          "entity": {"settings": {
+            "coal": {},
+            "calcite": {},
+            "sulfuric-acid-geyser": {},
+            "tungsten-ore": {},
+            "huge-volcanic-rock": {},
+            "big-volcanic-rock": {},
+            "crater-cliff": {},
+            "vulcanus-chimney": {},
+            "vulcanus-chimney-faded": {},
+            "vulcanus-chimney-cold": {},
+            "vulcanus-chimney-short": {},
+            "vulcanus-chimney-truncated": {},
+            "ashland-lichen-tree": {},
+            "ashland-lichen-tree-flaming": {}
+          }}
+        },
+        "autoplace_controls": {
+          "vulcanus_coal": {},
+          "sulfuric_acid_geyser": {},
+          "tungsten_ore": {},
+          "calcite": {},
+          "vulcanus_volcanism": {}
+        },
+        "territory_settings": {"units": [
+          "small-demolisher",
+          "medium-demolisher",
+          "big-demolisher"
+        ]}
+      },
+      "surface_properties": {
+        "day-night-cycle": 5400,
+        "magnetic-field": 25,
+        "solar-power": 400,
+        "pressure": 4000,
+        "gravity": 40
+      }
+    }
+  },
+  "space-connection": {"vulcanus-fulgora": {
+    "asteroid_spawn_definitions": [
+      {"asteroid": "metallic-asteroid-chunk"},
+      {"asteroid": "carbonic-asteroid-chunk"},
+      {"asteroid": "oxide-asteroid-chunk"},
+      {"asteroid": "medium-metallic-asteroid"},
+      {"asteroid": "medium-carbonic-asteroid"},
+      {"asteroid": "medium-oxide-asteroid"}
+    ],
+    "from": "vulcanus",
+    "to": "fulgora"
+  }},
+  "technology": {
+    "steam-power": {
+      "unit": {
+        "count": 25,
+        "time": 10,
+        "ingredients": [["automation-science-pack", 1]]
+      },
+      "prerequisites": ["calcite-processing", "automation-science-pack"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "boiler"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "steam-engine"
+        }
+      ]
+    },
+    "automation-science-pack": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "lab"
+      },
+      "prerequisites": ["solar-energy"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "automation-science-pack"
+      }]
+    },
+    "automation": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "iron-plate",
+        "count": 50
+      },
+      "ignore_tech_cost_multiplier": true,
+      "prerequisites": ["electronics"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "assembling-machine-1"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "long-handed-inserter"
+        }
+      ]
+    },
+    "automation-2": {
+      "unit": {
+        "count": 15,
+        "time": 10,
+        "ingredients": [["automation-science-pack", 1]]
+      },
+      "ignore_tech_cost_multiplier": true,
+      "prerequisites": ["automation", "automation-science-pack"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "assembling-machine-2"
+      }]
+    },
+    "steel-processing": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "iron-plate",
+        "count": 10
+      },
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "steel-plate"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "steel-chest"
+        }
+      ]
+    },
+    "railway": {
+      "unit": {
+        "count": 75,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["logistics-2", "engine"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "rail"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "locomotive"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "cargo-wagon"
+        }
+      ]
+    },
+    "solar-energy": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "electronic-circuit",
+        "count": 15
+      },
+      "prerequisites": ["steel-processing", "electronics"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "solar-panel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "medium-electric-pole"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "iron-stick"
+        }
+      ]
+    },
+    "research-speed-1": {
+      "unit": {
+        "count": 100,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["automation-2", "logistic-science-pack"],
+      "effects": [{
+        "type": "laboratory-speed",
+        "modifier": 0.2
+      }]
+    },
+    "electric-energy-distribution-1": {
+      "unit": {
+        "count": 120,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["steel-processing", "logistic-science-pack"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "big-electric-pole"
+      }]
+    },
+    "concrete": {
+      "unit": {
+        "count": 25,
+        "time": 15,
+        "ingredients": [["automation-science-pack", 1]]
+      },
+      "ignore_tech_cost_multiplier": true,
+      "prerequisites": ["calcite-processing", "automation-2"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "concrete"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "hazard-concrete"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "refined-concrete"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "refined-hazard-concrete"
+        }
+      ]
+    },
+    "chemical-science-pack": {
+      "unit": {
+        "count": 75,
+        "time": 10,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "advanced-circuit",
+        "sulfur-processing",
+        "engine"
+      ],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "chemical-science-pack"
+      }]
+    },
+    "cliff-explosives": {
+      "unit": {
+        "count": 500,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["metallurgic-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "explosives",
+        "military-science-pack",
+        "metallurgic-science-pack"
+      ],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "cliff-explosives"
+        },
+        {
+          "type": "cliff-deconstruction-enabled",
+          "modifier": true
+        }
+      ]
+    },
+    "flammables": {
+      "unit": {
+        "count": 50,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["oil-processing", "logistic-science-pack"]
+    },
+    "low-density-structure": {
+      "unit": {
+        "count": 300,
+        "time": 45,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["advanced-material-processing", "chemical-science-pack"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "low-density-structure"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-low-density-structure"
+        }
+      ]
+    },
+    "lubricant": {
+      "research_trigger": {
+        "type": "craft-fluid",
+        "fluid": "heavy-oil"
+      },
+      "prerequisites": ["oil-processing"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "lubricant"
+      }]
+    },
+    "electric-engine": {
+      "unit": {
+        "count": 50,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["lubricant", "chemical-science-pack"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "electric-engine-unit"
+      }]
+    },
+    "oil-gathering": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "steel-plate",
+        "count": 5
+      },
+      "prerequisites": ["steel-processing", "electronics"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "pumpjack"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "pipe"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "pipe-to-ground"
+        }
+      ]
+    },
+    "oil-processing": {
+      "research_trigger": {
+        "type": "mine-entity",
+        "entity": "sulfuric-acid-geyser"
+      },
+      "prerequisites": ["oil-gathering"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "oil-refinery"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "simple-coal-liquefaction"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "heavy-oil-cracking"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "light-oil-cracking"
+        }
+      ]
+    },
+    "advanced-oil-processing": {
+      "unit": {
+        "count": 75,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["chemical-science-pack"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-heavy-oil"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-light-oil"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-petroleum-gas"
+        }
+      ]
+    },
+    "coal-liquefaction": {
+      "unit": {
+        "count": 500,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["metallurgic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["metallurgic-science-pack"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "coal-liquefaction"
+      }]
+    },
+    "sulfur-processing": {
+      "unit": {
+        "count": 150,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "oil-processing",
+        "calcite-processing",
+        "logistic-science-pack"
+      ],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "sulfuric-acid"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "sulfur"
+        }
+      ]
+    },
+    "plastics": {
+      "unit": {
+        "count": 200,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["oil-processing", "logistic-science-pack"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "plastic-bar"
+      }]
+    },
+    "uranium-mining": {
+      "unit": {
+        "count": 100,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["planet-discovery-nauvis"],
+      "effects": [{
+        "type": "mining-with-fluid",
+        "modifier": true
+      }]
+    },
+    "artillery": {
+      "unit": {
+        "count": 1500,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["military-science-pack", 1],
+          ["utility-science-pack", 1],
+          ["metallurgic-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "military-4",
+        "metallurgic-science-pack",
+        "radar"
+      ],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "artillery-wagon"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "artillery-turret"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "artillery-shell"
+        }
+      ]
+    },
+    "circuit-network": {
+      "unit": {
+        "count": 100,
+        "time": 15,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["logistic-science-pack"],
+      "effects": [
+        {
+          "type": "unlock-circuit-network",
+          "modifier": true
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "arithmetic-combinator"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "decider-combinator"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "constant-combinator"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "power-switch"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "programmable-speaker"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "display-panel"
+        }
+      ]
+    },
+    "planet-discovery-vulcanus": {
+      "hidden": true,
+      "unit": {
+        "count": 1000,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["space-science-pack", 1]
+        ]
+      },
+      "effects": [{
+        "type": "unlock-space-location",
+        "space_location": "vulcanus",
+        "use_icon_overlay_constant": true
+      }]
+    },
+    "planet-discovery-aquilo": {
+      "unit": {
+        "count": 3000,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["production-science-pack", 1],
+          ["utility-science-pack", 1],
+          ["space-science-pack", 1],
+          ["metallurgic-science-pack", 1],
+          ["agricultural-science-pack", 1],
+          ["electromagnetic-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "rocket-turret",
+        "advanced-asteroid-processing",
+        "heating-tower",
+        "asteroid-reprocessing",
+        "electromagnetic-science-pack",
+        "planet-discovery-nauvis"
+      ],
+      "effects": [
+        {
+          "type": "unlock-space-location",
+          "space_location": "aquilo",
+          "use_icon_overlay_constant": true
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "ammoniacal-solution-separation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-ammonia"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "ammonia-rocket-fuel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "ice-platform"
+        }
+      ]
+    },
+    "calcite-processing": {
+      "research_trigger": {
+        "type": "mine-entity",
+        "entity": "calcite"
+      },
+      "prerequisites": ["oil-gathering"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "chemical-plant"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "acid-neutralisation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "steam-condensation"
+        }
+      ]
+    },
+    "tungsten-carbide": {
+      "research_trigger": {
+        "type": "mine-entity",
+        "entity": "big-volcanic-rock"
+      },
+      "prerequisites": [],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "carbon"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "tungsten-carbide"
+        }
+      ]
+    },
+    "big-mining-drill": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "foundry"
+      },
+      "prerequisites": [
+        "foundry",
+        "electric-mining-drill",
+        "advanced-circuit",
+        "electric-engine"
+      ],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "big-mining-drill"
+      }]
+    },
+    "foundry": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "tungsten-carbide"
+      },
+      "prerequisites": [
+        "calcite-processing",
+        "tungsten-carbide",
+        "concrete",
+        "lubricant"
+      ],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "foundry"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "offshore-pump"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "molten-iron-from-lava"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "molten-copper-from-lava"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "concrete-from-molten-iron"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-low-density-structure"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "molten-iron"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "molten-copper"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-iron"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-steel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-copper"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-iron-gear-wheel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-iron-stick"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-pipe"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-pipe-to-ground"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "casting-copper-cable"
+        }
+      ]
+    },
+    "turbo-transport-belt": {
+      "unit": {
+        "count": 500,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["production-science-pack", 1],
+          ["metallurgic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["metallurgic-science-pack", "logistics-3"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "turbo-transport-belt"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "turbo-underground-belt"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "turbo-splitter"
+        }
+      ]
+    },
+    "tree-seeding": {
+      "unit": {
+        "count": 50,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["space-science-pack", 1],
+          ["agricultural-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["agricultural-science-pack", "planet-discovery-nauvis"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "wood-processing"
+      }]
+    },
+    "captivity": {
+      "unit": {
+        "count": 1000,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["military-science-pack", 1],
+          ["space-science-pack", 1],
+          ["agricultural-science-pack", 1]
+        ]
+      },
+      "prerequisites": [
+        "agricultural-science-pack",
+        "military-3",
+        "rocketry",
+        "planet-discovery-nauvis"
+      ],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "capture-robot-rocket"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "biter-egg"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "nutrients-from-biter-egg"
+        }
+      ]
+    },
+    "fish-breeding": {
+      "unit": {
+        "count": 500,
+        "time": 60,
+        "ingredients": [
+          ["space-science-pack", 1],
+          ["agricultural-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["tree-seeding", "planet-discovery-nauvis"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "fish-breeding"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "nutrients-from-fish"
+        }
+      ]
+    },
+    "planet-discovery-nauvis": {
+      "unit": {
+        "count": 1000,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["space-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["space-platform-thruster"],
+      "effects": [
+        {
+          "type": "unlock-space-location",
+          "space_location": "nauvis",
+          "use_icon_overlay_constant": true
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "basic-oil-processing"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "advanced-oil-processing"
+        }
+      ]
+    }
+  }
+}

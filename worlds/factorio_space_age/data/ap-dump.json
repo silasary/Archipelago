@@ -2428,8 +2428,8 @@
   "recipe": {
     "recipe-unknown": {
       "hidden": true,
-      "ingredients": {},
-      "results": {}
+      "ingredients": [],
+      "results": []
     },
     "parameter-0": {
       "parameter": true,
@@ -9605,7 +9605,7 @@
     "biter-egg": {
       "enabled": false,
       "category": "captive-spawner-process",
-      "ingredients": {},
+      "ingredients": [],
       "energy_required": 10,
       "results": [{
         "type": "item",
