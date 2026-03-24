@@ -7,7 +7,7 @@
 Default options are now a significantly accelerated experience relative to vanilla.
 
 * Added `quick_start` option, enabled by default, that gives personal construction bots and a chunk of basic resources at the start.
-* Added `skip_starting_trigger_techs` option, enabled by default, that starts with electronics, steam-power, etc. unlocked from the start without needing to do the crafting to trigger them.
+* Added `skip_starting_trigger_techs` option, disabled by default, that starts with electronics, steam-power, etc. unlocked from the start without needing to do the crafting to trigger them.
 * Added `starting_planet` option, disabled by default, that integrates with CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start . Interacts with `skip_starting_trigger_techs` and `free_samples` in fun ways.
 * Added `space_technology_level` option to enable space flight with early or mid game technology, effectively downgrading all the ingredients for rocket silo, space platform, thruster, etc. to more primitive items. Puts the Space in Factorio: Space Age sooner rather than near the end of the game. (This could someday be obsoleted by recipe randomization.)
 * Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with non-critical bonuses later in the chains. This makes it less likely to get stuck waiting for someone to find a specific item. Details here: https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py

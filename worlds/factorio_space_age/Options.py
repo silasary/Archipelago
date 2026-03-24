@@ -307,7 +307,7 @@ class QuickStart(DefaultOnToggle):
     and a chunk of materials to help get through the early game.
     """
 
-class SkipStartingTriggerTechs(DefaultOnToggle):
+class SkipStartingTriggerTechs(Toggle):
     """
     Instead of needing to craft iron plates, copper plates, and a lab at the start of the run,
     start with the recipes for steam power, labs, and logistic science pack already unlocked.

@@ -83,6 +83,9 @@ class Factorio(World):
     advancement_technologies: set[str]
     infinite_technology_shuffle: dict[str, str] | None = None
     empty_technologies: list[str]
+    starting_planet: str
+    early_unrandomized_technologies: set[str]
+    skipped_locations: set[str]
     filler_weights_argv: tuple[list[str], list[int]]
     locations_to_duplicate: set[str]
 
@@ -91,6 +94,7 @@ class Factorio(World):
         self.recipe_changes = {}
         self.asteroid_hp_changes = {}
         self.technology_effect_additions = defaultdict(list)
+        self.skipped_locations = set()
         super().__init__(world, player)
 
     def generate_output(self, output_directory: str) -> None:
@@ -146,11 +150,21 @@ class Factorio(World):
             self.options.start_inventory.value.update({
                 name: 1 for name in self.early_unrandomized_technologies
             })
+            self.skipped_locations.update(self.early_unrandomized_technologies)
 
         self.progressive_technology_stacks = {
             "only_related": small_progressive_groups,
             "large_groups": large_progressive_groups,
         }[self.options.progressive_technologies.current_key]
+        # Filter out unrandomized and skipped things.
+        self.progressive_technology_stacks = {
+            group_name: [
+                name for name in stack
+                if name not in self.early_unrandomized_technologies
+                and name != "planet-discovery-" + self.starting_planet
+            ]
+            for group_name, stack in self.progressive_technology_stacks.items()
+        }
         self.technology_name_to_progressive_group_name = {
             technology_name: progressive_group_name
             for progressive_group_name, stack in self.progressive_technology_stacks.items()
@@ -299,6 +313,7 @@ class Factorio(World):
             self.technology_name_to_progressive_group_name,
             self.starting_planet,
             self.early_unrandomized_technologies,
+            self.skipped_locations,
         )
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:
@@ -497,9 +512,12 @@ class Factorio(World):
 
         technology_name_to_location = {}
         for location_name in location_names:
+            origin_technology_name = location_name[:-len("_location")]
+            if origin_technology_name in self.skipped_locations:
+                # Don't create a location for this. It's already obtained.
+                continue
             access_rule_fn = compile_expr(self.logic_events[location_name])
             location = new_location(location_name, access_rule_fn)
-            origin_technology_name = location_name[:-len("_location")]
             technology_name_to_location[origin_technology_name] = location
             if location_name in self.locations_to_duplicate:
                 # Another one.
@@ -514,6 +532,9 @@ class Factorio(World):
             item = self.create_item(item_name)
             # Where should it go?
             if technology_name in unrandomized_technologies or technology_name in self.factorio_data.infinite_technology_names:
+                if technology_name in self.skipped_locations:
+                    # It's already granted.
+                    continue
                 lock_item(technology_name_to_location[technology_name], item)
             elif item_name == names.victory:
                 if self.options.goal.current_key == "space_science":

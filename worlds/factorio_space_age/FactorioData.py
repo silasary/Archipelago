@@ -36,6 +36,7 @@ class FactorioData:
     starting_planet: str
     technology_name_to_progressive_group_name: dict[str, str]
     unrandomized_technologies: set[str]
+    skipped_locations: set[str]
     # Derrived:
     infinite_technology_names: set[str]
     empty_technology_names: set[str]
@@ -43,11 +44,13 @@ class FactorioData:
         technology_name_to_progressive_group_name,
         starting_planet,
         unrandomized_technologies,
+        skipped_locations,
     ):
         self.the_data = the_data
         self.starting_planet = starting_planet
         self.technology_name_to_progressive_group_name = technology_name_to_progressive_group_name
         self.unrandomized_technologies = unrandomized_technologies
+        self.skipped_locations = skipped_locations
         # Derrived:
         self.infinite_technology_names = {
             name for name, prototype in self.the_data["technology"].items()
@@ -732,9 +735,11 @@ class FactorioData:
         space_location_to_unlocking_technologies: dict[str, set[str]] = defaultdict(set)
         mining_with_fluid_unlocking_technologies = set()
         for prototype_name, prototype_data in the_data["technology"].items():
+            if prototype_data.get("hidden", False): continue # any-planet-start hides disocvery of your starting planet.
             # https://lua-api.factorio.com/latest/prototypes/TechnologyPrototype.html
             assert " " not in prototype_name, "spaces are used to prefix event types. a space in a technology name creates ambiguity"
             prerequisites = set(prototype_data.get("prerequisites", []))
+            prerequisites -= self.skipped_locations
             technology_props = {
                 "prerequisites": sorted(prerequisites),
             }
@@ -1159,6 +1164,8 @@ class FactorioData:
             """
             recursive_requirements = set()
             for prerequisite_technology_name in technologies[later_technology_name].prerequisites:
+                if prerequisite_technology_name in self.skipped_locations:
+                    continue
                 recursive_requirements.update(get_prerequisite_requirements(prerequisite_technology_name))
                 prerequisite_technology = technologies[prerequisite_technology_name]
                 recursive_requirements.add(prerequisite_technology.requirement)
@@ -1177,7 +1184,8 @@ class FactorioData:
                     ]},
                 ]}
 
-            logic_events[fmt_technology_location(technology_name)] = expr
+            if technology_name not in self.skipped_locations:
+                logic_events[fmt_technology_location(technology_name)] = expr
             if technology_name in self.unrandomized_technologies:
                 # Tell the optimizer how to inline these.
                 logic_events[fmt_unlock_technology(technology_name)] = expr

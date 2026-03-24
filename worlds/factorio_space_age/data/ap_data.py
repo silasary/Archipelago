@@ -357,6 +357,7 @@ large_progressive_groups = {
         "braking-force-7",
     ],
     "progressive-uranium": [
+        "planet-discovery-nauvis", # for any-planet-start mod.
         "uranium-mining",
         "uranium-processing",
         "nuclear-power",
