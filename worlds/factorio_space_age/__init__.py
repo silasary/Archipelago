@@ -108,6 +108,7 @@ class Factorio(World):
             logic_events=self.logic_events,
             progressive_technology_stacks=self.progressive_technology_stacks,
             technology_name_to_progressive_group_name=self.technology_name_to_progressive_group_name,
+            infinite_technology_names=self.factorio_data.infinite_technology_names,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
             technology_props_lua=self.technology_props_lua,
             recipe_changes=self.recipe_changes,
@@ -152,19 +153,45 @@ class Factorio(World):
             })
             self.skipped_locations.update(self.early_unrandomized_technologies)
 
+        infinite_scrap_recycling_productivity = names.scrap_recycling_productivity
         self.progressive_technology_stacks = {
             "only_related": small_progressive_groups,
             "large_groups": large_progressive_groups,
         }[self.options.progressive_technologies.current_key]
-        # Filter out unrandomized and skipped things.
+        # Remove unrandomized and removed technologies from progressive stacks.
+        remove_from_progressive_stacks = {
+             *self.early_unrandomized_technologies,
+             *{
+                 name for name, technology_data in the_data["technology"].items()
+                 if technology_data.get("hidden", False)
+             },
+        }
         self.progressive_technology_stacks = {
             group_name: [
                 name for name in stack
-                if name not in self.early_unrandomized_technologies
-                and name != "planet-discovery-" + self.starting_planet
+                if name not in remove_from_progressive_stacks
             ]
             for group_name, stack in self.progressive_technology_stacks.items()
         }
+        if self.starting_planet == names.fulgora:
+            # any-planet-start instantiates 3 levels of scrap productivity, so the infinite one starts at 4.
+            try:
+                # progressive_technologies: only_related
+                scrap_stack = self.progressive_technology_stacks[names.scrap_recycling_productivity]
+            except KeyError:
+                # progressive_technologies: large_groups
+                scrap_stack = self.progressive_technology_stacks[names.progressive_fulgora]
+            assert scrap_stack[-1] == infinite_scrap_recycling_productivity
+            del scrap_stack[-1]
+            scrap_stack.extend([
+                names.scrap_recycling_productivity_1,
+                names.scrap_recycling_productivity_2,
+                names.scrap_recycling_productivity_3,
+                names.scrap_recycling_productivity_4, # infinite
+            ])
+            infinite_scrap_recycling_productivity = scrap_stack[-1]
+
+        # Now build the reverse index.
         self.technology_name_to_progressive_group_name = {
             technology_name: progressive_group_name
             for progressive_group_name, stack in self.progressive_technology_stacks.items()
@@ -295,8 +322,8 @@ class Factorio(World):
                 self.asteroid_hp_changes[asteroid_name] = the_data["asteroid"][asteroid_name]["max_health"] / small_divisor
 
             # Technology
-            if self.options.space_technology_level.current_key == "early_game":
-                # Instead of requiring oil-processing to get to space, have thruster fuel give chemical plant recipe also.
+            if self.options.space_technology_level.current_key == "early_game" and self.starting_planet != names.vulcanus:
+                # Thruster fuel requires chemical plant, so shortcut the recipe unlock if we wouldn't need it at this point anyway.
                 self.technology_effect_additions[names.space_platform_thruster].append({
                     "type": "unlock-recipe",
                     "recipe": names.chemical_plant,
@@ -348,7 +375,7 @@ class Factorio(World):
             names.research_productivity:              self.options.filler_research_productivity_weight.value,
             names.rocket_fuel_productivity:           self.options.filler_rocket_fuel_productivity_weight.value,
             names.rocket_part_productivity:           self.options.filler_rocket_part_productivity_weight.value,
-            names.scrap_recycling_productivity:       self.options.filler_scrap_recycling_productivity_weight.value,
+            infinite_scrap_recycling_productivity:    self.options.filler_scrap_recycling_productivity_weight.value,
             names.steel_plate_productivity:           self.options.filler_steel_plate_productivity_weight.value,
             names.stronger_explosives_7:              self.options.filler_stronger_explosives_weight.value,
             names.worker_robots_speed_7:              self.options.filler_worker_robots_speed_weight.value,
@@ -378,12 +405,6 @@ class Factorio(World):
             filler_weights[""] = 1
         self.filler_weights_argv = list(zip(*filler_weights.items()))
 
-        assert self.factorio_data.empty_technology_names == {
-            names.laser,
-            names.flammables,
-            names.biter_egg_handling,
-            names.modules,
-        }, "we have assumptions in __init__.py about the set of empty technologies"
         self.empty_technologies = sorted(self.factorio_data.empty_technology_names)
         self.random.shuffle(self.empty_technologies)
 
@@ -551,6 +572,8 @@ class Factorio(World):
 
         # Create filler items.
         empty_slots = sum(1 for location in self.locations if location.item == None)
+        if empty_slots < len(randomized_items):
+            assert False, "TODO: generate more locations"
         while len(randomized_items) < empty_slots:
             randomized_items.append(self.create_item(self.get_filler_item_name()))
         self.multiworld.itempool.extend(randomized_items)

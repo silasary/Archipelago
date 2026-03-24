@@ -20,7 +20,6 @@ from .data.ap_data import (
 from .data.json_dumps_but_smaller import json_dumps
 from .data.ap_data import (
     never_give_free_samples_from_recipes,
-    infinite_technology_names,
 )
 from .data import generated_names as names
 
@@ -120,6 +119,7 @@ def generate_mod(
     logic_events: dict,
     progressive_technology_stacks: dict[str, dict[str, str]],
     technology_name_to_progressive_group_name: dict[str, str],
+    infinite_technology_names: set[str],
     infinite_technology_shuffle: dict[str, str] | None,
     technology_props_lua: dict[str, dict],
     recipe_changes: dict[str, dict[str, object]],

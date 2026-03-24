@@ -598,32 +598,6 @@ never_give_free_samples_from_recipes = {
     "water-barrel",
 }
 
-infinite_technology_names = {
-    "artillery-shell-damage-1",
-    "artillery-shell-range-1",
-    "artillery-shell-speed-1",
-    "asteroid-productivity",
-    "electric-weapons-damage-4",
-    "follower-robot-count-5",
-    "health",
-    "laser-weapons-damage-7",
-    "low-density-structure-productivity",
-    "mining-productivity-3",
-    "physical-projectile-damage-7",
-    "plastic-bar-productivity",
-    "processing-unit-productivity",
-    "railgun-damage-1",
-    "railgun-shooting-speed-1",
-    "refined-flammables-7",
-    "research-productivity",
-    "rocket-fuel-productivity",
-    "rocket-part-productivity",
-    "scrap-recycling-productivity",
-    "steel-plate-productivity",
-    "stronger-explosives-7",
-    "worker-robots-speed-7",
-}
-
 ap_item_names = [
     "ap-energy-link-bridge",
     "victory",
