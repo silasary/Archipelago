@@ -47,10 +47,21 @@ class Goal(Choice):
     option_solar_system_edge = 3
     default = 1
 
+class StartingPlanet(Choice):
+    """
+    Start on one of the other 3 inner planets.
+    To randomly select a planet, use advanced option randomization to specify weights.
+    Requires _CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start
+    """
+    option_nauvis = 0
+    option_vulcanus = 1
+    option_gleba = 2
+    option_fulgora = 3
+    default = 0
+
 class AllowImportedBlueprints(DefaultOnToggle):
     """Allow blueprints imported from outside the current game."""
     display_name = "Allow Imported Blueprints"
-
 
 option_groups.append(OptionGroup("World Gen", []))
 
@@ -296,6 +307,15 @@ class QuickStart(DefaultOnToggle):
     and a chunk of materials to help get through the early game.
     """
 
+class SkipStartingTriggerTechs(DefaultOnToggle):
+    """
+    Instead of needing to craft iron plates, copper plates, and a lab at the start of the run,
+    start with the recipes for steam power, labs, and logistic science pack already unlocked.
+    The set of technologies changes with the starting_planet setting, and it's recommended particularly on Vulcanus and Gleba.
+    The free_samples setting gives items from the early triggers, so on Vulcanus, you can start with foundries straight away without setting up a lubricant build,
+    and on Gleba, you can start with biochambers without looting egg rafts.
+    """
+
 @auto_group
 class StartingItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
@@ -395,6 +415,8 @@ class SpaceTechnologyLevel(Choice):
         # One of these:
         solar-energy: 1
         ap-energy-link-bridge: 1
+
+    When starting_planet is not set to nauvis, then this option's behavior changes accordingly.
     """
     option_early_game = 0
     option_mid_game = 1
@@ -423,6 +445,7 @@ class LogicElectricFurnace(DefaultOnToggle):
     """
     Logically require electric furnaces for space science pack automation and for traveling space.
     Otherwise, you may need to supply space platforms with metal plates shipped up via rocket.
+    Has no effect when starting on Vulcanus.
     """
 
 @auto_group
@@ -729,7 +752,9 @@ class InventorySpillTrapWeight(FillerWeight):
 @dataclass
 class FactorioOptions(PerGameCommonOptions):
     goal: Goal
+    starting_planet: StartingPlanet
     allow_imported_blueprints: AllowImportedBlueprints
+
     world_gen: WorldGen
     world_gen_enemies: WorldGenEnemies
     world_gen_asteroid_spawn_rate: WorldGenAsteroids
@@ -743,6 +768,7 @@ class FactorioOptions(PerGameCommonOptions):
     tech_tree_information: TechTreeInformation
 
     quick_start: QuickStart
+    skip_starting_trigger_techs: SkipStartingTriggerTechs
     starting_items: StartingItems
     free_samples: FreeSamples
     free_samples_quality: FreeSamplesQuality

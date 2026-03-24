@@ -110,18 +110,42 @@ class Factorio(World):
             rocket_parts_per_rocket=self.rocket_parts_per_rocket,
             asteroid_hp_changes=self.asteroid_hp_changes,
             technology_effect_additions=dict(self.technology_effect_additions),
+            starting_planet=self.starting_planet,
             output_directory=output_directory,
         )
 
     def generate_early(self) -> None:
         import json
-        the_data = json.loads(read_local_path("data/ap-dump.json"))
         from .FactorioData import FactorioData
         from .data.ap_data import (
             trap_names, energy_link_bridge_recipes,
             small_progressive_groups, large_progressive_groups,
+            starting_planet_to_unrandomized_technologies,
         )
         from .data import generated_names as names
+
+        self.starting_planet = self.options.starting_planet.current_key
+        self.early_unrandomized_technologies = starting_planet_to_unrandomized_technologies[self.starting_planet]
+
+        the_data = json.loads(read_local_path("data/ap-dump.json"))
+        if self.starting_planet != names.nauvis:
+            # Patch the logic data according to Any Planet Start mod.
+            data_diff = json.loads(read_local_path("data/ap-dump-{}.json".format(self.starting_planet)))
+            for prototype_type, prototype_diffs in data_diff.items():
+                prototypes = the_data[prototype_type]
+                for prototype_name, prototype_diff in prototype_diffs.items():
+                    if prototype_diff == None:
+                        del prototypes[prototype_name]
+                    else:
+                        prototypes[prototype_name] = prototype_diff
+        if self.starting_planet == names.vulcanus:
+            # Just use foundries and launch up some calcite easy.
+            self.options.require_electric_furnace.value = False
+
+        if self.options.skip_starting_trigger_techs.value:
+            self.options.start_inventory.value.update({
+                name: 1 for name in self.early_unrandomized_technologies
+            })
 
         self.progressive_technology_stacks = {
             "only_related": small_progressive_groups,
@@ -198,19 +222,52 @@ class Factorio(World):
                 names.rocket_silo,
                 names.space_platform_foundation,
             }
+
+            if self.starting_planet == names.nauvis:
+                pass
+            elif self.starting_planet == names.vulcanus:
+                # Sulfur is harder to get on vulcanus. Solid fuel requires only advanced-oil-processing.
+                ingredient_replacements[names.rocket_fuel] = [names.solid_fuel, names.coal][index]
+                # These are easy to get:
+                del ingredient_replacements[names.steel_plate]
+                del ingredient_replacements[names.concrete]
+                # Automating tons of steel is actually fine,
+                # (and you get assembling machine 2 unrandomized, so crafting speed is less of a concern).
+                recipes_to_shrink.remove(names.space_platform_foundation)
+            elif self.starting_planet == names.gleba:
+                # Sulfur is not easier to get than rocket fuel on Gleba.
+                ingredient_replacements[names.rocket_fuel] = [names.rocket_fuel, names.spoilage][index]
+                # Otherwise, pretty similar to nauvis.
+            elif self.starting_planet == names.fulgora:
+                # A bunch of things are trivial on fulgora.
+                del ingredient_replacements[names.processing_unit]
+                del ingredient_replacements[names.advanced_circuit]
+                del ingredient_replacements[names.low_density_structure]
+                # Downgrade rocket fuel to trivial solid fuel.
+                ingredient_replacements[names.rocket_fuel] = names.solid_fuel
+                del ingredient_replacements[names.steel_plate]
+                del ingredient_replacements[names.concrete]
+            else: assert False
+
             for recipe_name in recipes_to_modify:
                 recipe_data = the_data["recipe"][recipe_name]
+                made_any_change = False
                 for ingredient_data in recipe_data["ingredients"]:
                     ingredient_name = ingredient_data["name"]
                     new_ingredient_name = ingredient_replacements.get(ingredient_name, ingredient_name)
-                    ingredient_data["name"] = new_ingredient_name
+                    if ingredient_name != new_ingredient_name:
+                        ingredient_data["name"] = new_ingredient_name
+                        made_any_change = True
                     if recipe_name in recipes_to_shrink:
                         ingredient_data["amount"] //= large_divisor
+                        made_any_change = True
                 if recipe_name in recipes_to_shrink:
+                    made_any_change = True
                     recipe_data["energy_required"] /= small_divisor
-                self.recipe_changes[recipe_name] = recipe_data
+                if made_any_change:
+                    # Being minimal about this means avoiding the in-game display of which mods modified things (i think).
+                    self.recipe_changes[recipe_name] = recipe_data
             the_data["rocket-silo"][names.rocket_silo]["rocket_parts_required"] //= large_divisor
-            self.rocket_parts_per_rocket = the_data["rocket-silo"][names.rocket_silo]["rocket_parts_required"]
 
             # Asteroid HP
             for asteroid_name in [
@@ -230,6 +287,7 @@ class Factorio(World):
                     "type": "unlock-recipe",
                     "recipe": names.chemical_plant,
                 })
+        self.rocket_parts_per_rocket = the_data["rocket-silo"][names.rocket_silo]["rocket_parts_required"]
         self.technology_effect_additions[names.rocket_silo].append({
             # See https://github.com/thejoshwolfe/Archipelago/issues/9
             "type": "create-ghost-on-entity-death",
@@ -237,7 +295,11 @@ class Factorio(World):
         })
 
         # Data analysis.
-        self.factorio_data = FactorioData(the_data, self.technology_name_to_progressive_group_name)
+        self.factorio_data = FactorioData(the_data,
+            self.technology_name_to_progressive_group_name,
+            self.starting_planet,
+            self.early_unrandomized_technologies,
+        )
         unrecognized_recipes = self.factorio_data.unrecognized_recipe_names(self.options.free_sample_excludes.value)
         if unrecognized_recipes:
             raise KeyError("free_sample_excludes contains unrecognized recipe names: " + repr(unrecognized_recipes))
@@ -316,7 +378,7 @@ class Factorio(World):
             + 3*int(self.options.goal.current_key == "any_other_planet_science")
             - sum(self.options.start_inventory_from_pool.values())
         )
-        if extra_location_count > 0:
+        if extra_location_count > 0 and False: # TODO: use the ap-000_location items.
             other_location_names = [name for name in ap_location_name_to_id.keys() if name.endswith("_other_location")]
             chosen_other_locations = self.random.sample(other_location_names, extra_location_count)
             self.locations_to_duplicate = {name.replace("_other_location", "_location") for name in chosen_other_locations}
@@ -345,7 +407,7 @@ class Factorio(World):
             inserter_balancing_is_good_enough=   not self.options.require_logistics.value,
             water_barrel_is_good_enough=         not self.options.require_ice_melting.value,
             launching_metal_is_good_enough=      not self.options.require_electric_furnace.value,
-            backwards_recycling_is_interesting=  False, # Fulgora start is not implemented.
+            backwards_recycling_is_interesting=  self.starting_planet == names.fulgora,
             unbarreling_is_interesting=          False, # Full chaos recipe rando is not implemented.
             walls_to_destroy_medium_asteroids_is_good_enough= not self.options.require_gun_turret.value,
             small_electric_pole_is_good_enough=  not self.options.require_medium_electric_pole.value,
@@ -374,7 +436,6 @@ class Factorio(World):
         from .data import generated_names as names
         from .data.ap_data import (
             ap_item_names,
-            unrandomized_technologies as base_unrandomized_technologies
         )
         from .Logic import compile_expr
         player = self.player
@@ -402,7 +463,7 @@ class Factorio(World):
             location.place_locked_item(item)
             location.revealed = True
 
-        unrandomized_technologies = set(base_unrandomized_technologies)
+        unrandomized_technologies = set(self.early_unrandomized_technologies)
         final_technology_name = None
         if self.options.goal.current_key in ("any_other_planet_science", "space_science"):
             victory_event = names.victory

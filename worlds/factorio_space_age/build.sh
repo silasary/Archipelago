@@ -21,11 +21,14 @@ files=(
     data/generated_names.py
     data/generated_ids.py
     data/ap-dump.json
+    data/ap-dump-vulcanus.json
+    data/ap-dump-gleba.json
+    data/ap-dump-fulgora.json
 
     data/mod/LICENSE.md
     data/mod/thumbnail.png
     data/mod/settings.lua
-    data/mod/data.lua
+    data/mod/settings-upates.lua
     data/mod/data-updates.lua
     data/mod/control.lua
     data/mod/lib.lua

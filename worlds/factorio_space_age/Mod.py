@@ -34,19 +34,6 @@ template_load_lock = threading.Lock()
 
 __version__ = "1.1.2"
 
-base_info = {
-    "version": __version__,
-    "title": "Archipelago",
-    "author": "Berserker, Josh Wolfe",
-    "homepage": "https://archipelago.gg",
-    "description": "Integration client for the Archipelago Randomizer",
-    "factorio_version": "2.0",
-    "dependencies": [
-        "base >= 2.0.73",
-        "space-age >= 2.0.73",
-        "? respawn-to-any-planet",
-    ]
-}
 
 buffed_resources_basic = {
     "autoplace_controls": {
@@ -139,6 +126,7 @@ def generate_mod(
     rocket_parts_per_rocket: int,
     asteroid_hp_changes: dict[str, float],
     technology_effect_additions: dict[str, dict],
+    starting_planet: str,
     output_directory: str,
 ):
 
@@ -245,7 +233,7 @@ def generate_mod(
                     names.progressive_promethium: names.promethium_science_pack,
                 }.get(item_name, progressive_technology_stacks[item_name][0])
             elif item_name == names.ap_energy_link_bridge:
-                # Handled specially in data.lua.
+                # Handled specially in data-updates.lua.
                 icon = item_name
         else:
             # Partial or no information.
@@ -346,6 +334,8 @@ def generate_mod(
         "asteroid_hp_changes": asteroid_hp_changes,
         "technology_effect_additions": technology_effect_additions,
 
+        "starting_planet": starting_planet,
+
         "hide_base_technologies": sorted(technology_props_lua.keys()),
         "new_technology_data": new_technology_data,
         "progressive_technology_stacks": progressive_technology_stacks,
@@ -368,7 +358,7 @@ def generate_mod(
         "LICENSE.md",
         "thumbnail.png",
         "settings.lua",
-        "data.lua",
+        "settings-updates.lua",
         "data-updates.lua",
         "control.lua",
         "lib.lua",
@@ -388,8 +378,22 @@ def generate_mod(
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/locale/en/locale.cfg",
                                       locale_contents))
 
-    info = base_info.copy()
-    info["name"] = mod_name
+    info = {
+        "name": mod_name,
+        "version": __version__,
+        "title": "Archipelago",
+        "author": "Berserker, Josh Wolfe",
+        "homepage": "https://archipelago.gg",
+        "description": "Integration client for the Archipelago Randomizer",
+        "factorio_version": "2.0",
+        "dependencies": [
+            "base >= 2.0.73",
+            "space-age >= 2.0.73",
+            "? respawn-to-any-planet",
+        ]
+    }
+    if starting_planet != names.nauvis:
+        info["dependencies"].append("any-planet-start >= 1.1.28"),
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/info.json",
                                       json.dumps(info, indent=4) + "\n"))
     mod.writing_tasks.append(lambda: ("logic.json",

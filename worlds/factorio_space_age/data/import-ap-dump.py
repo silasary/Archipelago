@@ -8,8 +8,6 @@ from collections import defaultdict, Counter
 
 from json_dumps_but_smaller import json_dump
 from ap_data import (
-    factorio_base_id,
-    unrandomized_technologies,
     ap_item_names,
     trap_names,
     small_progressive_groups, large_progressive_groups,

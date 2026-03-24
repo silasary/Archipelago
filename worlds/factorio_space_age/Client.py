@@ -500,9 +500,10 @@ async def factorio_spinup_server(ctx: FactorioContext) -> bool:
             while not factorio_queue.empty():
                 msg = factorio_queue.get()
                 factorio_server_logger.info(msg)
-                if "Loading mod AP-" in msg and msg.endswith("(data.lua)"):
-                    parts = msg.split()
-                    ctx.mod_version = Version(*(int(number) for number in parts[-2].split(".")))
+                # Example: "0.307 Loading mod AP-14613752113758896254-P1-factorio 1.1.2 (data-updates.lua)"
+                if match := re.search(r'Loading mod AP-\S* (\d+\.\d+\.\d+) \((?:settings|data)(?:-updates|-final-fixes)?\.lua\)$', msg):
+                    version_str = match.group(1)
+                    ctx.mod_version = Version(*(int(number) for number in version_str.split(".")))
                 elif "Write data path: " in msg:
                     ctx.write_data_path = get_text_between(msg, "Write data path: ", " [")
                     if "AppData" in ctx.write_data_path:

@@ -9,9 +9,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 from enum import IntEnum, IntFlag
 
-from .data.ap_data import (
-    unrandomized_technologies,
-)
 from .data import generated_names as names
 from .Logic import (
     inline_exprs, optimize_expr, ALWAYS, NEVER, EXTERNAL,
@@ -36,13 +33,21 @@ class FactorioData:
     such as logical dependencies.
     """
     the_data: dict[str, dict[str, dict]]
+    starting_planet: str
     technology_name_to_progressive_group_name: dict[str, str]
+    unrandomized_technologies: set[str]
     # Derrived:
     infinite_technology_names: set[str]
     empty_technology_names: set[str]
-    def __init__(self, the_data, technology_name_to_progressive_group_name):
+    def __init__(self, the_data,
+        technology_name_to_progressive_group_name,
+        starting_planet,
+        unrandomized_technologies,
+    ):
         self.the_data = the_data
+        self.starting_planet = starting_planet
         self.technology_name_to_progressive_group_name = technology_name_to_progressive_group_name
+        self.unrandomized_technologies = unrandomized_technologies
         # Derrived:
         self.infinite_technology_names = {
             name for name, prototype in self.the_data["technology"].items()
@@ -738,7 +743,7 @@ class FactorioData:
                 ingredients = {name: amount for (name, amount) in prototype_data["unit"]["ingredients"]}
                 # Research technology (using science packs and labs).
                 assert set(ingredients.values()) == {1}, "update comment on ResearchRequirement.ingredients to no longer claim the amount is always 1"
-                requirement = ResearchRequirement(ingredients, not prototype_data.get("ignore_tech_cost_multiplier", False))
+                requirement = ResearchRequirement(tuple(ingredients.keys()), not prototype_data.get("ignore_tech_cost_multiplier", False))
                 technology_props["unit"] = prototype_data["unit"]
                 is_infinite = prototype_data.get("max_level", None) == "infinite"
                 assert is_infinite == ("count_formula" in prototype_data["unit"]), "conflicting signals on whether this is infinite tech: " + prototype_name
@@ -755,6 +760,8 @@ class FactorioData:
                 technology_props["research_trigger"] = trigger
                 if trigger["type"] == "craft-item":
                     requirement = CraftRequirement(trigger["item"], trigger.get("count", 1))
+                elif trigger["type"] == "craft-fluid":
+                    requirement = CraftRequirement(trigger["fluid"], trigger.get("count", 1))
                 elif trigger["type"] == "mine-entity":
                     requirement = MineRequirement(trigger["entity"])
                 elif trigger["type"] == "build-entity":
@@ -886,9 +893,9 @@ class FactorioData:
         # Discover them too.
         for name, techs in space_location_to_unlocking_technologies.items():
             logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_technology(technology) for technology in techs]}
-        # Start on Nauvis
-        logic_events[fmt_discover_location(names.nauvis)] = ALWAYS
-        logic_events[fmt_reach_location(names.nauvis)] = ALWAYS
+        # Start on a planet
+        logic_events[fmt_discover_location(self.starting_planet)] = ALWAYS
+        logic_events[fmt_reach_location(self.starting_planet)] = ALWAYS
 
         # Capabilities.
         for capability in Capability:
@@ -1104,7 +1111,7 @@ class FactorioData:
                 fmt_automate_or_access = fmt_automate_item if requirement.uses_tech_cost_multiplier else fmt_access_item
                 expr = {"and": [
                     {"or": [fmt_operate_machine(lab) for lab in lab_machines]},
-                    *[fmt_automate_or_access(science_pack) for science_pack in requirement.ingredients.keys()],
+                    *[fmt_automate_or_access(science_pack) for science_pack in requirement.ingredients],
                 ]}
             elif type(requirement) == CraftRequirement:
                 # FIXME: This assumes that mining up the item counts as crafting it, which i think is wrong, but i don't think it ever matters.
@@ -1145,39 +1152,22 @@ class FactorioData:
             else: assert False, "forgot a requirement type: " + repr(requirement)
             return expr
         @lru_cache(maxsize=None)
-        def get_prerequisite_requirements(later_technology_name):
+        def get_prerequisite_requirements(later_technology_name) -> set["Requirement"]:
             """
             returns all prerequisite requirements, not the reqirements of the technology itself.
-            returns a set of non-research requirement objects plus each individual science pack name.
+            returns a set of requirement objects.
             """
             recursive_requirements = set()
             for prerequisite_technology_name in technologies[later_technology_name].prerequisites:
                 recursive_requirements.update(get_prerequisite_requirements(prerequisite_technology_name))
                 prerequisite_technology = technologies[prerequisite_technology_name]
-                if type(prerequisite_technology.requirement) == ResearchRequirement:
-                    recursive_requirements.update(prerequisite_technology.requirement.ingredients.keys())
-                else:
-                    recursive_requirements.add(prerequisite_technology.requirement)
+                recursive_requirements.add(prerequisite_technology.requirement)
             return recursive_requirements
         for technology_name, technology in technologies.items():
             expr = get_logic_expr_for_requirement(technology.requirement)
 
             # add prerequisites into logic.
-            prerequisite_science_packs = {}
-            prerequisite_requirements = []
-            for something in get_prerequisite_requirements(technology_name):
-                if type(something) == str:
-                    prerequisite_science_packs[something] = 1
-                else:
-                    prerequisite_requirements.append(something)
-            if len(prerequisite_science_packs) > 0:
-                prerequisite_requirements.append(ResearchRequirement(
-                    ingredients=prerequisite_science_packs,
-                    # FIXME: This does matter and is not accurate, but for vanilla, it gets the right answer every time anyway,
-                    # because only 1 technology doesn't use tech cost multiplier, and every technology that depends on it does.
-                    # And so the prerequisite never introduces a *new* requirement to automate automation science packs.
-                    uses_tech_cost_multiplier=True,
-                ))
+            prerequisite_requirements = get_prerequisite_requirements(technology_name)
             if len(prerequisite_requirements) > 0 and not bypass_technology_prerequisites:
                 expr = {"and": [
                     expr,
@@ -1188,7 +1178,7 @@ class FactorioData:
                 ]}
 
             logic_events[fmt_technology_location(technology_name)] = expr
-            if technology_name in unrandomized_technologies:
+            if technology_name in self.unrandomized_technologies:
                 # Tell the optimizer how to inline these.
                 logic_events[fmt_unlock_technology(technology_name)] = expr
             else:
@@ -1422,9 +1412,9 @@ class RecipeClassification(IntEnum):
     dead_end_recycling = 4 # 75% chance to destroy item in a recycler.
     spoilage = 5 # Waiting.
 
-@dataclass
+@dataclass(frozen=True)
 class ResearchRequirement:
-    ingredients: dict[str, int]
+    ingredients: tuple[str]
     """ the keys are the science pack names for 1 unit of research. the values are always 1. """
     uses_tech_cost_multiplier: bool
     """ whether the units scale with the tech cost multiplier map gen setting. """

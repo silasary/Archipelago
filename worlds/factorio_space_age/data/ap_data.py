@@ -517,19 +517,64 @@ energy_link_bridge_recipes = {
     ],
 }
 
-factorio_base_id = 2 ** 17
-
-unrandomized_technologies = {
-    # These are critical at the start.
-    # The fill algorithm crumbles if you let it attempt to random a way out of the early game.
-    "steam-power",
-    "electronics",
-    "automation-science-pack",
-    "automation",
+# These are critical at the start.
+# The fill algorithm crumbles if you let it attempt to random a way out of the early game.
+starting_planet_to_unrandomized_technologies = {
+    "nauvis": {
+        # Labs and red science:
+        "steam-power",
+        "electronics",
+        "automation-science-pack",
+        "automation",
+    },
+    "vulcanus": {
+        # Labs and red science:
+        "solar-energy",
+        "electronics",
+        "automation-science-pack",
+        "automation",
+        # Foundries require all of this:
+        "steel-processing",
+        "oil-gathering",
+        "oil-processing",
+        "lubricant",
+        "calcite-processing", # chemical plant and water
+        "concrete",
+        "automation-2", # crafting with fluid
+        "tungsten-carbide",
+        "foundry",
+        # And now you can automate iron and copper!
+    },
+    "gleba": {
+        # Labs and red science:
+        "steam-power",
+        "electronics",
+        "automation-science-pack",
+        "automation",
+        # Bacteria cultivation requires all of this:
+        "steel-processing",
+        "landfill",
+        "agriculture",
+        "biochamber",
+        "yumako",
+        "jellynut",
+        "bioflux",
+        "bacteria-cultivation",
+        # And now you can automate iron and copper!
+    },
+    "fulgora": {
+        "recycling", # scrap recycling and recyclers.
+        "battery",   # accumulators
+        # Labs and red science:
+        "electronics",
+        "automation-science-pack",
+        "automation",
+    },
 }
 
 never_give_free_samples_from_recipes = {
     # Originally derrived from the .hide_from_player_crafting recipe prototype property.
+    # See also: https://github.com/thejoshwolfe/Archipelago/issues/10
     "rocket-part",
     "biter-egg",
     "empty-crude-oil-barrel",
