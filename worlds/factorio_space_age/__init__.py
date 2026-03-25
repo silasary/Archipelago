@@ -346,7 +346,7 @@ class Factorio(World):
         if self.starting_planet == names.gleba:
             if self.options.gleba_coal.current_key == "vanilla":
                 pass
-            elif self.options.gleba_coal.current_key == "buffed":
+            elif self.options.gleba_coal.current_key == "buffed_ratio":
                 # Change 6->1 to 3->2. With +50% from biochamber, it's a 1->1 ratio.
                 recipe_data = the_data["recipe"][names.burnt_spoilage]
                 recipe_data["ingredients"] = [{"type": "item", "name": "spoilage", "amount": 3}]
@@ -356,6 +356,11 @@ class Factorio(World):
                 recipe_data = the_data["recipe"][names.coal_synthesis]
                 recipe_data["results"] = [{"type": "item", "name": "coal", "amount": 5}]
                 self.recipe_changes[names.coal_synthesis] = recipe_data
+            elif self.options.gleba_coal.current_key == "buffed_speed":
+                # Change 12s -> 1s.
+                recipe_data = the_data["recipe"][names.burnt_spoilage]
+                recipe_data["energy_required"] = 1
+                self.recipe_changes[names.burnt_spoilage] = recipe_data
             elif self.options.gleba_coal.current_key == "alternate_explosives":
                 # This must be synchronized with data-updates.lua.
                 recipe_data = json.loads(json.dumps(the_data["recipe"]["biosulfur"]))
@@ -610,10 +615,13 @@ class Factorio(World):
                 if self.options.goal.current_key == "space_science":
                     lock_item(technology_name_to_location[names.logistic_system], item)
                 elif self.options.goal.current_key == "any_other_planet_science":
-                    # We actually want 3 of these.
-                    lock_item(technology_name_to_location[names.asteroid_reprocessing], item)
-                    lock_item(technology_name_to_location[names.carbon_fiber], self.create_item(names.victory))
-                    lock_item(technology_name_to_location[names.lightning_collector], self.create_item(names.victory))
+                    # We actually want 2 or 3 of these.
+                    if self.starting_planet != names.vulcanus:
+                        lock_item(technology_name_to_location[names.asteroid_reprocessing], self.create_item(names.victory))
+                    if self.starting_planet != names.gleba:
+                        lock_item(technology_name_to_location[names.carbon_fiber], self.create_item(names.victory))
+                    if self.starting_planet != names.fulgora:
+                        lock_item(technology_name_to_location[names.lightning_collector], self.create_item(names.victory))
                 else:
                     pass # Don't create victory items for this goal.
             else:

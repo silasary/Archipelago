@@ -35,7 +35,7 @@ class Goal(Choice):
     """
     Goal required to complete the game.
     space science: Research victory with 4 science packs: automation, logistic, chemical, space (red, green, blue, white).
-    any other planet science: (default) Research victory with 5 science packs: automation, logistic, chemical, space, and one of metallurgic, agricultural, or electromagnetic.
+    any other planet science: (default) Research victory with 5 science packs: automation, logistic, chemical, space, and one of metallurgic, agricultural, or electromagnetic. If you start on another planet, then that science doesn't count.
     aquilo orbit: Reach Aquilo orbit with a space platform.
     solar system edge: The victory condition in the normal game.
     TODO: merge shuffle_final_technology into this option.
@@ -445,13 +445,15 @@ class GlebaCoal(Choice):
     Coal is normally required for military science and may be used for defense against Gleba enemies.
 
     vanilla: 20 spoilage -> 1 coal through burnt spoilage and carbon synthesis.
-    buffed: 1 spoilage -> 1 coal through burnt spoilage and carbon synthesis.
+    buffed_ratio: 1 spoilage -> 1 coal through burnt spoilage and carbon synthesis.
+    buffed_speed: burnt spoilage recipe sped up from 12s to 1s.
     alternate_explosives: add alternate recipes for explosives and grenades to avoid the need for coal on Gleba.
     """
     option_vanilla = 0
-    option_buffed = 1
-    option_alternate_explosives = 2
-    default = 2
+    option_buffed_ratio = 1
+    option_buffed_speed = 2
+    option_alternate_explosives = 3
+    default = 3
 
 
 
