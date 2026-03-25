@@ -127,6 +127,8 @@ def generate_mod(
     asteroid_hp_changes: dict[str, float],
     technology_effect_additions: dict[str, dict],
     starting_planet: str,
+    vulcanus_rock_multiplier: float,
+    enable_alternate_explosives: bool,
     output_directory: str,
 ):
 
@@ -335,6 +337,8 @@ def generate_mod(
         "technology_effect_additions": technology_effect_additions,
 
         "starting_planet": starting_planet,
+        "vulcanus_rock_multiplier": vulcanus_rock_multiplier,
+        "enable_alternate_explosives": enable_alternate_explosives,
 
         "hide_base_technologies": sorted(technology_props_lua.keys()),
         "new_technology_data": new_technology_data,

@@ -104,6 +104,36 @@ if PARAMS.energy_link_increment > 0 then
     }
     data:extend{technology}
 end
+if PARAMS.enable_alternate_explosives then
+    -- Alternate explosives.
+    local recipe = table.deepcopy(data.raw["recipe"]["biosulfur"])
+    recipe.name = "explosives-from-bioflux"
+    recipe.localised_name = "Explosives from bioflux"
+    recipe.icon = "__base__/graphics/technology/explosives.png"
+    recipe.icon_size = 256
+    recipe.ingredients = {
+        -- This must be synchronized with __init__.py.
+        {type="item",  name="sulfur",  amount=1},
+        {type="item",  name="bioflux", amount=1},
+        {type="fluid", name="water",   amount=10},
+    }
+    recipe.results = {{type="item", name="explosives", amount=2}}
+    recipe.energy_required = 4
+    data.raw["recipe"][recipe.name] = recipe
+    table.insert(data.raw["technology"]["explosives"].effects, {type="unlock-recipe", recipe="explosives-from-bioflux"})
+
+    -- Alternate grenades.
+    local recipe = table.deepcopy(data.raw["recipe"]["grenade"])
+    recipe.name = "grenade-from-explosives"
+    recipe.localised_name = "Grenade from explosives"
+    recipe.ingredients = {
+        -- This must be synchronized with __init__.py.
+        {type="item", name="iron-plate", amount=5},
+        {type="item", name="explosives", amount=1},
+    }
+    data.raw["recipe"][recipe.name] = recipe
+    table.insert(data.raw["technology"]["military-2"].effects, {type="unlock-recipe", recipe="grenade-from-explosives"})
+end
 
 -- Create map preset.
 data.raw["map-gen-presets"].default["archipelago"] = PARAMS.world_gen_preset

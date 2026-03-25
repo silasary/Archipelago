@@ -7,16 +7,17 @@
 Default options are now a significantly accelerated experience relative to vanilla.
 
 * Added `quick_start` option, enabled by default, that gives personal construction bots and a chunk of basic resources at the start.
-* Added `skip_starting_trigger_techs` option, disabled by default, that starts with electronics, steam-power, etc. unlocked from the start without needing to do the crafting to trigger them.
+* Added `skip_starting_trigger_techs` option, disabled by default, that starts with electronics, steam-power, etc. unlocked from the start without needing to do the crafting to trigger them. Free samples are given for skipped trigger techs.
 * Added `starting_planet` option, disabled by default, that integrates with CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start . Interacts with `skip_starting_trigger_techs` and `free_samples` in fun ways.
 * Added `space_technology_level` option to enable space flight with early or mid game technology, effectively downgrading all the ingredients for rocket silo, space platform, thruster, etc. to more primitive items. Puts the Space in Factorio: Space Age sooner rather than near the end of the game. (This could someday be obsoleted by recipe randomization.)
 * Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with non-critical bonuses later in the chains. This makes it less likely to get stuck waiting for someone to find a specific item. Details here: https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py
 * `goal: any_other_planet_science` is now the default goal, and creates victory technologies to research instead of the mod reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
 * `goal: space_platform` replaced by `goal: space_science`, which requires researching a victory technology with 4 science packs including space science (red, green, blue, white).
+* Managing enemies on Vulcanus and Gleba is now in logic, which is particularly important when starting on those planets. See options `demolisher_killers`, `pentapod_killers`, `vulcanus_rocks`, and `gleba_coal` for more details. Still no logic for Nauvis enemies.
 
 Minor adjustments:
 
-* Energy Link is now enabled by default and the recipe unlocked by a multiworld item.
+* Energy Link is now enabled by default and the recipe is unlocked by a multiworld item.
 * Furnaces, electric poles, and `military` through `military-4` recipe technologies are no longer progressive (with `progressive_technologies: only_related`). Getting the recipes out of order is interesting in a randomizer, and there are almost no crafting dependencies between them.
 
 ### Breaking changes to options
@@ -34,7 +35,7 @@ These changes may require updates to your player yaml configuration.
 ### Internal changes
 
 * Internal logic overhaul to support configurable progressive groups, swappable recipes, and other hypothetical future flexibility. The data pipeline starts with Factorio's "prototype" data instead of "runtime" data, and we ship a pruned-down json file instead of generated python code. This change should make this apworld more friendly to contributions by being less confusing/clever/innovative/messy/etc. We do lose the git-controlled representation of the logic graph, which is a little disappointing, but necessary to make it more flexible.
-* Fixed subtle bug with `on_entity_died` event handler clobbering found by @CosmicWolf. No observable change for the player.
+* Fixed subtle bug with `on_entity_died` event handler clobbering found by @CosmicWolf. No observable change for the player. TODO: investigate using `on_player_died` instead.
 * Fixed `/collect` on your own world printing `Unknown Item` warnings related to infinite technologies.
 * Migrated the data exporter into this repo. Previously located here: https://github.com/thejoshwolfe/FactorioInformationExtractor
 

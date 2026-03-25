@@ -52,6 +52,8 @@ class StartingPlanet(Choice):
     Start on one of the other 3 inner planets.
     To randomly select a planet, use advanced option randomization to specify weights.
     Requires _CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start
+
+    WARNING: starting on Gleba with enemies enabled is extremely difficult. See also pentapod_killers and gleba_coal.
     """
     option_nauvis = 0
     option_vulcanus = 1
@@ -423,6 +425,34 @@ class SpaceTechnologyLevel(Choice):
     option_vanilla = 2
     default = 2
 
+@auto_group
+class VulcanusRocks(Range):
+    """
+    When starting on Vulcanus, multiply all drops from hand-mining rocks.
+    This is your only source of iron, copper, and stone until you make foundries (which are not randomized).
+    Hand-mined rocks are your only source of tungsten ore to make more foundries until big mining drills,
+    and until you can kill demolishers, if enabled.
+    Hand-mining rocks never satisfies the logical requirements for automating metallurgic science.
+    """
+    range_start = 1
+    default = 5
+    range_end = 10
+
+@auto_group
+class GlebaCoal(Choice):
+    """
+    When starting on Gleba, how should coal be acquired or obviated?
+    Coal is normally required for military science and may be used for defense against Gleba enemies.
+
+    vanilla: 20 spoilage -> 1 coal through burnt spoilage and carbon synthesis.
+    buffed: 1 spoilage -> 1 coal through burnt spoilage and carbon synthesis.
+    alternate_explosives: add alternate recipes for explosives and grenades to avoid the need for coal on Gleba.
+    """
+    option_vanilla = 0
+    option_buffed = 1
+    option_alternate_explosives = 2
+    default = 2
+
 
 
 option_groups.append(OptionGroup("Logic", []))
@@ -540,6 +570,48 @@ class LogicHeatingTower(Toggle):
     Logically require heating towers to heat buildings on Aquilo.
     Otherwise, you may need to ship in nuclear fuel cells.
     """
+
+@auto_group
+class LogicDemolisherKillers(OptionDict):
+    """
+    What should the logic consider viable methods for killing small demolishers?
+    When enemies are enabled (according to `world_gen_enemies` or `world_gen_custom.no_enemies_mode`),
+    killing small demolishers is logically required for automating tungsten ore.
+    WARNING: military bonuses for damage, weapon speed, etc. are not considered by the logic.
+    """
+    default = {
+        "poison capsule": True,
+        "land mine": False,
+        "gun turret and firearm magazine": False,
+        "gun turret and piercing rounds magazine": False,
+        "gun turret and uranium rounds magazine": True,
+        "rocket turret and rocket": False,
+        "rocket turret and explosive rocket": False,
+        "tesla turret": True,
+        "atomic bomb": True,
+        "railgun": True,
+    }
+    schema = Schema({k: bool for k in default.keys()})
+
+@auto_group
+class LogicPentapodKillers(OptionDict):
+    """
+    What should the logic consider viable methods for killing Gleba enemies and defending your base against their attacks?
+    When enemies are enabled (according to `world_gen_enemies` or `world_gen_custom.no_enemies_mode`),
+    killing Gleba enemies is logically required for automating agricultural science,
+    and if starting on Gelba, also required for automating chemical science.
+    WARNING: military bonuses for damage, weapon speed, etc. are not considered by the logic.
+    """
+    default = {
+        "land mine": True,
+        "gun turret and firearm magazine": False,
+        "gun turret and piercing rounds magazine": False,
+        "gun turret and uranium rounds magazine": True,
+        "rocket turret": True,
+        "tesla turret": True,
+        "railgun": True,
+    }
+    schema = Schema({k: bool for k in default.keys()})
 
 
 option_groups.append(OptionGroup("Energy Link", [], start_collapsed=True))
@@ -775,6 +847,8 @@ class FactorioOptions(PerGameCommonOptions):
     free_sample_excludes: FreeSampleExcludes
     tech_cost_divisor: TechCostDivisor
     space_technology_level: SpaceTechnologyLevel
+    vulcanus_rocks: VulcanusRocks
+    gleba_coal: GlebaCoal
 
     require_electric_mining_drill: LogicMiningDrill
     require_logistics: LogicLogistics
@@ -793,6 +867,8 @@ class FactorioOptions(PerGameCommonOptions):
     require_logistic_robots: LogicLogisticRobots
     require_asteroid_processing: LogicAsteroidProcessing
     require_heating_tower: LogicHeatingTower
+    demolisher_killers: LogicDemolisherKillers
+    pentapod_killers: LogicPentapodKillers
 
     energy_link: EnergyLink
     energy_link_recipe: EnergyLinkRecipe

@@ -60,23 +60,27 @@ class FactorioData:
             name for name, prototype in self.the_data["technology"].items()
             if len(prototype.get("effects", [])) == 0
         }
-        self.combined_items: dict[str, dict] = {
-            prototype_name: prototype_data for prototype_name, prototype_data in itertools.chain(
-                the_data["ammo"].items(),
-                the_data["armor"].items(),
-                the_data["capsule"].items(),
-                the_data["fluid"].items(),
-                the_data["gun"].items(),
-                the_data["item"].items(),
-                the_data["item-with-entity-data"].items(),
-                the_data["module"].items(),
-                the_data["rail-planner"].items(),
-                the_data["repair-tool"].items(),
-                the_data["space-platform-starter-pack"].items(),
-                the_data["tool"].items(),
-            )
-            if not prototype_data.get("parameter", False)
-        }
+
+        self.combined_items: dict[str, dict] = {}
+        for prototype_type in [
+            "ammo",
+            "armor",
+            "capsule",
+            "fluid", # This is technically a different namespace.
+            "gun",
+            "item",
+            "item-with-entity-data",
+            "module",
+            "rail-planner",
+            "repair-tool",
+            "space-platform-starter-pack",
+            "tool",
+        ]:
+            for prototype_name, prototype_data in the_data[prototype_type].items():
+                if prototype_data.get("parameter", False): continue
+                # Throughout this code, we assume there's no ambiguity between item and fluid names. Assert that assumption.
+                assert prototype_name not in self.combined_items, "so it's come to this, has it. we need to add 'type' fields to fluid and item references due to name collisions. :NotLikeThis: " + repr(prototype_name)
+                self.combined_items[prototype_name] = prototype_data
 
     def unrecognized_recipe_names(self, possible_names: set[str]) -> set[str]:
         return self._unrecognized_names(possible_names, self.the_data["recipe"])
@@ -113,6 +117,10 @@ class FactorioData:
         basic_asteroid_processing_is_good_enough: bool,
         nuclear_heating_is_good_enough: bool,
 
+        enemies_enabled: bool,
+        demolisher_killers: dict[str, bool],
+        pentapod_killers: dict[str, bool],
+
         energy_link_bridge_recipe: dict | None,
         energy_link_bridge_technology: bool,
         energy_link_bridge_required_for: str | None,
@@ -120,16 +128,6 @@ class FactorioData:
     ):
         the_data = self.the_data
         combined_items = self.combined_items
-        # Throughout this code, we assume there's no ambiguity between item and fluid names. Assert that assumption.
-        fluid_item_name_collisions = {
-            name for name in the_data["fluid"].keys() & (
-                the_data["capsule"].keys() |
-                the_data["item"].keys() |
-                the_data["item-with-entity-data"].keys()
-            )
-            if not the_data["fluid"][name].get("parameter", False)
-        }
-        assert len(fluid_item_name_collisions) == 0, "so it's come to this, has it. we need to add 'type' fields to fluid and item references due to name collisions. :NotLikeThis: " + repr(fluid_item_name_collisions)
 
         # These will be used for logic later.
         item_to_mining_sources: dict[str, set[MiningSource]] = defaultdict(set)
@@ -1038,6 +1036,88 @@ class FactorioData:
                     {"or": [fmt_operate_machine(machine) for machine in ammo_category_to_weapon_entities[ammo_category]]},
                     {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
                 ]}
+            elif capability == Capability.kill_demolishers:
+                source_exprs = []
+                for setting, value in demolisher_killers.items():
+                    if not value: continue
+                    if setting == "poison capsule":
+                        source_exprs.append(fmt_access_item(names.poison_capsule))
+                    elif setting == "land mine":
+                        source_exprs.append(fmt_access_item(names.land_mine))
+                    elif setting == "gun turret and firearm magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_access_item(names.firearm_magazine),
+                        ]})
+                    elif setting == "gun turret and piercing rounds magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_access_item(names.piercing_rounds_magazine),
+                        ]})
+                    elif setting == "gun turret and uranium rounds magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_access_item(names.uranium_rounds_magazine),
+                        ]})
+                    elif setting == "rocket turret and rocket":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.rocket_turret),
+                            fmt_access_item(names.rocket),
+                        ]})
+                    elif setting == "rocket turret and explosive rocket":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.rocket_turret),
+                            fmt_access_item(names.explosive_rocket),
+                        ]})
+                    elif setting == "tesla turret":
+                        source_exprs.append(fmt_operate_machine(names.tesla_turret))
+                    elif setting == "atomic bomb":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.rocket_launcher),
+                            fmt_access_item(names.atomic_bomb),
+                        ]})
+                    elif setting == "railgun":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.railgun),
+                            fmt_access_item(names.railgun_ammo),
+                        ]})
+                    else: assert False
+                expr = {"or": source_exprs}
+            elif capability == Capability.kill_pentapods:
+                source_exprs = []
+                for setting, value in pentapod_killers.items():
+                    if not value: continue
+                    if setting == "land mine":
+                        source_exprs.append(fmt_automate_item(names.land_mine))
+                    elif setting == "rocket turret":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.rocket_turret),
+                            fmt_automate_item(names.rocket),
+                        ]})
+                    elif setting == "gun turret and firearm magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_automate_item(names.firearm_magazine),
+                        ]})
+                    elif setting == "gun turret and piercing rounds magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_automate_item(names.piercing_rounds_magazine),
+                        ]})
+                    elif setting == "gun turret and uranium rounds magazine":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.gun_turret),
+                            fmt_automate_item(names.uranium_rounds_magazine),
+                        ]})
+                    elif setting == "tesla turret":
+                        source_exprs.append(fmt_operate_machine(names.tesla_turret))
+                    elif setting == "railgun":
+                        source_exprs.append({"and": [
+                            fmt_access_item(names.railgun),
+                            fmt_automate_item(names.railgun_ammo),
+                        ]})
+                    else: assert False
+                expr = {"or": source_exprs}
             else: assert False, "forgot a capability: " + repr(capability)
 
             logic_events[fmt_capability(capability)] = expr
@@ -1232,6 +1312,8 @@ class FactorioData:
                     if not (required_capabilities & Capability.mine_with_fluid) and fmt_automate_or_access is fmt_access_item:
                         # The character can hand-mine basic-solid ore patches.
                         required_capabilities &= ~Capability.automate_mining
+                    if self.starting_planet == names.vulcanus and enemies_enabled and item_name == names.tungsten_ore:
+                        required_capabilities |= Capability.kill_demolishers
                     source_exprs.append({"and": [
                         fmt_reach_location(mining_source.location),
                         *[fmt_capability(capability) for capability in required_capabilities],
@@ -1327,6 +1409,10 @@ class FactorioData:
                                 fmt_access_item(names.heating_tower),
                                 fmt_access_item(names.recycler),
                             ]})
+                        if enemies_enabled:
+                            recipe_exprs.append(fmt_capability(Capability.kill_pentapods))
+                    if self.starting_planet == names.gleba and enemies_enabled and recipe_name == names.chemical_science_pack and fmt_automate_or_access is fmt_automate_item:
+                        recipe_exprs.append(fmt_capability(Capability.kill_pentapods))
                     if recipe_name in unbarreling_recipes:
                         if not unbarreling_is_interesting:
                             # Unbarreling is never a source of an item.
@@ -1391,6 +1477,8 @@ class Capability(IntFlag):
     destroy_medium_asteroids           = 1<<15 # gun turret
     destroy_big_asteroids              = 1<<16 # rocket turret
     destroy_huge_asteroids             = 1<<17 # railgun turret
+    kill_demolishers                   = 1<<18 # configurable, e.g. poison capsule
+    kill_pentapods                     = 1<<19 # configurable, e.g. land mine
 
 
 class PowerType(IntFlag):

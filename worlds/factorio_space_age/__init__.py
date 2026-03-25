@@ -116,6 +116,8 @@ class Factorio(World):
             asteroid_hp_changes=self.asteroid_hp_changes,
             technology_effect_additions=dict(self.technology_effect_additions),
             starting_planet=self.starting_planet,
+            vulcanus_rock_multiplier=self.options.vulcanus_rocks.value,
+            enable_alternate_explosives=self.options.gleba_coal.current_key == "alternate_explosives",
             output_directory=output_directory,
         )
 
@@ -130,6 +132,11 @@ class Factorio(World):
         from .data import generated_names as names
 
         self.starting_planet = self.options.starting_planet.current_key
+        self.enemies_enabled = (
+            not self.options.world_gen_custom.value["basic"].get("no_enemies_mode", False)
+            if self.options.world_gen.current_key == "custom" else
+            self.options.world_gen_enemies.value
+        )
         self.early_unrandomized_technologies = starting_planet_to_unrandomized_technologies[self.starting_planet]
 
         the_data = json.loads(read_local_path("data/ap-dump.json"))
@@ -335,6 +342,44 @@ class Factorio(World):
             "modifier": True,
         })
 
+        # Balance for Gleba start.
+        if self.starting_planet == names.gleba:
+            if self.options.gleba_coal.current_key == "vanilla":
+                pass
+            elif self.options.gleba_coal.current_key == "buffed":
+                # Change 6->1 to 3->2. With +50% from biochamber, it's a 1->1 ratio.
+                recipe_data = the_data["recipe"][names.burnt_spoilage]
+                recipe_data["ingredients"] = [{"type": "item", "name": "spoilage", "amount": 3}]
+                recipe_data["results"] = [{"type": "item", "name": "carbon", "amount": 2}]
+                self.recipe_changes[names.burnt_spoilage] = recipe_data
+                # Change 5->1 to 5->5 (in chemical plant).
+                recipe_data = the_data["recipe"][names.coal_synthesis]
+                recipe_data["results"] = [{"type": "item", "name": "coal", "amount": 5}]
+                self.recipe_changes[names.coal_synthesis] = recipe_data
+            elif self.options.gleba_coal.current_key == "alternate_explosives":
+                # This must be synchronized with data-updates.lua.
+                recipe_data = json.loads(json.dumps(the_data["recipe"]["biosulfur"]))
+                recipe_data["ingredients"] = [
+                    dict(type="item",  name="sulfur",  amount=1),
+                    dict(type="item",  name="bioflux", amount=1),
+                    dict(type="fluid", name="water",   amount=10),
+                ]
+                recipe_data["results"] = [dict(type="item", name="explosives", amount=2)]
+                the_data["recipe"]["explosives-from-bioflux"] = recipe_data
+                the_data["technology"][names.explosives]["effects"].append(dict(type="unlock-recipe", recipe="explosives-from-bioflux"))
+
+                recipe_data = json.loads(json.dumps(the_data["recipe"]["grenade"]))
+                recipe_data["ingredients"] = [
+                    dict(type="item", name="iron-plate", amount=5),
+                    dict(type="item", name="explosives", amount=1),
+                ]
+                the_data["recipe"]["grenade-from-explosives"] = recipe_data
+                the_data["technology"][names.military_2]["effects"].append({
+                    "type": "unlock-recipe",
+                    "recipe": "grenade-from-explosives",
+                })
+            else: assert False
+
         # Data analysis.
         self.factorio_data = FactorioData(the_data,
             self.technology_name_to_progressive_group_name,
@@ -458,6 +503,10 @@ class Factorio(World):
             belt_logistics_is_good_enough=       not self.options.require_logistic_robots.value,
             basic_asteroid_processing_is_good_enough= not self.options.require_asteroid_processing,
             nuclear_heating_is_good_enough=      not self.options.require_heating_tower,
+
+            enemies_enabled=self.enemies_enabled,
+            demolisher_killers=self.options.demolisher_killers.value,
+            pentapod_killers=self.options.pentapod_killers.value,
 
             energy_link_bridge_recipe=energy_link_bridge_recipe,
             energy_link_bridge_technology=energy_link_bridge_technology,
