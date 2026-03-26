@@ -248,7 +248,7 @@ local function trigger_victory(force)
         })
     end
 end
-if PARAMS.goal == "solar_system_edge" then
+if PARAMS.goal == "solar_system_edge" or PARAMS.goal == "solar_system_edge_11_science" then
     script.on_event(defines.events.on_tick, function(event)
         local force = game.forces["player"]
         for _, platform in pairs(force.platforms) do
@@ -257,7 +257,7 @@ if PARAMS.goal == "solar_system_edge" then
             end
         end
     end)
-elseif PARAMS.goal == "aquilo_orbit" then
+elseif PARAMS.goal == "aquilo_orbit" or PARAMS.goal == "aquilo_orbit_10_science" then
     script.on_event(defines.events.on_tick, function(event)
         local force = game.forces["player"]
         for _, platform in pairs(force.platforms) do
@@ -266,9 +266,7 @@ elseif PARAMS.goal == "aquilo_orbit" then
             end
         end
     end)
-elseif PARAMS.goal == "any_other_planet_science" then
-    -- Handled in ap-get-technology.
-elseif PARAMS.goal == "space_science" then
+elseif PARAMS.goal == "space_science" or PARAMS.goal == "any_other_planet_science" then
     -- Handled in ap-get-technology.
 else
     error("unrecognized goal: " .. tostring(PARAMS.goal))

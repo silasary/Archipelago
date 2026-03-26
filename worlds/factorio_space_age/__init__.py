@@ -554,20 +554,24 @@ class Factorio(World):
             location.revealed = True
 
         unrandomized_technologies = set(self.early_unrandomized_technologies)
-        final_technology_name = None
+        lock_final_technology_name = None
         if self.options.goal.current_key in ("any_other_planet_science", "space_science"):
             victory_event = names.victory
         elif self.options.goal.current_key == "solar_system_edge":
             victory_event = "Reach solar-system-edge"
-            final_technology_name = names.promethium_science_pack
+        elif self.options.goal.current_key == "solar_system_edge_11_science":
+            victory_event = "Reach solar-system-edge"
+            lock_final_technology_name = names.promethium_science_pack
         elif self.options.goal.current_key == "aquilo_orbit":
             victory_event = "Reach aquilo_orbit"
-            final_technology_name = names.planet_discovery_aquilo
+        elif self.options.goal.current_key == "aquilo_orbit_10_science":
+            victory_event = "Reach aquilo_orbit"
+            lock_final_technology_name = names.planet_discovery_aquilo
         else: assert False
 
-        if final_technology_name != None and not self.options.shuffle_final_technology.value:
+        if lock_final_technology_name != None:
             # Lock the goal tech also.
-            unrandomized_technologies.add(final_technology_name)
+            unrandomized_technologies.add(lock_final_technology_name)
         assert victory_event in self.logic_events, "event not found in logic: " + victory_event
         self.multiworld.completion_condition[player] = lambda state: state.has(victory_event, player)
 

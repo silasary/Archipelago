@@ -7,10 +7,12 @@ require "template_parameters" -- defines PARAMS
 --  * configurable vulcanus rock multiplier
 -- The APS settings were determined by extracting the mod zip version 1.1.28 and reading settings.lua.
 -- Factorio settings API reference is here: https://wiki.factorio.com/Tutorial:Mod_settings .
-if PARAMS.starting_planet ~= "nauvis" then
+if mods["any-planet-start"] then
+    local starting_planet = PARAMS.starting_planet
+    if starting_planet == "nauvis" then starting_planet = "none" end -- It's called "none" I guess.
     data.raw["string-setting"]["aps-planet"].hidden = true
-    data.raw["string-setting"]["aps-planet"].allowed_values = {PARAMS.starting_planet}
-    data.raw["string-setting"]["aps-planet"].default_value = PARAMS.starting_planet
+    data.raw["string-setting"]["aps-planet"].allowed_values = {starting_planet}
+    data.raw["string-setting"]["aps-planet"].default_value = starting_planet
     data.raw["bool-setting"]["aps-safe-orbit"].hidden = true
     data.raw["bool-setting"]["aps-safe-orbit"].forced_value = true
     data.raw["bool-setting"]["aps-safe-orbit"].default_value = true

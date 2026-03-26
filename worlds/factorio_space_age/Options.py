@@ -34,17 +34,23 @@ def auto_group(cls):
 class Goal(Choice):
     """
     Goal required to complete the game.
+
     space science: Research victory with 4 science packs: automation, logistic, chemical, space (red, green, blue, white).
     any other planet science: (default) Research victory with 5 science packs: automation, logistic, chemical, space, and one of metallurgic, agricultural, or electromagnetic. If you start on another planet, then that science doesn't count.
-    aquilo orbit: Reach Aquilo orbit with a space platform.
-    solar system edge: The victory condition in the normal game.
-    TODO: merge shuffle_final_technology into this option.
+    aquilo orbit: Reach Aquilo orbit with a space platform. planet-discovery-aquilo is shuffled into the multiworld.
+    aquilo orbit 10 science: Reach Aquilo orbit after researching the unrandomized planet-discovery-aquilo, which requires 10 science packs (everything except cryogenic and promethium).
+    solar system edge: Reach the solar system edge with a space platform. promethium-science-pack (which unlocks the solar system edge) is shuffled into the multiworld.
+    solar system edge 11 science: Reach the solar system edge after researching the unrandomized promethium-science-pack, which requires all 11 non-promethium science packs.
+
+    Note that technology_prerequisites adds extra steps to unlocking unrandomized technology locations related to the goal.
     """
     display_name = "Goal"
     option_space_science = 0
     option_any_other_planet_science = 1
     option_aquilo_orbit = 2
-    option_solar_system_edge = 3
+    option_aquilo_orbit_10_science = 3
+    option_solar_system_edge = 4
+    option_solar_system_edge_11_science = 5
     default = 1
 
 class StartingPlanet(Choice):
@@ -53,7 +59,7 @@ class StartingPlanet(Choice):
     To randomly select a planet, use advanced option randomization to specify weights.
     Requires _CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start
 
-    WARNING: starting on Gleba with enemies enabled is extremely difficult. See also pentapod_killers and gleba_coal.
+    WARNING: starting on Gleba with enemies enabled is very difficult. See also pentapod_killers and gleba_coal.
     """
     option_nauvis = 0
     option_vulcanus = 1
@@ -216,20 +222,6 @@ class WorldGenCustom(OptionDict):
 
 
 option_groups.append(OptionGroup("Technologies", []))
-
-@auto_group
-class ShuffleFinalTechnology(Toggle):
-    """
-    Should the "last" technology (see below) be shuffled as a multiworld item?
-    Otherwise, it will be unlocked at its vanilla research location and require all the usual science packs.
-    Setting this option to 'true' can reduce the number of science packs needed to complete the goal.
-
-    The "last" technology depends on the goal:
-    space platform: rocket-silo, which requires 3 science packs.
-    any other planet science: this option has no effect.
-    aquilo orbit: planet-discovery-aquilo, which requires 9 science packs.
-    solar system edge: promethium-science-pack (unlocks solar-system-edge), which requires 10 science packs.
-    """
 
 @auto_group
 class TechnologyPrerequisites(Choice):
@@ -835,7 +827,6 @@ class FactorioOptions(PerGameCommonOptions):
     world_gen_spoil_rate: WorldGenSpoilage
     world_gen_custom: WorldGenCustom
 
-    shuffle_final_technology: ShuffleFinalTechnology
     technology_prerequisites: TechnologyPrerequisites
     progressive_technologies: ProgressiveTechs
     infinite_technologies: InfiniteTechs

@@ -27,6 +27,7 @@ These changes may require updates to your player yaml configuration.
 * `progressive_technologies` has been completely overhauled. The old `bonuses` option is gone. The old `recipes` option is very similar to `only_related`. The default has changed to the new `large_groups` option.
 * TODO: consolidate filler weights and trap options.
 * `goal: space_platform` removed. Try `goal: space_science` instead.
+* `shuffle_final_technology` is now merged into `goal` with the addition of `aquilo_orbit_10_science` and `solar_system_edge_11_science`.
 * The speedups `rocket_parts_per_rocket` and `ingredients_per_space_platform_foundation` are removed because they're now implied by `space_technology_level`.
 * `automation` (the first assembling machine technology) is no longer part of any progressive chain because it is not randomized.
 * With some `progressive_technologies` settings, several progressive pseudo item names have been simplified to remove the `progressive-` prefix. E.g. `progressive-steel-plate-productivity` is now just called `steel-plate-productivity`, and `worker-robot-speed-1` through `worker-robot-speed-7` are part of a progressive group called simply `worker-robot-speed`. The rough generalization is that recipe unlock chains still say `progressive-` but bonus unlock chains don't.
