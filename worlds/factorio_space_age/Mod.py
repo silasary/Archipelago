@@ -397,7 +397,7 @@ def generate_mod(
         ]
     }
     if starting_planet != names.nauvis:
-        info["dependencies"].append("any-planet-start >= 1.1.30"),
+        info["dependencies"].append("any-planet-start = 1.1.30"),
     mod.writing_tasks.append(lambda: (versioned_mod_name + "/info.json",
                                       json.dumps(info, indent=4) + "\n"))
     mod.writing_tasks.append(lambda: ("logic.json",

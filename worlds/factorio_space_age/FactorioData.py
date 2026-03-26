@@ -1434,10 +1434,17 @@ class FactorioData:
             logic_events[fmt_access_item(names.ap_energy_link_bridge)] = expr
 
         # Optimize.
-        logic_events = {k: optimize_expr(v) for k, v in logic_events.items()}
+        logic_events = {k: optimize_expr(v, k) for k, v in logic_events.items()}
         never_delete_events = {event_name for event_name in logic_events.keys() if " " not in event_name}
+        never_inline_events = {
+            # These are sometimes goals, which the logic needs to see in the final product:
+            fmt_reach_location(names.aquilo),
+            fmt_reach_location(names.solar_system_edge),
+        }
+        # It's nice to show these in the spoiler walkthrough:
+        never_inline_events.update(fmt_automate_item(science_pack_name) for science_pack_name in all_science_pack_names)
 
-        logic_events, all_used_names = inline_exprs(logic_events, never_delete_events)
+        logic_events, all_used_names = inline_exprs(logic_events, never_delete_events, never_inline_events)
         advancement_technologies = set(name for name in all_used_names if " " not in name)
         advancement_technologies -= {ALWAYS, EXTERNAL}
         # If any one recipe in a progressive chain is advancement, then every progresive item is advancement.

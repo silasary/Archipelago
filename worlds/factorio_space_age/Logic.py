@@ -10,7 +10,7 @@ ALWAYS = "(always)"
 NEVER = "(never)"
 EXTERNAL = "(external)" # never inlined
 
-def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[set]) -> dict[str, Expr]:
+def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[str], never_inline_events: set[str]) -> dict[str, Expr]:
     def visit_readonly(expr, fn):
         if type(expr) != dict:
             fn(expr)
@@ -32,7 +32,7 @@ def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[set]) -
         all_used_names = set()
         for expr in logic_events.values():
             visit_readonly(expr, all_used_names.add)
-        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER, EXTERNAL} - never_delete_events
+        unreachable_events = all_used_names - logic_events.keys() - {ALWAYS, NEVER, EXTERNAL} - never_delete_events - never_inline_events
         assert len(unreachable_events) == 0, "logic events not defined: " + repr(unreachable_events)
 
         unused_events = logic_events.keys() - all_used_names - never_delete_events
@@ -42,15 +42,21 @@ def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[set]) -
         # Inline trivial events.
         inline_these = {}
         for event_name, expr in logic_events.items():
-            if expr == EXTERNAL: continue # Can't inline this.
-            if type(expr) == dict: continue # too complex
-            # Simple enough to inline.
-            inline_these[event_name] = expr
+            if expr == EXTERNAL or event_name in never_inline_events: continue # Can't inline this.
+            if type(expr) == str:
+                # A trivial substitution.
+                inline_these[event_name] = expr
+            elif expr.keys() == {"and"} and all(type(clause) == str for clause in expr["and"]):
+                # A = B and C
+                # This is a pretty common pattern and shouldn't cause problems for inlining.
+                inline_these[event_name] = expr
+            else:
+                pass # Too complex.
         new_logic_events = {}
         for event_name, expr in logic_events.items():
             new_expr = visit_replace(expr, lambda expr: inline_these.get(expr, expr))
             if new_expr != expr:
-                new_expr = optimize_expr(new_expr)
+                new_expr = optimize_expr(new_expr, event_name)
                 did_anything = True
             new_logic_events[event_name] = new_expr
         logic_events = new_logic_events
@@ -59,7 +65,7 @@ def inline_exprs(logic_events: dict[str, Expr], never_delete_events: set[set]) -
 
     return logic_events, all_used_names
 
-def optimize_expr(expr: Expr):
+def optimize_expr(expr: Expr, self_name: str | None):
     def recurse(expr):
         if type(expr) != dict: return expr
         if "or" in expr:
@@ -69,7 +75,7 @@ def optimize_expr(expr: Expr):
             new_clauses = []
             for clause in clauses:
                 clause = recurse(clause)
-                if clause == NEVER: continue # A or False == A
+                if clause == NEVER or clause == self_name: continue # A or False == A
                 if clause == ALWAYS: return ALWAYS # A or True == True
                 if clause in new_clauses: continue # A or A == A
                 if type(clause) == dict and "and" in clause:
@@ -130,7 +136,7 @@ def optimize_expr(expr: Expr):
             for clause in clauses:
                 clause = recurse(clause)
                 if clause == ALWAYS: continue # A and True == A
-                if clause == NEVER: return NEVER # A and False == False
+                if clause == NEVER or clause == self_name: return NEVER # A and False == False
                 if clause in new_clauses: continue # A and A == A
                 if type(clause) == dict and "or" in clause:
                     # A and (A or B) == A
@@ -217,4 +223,7 @@ if __name__ == "__main__":
     assert optimize_expr({"or": [
         "Reach gleba",
         {"and": ["Access agricultural-tower", "Access jellynut-seed", "Reach gleba"]}
-    ]}) == "Reach gleba"
+    ]}, None) == "Reach gleba"
+
+    # Self reference becomes never.
+    assert optimize_expr({"and": ["B", "C", "A"]}, "A") == NEVER

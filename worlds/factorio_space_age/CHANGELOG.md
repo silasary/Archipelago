@@ -39,6 +39,7 @@ These changes may require updates to your player yaml configuration.
 * Fixed subtle bug with `on_entity_died` event handler clobbering found by @CosmicWolf. No observable change for the player. TODO: investigate using `on_player_died` instead.
 * Fixed `/collect` on your own world printing `Unknown Item` warnings related to infinite technologies.
 * Migrated the data exporter into this repo. Previously located here: https://github.com/thejoshwolfe/FactorioInformationExtractor
+* The logic graph optimizer does more inlining, which results in fewer pedantic steps in the spoiler log for automating and accessing individual items. This could potentially influence progression balancing, but I really don't know if that's how the fill algorithm works.
 
 ## 1.1.2
 
