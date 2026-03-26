@@ -173,6 +173,8 @@ class Factorio(World):
                  if technology_data.get("hidden", False)
              },
         }
+        if self.starting_planet == names.nauvis:
+            remove_from_progressive_stacks.add(names.planet_discovery_nauvis)
         self.progressive_technology_stacks = {
             group_name: [
                 name for name in stack

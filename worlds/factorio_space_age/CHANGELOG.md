@@ -11,21 +11,24 @@ Default options are now a significantly accelerated experience relative to vanil
 * Added `starting_planet` option, disabled by default, that integrates with CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start . Interacts with `skip_starting_trigger_techs` and `free_samples` in fun ways.
 * Added `space_technology_level` option to enable space flight with early or mid game technology, effectively downgrading all the ingredients for rocket silo, space platform, thruster, etc. to more primitive items. Puts the Space in Factorio: Space Age sooner rather than near the end of the game. (This could someday be obsoleted by recipe randomization.)
 * Added `progressive_technologies: large_groups` option, enabled by default, which puts critical technologies, such as advanced circuit, early in large progressive chains with non-critical bonuses later in the chains. This makes it less likely to get stuck waiting for someone to find a specific item. Details here: https://github.com/thejoshwolfe/Archipelago/blob/space-age/worlds/factorio_space_age/data/ap_data.py
+* TODO: show progressive chains in-game.
+* TODO: rearrange `large_groups` for `space_technology_level`.
 * `goal: any_other_planet_science` is now the default goal, and creates victory technologies to research instead of the mod reacting to researching anything that matches the condition. Includes low-effort art I drew of a trophy. Fixes #5.
 * `goal: space_platform` replaced by `goal: space_science`, which requires researching a victory technology with 4 science packs including space science (red, green, blue, white).
 * Managing enemies on Vulcanus and Gleba is now in logic, which is particularly important when starting on those planets. See options `demolisher_killers`, `pentapod_killers`, `vulcanus_rocks`, and `gleba_coal` for more details. Still no logic for Nauvis enemies.
+* Added `tech_cost_max_count`, default 500, which limits the cost of technology research. Provides an alternative/complement for `tech_cost_divisor`.
 
 Minor adjustments:
 
 * Energy Link is now enabled by default and the recipe is unlocked by a multiworld item.
 * Furnaces, electric poles, and `military` through `military-4` recipe technologies are no longer progressive (with `progressive_technologies: only_related`). Getting the recipes out of order is interesting in a randomizer, and there are almost no crafting dependencies between them.
+* `rocket-silo` research enables ghost entities on death (which normally requires `construction-robotics`). Fixes https://github.com/thejoshwolfe/Archipelago/issues/9 .
 
 ### Breaking changes to options
 
 These changes may require updates to your player yaml configuration.
 
 * `progressive_technologies` has been completely overhauled. The old `bonuses` option is gone. The old `recipes` option is very similar to `only_related`. The default has changed to the new `large_groups` option.
-* TODO: consolidate filler weights and trap options.
 * `goal: space_platform` removed. Try `goal: space_science` instead.
 * `shuffle_final_technology` is now merged into `goal` with the addition of `aquilo_orbit_10_science` and `solar_system_edge_11_science`.
 * The speedups `rocket_parts_per_rocket` and `ingredients_per_space_platform_foundation` are removed because they're now implied by `space_technology_level`.

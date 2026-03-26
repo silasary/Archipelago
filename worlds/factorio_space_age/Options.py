@@ -374,6 +374,16 @@ class TechCostDivisor(Range):
     default = 1
 
 @auto_group
+class TechCostMaxCount(Range):
+    """
+    Cap the number of units a research technology can require. Vanilla technologies max out at 5000 (e.g. mech-armor).
+    This limit is applied after tech_cost_divisor, and does not apply to infinite technologies.
+    """
+    range_start = 1
+    range_end = 5000
+    default = 500
+
+@auto_group
 class SpaceTechnologyLevel(Choice):
     """
     Downgrade space-related crafting ingredients to make space travel accessible earlier in the game:
@@ -839,6 +849,7 @@ class FactorioOptions(PerGameCommonOptions):
     free_samples_quality: FreeSamplesQuality
     free_sample_excludes: FreeSampleExcludes
     tech_cost_divisor: TechCostDivisor
+    tech_cost_max_count: TechCostMaxCount
     space_technology_level: SpaceTechnologyLevel
     vulcanus_rocks: VulcanusRocks
     gleba_coal: GlebaCoal

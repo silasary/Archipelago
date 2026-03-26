@@ -271,7 +271,9 @@ def generate_mod(
             }
             if "count" in technology_props["unit"]:
                 # Adjust finite tech cost according to settings.
-                tech_data["unit"]["count"] = max(1, technology_props["unit"]["count"] // options.tech_cost_divisor)
+                count = technology_props["unit"]["count"]
+                count = max(1, min(options.tech_cost_max_count.value, count // options.tech_cost_divisor.value))
+                tech_data["unit"]["count"] = count
             else:
                 # Infinite.
                 tech_data["level"] = technology_props["level"]
