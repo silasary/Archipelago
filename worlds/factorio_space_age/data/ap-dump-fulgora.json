@@ -211,6 +211,18 @@
       }]
     }
   },
+  "space-connection": {"vulcanus-fulgora": {
+    "asteroid_spawn_definitions": [
+      {"asteroid": "metallic-asteroid-chunk"},
+      {"asteroid": "carbonic-asteroid-chunk"},
+      {"asteroid": "oxide-asteroid-chunk"},
+      {"asteroid": "medium-metallic-asteroid"},
+      {"asteroid": "medium-carbonic-asteroid"},
+      {"asteroid": "medium-oxide-asteroid"}
+    ],
+    "from": "fulgora",
+    "to": "vulcanus"
+  }},
   "technology": {
     "scrap-recycling-productivity": null,
     "steam-power": {

@@ -809,10 +809,6 @@
         },
         {
           "type": "unlock-recipe",
-          "recipe": "casting-low-density-structure"
-        },
-        {
-          "type": "unlock-recipe",
           "recipe": "molten-iron"
         },
         {
