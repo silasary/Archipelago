@@ -161,15 +161,31 @@ for name, effects in pairs(PARAMS.technology_effect_additions) do
     end
 end
 
+local technology_name_to_progressive_group_name = {}
+for stack_name, stack in pairs(PARAMS.progressive_technology_stacks) do
+    for _, stack_item in pairs(stack) do
+        technology_name_to_progressive_group_name[stack_item] = stack_name
+    end
+end
 -- Disable and hide base technologies.
 for _, tech_name in pairs(PARAMS.hide_base_technologies) do
     local base_tech = data.raw["technology"][tech_name]
-    -- You can't queue these up, so don't show them in the technology tree gui.
-    base_tech.hidden = true
-    -- Even if we set this to false, it still doesn't show up in Factoriopedia.
-    base_tech.hidden_in_factoriopedia = true
-    -- These technologies will be granted by mods, not by normal in-game events.
+    base_tech.unit = nil
     base_tech.research_trigger = {
         type = "scripted",
+        icon = "__" .. PARAMS.mod_name .. "__/graphics/icons/ap.png",
+        icon_size = 128,
+        trigger_description = {"", "This is sent to you from the multiworld"},
     }
+    base_tech.prerequisites = {"promethium-science-pack_location"}
+    base_tech.upgrade = false
+    base_tech.order = "zzzz"
+
+    -- Explain where to get this.
+    local stack_name = technology_name_to_progressive_group_name[tech_name]
+    if stack_name ~= nil then
+        base_tech.localised_description = {"", "Unlocked as part of the progressive chain: " .. stack_name}
+    else
+        base_tech.localised_description = {"", "The item in the multiworld is named: " .. tech_name}
+    end
 end

@@ -99,6 +99,7 @@ class Factorio(World):
 
     def generate_output(self, output_directory: str) -> None:
         from .Mod import generate_mod
+        from .data import generated_names as names
         generate_mod(
             player=self.player,
             player_name=self.player_name,
@@ -117,7 +118,7 @@ class Factorio(World):
             technology_effect_additions=dict(self.technology_effect_additions),
             starting_planet=self.starting_planet,
             vulcanus_rock_multiplier=self.options.vulcanus_rocks.value,
-            enable_alternate_explosives=self.options.gleba_coal.current_key == "alternate_explosives",
+            enable_alternate_explosives=self.starting_planet == names.gleba and self.options.gleba_coal.current_key == "alternate_explosives",
             output_directory=output_directory,
         )
 
