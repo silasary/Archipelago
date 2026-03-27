@@ -151,9 +151,6 @@ class Factorio(World):
                         del prototypes[prototype_name]
                     else:
                         prototypes[prototype_name] = prototype_diff
-        if self.starting_planet == names.vulcanus:
-            # Just use foundries and launch up some calcite easy.
-            self.options.require_electric_furnace.value = False
 
         if self.options.skip_starting_trigger_techs.value:
             self.options.start_inventory.value.update({
@@ -267,7 +264,7 @@ class Factorio(World):
                 names.space_platform_starter_pack, names.cargo_landing_pad, names.cargo_bay, names.asteroid_collector, names.crusher,
                 names.thruster, names.chemical_plant, names.solar_panel,
             ]
-            if self.options.require_electric_furnace.value:
+            if self.options.require_self_sufficient_space_platform.value and self.starting_planet != names.vulcanus:
                 recipes_to_modify.append(names.electric_furnace)
             recipes_to_shrink = {
                 names.rocket_silo,
@@ -495,7 +492,7 @@ class Factorio(World):
             burner_mining_drill_is_good_enough=  not self.options.require_electric_mining_drill.value,
             inserter_balancing_is_good_enough=   not self.options.require_logistics.value,
             water_barrel_is_good_enough=         not self.options.require_ice_melting.value,
-            launching_metal_is_good_enough=      not self.options.require_electric_furnace.value,
+            launching_metal_is_good_enough=      not self.options.require_self_sufficient_space_platform.value,
             backwards_recycling_is_interesting=  self.starting_planet == names.fulgora,
             unbarreling_is_interesting=          False, # Full chaos recipe rando is not implemented.
             walls_to_destroy_medium_asteroids_is_good_enough= not self.options.require_gun_turret.value,

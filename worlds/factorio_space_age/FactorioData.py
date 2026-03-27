@@ -825,7 +825,15 @@ class FactorioData:
             automate_iron_plates_in_space = {"and": [
                 fmt_operate_machine(names.asteroid_collector),
                 fmt_operate_machine(names.crusher),
-                fmt_operate_machine(names.electric_furnace),
+                {"or": [
+                    # The normal way.
+                    fmt_operate_machine(names.electric_furnace),
+                    # The Vulcanus way.
+                    {"and": [
+                        fmt_operate_machine(names.foundry),
+                        fmt_unlock_technology(names.advanced_asteroid_processing),
+                    ]},
+                ]},
             ]}
         if direct_pipes_is_good_enough:
             optionally_access_pumps_and_tanks = ALWAYS

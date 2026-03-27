@@ -371,7 +371,7 @@ class TechCostDivisor(Range):
     """
     range_start = 1
     range_end = 10
-    default = 1
+    default = 4
 
 @auto_group
 class TechCostMaxCount(Range):
@@ -381,7 +381,7 @@ class TechCostMaxCount(Range):
     """
     range_start = 1
     range_end = 5000
-    default = 500
+    default = 200
 
 @auto_group
 class SpaceTechnologyLevel(Choice):
@@ -399,7 +399,7 @@ class SpaceTechnologyLevel(Choice):
     space-platform-starter-pack, cargo-landing-pad, cargo-bay, asteroid-collector, crusher,
     thruster, chemical-plant, solar-panel.
 
-    If require_electric_furnace is enabled, then electric-furnace will also be included in the list.
+    If require_self_sufficient_space_platform is enabled and not starting on Vulcans, then electric-furnace will also be included in the list.
     The early_game setting unlocks chemical plants as part of space-platform-thruster so you can melt ice and make fuel.
 
     This setting also reduces small and medium asteroid health,
@@ -455,7 +455,7 @@ class GlebaCoal(Choice):
     option_buffed_ratio = 1
     option_buffed_speed = 2
     option_alternate_explosives = 3
-    default = 3
+    default = 2
 
 
 
@@ -475,11 +475,10 @@ class LogicLogistics(DefaultOnToggle):
     """
 
 @auto_group
-class LogicElectricFurnace(DefaultOnToggle):
+class LogicSelfSufficientSpacePlatform(DefaultOnToggle):
     """
-    Logically require electric furnaces for space science pack automation and for traveling space.
+    Logically require either electric furnaces or both foundries and advanced asteroid processing for space science pack automation and for traveling space.
     Otherwise, you may need to supply space platforms with metal plates shipped up via rocket.
-    Has no effect when starting on Vulcanus.
     """
 
 @auto_group
@@ -533,43 +532,43 @@ class LogicDarkPower(DefaultOnToggle):
     """
 
 @auto_group
-class LogicFastInserter(Toggle):
+class LogicFastInserter(DefaultOnToggle):
     """
     Logically require fast inserters to automate advanced circuits.
     """
 
 @auto_group
-class LogicAssemblingMachine2(Toggle):
+class LogicAssemblingMachine2(DefaultOnToggle):
     """
     Logically require assembling machine 2 to automate advanced circuits.
     """
 
 @auto_group
-class LogicFluidHandling(Toggle):
+class LogicFluidHandling(DefaultOnToggle):
     """
     Logically require pumps and storage tanks for advanced oil processing.
     """
 
 @auto_group
-class LogicConstructionRobots(Toggle):
+class LogicConstructionRobots(DefaultOnToggle):
     """
     Logically require construction robots before automating production or utility science (purple/yellow) or traveling to another planet.
     """
 
 @auto_group
-class LogicLogisticRobots(Toggle):
+class LogicLogisticRobots(DefaultOnToggle):
     """
     Logically require requester chests and logistic robots before traveling to another planet.
     """
 
 @auto_group
-class LogicAsteroidProcessing(Toggle):
+class LogicAsteroidProcessing(DefaultOnToggle):
     """
     Logically require asteroid reprocessing and advanced asteroid processing to reach Aquilo.
     """
 
 @auto_group
-class LogicHeatingTower(Toggle):
+class LogicHeatingTower(DefaultOnToggle):
     """
     Logically require heating towers to heat buildings on Aquilo.
     Otherwise, you may need to ship in nuclear fuel cells.
@@ -856,7 +855,7 @@ class FactorioOptions(PerGameCommonOptions):
 
     require_electric_mining_drill: LogicMiningDrill
     require_logistics: LogicLogistics
-    require_electric_furnace: LogicElectricFurnace
+    require_self_sufficient_space_platform: LogicSelfSufficientSpacePlatform
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret
     require_lightning_rod: LogicLightningRod
