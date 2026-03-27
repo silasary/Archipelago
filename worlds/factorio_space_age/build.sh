@@ -47,6 +47,7 @@ files=(
 here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 (cd "$(dirname "$here")" &&
+    rm -f factorio_space_age/factorio_space_age.apworld &&
     zip -q factorio_space_age/factorio_space_age.apworld \
         $(for f in "${files[@]}"; do echo factorio_space_age/"$f"; done) &&
 

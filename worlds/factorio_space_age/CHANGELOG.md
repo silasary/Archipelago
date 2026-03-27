@@ -2,6 +2,8 @@
 
 ## 2.0.0
 
+Lots of major new changes! Please report bugs and/or balance nightmares. There are a lot of combinations of cool options and I may have overlooked something.
+
 ### Gameplay changes
 
 Default options are now a significantly accelerated experience relative to vanilla.
