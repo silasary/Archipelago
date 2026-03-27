@@ -1,5 +1,10 @@
 # Factorio: Space Age apworld Changelog
 
+## 2.0.1
+
+* Fix corrupted apworld missing critical files.
+* Actually bump the version number in the apworld and mod.
+
 ## 2.0.0
 
 Lots of major new changes! Please report bugs and/or balance nightmares. There are a lot of combinations of cool options and I may have overlooked something.
