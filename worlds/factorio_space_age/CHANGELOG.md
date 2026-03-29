@@ -1,5 +1,9 @@
 # Factorio: Space Age apworld Changelog
 
+## 2.0.2
+
+* Fix `filler_count` being ignored. Fixes #13.
+
 ## 2.0.1
 
 * Fix corrupted apworld missing critical files.
