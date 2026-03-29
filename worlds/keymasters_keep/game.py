@@ -3,7 +3,7 @@ from __future__ import annotations
 import abc
 
 from random import Random
-from typing import Any, Dict, List, Optional, Set, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 from .enums import KeymastersKeepGamePlatforms
 
@@ -109,9 +109,10 @@ class Game(metaclass=AutoGameRegister):
         count: int = 1,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
-        objectives_in_use: Set[str] = None,
-    ) -> Tuple[List[str], List[str], Set[str]]:
-        objectives_in_use = objectives_in_use or set()
+        objectives_in_use: Dict[str, int] = None,
+        objective_bag_size: int = 1,
+    ) -> Tuple[List[str], List[str], Dict[str, int]]:
+        objectives_in_use = objectives_in_use or dict()
 
         optional_constraints: List[str] = list()
         optional_constraint_templates: List[GameObjectiveTemplate] = self.optional_game_constraint_templates()
@@ -141,14 +142,15 @@ class Game(metaclass=AutoGameRegister):
                 passes += 1
                 objective: str = template.generate_game_objective(self.random)
 
-                if objective not in objectives_in_use:
+                if objective_bag_size == 0 or objectives_in_use.get(objective, 0) < objective_bag_size:
                     objectives.append(objective)
-                    objectives_in_use.add(objective)
+                    objectives_in_use[objective] = objectives_in_use.get(objective, 0) + 1
 
                     break
 
                 if passes_templates > 50:
                     objectives.append(objective)
+                    objectives_in_use[objective] = objectives_in_use.get(objective, 0) + 1
                     break
 
                 if passes > 10:

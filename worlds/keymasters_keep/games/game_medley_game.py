@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from random import Random
-from typing import Any, List, Set, Tuple, Type
+from typing import Any, Dict, List, Tuple, Type
 
 from ..enums import KeymastersKeepGamePlatforms
 from ..game import Game
@@ -59,12 +59,13 @@ class GameMedleyGame(Game):
         include_time_consuming: bool = False,
         excluded_games_time_consuming: list[str] = None,
         excluded_games_difficult: list[str] = None,
-        objectives_in_use: set[str] = None,
-    ) -> Tuple[list[str], list[str], set[str]]:
+        objectives_in_use: Dict[str, int] = None,
+        objective_bag_size: int = 1,
+    ) -> Tuple[list[str], list[str], Dict[str, int]]:
         excluded_games_time_consuming = excluded_games_time_consuming or []
         excluded_games_difficult = excluded_games_difficult or []
 
-        objectives_in_use = objectives_in_use or set()
+        objectives_in_use = objectives_in_use or dict()
 
         optional_constraints: list[str] = []
         objectives: list[str] = []
@@ -129,18 +130,17 @@ class GameMedleyGame(Game):
                 passes += 1
 
                 objective: str = template.generate_game_objective(self.random)
+                prefixed_objective: str = f"{game.name} -> {objective}"
 
-                if objective not in objectives_in_use:
-                    objective = f"{game.name} -> {objective}"
-
-                    objectives.append(objective)
-                    objectives_in_use.add(objective)
+                if objective_bag_size == 0 or objectives_in_use.get(prefixed_objective, 0) < objective_bag_size:
+                    objectives.append(prefixed_objective)
+                    objectives_in_use[prefixed_objective] = objectives_in_use.get(prefixed_objective, 0) + 1
 
                     break
 
                 if passes_templates > 50:
-                    objective = f"{game.name} -> {objective}"
-                    objectives.append(objective)
+                    objectives.append(prefixed_objective)
+                    objectives_in_use[prefixed_objective] = objectives_in_use.get(prefixed_objective, 0) + 1
 
                     break
 
