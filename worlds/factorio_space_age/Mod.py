@@ -121,6 +121,7 @@ def generate_mod(
     technology_name_to_progressive_group_name: dict[str, str],
     infinite_technology_names: set[str],
     infinite_technology_shuffle: dict[str, str] | None,
+    duplicate_location_to_original_location: dict[str, str],
     technology_props_lua: dict[str, dict],
     recipe_changes: dict[str, dict[str, object]],
     rocket_parts_per_rocket: int,
@@ -165,7 +166,7 @@ def generate_mod(
     new_technology_data: dict[str, dict] = {}
     infinite_technology_name_corrections: dict[str, str] = {}
     for location in world_locations:
-        technology_name = location.name.replace("_other_location", "_location").replace("_location", "")
+        technology_name = duplicate_location_to_original_location.get(location.name, location.name.replace("_location", ""))
         if technology_name in infinite_technology_names:
             # At runtime, infinite technology names include the level at the end of the name.
             # e.g. "electric-weapons-damage-4_location" is at force.technologies["electric-weapons-damage-4_location-4"]

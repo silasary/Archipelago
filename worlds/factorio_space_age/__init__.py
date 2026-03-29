@@ -87,7 +87,7 @@ class Factorio(World):
     early_unrandomized_technologies: set[str]
     skipped_locations: set[str]
     filler_weights_argv: tuple[list[str], list[int]]
-    locations_to_duplicate: set[str]
+    location_to_duplicates: dict[str, list[str]]
 
     def __init__(self, world, player: int):
         self.locations = []
@@ -111,6 +111,11 @@ class Factorio(World):
             technology_name_to_progressive_group_name=self.technology_name_to_progressive_group_name,
             infinite_technology_names=self.factorio_data.infinite_technology_names,
             infinite_technology_shuffle=self.infinite_technology_shuffle,
+            duplicate_location_to_original_location={
+                duplicate: origin_location
+                for origin_location, duplicates in self.location_to_duplicates.items()
+                for duplicate in duplicates
+            },
             technology_props_lua=self.technology_props_lua,
             recipe_changes=self.recipe_changes,
             rocket_parts_per_rocket=self.rocket_parts_per_rocket,
@@ -464,12 +469,14 @@ class Factorio(World):
             + 3*int(self.options.goal.current_key == "any_other_planet_science")
             - sum(self.options.start_inventory_from_pool.values())
         )
-        if extra_location_count > 0 and False: # TODO: use the ap-000_location items.
-            other_location_names = [name for name in ap_location_name_to_id.keys() if name.endswith("_other_location")]
-            chosen_other_locations = self.random.sample(other_location_names, extra_location_count)
-            self.locations_to_duplicate = {name.replace("_other_location", "_location") for name in chosen_other_locations}
+        assert extra_location_count < 1000, "didn't think this was possible"
+        if extra_location_count > 0:
+            location_candidates = sorted(self.factorio_data.get_location_dupe_candidates())
+            self.location_to_duplicates = defaultdict(list)
+            for i, dupe_target in enumerate(self.random.choices(location_candidates, k=extra_location_count)):
+                self.location_to_duplicates[dupe_target].append("ap-{:03}_location".format(i))
         else:
-            self.locations_to_duplicate = set()
+            self.location_to_duplicates = {}
 
         # Generate logic.
         if self.options.energy_link.value:
@@ -598,9 +605,9 @@ class Factorio(World):
             access_rule_fn = compile_expr(self.logic_events[location_name])
             location = new_location(location_name, access_rule_fn)
             technology_name_to_location[origin_technology_name] = location
-            if location_name in self.locations_to_duplicate:
+            for duplicate_name in self.location_to_duplicates.get(origin_technology_name, []):
                 # Another one.
-                new_location(origin_technology_name + "_other_location", access_rule_fn)
+                new_location(duplicate_name, access_rule_fn)
         randomized_items = []
         for technology_name in item_names:
             # This is a receivable technology item.

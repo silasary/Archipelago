@@ -94,6 +94,14 @@ class FactorioData:
                 bad_names.add(name)
         return bad_names
 
+    def get_location_dupe_candidates(self) -> list[str]:
+        return [
+            name for name, prototype_data in self.the_data["technology"].items()
+            if not prototype_data.get("hidden", False) # Not removed by Any Planet Start
+            and prototype_data.get("unit", None) # Not a trigger tech
+            and prototype_data.get("max_level", None) != "infinite" # Not infinite
+        ]
+
 
     def build_logic(self, *,
         bypass_technology_prerequisites: bool,
