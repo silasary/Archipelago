@@ -173,29 +173,17 @@ class KeymastersKeepWorld(World):
         self.goal_game_optional_constraints = None
         self.goal_trial_game_objective = None
 
-        self.artifacts_of_resolve_required = self.options.artifacts_of_resolve_required.value
         self.artifacts_of_resolve_total = self.options.artifacts_of_resolve_total.value
 
-        if self.artifacts_of_resolve_required > self.artifacts_of_resolve_total:
-            self.artifacts_of_resolve_required, self.artifacts_of_resolve_total = self.artifacts_of_resolve_total, self.artifacts_of_resolve_required
+        self.artifacts_of_resolve_required = math.ceil(
+            self.artifacts_of_resolve_total * (self.options.artifacts_of_resolve_percentage_required.value / 100.0)
+        )
 
-            if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
-                logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required artifacts than total artifacts. "
-                    "Swapping required and total values."
-                )
-
-        self.magic_keys_required = self.options.magic_keys_required.value
         self.magic_keys_total = self.options.magic_keys_total.value
 
-        if self.magic_keys_required > self.magic_keys_total:
-            self.magic_keys_required, self.magic_keys_total = self.magic_keys_total, self.magic_keys_required
-
-            if self.goal == KeymastersKeepGoals.MAGIC_KEY_HEIST:
-                logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required magic keys than total magic keys. "
-                    "Swapping required and total values."
-                )
+        self.magic_keys_required = math.ceil(
+            self.magic_keys_total * (self.options.magic_keys_percentage_required.value / 100.0)
+        )
 
         self.keep_areas = self.options.keep_areas.value
 
