@@ -31,11 +31,11 @@ class GameMedleyGame(Game):
 
     def __init__(
         self,
-        random: Random = None,
+        random: Random | None = None,
         include_time_consuming_objectives: bool = False,
         include_difficult_objectives: bool = False,
         archipelago_options: Any = None,
-        game_selection: List[Type[Game]] = None,
+        game_selection: list[type[Game]] | None = None,
     ) -> None:
         super().__init__(
             random=random,

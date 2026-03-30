@@ -46,10 +46,11 @@ class Game(metaclass=AutoGameRegister):
 
     def __init__(
         self,
-        random: Random = None,
+        random: Random | None = None,
         include_time_consuming_objectives: bool = False,
         include_difficult_objectives: bool = False,
         archipelago_options: Any = None,
+        **kwargs: Any,
     ) -> None:
         self.random = random or Random()
         self.include_time_consuming_objectives = include_time_consuming_objectives
@@ -90,8 +91,8 @@ class Game(metaclass=AutoGameRegister):
         self,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
-    ) -> List[GameObjectiveTemplate]:
-        filtered_objectives: List[GameObjectiveTemplate] = list()
+    ) -> list[GameObjectiveTemplate]:
+        filtered_objectives: list[GameObjectiveTemplate] = []
 
         template: GameObjectiveTemplate
         for template in self.game_objective_templates():

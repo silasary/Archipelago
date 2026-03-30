@@ -151,7 +151,7 @@ class GameObjectiveGenerator:
             game_class: Type[Union[Game, GameMedleyGame]] = game_selection[i]
 
             if game_class == GameMedleyGame:
-                game: GameMedleyGame = game_class(
+                game = GameMedleyGame(
                     random=random,
                     include_time_consuming_objectives=include_time_consuming,
                     include_difficult_objectives=include_difficult,
