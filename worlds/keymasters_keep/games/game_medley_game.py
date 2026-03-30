@@ -44,7 +44,7 @@ class GameMedleyGame(Game):
             archipelago_options=archipelago_options,
         )
 
-        self.game_selection = game_selection
+        self.game_selection = game_selection or []
 
     def optional_game_constraint_templates(self) -> list[GameObjectiveTemplate]:
         return []
