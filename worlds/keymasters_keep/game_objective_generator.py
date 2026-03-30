@@ -1,3 +1,4 @@
+from collections import Counter
 import logging
 from random import Random
 from typing import Any, Dict, List, Type, Union
@@ -142,7 +143,7 @@ class GameObjectiveGenerator:
             random.shuffle(game_selection)
 
         data: GameObjectiveGeneratorData = list()
-        objectives_in_use: Dict[str, int] = dict()
+        objectives_in_use: Counter[str] = Counter()
 
         i: int
         count: int
