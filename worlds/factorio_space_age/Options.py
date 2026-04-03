@@ -497,6 +497,27 @@ class LogicGunTurret(DefaultOnToggle):
     """
 
 @auto_group
+class LogicGunTurretUpgrades(Choice):
+    """
+    When require_gun_turret is enabled, how many levels of weapon-shooting-speed and physical-projectile-damage
+    should also be logically required for destroying medium asteroids?
+
+    easy: (default) 6 damage, 6 speed.
+    medium: 4 damage, 4 speed.
+    hard: 2 damage, 2 speed.
+    none: no logically required bonuses.
+
+    When space_technology_level is mid_game or early_game,
+    These numbers are reduced by 1/2 or 1/4 (rounded down) respectively,
+    because that option also reduces asteroid HP.
+    """
+    option_easy = 0
+    option_medium = 1
+    option_hard = 2
+    option_none = 3
+    default = 0
+
+@auto_group
 class LogicElectricPole(DefaultOnToggle):
     """
     Logically require medium electric poles for automating metallurgic and electromagnetic science packs.
@@ -858,6 +879,7 @@ class FactorioOptions(PerGameCommonOptions):
     require_self_sufficient_space_platform: LogicSelfSufficientSpacePlatform
     require_ice_melting: LogicIceMelting
     require_gun_turret: LogicGunTurret
+    require_gun_turret_upgrades: LogicGunTurretUpgrades
     require_lightning_rod: LogicLightningRod
     require_medium_electric_pole: LogicElectricPole
     require_gleba_for_spoilage: LogicSpoilage

@@ -84,6 +84,8 @@ class Factorio(World):
     infinite_technology_shuffle: dict[str, str] | None = None
     empty_technologies: list[str]
     starting_planet: str
+    enemies_enabled: bool
+    medium_asteroid_upgrade_requirements: set[str]
     early_unrandomized_technologies: set[str]
     skipped_locations: set[str]
     filler_weights_argv: tuple[list[str], list[int]]
@@ -249,6 +251,7 @@ class Factorio(World):
 
         # Data modifications.
         # Note that this modifies the_data in place.
+        small_divisor = 1
         if self.options.space_technology_level.current_key != "vanilla":
             index = {"mid_game": 0, "early_game": 1}[self.options.space_technology_level.current_key]
             small_divisor = {"mid_game": 2, "early_game": 4}[self.options.space_technology_level.current_key]
@@ -390,6 +393,35 @@ class Factorio(World):
                 })
             else: assert False
 
+        # Damage upgrades for medium asteroids.
+        if self.options.require_gun_turret_upgrades.current_key == "easy":
+            number_of_levels = 6
+        elif self.options.require_gun_turret_upgrades.current_key == "medium":
+            number_of_levels = 4
+        elif self.options.require_gun_turret_upgrades.current_key == "hard":
+            number_of_levels = 2
+        elif self.options.require_gun_turret_upgrades.current_key == "none":
+            number_of_levels = 0
+        else: assert False
+        self.medium_asteroid_upgrade_requirements = {
+            *[
+                names.physical_projectile_damage_1,
+                names.physical_projectile_damage_2,
+                names.physical_projectile_damage_3,
+                names.physical_projectile_damage_4,
+                names.physical_projectile_damage_5,
+                names.physical_projectile_damage_6,
+            ][:number_of_levels // small_divisor],
+            *[
+                names.weapon_shooting_speed_1,
+                names.weapon_shooting_speed_2,
+                names.weapon_shooting_speed_3,
+                names.weapon_shooting_speed_4,
+                names.weapon_shooting_speed_5,
+                names.weapon_shooting_speed_6,
+            ][:number_of_levels // small_divisor],
+        }
+
         # Data analysis.
         self.factorio_data = FactorioData(the_data,
             self.technology_name_to_progressive_group_name,
@@ -519,6 +551,7 @@ class Factorio(World):
             enemies_enabled=self.enemies_enabled,
             demolisher_killers=self.options.demolisher_killers.value,
             pentapod_killers=self.options.pentapod_killers.value,
+            medium_asteroid_upgrade_requirements=self.medium_asteroid_upgrade_requirements,
 
             energy_link_bridge_recipe=energy_link_bridge_recipe,
             energy_link_bridge_technology=energy_link_bridge_technology,

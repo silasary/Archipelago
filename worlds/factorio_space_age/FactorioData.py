@@ -128,6 +128,7 @@ class FactorioData:
         enemies_enabled: bool,
         demolisher_killers: dict[str, bool],
         pentapod_killers: dict[str, bool],
+        medium_asteroid_upgrade_requirements: set[str],
 
         energy_link_bridge_recipe: dict | None,
         energy_link_bridge_technology: bool,
@@ -1019,6 +1020,7 @@ class FactorioData:
                             if machine == names.gun_turret
                         ]},
                         {"or": [fmt_automate_item(item) for item in ammo_category_to_ammo_items[ammo_category]]},
+                        *[fmt_unlock_technology(bonus) for bonus in medium_asteroid_upgrade_requirements],
                     ]},
                 ]}
                 if walls_to_destroy_medium_asteroids_is_good_enough:
