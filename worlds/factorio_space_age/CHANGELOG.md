@@ -1,5 +1,9 @@
 # Factorio: Space Age apworld Changelog
 
+## 2.1.0
+
+* Add `require_gun_turret_upgrades` option so you don't have to fly through space with no damage or speed upgrades. Fixes #15.
+
 ## 2.0.2
 
 * Fix `filler_count` being ignored. Fixes #13.
