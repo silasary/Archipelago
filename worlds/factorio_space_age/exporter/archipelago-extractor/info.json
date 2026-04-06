@@ -7,6 +7,7 @@
     "description": "Information Extractor for use with the Archipelago Randomizer",
     "dependencies": [
         "? any-planet-start",
+        "? planet-picker",
         "base >= 2.0.73",
         "space-age >= 2.0.73"
     ],

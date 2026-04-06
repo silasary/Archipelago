@@ -57,14 +57,17 @@ class StartingPlanet(Choice):
     """
     Start on one of the other 3 inner planets.
     To randomly select a planet, use advanced option randomization to specify weights.
-    Requires _CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start
+    Individual planet starts require _CodeGreen's Any Planet Start mod: https://mods.factorio.com/mod/any-planet-start
+    All planets simultaneously requires Nimphious's Planet Picker mod: https://mods.factorio.com/mod/planet-picker
 
     WARNING: starting on Gleba with enemies enabled is very difficult. See also pentapod_killers and gleba_coal.
+    WARNING: starting on all planets either needs friends or a way to teleport/respawn between them at will.
     """
     option_nauvis = 0
     option_vulcanus = 1
     option_gleba = 2
     option_fulgora = 3
+    option_all_simultaneously = 4
     default = 0
 
 class AllowImportedBlueprints(DefaultOnToggle):

@@ -1,0 +1,597 @@
+{
+  "item": {"thermal-vent": {"place_result": "thermal-vent"}},
+  "lightning-attractor": {"fulgoran-ruin-attractor": {
+    "minable": {"results": [
+      {"name": "scrap"},
+      {"name": "copper-cable"},
+      {"name": "steel-plate"},
+      {"name": "stone-brick"},
+      {"name": "substation"},
+      {"name": "lightning-rod"}
+    ]},
+    "autoplace": {},
+    "efficiency": 0
+  }},
+  "mining-drill": {"thermal-vent": {
+    "minable": {"result": "thermal-vent"},
+    "energy_source": {
+      "type": "void",
+      "usage_priority": "secondary-input"
+    },
+    "resource_categories": ["basic-fluid"]
+  }},
+  "recipe": {
+    "thermal-vent": {
+      "enabled": false,
+      "category": "crafting",
+      "ingredients": [
+        {
+          "type": "item",
+          "name": "iron-plate",
+          "amount": 12
+        },
+        {
+          "type": "item",
+          "name": "copper-cable",
+          "amount": 24
+        },
+        {
+          "type": "item",
+          "name": "iron-gear-wheel",
+          "amount": 16
+        }
+      ],
+      "energy_required": 4,
+      "results": [{
+        "type": "item",
+        "name": "thermal-vent",
+        "amount": 1
+      }]
+    },
+    "polymer-dissolution": {
+      "enabled": false,
+      "category": "chemistry",
+      "ingredients": [
+        {
+          "type": "fluid",
+          "name": "heavy-oil",
+          "amount": 400
+        },
+        {
+          "type": "item",
+          "name": "carbon",
+          "amount": 20
+        }
+      ],
+      "energy_required": 12,
+      "results": [
+        {
+          "type": "fluid",
+          "name": "steam",
+          "amount": 100,
+          "temperature": 500
+        },
+        {
+          "type": "item",
+          "name": "plastic-bar",
+          "amount": 40
+        }
+      ]
+    },
+    "coal-centrifugation": {
+      "enabled": false,
+      "category": "chemistry",
+      "ingredients": [
+        {
+          "type": "fluid",
+          "name": "water",
+          "amount": 600
+        },
+        {
+          "type": "item",
+          "name": "iron-bacteria",
+          "amount": 5
+        }
+      ],
+      "energy_required": 2,
+      "results": [
+        {
+          "type": "fluid",
+          "name": "water",
+          "amount": 750
+        },
+        {
+          "type": "item",
+          "name": "coal",
+          "amount": 2
+        }
+      ]
+    },
+    "calcite-centrifugation": {
+      "enabled": false,
+      "category": "chemistry",
+      "ingredients": [
+        {
+          "type": "fluid",
+          "name": "water",
+          "amount": 1000
+        },
+        {
+          "type": "item",
+          "name": "copper-bacteria",
+          "amount": 20
+        }
+      ],
+      "energy_required": 4,
+      "results": [
+        {
+          "type": "fluid",
+          "name": "water",
+          "amount": 1500
+        },
+        {
+          "type": "item",
+          "name": "calcite",
+          "amount": 1
+        }
+      ]
+    },
+    "battery-recycling": {
+      "hidden": true,
+      "category": "recycling",
+      "ingredients": [{
+        "type": "item",
+        "name": "battery",
+        "amount": 1
+      }],
+      "energy_required": 0.25,
+      "results": [
+        {
+          "type": "item",
+          "name": "iron-plate",
+          "amount": 0,
+          "extra_count_fraction": 0.25
+        },
+        {
+          "type": "item",
+          "name": "copper-plate",
+          "amount": 0,
+          "extra_count_fraction": 0.25
+        },
+        {
+          "type": "item",
+          "name": "sulfur",
+          "amount": 1,
+          "probability": 0.125
+        }
+      ]
+    },
+    "thermal-vent-recycling": {
+      "hidden": true,
+      "category": "recycling",
+      "ingredients": [{
+        "type": "item",
+        "name": "thermal-vent",
+        "amount": 1
+      }],
+      "energy_required": 0.25,
+      "results": [
+        {
+          "type": "item",
+          "name": "iron-plate",
+          "amount": 3,
+          "extra_count_fraction": 0
+        },
+        {
+          "type": "item",
+          "name": "copper-cable",
+          "amount": 6,
+          "extra_count_fraction": 0
+        },
+        {
+          "type": "item",
+          "name": "iron-gear-wheel",
+          "amount": 4,
+          "extra_count_fraction": 0
+        }
+      ]
+    }
+  },
+  "simple-entity": {
+    "fulgoran-ruin-huge": {
+      "minable": {"results": [
+        {"name": "scrap"},
+        {"name": "steel-plate"},
+        {"name": "iron-gear-wheel"},
+        {"name": "iron-stick"},
+        {"name": "copper-cable"},
+        {"name": "stone"},
+        {"name": "accumulator"},
+        {"name": "medium-electric-pole"}
+      ]},
+      "autoplace": {}
+    },
+    "fulgoran-ruin-colossal": {
+      "minable": {"results": [
+        {"name": "scrap"},
+        {"name": "steel-plate"},
+        {"name": "iron-gear-wheel"},
+        {"name": "iron-stick"},
+        {"name": "copper-cable"},
+        {"name": "stone"},
+        {"name": "accumulator"}
+      ]},
+      "autoplace": {}
+    },
+    "fulgoran-ruin-vault": {
+      "minable": {"results": [
+        {"name": "scrap"},
+        {"name": "steel-plate"},
+        {"name": "iron-gear-wheel"},
+        {"name": "iron-stick"},
+        {"name": "copper-cable"},
+        {"name": "stone"},
+        {"name": "accumulator"},
+        {"name": "accumulator"},
+        {"name": "accumulator"}
+      ]},
+      "autoplace": {}
+    }
+  },
+  "technology": {
+    "flammables": {
+      "unit": {
+        "count": 50,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["fluid-handling"]
+    },
+    "fluid-handling": {
+      "unit": {
+        "count": 50,
+        "time": 15,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["automation-2", "engine"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "storage-tank"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "pump"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "water-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-water-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "sulfuric-acid-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-sulfuric-acid-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "crude-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-crude-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "heavy-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-heavy-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "light-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-light-oil-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "petroleum-gas-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-petroleum-gas-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "lubricant-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-lubricant-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "fluoroketone-cold-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-fluoroketone-cold-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "fluoroketone-hot-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "empty-fluoroketone-hot-barrel"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "pumpjack"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "oil-refinery"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "chemical-plant"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "basic-oil-processing"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-petroleum-gas"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "ice-melting"
+        }
+      ]
+    },
+    "oil-gathering": {
+      "hidden": true,
+      "unit": {
+        "count": 100,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "pumpjack"
+      }]
+    },
+    "oil-processing": {
+      "hidden": true,
+      "research_trigger": {
+        "type": "mine-entity",
+        "entity": "crude-oil"
+      },
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "oil-refinery"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "chemical-plant"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "basic-oil-processing"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "solid-fuel-from-petroleum-gas"
+        }
+      ]
+    },
+    "sulfur-processing": {
+      "unit": {
+        "count": 150,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["fluid-handling"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "sulfuric-acid"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "sulfur"
+        }
+      ]
+    },
+    "plastics": {
+      "unit": {
+        "count": 200,
+        "time": 30,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["fluid-handling"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "plastic-bar"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "polymer-dissolution"
+        }
+      ]
+    },
+    "biochamber": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "nutrients",
+        "count": 10
+      },
+      "prerequisites": ["yumako", "jellynut"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "biochamber"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "nutrients-from-yumako-mash"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "burnt-spoilage"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "pentapod-egg"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "landfill"
+        }
+      ]
+    },
+    "bacteria-cultivation": {
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "bioflux"
+      },
+      "prerequisites": ["bioflux"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "copper-bacteria-cultivation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "iron-bacteria-cultivation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "coal-centrifugation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "calcite-centrifugation"
+        }
+      ]
+    },
+    "acid-processing": {
+      "research_trigger": {
+        "type": "build-entity",
+        "entity": "pumpjack"
+      },
+      "prerequisites": ["planet-discovery-vulcanus", "fluid-handling"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "oil-refinery"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "simple-coal-liquefaction"
+        }
+      ]
+    },
+    "geothermal-power": {
+      "research_trigger": {
+        "type": "mine-entity",
+        "entity": "vulcanus-chimney"
+      },
+      "prerequisites": ["planet-discovery-vulcanus"],
+      "effects": [{
+        "type": "unlock-recipe",
+        "recipe": "thermal-vent"
+      }]
+    },
+    "planet-discovery-nauvis": {
+      "unit": {
+        "count": 1000,
+        "time": 60,
+        "ingredients": [
+          ["automation-science-pack", 1],
+          ["logistic-science-pack", 1],
+          ["chemical-science-pack", 1],
+          ["space-science-pack", 1]
+        ]
+      },
+      "prerequisites": ["space-platform-thruster"],
+      "effects": [{
+        "type": "unlock-space-location",
+        "space_location": "nauvis",
+        "use_icon_overlay_constant": true
+      }]
+    },
+    "calcite-trigger": {
+      "hidden": true,
+      "research_trigger": {
+        "type": "craft-item",
+        "item": "calcite"
+      },
+      "prerequisites": ["fluid-handling"],
+      "effects": [
+        {
+          "type": "unlock-recipe",
+          "recipe": "acid-neutralisation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "steam-condensation"
+        },
+        {
+          "type": "unlock-recipe",
+          "recipe": "simple-coal-liquefaction"
+        }
+      ]
+    }
+  },
+  "tree": {
+    "ashland-lichen-tree": {
+      "minable": {"results": [
+        {"name": "carbon"},
+        {"name": "wood"}
+      ]},
+      "autoplace": {}
+    },
+    "ashland-lichen-tree-flaming": {
+      "minable": {"results": [
+        {"name": "carbon"},
+        {"name": "wood"},
+        {"name": "wood"}
+      ]},
+      "autoplace": {}
+    }
+  }
+}

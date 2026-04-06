@@ -6,6 +6,8 @@ import os, sys, json
 import itertools, functools
 from collections import defaultdict, Counter
 
+import platformdirs
+
 from json_dumps_but_smaller import json_dump
 from ap_data import (
     ap_item_names,
@@ -17,12 +19,12 @@ here = os.path.dirname(__file__)
 formatted_input = os.path.join(here, "ap-dump-full.json")
 formatted_input_planets = {
     planet: os.path.join(here, "ap-dump-full-{}.json".format(planet))
-    for planet in ["vulcanus", "gleba", "fulgora"]
+    for planet in ["vulcanus", "gleba", "fulgora", "all_simultaneously"]
 }
 main_output = os.path.join(here, "ap-dump.json")
 output_planets = {
     planet: os.path.join(here, "ap-dump-{}.json".format(planet))
-    for planet in ["vulcanus", "gleba", "fulgora"]
+    for planet in ["vulcanus", "gleba", "fulgora", "all_simultaneously"]
 }
 output_names_py = os.path.join(here, "generated_names.py")
 output_ids_py = os.path.join(here, "generated_ids.py")
@@ -33,6 +35,9 @@ def main():
     parser.add_argument("input", nargs="?", metavar="~/software/factorio/script-output/ap-dump.json", help=
         "See ../exporter/ for how to generate this.")
     args = parser.parse_args()
+    appdata_path = os.path.join(platformdirs.user_data_dir("Factorio", False, roaming=True), "script-output", "ap-dump.json")
+    if not args.input and os.path.exists(appdata_path):
+        args.input = appdata_path
 
     if args.input:
         recieve_input(args.input)
@@ -83,7 +88,11 @@ def recieve_input(input_path):
             starting_planet = "gleba"
         elif the_data["technology"]["planet-discovery-fulgora"].get("hidden", False):
             starting_planet = "fulgora"
-        else: assert False, "which planet start is this?"
+        else:
+            # This is the Planet Picker mod by Nimphious, which makes all planets in logic from the start
+            starting_planet = "all_simultaneously"
+
+            # assert False, "which planet start is this?"
         with open(formatted_input_planets[starting_planet], "w") as f:
             json_dump(the_data, f)
     else:

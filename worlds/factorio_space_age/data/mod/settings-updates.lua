@@ -23,3 +23,32 @@ if mods["any-planet-start"] then
     data.raw["bool-setting"]["aps-vulcanus-fulgora"].forced_value = true
     data.raw["bool-setting"]["aps-vulcanus-fulgora"].default_value = true
 end
+if mods['planet-picker'] then
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ruins'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ruins'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ruins'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ice'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ice'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-ice'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-sulfur'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-sulfur'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-fulgora-sulfur'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-centrifugation'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-centrifugation'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-centrifugation'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-landfill'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-landfill'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-gleba-landfill'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-trees'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-trees'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-trees'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-plastic'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-plastic'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-plastic'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-generator'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-generator'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-generator'].forced_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-mining'].default_value = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-mining'].hidden = true
+    data.raw['bool-setting']['planet-picker-modify-vulcanus-mining'].forced_value = true
+end

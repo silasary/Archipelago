@@ -159,6 +159,17 @@ class Factorio(World):
                     else:
                         prototypes[prototype_name] = prototype_diff
 
+        if self.starting_planet == "all_simultaneously":
+            # Planet picker automatically gives you discovery when a player first picks it, but that's not good enough for one person using respawn-to-any-planet.
+            self.options.start_inventory.value.update({
+                name: 1 for name in [
+                    names.planet_discovery_nauvis,
+                    names.planet_discovery_fulgora,
+                    names.planet_discovery_gleba,
+                    names.planet_discovery_vulcanus,
+                ]
+            })
+
         if self.options.skip_starting_trigger_techs.value:
             self.options.start_inventory.value.update({
                 name: 1 for name in self.early_unrandomized_technologies
@@ -303,6 +314,8 @@ class Factorio(World):
                 ingredient_replacements[names.rocket_fuel] = names.solid_fuel
                 del ingredient_replacements[names.steel_plate]
                 del ingredient_replacements[names.concrete]
+            elif self.starting_planet == "all_simultaneously":
+                pass
             else: assert False
 
             for recipe_name in recipes_to_modify:

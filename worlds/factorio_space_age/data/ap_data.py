@@ -571,6 +571,24 @@ starting_planet_to_unrandomized_technologies = {
         "automation-science-pack",
         "automation",
     },
+    "all_simultaneously": {
+        # Labs and red science:
+        "steam-power",
+        "electronics",
+        "automation-science-pack",
+        "automation",
+
+        "geothermal-energy", # Vulcanus
+        "recycling", # fulgora
+
+        # gleba
+        "steel-processing",
+        "agriculture",
+        "biochamber",
+        "yumako",
+        "jellynut",
+        "bioflux",
+    }
 }
 
 never_give_free_samples_from_recipes = {

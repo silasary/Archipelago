@@ -914,8 +914,13 @@ class FactorioData:
         for name, techs in space_location_to_unlocking_technologies.items():
             logic_events[fmt_discover_location(name)] = {"or": [fmt_unlock_technology(technology) for technology in techs]}
         # Start on a planet
-        logic_events[fmt_discover_location(self.starting_planet)] = ALWAYS
-        logic_events[fmt_reach_location(self.starting_planet)] = ALWAYS
+        if self.starting_planet == 'all_simultaneously':
+            for planet in [names.nauvis, names.fulgora, names.gleba, names.vulcanus]:
+                logic_events[fmt_discover_location(planet)] = ALWAYS
+                logic_events[fmt_reach_location(planet)] = ALWAYS
+        else:
+            logic_events[fmt_discover_location(self.starting_planet)] = ALWAYS
+            logic_events[fmt_reach_location(self.starting_planet)] = ALWAYS
 
         # Capabilities.
         for capability in Capability:
