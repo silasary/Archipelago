@@ -101,9 +101,16 @@ class FactorioSAWS(World):
         self.craftsanity_locations = []
         self.tech_tree_layout_prerequisites = {}
 
+        self.ut_can_gen_without_yaml = True
+
     generate_output = generate_mod
 
     def generate_early(self) -> None:
+        if self.is_ut():
+            self.options.silo.value = self.get_ut_data("silo", self.options.silo.value)
+            self.options.satellite.value = self.get_ut_data("satellite", self.options.satellite.value)
+            self.options.goal.value = self.get_ut_data("goal", self.options.goal.value)
+
         # if max < min, then swap max and min
         if self.options.max_tech_cost < self.options.min_tech_cost:
             self.options.min_tech_cost.value, self.options.max_tech_cost.value = \
@@ -130,8 +137,12 @@ class FactorioSAWS(World):
         for pack in sorted(self.options.max_science_pack.get_allowed_packs()):
             location_pool.extend(location_pools[pack])
         try:
-            science_location_names = random.sample(location_pool, location_count)
-            craftsanity_location_names = random.sample([craft for craft in craftsanity_locations if self.options.silo != Silo.option_spawn or craft not in ["Craft rocket-silo", "Craft cargo-landing-pad"]], craftsanity_count)
+            if self.is_ut():
+                science_location_names = location_pool
+                craftsanity_location_names = craftsanity_locations
+            else:
+                science_location_names = random.sample(location_pool, location_count)
+                craftsanity_location_names = random.sample([craft for craft in craftsanity_locations if self.options.silo != Silo.option_spawn or craft not in ["Craft rocket-silo", "Craft cargo-landing-pad"]], craftsanity_count)
 
         except ValueError as e:
             # should be "ValueError: Sample larger than population or is negative"
@@ -284,7 +295,17 @@ class FactorioSAWS(World):
         for location in self.science_locations:
             Rules.set_rule(location, lambda state, ingredients=frozenset(location.ingredients):
                 all(state.has(f"Automated {ingredient}", player) for ingredient in ingredients))
-            prerequisites = shapes.get(location)
+
+            prereq_override = self.get_ut_data("tech_prereq")
+            if prereq_override is not None:
+                prerequisites = []
+                for name in prereq_override.get(location.name, []):
+                    for loc in self.science_locations:
+                        if loc.name == name:
+                            prerequisites.append(loc)
+                            break
+            else:
+                prerequisites = shapes.get(location)
             if prerequisites:
                 Rules.add_rule(location, lambda state, locations=frozenset(prerequisites):
                     all(state.can_reach(loc) for loc in locations))
@@ -401,20 +422,25 @@ class FactorioSAWS(World):
 
     def make_quick_recipe(self, original: Recipe, pool: list, allow_liquids: int = 2,
                           ingredients_offset: int = 0) -> Recipe:
+
         count: int = len(original.ingredients) + ingredients_offset
         assert len(pool) >= count, f"Can't pick {count} many items from pool {pool}."
         new_ingredients = {}
         liquids_used = 0
-        for _ in range(count):
-            new_ingredient = pool.pop()
-            if new_ingredient in fluids:
-                while liquids_used == allow_liquids and new_ingredient in fluids:
-                    # liquids already at max for current recipe.
-                    # Return the liquid to the pool and get a new ingredient.
-                    pool.append(new_ingredient)
-                    new_ingredient = pool.pop(0)
-                liquids_used += 1 if new_ingredient in fluids else 0
-            new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
+        recipe_override = self.get_ut_data("recipes")
+        if recipe_override is not None and original.name in recipe_override:
+            new_ingredients = recipe_override[original.name]
+        else:
+            for _ in range(count):
+                new_ingredient = pool.pop()
+                if new_ingredient in fluids:
+                    while liquids_used == allow_liquids and new_ingredient in fluids:
+                        # liquids already at max for current recipe.
+                        # Return the liquid to the pool and get a new ingredient.
+                        pool.append(new_ingredient)
+                        new_ingredient = pool.pop(0)
+                    liquids_used += 1 if new_ingredient in fluids else 0
+                new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
         products = original.products
         category = self.get_category(original.category, liquids_used)
         if "fluoroketone-cold" in new_ingredients:
@@ -443,81 +469,85 @@ class FactorioSAWS(World):
         fallback_pool = []
         liquids_used = 0
 
-        # fill all but one slot with random ingredients, last with a good match
-        while remaining_num_ingredients > 0 and pool:
-            ingredient = pool.pop()
-            if liquids_used == allow_liquids and ingredient in fluids:
-                continue  # can't use this ingredient as we already have maximum liquid in our recipe.
-            ingredient_raw = 0
-            if ingredient in all_product_sources:
-                ingredient_recipe = min(all_product_sources[ingredient], key=lambda recipe: recipe.rel_cost)
+        recipe_override = self.get_ut_data("recipes")
+        if recipe_override is not None and original.name in recipe_override:
+            new_ingredients = recipe_override[original.name]
+        else:
+            # fill all but one slot with random ingredients, last with a good match
+            while remaining_num_ingredients > 0 and pool:
+                ingredient = pool.pop()
+                if liquids_used == allow_liquids and ingredient in fluids:
+                    continue  # can't use this ingredient as we already have maximum liquid in our recipe.
+                ingredient_raw = 0
+                if ingredient in all_product_sources:
+                    ingredient_recipe = min(all_product_sources[ingredient], key=lambda recipe: recipe.rel_cost)
+                    ingredient_raw = sum((count for ingredient, count in ingredient_recipe.base_cost.items()))
+                    ingredient_energy = ingredient_recipe.total_energy
+                else:
+                    # assume simple ore TODO: remove if tree when mining data is harvested from Factorio
+                    ingredient_energy = 2
+                if not ingredient_raw:
+                    ingredient_raw = 1
+                if remaining_num_ingredients == 1:
+                    max_raw = 1.1 * remaining_raw
+                    min_raw = 0.9 * remaining_raw
+                    max_energy = 1.1 * remaining_energy
+                    min_energy = 0.9 * remaining_energy
+                else:
+                    max_raw = remaining_raw * 0.75
+                    min_raw = (remaining_raw - max_raw) / remaining_num_ingredients
+                    max_energy = remaining_energy * 0.75
+                    min_energy = (remaining_energy - max_energy) / remaining_num_ingredients
+                min_num_raw = min_raw / ingredient_raw
+                max_num_raw = max_raw / ingredient_raw
+                min_num_energy = min_energy / ingredient_energy
+                max_num_energy = max_energy / ingredient_energy
+                min_num = int(max(1, min_num_raw, min_num_energy))
+                max_num = int(min(1000, max_num_raw, max_num_energy))
+                if min_num > max_num:
+                    fallback_pool.append(ingredient)
+                    continue  # can't use that ingredient
+                num = self.random.randint(min_num, max_num)
+                new_ingredients[ingredient] = num
+                remaining_raw -= num * ingredient_raw
+                remaining_energy -= num * ingredient_energy
+                remaining_num_ingredients -= 1
+                if ingredient in fluids:
+                    liquids_used += 1
+
+            # fill failed slots with whatever we got
+            pool = fallback_pool
+            while remaining_num_ingredients > 0 and pool:
+                ingredient = pool.pop()
+                if liquids_used == allow_liquids and ingredient in fluids:
+                    continue  # can't use this ingredient as we already have maximum liquid in our recipe.
+
+                ingredient_recipe = recipes.get(ingredient, None)
+                if not ingredient_recipe and ingredient.endswith("-barrel"):
+                    ingredient_recipe = recipes.get(f"fill-{ingredient}", None)
+                if not ingredient_recipe:
+                    logging.warning(f"missing recipe for {ingredient}")
+                    continue
                 ingredient_raw = sum((count for ingredient, count in ingredient_recipe.base_cost.items()))
+                if ingredient_raw == 0:
+                    logging.warning(f"zero raw for {ingredient}")
+                    continue
                 ingredient_energy = ingredient_recipe.total_energy
-            else:
-                # assume simple ore TODO: remove if tree when mining data is harvested from Factorio
-                ingredient_energy = 2
-            if not ingredient_raw:
-                ingredient_raw = 1
-            if remaining_num_ingredients == 1:
-                max_raw = 1.1 * remaining_raw
-                min_raw = 0.9 * remaining_raw
-                max_energy = 1.1 * remaining_energy
-                min_energy = 0.9 * remaining_energy
-            else:
-                max_raw = remaining_raw * 0.75
-                min_raw = (remaining_raw - max_raw) / remaining_num_ingredients
-                max_energy = remaining_energy * 0.75
-                min_energy = (remaining_energy - max_energy) / remaining_num_ingredients
-            min_num_raw = min_raw / ingredient_raw
-            max_num_raw = max_raw / ingredient_raw
-            min_num_energy = min_energy / ingredient_energy
-            max_num_energy = max_energy / ingredient_energy
-            min_num = int(max(1, min_num_raw, min_num_energy))
-            max_num = int(min(1000, max_num_raw, max_num_energy))
-            if min_num > max_num:
-                fallback_pool.append(ingredient)
-                continue  # can't use that ingredient
-            num = self.random.randint(min_num, max_num)
-            new_ingredients[ingredient] = num
-            remaining_raw -= num * ingredient_raw
-            remaining_energy -= num * ingredient_energy
-            remaining_num_ingredients -= 1
-            if ingredient in fluids:
-                liquids_used += 1
+                num_raw = remaining_raw / ingredient_raw / remaining_num_ingredients
+                num_energy = remaining_energy / ingredient_energy / remaining_num_ingredients
+                num = int(min(num_raw, num_energy))
+                if num < 1:
+                    continue
 
-        # fill failed slots with whatever we got
-        pool = fallback_pool
-        while remaining_num_ingredients > 0 and pool:
-            ingredient = pool.pop()
-            if liquids_used == allow_liquids and ingredient in fluids:
-                continue  # can't use this ingredient as we already have maximum liquid in our recipe.
+                new_ingredients[ingredient] = num
+                remaining_raw -= num * ingredient_raw
+                remaining_energy -= num * ingredient_energy
+                remaining_num_ingredients -= 1
+                if ingredient in fluids:
+                    liquids_used += 1
 
-            ingredient_recipe = recipes.get(ingredient, None)
-            if not ingredient_recipe and ingredient.endswith("-barrel"):
-                ingredient_recipe = recipes.get(f"fill-{ingredient}", None)
-            if not ingredient_recipe:
-                logging.warning(f"missing recipe for {ingredient}")
-                continue
-            ingredient_raw = sum((count for ingredient, count in ingredient_recipe.base_cost.items()))
-            if ingredient_raw == 0:
-                logging.warning(f"zero raw for {ingredient}")
-                continue
-            ingredient_energy = ingredient_recipe.total_energy
-            num_raw = remaining_raw / ingredient_raw / remaining_num_ingredients
-            num_energy = remaining_energy / ingredient_energy / remaining_num_ingredients
-            num = int(min(num_raw, num_energy))
-            if num < 1:
-                continue
-
-            new_ingredients[ingredient] = num
-            remaining_raw -= num * ingredient_raw
-            remaining_energy -= num * ingredient_energy
-            remaining_num_ingredients -= 1
-            if ingredient in fluids:
-                liquids_used += 1
-
-        if remaining_num_ingredients > 1:
-            logging.warning("could not randomize recipe")
+            if remaining_num_ingredients > 1:
+                logging.warning("could not randomize recipe")
 
         products = original.products
         category = self.get_category(original.category, liquids_used)
@@ -544,8 +574,15 @@ class FactorioSAWS(World):
         valid_pool = sorted(science_pack_pools[self.options.max_science_pack.get_max_pack()]
                             & valid_ingredients)
         self.random.shuffle(valid_pool)
+
+        recipe_override = self.get_ut_data("recipes")
+        if recipe_override is not None and "rocket-part" in recipe_override:
+            rocket_ingredients = recipe_override["rocket-part"]
+        else:
+            rocket_ingredients = {valid_pool[x]: 10 for x in range(3 + ingredients_offset)}
+
         self.custom_recipes = {"rocket-part": Recipe("rocket-part", original_rocket_part.category,
-                                                     {valid_pool[x]: 10 for x in range(3 + ingredients_offset)},
+                                                     rocket_ingredients,
                                                      original_rocket_part.products,
                                                      original_rocket_part.energy)}
 
@@ -635,6 +672,31 @@ class FactorioSAWS(World):
                             all_items[name], self.player)
         return item
 
+    # UT bits
+    def is_ut(self):
+        return getattr(self.multiworld, "generation_is_fake", False)
+
+    def fill_slot_data(self):
+        return {
+            "recipes": {rec: self.custom_recipes[rec].ingredients for rec in self.custom_recipes},
+            "tech_prereq": {loc.name: [req.name for req in self.tech_tree_layout_prerequisites[loc]]
+                            for loc in self.tech_tree_layout_prerequisites},
+            "silo": self.options.silo.value,
+            "satellite": self.options.satellite.value,
+            "goal": self.options.goal.value,
+        }
+
+    def interpret_slot_data(self, data):
+        return data
+
+    def get_ut_data(self, key, default=None):
+        is_ut = getattr(self.multiworld, "generation_is_fake", False)
+        if not is_ut:
+            return None
+
+        return (getattr(self.multiworld, "re_gen_passthrough", {})
+            .get(self.game, {})
+            .get(key, default))
 
 class FactorioLocation(Location):
     game: str = FactorioSAWS.game
