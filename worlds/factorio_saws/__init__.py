@@ -677,10 +677,21 @@ class FactorioSAWS(World):
         return getattr(self.multiworld, "generation_is_fake", False)
 
     def fill_slot_data(self):
+        packs = {}
+        for loc in self.science_locations:
+            # only store locations which don't need all packs
+            if len(loc.ingredients) != loc.complexity + 1:
+                bits = 0
+                for complexity in range(loc.complexity):
+                    if FactorioSAWS.ordered_science_packs[complexity] in loc.ingredients:
+                        bits = bits | (1 << complexity)
+                packs[loc.name] = bits
+
         return {
             "recipes": {rec: self.custom_recipes[rec].ingredients for rec in self.custom_recipes},
             "tech_prereq": {loc.name: [req.name for req in self.tech_tree_layout_prerequisites[loc]]
                             for loc in self.tech_tree_layout_prerequisites},
+            "tech_pack": packs,
             "silo": self.options.silo.value,
             "satellite": self.options.satellite.value,
             "goal": self.options.goal.value,
@@ -731,10 +742,18 @@ class FactorioScienceLocation(FactorioLocation):
         self.rel_cost = int(self.name.split("-")[2])
 
         self.ingredients = {FactorioSAWS.ordered_science_packs[self.complexity]: 1}
-        for complexity in range(self.complexity):
-            if (parent.multiworld.worlds[self.player].options.tech_cost_mix >
-                    parent.multiworld.worlds[self.player].random.randint(0, 99)):
-                self.ingredients[FactorioSAWS.ordered_science_packs[complexity]] = 1
+
+        pack_override = parent.multiworld.worlds[self.player].get_ut_data("tech_pack")
+        if pack_override is not None:
+            bits = pack_override.get(self.name, (1<<self.complexity) - 1)
+            for complexity in range(self.complexity):
+                if (bits & (1 << complexity)):
+                    self.ingredients[FactorioSAWS.ordered_science_packs[complexity]] = 1
+        else:
+            for complexity in range(self.complexity):
+                if (parent.multiworld.worlds[self.player].options.tech_cost_mix >
+                        parent.multiworld.worlds[self.player].random.randint(0, 99)):
+                    self.ingredients[FactorioSAWS.ordered_science_packs[complexity]] = 1
 
     @property
     def factorio_ingredients(self) -> typing.List[typing.Tuple[str, int]]:
