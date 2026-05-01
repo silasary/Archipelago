@@ -1798,7 +1798,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
                         f" You have {points_available} and need at least {cost}.")
                 self.ctx.save()
                 return True
-            elif old_hints:
+            else:
                 self.ctx.notify_hints(self.client.team, old_hints)
                 if cost and points_available // cost <= 0:
                     self.output(
@@ -1809,6 +1809,7 @@ class ClientMessageProcessor(CommonCommandProcessor):
                 else:
                     self.output(
                         "There may be more hintables, you can rerun the command with a non-zero amount to find more.")
+                return False
         else:
             if points_available >= cost:
                 if for_location:
