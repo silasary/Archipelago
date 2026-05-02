@@ -294,3 +294,4 @@ data.raw.recipe["electromagnetic-science-pack"].main_product = "electromagnetic-
 data.raw.recipe["agricultural-science-pack"].main_product = "agricultural-science-pack"
 data.raw.recipe["metallurgic-science-pack"].main_product = "metallurgic-science-pack"
 data.raw.recipe["satellite"].main_product = "satellite"
+data.raw.recipe["rocket-silo"].main_product = "rocket-silo"
