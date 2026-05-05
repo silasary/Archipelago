@@ -92,6 +92,8 @@ class FactorioSAWS(World):
                               "Atomic Rocket", "Atomic Cliff Remover", "Inventory Spill")
     want_progressives: dict[str, bool] = collections.defaultdict(lambda: False)
 
+    ut_can_gen_without_yaml = True
+
     def __init__(self, world, player: int):
         super(FactorioSAWS, self).__init__(world, player)
         self.removed_technologies = useless_technologies.copy()
@@ -101,7 +103,6 @@ class FactorioSAWS(World):
         self.craftsanity_locations = []
         self.tech_tree_layout_prerequisites = {}
 
-        self.ut_can_gen_without_yaml = True
 
     generate_output = generate_mod
 
