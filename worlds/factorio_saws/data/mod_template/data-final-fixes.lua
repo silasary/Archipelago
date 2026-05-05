@@ -162,6 +162,7 @@ end
 data.raw["assembling-machine"]["assembling-machine-1"].crafting_categories = table.deepcopy(data.raw["assembling-machine"]["assembling-machine-3"].crafting_categories)
 data.raw["assembling-machine"]["assembling-machine-2"].crafting_categories = table.deepcopy(data.raw["assembling-machine"]["assembling-machine-3"].crafting_categories)
 data.raw["assembling-machine"]["assembling-machine-1"].fluid_boxes = table.deepcopy(data.raw["assembling-machine"]["assembling-machine-2"].fluid_boxes)
+data.raw["assembling-machine"]["assembling-machine-1"].fluid_boxes_off_when_no_fluid_recipe = data.raw["assembling-machine"]["assembling-machine-2"].fluid_boxes_off_when_no_fluid_recipe
 if mods["factory-levels"] then
     -- Factory-Levels allows the assembling machines to get faster (and depending on settings), more productive at crafting products, the more the
     -- assembling machine crafts the product.  If the machine crafts enough, it may auto-upgrade to the next tier.
@@ -222,6 +223,9 @@ copy_factorio_icon(new_tree_copy, "{{ progressive_technology_table[item.name][0]
 set_ap_icon(new_tree_copy){% else %}--
 
 set_ap_unimportant_icon(new_tree_copy){% endif %}
+{%- endif -%}
+{%- if tech_tree_information %}
+new_tree_copy.essential = {{ variable_to_lua(item.advancement) }}
 {%- endif -%}
 {#- connect Technology  #}
 {%- if location in tech_tree_layout_prerequisites %}
