@@ -48,6 +48,46 @@ data.raw["rocket-silo"]["rocket-silo"].fluid_boxes = {
 data.raw["rocket-silo"]["rocket-silo"].fluid_boxes_off_when_no_fluid_recipe = true
 data.raw["rocket-silo"]["rocket-silo"].rocket_parts_required = {{ rocket_parts }}
 
+data.raw.technology["lightning-rod"] = {
+    type = "technology",
+    name = "lightning-rod",
+    icon = "__space-age__/graphics/icons/lightning-rod.png",
+    icon_size = 64,
+    hidden = true,
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "lightning-rod",
+      },
+    },
+    prerequisites = {"steel-processing"},
+    unit =
+    {
+      count = 100,
+      ingredients =
+      {
+        {"automation-science-pack", 1}
+      },
+      time = 5
+    }
+  }
+data.raw.technology["lightning-collector"] = {
+    type = "technology",
+    name = "lightning-collector",
+    icon = "__space-age__/graphics/technology/lightning-collector.png",
+    icon_size = 256,
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "lightning-collector",
+      },
+    },
+    prerequisites = {"electromagnetic-science-pack"}
+  }
+
+
 {%- for recipe_name, recipe in custom_recipes.items() %}
     data.raw["recipe"]["{{recipe_name}}"].category = "{{recipe.category}}"
     data.raw["recipe"]["{{recipe_name}}"].ingredients = {{ dict_to_recipe(recipe.ingredients, liquids) }}

@@ -177,37 +177,4 @@ data.raw.planet.nauvis.lightning_properties = {
         }
       }
     }
-data.raw.technology["lightning-rod"] = {
-    type = "technology",
-    name = "lightning-rod",
-    icon = "__space-age__/graphics/icons/lightning-rod.png",
-    icon_size = 256,
-    hidden = true,
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "lightning-rod",
-      },
-    },
-    prerequisites = {"electromagnetic-science-pack"},
-    unit = nil,
-    research_trigger = {type = "craft-item", item = "item-unknown"}
-  }
-data.raw.technology["lightning-collector"] = {
-    type = "technology",
-    name = "lightning-collector",
-    icon = "__space-age__/graphics/technology/lightning-collector.png",
-    icon_size = 256,
-    hidden = true,
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "lightning-collector",
-      },
-    },
-    prerequisites = {"electromagnetic-science-pack"},
-    unit = nil,
-    research_trigger = {type = "craft-item", item = "item-unknown"}
-  }
+

@@ -126,6 +126,9 @@ class FactorioSAWS(World):
 
         location_count = len(base_tech_table) - len(useless_technologies) - self.skip_silo
 
+        if not self.options.free_power.value:
+            location_count -= 2  # lightning-rod and lightning-collector technologies won't be in the pool
+
         for name in self.trap_names:
             name = name.replace(" ", "_").lower()+"_traps"
             location_count += getattr(self.options, name)
@@ -207,6 +210,11 @@ class FactorioSAWS(World):
         special_index = {"automation": 0,
                          "logistics": 1,
                          "rocket-silo": -1}
+        if self.options.free_power.value:
+            special_index["lightning-rod"] = 2
+        else:
+            self.removed_technologies |= {"lightning-rod", "lightning-collector"}
+
         loc: FactorioScienceLocation
         if self.options.tech_tree_information == TechTreeInformation.option_full:
             # mark all locations as pre-hinted
