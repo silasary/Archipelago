@@ -301,6 +301,9 @@ technologies["rocket-silo"].visible_when_disabled = false
 
 data.raw.resource["tungsten-ore"].category = "basic-solid"
 
+data.raw.planet.nauvis.map_gen_settings.autoplace_settings["entity"].settings["iron-stromatolite"] = {}
+data.raw.planet.nauvis.map_gen_settings.autoplace_settings["entity"].settings["copper-stromatolite"] = {}
+
 table.insert(data.raw.technology["quality-module-2"].effects, {type = "unlock-quality", quality = "uncommon"})
 table.insert(data.raw.technology["quality-module-3"].effects, {type = "unlock-quality", quality = "uncommon"})
 table.insert(data.raw.technology["quality-module-2"].effects, {type = "unlock-quality", quality = "rare"})
