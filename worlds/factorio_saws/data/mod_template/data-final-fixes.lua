@@ -224,6 +224,9 @@ set_ap_icon(new_tree_copy){% else %}--
 
 set_ap_unimportant_icon(new_tree_copy){% endif %}
 {%- endif -%}
+{%- if tech_tree_information %}
+new_tree_copy.essential = {{ variable_to_lua(item.advancement) }}
+{%- endif -%}
 {#- connect Technology  #}
 {%- if location in tech_tree_layout_prerequisites %}
 {%- for prerequisite in tech_tree_layout_prerequisites[location] %}
