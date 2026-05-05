@@ -477,7 +477,7 @@ async def get_info(ctx: FactorioContext, rcon_client: factorio_rcon.RCONClient):
 
 
 async def factorio_spinup_server(ctx: FactorioContext) -> bool:
-    savegame_name = os.path.abspath("Archipelago.zip")
+    savegame_name = user_path("factorio", "saves", "Archipelago.zip")
     if not os.path.exists(savegame_name):
         logger.info(f"Creating savegame {savegame_name}")
         subprocess.run((
