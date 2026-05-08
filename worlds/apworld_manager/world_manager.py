@@ -136,7 +136,7 @@ class Repository:
         self.index_json = None
         self.world_source = world_source
         self.apworld_cache_path = apworld_cache_path
-        self.worlds: typing.List[ApWorldMetadata] = []
+        self.worlds: list[ApWorldMetadata] = []
 
     def refresh(self):
         try:
@@ -144,7 +144,7 @@ class Repository:
         except requests.exceptions.ConnectionError as e:
             logging.exception(e)
 
-    def get_repository_json(self):
+    def get_repository_json(self) -> None:
         if self.world_source == RemoteWorldSource.REMOTE or self.world_source == RemoteWorldSource.REMOTE_BLESSED:
             response = requests.get(self.path)
             self.index_json = response.json()
@@ -167,37 +167,37 @@ class Repository:
                 path = os.path.join(self.path, file)
 
                 try:
-                    with open(path, 'rb') as f:
+                    with open(path, "rb") as f:
                         hash_sha256 = hashlib.sha256(f.read()).hexdigest()
-                    metadata_str = zipfile.ZipFile(path).read('archipelago.json')
+                    metadata_str = zipfile.ZipFile(path).read("archipelago.json")
                     metadata = json.loads(metadata_str)
                     metadata = {
-                        'metadata': metadata,
-                        'hash_sha256': hash_sha256,
-                        'size': os.path.getsize(path),
-                        'source_url': self.path,
+                        "metadata": metadata,
+                        "hash_sha256": hash_sha256,
+                        "size": os.path.getsize(path),
+                        "source_url": self.path,
                     }
                     world = ApWorldMetadata(self.world_source, metadata)
                     self.worlds.append(world)
-                except Exception as e:
+                except Exception:
                     continue
 
                 cache_dir = os.path.join(self.apworld_cache_path, hash_sha256)
                 if not os.path.exists(cache_dir):
                     os.mkdir(cache_dir)
                 world_cache_path = os.path.join(cache_dir, file)
-                json_cache_path = os.path.join(cache_dir, 'archipelago.json')
+                json_cache_path = os.path.join(cache_dir, "archipelago.json")
                 if not os.path.exists(world_cache_path) or not os.path.exists(json_cache_path):
-                    json.dump(metadata, open(json_cache_path, 'w'))
+                    json.dump(metadata, open(json_cache_path, "w"))
                     shutil.copyfile(path, world_cache_path)
-                    print(f"Copied {file} to cache")
+                    # print(f"Copied {file} to cache")
                     # TODO: Log this
                 world.is_in_cache = True
 
         else:
             assert False
 
-        self.worlds.sort(key = lambda x: x.name)
+        self.worlds.sort(key=lambda x: x.name or x.id)
 
 class GithubRepository(Repository):
     html_url: str | None = None
