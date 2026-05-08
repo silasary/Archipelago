@@ -1,10 +1,7 @@
 {
     "game": "APWorld Manager",
-    "world_version": "0.0.24",
+    "world_version": "0.0.25",
     "changelog": [
-        "* Added support for --install command line argument.",
-        "  * You can use this with `./Launcher worldman -- --install <world name or world_id>`.",
-        "* Added a Launcher icon",
-        "* Fixed bug with --nogui"
+        "* More error handling when a repo has invalid data."
     ]
 }
