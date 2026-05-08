@@ -63,11 +63,11 @@ class ApWorldMetadata:
 
     @property
     def name(self) -> str:
-        return self.data['metadata'].get('game', '')
+        return self.data["metadata"].get("game", "") or ""
 
     @property
     def world_version(self) -> str:
-        return self.data['metadata']['world_version']
+        return self.data["metadata"]["world_version"]
 
     @property
     def version_tuple(self) -> Utils.Version:
@@ -76,11 +76,11 @@ class ApWorldMetadata:
 
     @property
     def source_url(self) -> str:
-        return self.data['source_url']
+        return self.data["source_url"]
 
     @property
     def download_url(self) -> str:
-        return self.data['world']
+        return self.data["world"]
 
     @property
     def release_url(self) -> str:
