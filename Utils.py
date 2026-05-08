@@ -1100,7 +1100,7 @@ def visualize_regions(
     :param root_region: The region from which to start the diagram from. (Usually the "Menu" region of your world.)
     :param file_name: The name of the destination .puml file.
     :param show_entrance_names: (default False) If enabled, the name of the entrance will be shown near each connection.
-    :param show_entrance_rules: (default False) If enabled, the Rule Builder explaination of the entrance's access rule will be shown near each connection.
+    :param show_entrance_rules: (default False) If enabled, the Rule Builder explanation of the entrance's access rule will be shown near each connection.
     :param show_locations: (default True) If enabled, the locations will be listed inside each region.
             Priority locations will be shown in bold.
             Excluded locations will be stricken out.
