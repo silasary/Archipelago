@@ -114,7 +114,8 @@ def generate_mod(world: "FactorioSAWS", output_directory: str):
     locations = [(location, location.item)
                  for location in world.science_locations + world.craftsanity_locations]
     mod_name = f"AP-{multiworld.seed_name}-P{player}-{multiworld.get_file_safe_player_name(player)}"
-    versioned_mod_name = mod_name + "_" + Utils.__version__
+    base_info["version"] = world.world_version.as_simple_string()
+    versioned_mod_name = mod_name + "_" + world.world_version.as_simple_string()
 
     def flop_random(low, high, base=None):
         """Guarantees 50% below base and 50% above base, uniform distribution in each direction."""
@@ -148,6 +149,7 @@ def generate_mod(world: "FactorioSAWS", output_directory: str):
         "free_sample_quality_name": world.options.free_samples_quality.current_key,
         "progressive_technology_table": {tech.name: tech.progressive for tech in
                                          progressive_technology_table.values()},
+        "custom_science_pack_names": world.custom_science_pack_names,
         "custom_recipes": world.custom_recipes,
         "liquids": fluids,
         "removed_technologies": world.removed_technologies,

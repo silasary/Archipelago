@@ -198,6 +198,7 @@ class FactorioSAWS(World):
     def create_items(self) -> None:
         self.custom_technologies = self.set_custom_technologies()
         self.set_custom_recipes()
+        self.set_science_pack_names()
         for trap_name in self.trap_names:
             self.multiworld.itempool.extend(self.create_item(f"{trap_name} Trap") for _ in
                                             range(getattr(self.options,
@@ -674,6 +675,51 @@ class FactorioSAWS(World):
             if tech in tech_to_progressive_lookup:
                 prog_add.add(tech_to_progressive_lookup[tech])
         self.advancement_technologies |= prog_add
+
+    factorio_pack_names = frozenset({
+        "Astronomic", "Geological", "Friction", "Transportation", "Robotic",
+        "Dietary", "Botanical", "Vehicular", "Ablative", "Atomic", "Magnetic",
+          "Computational", "Microscopic", "Offshore"})
+
+    def set_science_pack_names(self) -> None:
+        self.custom_science_pack_names = {}
+        generic_pack_names = set()
+        if self.options.recipe_ingredients:
+            for world in self.multiworld.worlds.values():
+                if hasattr(world, "factorio_pack_names"):
+                    generic_pack_names |= world.factorio_pack_names
+                elif world.game.startswith("Pokemon"):
+                    generic_pack_names |= {"Pokeball", "Oak's", "Evolution"}
+                elif world.game.startswith("The Legend of Zelda:") or world.game in ["A Link Between Worlds", "A Link to the Past", "Majora's Mask Recompiled", "Ocarina of Time", "Twilight Princess", "Wind Waker"]:
+                    generic_pack_names |= {"Triforce", "Wisdom", "Courage", "Power"}
+                elif world.game == "A Hat in Time":
+                    generic_pack_names |= {"Mafia", "Hat"}
+                elif "Final Fantasy" in world.game:
+                    generic_pack_names |= {"Magitech", "Crystal"}
+                elif "Kingdom Hearts" in world.game:
+                    generic_pack_names |= {"Keyblade", "Heart", "Darkness"}
+                else:
+                    print(f"No custom science pack names added for {world.game}")
+
+            for pack in self.options.max_science_pack.get_ordered_science_packs():
+                if pack not in self.custom_recipes:
+                    continue
+
+                recipe = self.custom_recipes.get(pack, recipes[pack])
+                ingredients = set(recipe.ingredients.keys())
+                if "scrap" in ingredients:
+                    self.custom_science_pack_names[pack] = "Archeological Science Pack"
+                elif "biter-egg" in ingredients:
+                    self.custom_science_pack_names[pack] = "Biter Science Pack"
+                elif "pentapod-egg" in ingredients:
+                    self.custom_science_pack_names[pack] = "Pentapod Science Pack"
+                elif "lubricant" in ingredients:
+                    self.custom_science_pack_names[pack] = "Lubricated Science Pack"
+                elif generic_pack_names:
+                    name = generic_pack_names.pop()
+                    self.custom_science_pack_names[pack] = f"{name} Science Pack"
+                pass
+
 
     def create_item(self, name: str) -> FactorioItem:
         if name in tech_table:  # is a Technology
