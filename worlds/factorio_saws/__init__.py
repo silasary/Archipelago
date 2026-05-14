@@ -604,10 +604,19 @@ class FactorioSAWS(World):
                 valid_pool += sorted(science_pack_pools[pack])
                 self.random.shuffle(valid_pool)
                 if pack in recipes:  # skips over space science pack
-                    new_recipe = self.make_quick_recipe(recipes[pack], valid_pool, ingredients_offset=
-                                                        ingredients_offset.value)
+                    desired_category = None
+                    max_fluids = 2
                     if pack in ("metallurgic-science-pack", "agricultural-science-pack", "electromagnetic-science-pack", "cryogenic-science-pack", "utility-science-pack"):
-                        new_recipe.category = categories.pop()
+                        desired_category = categories.pop()
+                        if desired_category == "centrifuging":
+                            max_fluids = 1
+                        elif desired_category in ["cryogenics", "electromagnetics"]:
+                            max_fluids = 3
+
+                    new_recipe = self.make_quick_recipe(recipes[pack], valid_pool, ingredients_offset=
+                                                        ingredients_offset.value, allow_liquids=max_fluids)
+                    if desired_category:
+                        new_recipe.category = desired_category
                     if new_recipe.category == "crafting-with-fluid" and "fluoroketone-hot" in new_recipe.products:
                         new_recipe.category = "chemistry"
                     self.custom_recipes[pack] = new_recipe
