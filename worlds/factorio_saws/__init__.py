@@ -254,8 +254,8 @@ class FactorioSAWS(World):
         player = self.player
         shapes = get_shapes(self)
 
-        def has_all_technologies(technologies: typing.Iterable[Technology]) -> rule_builder.rules.Rule:
-            technology_names = set(technology.name for technology in technologies)
+        def has_all_technologies(technologies: typing.Iterable[Technology] | typing.Iterable[str]) -> rule_builder.rules.Rule:
+            technology_names = set(technology.name if isinstance(technology, Technology) else technology for technology in technologies)
             if "rocket-silo" in technology_names and self.options.silo == Silo.option_spawn:
                 technology_names.remove("rocket-silo")
             return rule_builder.rules.HasAll(*technology_names)
@@ -353,10 +353,12 @@ class FactorioSAWS(World):
             victory_tech_names -= {"rocket-silo"}
         else:
             victory_tech_names |= {"rocket-silo"}
+
+        self.set_rule(self.get_location("Rocket Launch"), has_all_technologies(victory_tech_names))
         self.get_location("Rocket Launch").access_rule = lambda state: all(state.has(technology, player)
                                                                            for technology in
                                                                            victory_tech_names)
-        self.multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
+        self.set_completion_rule(rule_builder.rules.Has("Victory"))
 
         if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
             victory_tech_names_r = get_rocket_requirements(silo_recipe, None, None, None)
