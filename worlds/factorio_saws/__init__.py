@@ -678,7 +678,7 @@ class FactorioSAWS(World):
 
     factorio_pack_names = frozenset({
         "Astronomic", "Geological", "Friction", "Transportation", "Robotic",
-        "Dietary", "Botanical", "Vehicular", "Ablative", "Atomic", "Magnetic",
+        "Nutritional", "Botanical", "Vehicular", "Ablative", "Atomic", "Magnetic",
           "Computational", "Microscopic", "Offshore"})
 
     def set_science_pack_names(self) -> None:
@@ -693,11 +693,15 @@ class FactorioSAWS(World):
                 elif world.game.startswith("The Legend of Zelda:") or world.game in ["A Link Between Worlds", "A Link to the Past", "Majora's Mask Recompiled", "Ocarina of Time", "Twilight Princess", "Wind Waker"]:
                     generic_pack_names |= {"Triforce", "Wisdom", "Courage", "Power"}
                 elif world.game == "A Hat in Time":
-                    generic_pack_names |= {"Mafia", "Hat"}
+                    generic_pack_names |= {"Hat", "Chronological"}
                 elif "Final Fantasy" in world.game:
-                    generic_pack_names |= {"Magitech", "Crystal"}
+                    generic_pack_names |= {"Magitech", "Crystal", "Imperial"}
                 elif "Kingdom Hearts" in world.game:
                     generic_pack_names |= {"Keyblade", "Heart", "Darkness"}
+                elif world.game == "Jigsaw":
+                    generic_pack_names |= {"Puzzle"}
+                elif world.game == "Satisfactory":
+                    generic_pack_names |= {"Ficsit", "Somersloop"}
                 else:
                     print(f"No custom science pack names added for {world.game}")
 
