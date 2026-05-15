@@ -49,34 +49,36 @@ class ArtifactsOfResolveTotal(Range):
     default = 5
 
 
-class ArtifactsOfResolveRequired(Range):
+class ArtifactsOfResolvePercentageRequired(Range):
     """
-    Determines how many Artifacts of Resolve are required to unlock the Keymaster's challenge room.
+    Determines the percentage of Artifacts of Resolve required to unlock the Keymaster's challenge room.
+    The required count is calculated from the total, rounded up.
 
     Only relevant if the selected goal is Keymaster's Challenge.
     """
 
-    display_name: str = "Artifacts of Resolve Required"
+    display_name: str = "Artifacts of Resolve Percentage Required"
 
     range_start: int = 1
-    range_end: int = 25
+    range_end: int = 100
 
-    default = 3
+    default = 60
 
 
-class MagicKeysRequired(Range):
+class MagicKeysPercentageRequired(Range):
     """
-    Determines how many Magic Keys are required before escaping the Keymaster's Keep.
+    Determines the percentage of Magic Keys required before escaping the Keymaster's Keep.
+    The required count is calculated from the total, rounded up.
 
     Only relevant if the selected goal is Magic Key Heist.
     """
 
-    display_name: str = "Magic Keys Required"
+    display_name: str = "Magic Keys Percentage Required"
 
-    range_start: int = 10
-    range_end: int = 50
+    range_start: int = 1
+    range_end: int = 100
 
-    default = 18
+    default = 60
 
 
 class ConquestMedallionsPercentageRequired(Range):
@@ -146,6 +148,8 @@ class LockMagicKeysMinimum(Range):
 
     The amount of keys required to unlock an area will be a random number between this value and the maximum. Note that
     this option will be ignored for the first few areas to ensure the game is completable.
+
+    If this value is greater than the maximum, the values will be swapped.
     """
 
     display_name: str = "Lock Keys Minimum"
@@ -162,6 +166,8 @@ class LockMagicKeysMaximum(Range):
 
     The amount of keys required to unlock an area will be a random number between the minimum and this value. Note that
     this option will be ignored for the first few areas to ensure the game is completable.
+
+    If this value is less than the minimum, the values will be swapped.
     """
 
     display_name: str = "Lock Keys Maximum"
@@ -178,6 +184,8 @@ class AreaTrialsMinimum(Range):
 
     The amount of trials in an area will be a random number between this value and the maximum, but might get adjusted
     upwards to hold the item pool size.
+
+    If this value is greater than the maximum, the values will be swapped.
     """
 
     display_name: str = "Area Trials Minimum"
@@ -194,6 +202,8 @@ class AreaTrialsMaximum(Range):
 
     The amount of trials in an area will be a random number between the minimum and this value, but might get adjusted
     upwards to hold the item pool size.
+
+    If this value is less than the minimum, the values will be swapped.
     """
 
     display_name: str = "Area Trials Maximum"
@@ -236,6 +246,8 @@ class ShopItemsMinimum(Range):
     Determines the minimum amount of items that could be sold in a shop.
 
     The amount of items sold in a shop will be a random number between this value and the maximum.
+
+    If this value is greater than the maximum, the values will be swapped.
     """
 
     display_name: str = "Shop Items Minimum"
@@ -251,6 +263,8 @@ class ShopItemsMaximum(Range):
     Determines the maximum amount of items that could be sold in a shop.
 
     The amount of items sold in a shop will be a random number between the minimum and this value.
+
+    If this value is less than the minimum, the values will be swapped.
     """
 
     display_name: str = "Shop Items Maximum"
@@ -389,6 +403,26 @@ class GameSelectionForceSelect(OptionList):
     default = []
 
 
+class ObjectiveSelectionBagSize(Range):
+    """
+    Determines how many times an identical objective can appear across the entire keep.
+
+    0: No uniquification — objectives may repeat freely across the keep.
+    1: Each objective should appear at most once globally (default behavior).
+    2+: Each objective should appear up to the chosen number of times before being excluded.
+
+    Note: This is best-effort. If the available objective pool for a game is too small to fill the requested number of
+    trials without exceeding the cap, duplicate objectives may still appear.
+    """
+
+    display_name: str = "Objective Selection Bag Size"
+
+    range_start: int = 0
+    range_end: int = 5
+
+    default = 1
+
+
 class IncludeAdultOnlyOrUnratedGames(Toggle):
     """
     Determines if adult only or unrated games should be considered for the game pool.
@@ -478,8 +512,8 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     start_inventory_from_pool: StartInventoryPool
     goal: Goal
     artifacts_of_resolve_total: ArtifactsOfResolveTotal
-    artifacts_of_resolve_required: ArtifactsOfResolveRequired
-    magic_keys_required: MagicKeysRequired
+    artifacts_of_resolve_percentage_required: ArtifactsOfResolvePercentageRequired
+    magic_keys_percentage_required: MagicKeysPercentageRequired
     conquest_medallions_percentage_required: ConquestMedallionsPercentageRequired
     keep_areas: KeepAreas
     magic_keys_total: MagicKeysTotal
@@ -501,6 +535,7 @@ class KeymastersKeepOptions(PerGameCommonOptions, GameArchipelagoOptions):
     game_selection: GameSelection
     game_selection_bag_size: GameSelectionBagSize
     game_selection_force_select: GameSelectionForceSelect
+    objective_selection_bag_size: ObjectiveSelectionBagSize
     include_adult_only_or_unrated_games: IncludeAdultOnlyOrUnratedGames
     include_modern_console_games: IncludeModernConsoleGames
     include_difficult_objectives: IncludeDifficultObjectives
@@ -519,8 +554,8 @@ option_groups: list[OptionGroup] = [
         [
             Goal,
             ArtifactsOfResolveTotal,
-            ArtifactsOfResolveRequired,
-            MagicKeysRequired,
+            ArtifactsOfResolvePercentageRequired,
+            MagicKeysPercentageRequired,
             ConquestMedallionsPercentageRequired,
         ],
     ),
@@ -559,6 +594,7 @@ option_groups: list[OptionGroup] = [
             GameSelection,
             GameSelectionBagSize,
             GameSelectionForceSelect,
+            ObjectiveSelectionBagSize,
         ],
     ),
 ]

@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from random import Random
-from typing import Any, List, Set, Tuple, Type
+from typing import Any, List
 
 from ..enums import KeymastersKeepGamePlatforms
 from ..game import Game
@@ -30,11 +31,11 @@ class GameMedleyGame(Game):
 
     def __init__(
         self,
-        random: Random = None,
+        random: Random | None = None,
         include_time_consuming_objectives: bool = False,
         include_difficult_objectives: bool = False,
         archipelago_options: Any = None,
-        game_selection: List[Type[Game]] = None,
+        game_selection: list[type[Game]] | None = None,
     ) -> None:
         super().__init__(
             random=random,
@@ -43,7 +44,7 @@ class GameMedleyGame(Game):
             archipelago_options=archipelago_options,
         )
 
-        self.game_selection = game_selection
+        self.game_selection = game_selection or []
 
     def optional_game_constraint_templates(self) -> list[GameObjectiveTemplate]:
         return []
@@ -59,12 +60,13 @@ class GameMedleyGame(Game):
         include_time_consuming: bool = False,
         excluded_games_time_consuming: list[str] = None,
         excluded_games_difficult: list[str] = None,
-        objectives_in_use: set[str] = None,
-    ) -> Tuple[list[str], list[str], set[str]]:
+        objectives_in_use: Counter[str] | None = None,
+        objective_bag_size: int = 1,
+    ) -> tuple[list[str], list[str], Counter[str]]:
         excluded_games_time_consuming = excluded_games_time_consuming or []
         excluded_games_difficult = excluded_games_difficult or []
 
-        objectives_in_use = objectives_in_use or set()
+        objectives_in_use = objectives_in_use or Counter()
 
         optional_constraints: list[str] = []
         objectives: list[str] = []
@@ -129,18 +131,17 @@ class GameMedleyGame(Game):
                 passes += 1
 
                 objective: str = template.generate_game_objective(self.random)
+                prefixed_objective: str = f"{game.name} -> {objective}"
 
-                if objective not in objectives_in_use:
-                    objective = f"{game.name} -> {objective}"
-
-                    objectives.append(objective)
-                    objectives_in_use.add(objective)
+                if objective_bag_size == 0 or objectives_in_use[prefixed_objective] < objective_bag_size:
+                    objectives.append(prefixed_objective)
+                    objectives_in_use[prefixed_objective] += 1
 
                     break
 
                 if passes_templates > 50:
-                    objective = f"{game.name} -> {objective}"
-                    objectives.append(objective)
+                    objectives.append(prefixed_objective)
+                    objectives_in_use[prefixed_objective] += 1
 
                     break
 

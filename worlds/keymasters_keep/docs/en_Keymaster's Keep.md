@@ -13,6 +13,6 @@ Your goal will either be to collect enough artifacts of resolve to unlock a fina
 
 ##
 
-![Keep Tab](images/keep.png)
+![Keep Tab](keep.png)
 
-![Trials tab](images/trials.png)
+![Trials tab](trials.png)

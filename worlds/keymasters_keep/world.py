@@ -145,6 +145,7 @@ class KeymastersKeepWorld(World):
     include_modern_console_games: bool
     include_time_consuming_objectives: bool
     keep_areas: int
+    objective_selection_bag_size: int
     keep_data: Any
     lock_combinations: Dict[KeymastersKeepRegions, Optional[List[KeymastersKeepItems]]]
     lock_magic_keys_maximum: int
@@ -173,29 +174,17 @@ class KeymastersKeepWorld(World):
         self.goal_game_optional_constraints = None
         self.goal_trial_game_objective = None
 
-        self.artifacts_of_resolve_required = self.options.artifacts_of_resolve_required.value
         self.artifacts_of_resolve_total = self.options.artifacts_of_resolve_total.value
 
-        if self.artifacts_of_resolve_required > self.artifacts_of_resolve_total:
-            self.artifacts_of_resolve_total = self.artifacts_of_resolve_required
+        self.artifacts_of_resolve_required = math.ceil(
+            self.artifacts_of_resolve_total * (self.options.artifacts_of_resolve_percentage_required.value / 100.0)
+        )
 
-            if self.goal == KeymastersKeepGoals.KEYMASTERS_CHALLENGE:
-                logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required artifacts than total artifacts. Using "
-                    "required amount for total."
-                )
-
-        self.magic_keys_required = self.options.magic_keys_required.value
         self.magic_keys_total = self.options.magic_keys_total.value
 
-        if self.magic_keys_required > self.magic_keys_total:
-            self.magic_keys_total = self.magic_keys_required
-
-            if self.goal == KeymastersKeepGoals.MAGIC_KEY_HEIST:
-                logging.warning(
-                    f"Keymaster's Keep: {self.player_name} has more required magic keys than total magic keys. Using "
-                    "required amount for total."
-                )
+        self.magic_keys_required = math.ceil(
+            self.magic_keys_total * (self.options.magic_keys_percentage_required.value / 100.0)
+        )
 
         self.keep_areas = self.options.keep_areas.value
 
@@ -205,22 +194,22 @@ class KeymastersKeepWorld(World):
         self.lock_magic_keys_maximum = self.options.lock_magic_keys_maximum.value
 
         if self.lock_magic_keys_minimum > self.lock_magic_keys_maximum:
-            self.lock_magic_keys_maximum = self.lock_magic_keys_minimum
+            self.lock_magic_keys_minimum, self.lock_magic_keys_maximum = self.lock_magic_keys_maximum, self.lock_magic_keys_minimum
 
             logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum lock magic keys value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
 
         self.area_trials_minimum = self.options.area_trials_minimum.value
         self.area_trials_maximum = self.options.area_trials_maximum.value
 
         if self.area_trials_minimum > self.area_trials_maximum:
-            self.area_trials_maximum = self.area_trials_minimum
+            self.area_trials_minimum, self.area_trials_maximum = self.area_trials_maximum, self.area_trials_minimum
 
             logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum area trials value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
 
         self.shops = bool(self.options.shops_)
@@ -230,11 +219,11 @@ class KeymastersKeepWorld(World):
         self.shop_items_maximum = self.options.shop_items_maximum.value
 
         if self.shop_items_minimum > self.shop_items_maximum:
-            self.shop_items_maximum = self.shop_items_minimum
+            self.shop_items_minimum, self.shop_items_maximum = self.shop_items_maximum, self.shop_items_minimum
 
             logging.warning(
                 f"Keymaster's Keep: {self.player_name} has a minimum shop items value greater than the maximum. "
-                "Using minimum value for maximum."
+                "Swapping minimum and maximum values."
             )
 
         self.shop_items_progression_percentage_chance = self.options.shop_items_progression_percentage_chance.value
@@ -302,6 +291,8 @@ class KeymastersKeepWorld(World):
         self.game_selection = list(self.options.game_selection.value)
         self.game_selection_bag_size = self.options.game_selection_bag_size.value
         self.game_selection_force_select = list(self.options.game_selection_force_select)
+
+        self.objective_selection_bag_size = self.options.objective_selection_bag_size.value
 
         self.include_adult_only_or_unrated_games = bool(self.options.include_adult_only_or_unrated_games)
         self.include_modern_console_games = bool(self.options.include_modern_console_games)
@@ -902,6 +893,7 @@ class KeymastersKeepWorld(World):
             self.game_medley_mode,
             self.game_medley_percentage_chance,
             self.game_medley_game_selection_bag_size,
+            self.objective_selection_bag_size,
         )
 
         self.area_games = dict()

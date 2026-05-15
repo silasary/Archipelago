@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import abc
 
+from collections import Counter
 from random import Random
-from typing import Any, Dict, List, Optional, Set, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 from .enums import KeymastersKeepGamePlatforms
 
@@ -45,10 +46,11 @@ class Game(metaclass=AutoGameRegister):
 
     def __init__(
         self,
-        random: Random = None,
+        random: Random | None = None,
         include_time_consuming_objectives: bool = False,
         include_difficult_objectives: bool = False,
         archipelago_options: Any = None,
+        **kwargs: Any,
     ) -> None:
         self.random = random or Random()
         self.include_time_consuming_objectives = include_time_consuming_objectives
@@ -132,9 +134,11 @@ class Game(metaclass=AutoGameRegister):
         count: int = 1,
         include_difficult: bool = False,
         include_time_consuming: bool = False,
-        objectives_in_use: Set[str] = None,
-    ) -> Tuple[List[str], List[str], Set[str]]:
-        objectives_in_use = objectives_in_use or set()
+        objectives_in_use: Counter[str] | None = None,
+        objective_bag_size: int = 1,
+        **kwargs: Any,
+    ) -> tuple[list[str], list[str], Counter[str]]:
+        objectives_in_use = objectives_in_use or Counter()
 
         optional_constraints: List[str] = list()
         optional_constraint_templates: List[GameObjectiveTemplate] = self.filter_game_constraint_templates(
@@ -147,13 +151,13 @@ class Game(metaclass=AutoGameRegister):
             template: GameObjectiveTemplate = self.random.choices(optional_constraint_templates, weights=constraint_weights, k=1)[0]
             optional_constraints.append(template.generate_game_objective(self.random))
 
-        filtered_templates: List[GameObjectiveTemplate] = self.filter_game_objective_templates(
+        filtered_templates: list[GameObjectiveTemplate] = self.filter_game_objective_templates(
             include_difficult=include_difficult,
             include_time_consuming=include_time_consuming,
         )
 
-        weights: List[int] = [template.weight for template in filtered_templates]
-        objectives: List[str] = list()
+        weights: list[int] = [template.weight for template in filtered_templates]
+        objectives: list[str] = []
 
         passes_templates: int = 0
 
@@ -168,14 +172,15 @@ class Game(metaclass=AutoGameRegister):
                 passes += 1
                 objective: str = template.generate_game_objective(self.random)
 
-                if objective not in objectives_in_use:
+                if objective_bag_size == 0 or objectives_in_use[objective] < objective_bag_size:
                     objectives.append(objective)
-                    objectives_in_use.add(objective)
+                    objectives_in_use[objective] += 1
 
                     break
 
                 if passes_templates > 50:
                     objectives.append(objective)
+                    objectives_in_use[objective] += 1
                     break
 
                 if passes > 10:
