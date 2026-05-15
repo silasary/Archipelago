@@ -8,6 +8,7 @@ import typing
 from Options import OptionError
 import Utils
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
+import rule_builder.rules
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 from worlds.generic import Rules
@@ -16,7 +17,7 @@ from .Locations import location_pools, location_table, craftsanity_locations
 from .Mod import generate_mod
 from .Options import FactorioOptions, MaxSciencePack, Silo, Satellite, TechTreeInformation, Goal, TechCostDistribution
 from .Shapes import get_shapes
-from .Technologies import base_tech_table, recipe_sources, base_technology_table, \
+from .Technologies import Technology, base_tech_table, recipe_sources, base_technology_table, \
     all_product_sources, required_technologies, get_rocket_requirements, \
     progressive_technology_table, common_tech_table, tech_to_progressive_lookup, progressive_tech_table, \
     get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, \
@@ -253,6 +254,9 @@ class FactorioSAWS(World):
         player = self.player
         shapes = get_shapes(self)
 
+        def has_all_technologies(technology_names: typing.Iterable[Technology]) -> rule_builder.rules.Rule:
+            return rule_builder.rules.HasAll(*(technology.name for technology in technology_names))
+
         for ingredient in self.options.max_science_pack.get_allowed_packs():
             location = self.get_location(f"Automate {ingredient}")
 
@@ -266,8 +270,7 @@ class FactorioSAWS(World):
                     all(state.has(technology.name, player) for technology in required_technologies[custom_recipe.crafting_machine])
 
             else:
-                location.access_rule = lambda state, ingredient=ingredient: \
-                    (all(state.has(technology.name, player) for technology in required_technologies[ingredient]))
+                self.set_rule(location, has_all_technologies(required_technologies[ingredient]))
 
         for location in self.craftsanity_locations:
             if location.crafted_item == "ice":
