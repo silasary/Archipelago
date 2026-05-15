@@ -631,14 +631,14 @@ class FactorioSAWS(World):
             if self.options.silo.value == Silo.option_randomize_recipe:
                 new_recipe = self.make_balanced_recipe(
                     recipes["rocket-silo"], valid_pool,
-                    factor=(self.options.max_science_pack.value + 1) / 7,
+                    factor=(self.options.max_science_pack.value + 1) / 11,
                     ingredients_offset=ingredients_offset.value)
                 self.custom_recipes["rocket-silo"] = new_recipe
 
             if self.options.satellite.value == Satellite.option_randomize_recipe:
                 new_recipe = self.make_balanced_recipe(
                     recipes["satellite"], valid_pool,
-                    factor=(self.options.max_science_pack.value + 1) / 7,
+                    factor=(self.options.max_science_pack.value + 1) / 11,
                     ingredients_offset=ingredients_offset.value)
                 self.custom_recipes["satellite"] = new_recipe
         bridge = "ap-energy-bridge"
