@@ -257,6 +257,15 @@ class FactorioSAWS(World):
         def has_all_technologies(technology_names: typing.Iterable[Technology]) -> rule_builder.rules.Rule:
             return rule_builder.rules.HasAll(*(technology.name for technology in technology_names))
 
+        def has_automated_all(ingredient_names: typing.Iterable[str]) -> rule_builder.rules.Rule:
+            return rule_builder.rules.HasAll(*(f"Automated {ingredient}" for ingredient in ingredient_names))
+
+        def can_reach_all(locations: typing.Iterable[FactorioScienceLocation]) -> rule_builder.rules.Rule:
+            rule: rule_builder.rules.Rule = rule_builder.rules.True_()
+            for location in locations:
+                rule &= rule_builder.rules.CanReachLocation(location.name)
+            return rule
+
         for ingredient in self.options.max_science_pack.get_allowed_packs():
             location = self.get_location(f"Automate {ingredient}")
 
@@ -306,8 +315,7 @@ class FactorioSAWS(World):
 
 
         for location in self.science_locations:
-            Rules.set_rule(location, lambda state, ingredients=frozenset(location.ingredients):
-                all(state.has(f"Automated {ingredient}", player) for ingredient in ingredients))
+            rule = has_automated_all(location.ingredients)
 
             prereq_override = self.get_ut_data("tech_prereq")
             if prereq_override is not None:
@@ -320,8 +328,8 @@ class FactorioSAWS(World):
             else:
                 prerequisites = shapes.get(location)
             if prerequisites:
-                Rules.add_rule(location, lambda state, locations=frozenset(prerequisites):
-                    all(state.can_reach(loc) for loc in locations))
+                rule &= can_reach_all(prerequisites)
+            self.set_rule(location, rule)
 
         silo_recipe = None
         cargo_pad_recipe = None

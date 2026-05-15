@@ -2,7 +2,7 @@
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
     "world_version": "0.9.0",
-    "minimum_ap_version": "0.6.0",
+    "minimum_ap_version": "0.6.7",
     "changelog": [
         "## 0.9.0",
         "* Added new yaml option:  `free_power`.  This enables Fulgoran lightning on Nauvis, and adds the Lightning Rod and Lightning Collectors to the tech tree.",
