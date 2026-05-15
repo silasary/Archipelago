@@ -133,6 +133,8 @@ template_tech.prerequisites = {}
     data.raw["recipe"]["rocket-silo"].enabled = true
 {% endif %}
 
+technologies["calcite-processing"].effects.insert({type = "unlock-recipe", recipe = "oil-refinery"})
+
 function set_ap_icon(tech)
     tech.icon = "__{{ mod_name }}__/graphics/icons/ap.png"
     tech.icons = nil

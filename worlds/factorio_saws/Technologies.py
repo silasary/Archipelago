@@ -206,6 +206,7 @@ techs = techs_future.result()
 techs["fish-breeding"] = {"ingredients":["space-science-pack","agricultural-science-pack"],"unlocks":["fish-breeding", "nutrients-from-fish"],"requires":["tree-seeding"],"has_modifier":False}
 techs["lightning-rod"] = {"ingredients":["automation-science-pack"], "unlocks":["lightning-rod"],"requires":[],"has_modifier":False}
 techs["lightning-collector"] = {"ingredients":["electromagnetic-science-pack"], "unlocks":["lightning-collector"],"requires":[],"has_modifier":False}
+techs["calcite-processing"]["unlocks"].append("oil-refinery")
 
 # recipes and technologies can share names in Factorio
 for technology_name, data in sorted(techs.items()):
@@ -471,7 +472,8 @@ progressive_rows["progressive-personal-roboport-equipment"] = ("personal-robopor
                                                                "personal-roboport-mk2-equipment")
 progressive_rows["progressive-quality"] = ("epic-quality", "legendary-quality")
 progressive_rows["progressive-soil"] = ("artificial-soil", "overgrowth-soil")
-progressive_rows["progressive-oil-processing"] = ("oil-gathering", "oil-processing", "advanced-oil-processing", "coal-liquefaction")
+progressive_rows["progressive-oil-processing"] = ("oil-gathering", "oil-processing", "advanced-oil-processing")
+progressive_rows["progressive-liquefaction"] = ("calcite-processing", "coal-liquefaction")
 progressive_rows["progressive-nuclear-power"] = ("uranium-mining", "uranium-processing", "nuclear-power", "kovarex-enrichment-process", "nuclear-fuel-reprocessing")
 
 sorted_rows = sorted(progressive_rows)
