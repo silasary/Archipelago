@@ -254,8 +254,18 @@ class FactorioSAWS(World):
         player = self.player
         shapes = get_shapes(self)
 
-        def has_all_technologies(technology_names: typing.Iterable[Technology]) -> rule_builder.rules.Rule:
-            return rule_builder.rules.HasAll(*(technology.name for technology in technology_names))
+        def has_all_technologies(technologies: typing.Iterable[Technology]) -> rule_builder.rules.Rule:
+            technology_names = set(technology.name for technology in technologies)
+            if "rocket-silo" in technology_names and self.options.silo == Silo.option_spawn:
+                technology_names.remove("rocket-silo")
+            return rule_builder.rules.HasAll(*technology_names)
+
+        def has_all_ingredients(ingredient_names: typing.Iterable[str]) -> rule_builder.rules.Rule:
+            rule: rule_builder.rules.Rule = rule_builder.rules.True_()
+            for sub_ingredient in ingredient_names:
+                for technology in required_technologies[sub_ingredient]:
+                    rule &= rule_builder.rules.Has(technology.name)
+            return rule
 
         def has_automated_all(ingredient_names: typing.Iterable[str]) -> rule_builder.rules.Rule:
             return rule_builder.rules.HasAll(*(f"Automated {ingredient}" for ingredient in ingredient_names))
@@ -272,12 +282,10 @@ class FactorioSAWS(World):
             if self.options.recipe_ingredients:
                 custom_recipe = self.custom_recipes[ingredient]
 
-                location.access_rule = lambda state, ingredient=ingredient, custom_recipe=custom_recipe: \
-                    (not technology_table[ingredient].unlocks or state.has(ingredient, player)) and \
-                    all(state.has(technology.name, player) for sub_ingredient in custom_recipe.ingredients
-                        for technology in required_technologies[sub_ingredient]) and \
-                    all(state.has(technology.name, player) for technology in required_technologies[custom_recipe.crafting_machine])
-
+                rule =  (rule_builder.rules.True_() if not technology_table[ingredient].unlocks else rule_builder.rules.Has(ingredient)) & \
+                        has_all_ingredients(custom_recipe.ingredients) & \
+                        has_all_technologies(required_technologies[custom_recipe.crafting_machine])
+                self.set_rule(location, rule)
             else:
                 self.set_rule(location, has_all_technologies(required_technologies[ingredient]))
 
@@ -310,8 +318,8 @@ class FactorioSAWS(World):
                     raise Exception(f"No recipe found for {location.crafted_item} for Craftsanity for player {self.player}")
             # if location.crafted_item != recipe.name:
             #     print(location.crafted_item + ": " + recipe.name)
-            location.access_rule = lambda state, recipe=recipe: \
-                state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies if technology.name != "rocket-silo" or self.options.silo != Silo.option_spawn}, player)
+            rule = has_all_technologies(recipe.recursive_unlocking_technologies)
+            self.set_rule(location, rule)
 
 
         for location in self.science_locations:
