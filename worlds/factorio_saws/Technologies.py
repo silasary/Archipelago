@@ -97,6 +97,17 @@ class Technology(FactorioElement):  # maybe make subclass of Location?
     def useful(self) -> bool:
         return self.has_modifier or self.unlocks
 
+class AutomationEvent(Technology):
+    """Placeholder for an ingredient that can be unlocked by multiple technologies"""
+    def __init__(self, ingredient_name: str, paths: List[Set[Technology]]) -> None:
+        self.name = f"Automated {ingredient_name}"
+        self.factorio_id = None
+        self.unlocks = {ingredient_name}
+        self.paths = paths
+
+
+    def __hash__(self):
+        return hash(self.name)
 
 class CustomTechnology(Technology):
     """A particularly configured Technology for a world."""
@@ -317,25 +328,26 @@ del machines_future
 all_ingredient_names: Set[str] = set(Options.MaxSciencePack.get_ordered_science_packs())
 
 
-def unlock_just_tech(recipe: Recipe, _done) -> Set[Technology]:
+def unlock_just_tech(recipe: Recipe, _done: set[str], use_events: bool = True) -> Set[Technology]:
     current_technologies = recipe.unlocking_technologies
     for ingredient_name in recipe.ingredients:
         current_technologies |= recursively_get_unlocking_technologies(ingredient_name, _done,
-                                                                       unlock_func=unlock_just_tech)
+                                                                       unlock_func=unlock_just_tech, use_events=use_events)
     return current_technologies
 
 
-def unlock(recipe: Recipe, _done) -> Set[Technology]:
+def unlock(recipe: Recipe, _done: set[str], use_events: bool = True) -> set[Technology]:
     current_technologies = recipe.unlocking_technologies
     for ingredient_name in recipe.ingredients:
-        current_technologies |= recursively_get_unlocking_technologies(ingredient_name, _done, unlock_func=unlock)
+        current_technologies |= recursively_get_unlocking_technologies(ingredient_name, _done, unlock_func=unlock, use_events=use_events)
     current_technologies |= required_category_technologies[recipe.category]
 
     return current_technologies
 
+multipath_products: dict[str, set[Recipe]] = {}
 
-def recursively_get_unlocking_technologies(ingredient_name, _done=None, unlock_func=unlock_just_tech) -> Set[
-    Technology]:
+def recursively_get_unlocking_technologies(ingredient_name: str, _done: set[str] | None = None,
+                                           unlock_func=unlock_just_tech, use_events: bool = True) -> set[Technology]:
     from .Technologies import recipes
 
     if _done:
@@ -353,31 +365,59 @@ def recursively_get_unlocking_technologies(ingredient_name, _done=None, unlock_f
                and (recipe.name != "scrap-recycling" or ingredient_name == "holmium-ore")}
     if not recipes:
         return set()
+    if ingredient_name in multipath_products and use_events:
+        paths = []
+        for recipe in recipes:
+            copied_done = _done.copy()
+            path = unlock_func(recipe, copied_done, use_events)
+            paths.append(path)
+        return {AutomationEvent(ingredient_name, paths)}
     current_technologies = set()
     for recipe in recipes:
-        current_technologies |= unlock_func(recipe, _done)
+        current_technologies |= unlock_func(recipe, _done, use_events)
 
     return current_technologies
 
+def calculate_multipath_recipes() -> None:
+    for product in all_product_sources:
+        product_recipes = {recipe for recipe in all_product_sources.get(product, {}) if recipe.name not in ignored_recipes}
+        if len(product_recipes) > 1:
+            is_free = False
+            for recipe in product_recipes:
+                path = recursively_get_unlocking_technologies(product, unlock_func=unlock_just_tech, use_events=False)
+                if not path:
+                    is_free = True
+                    break
+                pass
+            if not is_free:
+                multipath_products[product] = product_recipes
+
+calculate_multipath_recipes()
+del calculate_multipath_recipes
 
 required_machine_technologies: Dict[str, FrozenSet[Technology]] = {}
+# We need to ignore events here because we're measuring lengths
 for ingredient_name in machines:
-    required_machine_technologies[ingredient_name] = frozenset(recursively_get_unlocking_technologies(ingredient_name))
+    required_machine_technologies[ingredient_name] = frozenset(recursively_get_unlocking_technologies(ingredient_name, use_events=False))
 
 logical_machines = {}
 machine_tech_cost = {}
 for machine in machines.values():
+    machine_cost = len(required_machine_technologies[machine.name])
     for category in machine.categories:
         current_cost, current_machine = machine_tech_cost.get(category, (10000, "character"))
-        machine_cost = len(required_machine_technologies[machine.name])
         if machine_cost < current_cost:
             machine_tech_cost[category] = machine_cost, machine.name
 
-machine_per_category: Dict[str: str] = {}
+machine_per_category: dict[str, str] = {}
 for category, (cost, machine_name) in machine_tech_cost.items():
     machine_per_category[category] = machine_name
 
 del machine_tech_cost
+
+# And now recalculate with the use of events
+for ingredient_name in machines:
+    required_machine_technologies[ingredient_name] = frozenset(recursively_get_unlocking_technologies(ingredient_name))
 
 # required technologies to be able to craft recipes from a certain category
 required_category_technologies: Dict[str, FrozenSet[FrozenSet[Technology]]] = {}

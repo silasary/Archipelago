@@ -120,7 +120,7 @@ class FactorioSAWS(World):
         self.tech_mix = self.options.tech_cost_mix.value
         self.skip_silo = self.options.silo.value == Silo.option_spawn
 
-    def create_regions(self):
+    def create_regions(self) -> None:
         player = self.player
         random = self.random
         nauvis = Region("Nauvis", player, self.multiworld)
@@ -188,7 +188,7 @@ class FactorioSAWS(World):
         event = FactorioItem("Victory", ItemClassification.progression, None, player)
         location.place_locked_item(event)
 
-        for ingredient in sorted(self.options.max_science_pack.get_allowed_packs()):
+        for ingredient in sorted(self.options.max_science_pack.get_allowed_packs() | set(Technologies.multipath_products.keys())):
             location = FactorioLocation(player, f"Automate {ingredient}", None, nauvis)
             nauvis.locations.append(location)
             event = FactorioItem(f"Automated {ingredient}", ItemClassification.progression, None, player)
@@ -288,6 +288,14 @@ class FactorioSAWS(World):
                 self.set_rule(location, rule)
             else:
                 self.set_rule(location, has_all_technologies(required_technologies[ingredient]))
+        for ingredient in Technologies.multipath_products:
+            location = self.get_location(f"Automate {ingredient}")
+            rule = rule_builder.rules.False_()
+            for recipe in Technologies.multipath_products[ingredient]:
+                path = recipe.recursive_unlocking_technologies
+                rule |= has_all_technologies(path)
+            self.set_rule(location, rule)
+
 
         for location in self.craftsanity_locations:
             if location.crafted_item == "ice":
@@ -695,6 +703,12 @@ class FactorioSAWS(World):
         for tech in self.advancement_technologies:
             if tech in tech_to_progressive_lookup:
                 prog_add.add(tech_to_progressive_lookup[tech])
+        for tech in self.advancement_technologies:
+            if tech.startswith('Automated '):
+                tech = tech[10:]
+                if tech in Technologies.multipath_products:
+                    for recipe in Technologies.multipath_products[tech]:
+                        prog_add |= {t.name for t in recipe.recursive_unlocking_technologies}
         self.advancement_technologies |= prog_add
 
     factorio_pack_names = frozenset({
