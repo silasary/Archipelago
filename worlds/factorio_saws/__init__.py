@@ -111,6 +111,7 @@ class FactorioSAWS(World):
             self.options.silo.value = self.get_ut_data("silo", self.options.silo.value)
             self.options.satellite.value = self.get_ut_data("satellite", self.options.satellite.value)
             self.options.goal.value = self.get_ut_data("goal", self.options.goal.value)
+            self.options.recipe_ingredients.value = self.get_ut_data("recipe_ingredients", self.options.recipe_ingredients.value)
 
         # if max < min, then swap max and min
         if self.options.max_tech_cost < self.options.min_tech_cost:
@@ -763,6 +764,7 @@ class FactorioSAWS(World):
             "silo": self.options.silo.value,
             "satellite": self.options.satellite.value,
             "goal": self.options.goal.value,
+            "recipe_ingredients": self.options.recipe_ingredients.value,
         }
 
     def interpret_slot_data(self, data):
