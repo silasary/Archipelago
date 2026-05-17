@@ -11,3 +11,14 @@ __pycache__
 /.apignore
 /.git
 /.gitignore
+
+# Common rom file extensions
+*.sfc
+*.z64
+*.n64
+*.nes
+*.smc
+*.sms
+*.gb
+*.gbc
+*.gba
