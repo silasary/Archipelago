@@ -363,9 +363,6 @@ class FactorioSAWS(World):
             victory_tech_names |= {"rocket-silo"}
 
         self.set_rule(self.get_location("Rocket Launch"), has_all_technologies(victory_tech_names))
-        self.get_location("Rocket Launch").access_rule = lambda state: all(state.has(technology, player)
-                                                                           for technology in
-                                                                           victory_tech_names)
         self.set_completion_rule(rule_builder.rules.Has("Victory"))
 
         if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
