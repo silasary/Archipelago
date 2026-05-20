@@ -1,13 +1,14 @@
 {
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
-    "world_version": "0.9.0",
+    "world_version": "0.9.1",
     "minimum_ap_version": "0.6.0",
     "changelog": [
-        "## 0.9.0",
-        "* Added new yaml option:  `free_power`.  This enables Fulgoran lightning on Nauvis, and adds the Lightning Rod and Lightning Collectors to the tech tree.",
-        "* Added small amounts of Copper and Iron Stromatolites to the map generation.  They can be found near gleba water, and are hopefully a useful early-game source of ore.",
-        "* Pulled /toggle_connection_change_filter into SAWS",
+        "## 0.9.1",
+        "* Science Packs are now given randomised names.",
+        "* Changed the 'Vanilla' yellow science pack to be crafted in a centrifuge, then added it to the machine shuffle.",
+        "* Fixed a bug with Universal Tracker compatibility.",
+        "* Made fruit trees immune to lightning strikes.",
         ""
     ]
 }
