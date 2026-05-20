@@ -393,6 +393,9 @@ def calculate_multipath_recipes() -> None:
                 multipath_products[product] = product_recipes
 
 calculate_multipath_recipes()
+del multipath_products['ice']
+del multipath_products['carbon']
+
 del calculate_multipath_recipes
 
 required_machine_technologies: Dict[str, FrozenSet[Technology]] = {}
@@ -417,13 +420,13 @@ del machine_tech_cost
 
 # And now recalculate with the use of events
 for ingredient_name in machines:
-    required_machine_technologies[ingredient_name] = frozenset(recursively_get_unlocking_technologies(ingredient_name))
+    required_machine_technologies[ingredient_name] = frozenset(recursively_get_unlocking_technologies(ingredient_name, use_events=ingredient_name != "recycler"))
 
 # required technologies to be able to craft recipes from a certain category
 required_category_technologies: Dict[str, FrozenSet[FrozenSet[Technology]]] = {}
 for category_name, machine_name in machine_per_category.items():
     techs = set()
-    techs |= recursively_get_unlocking_technologies(machine_name)
+    techs |= recursively_get_unlocking_technologies(machine_name, use_events=machine_name != "recycler")
     required_category_technologies[category_name] = frozenset(techs)
 
 required_technologies: Dict[str, FrozenSet[Technology]] = Utils.KeyedDefaultDict(lambda ingredient_name: frozenset(
