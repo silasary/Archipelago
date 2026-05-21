@@ -9,7 +9,7 @@ from Options import OptionError
 import Utils
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
-from worlds.LauncherComponents import Component, components, Type, launch_subprocess
+from worlds.LauncherComponents import Component, components, Type, launch as launch_component
 from worlds.generic import Rules
 from .settings import FactorioSAWSSettings
 from .Locations import location_pools, location_table, craftsanity_locations
@@ -23,9 +23,9 @@ from .Technologies import base_tech_table, recipe_sources, base_technology_table
     fluids, stacking_items, valid_ingredients, progressive_rows, ignored_recipes
 
 
-def launch_client():
+def launch_client(*args: str):
     from .Client import launch
-    launch_subprocess(launch, name="FactorioSAWSClient")
+    launch_component(launch, name="FactorioSAWSClient", args=args)
 
 
 components.append(Component("Factorio - Space Age Without Space Client", func=launch_client, component_type=Type.CLIENT))
