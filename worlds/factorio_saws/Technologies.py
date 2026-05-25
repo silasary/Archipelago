@@ -576,9 +576,12 @@ def get_science_pack_pools() -> Dict[str, Set[str]]:
         current = science_pack_pools[science_pack] = set()
         for name, recipe in recipes.items():
             if recipe.name not in ignored_recipes:
-                if (science_pack != "automation-science-pack" or not recipe.recursive_unlocking_technologies) \
-                        and get_estimated_difficulty(recipe) < current_difficulty:
-                    current |= set(recipe.products)
+                if (science_pack != "automation-science-pack" or not recipe.recursive_unlocking_technologies):
+                    difficulty = get_estimated_difficulty(recipe)
+                    for p in recipe.products:
+                        this_diff = difficulty * (10 if p in fluids else 1) / recipe.products[p]
+                        if this_diff < current_difficulty:
+                            current |= { p }
 
         if science_pack == "automation-science-pack":
             # Can't handcraft automation science if fluids end up in its recipe, making the seed impossible.
