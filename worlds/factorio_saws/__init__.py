@@ -602,7 +602,16 @@ class FactorioSAWS(World):
 
         if self.options.recipe_ingredients:
             valid_pool = []
-            for pack in self.options.max_science_pack.get_ordered_science_packs():
+            for (idx, pack) in enumerate(self.options.max_science_pack.get_ordered_science_packs()):
+                if idx > self.options.recipe_pool_max_tiers_below:
+                    remove_pack_pool = self.options.max_science_pack.get_ordered_science_packs()[idx - self.options.recipe_pool_max_tiers_below - 1]
+                    for elem in science_pack_pools[remove_pack_pool]:
+                        try:
+                            valid_pool.remove(elem)
+                        except ValueError:
+                            # elem not in pool
+                            pass
+
                 valid_pool += sorted(science_pack_pools[pack])
                 self.random.shuffle(valid_pool)
                 if pack in recipes:  # skips over space science pack

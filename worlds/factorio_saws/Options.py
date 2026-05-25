@@ -278,6 +278,14 @@ class RecipeDifficultyFactor(Range):
     range_end = 250
 
 
+class RecipePoolMaxTiersBelow(Range):
+    """When randomizing ingredients, include the pools of science packs this many tiers below the target."""
+    display_name = "Randomized Recipe Pool Max Tiers Below"
+    range_start = 0
+    range_end = 10
+    default = 10
+
+
 class FactorioStartItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
@@ -549,6 +557,7 @@ class FactorioOptions(PerGameCommonOptions):
     recipe_ingredients: RecipeIngredients
     recipe_ingredients_offset: RecipeIngredientsOffset
     recipe_difficulty_factor: RecipeDifficultyFactor
+    recipe_pool_max_tiers_below: RecipePoolMaxTiersBelow
     imported_blueprints: ImportedBlueprint
     world_gen: FactorioWorldGen
     free_power: EnableLightning
