@@ -554,8 +554,7 @@ fluids: Set[str] = set(fluids_future.result())
 del fluids_future
 
 
-@Utils.cache_argsless
-def get_science_pack_pools() -> Dict[str, Set[str]]:
+def get_science_pack_pools(difficulty_factor: float) -> Dict[str, Set[str]]:
     def get_estimated_difficulty(recipe: Recipe):
 
         base_ingredients = recipe.base_cost
@@ -593,7 +592,7 @@ def get_science_pack_pools() -> Dict[str, Set[str]]:
 
         current -= already_taken
         already_taken |= current
-        current_difficulty *= 2
+        current_difficulty *= difficulty_factor
 
     return science_pack_pools
 

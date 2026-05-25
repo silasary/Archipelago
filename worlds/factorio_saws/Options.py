@@ -270,6 +270,14 @@ class RecipeIngredientsOffset(Range):
     range_end = 5
 
 
+class RecipeDifficultyFactor(Range):
+    """When randomizing ingredients, increase the estimated difficulty of each successive science pack ingredient pool by this percentage."""
+    display_name = "Randomized Recipe Difficulty Factor"
+    default = 200
+    range_start = 120
+    range_end = 250
+
+
 class FactorioStartItems(OptionDict):
     """Mapping of Factorio internal item-name to amount granted on start."""
     display_name = "Starting Items"
@@ -540,6 +548,7 @@ class FactorioOptions(PerGameCommonOptions):
     recipe_time: RecipeTime
     recipe_ingredients: RecipeIngredients
     recipe_ingredients_offset: RecipeIngredientsOffset
+    recipe_difficulty_factor: RecipeDifficultyFactor
     imported_blueprints: ImportedBlueprint
     world_gen: FactorioWorldGen
     free_power: EnableLightning
