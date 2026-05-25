@@ -168,6 +168,10 @@ data.raw.planet.nauvis.lightning_properties = {
           string = "tree",
         },
         {
+          type = "prototype",
+          string = "plant",
+        },
+        {
           type = "countAsRockForFilteredDeconstruction",
           string = "true",
         },
