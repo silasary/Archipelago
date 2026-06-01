@@ -95,6 +95,13 @@ data.raw.technology["lightning-collector"] = {
 
 {%- endfor %}
 
+{%- for pack, name in custom_science_pack_names.items() %}
+    data.raw["tool"]["{{pack}}"].localised_name = {"custom-science-pack.{{name}}"}
+    if data.raw["technology"]["{{pack}}"] then
+        data.raw["technology"]["{{pack}}"].localised_name = {"custom-science-pack.{{name}}"}
+    end
+{%- endfor %}
+
 local technologies = data.raw["technology"]
 local new_tree_copy
 
@@ -223,12 +230,19 @@ data.raw["ammo"]["artillery-shell"].stack_size = 10
 {%- for original_tech_name in base_tech_table -%}
 technologies["{{ original_tech_name }}"].hidden = true
 technologies["{{ original_tech_name }}"].unit = nil
-technologies["{{ original_tech_name }}"].research_trigger = {type = "craft-item", item = "item-unknown"}
+technologies["{{ original_tech_name }}"].research_trigger = {type = "scripted", localised_description = {"technology-description.ap-technology-script-trigger"}}
 {% endfor %}
 {%- for location, item in locations %}
 {#- the tech researched by the local player #}
 new_tree_copy = table.deepcopy(template_tech)
 new_tree_copy.name = "ap-{{ location.address }}-"{# use AP ID #}
+{%- if location.revealed %}
+new_tree_copy.localised_name = {"technology-name.ap-technology-full", "{{ player_names[item.player] }}", "{{ item.name }}", "{{ location.name }}"}
+new_tree_copy.localised_description  = {"technology-description.ap-technology-full", "{{ item.name }}", "{{ player_names[item.player] }}", {% if item.advancement %}{"technology-description.ap-technology-item-advancement"}{% elif item.useful %}{"technology-description.ap-technology-item-useful"}{% elif item.trap %}{"technology-description.ap-technology-item-trap"}{% else %}""{% endif %}}
+{%- else  %}
+new_tree_copy.localised_name = {"technology-name.ap-technology-hidden", "{{location.name}}"}
+new_tree_copy.localised_description  = {"technology-description.ap-technology-hidden", {% if tech_tree_information == 1 and item.advancement %}{"technology-description.ap-technology-item-advancement"}{% else %}""{% endif %}}
+{% endif -%}
 {%- if location.crafted_item is not none %}
 new_tree_copy.research_trigger = {
     type = "{{ 'craft-fluid' if location.crafted_item in liquids else 'craft-item' }}",
