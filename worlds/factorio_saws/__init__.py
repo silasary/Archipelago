@@ -361,7 +361,7 @@ class FactorioSAWS(World):
                                                                                    victory_tech_names_p)
 
         if "Craft satellite" in self.multiworld.regions.location_cache[self.player]:
-            victory_tech_names_s = get_rocket_requirements(None, None, satellite_recipe, None)
+            victory_tech_names_s = get_rocket_requirements(None, None, self.get_recipe("satellite"), None)
             if self.options.silo == Silo.option_spawn:
                 victory_tech_names_s -= {"rocket-silo"}
             else:
