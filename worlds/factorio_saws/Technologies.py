@@ -554,6 +554,7 @@ fluids: Set[str] = set(fluids_future.result())
 del fluids_future
 
 
+@functools.cache
 def get_science_pack_pools(difficulty_factor: float) -> Dict[str, Set[str]]:
     def get_estimated_difficulty(recipe: Recipe):
 
