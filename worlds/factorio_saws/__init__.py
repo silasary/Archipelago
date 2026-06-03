@@ -714,17 +714,18 @@ class FactorioSAWS(World):
 
                 recipe = self.custom_recipes.get(pack, recipes[pack])
                 ingredients = set(recipe.ingredients.keys())
+                self.custom_science_pack_names[pack] = []
                 if "scrap" in ingredients:
-                    self.custom_science_pack_names[pack] = "Archeological Science Pack"
+                    self.custom_science_pack_names[pack].append("Archeological")
                 elif "biter-egg" in ingredients:
-                    self.custom_science_pack_names[pack] = "Biter Science Pack"
+                    self.custom_science_pack_names[pack].append("Biter")
                 elif "pentapod-egg" in ingredients:
-                    self.custom_science_pack_names[pack] = "Pentapod Science Pack"
+                    self.custom_science_pack_names[pack].append("Pentapod")
                 elif "lubricant" in ingredients:
-                    self.custom_science_pack_names[pack] = "Lubricated Science Pack"
+                    self.custom_science_pack_names[pack].append("Lubricated")
                 elif generic_pack_names:
                     name = generic_pack_names.pop()
-                    self.custom_science_pack_names[pack] = f"{name} Science Pack"
+                    self.custom_science_pack_names[pack].append(f"{name}")
                 pass
 
 

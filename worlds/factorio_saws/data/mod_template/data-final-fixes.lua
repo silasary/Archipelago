@@ -95,10 +95,10 @@ data.raw.technology["lightning-collector"] = {
 
 {%- endfor %}
 
-{%- for pack, name in custom_science_pack_names.items() %}
-    data.raw["tool"]["{{pack}}"].localised_name = {"custom-science-pack.{{name}}"}
+{%- for pack, names in custom_science_pack_names.items() %}
+    data.raw["tool"]["{{pack}}"].localised_name = {"",{"custom-science-pack.prefix"}{%- for name in names -%}, {"custom-science-pack.{{name}}"}{%- endfor -%},{"custom-science-pack.postfix"}}
     if data.raw["technology"]["{{pack}}"] then
-        data.raw["technology"]["{{pack}}"].localised_name = {"custom-science-pack.{{name}}"}
+        data.raw["technology"]["{{pack}}"].localised_name = {"",{"custom-science-pack.prefix"}{%- for name in names -%}, {"custom-science-pack.{{name}}"}{%- endfor -%},{"custom-science-pack.postfix"}}
     end
 {%- endfor %}
 
