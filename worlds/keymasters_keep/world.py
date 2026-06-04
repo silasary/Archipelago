@@ -916,3 +916,7 @@ class KeymastersKeepWorld(World):
             self.goal_game = game_objective_data[-1][0].name
             self.goal_game_optional_constraints = game_objective_data[-1][1]
             self.goal_trial_game_objective = game_objective_data[-1][2][0]
+
+    # Factorio SAWS easter egg
+    # Adds new names for science packs to the pool
+    factorio_pack_names = frozenset({"Keymaster's", "Mysterious" })
