@@ -581,7 +581,7 @@ class FactorioSAWS(World):
     def set_custom_recipes(self):
         ingredients_offset = self.options.recipe_ingredients_offset
         original_rocket_part = recipes["rocket-part"]
-        science_pack_pools = get_science_pack_pools()
+        science_pack_pools = get_science_pack_pools(self.options.recipe_difficulty_factor.value / 100)
         valid_pool = sorted(science_pack_pools[self.options.max_science_pack.get_max_pack()]
                             & valid_ingredients)
         self.random.shuffle(valid_pool)
@@ -602,7 +602,16 @@ class FactorioSAWS(World):
 
         if self.options.recipe_ingredients:
             valid_pool = []
-            for pack in self.options.max_science_pack.get_ordered_science_packs():
+            for (idx, pack) in enumerate(self.options.max_science_pack.get_ordered_science_packs()):
+                if idx > self.options.recipe_pool_max_tiers_below:
+                    remove_pack_pool = self.options.max_science_pack.get_ordered_science_packs()[idx - self.options.recipe_pool_max_tiers_below - 1]
+                    for elem in science_pack_pools[remove_pack_pool]:
+                        try:
+                            valid_pool.remove(elem)
+                        except ValueError:
+                            # elem not in pool
+                            pass
+
                 valid_pool += sorted(science_pack_pools[pack])
                 self.random.shuffle(valid_pool)
                 if pack in recipes:  # skips over space science pack
