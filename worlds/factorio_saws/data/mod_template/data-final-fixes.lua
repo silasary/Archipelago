@@ -96,9 +96,19 @@ data.raw.technology["lightning-collector"] = {
 {%- endfor %}
 
 {%- for pack, names in custom_science_pack_names.items() %}
-    data.raw["tool"]["{{pack}}"].localised_name = {"",{"custom-science-pack.prefix"}{%- for name in names -%}, {"custom-science-pack.{{name}}"}{%- endfor -%},{"custom-science-pack.postfix"}}
+    local localised_name = {"",{"custom-science-pack.prefix"}}
+    for _, name in pairs({ {%- for name in names -%}"{{name}}",{%- endfor -%} }) do
+        if Archipelago_localised_science_pack_terms[name] then
+            table.insert(localised_name, {"custom-science-pack."..name})
+        else
+            table.insert(localised_name, name.." ")
+        end
+    end
+    table.insert(localised_name, {"custom-science-pack.postfix"})
+    log(localised_name)
+    data.raw["tool"]["{{pack}}"].localised_name = localised_name
     if data.raw["technology"]["{{pack}}"] then
-        data.raw["technology"]["{{pack}}"].localised_name = {"",{"custom-science-pack.prefix"}{%- for name in names -%}, {"custom-science-pack.{{name}}"}{%- endfor -%},{"custom-science-pack.postfix"}}
+        data.raw["technology"]["{{pack}}"].localised_name = localised_name
     end
 {%- endfor %}
 

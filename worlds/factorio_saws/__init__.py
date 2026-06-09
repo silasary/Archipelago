@@ -682,7 +682,7 @@ class FactorioSAWS(World):
     factorio_pack_names = frozenset({
         "Astronomic", "Geological", "Friction", "Transportation", "Robotic",
         "Nutritional", "Botanical", "Vehicular", "Ablative", "Atomic", "Magnetic",
-          "Computational", "Microscopic", "Offshore"})
+        "Computational", "Microscopic", "Offshore"})
 
     def set_science_pack_names(self) -> None:
         self.custom_science_pack_names = {}

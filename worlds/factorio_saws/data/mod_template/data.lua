@@ -54,3 +54,43 @@ if mods["science-not-invited"] then
 {% endfor %}
     SNI.setWeights(weights)
 end
+
+Archipelago_localised_science_pack_terms = {
+["Astronomic"] = true,
+["Geological"] = true,
+["Friction"] = true,
+["Transportation"] = true,
+["Robotic"] = true,
+["Nutritional"] = true,
+["Botanical"] = true,
+["Vehicular"] = true,
+["Ablative"] = true,
+["Atomic"] = true,
+["Magnetic"] = true,
+["Computational"] = true,
+["Microscopic"] = true,
+["Offshore"] = true,
+["Archeological"] = true,
+["Biter"] = true,
+["Pentapod"] = true,
+["Lubricated"] = true,
+
+["Pokeball"] = true,
+["Oak's"] = true,
+["Evolution"] = true,
+["Triforce"] = true,
+["Wisdom"] = true,
+["Courage"] = true,
+["Power"] = true,
+["Hat"] = true,
+["Chronological"] = true,
+["Magitech"] = true,
+["Crystal"] = true,
+["Imperial"] = true,
+["Keyblade"] = true,
+["Heart"] = true,
+["Darkness"] = true,
+["Puzzle"] = true,
+["Ficsit"] = true,
+["Somersloop"] = true,
+}
