@@ -258,19 +258,19 @@ class FactorioContext(CommonContext):
         logger.info(announcement)
         self.print_to_game(announcement)
 
-    def run_gui(self):
-        from kvui import GameManager
+    def make_gui(self) -> type:
+        ui = super().make_gui()
 
-        class FactorioManager(GameManager):
+        class FactorioManager(ui):
             logging_pairs = [
                 ("Client", "Archipelago"),
                 ("FactorioServer", "Factorio Server Log"),
                 ("FactorioWatcher", "Bridge Data Log"),
             ]
-            base_title = "Archipelago Factorio Client"
+            from . import FactorioSAWS
+            base_title = f"Archipelago SAWS {FactorioSAWS.world_version.as_simple_string()} Factorio Client"
 
-        self.ui = FactorioManager(self)
-        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+        return FactorioManager
 
 
 async def game_watcher(ctx: FactorioContext):
