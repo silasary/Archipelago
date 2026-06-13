@@ -8,6 +8,7 @@ import typing
 from Options import OptionError
 import Utils
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification
+import rule_builder.rules
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch as launch_component
 from worlds.generic import Rules
@@ -16,7 +17,7 @@ from .Locations import location_pools, location_table, craftsanity_locations
 from .Mod import generate_mod
 from .Options import FactorioOptions, MaxSciencePack, Silo, Satellite, TechTreeInformation, Goal, TechCostDistribution
 from .Shapes import get_shapes
-from .Technologies import base_tech_table, recipe_sources, base_technology_table, \
+from .Technologies import Technology, base_tech_table, recipe_sources, base_technology_table, \
     all_product_sources, required_technologies, get_rocket_requirements, \
     progressive_technology_table, common_tech_table, tech_to_progressive_lookup, progressive_tech_table, \
     get_science_pack_pools, Recipe, recipes, technology_table, tech_table, factorio_base_id, useless_technologies, \
@@ -254,21 +255,40 @@ class FactorioSAWS(World):
         player = self.player
         shapes = get_shapes(self)
 
+        def has_all_technologies(technologies: typing.Iterable[Technology] | typing.Iterable[str]) -> rule_builder.rules.Rule:
+            technology_names = set(technology.name if isinstance(technology, Technology) else technology for technology in technologies)
+            if "rocket-silo" in technology_names and self.options.silo == Silo.option_spawn:
+                technology_names.remove("rocket-silo")
+            return rule_builder.rules.HasAll(*technology_names)
+
+        def has_all_ingredients(ingredient_names: typing.Iterable[str]) -> rule_builder.rules.Rule:
+            rule: rule_builder.rules.Rule = rule_builder.rules.True_()
+            for sub_ingredient in ingredient_names:
+                for technology in required_technologies[sub_ingredient]:
+                    rule &= rule_builder.rules.Has(technology.name)
+            return rule
+
+        def has_automated_all(ingredient_names: typing.Iterable[str]) -> rule_builder.rules.Rule:
+            return rule_builder.rules.HasAll(*(f"Automated {ingredient}" for ingredient in ingredient_names))
+
+        def can_reach_all(locations: typing.Iterable[FactorioScienceLocation]) -> rule_builder.rules.Rule:
+            rule: rule_builder.rules.Rule = rule_builder.rules.True_()
+            for location in locations:
+                rule &= rule_builder.rules.CanReachLocation(location.name)
+            return rule
+
         for ingredient in self.options.max_science_pack.get_allowed_packs():
             location = self.get_location(f"Automate {ingredient}")
 
             if self.options.recipe_ingredients:
                 custom_recipe = self.custom_recipes[ingredient]
 
-                location.access_rule = lambda state, ingredient=ingredient, custom_recipe=custom_recipe: \
-                    (not technology_table[ingredient].unlocks or state.has(ingredient, player)) and \
-                    all(state.has(technology.name, player) for sub_ingredient in custom_recipe.ingredients
-                        for technology in required_technologies[sub_ingredient]) and \
-                    all(state.has(technology.name, player) for technology in required_technologies[custom_recipe.crafting_machine])
-
+                rule =  (rule_builder.rules.True_() if not technology_table[ingredient].unlocks else rule_builder.rules.Has(ingredient)) & \
+                        has_all_ingredients(custom_recipe.ingredients) & \
+                        has_all_technologies(required_technologies[custom_recipe.crafting_machine])
+                self.set_rule(location, rule)
             else:
-                location.access_rule = lambda state, ingredient=ingredient: \
-                    (all(state.has(technology.name, player) for technology in required_technologies[ingredient]))
+                self.set_rule(location, has_all_technologies(required_technologies[ingredient]))
 
         for location in self.craftsanity_locations:
             if location.crafted_item == "ice":
@@ -299,13 +319,12 @@ class FactorioSAWS(World):
                     raise Exception(f"No recipe found for {location.crafted_item} for Craftsanity for player {self.player}")
             # if location.crafted_item != recipe.name:
             #     print(location.crafted_item + ": " + recipe.name)
-            location.access_rule = lambda state, recipe=recipe: \
-                state.has_all({technology.name for technology in recipe.recursive_unlocking_technologies if technology.name != "rocket-silo" or self.options.silo != Silo.option_spawn}, player)
+            rule = has_all_technologies(recipe.recursive_unlocking_technologies)
+            self.set_rule(location, rule)
 
 
         for location in self.science_locations:
-            Rules.set_rule(location, lambda state, ingredients=frozenset(location.ingredients):
-                all(state.has(f"Automated {ingredient}", player) for ingredient in ingredients))
+            rule = has_automated_all(location.ingredients)
 
             prereq_override = self.get_ut_data("tech_prereq")
             if prereq_override is not None:
@@ -318,8 +337,8 @@ class FactorioSAWS(World):
             else:
                 prerequisites = shapes.get(location)
             if prerequisites:
-                Rules.add_rule(location, lambda state, locations=frozenset(prerequisites):
-                    all(state.can_reach(loc) for loc in locations))
+                rule &= can_reach_all(prerequisites)
+            self.set_rule(location, rule)
 
         silo_recipe = None
         cargo_pad_recipe = None
@@ -335,10 +354,9 @@ class FactorioSAWS(World):
             victory_tech_names -= {"rocket-silo"}
         else:
             victory_tech_names |= {"rocket-silo"}
-        self.get_location("Rocket Launch").access_rule = lambda state: all(state.has(technology, player)
-                                                                           for technology in
-                                                                           victory_tech_names)
-        self.multiworld.completion_condition[player] = lambda state: state.has('Victory', player)
+
+        self.set_rule(self.get_location("Rocket Launch"), has_all_technologies(victory_tech_names))
+        self.set_completion_rule(rule_builder.rules.Has("Victory"))
 
         if "Craft rocket-silo" in self.multiworld.regions.location_cache[self.player]:
             victory_tech_names_r = get_rocket_requirements(silo_recipe, None, None, None)

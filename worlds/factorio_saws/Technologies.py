@@ -223,7 +223,7 @@ for technology_name, data in sorted(techs.items()):
 
 del techs_future
 
-recipes = {}
+recipes: dict[str, Recipe] = {}
 all_product_sources: Dict[str, Set[Recipe]] = {"character": set()}
 # add uranium mining to logic graph. TODO: add to automatic extractor for mod support
 raw_recipes = recipes_future.result()

@@ -2,7 +2,7 @@
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
     "world_version": "0.9.1",
-    "minimum_ap_version": "0.6.0",
+    "minimum_ap_version": "0.6.7",
     "changelog": [
         "## 0.9.1",
         "* Science Packs are now given randomised names.",
