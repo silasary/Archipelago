@@ -23,6 +23,14 @@ from Utils import async_start, get_file_safe_name, is_windows, Version, format_S
 from .settings import FactorioSAWSSettings
 from settings import get_settings
 
+tracker_loaded = False
+try:
+    from worlds.tracker.TrackerClient import TrackerGameContext, TrackerCommandProcessor
+    CommonContext = TrackerGameContext
+    ClientCommandProcessor = TrackerCommandProcessor
+    tracker_loaded = True
+except ModuleNotFoundError:
+    pass
 
 def check_stdin() -> None:
     if is_windows and sys.stdin:
@@ -82,6 +90,7 @@ class FactorioContext(CommonContext):
     command_processor = FactorioCommandProcessor
     game = "Factorio - Space Age Without Space"
     items_handling = 0b111  # full remote
+    tags = {"AP"}
 
     # updated by spinup server
     mod_version: Version = Version(0, 0, 0)
