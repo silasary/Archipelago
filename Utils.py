@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import concurrent.futures
 import json
+import shutil
 import typing
 import builtins
 import os
@@ -769,7 +770,7 @@ def _mp_save_filename(res: "multiprocessing.Queue[typing.Optional[str]]", *args:
     if is_kivy_running():
         raise RuntimeError("kivy should not be running in multiprocess")
     res.put(save_filename(*args))
-    
+
 def _run_for_stdout(*args: str):
     env = env_cleared_lib_path()
     return subprocess.run(args, capture_output=True, text=True, env=env).stdout.split("\n", 1)[0] or None
@@ -1367,3 +1368,86 @@ def get_all_causes(ex: Exception) -> str:
     top = causes[-1]
     others = "".join(f"\n{' ' * (i + 1)}Which caused: {c}" for i, c in enumerate(reversed(causes[:-1])))
     return f"{top}{others}"
+
+
+def build_sphinx_docs() -> None:
+    """Build Sphinx autodocs."""
+    # noinspection PyUnresolvedReferences
+    from sphinx.cmd.build import main as sphinx_main
+
+    base_dir = os.path.dirname(__file__)
+    docs_path = os.path.join(base_dir, "docs")
+    sphinx_input = os.path.join(docs_path, "sphinx", "source")
+    sphinx_output = os.path.join(base_dir, "build")
+
+    # copy markdown files to sphinx directory to get rendered
+    for file in os.scandir(docs_path):
+        if file.name.endswith(".md"):
+            shutil.copy(file, sphinx_input)
+            # parse through the file and fix links for sphinx's api
+            with open(os.path.join(sphinx_input, file.name), "r") as f:
+                lines = f.readlines()
+            # starting at -1 so i can iterate it early instead of in every if block
+            line_index = -1
+            while line_index < len(lines) - 1:
+                line_index += 1
+                line = lines[line_index]
+                # add explicit markdown headers for myst-parser to catch
+                if line.startswith("#"):
+                    header_text = line.strip("# \n").lower().replace(" ", "-")
+                    lines.insert(line_index, f"({header_text})=")
+                    line_index += 1
+                    continue
+                # hyperlink
+                if "](" not in line:
+                    continue
+                start = line.find("](") + 2
+                end = line.find(")", start)
+                link = line[start:end]
+                # probably an external link
+                if "https://" in link:
+                    continue
+                # direct link to a module
+                if ".py" in link:
+                    link = link.split("/")[-1].split(".py")[0].lower()
+                # don't handle images since those should still work if done correctly
+                elif "img" in link:
+                    continue
+                # should just be other direct doc links
+                else:
+                    link = link.split("/")[-1].split(".")[0].lower().replace(" ", "%20")
+                lines[line_index] = line[:start] + link + line[end:]
+            with open(os.path.join(sphinx_input, file.name), "w") as f:
+                f.writelines(lines)
+        elif "img" in file.name:
+            shutil.copytree(file, os.path.join(sphinx_input, "img"), dirs_exist_ok=True)
+        elif file.name == "CODEOWNERS":
+            with open(file, "r") as orig, open(f"{sphinx_input}/codeowners.md", "w") as output:
+                orig_lines = orig.readlines()
+                output.write(orig_lines[0])
+                for line in orig_lines[1:]:
+                    line = line.strip()
+                    if not line:
+                        output.write("\n")
+                    elif line.startswith("# "):
+                        line = line[1:].strip()
+                        # the unmaintained/disabled worlds have a different format
+                        if line.startswith("/"):
+                            line = "\n- " + line
+                        output.write(line + "\n")
+                    # the world folder and maintainer name
+                    elif line.startswith("/"):
+                        lines = line.split("@")
+                        output.write(f"- {lines[0]}\n")
+                        for maintainer in lines[1:]:
+                            output.write(f"  - {maintainer}\n")
+                    else:
+                        output.write(line + "\n")
+
+    # copy AP header logo and favicon
+    static_dir = os.path.join(base_dir, "WebHostLib", "static", "static")
+    logos = [os.path.join(static_dir, "branding", "header-logo.svg"), os.path.join(static_dir, "favicon.ico")]
+    for file in logos:
+        shutil.copy(file, os.path.join(sphinx_input, "_static"))
+
+    sphinx_main(["-M", "html", sphinx_input, sphinx_output])
