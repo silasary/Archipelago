@@ -105,8 +105,8 @@ class AdventureWorld(World):
     location_name_to_id: ClassVar[Dict[str, int]] = {name: data.location_id for name, data in location_table.items()}
     required_client_version: Tuple[int, int, int] = (0, 3, 9)
 
-    def __init__(self, world: MultiWorld, player: int):
-        super().__init__(world, player)
+    def __init__(self, multiworld: MultiWorld, player: int):
+        super().__init__(multiworld, player)
         self.rom_name: Optional[bytearray] = bytearray("", "utf8" )
         self.dragon_rooms: [int] = [0x14, 0x19, 0x4]
         self.dragon_slay_check: Optional[int] = 0
@@ -238,13 +238,11 @@ class AdventureWorld(World):
 
     def create_regions(self) -> None:
         create_regions(self.options, self.multiworld, self.player, self.dragon_rooms)
-
-    set_rules = set_rules
-
-    def generate_basic(self) -> None:
         self.multiworld.get_location("Chalice Home", self.player).place_locked_item(
             self.create_event("Victory", ItemClassification.progression))
         self.multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)
+
+    set_rules = set_rules
 
     def pre_fill(self):
         # Place empty items in filler locations here, to limit
