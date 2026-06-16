@@ -1,0 +1,844 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Settings API &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NetUtils" href="netutils.html" />
+    <link rel="prev" title="Patch" href="patch.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="netutils.html" title="NetUtils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="patch.html" title="Patch"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Settings API</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-settings">
+<span id="settings-api"></span><h1>Settings API<a class="headerlink" href="#module-settings" title="Link to this heading">¶</a></h1>
+<p>Application settings / host.yaml interface using type hints.
+This is different from player options.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.Bool">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">Bool</span></span><a class="headerlink" href="#settings.Bool" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneralOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">GeneralOptions</span></span><a class="headerlink" href="#settings.GeneralOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Group" title="settings.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneralOptions.OutputPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OutputPath</span></span><a class="headerlink" href="#settings.GeneralOptions.OutputPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.OptionalUserFolderPath" title="settings.OptionalUserFolderPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionalUserFolderPath</span></code></a></p>
+<p>Where to place output files</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneralOptions.output_path">
+<span class="sig-name descname"><span class="pre">output_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneralOptions.OutputPath" title="settings.GeneralOptions.OutputPath"><span class="pre">OutputPath</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'output'</span></span><a class="headerlink" href="#settings.GeneralOptions.output_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">GeneratorOptions</span></span><a class="headerlink" href="#settings.GeneratorOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Group" title="settings.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<p>Options for Generation</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.AllowQuantity">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">AllowQuantity</span></span><a class="headerlink" href="#settings.GeneratorOptions.AllowQuantity" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Bool" title="settings.Bool"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bool</span></code></a></p>
+<p>allow players to set an individual quantity for their yaml settings
+with ‘false’ any amounts from the players will be ignored and set to 1</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.MetaFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MetaFilePath</span></span><a class="headerlink" href="#settings.GeneratorOptions.MetaFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Meta file name, within the stated player_files_path location</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.PanicMethod">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PanicMethod</span></span><a class="headerlink" href="#settings.GeneratorOptions.PanicMethod" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>What to do if the current item placements appear unsolvable.
+raise -&gt; Raise an exception and abort.
+swap -&gt; Attempt to fix it by swapping prior placements around. (Default)
+start_inventory -&gt; Move remaining items to start_inventory, generate additional filler items to fill locations.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.PlandoOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PlandoOptions</span></span><a class="headerlink" href="#settings.GeneratorOptions.PlandoOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>List of options that can be plando’d. Can be combined, for example “bosses, items”
+Available options: bosses, items, texts, connections</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.PlayerFilesPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PlayerFilesPath</span></span><a class="headerlink" href="#settings.GeneratorOptions.PlayerFilesPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.OptionalUserFolderPath" title="settings.OptionalUserFolderPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionalUserFolderPath</span></code></a></p>
+<p>Folder from which the player yaml files are pulled from</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Players">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Players</span></span><a class="headerlink" href="#settings.GeneratorOptions.Players" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<p>amount of players, 0 to infer from player files</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Race">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Race</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#settings.GeneratorOptions.Race" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Create encrypted race roms and flag games as race mode</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Race.OFF">
+<span class="sig-name descname"><span class="pre">OFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.GeneratorOptions.Race.OFF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Race.ON">
+<span class="sig-name descname"><span class="pre">ON</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#settings.GeneratorOptions.Race.ON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Spoiler">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Spoiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#settings.GeneratorOptions.Spoiler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Create a spoiler file
+0 -&gt; None
+1 -&gt; Spoiler without playthrough or paths to playthrough required items
+2 -&gt; Spoiler with playthrough (viable solution to goals)
+3 -&gt; Spoiler with playthrough and traversal paths towards items</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Spoiler.BASIC">
+<span class="sig-name descname"><span class="pre">BASIC</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#settings.GeneratorOptions.Spoiler.BASIC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Spoiler.FULL">
+<span class="sig-name descname"><span class="pre">FULL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#settings.GeneratorOptions.Spoiler.FULL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Spoiler.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.GeneratorOptions.Spoiler.NONE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.Spoiler.PLAYTHROUGH">
+<span class="sig-name descname"><span class="pre">PLAYTHROUGH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#settings.GeneratorOptions.Spoiler.PLAYTHROUGH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.WeightsFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">WeightsFilePath</span></span><a class="headerlink" href="#settings.GeneratorOptions.WeightsFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>general weights file, within the stated player_files_path location
+gets used if players is higher than the amount of per-player files found to fill remaining slots</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.allow_quantity">
+<span class="sig-name descname"><span class="pre">allow_quantity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.AllowQuantity" title="settings.GeneratorOptions.AllowQuantity"><span class="pre">AllowQuantity</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.GeneratorOptions.allow_quantity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.loglevel">
+<span class="sig-name descname"><span class="pre">loglevel</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info'</span></span><a class="headerlink" href="#settings.GeneratorOptions.loglevel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.logtime">
+<span class="sig-name descname"><span class="pre">logtime</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.GeneratorOptions.logtime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.meta_file_path">
+<span class="sig-name descname"><span class="pre">meta_file_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.MetaFilePath" title="settings.GeneratorOptions.MetaFilePath"><span class="pre">MetaFilePath</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'meta.yaml'</span></span><a class="headerlink" href="#settings.GeneratorOptions.meta_file_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.panic_method">
+<span class="sig-name descname"><span class="pre">panic_method</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.PanicMethod" title="settings.GeneratorOptions.PanicMethod"><span class="pre">PanicMethod</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'swap'</span></span><a class="headerlink" href="#settings.GeneratorOptions.panic_method" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.plando_options">
+<span class="sig-name descname"><span class="pre">plando_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.PlandoOptions" title="settings.GeneratorOptions.PlandoOptions"><span class="pre">PlandoOptions</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bosses,</span> <span class="pre">connections,</span> <span class="pre">texts'</span></span><a class="headerlink" href="#settings.GeneratorOptions.plando_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.player_files_path">
+<span class="sig-name descname"><span class="pre">player_files_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.PlayerFilesPath" title="settings.GeneratorOptions.PlayerFilesPath"><span class="pre">PlayerFilesPath</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Players'</span></span><a class="headerlink" href="#settings.GeneratorOptions.player_files_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.players">
+<span class="sig-name descname"><span class="pre">players</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.Players" title="settings.GeneratorOptions.Players"><span class="pre">Players</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.GeneratorOptions.players" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.race">
+<span class="sig-name descname"><span class="pre">race</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.Race" title="settings.GeneratorOptions.Race"><span class="pre">Race</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.GeneratorOptions.race" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.spoiler">
+<span class="sig-name descname"><span class="pre">spoiler</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.Spoiler" title="settings.GeneratorOptions.Spoiler"><span class="pre">Spoiler</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#settings.GeneratorOptions.spoiler" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.GeneratorOptions.weights_file_path">
+<span class="sig-name descname"><span class="pre">weights_file_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions.WeightsFilePath" title="settings.GeneratorOptions.WeightsFilePath"><span class="pre">WeightsFilePath</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'weights.yaml'</span></span><a class="headerlink" href="#settings.GeneratorOptions.weights_file_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.Group">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">Group</span></span><a class="headerlink" href="#settings.Group" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.as_dict">
+<span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downcast</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#settings.Group.as_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="settings.Group.changed">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">changed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#settings.Group.changed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Group.dump" title="Link to this definition">¶</a></dt>
+<dd><p>Dump Group to stream f at given indentation level</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#settings.Group.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.get_type_hints">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_type_hints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#settings.Group.get_type_hints" title="Link to this definition">¶</a></dt>
+<dd><p>Returns resolved type hints for the class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#settings.Group.items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Group.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Group.update" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.LocalFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">LocalFilePath</span></span><a class="headerlink" href="#settings.LocalFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LocalPath</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FilePath</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.LocalFolderPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">LocalFolderPath</span></span><a class="headerlink" href="#settings.LocalFolderPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LocalPath</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FolderPath</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.OptionalLocalFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">OptionalLocalFilePath</span></span><a class="headerlink" href="#settings.OptionalLocalFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.LocalFilePath" title="settings.LocalFilePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalFilePath</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.OptionalLocalFilePath.required">
+<span class="sig-name descname"><span class="pre">required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.OptionalLocalFilePath.required" title="Link to this definition">¶</a></dt>
+<dd><p>Marks the file as required and opens a file browser when missing</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.OptionalLocalFolderPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">OptionalLocalFolderPath</span></span><a class="headerlink" href="#settings.OptionalLocalFolderPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.LocalFolderPath" title="settings.LocalFolderPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalFolderPath</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.OptionalLocalFolderPath.required">
+<span class="sig-name descname"><span class="pre">required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.OptionalLocalFolderPath.required" title="Link to this definition">¶</a></dt>
+<dd><p>Marks the file as required and opens a file browser when missing</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.OptionalUserFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">OptionalUserFilePath</span></span><a class="headerlink" href="#settings.OptionalUserFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.UserFilePath" title="settings.UserFilePath"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserFilePath</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.OptionalUserFilePath.required">
+<span class="sig-name descname"><span class="pre">required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.OptionalUserFilePath.required" title="Link to this definition">¶</a></dt>
+<dd><p>Marks the file as required and opens a file browser when missing</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.OptionalUserFolderPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">OptionalUserFolderPath</span></span><a class="headerlink" href="#settings.OptionalUserFolderPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.UserFolderPath" title="settings.UserFolderPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserFolderPath</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.OptionalUserFolderPath.required">
+<span class="sig-name descname"><span class="pre">required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.OptionalUserFolderPath.required" title="Link to this definition">¶</a></dt>
+<dd><p>Marks the file as required and opens a file browser when missing</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.Path">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">Path</span></span><a class="headerlink" href="#settings.Path" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Path.browse">
+<span class="sig-name descname"><span class="pre">browse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Path.browse" title="Link to this definition">¶</a></dt>
+<dd><p>Opens a file browser to search for the file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Path.copy_to">
+<span class="sig-name descname"><span class="pre">copy_to</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.Path.copy_to" title="Link to this definition">¶</a></dt>
+<dd><p>If not None, copy to AP folder instead of linking it</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Path.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.Path.description" title="Link to this definition">¶</a></dt>
+<dd><p>Title to display when browsing for the file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Path.exists">
+<span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#settings.Path.exists" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Path.is_exe">
+<span class="sig-name descname"><span class="pre">is_exe</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.Path.is_exe" title="Link to this definition">¶</a></dt>
+<dd><p>Special cross-platform handling for executables</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Path.required">
+<span class="sig-name descname"><span class="pre">required</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#settings.Path.required" title="Link to this definition">¶</a></dt>
+<dd><p>Marks the file as required and opens a file browser when missing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Path.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#settings.Path.resolve" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Path.validate">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Path.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Overload and raise to validate input files from browse</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.SNIOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">SNIOptions</span></span><a class="headerlink" href="#settings.SNIOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Group" title="settings.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.SNIOptions.SNIPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SNIPath</span></span><a class="headerlink" href="#settings.SNIOptions.SNIPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.LocalFolderPath" title="settings.LocalFolderPath"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalFolderPath</span></code></a></p>
+<p>Set this to your SNI folder location if you want the MultiClient to attempt an auto start, does nothing if not found</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.SNIOptions.SnesRomStart">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SnesRomStart</span></span><a class="headerlink" href="#settings.SNIOptions.SnesRomStart" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Set this to false to never autostart a rom (such as after patching)
+True for operating system default program
+Alternatively, a path to a program to open the .sfc file with</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.SNIOptions.snes_rom_start">
+<span class="sig-name descname"><span class="pre">snes_rom_start</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.SNIOptions.SnesRomStart" title="settings.SNIOptions.SnesRomStart"><span class="pre">SnesRomStart</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#settings.SNIOptions.snes_rom_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.SNIOptions.sni_path">
+<span class="sig-name descname"><span class="pre">sni_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.SNIOptions.SNIPath" title="settings.SNIOptions.SNIPath"><span class="pre">SNIPath</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SNI'</span></span><a class="headerlink" href="#settings.SNIOptions.sni_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">ServerOptions</span></span><a class="headerlink" href="#settings.ServerOptions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Group" title="settings.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<p>Options for MultiServer
+Null means nothing, for the server this means to default the value
+These overwrite command line arguments!</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.AutoShutdown">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">AutoShutdown</span></span><a class="headerlink" href="#settings.ServerOptions.AutoShutdown" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<p>Automatically shut down the server after this many seconds without new location checks, 0 to keep running</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.CollectMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CollectMode</span></span><a class="headerlink" href="#settings.ServerOptions.CollectMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Collect modes
+A Collect sends the remaining items <em>to</em> a world that collects
+“disabled” -&gt; clients can’t collect,
+“enabled” -&gt; clients can always collect
+“auto” -&gt; automatic collect on goal completion
+“auto-enabled” -&gt; automatic collect on goal completion and manual collect is also enabled
+“goal” -&gt; collect is allowed after goal completion</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.Compatibility">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Compatibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#settings.ServerOptions.Compatibility" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>Compatibility handling
+2 -&gt; Recommended for casual/cooperative play, attempt to be compatible with everything across all versions
+1 -&gt; No longer in use, kept reserved in case of future use
+0 -&gt; Recommended for tournaments to force a level playing field, only allow an exact version match</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.Compatibility.FULL">
+<span class="sig-name descname"><span class="pre">FULL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#settings.ServerOptions.Compatibility.FULL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.Compatibility.OFF">
+<span class="sig-name descname"><span class="pre">OFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.ServerOptions.Compatibility.OFF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.Compatibility.ON">
+<span class="sig-name descname"><span class="pre">ON</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#settings.ServerOptions.Compatibility.ON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.CountdownMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CountdownMode</span></span><a class="headerlink" href="#settings.ServerOptions.CountdownMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Countdown modes
+Determines whether or not a player can initiate a countdown with !countdown
+Note that /countdown is always available to the host.</p>
+<p>“enabled” -&gt; Client can always initiate a countdown with !countdown.
+“disabled” -&gt; Client can never initiate a countdown with !countdown.
+“auto” -&gt; !countdown will be available for any room with less than 30 slots.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.DisableItemCheat">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">DisableItemCheat</span></span><a class="headerlink" href="#settings.ServerOptions.DisableItemCheat" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Bool" title="settings.Bool"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bool</span></code></a></p>
+<p>Disallow !getitem</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.HintCost">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">HintCost</span></span><a class="headerlink" href="#settings.ServerOptions.HintCost" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<p>Relative point cost to receive a hint via !hint for players
+so for example hint_cost: 20 would mean that for every 20% of available checks, you get the ability to hint,
+for a total of 5</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.LocationCheckPoints">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LocationCheckPoints</span></span><a class="headerlink" href="#settings.ServerOptions.LocationCheckPoints" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<p>Client hint system
+Points given to a player for each acquired item in their world</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.LogNetwork">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LogNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#settings.ServerOptions.LogNetwork" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<p>log all server traffic, mostly for dev use</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.LogNetwork.OFF">
+<span class="sig-name descname"><span class="pre">OFF</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.ServerOptions.LogNetwork.OFF" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.LogNetwork.ON">
+<span class="sig-name descname"><span class="pre">ON</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#settings.ServerOptions.LogNetwork.ON" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.ReleaseMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ReleaseMode</span></span><a class="headerlink" href="#settings.ServerOptions.ReleaseMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Release modes
+A Release sends out the remaining items <em>from</em> a world that releases
+“disabled” -&gt; clients can’t release,
+“enabled” -&gt; clients can always release
+“auto” -&gt; automatic release on goal completion
+“auto-enabled” -&gt; automatic release on goal completion and manual release is also enabled
+“goal” -&gt; release is allowed after goal completion</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.RemainingMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RemainingMode</span></span><a class="headerlink" href="#settings.ServerOptions.RemainingMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Remaining modes
+!remaining handling, that tells a client which items remain in their pool
+“enabled” -&gt; Client can always ask for remaining items
+“disabled” -&gt; Client can never ask for remaining items
+“goal” -&gt; Client can ask for remaining items after goal completion</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.ServerOptions.ServerPassword">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ServerPassword</span></span><a class="headerlink" href="#settings.ServerOptions.ServerPassword" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Allows for clients to log on and manage the server.  If this is null, no remote administration is possible.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.auto_shutdown">
+<span class="sig-name descname"><span class="pre">auto_shutdown</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.AutoShutdown" title="settings.ServerOptions.AutoShutdown"><span class="pre">AutoShutdown</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.ServerOptions.auto_shutdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.collect_mode">
+<span class="sig-name descname"><span class="pre">collect_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.CollectMode" title="settings.ServerOptions.CollectMode"><span class="pre">CollectMode</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#settings.ServerOptions.collect_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.compatibility">
+<span class="sig-name descname"><span class="pre">compatibility</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.Compatibility" title="settings.ServerOptions.Compatibility"><span class="pre">Compatibility</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#settings.ServerOptions.compatibility" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.countdown_mode">
+<span class="sig-name descname"><span class="pre">countdown_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.CountdownMode" title="settings.ServerOptions.CountdownMode"><span class="pre">CountdownMode</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#settings.ServerOptions.countdown_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.disable_item_cheat">
+<span class="sig-name descname"><span class="pre">disable_item_cheat</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.DisableItemCheat" title="settings.ServerOptions.DisableItemCheat"><span class="pre">DisableItemCheat</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.ServerOptions.disable_item_cheat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.disable_save">
+<span class="sig-name descname"><span class="pre">disable_save</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.ServerOptions.disable_save" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.hint_cost">
+<span class="sig-name descname"><span class="pre">hint_cost</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.HintCost" title="settings.ServerOptions.HintCost"><span class="pre">HintCost</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#settings.ServerOptions.hint_cost" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.host">
+<span class="sig-name descname"><span class="pre">host</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.ServerOptions.host" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.location_check_points">
+<span class="sig-name descname"><span class="pre">location_check_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.LocationCheckPoints" title="settings.ServerOptions.LocationCheckPoints"><span class="pre">LocationCheckPoints</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#settings.ServerOptions.location_check_points" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.log_network">
+<span class="sig-name descname"><span class="pre">log_network</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.LogNetwork" title="settings.ServerOptions.LogNetwork"><span class="pre">LogNetwork</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#settings.ServerOptions.log_network" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.loglevel">
+<span class="sig-name descname"><span class="pre">loglevel</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'info'</span></span><a class="headerlink" href="#settings.ServerOptions.loglevel" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.logtime">
+<span class="sig-name descname"><span class="pre">logtime</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#settings.ServerOptions.logtime" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.multidata">
+<span class="sig-name descname"><span class="pre">multidata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.ServerOptions.multidata" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.password">
+<span class="sig-name descname"><span class="pre">password</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.ServerOptions.password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.port">
+<span class="sig-name descname"><span class="pre">port</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">38281</span></span><a class="headerlink" href="#settings.ServerOptions.port" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.release_mode">
+<span class="sig-name descname"><span class="pre">release_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.ReleaseMode" title="settings.ServerOptions.ReleaseMode"><span class="pre">ReleaseMode</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></span><a class="headerlink" href="#settings.ServerOptions.release_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.remaining_mode">
+<span class="sig-name descname"><span class="pre">remaining_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.RemainingMode" title="settings.ServerOptions.RemainingMode"><span class="pre">RemainingMode</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'goal'</span></span><a class="headerlink" href="#settings.ServerOptions.remaining_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.savefile">
+<span class="sig-name descname"><span class="pre">savefile</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.ServerOptions.savefile" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.ServerOptions.server_password">
+<span class="sig-name descname"><span class="pre">server_password</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions.ServerPassword" title="settings.ServerOptions.ServerPassword"><span class="pre">ServerPassword</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.ServerOptions.server_password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.Settings">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#settings.Settings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#settings.Group" title="settings.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Settings.bizhawkclient_options">
+<span class="sig-name descname"><span class="pre">bizhawkclient_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">BizHawkClientOptions</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;settings.BizHawkClientOptions</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#settings.Settings.bizhawkclient_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TextIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Settings.dump" title="Link to this definition">¶</a></dt>
+<dd><p>Dump Group to stream f at given indentation level</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="settings.Settings.filename">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#settings.Settings.filename" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Settings.general_options">
+<span class="sig-name descname"><span class="pre">general_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneralOptions" title="settings.GeneralOptions"><span class="pre">GeneralOptions</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;settings.GeneralOptions</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#settings.Settings.general_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Settings.generator">
+<span class="sig-name descname"><span class="pre">generator</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.GeneratorOptions" title="settings.GeneratorOptions"><span class="pre">GeneratorOptions</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;settings.GeneratorOptions</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#settings.Settings.generator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#settings.Settings.save" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Settings.server_options">
+<span class="sig-name descname"><span class="pre">server_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.ServerOptions" title="settings.ServerOptions"><span class="pre">ServerOptions</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;settings.ServerOptions</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#settings.Settings.server_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="settings.Settings.sni_options">
+<span class="sig-name descname"><span class="pre">sni_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#settings.SNIOptions" title="settings.SNIOptions"><span class="pre">SNIOptions</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;settings.SNIOptions</span> <span class="pre">object&gt;</span></span><a class="headerlink" href="#settings.Settings.sni_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.UserFilePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">UserFilePath</span></span><a class="headerlink" href="#settings.UserFilePath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_UserPath</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FilePath</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.UserFolderPath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">UserFolderPath</span></span><a class="headerlink" href="#settings.UserFolderPath" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_UserPath</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">FolderPath</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="settings.fmt_doc">
+<span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">fmt_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="netutils.html#NetUtils.JSONMessagePart.type" title="NetUtils.JSONMessagePart.type"><span class="pre">type</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#settings.fmt_doc" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="settings.get_settings">
+<span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#settings.Settings" title="settings.Settings"><span class="pre">Settings</span></a></span></span><a class="headerlink" href="#settings.get_settings" title="Link to this definition">¶</a></dt>
+<dd><p>Returns settings from the default host.yaml</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Settings API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#settings.Bool"><code class="docutils literal notranslate"><span class="pre">Bool</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.GeneralOptions"><code class="docutils literal notranslate"><span class="pre">GeneralOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.GeneratorOptions"><code class="docutils literal notranslate"><span class="pre">GeneratorOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.LocalFilePath"><code class="docutils literal notranslate"><span class="pre">LocalFilePath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.LocalFolderPath"><code class="docutils literal notranslate"><span class="pre">LocalFolderPath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.OptionalLocalFilePath"><code class="docutils literal notranslate"><span class="pre">OptionalLocalFilePath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.OptionalLocalFolderPath"><code class="docutils literal notranslate"><span class="pre">OptionalLocalFolderPath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.OptionalUserFilePath"><code class="docutils literal notranslate"><span class="pre">OptionalUserFilePath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.OptionalUserFolderPath"><code class="docutils literal notranslate"><span class="pre">OptionalUserFolderPath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.Path"><code class="docutils literal notranslate"><span class="pre">Path</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.SNIOptions"><code class="docutils literal notranslate"><span class="pre">SNIOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.ServerOptions"><code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.UserFilePath"><code class="docutils literal notranslate"><span class="pre">UserFilePath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.UserFolderPath"><code class="docutils literal notranslate"><span class="pre">UserFolderPath</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.fmt_doc"><code class="docutils literal notranslate"><span class="pre">fmt_doc()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.get_settings"><code class="docutils literal notranslate"><span class="pre">get_settings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="patch.html"
+                          title="previous chapter">Patch</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="netutils.html"
+                          title="next chapter">NetUtils</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/settings.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="netutils.html" title="NetUtils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="patch.html" title="Patch"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Settings API</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Entrance Rando &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utils" href="utils.html" />
+    <link rel="prev" title="Fill" href="fill.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fill.html" title="Fill"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Entrance Rando</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-entrance_rando">
+<span id="entrance-rando"></span><h1>Entrance Rando<a class="headerlink" href="#module-entrance_rando" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">ERPlacementState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="world.html#worlds.AutoWorld.World" title="worlds.AutoWorld.World"><span class="pre">World</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrance_lookup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#entrance_rando.EntranceLookup" title="entrance_rando.EntranceLookup"><span class="pre">EntranceLookup</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coupled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#entrance_rando.ERPlacementState" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The state of an ongoing or completed entrance randomization</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.collection_state">
+<span class="sig-name descname"><span class="pre">collection_state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span><a class="headerlink" href="#entrance_rando.ERPlacementState.collection_state" title="Link to this definition">¶</a></dt>
+<dd><p>The CollectionState backing the entrance randomization logic</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Connects a source exit to a target entrance in the graph, accounting for coupling</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The newly placed exits and the dummy entrance(s) which were removed from the graph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.coupled">
+<span class="sig-name descname"><span class="pre">coupled</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.coupled" title="Link to this definition">¶</a></dt>
+<dd><p>Whether entrance randomization is operating in coupled mode</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.entrance_lookup">
+<span class="sig-name descname"><span class="pre">entrance_lookup</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#entrance_rando.EntranceLookup" title="entrance_rando.EntranceLookup"><span class="pre">EntranceLookup</span></a></span><a class="headerlink" href="#entrance_rando.ERPlacementState.entrance_lookup" title="Link to this definition">¶</a></dt>
+<dd><p>A lookup table of all unconnected ER targets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.find_placeable_exits">
+<span class="sig-name descname"><span class="pre">find_placeable_exits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_validity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usable_exits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.find_placeable_exits" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.pairings">
+<span class="sig-name descname"><span class="pre">pairings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.pairings" title="Link to this definition">¶</a></dt>
+<dd><p>A list of pairings of connected entrance names, of the form (source_exit, target_entrance)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.placed_regions">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">placed_regions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.placed_regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.placements">
+<span class="sig-name descname"><span class="pre">placements</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.placements" title="Link to this definition">¶</a></dt>
+<dd><p>The list of randomized Entrance objects which have been connected successfully</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.test_speculative_connection">
+<span class="sig-name descname"><span class="pre">test_speculative_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_exit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">usable_exits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#entrance_rando.ERPlacementState.test_speculative_connection" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.ERPlacementState.world">
+<span class="sig-name descname"><span class="pre">world</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="world.html#worlds.AutoWorld.World" title="worlds.AutoWorld.World"><span class="pre">World</span></a></span><a class="headerlink" href="#entrance_rando.ERPlacementState.world" title="Link to this definition">¶</a></dt>
+<dd><p>The world which is having its entrances randomized</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">EntranceLookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Random</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coupled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usable_exits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#entrance_rando.EntranceLookup" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.GroupLookup">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">GroupLookup</span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.GroupLookup" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.GroupLookup.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.GroupLookup.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.GroupLookup.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.GroupLookup.remove" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.dead_ends">
+<span class="sig-name descname"><span class="pre">dead_ends</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#entrance_rando.EntranceLookup.GroupLookup" title="entrance_rando.EntranceLookup.GroupLookup"><span class="pre">GroupLookup</span></a></span><a class="headerlink" href="#entrance_rando.EntranceLookup.dead_ends" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.find_target">
+<span class="sig-name descname"><span class="pre">find_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.find_target" title="Link to this definition">¶</a></dt>
+<dd><p>Finds a specific target in the lookup, if it is present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the target</p></li>
+<li><p><strong>group</strong> – The target’s group. Providing this will make the lookup faster, but can be omitted if it is not
+known ahead of time for some reason.</p></li>
+<li><p><strong>dead_end</strong> – Whether the target is a dead end. Providing this will make the lookup faster, but can be
+omitted if this is not known ahead of time (much more likely)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.get_targets">
+<span class="sig-name descname"><span class="pre">get_targets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_group_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.get_targets" title="Link to this definition">¶</a></dt>
+<dd><p>Gets available targets for the requested groups</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groups</strong> – The groups to find targets for</p></li>
+<li><p><strong>dead_end</strong> – Whether to find dead ends. If false, finds non-dead-ends</p></li>
+<li><p><strong>preserve_group_order</strong> – Whether to preserve the group order in the returned iterable. If true, a sequence
+like AAABBB is guaranteed. If false, groups can be interleaved, e.g. BAABAB.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.others">
+<span class="sig-name descname"><span class="pre">others</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#entrance_rando.EntranceLookup.GroupLookup" title="entrance_rando.EntranceLookup.GroupLookup"><span class="pre">GroupLookup</span></a></span><a class="headerlink" href="#entrance_rando.EntranceLookup.others" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="entrance_rando.EntranceLookup.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.EntranceLookup.remove" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="entrance_rando.EntranceRandomizationError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">EntranceRandomizationError</span></span><a class="headerlink" href="#entrance_rando.EntranceRandomizationError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="entrance_rando.bake_target_group_lookup">
+<span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">bake_target_group_lookup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="world.html#worlds.AutoWorld.World" title="worlds.AutoWorld.World"><span class="pre">World</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_target_groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#entrance_rando.bake_target_group_lookup" title="Link to this definition">¶</a></dt>
+<dd><p>Applies a transformation to all known entrance groups on randomizable exists to build a group lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world</strong> – Your World instance</p></li>
+<li><p><strong>get_target_groups</strong> – Function to call that returns the groups that a specific group type is allowed to
+connect to</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="entrance_rando.disconnect_entrance_for_randomization">
+<span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">disconnect_entrance_for_randomization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">one_way_target_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#entrance_rando.disconnect_entrance_for_randomization" title="Link to this definition">¶</a></dt>
+<dd><p>Given an entrance in a “vanilla” region graph, splits that entrance to prepare it for randomization
+in randomize_entrances. This should be done after setting the type and group of the entrance. Because it attempts
+to meet strict entrance naming requirements for coupled mode, this function may produce unintuitive results when
+called only on a single entrance; it produces eventually-correct outputs only after calling it on all entrances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entrance</strong> – The entrance which will be disconnected in preparation for randomization.</p></li>
+<li><p><strong>target_group</strong> – The group to assign to the created ER target. If not specified, the group from
+the original entrance will be copied.</p></li>
+<li><p><strong>one_way_target_name</strong> – The name of the created ER target if <cite>entrance</cite> is one-way. This argument
+is required for one-way entrances and is ignored otherwise.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="entrance_rando.randomize_entrances">
+<span class="sig-prename descclassname"><span class="pre">entrance_rando.</span></span><span class="sig-name descname"><span class="pre">randomize_entrances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="world.html#worlds.AutoWorld.World" title="worlds.AutoWorld.World"><span class="pre">World</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coupled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_group_lookup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preserve_group_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">er_targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_connect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#entrance_rando.ERPlacementState" title="entrance_rando.ERPlacementState"><span class="pre">ERPlacementState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#entrance_rando.ERPlacementState" title="entrance_rando.ERPlacementState"><span class="pre">ERPlacementState</span></a></span></span><a class="headerlink" href="#entrance_rando.randomize_entrances" title="Link to this definition">¶</a></dt>
+<dd><p>Randomizes Entrances for a single world in the multiworld.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world</strong> – Your World instance</p></li>
+<li><p><strong>coupled</strong> – Whether connected entrances should be coupled to go in both directions</p></li>
+<li><p><strong>target_group_lookup</strong> – Map from each group to a list of the groups that it can be connect to. Every group
+used on an exit must be provided and must map to at least one other group. The default
+group is 0.</p></li>
+<li><p><strong>preserve_group_order</strong> – Whether the order of groupings should be preserved for the returned target_groups</p></li>
+<li><p><strong>er_targets</strong> – The list of ER targets (Entrance objects with no parent region) to use for randomization.
+Remember to be deterministic! If not provided, automatically discovers all valid targets
+in your world.</p></li>
+<li><p><strong>exits</strong> – The list of exits (Entrance objects with no target region) to use for randomization.
+Remember to be deterministic! If not provided, automatically discovers all valid exits in your world.</p></li>
+<li><p><strong>on_connect</strong> – A callback function which allows specifying side effects after a placement is completed
+successfully and the underlying collection state has been updated. The arguments are
+1. The ER state
+2. The exits placed in this placement pass
+3. The entrances they were connected to.
+If you use on_connect to make additional placements, you are expected to return True to inform
+GER that an additional sweep is needed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Entrance Rando</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.ERPlacementState"><code class="docutils literal notranslate"><span class="pre">ERPlacementState</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.EntranceLookup"><code class="docutils literal notranslate"><span class="pre">EntranceLookup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.EntranceRandomizationError"><code class="docutils literal notranslate"><span class="pre">EntranceRandomizationError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.bake_target_group_lookup"><code class="docutils literal notranslate"><span class="pre">bake_target_group_lookup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.disconnect_entrance_for_randomization"><code class="docutils literal notranslate"><span class="pre">disconnect_entrance_for_randomization()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#entrance_rando.randomize_entrances"><code class="docutils literal notranslate"><span class="pre">randomize_entrances()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="fill.html"
+                          title="previous chapter">Fill</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="utils.html"
+                          title="next chapter">Utils</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/entrance_rando.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utils"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fill.html" title="Fill"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Entrance Rando</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,983 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="options%20api.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="apworld%20specification.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="options%20api.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="apworld%20specification.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(archipelago-api)=# Archipelago API</p>
+<p>This document tries to explain some aspects of the Archipelago World API used when implementing the generation logic of
+a game.</p>
+<p>Client implementation is out of scope of this document. Please refer to an existing game that provides a similar API to
+yours, and the following documents:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/network%20protocol.md">network protocol.md</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/adding%20games.md">adding games.md</a></p></li>
+</ul>
+<p>Archipelago will be abbreviated as “AP” from now on.</p>
+<p>(language)=## Language</p>
+<p>AP worlds are written in python3.
+Clients that connect to the server to sync items can be in any language that allows using WebSockets.</p>
+<p>(coding-style)=## Coding style</p>
+<p>AP follows a <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/style.md">style guide</a>.
+When in doubt, use an IDE with a code-style linter, for example PyCharm Community Edition.</p>
+<p>(docstrings)=## Docstrings</p>
+<p>Docstrings are strings attached to an object in Python that describe what the object is supposed to be. Certain
+docstrings will be picked up and used by AP. They are assigned by writing a string without any assignment right below a
+definition. The string must be a triple-quoted string, and should
+follow <a class="reference external" href="https://peps.python.org/pep-0287/">reST style</a>.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">World</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWorld</span><span class="p">(</span><span class="n">World</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the description of My Game that will be displayed on the AP website.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>(definitions)=## Definitions</p>
+<p>This section covers various classes and objects you can use for your world. While some of the attributes and methods
+are mentioned here, not all of them are, but you can find them in
+<a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/BaseClasses.py"><code class="docutils literal notranslate"><span class="pre">BaseClasses.py</span></code></a>.</p>
+<p>(world-class)=### World Class</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">World</span></code> is the class with all the specifics of a certain game that is to be included. A new instance will be created
+for each player of the game for any given generated multiworld.</p>
+<p>(webworld-class)=### WebWorld Class</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">WebWorld</span></code> class contains specific attributes and methods that can be modified for your world specifically on the
+webhost:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">options_page</span></code> can be changed to a link instead of an AP-generated options page.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rich_text_options_doc</span></code> controls whether <a class="reference internal" href="#/docs/options%20api.md#option-documentation"><span class="xref myst">Option documentation</span></a> uses plain text (<code class="docutils literal notranslate"><span class="pre">False</span></code>) or rich text (<code class="docutils literal notranslate"><span class="pre">True</span></code>). It
+defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>, but world authors are encouraged to set it to <code class="docutils literal notranslate"><span class="pre">True</span></code> for nicer-looking documentation that looks
+good on both the WebHost and the YAML template.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">theme</span></code> to be used for your game-specific AP pages. Available themes:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>dirt</p></th>
+<th class="head"><p>grass (default)</p></th>
+<th class="head"><p>grassFlowers</p></th>
+<th class="head"><p>ice</p></th>
+<th class="head"><p>jungle</p></th>
+<th class="head"><p>ocean</p></th>
+<th class="head"><p>partyTime</p></th>
+<th class="head"><p>stone</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_images/theme_dirt.JPG"><img alt="_images/theme_dirt.JPG" src="_images/theme_dirt.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_grass.JPG"><img alt="_images/theme_grass.JPG" src="_images/theme_grass.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_grassFlowers.JPG"><img alt="_images/theme_grassFlowers.JPG" src="_images/theme_grassFlowers.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_ice.JPG"><img alt="_images/theme_ice.JPG" src="_images/theme_ice.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_jungle.JPG"><img alt="_images/theme_jungle.JPG" src="_images/theme_jungle.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_ocean.JPG"><img alt="_images/theme_ocean.JPG" src="_images/theme_ocean.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_partyTime.JPG"><img alt="_images/theme_partyTime.JPG" src="_images/theme_partyTime.JPG" width="100" /></a></p></td>
+<td><p><a class="reference internal" href="_images/theme_stone.JPG"><img alt="_images/theme_stone.JPG" src="_images/theme_stone.JPG" width="100" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bug_report_page</span></code> (optional) can be a link to a bug reporting page, most likely a GitHub issue page, that will be
+placed by the site to help users report bugs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tutorials</span></code> list of <code class="docutils literal notranslate"><span class="pre">Tutorial</span></code> classes where each class represents a guide to be generated on the webhost.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">game_info_languages</span></code> (optional) list of strings for defining the existing game info pages your game supports. The
+documents must be prefixed with the same string as defined here. Default already has ‘en’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">options_presets</span></code> (optional) <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">dict[str,</span> <span class="pre">Any]]</span></code> where the keys are the names of the presets and the values
+are the options to be set for that preset. The options are defined as a <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">Any]</span></code> where the keys are the names
+of the options and the values are the values to be set for that option. These presets will be available for users to
+select from on the game’s options page.</p></li>
+</ul>
+<p>Note: The values must be a non-aliased value for the option type and can only include the following option types:</p>
+<ul class="simple">
+<li><p>If you have a <code class="docutils literal notranslate"><span class="pre">Range</span></code>/<code class="docutils literal notranslate"><span class="pre">NamedRange</span></code> option, the value should be an <code class="docutils literal notranslate"><span class="pre">int</span></code> between the <code class="docutils literal notranslate"><span class="pre">range_start</span></code> and <code class="docutils literal notranslate"><span class="pre">range_end</span></code>
+values.</p>
+<ul>
+<li><p>If you have a <code class="docutils literal notranslate"><span class="pre">NamedRange</span></code> option, the value can alternatively be a <code class="docutils literal notranslate"><span class="pre">str</span></code> that is one of the
+<code class="docutils literal notranslate"><span class="pre">special_range_names</span></code> keys.</p></li>
+</ul>
+</li>
+<li><p>If you have a <code class="docutils literal notranslate"><span class="pre">Choice</span></code> option, the value should be a <code class="docutils literal notranslate"><span class="pre">str</span></code> that is one of the <code class="docutils literal notranslate"><span class="pre">option_&lt;name&gt;</span></code> values.</p></li>
+<li><p>If you have a <code class="docutils literal notranslate"><span class="pre">Toggle</span></code>/<code class="docutils literal notranslate"><span class="pre">DefaultOnToggle</span></code> option, the value should be a <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random</span></code> is also a valid value for any of these option types.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">OptionDict</span></code>, <code class="docutils literal notranslate"><span class="pre">OptionList</span></code>, <code class="docutils literal notranslate"><span class="pre">OptionSet</span></code>, <code class="docutils literal notranslate"><span class="pre">FreeText</span></code>, or custom <code class="docutils literal notranslate"><span class="pre">Option</span></code>-derived classes are not supported for presets on
+the webhost at this time.</p>
+<p>Here is an example of a defined preset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">presets</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># presets.py</span>
+<span class="n">options_presets</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Limited Potential&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;progression_balancing&quot;</span><span class="p">:</span>    <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;fairy_chests_per_zone&quot;</span><span class="p">:</span>    <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;starting_class&quot;</span><span class="p">:</span>           <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;chests_per_zone&quot;</span><span class="p">:</span>          <span class="mi">30</span><span class="p">,</span>
+        <span class="s2">&quot;vendors&quot;</span><span class="p">:</span>                  <span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;architect&quot;</span><span class="p">:</span>                <span class="s2">&quot;disabled&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gold_gain_multiplier&quot;</span><span class="p">:</span>     <span class="s2">&quot;half&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;number_of_children&quot;</span><span class="p">:</span>       <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;free_diary_on_generation&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;health_pool&quot;</span><span class="p">:</span>              <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;mana_pool&quot;</span><span class="p">:</span>                <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;attack_pool&quot;</span><span class="p">:</span>              <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;magic_damage_pool&quot;</span><span class="p">:</span>        <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;armor_pool&quot;</span><span class="p">:</span>               <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;equip_pool&quot;</span><span class="p">:</span>               <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">&quot;crit_chance_pool&quot;</span><span class="p">:</span>         <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">&quot;crit_damage_pool&quot;</span><span class="p">:</span>         <span class="mi">5</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="p">(</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># __init__.py</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RLWeb</span><span class="p">(</span><span class="n">WebWorld</span><span class="p">):</span>
+    <span class="n">options_presets</span> <span class="o">=</span> <span class="n">options_presets</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">location_descriptions</span></code> (optional) WebWorlds can provide a map that contains human-friendly descriptions of locations
+or location groups.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># locations.py</span>
+<span class="n">location_descriptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Red Potion #6&quot;</span><span class="p">:</span> <span class="s2">&quot;In a secret destructible block under the second stairway&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;L2 Spaceship&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      The group of all items in the spaceship in Level 2.</span>
+
+<span class="s2">      This doesn&#39;t include the item on the spaceship door, since it can be</span>
+<span class="s2">      accessed without the Spaceship Key.</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># __init__.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebWorld</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.locations</span><span class="w"> </span><span class="kn">import</span> <span class="n">location_descriptions</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWeb</span><span class="p">(</span><span class="n">WebWorld</span><span class="p">):</span>
+    <span class="n">location_descriptions</span> <span class="o">=</span> <span class="n">location_descriptions</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_descriptions</span></code> (optional) WebWorlds can provide a map that contains human-friendly descriptions of items or item
+groups.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># items.py</span>
+<span class="n">item_descriptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Red Potion&quot;</span><span class="p">:</span> <span class="s2">&quot;A standard health potion&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Spaceship Key&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      The key to the spaceship in Level 2.</span>
+
+<span class="s2">      This is necessary to get to the Star Realm.</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># __init__.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebWorld</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.items</span><span class="w"> </span><span class="kn">import</span> <span class="n">item_descriptions</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWeb</span><span class="p">(</span><span class="n">WebWorld</span><span class="p">):</span>
+    <span class="n">item_descriptions</span> <span class="o">=</span> <span class="n">item_descriptions</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>(multiworld-object)=### MultiWorld Object</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">MultiWorld</span></code> object references the whole multiworld (all items and locations for all players) and is accessible
+through <code class="docutils literal notranslate"><span class="pre">self.multiworld</span></code> from your <code class="docutils literal notranslate"><span class="pre">World</span></code> object.</p>
+<p>(player)=### Player</p>
+<p>The player is just an <code class="docutils literal notranslate"><span class="pre">int</span></code> in AP and is accessible through <code class="docutils literal notranslate"><span class="pre">self.player</span></code> from your <code class="docutils literal notranslate"><span class="pre">World</span></code> object.</p>
+<p>(player-options)=### Player Options</p>
+<p>Options are provided by the user as part of the generation process, intended to affect how their randomizer experience
+should play out. These can control aspects such as what locations should be shuffled, what items are in the itempool,
+etc. Players provide the customized options for their World in the form of yamls.</p>
+<p>By convention, options are defined in <code class="docutils literal notranslate"><span class="pre">options.py</span></code> and will be used when parsing the players’ yaml files. Each option
+has its own class, which inherits from a base option type, a docstring to describe it, and a <code class="docutils literal notranslate"><span class="pre">display_name</span></code> property
+shown on the website and in spoiler logs.</p>
+<p>The available options are defined by creating a <code class="docutils literal notranslate"><span class="pre">dataclass</span></code>, which must be a subclass of <code class="docutils literal notranslate"><span class="pre">PerGameCommonOptions</span></code>. It has
+defined fields for the option names used in the player yamls and used for options access, with their types matching the
+appropriate Option class. By convention, the strings that define your option names should be in <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">dataclass</span></code> is then assigned to your <code class="docutils literal notranslate"><span class="pre">World</span></code> by defining its <code class="docutils literal notranslate"><span class="pre">options_dataclass</span></code>. Option results are then automatically
+added to the <code class="docutils literal notranslate"><span class="pre">World</span></code> object for easy access, between <code class="docutils literal notranslate"><span class="pre">World</span></code> creation and <code class="docutils literal notranslate"><span class="pre">generate_early</span></code>. These are accessible through
+<code class="docutils literal notranslate"><span class="pre">self.options.&lt;option_name&gt;</span></code>, and you can get a dictionary with option values
+via <code class="docutils literal notranslate"><span class="pre">self.options.as_dict(&lt;option_names&gt;)</span></code>,
+passing the desired option names as strings.</p>
+<p>Common option types are <code class="docutils literal notranslate"><span class="pre">Toggle</span></code>, <code class="docutils literal notranslate"><span class="pre">DefaultOnToggle</span></code>, <code class="docutils literal notranslate"><span class="pre">Choice</span></code>, and <code class="docutils literal notranslate"><span class="pre">Range</span></code>.
+For more information, see the <a class="reference internal" href="options%20api.html"><span class="doc std std-doc">options api doc</span></a>.</p>
+<p>(world-settings)=### World Settings</p>
+<p>Settings are set by the user outside the generation process. They can be used for those settings that may affect
+generation or client behavior, but should remain static between generations, such as the path to a ROM file.
+These settings are accessible through <code class="docutils literal notranslate"><span class="pre">self.settings.&lt;setting_name&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">cls.settings.&lt;setting_name&gt;</span></code>.</p>
+<p>Users can set these in their <code class="docutils literal notranslate"><span class="pre">host.yaml</span></code> file. Some settings may automatically open a file browser if a file is missing.</p>
+<p>Refer to <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/settings%20api.md">settings api.md</a> for details.</p>
+<p>(locations)=### Locations</p>
+<p>Locations are places where items can be located in your game. This may be chests or boss drops for RPG-like games, but
+could also be progress in a research tree, or even something more abstract like a level up.</p>
+<p>Each location has a <code class="docutils literal notranslate"><span class="pre">name</span></code> and an <code class="docutils literal notranslate"><span class="pre">address</span></code> (hereafter referred to as an <code class="docutils literal notranslate"><span class="pre">id</span></code>), is placed in a Region, has access rules,
+and has a classification. The name needs to be unique within each game and must not be numeric (must contain least 1
+letter or symbol). The ID needs to be unique across all locations within the game.
+Locations and items can share IDs, and locations can share IDs with other games’ locations.</p>
+<p>World-specific IDs <strong>must</strong> be in the range 1 to 2<sup>53</sup>-1 (the largest integer that is “<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER#description">safe</a>”
+to store in a 64-bit float, and thus all popular programming languages can handle). IDs ≤ 0 are global and reserved.
+It’s <strong>recommended</strong> to keep your IDs in the range 1 to 2<sup>31</sup>-1,
+so only 32-bit integers are needed to hold your IDs.</p>
+<p>Classification is one of <code class="docutils literal notranslate"><span class="pre">LocationProgressType.DEFAULT</span></code>, <code class="docutils literal notranslate"><span class="pre">PRIORITY</span></code> or <code class="docutils literal notranslate"><span class="pre">EXCLUDED</span></code>.
+The Fill algorithm will force progression items to be placed at priority locations, giving a higher chance of them being
+required, and will prevent progression and useful items from being placed at excluded locations.</p>
+<p>(items)=### Items</p>
+<p>Items are all things that can “drop” for your game. This may be RPG items like weapons, or technologies you normally
+research in a research tree.</p>
+<p>Each item has a <code class="docutils literal notranslate"><span class="pre">name</span></code>, a <code class="docutils literal notranslate"><span class="pre">code</span></code> (hereafter referred to as <code class="docutils literal notranslate"><span class="pre">id</span></code>), and a classification.
+The most important classification is <code class="docutils literal notranslate"><span class="pre">progression</span></code>. Progression items are items which a player <em>may</em> require to progress
+in their world. If an item can possibly be considered for logic (it’s referenced in a location’s rules) it <em>must</em> be
+progression. Progression items will be assigned to locations with higher priority, and moved around to meet defined rules
+and satisfy progression balancing.</p>
+<p>The name needs to be unique within each game, meaning if you need to create multiple items with the same name, they
+will all have the same ID. Name must not be numeric (must contain at least 1 letter or symbol).
+The ID thus also needs to be unique across all items with different names within the game.
+Items and locations can share IDs, and items can share IDs with other games’ items.</p>
+<p>Other classifications include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filler</span></code>: a regular item or trash item</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">useful</span></code>: item that is especially useful. Cannot be placed on excluded or unreachable locations. When combined with
+another flag like “progression”, it means “an especially useful progression item”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trap</span></code>: negative impact on the player</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip_balancing</span></code>: denotes that an item should not be moved to an earlier sphere for the purpose of balancing (to be
+combined with <code class="docutils literal notranslate"><span class="pre">progression</span></code>; see below)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progression_skip_balancing</span></code>: the combination of <code class="docutils literal notranslate"><span class="pre">progression</span></code> and <code class="docutils literal notranslate"><span class="pre">skip_balancing</span></code>, i.e., a progression item that
+will not be moved around by progression balancing; used, e.g., for currency or tokens, to not flood early spheres</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deprioritized</span></code>: denotes that an item should not be placed on priority locations
+(to be combined with <code class="docutils literal notranslate"><span class="pre">progression</span></code>; see below)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progression_deprioritized</span></code>: the combination of <code class="docutils literal notranslate"><span class="pre">progression</span></code> and <code class="docutils literal notranslate"><span class="pre">deprioritized</span></code>, i.e. a progression item that
+should not be placed on priority locations, despite being progression;
+like skip_balancing, this is commonly used for currency or tokens.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">progression_deprioritized_skip_balancing</span></code>: the combination of <code class="docutils literal notranslate"><span class="pre">progression</span></code>, <code class="docutils literal notranslate"><span class="pre">deprioritized</span></code> and <code class="docutils literal notranslate"><span class="pre">skip_balancing</span></code>.
+Since there is overlap between the kind of items that want <code class="docutils literal notranslate"><span class="pre">skip_balancing</span></code> and <code class="docutils literal notranslate"><span class="pre">deprioritized</span></code>,
+this combined classification exists for convenience</p></li>
+</ul>
+<p>(regions)=### Regions</p>
+<p>Regions are logical containers that typically hold locations that share some common access rules. If location logic is
+written from scratch, using regions greatly simplifies the requirements and can help with implementing things
+like entrance randomization in logic.</p>
+<p>Regions have a list called <code class="docutils literal notranslate"><span class="pre">exits</span></code>, containing <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> objects representing transitions to other regions.</p>
+<p>There must be one special region (Called “Menu” by default, but configurable using <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/worlds/AutoWorld.py#L310-L311">origin_region_name</a>),
+from which the logic unfolds. AP assumes that a player will always be able to return to this starting region by resetting the game (“Save and quit”).</p>
+<p>(entrances)=### Entrances</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> has a <code class="docutils literal notranslate"><span class="pre">parent_region</span></code> and <code class="docutils literal notranslate"><span class="pre">connected_region</span></code>, where it is in the <code class="docutils literal notranslate"><span class="pre">exits</span></code> of its parent, and the
+<code class="docutils literal notranslate"><span class="pre">entrances</span></code> of its connected region. The <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> then has rules assigned to it to determine if it can be passed
+through, making the connected region accessible. They can be static (regular logic) or be defined/connected during
+generation (entrance randomization).</p>
+<p>(access-rules)=### Access Rules</p>
+<p>An access rule is a function that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> for a <code class="docutils literal notranslate"><span class="pre">Location</span></code> or <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> based on the current <code class="docutils literal notranslate"><span class="pre">state</span></code>
+(items that have been collected).</p>
+<p>The two possible ways to make a <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/worlds/generic/Rules.py#L10">CollectionRule</a> are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">rule(state:</span> <span class="pre">CollectionState)</span> <span class="pre">-&gt;</span> <span class="pre">bool:</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">state:</span> <span class="pre">...</span> <span class="pre">boolean</span> <span class="pre">expression</span> <span class="pre">...</span></code></p></li>
+</ul>
+<p>An access rule can be assigned through <code class="docutils literal notranslate"><span class="pre">set_rule(location,</span> <span class="pre">rule)</span></code>.</p>
+<p>Access rules usually check for one of two things.</p>
+<ul class="simple">
+<li><p>Items that have been collected (e.g. <code class="docutils literal notranslate"><span class="pre">state.has(&quot;Sword&quot;,</span> <span class="pre">player)</span></code>)</p></li>
+<li><p>Locations, Regions or Entrances that have been reached (e.g. <code class="docutils literal notranslate"><span class="pre">state.can_reach_region(&quot;Boss</span> <span class="pre">Room&quot;)</span></code>)</p></li>
+</ul>
+<p>Keep in mind that entrances and locations implicitly check for the accessibility of their parent region, so you do not need to check explicitly for it.</p>
+<p>(an-important-note-on-entrance-access-rules:)=#### An important note on Entrance access rules:
+When using <code class="docutils literal notranslate"><span class="pre">state.can_reach</span></code> within an entrance access condition, you must also use <code class="docutils literal notranslate"><span class="pre">multiworld.register_indirect_condition</span></code>.</p>
+<p>For efficiency reasons, every time reachable regions are searched, every entrance is only checked once in a somewhat non-deterministic order.
+This is fine when checking for items using <code class="docutils literal notranslate"><span class="pre">state.has</span></code>, because items do not change during a region sweep.
+However, <code class="docutils literal notranslate"><span class="pre">state.can_reach</span></code> checks for the very same thing we are updating: Regions.
+This can lead to non-deterministic behavior and, in the worst case, even generation failures.
+Even doing <code class="docutils literal notranslate"><span class="pre">state.can_reach_location</span></code> or <code class="docutils literal notranslate"><span class="pre">state.can_reach_entrance</span></code> is problematic, as these functions call <code class="docutils literal notranslate"><span class="pre">state.can_reach_region</span></code> on the respective parent region.</p>
+<p><strong>Therefore, it is considered unsafe to perform <code class="docutils literal notranslate"><span class="pre">state.can_reach</span></code> from within an access condition for an entrance</strong>, unless you are checking for something that sits in the source region of the entrance.
+You can use <code class="docutils literal notranslate"><span class="pre">multiworld.register_indirect_condition(region,</span> <span class="pre">entrance)</span></code> to explicitly tell the generator that, when a given region becomes accessible, it is necessary to re-check a specific entrance.
+You <strong>must</strong> use <code class="docutils literal notranslate"><span class="pre">multiworld.register_indirect_condition</span></code> if you perform this kind of <code class="docutils literal notranslate"><span class="pre">can_reach</span></code> from an entrance access rule, unless you have a <strong>very</strong> good technical understanding of the relevant code and can reason why it will never lead to problems in your case.</p>
+<p>Alternatively, you can set <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/worlds/AutoWorld.py#L301-L304">world.explicit_indirect_conditions = False</a>,
+avoiding the need for indirect conditions at the expense of performance.</p>
+<p>(item-rules)=### Item Rules</p>
+<p>An item rule is a function that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> for a <code class="docutils literal notranslate"><span class="pre">Location</span></code> based on a single item. It can be used to
+reject the placement of an item there.</p>
+<p>(events-(or-“generation-only-items/locations”))=### Events (or “generation-only items/locations”)</p>
+<blockquote>
+<div><p><strong>Warning:</strong> If you’re trying to tell the Archipelago server that the player has achieved their goal, you want to send
+a <a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">StatusUpdate packet</span></a>, or however <a class="reference internal" href="network%20protocol.html"><span class="std std-doc">your client library</span></a>
+wraps it. Despite the popularity of “victory events” during generation, events have nothing to do with how goals are
+triggered during gameplay.</p>
+</div></blockquote>
+<p>An event item or location is one that only exists during multiworld generation; the server is never made aware of them.
+Event locations can never be checked by the player, and event items cannot be received during play.</p>
+<p>Events are used to represent in-game actions (that aren’t regular Archipelago locations) when either:</p>
+<ul class="simple">
+<li><p>We want to show in the spoiler log when the player is expected to perform the in-game action.</p></li>
+<li><p>It’s the cleanest way to represent how that in-game action impacts logic.</p></li>
+</ul>
+<p>Typical examples include completing the goal, defeating a boss, or flipping a switch that affects multiple areas.</p>
+<p>To be precise: the term “event” on its own refers to the special combination of an “event item” placed on an “event
+location”. Event items and locations are created the same way as normal items and locations, except that they have an
+<code class="docutils literal notranslate"><span class="pre">id</span></code> of <code class="docutils literal notranslate"><span class="pre">None</span></code>, and an event item must be placed on an event location
+(and vice versa). Finally, although events are often described as “fake” items and locations, it’s important to
+understand that they are perfectly real during generation.</p>
+<p>The most common way to create an event is to create the event item and the event location, then immediately call
+<code class="docutils literal notranslate"><span class="pre">Location.place_locked_item()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">victory_loc</span> <span class="o">=</span> <span class="n">MyGameLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="s2">&quot;Defeat the Final Boss&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">final_boss_arena_region</span><span class="p">)</span>
+<span class="n">victory_loc</span><span class="o">.</span><span class="n">place_locked_item</span><span class="p">(</span><span class="n">MyGameItem</span><span class="p">(</span><span class="s2">&quot;Victory&quot;</span><span class="p">,</span> <span class="n">ItemClassification</span><span class="o">.</span><span class="n">progression</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">completion_condition</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Victory&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+<span class="n">set_rule</span><span class="p">(</span><span class="n">victory_loc</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Boss Defeating Sword&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Requiring an event to finish the game will make the spoiler log display an additional
+<code class="docutils literal notranslate"><span class="pre">Defeat</span> <span class="pre">the</span> <span class="pre">Final</span> <span class="pre">Boss:</span> <span class="pre">Victory</span></code> line when the player is expected to finish, rather than only showing their last
+relevant item. But events aren’t just about the spoiler log; a more substantial example of using events to structure
+your logic might be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">water_loc</span> <span class="o">=</span> <span class="n">MyGameLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="s2">&quot;Water Level Switch&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pump_station_region</span><span class="p">)</span>
+<span class="n">water_loc</span><span class="o">.</span><span class="n">place_locked_item</span><span class="p">(</span><span class="n">MyGameItem</span><span class="p">(</span><span class="s2">&quot;Lowered Water Level&quot;</span><span class="p">,</span> <span class="n">ItemClassification</span><span class="o">.</span><span class="n">progression</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+<span class="n">pump_station_region</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">water_loc</span><span class="p">)</span>
+<span class="n">set_rule</span><span class="p">(</span><span class="n">water_loc</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Double Jump&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>  <span class="c1"># the switch is really high up</span>
+<span class="o">...</span>
+<span class="n">basement_loc</span> <span class="o">=</span> <span class="n">MyGameLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="s2">&quot;Flooded House - Basement Chest&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">flooded_house_region</span><span class="p">)</span>
+<span class="n">flooded_house_region</span><span class="o">.</span><span class="n">locations</span> <span class="o">+=</span> <span class="p">[</span><span class="n">upstairs_loc</span><span class="p">,</span> <span class="n">ground_floor_loc</span><span class="p">,</span> <span class="n">basement_loc</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="n">set_rule</span><span class="p">(</span><span class="n">basement_loc</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Lowered Water Level&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This creates a “Lowered Water Level” event and a regular location whose access rule depends on that
+event being reachable. If you made several more locations the same way, this would ensure all of those locations can
+only become reachable when the event location is reachable (i.e. when the water level can be lowered), without
+copy-pasting the event location’s access rule and then repeatedly re-evaluating it. Also, the spoiler log will show
+<code class="docutils literal notranslate"><span class="pre">Water</span> <span class="pre">Level</span> <span class="pre">Switch:</span> <span class="pre">Lowered</span> <span class="pre">Water</span> <span class="pre">Level</span></code> when the player is expected to do this.</p>
+<p>To be clear, this example could also be modeled with a second Region (perhaps “Un-Flooded House”). Or you could modify
+the game so flipping that switch checks a regular AP location in addition to lowering the water level.
+Events are never required, but it may be cleaner to use an event if e.g. flipping that switch affects the logic in
+dozens of half-flooded areas that would all otherwise need additional Regions, and you don’t want it to be a regular
+location. It depends on the game.</p>
+<p>(implementation)=## Implementation</p>
+<p>(your-world)=### Your World</p>
+<p>All code for your world implementation should be placed in a python package in the <code class="docutils literal notranslate"><span class="pre">/worlds</span></code> directory. The starting
+point for the package is <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>. Conventionally, your <code class="docutils literal notranslate"><span class="pre">World</span></code> class is placed in that file.</p>
+<p>World classes must inherit from the <code class="docutils literal notranslate"><span class="pre">World</span></code> class in <code class="docutils literal notranslate"><span class="pre">/worlds/AutoWorld.py</span></code>, which can be imported as
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">worlds.AutoWorld</span> <span class="pre">import</span> <span class="pre">World</span></code> from your package.</p>
+<p>AP will pick up your world automatically due to the <code class="docutils literal notranslate"><span class="pre">AutoWorld</span></code> implementation.</p>
+<p>(requirements)=### Requirements</p>
+<p>If your world needs specific python packages, they can be listed in <code class="docutils literal notranslate"><span class="pre">worlds/&lt;world_name&gt;/requirements.txt</span></code>.
+ModuleUpdate.py will automatically pick up and install them.</p>
+<p>See <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#requirements-file-format">pip documentation</a>.</p>
+<p>(relative-imports)=### Relative Imports</p>
+<p>AP will only import the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>. Depending on code size, it may make sense to use multiple files and use relative
+imports to access them.</p>
+<p>e.g. <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">.options</span> <span class="pre">import</span> <span class="pre">MyGameOptions</span></code> from your <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> will load <code class="docutils literal notranslate"><span class="pre">world/[world_name]/options.py</span></code> and make
+its <code class="docutils literal notranslate"><span class="pre">MyGameOptions</span></code> accessible.</p>
+<p>When imported names pile up, it may be easier to use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">.</span> <span class="pre">import</span> <span class="pre">options</span></code> and access the variable as
+<code class="docutils literal notranslate"><span class="pre">options.MyGameOptions</span></code>.</p>
+<p>Imports from directories outside your world should use absolute imports. Correct use of relative / absolute imports is
+required for zipped worlds to function, see <a class="reference internal" href="apworld%20specification.html"><span class="doc std std-doc">apworld specification.md</span></a>.</p>
+<p>(your-item-type)=### Your Item Type</p>
+<p>Each world uses its own subclass of <code class="docutils literal notranslate"><span class="pre">BaseClasses.Item</span></code>. The constructor can be overridden to attach additional data to
+it, e.g. “price in shop”. Since the constructor is only ever called from your code, you can add whatever arguments you
+like to the constructor.</p>
+<p>In its simplest form, we only set the game name and use the default constructor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">BaseClasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">Item</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameItem</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">game</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>
+</pre></div>
+</div>
+<p>By convention, this class definition will either be placed in your <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> or your <code class="docutils literal notranslate"><span class="pre">items.py</span></code>. For a more
+elaborate example see
+<a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/worlds/oot/Items.py"><code class="docutils literal notranslate"><span class="pre">worlds/oot/Items.py</span></code></a>.</p>
+<p>(your-location-type)=### Your Location Type</p>
+<p>The same thing we did for items above, we will now do for locations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">BaseClasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">Location</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameLocation</span><span class="p">(</span><span class="n">Location</span><span class="p">):</span>
+    <span class="n">game</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>
+</pre></div>
+</div>
+<p>in your <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> or your <code class="docutils literal notranslate"><span class="pre">locations.py</span></code>.</p>
+<p>(a-world-class-skeleton)=### A World Class Skeleton</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">world</span><span class="o">/</span><span class="n">mygame</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># world/mygame/__init__.py</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">settings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.options</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyGameOptions</span>  <span class="c1"># the options we defined earlier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.items</span><span class="w"> </span><span class="kn">import</span> <span class="n">mygame_items</span>  <span class="c1"># data used below to add items to the World</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.locations</span><span class="w"> </span><span class="kn">import</span> <span class="n">mygame_locations</span>  <span class="c1"># same as above</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">World</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">BaseClasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">Region</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">Entrance</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">RegionType</span><span class="p">,</span> <span class="n">ItemClassification</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameItem</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>  <span class="c1"># or from Items import MyGameItem</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>  <span class="c1"># name of the game/world this item is from</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameLocation</span><span class="p">(</span><span class="n">Location</span><span class="p">):</span>  <span class="c1"># or from Locations import MyGameLocation</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>  <span class="c1"># name of the game/world this location is in</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameSettings</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">RomFile</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SNESRomPath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert help text for host.yaml here.&quot;&quot;&quot;</span>
+
+    <span class="n">rom_file</span><span class="p">:</span> <span class="n">RomFile</span> <span class="o">=</span> <span class="n">RomFile</span><span class="p">(</span><span class="s2">&quot;MyGame.sfc&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWorld</span><span class="p">(</span><span class="n">World</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Insert description of the world/game here.&quot;&quot;&quot;</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>  <span class="c1"># name of the game/world</span>
+    <span class="n">options_dataclass</span> <span class="o">=</span> <span class="n">MyGameOptions</span>  <span class="c1"># options the player can set</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">MyGameOptions</span>  <span class="c1"># typing hints for option results</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">ClassVar</span><span class="p">[</span><span class="n">MyGameSettings</span><span class="p">]</span>  <span class="c1"># will be automatically assigned from type hint</span>
+    <span class="n">topology_present</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># show path to required location checks in spoiler</span>
+
+    <span class="c1"># ID of first item and location, could be hard-coded but code may be easier</span>
+    <span class="c1"># to read with this as a property.</span>
+    <span class="n">base_id</span> <span class="o">=</span> <span class="mi">1234</span>
+    <span class="c1"># instead of dynamic numbering, IDs could be part of data</span>
+
+    <span class="c1"># The following two dicts are required for the generation to know which items exist.</span>
+    <span class="c1"># They can be generated with arbitrary code during world load, but keep in mind that</span>
+    <span class="c1"># anything expensive (e.g. parsing non-python data files) will delay world loading.</span>
+    <span class="c1"># They can include events, but don&#39;t have to since events will be placed manually.</span>
+    <span class="n">item_name_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nb">id</span> <span class="k">for</span>
+                       <span class="nb">id</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mygame_items</span><span class="p">,</span> <span class="n">base_id</span><span class="p">)}</span>
+    <span class="n">location_name_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nb">id</span> <span class="k">for</span>
+                           <span class="nb">id</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mygame_locations</span><span class="p">,</span> <span class="n">base_id</span><span class="p">)}</span>
+
+    <span class="c1"># Items can be grouped using their names to allow easy checking if any item</span>
+    <span class="c1"># from that group has been collected. Group names can also be used for !hint</span>
+    <span class="n">item_name_groups</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;weapons&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;sword&quot;</span><span class="p">,</span> <span class="s2">&quot;lance&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>(generation)=### Generation</p>
+<p>The world has to provide the following things for generation:</p>
+<ul class="simple">
+<li><p>the properties mentioned above</p></li>
+<li><p>additions to the item pool</p></li>
+<li><p>additions to the regions list: at least one named after the world class’s origin_region_name (“Menu” by default)</p></li>
+<li><p>locations placed inside those regions</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">create_item(self,</span> <span class="pre">item:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">MyGameItem</span></code> to create any item on demand</p></li>
+<li><p>applying <code class="docutils literal notranslate"><span class="pre">self.multiworld.push_precollected</span></code> for world-defined start inventory</p></li>
+</ul>
+<p>In addition, the following methods can be implemented and are called in this order during generation:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">stage_assert_generate(cls,</span> <span class="pre">multiworld:</span> <span class="pre">MultiWorld)</span></code>
+a class method called at the start of generation to check for the existence of prerequisite files, usually a ROM for
+games which require one.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_early(self)</span></code>
+called per player before any items or locations are created. You can set properties on your
+world here. Already has access to player options and RNG. This is the earliest step where the world should start
+setting up for the current multiworld, as the multiworld itself is still setting up before this point.
+You cannot modify <code class="docutils literal notranslate"><span class="pre">local_items</span></code>, or <code class="docutils literal notranslate"><span class="pre">non_local_items</span></code> after this step.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_regions(self)</span></code>
+called to place player’s regions and their locations into the MultiWorld’s regions list.
+If it’s hard to separate, this can be done during <code class="docutils literal notranslate"><span class="pre">generate_early</span></code> or <code class="docutils literal notranslate"><span class="pre">create_items</span></code> as well.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_items(self)</span></code>
+called to place player’s items into the MultiWorld’s itempool. By the end of this step all regions, locations and
+items have to be in the MultiWorld’s regions and itempool. You cannot add or remove items, locations, or regions after
+this step. Locations cannot be moved to different regions after this step. This includes event items and locations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_rules(self)</span></code>
+called to set access and item rules on locations and entrances.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connect_entrances(self)</span></code>
+by the end of this step, all entrances must exist and be connected to their source and target regions.
+Entrance randomization should be done here.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_basic(self)</span></code>
+player-specific randomization that does not affect logic can be done here.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pre_fill(self)</span></code>, <code class="docutils literal notranslate"><span class="pre">fill_hook(self)</span></code> and <code class="docutils literal notranslate"><span class="pre">post_fill(self)</span></code>
+called to modify item placement before, during, and after the regular fill process; all finishing before
+<code class="docutils literal notranslate"><span class="pre">generate_output</span></code>. Any items that need to be placed during <code class="docutils literal notranslate"><span class="pre">pre_fill</span></code> should not exist in the itempool, and if there
+are any items that need to be filled this way, but need to be in state while you fill other items, they can be
+returned from <code class="docutils literal notranslate"><span class="pre">get_pre_fill_items</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">generate_output(self,</span> <span class="pre">output_directory:</span> <span class="pre">str)</span></code>
+creates the output files if there is output to be generated. When this is called,
+<code class="docutils literal notranslate"><span class="pre">self.multiworld.get_locations(self.player)</span></code> has all locations for the player, with attribute <code class="docutils literal notranslate"><span class="pre">item</span></code> pointing to the
+item. <code class="docutils literal notranslate"><span class="pre">location.item.player</span></code> can be used to see if it’s a local item.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fill_slot_data(self)</span></code> and <code class="docutils literal notranslate"><span class="pre">modify_multidata(self,</span> <span class="pre">multidata:</span> <span class="pre">MultiData)</span></code> can be used to modify the data that
+will be used by the server to host the MultiWorld.</p></li>
+</ul>
+<p>All instance methods can, optionally, have a class method defined which will be called after all instance methods are
+finished running, by defining a method with <code class="docutils literal notranslate"><span class="pre">stage_</span></code> in front of the method name. These class methods will have the
+args <code class="docutils literal notranslate"><span class="pre">(cls,</span> <span class="pre">multiworld:</span> <span class="pre">MultiWorld)</span></code>, followed by any other args that the relevant instance method has.</p>
+<p>(generate_early)=#### generate_early</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_early</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># read player options to world instance</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">final_boss_hp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">final_boss_hp</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+<p>(create_regions)=#### create_regions</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_regions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Add regions to the multiworld. One of them must use the origin_region_name as its name (&quot;Menu&quot; by default).</span>
+    <span class="c1"># Arguments to Region() are name, player, multiworld, and optionally hint_text</span>
+    <span class="n">menu_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s2">&quot;Menu&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menu_region</span><span class="p">)</span>  <span class="c1"># or use += [menu_region...]</span>
+
+    <span class="n">main_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s2">&quot;Main Area&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="p">)</span>
+    <span class="c1"># add main area&#39;s locations to main area (all but final boss)</span>
+    <span class="n">main_region</span><span class="o">.</span><span class="n">add_locations</span><span class="p">(</span><span class="n">main_region_locations</span><span class="p">,</span> <span class="n">MyGameLocation</span><span class="p">)</span>
+    <span class="c1"># or </span>
+    <span class="c1"># main_region.locations = \</span>
+    <span class="c1">#   [MyGameLocation(self.player, location_name, self.location_name_to_id[location_name], main_region]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">main_region</span><span class="p">)</span>
+
+    <span class="n">boss_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s2">&quot;Boss Room&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="p">)</span>
+    <span class="c1"># add event to Boss Room</span>
+    <span class="n">boss_region</span><span class="o">.</span><span class="n">locations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MyGameLocation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="s2">&quot;Final Boss&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">boss_region</span><span class="p">))</span>
+
+    <span class="c1"># if entrances are not randomized, they should be connected here, otherwise they can also be connected at a later stage</span>
+    <span class="c1"># create Entrances and connect the Regions</span>
+    <span class="n">menu_region</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">main_region</span><span class="p">)</span>  <span class="c1"># connects the &quot;Menu&quot; and &quot;Main Area&quot;, can also pass a rule</span>
+    <span class="c1"># or</span>
+    <span class="n">main_region</span><span class="o">.</span><span class="n">add_exits</span><span class="p">({</span><span class="s2">&quot;Boss Room&quot;</span><span class="p">:</span> <span class="s2">&quot;Boss Door&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;Boss Room&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Sword&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)})</span>
+    <span class="c1"># connects the &quot;Main Area&quot; and &quot;Boss Room&quot; regions, and places a rule requiring the &quot;Sword&quot; item to traverse</span>
+
+    <span class="c1"># if setting location access rules from data is easier here, set_rules can possibly be omitted</span>
+</pre></div>
+</div>
+<p>(create_item)=#### create_item</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">we</span><span class="o">-</span><span class="n">need</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">way</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">know</span><span class="o">-</span><span class="k">if</span><span class="o">-</span><span class="n">an</span><span class="o">-</span><span class="n">item</span><span class="o">-</span><span class="n">provides</span><span class="o">-</span><span class="n">progress</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">game</span><span class="o">-</span><span class="p">(</span><span class="s2">&quot;key-item&quot;</span><span class="p">)</span><span class="o">-</span><span class="n">this</span><span class="o">-</span><span class="n">can</span><span class="o">-</span><span class="n">be</span><span class="o">-</span><span class="n">part</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">items</span><span class="o">-</span><span class="n">definition</span><span class="p">,)</span><span class="o">=</span><span class="c1"># we need a way to know if an item provides progress in the game (&quot;key item&quot;) this can be part of the items definition,</span>
+<span class="p">(</span><span class="ow">or</span><span class="o">-</span><span class="n">depend</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">recipe</span><span class="o">-</span><span class="n">randomization</span><span class="p">)</span><span class="o">=</span><span class="c1"># or depend on recipe randomization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.items</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_progression</span>  <span class="c1"># this is just a dummy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyGameItem</span><span class="p">:</span>
+    <span class="c1"># this is called when AP wants to create an item by name (for plando, start inventory, item links) or when you call it from your own code</span>
+    <span class="n">classification</span> <span class="o">=</span> <span class="n">ItemClassification</span><span class="o">.</span><span class="n">progression</span> <span class="k">if</span> <span class="n">is_progression</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">else</span> <span class="n">ItemClassification</span><span class="o">.</span><span class="n">filler</span>
+    <span class="k">return</span> <span class="n">MyGameItem</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">classification</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_name_to_id</span><span class="p">[</span><span class="n">item</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MyGameItem</span><span class="p">:</span>
+    <span class="c1"># while we are at it, we can also add a helper to create events</span>
+    <span class="k">return</span> <span class="n">MyGameItem</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ItemClassification</span><span class="o">.</span><span class="n">progression</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(create_items)=#### create_items</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># Add items to the Multiworld.</span>
+    <span class="c1"># If there are two of the same item, the item has to be twice in the pool.</span>
+    <span class="c1"># Which items are added to the pool may depend on player options, e.g. custom win condition like triforce hunt.</span>
+    <span class="c1"># Having an item in the start inventory won&#39;t remove it from the pool.</span>
+    <span class="c1"># If you want to do that, use start_inventory_from_pool</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_item</span><span class="p">,</span> <span class="n">mygame_items</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">itempool</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+    <span class="c1"># itempool and number of locations should match up.</span>
+    <span class="c1"># If this is not the case we want to fill the itempool with junk.</span>
+    <span class="n">junk</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># calculate this based on player options</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">itempool</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_item</span><span class="p">(</span><span class="s2">&quot;nothing&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">junk</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>(setting-rules)=### Setting Rules</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">worlds.generic.Rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_rule</span><span class="p">,</span> <span class="n">set_rule</span><span class="p">,</span> <span class="n">forbid_item</span><span class="p">,</span> <span class="n">add_item_rule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.items</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_item_type</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">set_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># For some worlds this step can be omitted if either a Logic mixin </span>
+    <span class="c1"># (see below) is used or it&#39;s easier to apply the rules from data during</span>
+    <span class="c1"># location generation</span>
+
+    <span class="c1"># set a simple rule for an region</span>
+    <span class="n">set_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_entrance</span><span class="p">(</span><span class="s2">&quot;Boss Door&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Boss Key&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+    <span class="c1"># location.access_rule = ... is likely to be a bit faster</span>
+    <span class="c1"># combine rules to require two items</span>
+    <span class="n">add_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest2&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Sword&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+    <span class="n">add_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest2&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Shield&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+    <span class="c1"># or simply combine yourself</span>
+    <span class="n">set_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest2&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Sword&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span> <span class="ow">and</span>
+                           <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Shield&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+    <span class="c1"># require two of an item</span>
+    <span class="n">set_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest3&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Key&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># require one item from an item group</span>
+    <span class="n">add_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest3&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+             <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has_group</span><span class="p">(</span><span class="s2">&quot;weapons&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+    <span class="c1"># state also has .count() for items, .has_any() and .has_all() for multiple</span>
+    <span class="c1"># and .count_group() for groups</span>
+    <span class="c1"># set_rule is likely to be a bit faster than add_rule</span>
+
+    <span class="c1"># disallow placing a specific local item at a specific location</span>
+    <span class="n">forbid_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest4&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span> <span class="s2">&quot;Sword&quot;</span><span class="p">)</span>
+    <span class="c1"># disallow placing items with a specific property</span>
+    <span class="n">add_item_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest5&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+                  <span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">get_item_type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;weapon&quot;</span><span class="p">)</span>
+    <span class="c1"># get_item_type needs to take player/world into account</span>
+    <span class="c1"># if MyGameItem has a type property, a more direct implementation would be</span>
+    <span class="n">add_item_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest5&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+                  <span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">player</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="ow">or</span>
+                               <span class="n">item</span><span class="o">.</span><span class="n">my_type</span> <span class="o">==</span> <span class="s2">&quot;weapon&quot;</span><span class="p">)</span>
+    <span class="c1"># location.item_rule = ... is likely to be a bit faster</span>
+
+    <span class="c1"># place &quot;Victory&quot; at &quot;Final Boss&quot; and set collection as win condition</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Final Boss&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span><span class="o">.</span><span class="n">place_locked_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_event</span><span class="p">(</span><span class="s2">&quot;Victory&quot;</span><span class="p">))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">completion_condition</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;Victory&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+
+<span class="p">(</span><span class="k">for</span><span class="o">-</span><span class="n">debugging</span><span class="o">-</span><span class="n">purposes</span><span class="p">,</span><span class="o">-</span><span class="n">you</span><span class="o">-</span><span class="n">may</span><span class="o">-</span><span class="n">want</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">visualize</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">layout</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">world</span><span class="o">.-</span><span class="n">uncomment</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">following</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">to</span><span class="p">)</span><span class="o">=</span><span class="c1"># for debugging purposes, you may want to visualize the layout of your world. Uncomment the following code to</span>
+<span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">plantuml</span><span class="o">-</span><span class="n">diagram</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="s2">&quot;my_world.puml&quot;</span><span class="o">-</span><span class="n">that</span><span class="o">-</span><span class="n">can</span><span class="o">-</span><span class="n">help</span><span class="o">-</span><span class="n">you</span><span class="o">-</span><span class="n">see</span><span class="o">-</span><span class="n">whether</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">regions</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">locations</span><span class="p">)</span><span class="o">=</span><span class="c1"># write a PlantUML diagram to the file &quot;my_world.puml&quot; that can help you see whether your regions and locations</span>
+<span class="p">(</span><span class="n">are</span><span class="o">-</span><span class="n">connected</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">placed</span><span class="o">-</span><span class="k">as</span><span class="o">-</span><span class="n">desired</span><span class="p">)</span><span class="o">=</span><span class="c1"># are connected and placed as desired</span>
+<span class="p">(</span><span class="n">from</span><span class="o">-</span><span class="n">utils</span><span class="o">-</span><span class="n">import</span><span class="o">-</span><span class="n">visualize_regions</span><span class="p">)</span><span class="o">=</span><span class="c1"># from Utils import visualize_regions</span>
+<span class="p">(</span><span class="n">visualize_regions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="s2">&quot;menu&quot;</span><span class="p">,</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span><span class="o">-</span><span class="s2">&quot;my_world.puml&quot;</span><span class="p">))</span><span class="o">=</span><span class="c1"># visualize_regions(self.multiworld.get_region(&quot;Menu&quot;, self.player), &quot;my_world.puml&quot;)</span>
+</pre></div>
+</div>
+<p>(custom-logic-rules)=### Custom Logic Rules</p>
+<p>Custom methods can be defined for your logic rules. The access rule that ultimately gets assigned to the Location or
+Entrance should be
+a <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/worlds/generic/Rules.py#L10"><code class="docutils literal notranslate"><span class="pre">CollectionRule</span></code></a>.
+Typically, this is done by defining a lambda expression on demand at the relevant bit, typically calling other
+functions, but this can also be achieved by defining a method with the appropriate format and assigning it directly.
+For an example, see <a class="reference internal" href="rules.html"><span class="doc std std-doc">The Messenger</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">logic</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># logic.py</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">BaseClasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">CollectionState</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mygame_has_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># More arguments above are free to choose, since you can expect this is only called in your world</span>
+    <span class="c1"># MultiWorld can be accessed through state.multiworld.</span>
+    <span class="c1"># Explicitly passing in MyGameWorld instance for easy options access is also a valid approach, but it&#39;s generally</span>
+    <span class="c1"># better to check options before rule assignment since the individual functions can be called thousands of times</span>
+    <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">player</span><span class="p">)</span>  <span class="c1"># or whatever</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># __init__.py</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.generic.Rules</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_rule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">logic</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWorld</span><span class="p">(</span><span class="n">World</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">set_rule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;A Door&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">),</span>
+                 <span class="k">lambda</span> <span class="n">state</span><span class="p">:</span> <span class="n">logic</span><span class="o">.</span><span class="n">mygame_has_key</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>(logic-mixin)=### Logic Mixin</p>
+<p>While lambdas and events can do pretty much anything, more complex logic can be handled in logic mixins.</p>
+<p>When importing a file that defines a class that inherits from <code class="docutils literal notranslate"><span class="pre">worlds.AutoWorld.LogicMixin</span></code>, the <code class="docutils literal notranslate"><span class="pre">CollectionState</span></code> class
+is automatically extended by the mixin’s members. These members should be prefixed with the name of the implementing
+world since the namespace is shared with all other logic mixins.</p>
+<p>LogicMixin is handy when your logic is more complex than one-to-one location-item relationships.<br />
+A game in which “The red key opens the red door” can just express this relationship through a one-line access rule.<br />
+But now, consider a game with a heavy focus on combat, where the main logical consideration is which enemies you can
+defeat with your current items.<br />
+There could be dozens of weapons, armor pieces, or consumables that each improve your ability to defeat
+specific enemies to varying degrees. It would be useful to be able to keep track of “defeatable enemies” as a state variable,
+and have this variable be recalculated as necessary based on newly collected/removed items.
+This is the capability of LogicMixin: Adding custom variables to state that get recalculated as necessary.</p>
+<p>In general, a LogicMixin class should have at least one mutable variable that is tracking some custom state per player,
+as well as <code class="docutils literal notranslate"><span class="pre">init_mixin</span></code> and <code class="docutils literal notranslate"><span class="pre">copy_mixin</span></code> functions so that this variable gets initialized and copied correctly when
+<code class="docutils literal notranslate"><span class="pre">CollectionState()</span></code> and <code class="docutils literal notranslate"><span class="pre">CollectionState.copy()</span></code> are called respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">BaseClasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">CollectionState</span><span class="p">,</span> <span class="n">MultiWorld</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogicMixin</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameState</span><span class="p">(</span><span class="n">LogicMixin</span><span class="p">):</span>
+    <span class="n">mygame_defeatable_enemies</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>  <span class="c1"># per player</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_mixin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">multiworld</span><span class="p">:</span> <span class="n">MultiWorld</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Initialize per player with the corresponding &quot;nothing&quot; value, such as 0 or an empty set.</span>
+        <span class="c1"># You can also use something like Collections.defaultdict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">player</span><span class="p">:</span> <span class="nb">set</span><span class="p">()</span> <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">multiworld</span><span class="o">.</span><span class="n">get_game_players</span><span class="p">(</span><span class="s2">&quot;My Game&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy_mixin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectionState</span><span class="p">:</span>
+        <span class="c1"># Be careful to make a &quot;deep enough&quot; copy here!</span>
+        <span class="n">new_state</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">player</span><span class="p">:</span> <span class="n">enemies</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">player</span><span class="p">,</span> <span class="n">enemies</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">new_state</span>
+</pre></div>
+</div>
+<p>After doing this, you can now access <code class="docutils literal notranslate"><span class="pre">state.mygame_defeatable_enemies[player]</span></code> from your access rules.</p>
+<p>Usually, doing this coincides with an override of <code class="docutils literal notranslate"><span class="pre">World.collect</span></code> and <code class="docutils literal notranslate"><span class="pre">World.remove</span></code>, where the custom state variable
+gets recalculated when a relevant item is collected or removed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">)</span><span class="o">=</span><span class="c1"># __init__.py</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">change</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">change</span> <span class="ow">and</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">COMBAT_ITEMS</span><span class="p">:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">]</span> <span class="o">|=</span> <span class="n">get_newly_unlocked_enemies</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">change</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">change</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">change</span> <span class="ow">and</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">COMBAT_ITEMS</span><span class="p">:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">]</span> <span class="o">-=</span> <span class="n">get_newly_locked_enemies</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">change</span>
+</pre></div>
+</div>
+<p>Using LogicMixin can greatly slow down your code if you don’t use it intelligently. This is because <code class="docutils literal notranslate"><span class="pre">collect</span></code>
+and <code class="docutils literal notranslate"><span class="pre">remove</span></code> are called very frequently during fill. If your <code class="docutils literal notranslate"><span class="pre">collect</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">remove</span></code> cause a heavy calculation
+every time, your code might end up being <em>slower</em> than just doing calculations in your access rules.</p>
+<p>One way to optimise recalculations is to make use of the fact that <code class="docutils literal notranslate"><span class="pre">collect</span></code> should only unlock things,
+and <code class="docutils literal notranslate"><span class="pre">remove</span></code> should only lock things.<br />
+In our example, we have two different functions: <code class="docutils literal notranslate"><span class="pre">get_newly_unlocked_enemies</span></code> and <code class="docutils literal notranslate"><span class="pre">get_newly_locked_enemies</span></code>.<br />
+<code class="docutils literal notranslate"><span class="pre">get_newly_unlocked_enemies</span></code> should only consider enemies that are <em>not already in the set</em>
+and check whether they were <strong>unlocked</strong>.<br />
+<code class="docutils literal notranslate"><span class="pre">get_newly_locked_enemies</span></code> should only consider enemies that are <em>already in the set</em>
+and check whether they <strong>became locked</strong>.</p>
+<p>Another impactful way to optimise LogicMixin is to use caching.<br />
+Your custom state variables don’t actually need to be recalculated on every <code class="docutils literal notranslate"><span class="pre">collect</span></code> / <code class="docutils literal notranslate"><span class="pre">remove</span></code>, because there are
+often multiple calls to <code class="docutils literal notranslate"><span class="pre">collect</span></code> / <code class="docutils literal notranslate"><span class="pre">remove</span></code> between access rule calls. Thus, it would be much more efficient to hold
+off on recaculating until the an actual access rule call happens.<br />
+A common way to realize this is to define a <code class="docutils literal notranslate"><span class="pre">mygame_state_is_stale</span></code> variable that is set to True in <code class="docutils literal notranslate"><span class="pre">collect</span></code>, <code class="docutils literal notranslate"><span class="pre">remove</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">init_mixin</span></code>. The calls to the actual recalculating functions are then moved to the start of the relevant
+access rules like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">can_defeat_enemy</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enemy</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">mygame_state_is_stale</span><span class="p">[</span><span class="n">player</span><span class="p">]:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="n">recalculate_defeatable_enemies</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">mygame_state_is_stale</span><span class="p">[</span><span class="n">player</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">enemy</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">mygame_defeatable_enemies</span><span class="p">[</span><span class="n">player</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Only use LogicMixin if necessary. There are often other ways to achieve what it does, like making clever use of
+<code class="docutils literal notranslate"><span class="pre">state.prog_items</span></code>, using event items, pseudo-regions, etc.</p>
+<p>(pre_fill)=#### pre_fill</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># place item Herb into location Chest1 for some reason</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_item</span><span class="p">(</span><span class="s2">&quot;Herb&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s2">&quot;Chest1&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span><span class="o">.</span><span class="n">place_locked_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="c1"># in most cases it&#39;s better to do this at the same time the itempool is</span>
+    <span class="c1"># filled to avoid accidental duplicates, such as manually placed and still in the itempool</span>
+</pre></div>
+</div>
+<p>(generate-output)=### Generate Output</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.mod</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_mod</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># How to generate the mod or ROM highly depends on the game.</span>
+    <span class="c1"># If the mod is written in Lua, Jinja can be used to fill a template.</span>
+    <span class="c1"># If the mod reads a json file, `json.dump()` can be used to generate that.</span>
+    <span class="c1"># code below is a dummy</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">seed_name</span><span class="p">,</span>  <span class="c1"># to verify the server&#39;s multiworld</span>
+        <span class="s2">&quot;slot&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">player_name</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">],</span>  <span class="c1"># to connect to server</span>
+        <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">location</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">location</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">name</span>
+                  <span class="k">if</span> <span class="n">location</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">player</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="k">else</span> <span class="s2">&quot;Remote&quot;</span>
+                  <span class="k">for</span> <span class="n">location</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_filled_locations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)},</span>
+        <span class="c1"># store start_inventory from player&#39;s .yaml</span>
+        <span class="c1"># make sure to mark as not remote_start_inventory when connecting if stored in rom/mod</span>
+        <span class="s2">&quot;starter_items&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">precollected_items</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">]],</span>
+    <span class="p">}</span>
+
+    <span class="c1"># add needed option results to the dictionary</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">as_dict</span><span class="p">(</span><span class="s2">&quot;final_boss_hp&quot;</span><span class="p">,</span> <span class="s2">&quot;difficulty&quot;</span><span class="p">,</span> <span class="s2">&quot;fix_xyz_glitch&quot;</span><span class="p">))</span>
+    <span class="c1"># point to a ROM specified by the installation</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rom_file</span>
+    <span class="c1"># or point to worlds/mygame/data/mod_template</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;mod_template&quot;</span><span class="p">)</span>
+    <span class="c1"># generate output path</span>
+    <span class="n">mod_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_out_file_name_base</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_directory</span><span class="p">,</span> <span class="n">mod_name</span> <span class="o">+</span> <span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="c1"># generate the file</span>
+    <span class="n">generate_mod</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">out_file</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(slot-data)=### Slot Data</p>
+<p>If a client or tracker needs to know information about the generated seed, a preferred method of transferring the data
+is through the slot data. This is filled with the <code class="docutils literal notranslate"><span class="pre">fill_slot_data</span></code> method of your world by returning a <code class="docutils literal notranslate"><span class="pre">dict</span></code> with
+<code class="docutils literal notranslate"><span class="pre">str</span></code> keys that can be serialized with json. However, to not waste resources, it should be limited to data that is
+absolutely necessary. Slot data is sent to your client once it has successfully
+<a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">connected</span></a>.</p>
+<p>If you need to know information about locations in your world, instead of propagating the slot data, it is preferable
+to use <a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">LocationScouts</span></a>, since that data already exists on the server. Adding
+item/location pairs is unnecessary since the AP server already retains and freely gives that information to clients
+that request it. The most common usage of slot data is sending option results that the client needs to be aware of.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fill_slot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="c1"># In order for our game client to handle the generated seed correctly we need to know what the user selected</span>
+    <span class="c1"># for their difficulty and final boss HP.</span>
+    <span class="c1"># A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.</span>
+    <span class="c1"># The options dataclass has a method to return a `dict[str, Any]` of each option name provided and the relevant</span>
+    <span class="c1"># option&#39;s value.</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">as_dict</span><span class="p">(</span><span class="s2">&quot;difficulty&quot;</span><span class="p">,</span> <span class="s2">&quot;final_boss_hp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(documentation)=### Documentation</p>
+<p>Each world implementation should have a tutorial and a game info page. These are both rendered on the website by reading
+the <code class="docutils literal notranslate"><span class="pre">.md</span></code> files in your world’s <code class="docutils literal notranslate"><span class="pre">/docs</span></code> directory.</p>
+<p>(game-info)=#### Game Info</p>
+<p>The game info page is for a short breakdown of what your game is and how it works in Archipelago. Any additional
+information that may be useful to the player when learning your randomizer should also go here. The file name format
+is <code class="docutils literal notranslate"><span class="pre">&lt;language</span> <span class="pre">key&gt;_&lt;game</span> <span class="pre">name&gt;.md</span></code>. While you can write these docs for multiple languages, currently only the english
+version is displayed on the website.</p>
+<p>(tutorials)=#### Tutorials</p>
+<p>Your game can have as many tutorials in as many languages as you like, with each one having a relevant <code class="docutils literal notranslate"><span class="pre">Tutorial</span></code>
+defined in the <code class="docutils literal notranslate"><span class="pre">WebWorld</span></code>. The file name you use isn’t particularly important, but it should be descriptive of what
+the tutorial covers, and the name of the file must match the relative URL provided in the <code class="docutils literal notranslate"><span class="pre">Tutorial</span></code>. Currently,
+the JS that determines this ignores the provided file name and will search for <code class="docutils literal notranslate"><span class="pre">game/document_lang.md</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">game/document/lang</span></code> is the provided URL.</p>
+<p>(tests)=### Tests</p>
+<p>Each world is expected to include unit tests that cover its logic, to ensure no logic bug regressions occur. This can be
+done by creating a <code class="docutils literal notranslate"><span class="pre">/test</span></code> package within your world package. The <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> within this folder is where the world’s
+TestBase should be defined. This can be inherited from the main TestBase, which will automatically set up a solo
+multiworld for each test written using it. Within subsequent modules, classes should be defined which inherit the world
+TestBase, and can then define options to test in the class body, and run tests in each test method.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">test.bases</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorldTestBase</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameTestBase</span><span class="p">(</span><span class="n">WorldTestBase</span><span class="p">):</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>
+</pre></div>
+</div>
+<p>Next, using the rules defined in the above <code class="docutils literal notranslate"><span class="pre">set_rules</span></code> we can test that the chests have the correct access rules.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">test_chest_access.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyGameTestBase</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestChestAccess</span><span class="p">(</span><span class="n">MyGameTestBase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sword_chests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test locations that require a sword&quot;&quot;&quot;</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Chest1&quot;</span><span class="p">,</span> <span class="s2">&quot;Chest2&quot;</span><span class="p">]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Sword&quot;</span><span class="p">]]</span>
+        <span class="c1"># this will test that each location can&#39;t be accessed without the &quot;Sword&quot;, but can be accessed once obtained</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAccessDependency</span><span class="p">(</span><span class="n">locations</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_any_weapon_chests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test locations that require any weapon&quot;&quot;&quot;</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Chest</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Sword&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Axe&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Spear&quot;</span><span class="p">]]</span>
+        <span class="c1"># this will test that chests 3-5 can&#39;t be accessed without any weapon, but can be with just one of them</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAccessDependency</span><span class="p">(</span><span class="n">locations</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more information on tests, check the <a class="reference internal" href="tests.html"><span class="doc std std-doc">tests doc</span></a>.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="apworld%20specification.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="options%20api.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/world api.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="options%20api.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="apworld%20specification.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

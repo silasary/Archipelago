@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CollectionState &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Entrance" href="entrance.html" />
+    <link rel="prev" title="MultiWorld" href="multiworld.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance.html" title="Entrance"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="multiworld.html" title="MultiWorld"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" accesskey="U">BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CollectionState</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="collectionstate">
+<h1>CollectionState<a class="headerlink" href="#collectionstate" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">BaseClasses.</span></span><span class="sig-name descname"><span class="pre">CollectionState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_partial_entrances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.CollectionState" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.add_item" title="Link to this definition">¶</a></dt>
+<dd><p>Adds the item to state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – The item to be added.</p></li>
+<li><p><strong>player</strong> – The player the item is for.</p></li>
+<li><p><strong>count</strong> – How many of the item to add.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.additional_copy_functions">
+<span class="sig-name descname"><span class="pre">additional_copy_functions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#BaseClasses.CollectionState.additional_copy_functions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.additional_init_functions">
+<span class="sig-name descname"><span class="pre">additional_init_functions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></span><a class="headerlink" href="#BaseClasses.CollectionState.additional_init_functions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.advancements">
+<span class="sig-name descname"><span class="pre">advancements</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.advancements" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.allow_partial_entrances">
+<span class="sig-name descname"><span class="pre">allow_partial_entrances</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#BaseClasses.CollectionState.allow_partial_entrances" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.blocked_connections">
+<span class="sig-name descname"><span class="pre">blocked_connections</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.blocked_connections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.can_reach">
+<span class="sig-name descname"><span class="pre">can_reach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution_hint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.can_reach" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.can_reach_entrance">
+<span class="sig-name descname"><span class="pre">can_reach_entrance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.can_reach_entrance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.can_reach_location">
+<span class="sig-name descname"><span class="pre">can_reach_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.can_reach_location" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.can_reach_region">
+<span class="sig-name descname"><span class="pre">can_reach_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.can_reach_region" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.collect">
+<span class="sig-name descname"><span class="pre">collect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevent_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.collect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></span><a class="headerlink" href="#BaseClasses.CollectionState.copy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.count" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.count_from_list">
+<span class="sig-name descname"><span class="pre">count_from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.count_from_list" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the cumulative count of items from a list present in state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.count_from_list_unique">
+<span class="sig-name descname"><span class="pre">count_from_list_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.count_from_list_unique" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the cumulative count of items from a list present in state. Ignores duplicates of the same item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.count_group">
+<span class="sig-name descname"><span class="pre">count_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.count_group" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the cumulative count of items from an item group present in state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.count_group_unique">
+<span class="sig-name descname"><span class="pre">count_group_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.count_group_unique" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the cumulative count of items from an item group present in state.
+Ignores duplicates of the same item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has">
+<span class="sig-name descname"><span class="pre">has</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_all">
+<span class="sig-name descname"><span class="pre">has_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_all" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if each item name of items is in state at least once.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_all_counts">
+<span class="sig-name descname"><span class="pre">has_all_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_all_counts" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if each item name is in the state at least as many times as specified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_any">
+<span class="sig-name descname"><span class="pre">has_any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_any" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if at least one item name of items is in state at least once.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_any_count">
+<span class="sig-name descname"><span class="pre">has_any_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_any_count" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if at least one item name is in the state at least as many times as specified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_from_list">
+<span class="sig-name descname"><span class="pre">has_from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_from_list" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the state contains at least <cite>count</cite> items matching any of the item names from a list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_from_list_unique">
+<span class="sig-name descname"><span class="pre">has_from_list_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_from_list_unique" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the state contains at least <cite>count</cite> items matching any of the item names from a list.
+Ignores duplicates of the same item.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_group">
+<span class="sig-name descname"><span class="pre">has_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_group" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the state contains at least <cite>count</cite> items present in a specified item group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.has_group_unique">
+<span class="sig-name descname"><span class="pre">has_group_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name_group</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.has_group_unique" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the state contains at least <cite>count</cite> items present in a specified item group.
+Ignores duplicates of the same item.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.locations_checked">
+<span class="sig-name descname"><span class="pre">locations_checked</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.locations_checked" title="Link to this definition">¶</a></dt>
+<dd><p>Internal cache for Advancement Locations already checked by this CollectionState. Not for use in logic.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.multiworld">
+<span class="sig-name descname"><span class="pre">multiworld</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span><a class="headerlink" href="#BaseClasses.CollectionState.multiworld" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.path">
+<span class="sig-name descname"><span class="pre">path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">PathValue</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.prog_items">
+<span class="sig-name descname"><span class="pre">prog_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Counter</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.prog_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.reachable_regions">
+<span class="sig-name descname"><span class="pre">reachable_regions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.reachable_regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.CollectionState.remove" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.remove_item">
+<span class="sig-name descname"><span class="pre">remove_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.remove_item" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the item from state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – The item to be removed.</p></li>
+<li><p><strong>player</strong> – The player the item is for.</p></li>
+<li><p><strong>count</strong> – How many of the item to remove.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.set_item">
+<span class="sig-name descname"><span class="pre">set_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.set_item" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the item in state equal to the provided count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – The item to modify.</p></li>
+<li><p><strong>player</strong> – The player the item is for.</p></li>
+<li><p><strong>count</strong> – How many of the item to now have.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.stale">
+<span class="sig-name descname"><span class="pre">stale</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.stale" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.sweep_for_advancements">
+<span class="sig-name descname"><span class="pre">sweep_for_advancements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">yield_each_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checked_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.sweep_for_advancements" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">sweep_for_advancements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yield_each_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checked_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Sweep through the locations that contain uncollected advancement items, collecting the items into the state
+until there are no more reachable locations that contain uncollected advancement items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>locations</strong> – The locations to sweep through, defaulting to all locations in the multiworld.</p></li>
+<li><p><strong>yield_each_sweep</strong> – When True, return a generator that yields at the end of each sweep iteration.</p></li>
+<li><p><strong>checked_locations</strong> – Optional override of locations to filter out from the locations argument, defaults to</p></li>
+</ul>
+</dd>
+</dl>
+<p>self.advancements when None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.sweep_for_events">
+<span class="sig-name descname"><span class="pre">sweep_for_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.CollectionState.sweep_for_events" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.CollectionState.update_reachable_regions">
+<span class="sig-name descname"><span class="pre">update_reachable_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.CollectionState.update_reachable_regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="baseclasses.html">BaseClasses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.CollectionState"><code class="docutils literal notranslate"><span class="pre">CollectionState</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.DEFAULT_COLLECTION_RULE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_COLLECTION_RULE()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Entrance"><code class="docutils literal notranslate"><span class="pre">Entrance</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceInfo"><code class="docutils literal notranslate"><span class="pre">EntranceInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceType"><code class="docutils literal notranslate"><span class="pre">EntranceType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.HasNameAndPlayer"><code class="docutils literal notranslate"><span class="pre">HasNameAndPlayer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ItemClassification"><code class="docutils literal notranslate"><span class="pre">ItemClassification</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Location"><code class="docutils literal notranslate"><span class="pre">Location</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.LocationProgressType"><code class="docutils literal notranslate"><span class="pre">LocationProgressType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.MultiWorld"><code class="docutils literal notranslate"><span class="pre">MultiWorld</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock"><code class="docutils literal notranslate"><span class="pre">PlandoItemBlock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoOptions"><code class="docutils literal notranslate"><span class="pre">PlandoOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Spoiler"><code class="docutils literal notranslate"><span class="pre">Spoiler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ThreadBarrierProxy"><code class="docutils literal notranslate"><span class="pre">ThreadBarrierProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Tutorial"><code class="docutils literal notranslate"><span class="pre">Tutorial</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.get_seed"><code class="docutils literal notranslate"><span class="pre">get_seed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiworld.html">MultiWorld</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CollectionState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entrance.html">Entrance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location.html">Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="region.html">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="multiworld.html"
+                          title="previous chapter">MultiWorld</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="entrance.html"
+                          title="next chapter">Entrance</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/collectionstate.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance.html" title="Entrance"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="multiworld.html" title="MultiWorld"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" >BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">CollectionState</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

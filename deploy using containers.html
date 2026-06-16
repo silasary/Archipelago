@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(deploy-using-containers)=# Deploy Using Containers</p>
+<p>If you just want to play and there is a compiled version available on the <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/releases">Archipelago releases page</a>, use that version.
+To build the full Archipelago software stack, refer to <a class="reference internal" href="running%20from%20source.html"><span class="doc std std-doc">Running From Source</span></a>.
+Follow these steps to build and deploy a containerized instance of the web host software, optionally integrating <a class="reference external" href="https://gunicorn.org/">Gunicorn</a> WSGI HTTP Server running behind the <a class="reference external" href="https://nginx.org/">nginx</a> reverse proxy.</p>
+<p>(building-the-container-image)=## Building the Container Image</p>
+<p>What you’ll need:</p>
+<ul class="simple">
+<li><p>A container runtime engine such as:</p>
+<ul>
+<li><p><a class="reference external" href="https://www.docker.com/">Docker</a> (Version 23.0 or later)</p></li>
+<li><p><a class="reference external" href="https://podman.io/">Podman</a> (version 4.0 or later)</p>
+<ul>
+<li><p>For running with rootless podman, you need to ensure all ports used are usable rootless, by default ports less than 1024 are root only. See <a class="reference external" href="https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md">the official tutorial</a> for details.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The Docker Buildx plugin (for Docker), as the Dockerfile uses <code class="docutils literal notranslate"><span class="pre">$TARGETARCH</span></code> for architecture detection. Follow <a class="reference external" href="https://docs.docker.com/build/buildx/install/">Docker’s guide</a>. Verify with <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">buildx</span> <span class="pre">version</span></code>.</p></li>
+</ul>
+<p>Starting from the root repository directory, the standalone Archipelago image can be built and run with the command:
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">archipelago</span> <span class="pre">.</span></code>
+Or:
+<code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">build</span> <span class="pre">-t</span> <span class="pre">archipelago</span> <span class="pre">.</span></code></p>
+<p>It is recommended to tag the image using <code class="docutils literal notranslate"><span class="pre">-t</span></code> to more easily identify the image and run it.</p>
+<p>(running-the-container)=## Running the Container</p>
+<p>Running the container can be performed using:
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--network</span> <span class="pre">host</span> <span class="pre">archipelago</span></code>
+Or:
+<code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">run</span> <span class="pre">--network</span> <span class="pre">host</span> <span class="pre">archipelago</span></code></p>
+<p>The Archipelago web host requires access to multiple ports in order to host game servers simultaneously. To simplify configuration for this purpose, specify <code class="docutils literal notranslate"><span class="pre">--network</span> <span class="pre">host</span></code>.</p>
+<p>Given the default configuration, the website will be accessible at the hostname/IP address (localhost if run locally) of the machine being deployed to, at port 80. It can be configured by creating a YAML file and mapping a volume to the container when running initially:
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">archipelago</span> <span class="pre">--network</span> <span class="pre">host</span> <span class="pre">-v</span> <span class="pre">/path/to/config.yaml:/app/config.yaml</span></code>
+See <code class="docutils literal notranslate"><span class="pre">docs/webhost</span> <span class="pre">configuration</span> <span class="pre">sample.yaml</span></code> for example.</p>
+<p>(using-docker-compose)=## Using Docker Compose</p>
+<p>An example <a class="reference internal" href="#docker-compose"><span class="xref myst">docker compose</span></a> file can be found in <a class="reference internal" href="#../deploy"><span class="xref myst">deploy</span></a>, along with example configuration files used by the services it orchestrates. Using these files as-is will spin up two separate archipelago containers with special modifications to their runtime arguments, in addition to deploying an <code class="docutils literal notranslate"><span class="pre">nginx</span></code> reverse proxy container.</p>
+<p>To deploy in this manner, from the <a class="reference internal" href="#deploy"><span class="xref myst">“deploy”</span></a> directory, run:
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span></code></p>
+<p>(services)=### Services</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file defines three services:</p>
+<ul class="simple">
+<li><p>multiworld:</p>
+<ul>
+<li><p>Executes the main <code class="docutils literal notranslate"><span class="pre">WebHost</span></code> process, using the <a class="reference internal" href="#example_config"><span class="xref myst">example config</span></a>, and overriding with a secondary <a class="reference internal" href="#../deploy/example_selflaunch.yaml"><span class="xref myst">selflaunch example config</span></a>. This is because we do not want to launch the website through this service.</p></li>
+</ul>
+</li>
+<li><p>web:</p>
+<ul>
+<li><p>Executes <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code> using its <a class="reference internal" href="#example_gunicorn.conf"><span class="xref myst">example config</span></a>, which will bind it to the <code class="docutils literal notranslate"><span class="pre">WebHost</span></code> application, in effect launching it.</p></li>
+<li><p>We mount the main <a class="reference internal" href="#example_config"><span class="xref myst">config</span></a> without an override to specify that we are launching the website through this service.</p></li>
+<li><p>No ports are exposed through to the host.</p></li>
+</ul>
+</li>
+<li><p>nginx:</p>
+<ul>
+<li><p>Serves as a reverse proxy with <code class="docutils literal notranslate"><span class="pre">web</span></code> as its upstream.</p></li>
+<li><p>Directs all HTTP traffic from port 80 to the upstream service.</p></li>
+<li><p>Exposed to the host on port 8080. This is where we can reach the website.</p></li>
+</ul>
+</li>
+</ul>
+<p>(configuration)=### Configuration</p>
+<p>As these are examples, they can be copied and modified. For instance setting the value of <code class="docutils literal notranslate"><span class="pre">HOST_ADDRESS</span></code> in <a class="reference internal" href="#example_config"><span class="xref myst">example config</span></a> to host machines local IP address, will expose the service to its local area network.</p>
+<p>The configuration files may be modified to handle for machine-specific optimizations, such as:</p>
+<ul class="simple">
+<li><p>Web pages responding too slowly</p>
+<ul>
+<li><p>Edit <a class="reference internal" href="#example_gunicorn.conf"><span class="xref myst">the gunicorn config</span></a> to increase thread and/or worker count.</p></li>
+</ul>
+</li>
+<li><p>Game generation stalls</p>
+<ul>
+<li><p>Increase the generator count in <a class="reference internal" href="#example_selflaunch"><span class="xref myst">selflaunch config</span></a></p></li>
+</ul>
+</li>
+<li><p>Gameplay lags</p>
+<ul>
+<li><p>Increase the hoster count in <a class="reference internal" href="#example_selflaunch"><span class="xref myst">selflaunch config</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p>Changes made to <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> can be applied by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">up</span> <span class="pre">-d</span></code>, while those made to other files are applied by running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">compose</span> <span class="pre">restart</span></code>.</p>
+<p>(windows)=## Windows</p>
+<p>It is possible to carry out these deployment steps on Windows under <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux</a>.</p>
+<p>(optional:-git)=## Optional: Git</p>
+<p>Building the image requires a local copy of the ArchipelagoMW source code.
+Refer to <a class="reference internal" href="running%20from%20source.html"><span class="doc std std-doc">Running From Source</span></a>.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/deploy using containers.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

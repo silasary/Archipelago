@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="running%20from%20source.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="world%20maintainer.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="running%20from%20source.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="world%20maintainer.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(style-guide)=# Style Guide</p>
+<p>(generic)=## Generic</p>
+<ul class="simple">
+<li><p>This guide can be ignored for data files that are not to be viewed in an editor.</p></li>
+<li><p>120 character per line for all source files.</p></li>
+<li><p>Avoid white space errors like trailing spaces.</p></li>
+</ul>
+<p>(python-code)=## Python Code</p>
+<ul>
+<li><p>We mostly follow <a class="reference external" href="https://peps.python.org/pep-0008/">PEP8</a>. Read below to see the differences.</p></li>
+<li><p>120 characters per line. PyCharm does this automatically, other editors can be configured for it.</p></li>
+<li><p>Strings in core code will be <code class="docutils literal notranslate"><span class="pre">&quot;strings&quot;</span></code>. In other words: double quote your strings.</p></li>
+<li><p>Strings in worlds should use double quotes as well, but imported code may differ.</p></li>
+<li><p>Prefer <a class="reference external" href="https://peps.python.org/pep-0498/">format string literals</a> over string concatenation,
+use single quotes inside them: <code class="docutils literal notranslate"><span class="pre">f&quot;Like</span> <span class="pre">{dct['key']}&quot;</span></code></p></li>
+<li><p>Use type annotations where possible for function signatures and class members.</p></li>
+<li><p>Use type annotations where appropriate for local variables (e.g. <code class="docutils literal notranslate"><span class="pre">var:</span> <span class="pre">list[int]</span> <span class="pre">=</span> <span class="pre">[]</span></code>, or when the
+type is hard or impossible to deduce). Clear annotations help developers look up and validate API calls.</p></li>
+<li><p>Prefer new style type annotations for new code (e.g. <code class="docutils literal notranslate"><span class="pre">var:</span> <span class="pre">dict[str,</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">int]</span></code> over
+<code class="docutils literal notranslate"><span class="pre">var:</span> <span class="pre">Dict[str,</span> <span class="pre">Union[str,</span> <span class="pre">int]]</span></code>).</p></li>
+<li><p>If a line ends with an open bracket/brace/parentheses, the matching closing bracket should be at the
+beginning of a line at the same indentation as the beginning of the line with the open bracket.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">y</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">thing</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>New classes, attributes, and methods in core code should have docstrings that follow
+<a class="reference external" href="https://peps.python.org/pep-0287/">reST style</a>.</p></li>
+<li><p>Worlds that do not follow PEP8 should still have a consistent style across its files to make reading easier.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html#tut-match">Match statements</a>
+may be used instead of <code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">elif</span></code> if they result in nicer code, or they actually use pattern matching.
+Beware of the performance: they are not <code class="docutils literal notranslate"><span class="pre">goto</span></code>s, but <code class="docutils literal notranslate"><span class="pre">if</span></code>-<code class="docutils literal notranslate"><span class="pre">elif</span></code> under the hood, and you may have less control. When
+in doubt, just don’t use it.</p></li>
+</ul>
+<p>(markdown)=## Markdown</p>
+<ul class="simple">
+<li><p>We almost follow <a class="reference external" href="https://google.github.io/styleguide/docguide/style.html">Google’s styleguide</a>.
+Read below for differences.</p></li>
+<li><p>For existing documents, try to follow its style or ask to completely reformat it.</p></li>
+<li><p>120 characters per line.</p></li>
+<li><p>One space between bullet/number and text.</p></li>
+<li><p>No lazy numbering.</p></li>
+</ul>
+<p>(html)=## HTML</p>
+<ul class="simple">
+<li><p>Indent with 4 spaces for new code.</p></li>
+<li><p>kebab-case for ids and classes.</p></li>
+<li><p>Avoid using on* attributes (onclick, etc.).</p></li>
+</ul>
+<p>(css-/-scss)=## CSS / SCSS</p>
+<ul class="simple">
+<li><p>Indent with 4 spaces for new code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{</span></code> on the same line as the selector.</p></li>
+<li><p>Space between selector and <code class="docutils literal notranslate"><span class="pre">{</span></code>.</p></li>
+</ul>
+<p>(js)=## JS</p>
+<ul class="simple">
+<li><p>Indent with 4 spaces.</p></li>
+<li><p>Indent <code class="docutils literal notranslate"><span class="pre">case</span></code> inside <code class="docutils literal notranslate"><span class="pre">switch</span> </code> with 4 spaces.</p></li>
+<li><p>Prefer double quotation marks (<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>).</p></li>
+<li><p>Semicolons are required after every statement.</p></li>
+<li><p>Use <a class="reference external" href="https://developer.mozilla.org/docs/Glossary/IIFE">IIFEs</a> to avoid polluting global scope.</p></li>
+<li><p>Prefer to use <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#defer">defer</a>
+in script tags, which retains order of execution but does not block.</p></li>
+<li><p>Avoid <code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">async</span> <span class="pre">...</span></code> in most cases, see <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#async_and_defer">async and defer</a>.</p></li>
+<li><p>Use addEventListener.</p></li>
+</ul>
+<p>(kv)=## KV</p>
+<ul class="simple">
+<li><p>Style should be defined in <code class="docutils literal notranslate"><span class="pre">.kv</span></code> as much as possible, only Python when unavailable.</p></li>
+<li><p>Should follow <a class="reference internal" href="#python-code"><span class="xref myst">our Python style</span></a> where appropriate (quotation marks, indentation).</p></li>
+<li><p>When escaping a line break, add a space between code and backslash.</p></li>
+</ul>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="world%20maintainer.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="running%20from%20source.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/style.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="running%20from%20source.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="world%20maintainer.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(triage-role-expectations)=# Triage Role Expectations</p>
+<p>Users with Triage-level access are selected contributors who can and wish to proactively label/triage issues and pull
+requests without being granted write access to the Archipelago repository.</p>
+<p>Triage users are not necessarily official members of the Archipelago organization, for the list of core maintainers,
+please reference <a class="reference external" href="https://github.com/orgs/ArchipelagoMW/people">ArchipelagoMW Members</a> page.</p>
+<p>(access-permissions)=## Access Permissions</p>
+<p>Triage users have the following permissions:</p>
+<ul class="simple">
+<li><p>Apply/dismiss labels on all issues and pull requests.</p></li>
+<li><p>Close, reopen, and assign all issues and pull requests.</p></li>
+<li><p>Mark issues and pull requests as duplicate.</p></li>
+<li><p>Request pull request reviews from repository members.</p></li>
+<li><p>Hide comments in issues or pull requests from public view.</p>
+<ul>
+<li><p>Hidden comments are not deleted and can be reversed by another triage user or repository member with write access.</p></li>
+</ul>
+</li>
+<li><p>And all other standard permissions granted to regular GitHub users.</p></li>
+</ul>
+<p>For more details on permissions granted by the Triage role, see
+<a class="reference external" href="https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization">GitHub’s Role Documentation</a>.</p>
+<p>(expectations)=## Expectations</p>
+<p>Users with triage-level permissions have no expectation to review code, but, if desired, to review pull requests/issues
+and apply the relevant labels and ping/request reviews from any relevant <a class="reference internal" href="codeowners.html"><span class="doc std std-doc">code owners</span></a> for review. Triage
+users are also expected not to close others’ issues or pull requests without strong reason to do so (with exception of
+<code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">invalid</span></code> or <code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">duplicate</span></code> scenarios, which are listed below). When in doubt, defer to a core maintainer.</p>
+<p>Triage users are not “moderators” for others’ issues or pull requests. However, they may voice their opinions/feedback
+on issues or pull requests, just the same as any other GitHub user contributing to Archipelago.</p>
+<p>(labeling)=## Labeling</p>
+<p>As of the time of writing this document, there are 15 distinct labels that can be applied to issues and pull requests.</p>
+<p>(affects)=### Affects</p>
+<p>These labels notate if certain issues or pull requests affect critical aspects of Archipelago that may require specific
+review. More than one of these labels can be used on a issue or pull request, if relevant.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">affects:</span> <span class="pre">core</span></code> is to be applied to issues/PRs that may affect core Archipelago functionality and should be reviewed
+with additional scrutiny.</p>
+<ul>
+<li><p>Core is defined as any files not contained in the <code class="docutils literal notranslate"><span class="pre">WebHostLib</span></code> directory or individual world implementations
+directories inside the <code class="docutils literal notranslate"><span class="pre">worlds</span></code> directory, not including <code class="docutils literal notranslate"><span class="pre">worlds/generic</span></code>.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">affects:</span> <span class="pre">webhost</span></code> is to be applied to issues/PRs that may affect the core WebHost portion of Archipelago. In
+general, this is anything being modified inside the <code class="docutils literal notranslate"><span class="pre">WebHostLib</span></code> directory or <code class="docutils literal notranslate"><span class="pre">WebHost.py</span></code> file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">affects:</span> <span class="pre">release/blocker</span></code> is to be applied for any issues/PRs that may either negatively impact (issues) or propose
+to resolve critical issues (pull requests) that affect the current or next official release of Archipelago and should be
+given top priority for review.</p></li>
+</ul>
+<p>(is)=### Is</p>
+<p>These labels notate what kinds of changes are being made or proposed in issues or pull requests. More than one of these
+labels can be used on a issue or pull request, if relevant, but at least one of these labels should be applied to every
+pull request and issue.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">bug/fix</span></code> is to be applied to issues/PRs that report or resolve an issue in core, web, or individual world
+implementations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">documentation</span></code> is to be applied to issues/PRs that relate to adding, updating, or removing documentation in
+core, web, or individual world implementations without modifying actual code.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">enhancement</span></code> is to be applied to issues/PRs that relate to adding, modifying, or removing functionality in
+core, web, or individual world implementations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">refactor/cleanup</span></code> is to be applied to issues/PRs that relate to reorganizing existing code to improve
+readability or performance without adding, modifying, or removing functionality or fixing known regressions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">maintenance</span></code> is to be applied to issues/PRs that don’t modify logic, refactor existing code, change features.
+This is typically reserved for pull requests that need to update dependencies or increment version numbers without
+resolving existing issues.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">new</span> <span class="pre">game</span></code> is to be applied to any pull requests that introduce a new game for the first time to the <code class="docutils literal notranslate"><span class="pre">worlds</span></code>
+directory.</p>
+<ul>
+<li><p>Issues should not be opened and classified with <code class="docutils literal notranslate"><span class="pre">is:</span> <span class="pre">new</span> <span class="pre">game</span></code>, and instead should be directed to the
+#future-game-design channel in Archipelago for opening suggestions. If they are opened, they should be labeled
+with <code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">invalid</span></code> and closed.</p></li>
+<li><p>Pull requests for new games should only have this label, as enhancement, documentation, bug/fix, refactor, and
+possibly maintenance is implied.</p></li>
+</ul>
+</li>
+</ul>
+<p>(meta)=### Meta</p>
+<p>These labels allow additional quick meta information for contributors or reviewers for issues and pull requests. They
+have specific situations where they should be applied.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">duplicate</span></code> is to be applied to any issues/PRs that are duplicate of another issue/PR that was already opened.</p>
+<ul>
+<li><p>These should be immediately closed after leaving a comment, directing to the original issue or pull request.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">invalid</span></code> is to be applied to any issues/PRs that do not relate to Archipelago or are inappropriate for
+discussion on GitHub.</p>
+<ul>
+<li><p>These should be immediately closed afterwards.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">help</span> <span class="pre">wanted</span></code> is to be applied to any issues/PRs that require additional attention for whatever reason.</p>
+<ul>
+<li><p>These should include a comment describing what kind of help is requested when the label is added.</p></li>
+<li><p>Some common reasons include, but are not limited to: Breaking API changes that require developer input/testing or
+pull requests with large line changes that need additional reviewers to be reviewed effectively.</p></li>
+<li><p>This label may require some programming experience and familiarity with Archipelago source to determine if
+requesting additional attention for help is warranted.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">good</span> <span class="pre">first</span> <span class="pre">issue</span></code> is to be applied to any issues that may be a good starting ground for new contributors to try
+and tackle.</p>
+<ul>
+<li><p>This label may require some programming experience and familiarity with Archipelago source to determine if an
+issue is a “good first issue”.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">meta:</span> <span class="pre">wontfix</span></code> is to be applied for any issues/PRs that are opened that will not be actioned because it’s out of
+scope or determined to not be an issue.</p>
+<ul>
+<li><p>This should be reserved for use by a world’s code owner(s) on their relevant world or by core maintainers.</p></li>
+</ul>
+</li>
+</ul>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/triage role expectations.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Location &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Region" href="region.html" />
+    <link rel="prev" title="Item" href="item.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="region.html" title="Region"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="item.html" title="Item"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" accesskey="U">BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Location</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="location">
+<h1>Location<a class="headerlink" href="#location" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseClasses.Location">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">BaseClasses.</span></span><span class="sig-name descname"><span class="pre">Location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.Location" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.access_rule">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">access_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.Location.access_rule" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.address">
+<span class="sig-name descname"><span class="pre">address</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#BaseClasses.Location.address" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.Location.advancement">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">advancement</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#BaseClasses.Location.advancement" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.always_allow">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">always_allow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.Location.always_allow" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.can_fill">
+<span class="sig-name descname"><span class="pre">can_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_access</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.Location.can_fill" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.can_reach">
+<span class="sig-name descname"><span class="pre">can_reach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.Location.can_reach" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.game">
+<span class="sig-name descname"><span class="pre">game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Generic'</span></span><a class="headerlink" href="#BaseClasses.Location.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.Location.hint_text">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">hint_text</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#BaseClasses.Location.hint_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.Location.is_event">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">is_event</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#BaseClasses.Location.is_event" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the address of this location is None, denoting it is an Event Location.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.item">
+<span class="sig-name descname"><span class="pre">item</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#BaseClasses.Location.item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.item_rule">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">item_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.Location.item_rule" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.locked">
+<span class="sig-name descname"><span class="pre">locked</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#BaseClasses.Location.locked" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#BaseClasses.Location.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.Location.native_item">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">native_item</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#BaseClasses.Location.native_item" title="Link to this definition">¶</a></dt>
+<dd><p>Returns True if the item in this location matches game.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.parent_region">
+<span class="sig-name descname"><span class="pre">parent_region</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#BaseClasses.Location.parent_region" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.Location.place_locked_item">
+<span class="sig-name descname"><span class="pre">place_locked_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.Location.place_locked_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#BaseClasses.Location.player" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.progress_type">
+<span class="sig-name descname"><span class="pre">progress_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="baseclasses.html#BaseClasses.LocationProgressType" title="BaseClasses.LocationProgressType"><span class="pre">LocationProgressType</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#BaseClasses.Location.progress_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.Location.show_in_spoiler">
+<span class="sig-name descname"><span class="pre">show_in_spoiler</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#BaseClasses.Location.show_in_spoiler" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="baseclasses.html">BaseClasses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.CollectionState"><code class="docutils literal notranslate"><span class="pre">CollectionState</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.DEFAULT_COLLECTION_RULE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_COLLECTION_RULE()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Entrance"><code class="docutils literal notranslate"><span class="pre">Entrance</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceInfo"><code class="docutils literal notranslate"><span class="pre">EntranceInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceType"><code class="docutils literal notranslate"><span class="pre">EntranceType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.HasNameAndPlayer"><code class="docutils literal notranslate"><span class="pre">HasNameAndPlayer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ItemClassification"><code class="docutils literal notranslate"><span class="pre">ItemClassification</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Location"><code class="docutils literal notranslate"><span class="pre">Location</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.LocationProgressType"><code class="docutils literal notranslate"><span class="pre">LocationProgressType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.MultiWorld"><code class="docutils literal notranslate"><span class="pre">MultiWorld</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock"><code class="docutils literal notranslate"><span class="pre">PlandoItemBlock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoOptions"><code class="docutils literal notranslate"><span class="pre">PlandoOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Spoiler"><code class="docutils literal notranslate"><span class="pre">Spoiler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ThreadBarrierProxy"><code class="docutils literal notranslate"><span class="pre">ThreadBarrierProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Tutorial"><code class="docutils literal notranslate"><span class="pre">Tutorial</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.get_seed"><code class="docutils literal notranslate"><span class="pre">get_seed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiworld.html">MultiWorld</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collectionstate.html">CollectionState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entrance.html">Entrance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="item.html">Item</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="region.html">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="item.html"
+                          title="previous chapter">Item</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="region.html"
+                          title="next chapter">Region</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/location.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="region.html" title="Region"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="item.html" title="Item"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" >BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Location</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

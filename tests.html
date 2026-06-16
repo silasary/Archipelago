@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="apworld_dev_faq.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="network%20protocol.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="apworld_dev_faq.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="network%20protocol.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(archipelago-unit-testing-api)=# Archipelago Unit Testing API</p>
+<p>This document covers some of the generic tests available using Archipelago’s unit testing system, as well as some basic
+steps on how to write your own.</p>
+<p>(generic-tests)=## Generic Tests</p>
+<p>Some generic tests are run on every World to ensure basic functionality with default options. These basic tests can be
+found in the <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/tree/main/test/general">general test directory</a>.</p>
+<p>(defining-world-tests)=## Defining World Tests</p>
+<p>In order to run tests from your world, you will need to create a <code class="docutils literal notranslate"><span class="pre">test</span></code> package within your world package. This can be
+done by creating a <code class="docutils literal notranslate"><span class="pre">test</span></code> directory inside your world with an (empty) <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> inside it. By convention, a base
+for your world tests can be created in <code class="docutils literal notranslate"><span class="pre">bases.py</span></code> or any file that does not start with <code class="docutils literal notranslate"><span class="pre">test</span></code>, that you can then import
+into other modules. All tests should be defined in files named <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> (all lower case) and be member functions
+(named <code class="docutils literal notranslate"><span class="pre">test_*</span></code>) of classes (named <code class="docutils literal notranslate"><span class="pre">Test*</span></code> or <code class="docutils literal notranslate"><span class="pre">*Test</span></code>) that inherit from <code class="docutils literal notranslate"><span class="pre">unittest.TestCase</span></code> or a test base.</p>
+<p>Defining anything inside <code class="docutils literal notranslate"><span class="pre">test/__init__.py</span></code> is deprecated. Defining TestBase there was previously the norm; however,
+it complicates test discovery because some worlds also put actual tests into <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>.</p>
+<p>(worldtestbase)=### WorldTestBase</p>
+<p>In order to test basic functionality of varying options, as well as to test specific edge cases or that certain
+interactions in the world interact as expected, you will want to use the <a class="reference internal" href="test.html#module-test.bases" title="test.bases"><span class="xref myst py py-mod">WorldTestBase</span></a>. This class
+comes with the basics for test setup as well as a few preloaded tests that most worlds might want to check on varying
+options combinations.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">/worlds/&lt;my_game&gt;/test/bases.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">test.bases</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorldTestBase</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameTestBase</span><span class="p">(</span><span class="n">WorldTestBase</span><span class="p">):</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>
+</pre></div>
+</div>
+<p>The basic tests that WorldTestBase comes with include <code class="docutils literal notranslate"><span class="pre">test_all_state_can_reach_everything</span></code>,
+<code class="docutils literal notranslate"><span class="pre">test_empty_state_can_reach_something</span></code>, and <code class="docutils literal notranslate"><span class="pre">test_fill</span></code>. These test that with all collected items everything is
+reachable, with no collected items at least something is reachable, and that a valid multiworld can be completed with
+all steps being called, respectively.</p>
+<p>(writing-tests)=### Writing Tests</p>
+<p>(using-worldtestbase)=#### Using WorldTestBase</p>
+<p>Adding runs for the basic tests for a different option combination is as easy as making a new module in the test
+package, creating a class that inherits from your game’s TestBase, and defining the options in a dict as a field on the
+class. The new module should be named <code class="docutils literal notranslate"><span class="pre">test_&lt;something&gt;.py</span></code> and have at least one class inheriting from the base, or
+define its own testing methods. Newly defined test methods should follow standard PEP8 snake_case format and also start
+with <code class="docutils literal notranslate"><span class="pre">test_</span></code>.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">/worlds/&lt;my_game&gt;/test/test_chest_access.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.bases</span><span class="w"> </span><span class="kn">import</span> <span class="n">MyGameTestBase</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestChestAccess</span><span class="p">(</span><span class="n">MyGameTestBase</span><span class="p">):</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;difficulty&quot;</span><span class="p">:</span> <span class="s2">&quot;easy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;final_boss_hp&quot;</span><span class="p">:</span> <span class="mi">4000</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_sword_chests</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test locations that require a sword&quot;&quot;&quot;</span>
+        <span class="n">locations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Chest1&quot;</span><span class="p">,</span> <span class="s2">&quot;Chest2&quot;</span><span class="p">]</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;Sword&quot;</span><span class="p">]]</span>
+        <span class="c1"># This tests that the provided locations aren&#39;t accessible without the provided items, but can be accessed once</span>
+        <span class="c1"># the items are obtained.</span>
+        <span class="c1"># This will also check that any locations not provided don&#39;t have the same dependency requirement.</span>
+        <span class="c1"># Optionally, passing only_check_listed=True to the method will only check the locations provided.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAccessDependency</span><span class="p">(</span><span class="n">locations</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When tests are run, this class will create a multiworld with a single player having the provided options, and run the
+generic tests, as well as the new custom test. Each test method definition will create its own separate solo multiworld
+that will be cleaned up after. If you don’t want to run the generic tests on a base, <code class="docutils literal notranslate"><span class="pre">run_default_tests</span></code> can be
+overridden. For more information on what methods are available to your class, check the
+<a class="reference internal" href="test.html#module-test.bases" title="test.bases"><span class="xref myst py py-mod">WorldTestBase definition</span></a>.</p>
+<p>(alternatives-to-worldtestbase)=#### Alternatives to WorldTestBase</p>
+<p>Unit tests can also be created using
+<a class="reference external" href="https://docs.python.org/3/library/unittest.html#unittest.TestCase">unittest.TestCase</a> directly. These may be useful
+for generating a multiworld under very specific constraints without using the generic world setup, or for testing
+portions of your code that can be tested without relying on a multiworld to be created first.</p>
+<p>(parametrization)=#### Parametrization</p>
+<p>When defining a test that needs to cover a range of inputs it is useful to parameterize (to run the same test
+for multiple inputs) the base test. Some important things to consider when attempting to parametrize your test are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests">Subtests</a>
+can be used to have parametrized assertions that show up similar to individual tests but without the overhead
+of needing to instantiate multiple tests; however, subtests can not be multithreaded and do not have individual
+timing data, so they are not suitable for slow tests.</p></li>
+<li><p>Archipelago’s tests are test-runner-agnostic. That means tests are not allowed to use e.g. <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parametrize</span></code>.
+Instead, we define our own parametrization helpers in <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/test/param.py">test.param</a>.</p></li>
+<li><p>Classes inheriting from <code class="docutils literal notranslate"><span class="pre">WorldTestBase</span></code>, including those created by the helpers in <code class="docutils literal notranslate"><span class="pre">test.param</span></code>, will run all
+base tests by default, make sure the produced tests actually do what you aim for and do not waste a lot of
+extra CPU time. Consider using <code class="docutils literal notranslate"><span class="pre">unittest.TestCase</span></code> directly or setting <code class="docutils literal notranslate"><span class="pre">WorldTestBase.run_default_tests</span></code> to False.</p></li>
+</ul>
+<p>(performance-considerations)=#### Performance Considerations</p>
+<p>Archipelago is big enough that the runtime of unittests can have an impact on productivity.</p>
+<p>Individual tests should take less than a second, so they can be properly multithreaded.</p>
+<p>Ideally, thorough tests are directed at actual code/functionality. Do not just create and/or fill a ton of individual
+Multiworlds that spend most of the test time outside what you actually want to test.</p>
+<p>Consider generating/validating “random” games as part of your APWorld release workflow rather than having that be part
+of continuous integration, and add minimal reproducers to the “normal” tests for problems that were found.
+You can use <a class="reference external" href="https://docs.python.org/3/library/unittest.html#unittest.skipIf">&#64;unittest.skipIf</a> with an environment
+variable to keep all the benefits of the test framework while not running the marked tests by default.</p>
+<p>(running-tests)=## Running Tests</p>
+<p>(using-pycharm)=#### Using Pycharm</p>
+<p>In PyCharm, running all tests can be done by right-clicking the root test directory and selecting Run ‘Archipelago Unittests’.
+If you have never previously run ModuleUpdate.py, then you will need to do this once before the tests will run.
+You can run ModuleUpdate.py by right-clicking ModuleUpdate.py and selecting <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">'ModuleUpdate'</span></code>.
+After running ModuleUpdate.py you may still get a <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'flask'</span></code> for the webhost tests.
+If this happens, run WebHost.py by right-clicking it and selecting <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">'WebHost'</span></code>. Make sure to press enter when prompted.
+Unless you configured PyCharm to use pytest as a test runner, you may get import failures. To solve this,
+edit the run configuration, and set the working directory to the Archipelago directory which contains all the project files.</p>
+<p>If you only want to run your world’s defined tests, repeat the steps for the test directory within your world.
+Your working directory should be the root Archipelago directory and the script should be the
+tests folder within your world.</p>
+<p>You can also find the ‘Archipelago Unittests’ as an option in the dropdown at the top of the window
+next to the run and debug buttons.</p>
+<p>(running-tests-without-pycharm)=#### Running Tests without Pycharm</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span> <span class="pre">pytest-subtests</span></code>, then use your IDE to run tests or run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from the source folder.</p>
+<p>(running-tests-multithreaded)=#### Running Tests Multithreaded</p>
+<p>pytest can run multiple test runners in parallel with the pytest-xdist extension.</p>
+<p>Install with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest-xdist</span></code>.</p>
+<p>Run with <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">-n12</span></code> to spawn 12 process that each run 1/12th of the tests.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="network%20protocol.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="apworld_dev_faq.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tests.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="apworld_dev_faq.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="network%20protocol.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

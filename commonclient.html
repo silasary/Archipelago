@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Common Client &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Test Bases" href="test.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="Test Bases"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Common Client</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-CommonClient">
+<span id="common-client"></span><h1>Common Client<a class="headerlink" href="#module-CommonClient" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">ClientCommandProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.ClientCommandProcessor" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">CommandProcessor</span></code></p>
+<p>The Command Processor will parse every method of the class that starts with “_cmd_” as a command to be called
+when parsing user input, i.e. _cmd_exit will be called when the user sends the command “/exit”.</p>
+<p>The decorator &#64;mark_raw can be imported from MultiServer and tells the parser to only split on the first
+space after the command i.e. “/exit one two three” will be passed in as method(“one two three”) with mark_raw
+and method(“one”, “two”, “three”) without.</p>
+<p>In addition all docstrings for command methods will be displayed to the user on launch and when using “/help”</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'connect':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_connect&gt;,</span> <span class="pre">'disconnect':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_disconnect&gt;,</span> <span class="pre">'exit':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_exit&gt;,</span> <span class="pre">'help':</span> <span class="pre">&lt;function</span> <span class="pre">CommandProcessor._cmd_help&gt;,</span> <span class="pre">'item_groups':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_item_groups&gt;,</span> <span class="pre">'items':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_items&gt;,</span> <span class="pre">'license':</span> <span class="pre">&lt;function</span> <span class="pre">CommandProcessor._cmd_license&gt;,</span> <span class="pre">'location_groups':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_location_groups&gt;,</span> <span class="pre">'locations':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_locations&gt;,</span> <span class="pre">'missing':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_missing&gt;,</span> <span class="pre">'ready':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_ready&gt;,</span> <span class="pre">'received':</span> <span class="pre">&lt;function</span> <span class="pre">ClientCommandProcessor._cmd_received&gt;}</span></span><a class="headerlink" href="#CommonClient.ClientCommandProcessor.commands" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor.default">
+<span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.ClientCommandProcessor.default" title="Link to this definition">¶</a></dt>
+<dd><p>The default message parser to be used when parsing any messages that do not match a command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor.output">
+<span class="sig-name descname"><span class="pre">output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.ClientCommandProcessor.output" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to abstract logging to the CommonClient UI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor.output_datapackage_part">
+<span class="sig-name descname"><span class="pre">output_datapackage_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'Item</span> <span class="pre">Names'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Location</span> <span class="pre">Names'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.ClientCommandProcessor.output_datapackage_part" title="Link to this definition">¶</a></dt>
+<dd><p>Helper to digest a specific section of this game’s datapackage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Printed to the user as context for the part.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the process was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.ClientCommandProcessor.output_group_part">
+<span class="sig-name descname"><span class="pre">output_group_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'item_name_groups'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'location_name_groups'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.ClientCommandProcessor.output_group_part" title="Link to this definition">¶</a></dt>
+<dd><p>Logs an item or location group from the player’s game’s datapackage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_key</strong> – Either Item or Location group to be processed.</p></li>
+<li><p><strong>filter_key</strong> – Which group key to filter to. If an empty string is passed will log all item/location groups.</p></li>
+<li><p><strong>name</strong> – Printed to the user as context for the part.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the process was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CommonClient.CommonContext">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">CommonContext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">NameLookupDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'item'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'location'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A specialized dict, with helper methods, for id -&gt; name item/location data package lookups by game.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict.ctx">
+<span class="sig-name descname"><span class="pre">ctx</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict.ctx" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict.lookup_in_game">
+<span class="sig-name descname"><span class="pre">lookup_in_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict.lookup_in_game" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the name for an item/location id in the context of a specific game or own game if <cite>game</cite> is
+omitted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict.lookup_in_slot">
+<span class="sig-name descname"><span class="pre">lookup_in_slot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict.lookup_in_slot" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the name for an item/location id in the context of a specific slot or own slot if <cite>slot</cite> is
+omitted.</p>
+<p>Use of <cite>lookup_in_slot</cite> should not be used when not connected to a server. If looking in own game, set
+<cite>ctx.game</cite> and use <cite>lookup_in_game</cite> method instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict.lookup_type">
+<span class="sig-name descname"><span class="pre">lookup_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'item'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'location'</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict.lookup_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.NameLookupDict.update_game">
+<span class="sig-name descname"><span class="pre">update_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_to_id_lookup_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.NameLookupDict.update_game" title="Link to this definition">¶</a></dt>
+<dd><p>Overrides existing lookup tables for a particular game.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.auth">
+<span class="sig-name descname"><span class="pre">auth</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.auth" title="Link to this definition">¶</a></dt>
+<dd><p>Name used in Connect packet</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.autoreconnect_task">
+<span class="sig-name descname"><span class="pre">autoreconnect_task</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asyncio.Task[None]'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.autoreconnect_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.cancel_autoreconnect">
+<span class="sig-name descname"><span class="pre">cancel_autoreconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.cancel_autoreconnect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.check_locations">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">check_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CommonClient.CommonContext.check_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Send new location checks to the server. Returns the set of actually new locations that were sent.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.checked_locations">
+<span class="sig-name descname"><span class="pre">checked_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.checked_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Container of Locations that are checked per server state</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.command_processor">
+<span class="sig-name descname"><span class="pre">command_processor</span></span><a class="headerlink" href="#CommonClient.CommonContext.command_processor" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#CommonClient.ClientCommandProcessor" title="CommonClient.ClientCommandProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientCommandProcessor</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.connect">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.connect" title="Link to this definition">¶</a></dt>
+<dd><p>disconnect any previous connection, and open new connection to the server</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.connection_closed">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">connection_closed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.connection_closed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.console_input">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">console_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.console_input" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.consume_network_data_package">
+<span class="sig-name descname"><span class="pre">consume_network_data_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_package</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.consume_network_data_package" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.consume_network_item_groups">
+<span class="sig-name descname"><span class="pre">consume_network_item_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.consume_network_item_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.consume_network_location_groups">
+<span class="sig-name descname"><span class="pre">consume_network_location_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.consume_network_location_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.consume_players_package">
+<span class="sig-name descname"><span class="pre">consume_players_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.consume_players_package" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.current_energy_link_value">
+<span class="sig-name descname"><span class="pre">current_energy_link_value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.current_energy_link_value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.current_reconnect_delay">
+<span class="sig-name descname"><span class="pre">current_reconnect_delay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#CommonClient.CommonContext.current_reconnect_delay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.disconnect">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allow_autoreconnect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.disconnect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.disconnected_intentionally">
+<span class="sig-name descname"><span class="pre">disconnected_intentionally</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#CommonClient.CommonContext.disconnected_intentionally" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.event_invalid_game">
+<span class="sig-name descname"><span class="pre">event_invalid_game</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.event_invalid_game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.event_invalid_slot">
+<span class="sig-name descname"><span class="pre">event_invalid_slot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.event_invalid_slot" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.finished_game">
+<span class="sig-name descname"><span class="pre">finished_game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#CommonClient.CommonContext.finished_game" title="Link to this definition">¶</a></dt>
+<dd><p>Bool to signal that status should be updated to Goal after reconnecting
+to be used to ensure that a StatusUpdate packet does not get lost when disconnected</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.game">
+<span class="sig-name descname"><span class="pre">game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.generator_version">
+<span class="sig-name descname"><span class="pre">generator_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="utils.html#Utils.Version" title="Utils.Version"><span class="pre">Version</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span><a class="headerlink" href="#CommonClient.CommonContext.generator_version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.get_username">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_username</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.get_username" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.gui_error">
+<span class="sig-name descname"><span class="pre">gui_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Exception</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'kvui.MessageBox'</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CommonClient.CommonContext.gui_error" title="Link to this definition">¶</a></dt>
+<dd><p>Displays an error messagebox in the loaded Kivy UI. Override if using a different UI framework</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.handle_connection_loss">
+<span class="sig-name descname"><span class="pre">handle_connection_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.handle_connection_loss" title="Link to this definition">¶</a></dt>
+<dd><p>Helper for logging and displaying a loss of connection. Must be called from an except block.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.hint_cost">
+<span class="sig-name descname"><span class="pre">hint_cost</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.hint_cost" title="Link to this definition">¶</a></dt>
+<dd><p>Current Hint Cost per Hint from the server</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.hint_points">
+<span class="sig-name descname"><span class="pre">hint_points</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.hint_points" title="Link to this definition">¶</a></dt>
+<dd><p>Current available Hint Points from the server</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.input_task">
+<span class="sig-name descname"><span class="pre">input_task</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asyncio.Task[None]'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.input_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.is_connection_change">
+<span class="sig-name descname"><span class="pre">is_connection_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_json_packet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.is_connection_change" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function for filtering out connection changes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.is_echoed_chat">
+<span class="sig-name descname"><span class="pre">is_echoed_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_json_packet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.is_echoed_chat" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function for filtering out messages sent by self.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.is_uninteresting_item_send">
+<span class="sig-name descname"><span class="pre">is_uninteresting_item_send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_json_packet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.is_uninteresting_item_send" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function for filtering out ItemSend prints that do not concern the local player.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.items_handling">
+<span class="sig-name descname"><span class="pre">items_handling</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.items_handling" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.items_received">
+<span class="sig-name descname"><span class="pre">items_received</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="netutils.html#NetUtils.NetworkItem" title="NetUtils.NetworkItem"><span class="pre">NetworkItem</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.items_received" title="Link to this definition">¶</a></dt>
+<dd><p>List of NetworkItems recieved from the server</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.keep_alive_task">
+<span class="sig-name descname"><span class="pre">keep_alive_task</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asyncio.Task[None]'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.keep_alive_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.last_death_link">
+<span class="sig-name descname"><span class="pre">last_death_link</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1781610570.047416</span></span><a class="headerlink" href="#CommonClient.CommonContext.last_death_link" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.locations_checked">
+<span class="sig-name descname"><span class="pre">locations_checked</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.locations_checked" title="Link to this definition">¶</a></dt>
+<dd><p>Local container of location ids checked to signal that LocationChecks should be resent after reconnecting
+to be used to ensure that a LocationChecks packet does not get lost when disconnected</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.locations_info">
+<span class="sig-name descname"><span class="pre">locations_info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="netutils.html#NetUtils.NetworkItem" title="NetUtils.NetworkItem"><span class="pre">NetworkItem</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.locations_info" title="Link to this definition">¶</a></dt>
+<dd><p>Dict of location id: NetworkItem info from LocationScouts request</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.locations_scouted">
+<span class="sig-name descname"><span class="pre">locations_scouted</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.locations_scouted" title="Link to this definition">¶</a></dt>
+<dd><p>Local container of location ids scouted to signal that LocationScouts should be resent after reconnecting
+to be used to ensure that a LocationScouts packet does not get lost when disconnected</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.make_gui">
+<span class="sig-name descname"><span class="pre">make_gui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="netutils.html#NetUtils.JSONMessagePart.type" title="NetUtils.JSONMessagePart.type"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><span class="pre">kvui.GameManager</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CommonClient.CommonContext.make_gui" title="Link to this definition">¶</a></dt>
+<dd><p>To return the Kivy <cite>App</cite> class needed for <cite>run_gui</cite> so it can be overridden before being built</p>
+<p>Common changes are changing <cite>base_title</cite> to update the window title of the client and
+updating <cite>logging_pairs</cite> to automatically make new tabs that can be filled with their respective logger.</p>
+<p>ex. <cite>logging_pairs.append((“Foo”, “Bar”))</cite>
+will add a “Bar” tab which follows the logger returned from <cite>logging.getLogger(“Foo”)</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.max_size">
+<span class="sig-name descname"><span class="pre">max_size</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16777216</span></span><a class="headerlink" href="#CommonClient.CommonContext.max_size" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.missing_locations">
+<span class="sig-name descname"><span class="pre">missing_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.missing_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Container of Locations that are unchecked per server state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_deathlink">
+<span class="sig-name descname"><span class="pre">on_deathlink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.on_deathlink" title="Link to this definition">¶</a></dt>
+<dd><p>Gets dispatched when a new DeathLink is triggered by another linked player.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_package">
+<span class="sig-name descname"><span class="pre">on_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cmd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.on_package" title="Link to this definition">¶</a></dt>
+<dd><p>For custom package handling in subclasses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_print">
+<span class="sig-name descname"><span class="pre">on_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.on_print" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_print_json">
+<span class="sig-name descname"><span class="pre">on_print_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.on_print_json" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_ui_command">
+<span class="sig-name descname"><span class="pre">on_ui_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.on_ui_command" title="Link to this definition">¶</a></dt>
+<dd><p>Gets called by kivy when the user executes a command starting with <cite>/</cite> or <cite>!</cite>.
+The command processor is still called; this is just intended for command echoing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.on_user_say">
+<span class="sig-name descname"><span class="pre">on_user_say</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.on_user_say" title="Link to this definition">¶</a></dt>
+<dd><p>Gets called before sending a Say to the server from the user.
+Returned text is sent, or sending is aborted if None is returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.password">
+<span class="sig-name descname"><span class="pre">password</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.password" title="Link to this definition">¶</a></dt>
+<dd><p>Password used for Connecting, expected by server_auth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.player_names">
+<span class="sig-name descname"><span class="pre">player_names</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.player_names" title="Link to this definition">¶</a></dt>
+<dd><p>Current lookup of slot number to player display name from server (includes aliases)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.prepare_data_package">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">prepare_data_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">relevant_games</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_data_package_checksums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.prepare_data_package" title="Link to this definition">¶</a></dt>
+<dd><p>Validate that all data is present for the current multiworld.
+Download, assimilate and cache missing data from the server.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.raw_text_parser">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">raw_text_parser</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="netutils.html#NetUtils.RawJSONtoTextParser" title="NetUtils.RawJSONtoTextParser"><span class="pre">RawJSONtoTextParser</span></a></span><a class="headerlink" href="#CommonClient.CommonContext.raw_text_parser" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.ready">
+<span class="sig-name descname"><span class="pre">ready</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#CommonClient.CommonContext.ready" title="Link to this definition">¶</a></dt>
+<dd><p>Bool to keep track of state for the /ready command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.reset_server_state">
+<span class="sig-name descname"><span class="pre">reset_server_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.reset_server_state" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.run_cli">
+<span class="sig-name descname"><span class="pre">run_cli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.run_cli" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.run_gui">
+<span class="sig-name descname"><span class="pre">run_gui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.run_gui" title="Link to this definition">¶</a></dt>
+<dd><p>Import kivy UI system from make_gui() and start running it as self.ui_task.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.seed_name">
+<span class="sig-name descname"><span class="pre">seed_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.seed_name" title="Link to this definition">¶</a></dt>
+<dd><p>Seed name that will be validated on opening a socket if present</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.send_connect">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">send_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.send_connect" title="Link to this definition">¶</a></dt>
+<dd><p>Send a <cite>Connect</cite> packet to log in to the server,
+additional keyword args can override any value in the connection packet</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.send_death">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">send_death</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.send_death" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to send a deathlink using death_text as the unique death cause string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.send_msgs">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">send_msgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msgs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.send_msgs" title="Link to this definition">¶</a></dt>
+<dd><p><cite>msgs</cite> JSON serializable</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server">
+<span class="sig-name descname"><span class="pre">server</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="netutils.html#NetUtils.Endpoint" title="NetUtils.Endpoint"><span class="pre">Endpoint</span></a><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.server" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server_address">
+<span class="sig-name descname"><span class="pre">server_address</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.server_address" title="Link to this definition">¶</a></dt>
+<dd><p>Autoconnect address provided by the ctx constructor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server_auth">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">server_auth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password_requested</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.server_auth" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server_locations">
+<span class="sig-name descname"><span class="pre">server_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.server_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Container of Locations that exist per server state; a combination between missing and checked locations</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server_task">
+<span class="sig-name descname"><span class="pre">server_task</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asyncio.Task[None]'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.server_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.server_version">
+<span class="sig-name descname"><span class="pre">server_version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="utils.html#Utils.Version" title="Utils.Version"><span class="pre">Version</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span><a class="headerlink" href="#CommonClient.CommonContext.server_version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.set_notify">
+<span class="sig-name descname"><span class="pre">set_notify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.set_notify" title="Link to this definition">¶</a></dt>
+<dd><p>Subscribe to be notified of changes to selected data storage keys.</p>
+<p>The values can be accessed via the “stored_data” attribute of this context, which is a dictionary mapping the
+names of the data storage keys to the latest values received from the server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.shutdown">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.shutdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.slot">
+<span class="sig-name descname"><span class="pre">slot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.slot" title="Link to this definition">¶</a></dt>
+<dd><p>Slot number of currently connected slot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.slot_concerns_self">
+<span class="sig-name descname"><span class="pre">slot_concerns_self</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slot</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.slot_concerns_self" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to abstract player groups, should be used instead of checking slot == self.slot directly.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.slot_info">
+<span class="sig-name descname"><span class="pre">slot_info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="netutils.html#NetUtils.NetworkSlot" title="NetUtils.NetworkSlot"><span class="pre">NetworkSlot</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.slot_info" title="Link to this definition">¶</a></dt>
+<dd><p>Slot Info from the server for the current connection</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.starting_reconnect_delay">
+<span class="sig-name descname"><span class="pre">starting_reconnect_delay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#CommonClient.CommonContext.starting_reconnect_delay" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.stored_data">
+<span class="sig-name descname"><span class="pre">stored_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.stored_data" title="Link to this definition">¶</a></dt>
+<dd><p>Data Storage values by key that were retrieved from the server
+any keys subscribed to with SetNotify will be kept up to date</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.stored_data_notification_keys">
+<span class="sig-name descname"><span class="pre">stored_data_notification_keys</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.stored_data_notification_keys" title="Link to this definition">¶</a></dt>
+<dd><p>Current container of watched Data Storage keys, managed by ctx.set_notify</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.suggested_address">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">suggested_address</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#CommonClient.CommonContext.suggested_address" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AP'}</span></span><a class="headerlink" href="#CommonClient.CommonContext.tags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.team">
+<span class="sig-name descname"><span class="pre">team</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.team" title="Link to this definition">¶</a></dt>
+<dd><p>Team number of currently connected slot</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.total_locations">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">total_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.total_locations" title="Link to this definition">¶</a></dt>
+<dd><p>Will return None until connected.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.ui">
+<span class="sig-name descname"><span class="pre">ui</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'kvui.GameManager'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.ui" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.ui_task">
+<span class="sig-name descname"><span class="pre">ui_task</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asyncio.Task[None]'</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#CommonClient.CommonContext.ui_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.update_data_package">
+<span class="sig-name descname"><span class="pre">update_data_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_package</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.update_data_package" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.update_death_link">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">update_death_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">death_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.update_death_link" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to set Death Link connection tag on/off and update the connection if already connected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.update_game">
+<span class="sig-name descname"><span class="pre">update_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_package</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.update_game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.update_hint">
+<span class="sig-name descname"><span class="pre">update_hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finding_player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="netutils.html#NetUtils.HintStatus" title="NetUtils.HintStatus"><span class="pre">HintStatus</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.CommonContext.update_hint" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.update_permissions">
+<span class="sig-name descname"><span class="pre">update_permissions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permissions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.CommonContext.update_permissions" title="Link to this definition">¶</a></dt>
+<dd><p>Internal method to parse and save server permissions from RoomInfo</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CommonClient.CommonContext.want_slot_data">
+<span class="sig-name descname"><span class="pre">want_slot_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#CommonClient.CommonContext.want_slot_data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.console_loop">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">console_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.console_loop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.get_base_parser">
+<span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">get_base_parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.get_base_parser" title="Link to this definition">¶</a></dt>
+<dd><p>Base argument parser to be reused for components subclassing off of CommonClient</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.handle_url_arg">
+<span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">handle_url_arg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">argparse.Namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">argparse.ArgumentParser</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">argparse.Namespace</span></span></span><a class="headerlink" href="#CommonClient.handle_url_arg" title="Link to this definition">¶</a></dt>
+<dd><p>Parse the url arg “archipelago://name:pass&#64;host:port” from launcher into correct launch args for CommonClient
+If alternate data is required the urlparse response is saved back to args.url if valid</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.keep_alive">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">keep_alive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds_between_checks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.keep_alive" title="Link to this definition">¶</a></dt>
+<dd><p>some ISPs/network configurations drop TCP connections if no payload is sent (ignore TCP-keep-alive)
+so we send a payload to prevent drop and if we were dropped anyway this will cause an auto-reconnect.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.process_server_cmd">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">process_server_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.process_server_cmd" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.run_as_textclient">
+<span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">run_as_textclient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.run_as_textclient" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.server_autoreconnect">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">server_autoreconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CommonClient.server_autoreconnect" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CommonClient.server_loop">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CommonClient.</span></span><span class="sig-name descname"><span class="pre">server_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CommonClient.CommonContext" title="CommonClient.CommonContext"><span class="pre">CommonContext</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CommonClient.server_loop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Client</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.ClientCommandProcessor"><code class="docutils literal notranslate"><span class="pre">ClientCommandProcessor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.CommonContext"><code class="docutils literal notranslate"><span class="pre">CommonContext</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.console_loop"><code class="docutils literal notranslate"><span class="pre">console_loop()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.get_base_parser"><code class="docutils literal notranslate"><span class="pre">get_base_parser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.handle_url_arg"><code class="docutils literal notranslate"><span class="pre">handle_url_arg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.keep_alive"><code class="docutils literal notranslate"><span class="pre">keep_alive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.process_server_cmd"><code class="docutils literal notranslate"><span class="pre">process_server_cmd()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.run_as_textclient"><code class="docutils literal notranslate"><span class="pre">run_as_textclient()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.server_autoreconnect"><code class="docutils literal notranslate"><span class="pre">server_autoreconnect()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#CommonClient.server_loop"><code class="docutils literal notranslate"><span class="pre">server_loop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="test.html"
+                          title="previous chapter">Test Bases</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/commonclient.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="Test Bases"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Common Client</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

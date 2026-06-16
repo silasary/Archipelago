@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="entrance%20randomization.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="options%20api.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance%20randomization.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="options%20api.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(archipelago-settings-api)=# Archipelago Settings API</p>
+<p>The settings API describes how to use installation-wide config and let the user configure them, like paths, etc. using
+host.yaml. For the player options / player yamls see <a class="reference internal" href="options%20api.html"><span class="doc std std-doc">options api.md</span></a>.</p>
+<p>The settings API replaces <code class="docutils literal notranslate"><span class="pre">Utils.get_options()</span></code> and <code class="docutils literal notranslate"><span class="pre">Utils.get_default_options()</span></code>
+as well as the predefined <code class="docutils literal notranslate"><span class="pre">host.yaml</span></code> in the repository.</p>
+<p>For backwards compatibility with APWorlds, some interfaces are kept for now and will produce a warning when being used.</p>
+<p>(config-file)=## Config File</p>
+<p>Settings use options.yaml (manual override), if that exists, or host.yaml (the default) otherwise.
+The files are searched for in the current working directory, if different from install directory, and in <code class="docutils literal notranslate"><span class="pre">user_path</span></code>,
+which either points to the installation directory, if writable, or to %home%/Archipelago otherwise.</p>
+<p><strong>Examples:</strong></p>
+<ul class="simple">
+<li><p>C:\Program Data\Archipelago\options.yaml</p></li>
+<li><p>C:\Program Data\Archipelago\host.yaml</p></li>
+<li><p>path\to\code\repository\host.yaml</p></li>
+<li><p>~/Archipelago/host.yaml</p></li>
+</ul>
+<p>Using the settings API, AP can update the config file or create a new one with default values and comments,
+if it does not exist.</p>
+<p>(global-settings)=## Global Settings</p>
+<p>All non-world-specific settings are defined directly in settings.py.
+Each value needs to have a default. If the default should be <code class="docutils literal notranslate"><span class="pre">None</span></code>, annotate it using <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></code>.</p>
+<p>To access a “global” config value, with correct typing, use one of</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span><span class="p">,</span> <span class="n">GeneralOptions</span><span class="p">,</span> <span class="n">FolderPath</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span><span class="o">.</span><span class="n">general_options</span><span class="o">.</span><span class="n">output_path</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">GeneralOptions</span><span class="p">,</span> <span class="n">get_settings</span><span class="p">()[</span><span class="s2">&quot;general_options&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">output_path</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">FolderPath</span><span class="p">,</span> <span class="n">get_settings</span><span class="p">()[</span><span class="s2">&quot;general_options&quot;</span><span class="p">][</span><span class="s2">&quot;output_path&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>(world-settings)=## World Settings</p>
+<p>Worlds can define the top level key to use by defining <code class="docutils literal notranslate"><span class="pre">settings_key:</span> <span class="pre">ClassVar[str]</span></code> in their World class.
+It defaults to <code class="docutils literal notranslate"><span class="pre">{folder_name}_options</span></code> if undefined, i.e. <code class="docutils literal notranslate"><span class="pre">worlds/factorio/...</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">factorio_options</span></code>.</p>
+<p>Worlds define the layout of their config section using type annotation of the variable <code class="docutils literal notranslate"><span class="pre">settings</span></code> in the class.
+The type has to inherit from <code class="docutils literal notranslate"><span class="pre">settings.Group</span></code>. Each value in the config can have a comment by subclassing a built-in
+type. Some helper types are defined in <code class="docutils literal notranslate"><span class="pre">settings.py</span></code>, see <a class="reference internal" href="#types"><span class="xref myst">Types</span></a> for a list.```</p>
+<p>Inside the class code, you can then simply use <code class="docutils literal notranslate"><span class="pre">self.settings.rom_file</span></code> to get the value.
+In case of paths they will automatically be read as absolute file paths. No need to use user_path or local_path.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">worlds.AutoWorld</span><span class="w"> </span><span class="kn">import</span> <span class="n">World</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameSettings</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">RomFile</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SNESRomPath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Description that is put into host.yaml&quot;&quot;&quot;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;My Game US v1.0 ROM File&quot;</span>  <span class="c1"># displayed in the file browser</span>
+        <span class="n">copy_to</span> <span class="o">=</span> <span class="s2">&quot;MyGame.sfc&quot;</span>  <span class="c1"># instead of storing the path, copy to AP dir</span>
+        <span class="n">md5s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">]</span>
+
+    <span class="n">rom_file</span><span class="p">:</span> <span class="n">RomFile</span> <span class="o">=</span> <span class="n">RomFile</span><span class="p">(</span><span class="s2">&quot;MyGame.sfc&quot;</span><span class="p">)</span>  <span class="c1"># definition and default value</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyGameWorld</span><span class="p">(</span><span class="n">World</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">MyGameSettings</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># use self.settings.rom_file here</span>
+</pre></div>
+</div>
+<p>(types)=## Types</p>
+<p>When writing the host.yaml, the code will down cast the values to builtins.
+When reading the host.yaml, the code will upcast the values to what is defined in the type annotations.
+E.g. an IntEnum becomes int when saving and will construct the IntEnum when loading.</p>
+<p>Types that can not be down cast to / up cast from a builtin can not be used except for Group, which will be converted
+to/from a dict.
+<code class="docutils literal notranslate"><span class="pre">bool</span></code> is a special case, see settings.py: ServerOptions.disable_item_cheat for an example.</p>
+<p>Below are some predefined types that can be used if they match your requirements:</p>
+<p>(group)=### Group</p>
+<p>A section / dict in the config file. Behaves similar to a dataclass.
+Type annotation and default assignment define how loading, saving and default values behave.
+It can be accessed using attributes or as a dict: <code class="docutils literal notranslate"><span class="pre">group[&quot;a&quot;]</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">group.a</span></code>.</p>
+<p>In worlds, this should only be used for the top level to avoid issues when upgrading/migrating.</p>
+<p>(bool)=### Bool</p>
+<p>Since <code class="docutils literal notranslate"><span class="pre">bool</span></code> can not be subclassed, use the <code class="docutils literal notranslate"><span class="pre">settings.Bool</span></code> helper in a union to get a comment in host.yaml.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">settings</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MySettings</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">MyBool</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">Bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Doc string&quot;&quot;&quot;</span>
+
+    <span class="n">my_value</span><span class="p">:</span> <span class="n">MyBool</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>(userfilepath)=### UserFilePath</p>
+<p>Path to a single file. Automatically resolves as user_path:
+Source folder or AP install path on Windows. ~/Archipelago for the AppImage.
+Will open a file browser if the file is missing when in GUI mode.</p>
+<p>If the file is used in the world’s <code class="docutils literal notranslate"><span class="pre">generate_output</span></code>, make sure to add a <code class="docutils literal notranslate"><span class="pre">stage_assert_generate</span></code> that checks if the
+file is available, otherwise generation may fail at the very end.
+See also <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/world%20api.md#generation">world api.md</a>.</p>
+<p>(class-method-validate(cls,-path:-str))=#### class method validate(cls, path: str)</p>
+<p>Override this and raise ValueError if validation fails.
+Checks the file against <a class="reference internal" href="#md5s"><span class="xref myst">md5s</span></a> by default.</p>
+<p>(is_exe:-bool)=#### is_exe: bool</p>
+<p>Resolves to an executable (varying file extension based on platform)</p>
+<p>(description:-str-|-none)=#### description: str | None</p>
+<p>Human-readable name to use in file browser</p>
+<p>(copy_to:-str-|-none)=#### copy_to: str | None</p>
+<p>Instead of storing the path, copy the file.</p>
+<p>(md5s:-list[str-|-bytes])=#### md5s: list[str | bytes]</p>
+<p>Provide md5 hashes as hex digests or raw bytes for automatic validation.</p>
+<p>(userfolderpath)=### UserFolderPath</p>
+<p>Same as <a class="reference internal" href="#userfilepath"><span class="xref myst">UserFilePath</span></a>, but for a folder instead of a file.</p>
+<p>(localfilepath)=### LocalFilePath</p>
+<p>Same as <a class="reference internal" href="#userfilepath"><span class="xref myst">UserFilePath</span></a>, but resolves as local_path:
+path inside the AP dir or Appimage even if read-only.</p>
+<p>(localfolderpath)=### LocalFolderPath</p>
+<p>Same as <a class="reference internal" href="#localfilepath"><span class="xref myst">LocalFilePath</span></a>, but for a folder instead of a file.</p>
+<p>(optionaluserfilepath,-optionaluserfolderpath,-optionallocalfilepath,-optionallocalfolderpath)=### OptionalUserFilePath, OptionalUserFolderPath, OptionalLocalFilePath, OptionalLocalFolderPath</p>
+<p>Same as UserFilePath, UserFolderPath, LocalFilePath, LocalFolderPath but does not open a file browser if missing.</p>
+<p>(snesrompath)=### SNESRomPath</p>
+<p>Specialized <a class="reference internal" href="#userfilepath"><span class="xref myst">UserFilePath</span></a> that ignores an optional 512 byte header when validating.</p>
+<p>(caveats)=## Caveats</p>
+<p>(circular-imports)=### Circular Imports</p>
+<p>Because the settings are defined on import, code that runs on import can not use settings since that would result in
+circular / partial imports. Instead, the code should fetch from settings on demand during generation.</p>
+<p>“Global” settings are populated immediately, while worlds settings are lazy loaded, so if really necessary,
+“global” settings could be used in global scope of worlds.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="options%20api.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="entrance%20randomization.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/settings api.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance%20randomization.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="options%20api.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

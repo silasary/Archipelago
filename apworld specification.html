@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="world%20api.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="adding%20games.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="world%20api.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="adding%20games.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(apworld-specification)=# APWorld Specification</p>
+<p>Archipelago depends on worlds to provide game-specific details like items, locations and output generation.
+These are called “APWorlds”.
+They are located in the <code class="docutils literal notranslate"><span class="pre">worlds/</span></code> folder (source) or <code class="docutils literal notranslate"><span class="pre">&lt;install</span> <span class="pre">dir&gt;/lib/worlds/</span></code> (when installed).
+See <a class="reference internal" href="world%20api.html"><span class="doc std std-doc">world api.md</span></a> for details.
+APWorlds can either be a folder, or they can be packaged as an .apworld file.</p>
+<p>(.apworld-file-format)=## .apworld File Format</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> file format provides a way to package and ship an APWorld that is not part of the main distribution
+by placing a <code class="docutils literal notranslate"><span class="pre">*.apworld</span></code> file into the worlds folder.</p>
+<p><code class="docutils literal notranslate"><span class="pre">.apworld</span></code> files are zip archives, all lower case, with the file ending <code class="docutils literal notranslate"><span class="pre">.apworld</span></code>.
+The zip has to contain a folder with the same name as the zip, case-sensitive, that contains what would normally be in
+the world’s folder in <code class="docutils literal notranslate"><span class="pre">worlds/</span></code>. I.e. <code class="docutils literal notranslate"><span class="pre">worlds/ror2.apworld</span></code> containing <code class="docutils literal notranslate"><span class="pre">ror2/__init__.py</span></code>.</p>
+<p><strong>Warning:</strong> <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> files have to be all lower case,
+otherwise they raise a bogus Exception when trying to import in frozen python 3.10+!</p>
+<p>(metadata)=## Metadata</p>
+<p>Metadata about the APWorld is defined in an <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> file.</p>
+<p>If the APWorld is a folder, the only required field is “game”:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Game Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are also the following optional fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">minimum_ap_version</span></code> and <code class="docutils literal notranslate"><span class="pre">maximum_ap_version</span></code> - which if present will each be compared against the current
+Archipelago version respectively to filter those files from being loaded.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">world_version</span></code> - an arbitrary version for that world in order to only load the newest valid world.
+An APWorld without a world_version is always treated as older than one with a version
+(<strong>Must</strong> use exactly the format <code class="docutils literal notranslate"><span class="pre">&quot;major.minor.build&quot;</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">authors</span></code> - a list of authors of the world. Displayed in user-facing places like the Supported Games page
+on WebHost. Should always be a list of strings.</p></li>
+</ul>
+<p>If the APWorld is packaged as an <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> zip file, it also needs to have <code class="docutils literal notranslate"><span class="pre">version</span></code> and <code class="docutils literal notranslate"><span class="pre">compatible_version</span></code>,
+which refer to the version of the APContainer packaging scheme defined in <a class="reference internal" href="#files"><span class="xref myst">Files.py</span></a>.<br />
+These get automatically added to the <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> of an .apworld if it is packaged using the
+<a class="reference internal" href="#build-apworlds-launcher-component"><span class="xref myst">“Build APWorlds” launcher component</span></a>,
+which is the correct way to package your <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> as a world developer. Do not write these fields yourself.</p>
+<p>(“build-apworlds”-launcher-component)=### “Build APWorlds” Launcher Component</p>
+<p>In the Archipelago Launcher (on <a class="reference internal" href="running%20from%20source.html"><span class="doc std std-doc">source only</span></a>), there is a “Build APWorlds”
+component that will package all world folders to <code class="docutils literal notranslate"><span class="pre">.apworld</span></code>, and add <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> manifest files to them.<br />
+These .apworld files will be output to <code class="docutils literal notranslate"><span class="pre">build/apworlds</span></code> (relative to the Archipelago root directory).<br />
+The <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> file in each .apworld will automatically include the appropriate
+<code class="docutils literal notranslate"><span class="pre">version</span></code> and <code class="docutils literal notranslate"><span class="pre">compatible_version</span></code>.<br />
+The component can also be called from the command line to allow for specifying a certain list of worlds to build.
+For example, running <code class="docutils literal notranslate"><span class="pre">Launcher.py</span> <span class="pre">&quot;Build</span> <span class="pre">APWorlds&quot;</span> <span class="pre">--</span> <span class="pre">&quot;Game</span> <span class="pre">Name&quot;</span></code> will build only the game called <code class="docutils literal notranslate"><span class="pre">Game</span> <span class="pre">Name</span></code>.</p>
+<p>If a world folder has an <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> in its root, any fields it contains will be carried over.<br />
+So, a world folder with an <code class="docutils literal notranslate"><span class="pre">archipelago.json</span></code> that looks like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Game Name&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;minimum_ap_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.6.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;world_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.1.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;authors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;NewSoupVi&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>will be packaged into an <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> with a manifest file inside of it that looks like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;minimum_ap_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.6.4&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;world_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.1.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;authors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;NewSoupVi&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;compatible_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Game Name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is the recommended workflow for packaging your world to an <code class="docutils literal notranslate"><span class="pre">.apworld</span></code>.</p>
+<p>(.apignore-exclusions)=### .apignore Exclusions</p>
+<p>By default, any additional files inside of the world folder will be packaged into the resulting <code class="docutils literal notranslate"><span class="pre">.apworld</span></code> archive and
+can then be read by the world. However, if there are any other files that aren’t needed in the resulting <code class="docutils literal notranslate"><span class="pre">.apworld</span></code>, you
+can automatically prevent the build component from including them by specifying them in a file called <code class="docutils literal notranslate"><span class="pre">.apignore</span></code> inside
+the root of the world folder.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.apignore</span></code> file selects files in the same way as the <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> format with patterns separated by line describing
+which files to ignore. For example, an <code class="docutils literal notranslate"><span class="pre">.apignore</span></code> like this:</p>
+<div class="highlight-gitignore notranslate"><div class="highlight"><pre><span></span>*.iso
+scripts/
+!scripts/needed.py
+</pre></div>
+</div>
+<p>would ignore any <code class="docutils literal notranslate"><span class="pre">.iso</span></code> files and anything in the scripts folder except for <code class="docutils literal notranslate"><span class="pre">scripts/needed.py</span></code>.</p>
+<p>Some exclusions are made by default for all worlds such as <code class="docutils literal notranslate"><span class="pre">__pycache__</span></code> folders. These are listed in the
+<code class="docutils literal notranslate"><span class="pre">GLOBAL.apignore</span></code> file inside of the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory.</p>
+<p>(caveats)=## Caveats</p>
+<p>Imports from other files inside the APWorld have to use relative imports. e.g. <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">.options</span> <span class="pre">import</span> <span class="pre">MyGameOptions</span></code></p>
+<p>Imports from AP base have to use absolute imports, e.g. <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">Options</span> <span class="pre">import</span> <span class="pre">Toggle</span></code> or
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">worlds.AutoWorld</span> <span class="pre">import</span> <span class="pre">World</span></code></p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="adding%20games.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="world%20api.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/apworld specification.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="world%20api.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="adding%20games.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

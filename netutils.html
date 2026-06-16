@@ -1,0 +1,793 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NetUtils &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Test Bases" href="test.html" />
+    <link rel="prev" title="Settings API" href="settings.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="Test Bases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="settings.html" title="Settings API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NetUtils</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-NetUtils">
+<span id="netutils"></span><h1>NetUtils<a class="headerlink" href="#module-NetUtils" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">ClientStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.ClientStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#Utils.ByValue" title="Utils.ByValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ByValue</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus.CLIENT_CONNECTED">
+<span class="sig-name descname"><span class="pre">CLIENT_CONNECTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#NetUtils.ClientStatus.CLIENT_CONNECTED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus.CLIENT_GOAL">
+<span class="sig-name descname"><span class="pre">CLIENT_GOAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#NetUtils.ClientStatus.CLIENT_GOAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus.CLIENT_PLAYING">
+<span class="sig-name descname"><span class="pre">CLIENT_PLAYING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#NetUtils.ClientStatus.CLIENT_PLAYING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus.CLIENT_READY">
+<span class="sig-name descname"><span class="pre">CLIENT_READY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#NetUtils.ClientStatus.CLIENT_READY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.ClientStatus.CLIENT_UNKNOWN">
+<span class="sig-name descname"><span class="pre">CLIENT_UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#NetUtils.ClientStatus.CLIENT_UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.DataPackage">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">DataPackage</span></span><a class="headerlink" href="#NetUtils.DataPackage" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.DataPackage.games">
+<span class="sig-name descname"><span class="pre">games</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.GamesPackage" title="NetUtils.GamesPackage"><span class="pre">GamesPackage</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.DataPackage.games" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.Endpoint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">Endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">socket</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.Endpoint" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Endpoint.socket">
+<span class="sig-name descname"><span class="pre">socket</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ServerConnection</span></span><a class="headerlink" href="#NetUtils.Endpoint.socket" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">GamesPackage</span></span><a class="headerlink" href="#NetUtils.GamesPackage" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage.checksum">
+<span class="sig-name descname"><span class="pre">checksum</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.GamesPackage.checksum" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage.item_name_groups">
+<span class="sig-name descname"><span class="pre">item_name_groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.GamesPackage.item_name_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage.item_name_to_id">
+<span class="sig-name descname"><span class="pre">item_name_to_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.GamesPackage.item_name_to_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage.location_name_groups">
+<span class="sig-name descname"><span class="pre">location_name_groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.GamesPackage.location_name_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.GamesPackage.location_name_to_id">
+<span class="sig-name descname"><span class="pre">location_name_to_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.GamesPackage.location_name_to_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.HandlerMeta">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">HandlerMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.HandlerMeta" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.Hint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">Hint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receiving_player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finding_player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">found</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_flags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.Hint" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="NetUtils.Hint.as_network_message">
+<span class="sig-name descname"><span class="pre">as_network_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#NetUtils.Hint.as_network_message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.entrance">
+<span class="sig-name descname"><span class="pre">entrance</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.Hint.entrance" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.finding_player">
+<span class="sig-name descname"><span class="pre">finding_player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.Hint.finding_player" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.found">
+<span class="sig-name descname"><span class="pre">found</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#NetUtils.Hint.found" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.item">
+<span class="sig-name descname"><span class="pre">item</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.Hint.item" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.item_flags">
+<span class="sig-name descname"><span class="pre">item_flags</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.Hint.item_flags" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="NetUtils.Hint.local">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">local</span></span><a class="headerlink" href="#NetUtils.Hint.local" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.location">
+<span class="sig-name descname"><span class="pre">location</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.Hint.location" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NetUtils.Hint.re_check">
+<span class="sig-name descname"><span class="pre">re_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#NetUtils.Hint" title="NetUtils.Hint"><span class="pre">Hint</span></a></span></span><a class="headerlink" href="#NetUtils.Hint.re_check" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NetUtils.Hint.re_prioritize">
+<span class="sig-name descname"><span class="pre">re_prioritize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NetUtils.HintStatus" title="NetUtils.HintStatus"><span class="pre">HintStatus</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#NetUtils.Hint" title="NetUtils.Hint"><span class="pre">Hint</span></a></span></span><a class="headerlink" href="#NetUtils.Hint.re_prioritize" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.receiving_player">
+<span class="sig-name descname"><span class="pre">receiving_player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.Hint.receiving_player" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Hint.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.HintStatus" title="NetUtils.HintStatus"><span class="pre">HintStatus</span></a></span><a class="headerlink" href="#NetUtils.Hint.status" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.HintStatus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">HintStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.HintStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#Utils.ByValue" title="Utils.ByValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ByValue</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.HintStatus.HINT_AVOID">
+<span class="sig-name descname"><span class="pre">HINT_AVOID</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></span><a class="headerlink" href="#NetUtils.HintStatus.HINT_AVOID" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.HintStatus.HINT_FOUND">
+<span class="sig-name descname"><span class="pre">HINT_FOUND</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></span><a class="headerlink" href="#NetUtils.HintStatus.HINT_FOUND" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.HintStatus.HINT_NO_PRIORITY">
+<span class="sig-name descname"><span class="pre">HINT_NO_PRIORITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></span><a class="headerlink" href="#NetUtils.HintStatus.HINT_NO_PRIORITY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.HintStatus.HINT_PRIORITY">
+<span class="sig-name descname"><span class="pre">HINT_PRIORITY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></span><a class="headerlink" href="#NetUtils.HintStatus.HINT_PRIORITY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.HintStatus.HINT_UNSPECIFIED">
+<span class="sig-name descname"><span class="pre">HINT_UNSPECIFIED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#NetUtils.HintStatus.HINT_UNSPECIFIED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">JSONMessagePart</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.color">
+<span class="sig-name descname"><span class="pre">color</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart.color" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart.flags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.hint_status">
+<span class="sig-name descname"><span class="pre">hint_status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.HintStatus" title="NetUtils.HintStatus"><span class="pre">HintStatus</span></a></span><a class="headerlink" href="#NetUtils.JSONMessagePart.hint_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart.player" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart.text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONMessagePart.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.JSONMessagePart.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">JSONTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.JSONTypes" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.color">
+<span class="sig-name descname"><span class="pre">color</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'color'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.color" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.entrance_name">
+<span class="sig-name descname"><span class="pre">entrance_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'entrance_name'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.entrance_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.hint_status">
+<span class="sig-name descname"><span class="pre">hint_status</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hint_status'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.hint_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.item_id">
+<span class="sig-name descname"><span class="pre">item_id</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'item_id'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.item_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.item_name">
+<span class="sig-name descname"><span class="pre">item_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'item_name'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.item_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.location_id">
+<span class="sig-name descname"><span class="pre">location_id</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'location_id'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.location_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.location_name">
+<span class="sig-name descname"><span class="pre">location_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'location_name'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.location_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.player_id">
+<span class="sig-name descname"><span class="pre">player_id</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'player_id'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.player_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.player_name">
+<span class="sig-name descname"><span class="pre">player_name</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'player_name'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.player_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONTypes.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'text'</span></span><a class="headerlink" href="#NetUtils.JSONTypes.text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.JSONtoTextParser">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">JSONtoTextParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.JSONtoTextParser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONtoTextParser.color_codes">
+<span class="sig-name descname"><span class="pre">color_codes</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'black':</span> <span class="pre">'000000',</span> <span class="pre">'blue':</span> <span class="pre">'6495ED',</span> <span class="pre">'cyan':</span> <span class="pre">'00EEEE',</span> <span class="pre">'green':</span> <span class="pre">'00FF7F',</span> <span class="pre">'magenta':</span> <span class="pre">'EE00EE',</span> <span class="pre">'orange':</span> <span class="pre">'FF7700',</span> <span class="pre">'plum':</span> <span class="pre">'AF99EF',</span> <span class="pre">'red':</span> <span class="pre">'EE0000',</span> <span class="pre">'salmon':</span> <span class="pre">'FA8072',</span> <span class="pre">'slateblue':</span> <span class="pre">'6D8BE8',</span> <span class="pre">'white':</span> <span class="pre">'FFFFFF',</span> <span class="pre">'yellow':</span> <span class="pre">'FAFAD2'}</span></span><a class="headerlink" href="#NetUtils.JSONtoTextParser.color_codes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NetUtils.JSONtoTextParser.handle_node">
+<span class="sig-name descname"><span class="pre">handle_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NetUtils.JSONMessagePart" title="NetUtils.JSONMessagePart"><span class="pre">JSONMessagePart</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.JSONtoTextParser.handle_node" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.JSONtoTextParser.handlers">
+<span class="sig-name descname"><span class="pre">handlers</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'color':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_color&gt;,</span> <span class="pre">'entrance_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_entrance_name&gt;,</span> <span class="pre">'hint_status':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_hint_status&gt;,</span> <span class="pre">'item_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_item_id&gt;,</span> <span class="pre">'item_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_item_name&gt;,</span> <span class="pre">'location_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_location_id&gt;,</span> <span class="pre">'location_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_location_name&gt;,</span> <span class="pre">'player_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_player_id&gt;,</span> <span class="pre">'player_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_player_name&gt;,</span> <span class="pre">'text':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_text&gt;}</span></span><a class="headerlink" href="#NetUtils.JSONtoTextParser.handlers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.MinimumVersions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">MinimumVersions</span></span><a class="headerlink" href="#NetUtils.MinimumVersions" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MinimumVersions.clients">
+<span class="sig-name descname"><span class="pre">clients</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MinimumVersions.clients" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MinimumVersions.server">
+<span class="sig-name descname"><span class="pre">server</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MinimumVersions.server" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.MultiData">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">MultiData</span></span><a class="headerlink" href="#NetUtils.MultiData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.checks_in_area">
+<span class="sig-name descname"><span class="pre">checks_in_area</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.checks_in_area" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.connect_names">
+<span class="sig-name descname"><span class="pre">connect_names</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.connect_names" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.datapackage">
+<span class="sig-name descname"><span class="pre">datapackage</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.GamesPackage" title="NetUtils.GamesPackage"><span class="pre">GamesPackage</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.datapackage" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.er_hint_data">
+<span class="sig-name descname"><span class="pre">er_hint_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.er_hint_data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.locations">
+<span class="sig-name descname"><span class="pre">locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.minimum_versions">
+<span class="sig-name descname"><span class="pre">minimum_versions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.MinimumVersions" title="NetUtils.MinimumVersions"><span class="pre">MinimumVersions</span></a></span><a class="headerlink" href="#NetUtils.MultiData.minimum_versions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.precollected_hints">
+<span class="sig-name descname"><span class="pre">precollected_hints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NetUtils.Hint" title="NetUtils.Hint"><span class="pre">Hint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.precollected_hints" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.precollected_items">
+<span class="sig-name descname"><span class="pre">precollected_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.precollected_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.race_mode">
+<span class="sig-name descname"><span class="pre">race_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.MultiData.race_mode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.seed_name">
+<span class="sig-name descname"><span class="pre">seed_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.MultiData.seed_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.server_options">
+<span class="sig-name descname"><span class="pre">server_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.server_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.slot_data">
+<span class="sig-name descname"><span class="pre">slot_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.slot_data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.slot_info">
+<span class="sig-name descname"><span class="pre">slot_info</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.NetworkSlot" title="NetUtils.NetworkSlot"><span class="pre">NetworkSlot</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.slot_info" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.spheres">
+<span class="sig-name descname"><span class="pre">spheres</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.spheres" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.tags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.MultiData.version">
+<span class="sig-name descname"><span class="pre">version</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.MultiData.version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.NetworkItem">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">NetworkItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.NetworkItem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkItem.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkItem.flags" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkItem.item">
+<span class="sig-name descname"><span class="pre">item</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkItem.item" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkItem.location">
+<span class="sig-name descname"><span class="pre">location</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkItem.location" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkItem.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkItem.player" title="Link to this definition">¶</a></dt>
+<dd><p>Sending player, except in LocationInfo (from LocationScouts), where it is the receiving player.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.NetworkPlayer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">NetworkPlayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.NetworkPlayer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<p>Represents a particular player on a particular team.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkPlayer.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.NetworkPlayer.alias" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkPlayer.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.NetworkPlayer.name" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkPlayer.slot">
+<span class="sig-name descname"><span class="pre">slot</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkPlayer.slot" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkPlayer.team">
+<span class="sig-name descname"><span class="pre">team</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#NetUtils.NetworkPlayer.team" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.NetworkSlot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">NetworkSlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NetUtils.SlotType" title="NetUtils.SlotType"><span class="pre">SlotType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_members</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.NetworkSlot" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
+<p>Represents a particular slot across teams.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkSlot.game">
+<span class="sig-name descname"><span class="pre">game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.NetworkSlot.game" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkSlot.group_members">
+<span class="sig-name descname"><span class="pre">group_members</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#NetUtils.NetworkSlot.group_members" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkSlot.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#NetUtils.NetworkSlot.name" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.NetworkSlot.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#NetUtils.SlotType" title="NetUtils.SlotType"><span class="pre">SlotType</span></a></span><a class="headerlink" href="#NetUtils.NetworkSlot.type" title="Link to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.Permission">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">Permission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.Permission" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#Utils.ByValue" title="Utils.ByValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ByValue</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Permission.auto">
+<span class="sig-name descname"><span class="pre">auto</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#NetUtils.Permission.auto" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Permission.auto_enabled">
+<span class="sig-name descname"><span class="pre">auto_enabled</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></span><a class="headerlink" href="#NetUtils.Permission.auto_enabled" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Permission.disabled">
+<span class="sig-name descname"><span class="pre">disabled</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#NetUtils.Permission.disabled" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Permission.enabled">
+<span class="sig-name descname"><span class="pre">enabled</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#NetUtils.Permission.enabled" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NetUtils.Permission.from_text">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.Permission.from_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.Permission.goal">
+<span class="sig-name descname"><span class="pre">goal</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#NetUtils.Permission.goal" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.RawJSONtoTextParser">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">RawJSONtoTextParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.RawJSONtoTextParser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#NetUtils.JSONtoTextParser" title="NetUtils.JSONtoTextParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">JSONtoTextParser</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.RawJSONtoTextParser.handlers">
+<span class="sig-name descname"><span class="pre">handlers</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'color':</span> <span class="pre">&lt;function</span> <span class="pre">RawJSONtoTextParser._handle_color&gt;,</span> <span class="pre">'entrance_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_entrance_name&gt;,</span> <span class="pre">'hint_status':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_hint_status&gt;,</span> <span class="pre">'item_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_item_id&gt;,</span> <span class="pre">'item_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_item_name&gt;,</span> <span class="pre">'location_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_location_id&gt;,</span> <span class="pre">'location_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_location_name&gt;,</span> <span class="pre">'player_id':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_player_id&gt;,</span> <span class="pre">'player_name':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_player_name&gt;,</span> <span class="pre">'text':</span> <span class="pre">&lt;function</span> <span class="pre">JSONtoTextParser._handle_text&gt;}</span></span><a class="headerlink" href="#NetUtils.RawJSONtoTextParser.handlers" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NetUtils.SlotType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">SlotType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.SlotType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="utils.html#Utils.ByValue" title="Utils.ByValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ByValue</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IntFlag</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="NetUtils.SlotType.always_goal">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">always_goal</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#NetUtils.SlotType.always_goal" title="Link to this definition">¶</a></dt>
+<dd><p>Mark this slot as having reached its goal instantly.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.SlotType.group">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#NetUtils.SlotType.group" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.SlotType.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#NetUtils.SlotType.player" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NetUtils.SlotType.spectator">
+<span class="sig-name descname"><span class="pre">spectator</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#NetUtils.SlotType.spectator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.add_json_hint_status">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">add_json_hint_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hint_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NetUtils.HintStatus" title="NetUtils.HintStatus"><span class="pre">HintStatus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.add_json_hint_status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.add_json_item">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">add_json_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NetUtils.add_json_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.add_json_location">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">add_json_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NetUtils.add_json_location" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.add_json_text">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">add_json_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NetUtils.add_json_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.color">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.color" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.color_code">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">color_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NetUtils.color_code" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.convert_to_base_types">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">convert_to_base_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">_base_types</span></span></span><a class="headerlink" href="#NetUtils.convert_to_base_types" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.encode">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#NetUtils.encode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NetUtils.get_any_version">
+<span class="sig-prename descclassname"><span class="pre">NetUtils.</span></span><span class="sig-name descname"><span class="pre">get_any_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="utils.html#Utils.Version" title="Utils.Version"><span class="pre">Version</span></a></span></span><a class="headerlink" href="#NetUtils.get_any_version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NetUtils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.ClientStatus"><code class="docutils literal notranslate"><span class="pre">ClientStatus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.DataPackage"><code class="docutils literal notranslate"><span class="pre">DataPackage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.Endpoint"><code class="docutils literal notranslate"><span class="pre">Endpoint</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.GamesPackage"><code class="docutils literal notranslate"><span class="pre">GamesPackage</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.HandlerMeta"><code class="docutils literal notranslate"><span class="pre">HandlerMeta</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.Hint"><code class="docutils literal notranslate"><span class="pre">Hint</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.HintStatus"><code class="docutils literal notranslate"><span class="pre">HintStatus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.JSONMessagePart"><code class="docutils literal notranslate"><span class="pre">JSONMessagePart</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.JSONTypes"><code class="docutils literal notranslate"><span class="pre">JSONTypes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.JSONtoTextParser"><code class="docutils literal notranslate"><span class="pre">JSONtoTextParser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.MinimumVersions"><code class="docutils literal notranslate"><span class="pre">MinimumVersions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.MultiData"><code class="docutils literal notranslate"><span class="pre">MultiData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.NetworkItem"><code class="docutils literal notranslate"><span class="pre">NetworkItem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.NetworkPlayer"><code class="docutils literal notranslate"><span class="pre">NetworkPlayer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.NetworkSlot"><code class="docutils literal notranslate"><span class="pre">NetworkSlot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.Permission"><code class="docutils literal notranslate"><span class="pre">Permission</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.RawJSONtoTextParser"><code class="docutils literal notranslate"><span class="pre">RawJSONtoTextParser</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.SlotType"><code class="docutils literal notranslate"><span class="pre">SlotType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.add_json_hint_status"><code class="docutils literal notranslate"><span class="pre">add_json_hint_status()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.add_json_item"><code class="docutils literal notranslate"><span class="pre">add_json_item()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.add_json_location"><code class="docutils literal notranslate"><span class="pre">add_json_location()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.add_json_text"><code class="docutils literal notranslate"><span class="pre">add_json_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.color"><code class="docutils literal notranslate"><span class="pre">color()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.color_code"><code class="docutils literal notranslate"><span class="pre">color_code()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.convert_to_base_types"><code class="docutils literal notranslate"><span class="pre">convert_to_base_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.encode"><code class="docutils literal notranslate"><span class="pre">encode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetUtils.get_any_version"><code class="docutils literal notranslate"><span class="pre">get_any_version()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="settings.html"
+                          title="previous chapter">Settings API</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="test.html"
+                          title="next chapter">Test Bases</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/netutils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="test.html" title="Test Bases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="settings.html" title="Settings API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">NetUtils</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

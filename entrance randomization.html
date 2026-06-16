@@ -1,0 +1,535 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="network%20protocol.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="settings%20api.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="network%20protocol.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="settings%20api.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(entrance-randomization)=# Entrance Randomization</p>
+<p>This document discusses the API and underlying implementation of the generic entrance randomization algorithm
+exposed in <a class="reference internal" href="entrance_rando.html"><span class="doc std std-doc">entrance_rando.py</span></a>. Throughout the doc, entrance randomization is frequently abbreviated
+as “ER.”</p>
+<p>This doc assumes familiarity with Archipelago’s graph logic model. If you don’t have a solid understanding of how
+regions work, you should start there.</p>
+<p>(entrance-randomization-concepts)=## Entrance randomization concepts</p>
+<p>(terminology)=### Terminology</p>
+<p>Some important terminology to understand when reading this doc and working with ER is listed below.</p>
+<ul class="simple">
+<li><p>Entrance rando - sometimes called “room rando,” “transition rando,” “door rando,” or similar,
+this is a game mode in which the game map itself is randomized.
+In Archipelago, these things are often represented as <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s in the region graph, so we call it Entrance rando.</p></li>
+<li><p>Entrances and exits - entrances are ways into your region, exits are ways out of the region. In code, they are both
+represented as <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> objects. In this doc, the terms “entrances” and “exits” will be used in this sense; the
+<code class="docutils literal notranslate"><span class="pre">Entrance</span></code> class will always be referenced in a code block with an uppercase E.</p></li>
+<li><p>Dead end - a connected group of regions which can never help ER progress. This means that it:</p>
+<ul>
+<li><p>Is not in any indirect conditions/access rules.</p></li>
+<li><p>Has no plando’d or otherwise preplaced progression items, including events.</p></li>
+<li><p>Has no randomized exits.</p></li>
+</ul>
+</li>
+<li><p>One way transition - a transition that, in the game, is not safe to reverse through (for example, in Hollow Knight,
+some transitions are inaccessible backwards in vanilla and would put you out of bounds). One way transitions are
+paired together during randomization to prevent such unsafe game states. Most transitions are not one way.</p></li>
+</ul>
+<p>(basic-randomization-strategy)=### Basic randomization strategy</p>
+<p>The Generic ER algorithm works by using the logic structures you are already familiar with. To give a basic example,
+let’s assume a toy world is defined with the vanilla region graph modeled below. In this diagram, the smaller boxes
+represent regions while the larger boxes represent scenes. Scenes are not an Archipelago concept, the grouping is
+purely illustrative.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph startingRoom [Starting Room]
+        S[Starting Room Right Door]
+    end
+    subgraph sceneB [Scene B]
+        BR1[Scene B Right Door]
+    end
+    subgraph sceneA [Scene A]
+        AL1[Scene A Lower Left Door] &lt;--&gt; AR1[Scene A Right Door]
+        AL2[Scene A Upper Left Door] &lt;--&gt; AR1
+    end
+    subgraph sceneC [Scene C]
+        CL1[Scene C Left Door] &lt;--&gt; CR1[Scene C Upper Right Door]
+        CL1 &lt;--&gt; CR2[Scene C Lower Right Door]
+    end
+    subgraph sceneD [Scene D]
+        DL1[Scene D Left Door] &lt;--&gt; DR1[Scene D Right Door]
+    end
+    subgraph endingRoom [Ending Room]
+        EL1[Ending Room Upper Left Door] &lt;--&gt; Victory
+        EL2[Ending Room Lower Left Door] &lt;--&gt; Victory
+    end
+    Menu --&gt; S
+    S &lt;--&gt; AL2
+    BR1 &lt;--&gt; AL1
+    AR1 &lt;--&gt; CL1
+    CR1 &lt;--&gt; DL1
+    DR1 &lt;--&gt; EL1
+    CR2 &lt;--&gt; EL2
+    
+    classDef hidden display:none;
+</pre></div>
+</div>
+<p>First, the world begins by splitting the <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s which should be randomized. This is essentially all that has to be
+done on the world side; calling the <code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code> function will do the rest, using your region definitions and
+logic to generate a valid world layout by connecting the partially connected edges you’ve defined. After you have done
+that, your region graph might look something like the following diagram. Note how each randomizable entrance/exit pair
+(represented as a bidirectional arrow) is disconnected on one end.</p>
+<blockquote>
+<div><p>[!NOTE]
+It is required to use explicit indirect conditions when using Generic ER. Without this restriction,
+Generic ER would have no way to correctly determine that a region may be required in logic,
+leading to significantly higher failure rates due to mis-categorized regions.</p>
+</div></blockquote>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph startingRoom [Starting Room]
+        S[Starting Room Right Door]
+    end
+    subgraph sceneA [Scene A]
+        AL1[Scene A Upper Left Door] &lt;--&gt; AR1[Scene A Right Door]
+        AL2[Scene A Lower Left Door] &lt;--&gt; AR1
+    end
+    subgraph sceneB [Scene B]
+        BR1[Scene B Right Door]
+    end
+    subgraph sceneC [Scene C]
+        CL1[Scene C Left Door] &lt;--&gt; CR1[Scene C Upper Right Door]
+        CL1 &lt;--&gt; CR2[Scene C Lower Right Door]
+    end
+    subgraph sceneD [Scene D]
+        DL1[Scene D Left Door] &lt;--&gt; DR1[Scene D Right Door]
+    end
+    subgraph endingRoom [Ending Room]
+        EL1[Ending Room Upper Left Door] &lt;--&gt; Victory
+        EL2[Ending Room Lower Left Door] &lt;--&gt; Victory
+    end
+    Menu --&gt; S
+    S &lt;--&gt; T1:::hidden
+    T2:::hidden &lt;--&gt; AL1
+    T3:::hidden &lt;--&gt; AL2
+    AR1 &lt;--&gt; T5:::hidden
+    BR1 &lt;--&gt; T4:::hidden
+    T6:::hidden &lt;--&gt; CL1
+    CR1 &lt;--&gt; T7:::hidden
+    CR2 &lt;--&gt; T11:::hidden
+    T8:::hidden &lt;--&gt; DL1
+    DR1 &lt;--&gt; T9:::hidden
+    T10:::hidden &lt;--&gt; EL1
+    T12:::hidden &lt;--&gt; EL2
+    
+    classDef hidden display:none;
+</pre></div>
+</div>
+<p>From here, you can call the <code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code> function and Archipelago takes over. Starting from the Menu region,
+the algorithm will sweep out to find eligible region exits to randomize. It will then select an eligible target entrance
+and connect them, prioritizing giving access to unvisited regions first until all regions are placed. Once the exit has
+been connected to the new region, placeholder entrances are deleted. This process is visualized in the diagram below
+with the newly connected edge highlighted in red.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph startingRoom [Starting Room]
+        S[Starting Room Right Door]
+    end
+    subgraph sceneA [Scene A]
+        AL1[Scene A Upper Left Door] &lt;--&gt; AR1[Scene A Right Door]
+        AL2[Scene A Lower Left Door] &lt;--&gt; AR1
+    end
+    subgraph sceneB [Scene B]
+        BR1[Scene B Right Door]
+    end
+    subgraph sceneC [Scene C]
+        CL1[Scene C Left Door] &lt;--&gt; CR1[Scene C Upper Right Door]
+        CL1 &lt;--&gt; CR2[Scene C Lower Right Door]
+    end
+    subgraph sceneD [Scene D]
+        DL1[Scene D Left Door] &lt;--&gt; DR1[Scene D Right Door]
+    end
+    subgraph endingRoom [Ending Room]
+        EL1[Ending Room Upper Left Door] &lt;--&gt; Victory
+        EL2[Ending Room Lower Left Door] &lt;--&gt; Victory
+    end
+    Menu --&gt; S
+    S &lt;--&gt; CL1
+    T2:::hidden &lt;--&gt; AL1
+    T3:::hidden &lt;--&gt; AL2
+    AR1 &lt;--&gt; T5:::hidden
+    BR1 &lt;--&gt; T4:::hidden
+    CR1 &lt;--&gt; T7:::hidden
+    CR2 &lt;--&gt; T11:::hidden
+    T8:::hidden &lt;--&gt; DL1
+    DR1 &lt;--&gt; T9:::hidden
+    T10:::hidden &lt;--&gt; EL1
+    T12:::hidden &lt;--&gt; EL2
+    
+    classDef hidden display:none;
+    linkStyle 8 stroke:red,stroke-width:5px;
+</pre></div>
+</div>
+<p>This process is then repeated until all disconnected <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s have been connected or deleted, eventually resulting
+in a randomized region layout.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph startingRoom [Starting Room]
+        S[Starting Room Right Door]
+    end
+    subgraph sceneA [Scene A]
+        AL1[Scene A Upper Left Door] &lt;--&gt; AR1[Scene A Right Door]
+        AL2[Scene A Lower Left Door] &lt;--&gt; AR1
+    end
+    subgraph sceneB [Scene B]
+        BR1[Scene B Right Door]
+    end
+    subgraph sceneC [Scene C]
+        CL1[Scene C Left Door] &lt;--&gt; CR1[Scene C Upper Right Door]
+        CL1 &lt;--&gt; CR2[Scene C Lower Right Door]
+    end
+    subgraph sceneD [Scene D]
+        DL1[Scene D Left Door] &lt;--&gt; DR1[Scene D Right Door]
+    end
+    subgraph endingRoom [Ending Room]
+        EL1[Ending Room Upper Left Door] &lt;--&gt; Victory
+        EL2[Ending Room Lower Left Door] &lt;--&gt; Victory
+    end
+    Menu --&gt; S
+    S &lt;--&gt; CL1
+    AR1 &lt;--&gt; DL1
+    BR1 &lt;--&gt; EL2
+    CR1 &lt;--&gt; EL1
+    CR2 &lt;--&gt; AL1
+    DR1 &lt;--&gt; AL2
+    
+    classDef hidden display:none;
+</pre></div>
+</div>
+<p>(er-and-minimal-accessibility)=#### ER and minimal accessibility</p>
+<p>In general, even on minimal accessibility, ER will prefer to provide access to as many regions as possible. This is for
+2 reasons:</p>
+<ol class="arabic simple">
+<li><p>Generally, having items spread across the world is going to be a more fun/engaging experience for players than
+severely restricting their map. Imagine an ER arrangement with just the start region, the goal region, and exactly
+enough locations in between them to get the goal - this may be the intuitive behavior of minimal, or even the desired
+behavior in some cases, but it is not a particularly interesting randomizer.</p></li>
+<li><p>Giving access to more of the world will give item fill a higher chance to succeed.</p></li>
+</ol>
+<p>However, ER will cull unreachable regions and exits if necessary to save the generation of a beaten minimal.</p>
+<p>(usage)=## Usage</p>
+<p>(defining-entrances-to-be-randomized)=### Defining entrances to be randomized</p>
+<p>The first step to using generic ER is defining entrances to be randomized. In order to do this, you will need to
+leave partially disconnected exits without a <code class="docutils literal notranslate"><span class="pre">target_region</span></code> and partially disconnected entrances without a
+<code class="docutils literal notranslate"><span class="pre">parent_region</span></code>. You can do this either by hand using <code class="docutils literal notranslate"><span class="pre">region.create_exit</span></code> and <code class="docutils literal notranslate"><span class="pre">region.create_er_target</span></code>, or you can
+create your vanilla region graph and then use <code class="docutils literal notranslate"><span class="pre">disconnect_entrance_for_randomization</span></code> to split the desired edges.
+If you’re not sure which to use, prefer the latter approach as it will automatically satisfy the requirements for
+coupled randomization (discussed in more depth later).</p>
+<blockquote>
+<div><p>[!TIP]
+It’s recommended to give your <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s non-default names when creating them. The default naming scheme is
+<code class="docutils literal notranslate"><span class="pre">f&quot;{parent_region}</span> <span class="pre">-&gt;</span> <span class="pre">{target_region}&quot;</span></code> which is generally not helpful in an entrance rando context - after all,
+the target region will not be the same as vanilla and regions are often not user-facing anyway. Instead consider names
+that describe the location of the exit, such as “Starting Room Right Door.”</p>
+</div></blockquote>
+<p>When creating your <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s you should also set the randomization type and group. One-way <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s represent
+transitions which are impossible to traverse in reverse. All other transitions are two-ways. To ensure that all
+transitions can be accessed in the game, one-ways are only randomized with other one-ways and two-ways are only
+randomized with other two-ways. You can set whether an <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> is one-way or two-way using the <code class="docutils literal notranslate"><span class="pre">randomization_type</span></code>
+attribute.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s can also set the <code class="docutils literal notranslate"><span class="pre">randomization_group</span></code> attribute to allow for grouping during randomization. This can be
+any integer you define and may be based on player options. Some possible use cases for grouping include:</p>
+<ul class="simple">
+<li><p>Directional matching - only match leftward-facing transitions to rightward-facing ones</p></li>
+<li><p>Terrain matching - only match water transitions to water transitions and land transitions to land transitions</p></li>
+<li><p>Dungeon shuffle - only shuffle entrances within a dungeon/area with each other</p></li>
+<li><p>Combinations of the above</p></li>
+</ul>
+<p>By default, all <code class="docutils literal notranslate"><span class="pre">Entrance</span></code>s are placed in the group 0. An entrance can only be a member of one group, but a given group
+may connect to many other groups.</p>
+<p>(calling-generic-er)=### Calling generic ER</p>
+<p>Once you have defined all your entrances and exits and connected the Menu region to your region graph, you can call
+<code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code> to perform randomization.</p>
+<p>(coupled-and-uncoupled-modes)=#### Coupled and uncoupled modes</p>
+<p>In coupled randomization, an entrance placed from A to B guarantees that the reverse placement B to A also exists
+(assuming that A and B are both two-way doors). Uncoupled randomization does not make this guarantee.</p>
+<p>When using coupled mode, there are some requirements for how placeholder ER targets for two-ways are named.
+<code class="docutils literal notranslate"><span class="pre">disconnect_entrance_for_randomization</span></code> will handle this for you. However, if you opt to create your ER targets and
+exits by hand, you will need to ensure that ER targets into a region are named the same as the exit they correspond to.
+This allows the randomizer to find and connect the reverse pairing after the first pairing is completed. See the diagram
+below for an example of incorrect and correct naming.</p>
+<p>Incorrect target naming:</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph a [&quot; &quot;]
+        direction TB
+        target1
+        target2
+    end
+    subgraph b [&quot; &quot;]
+        direction TB
+        Region
+    end
+    Region[&quot;Room1&quot;] --&gt;|Room1 Right Door| target1:::hidden
+    Region --- target2:::hidden --&gt;|Room2 Left Door| Region
+
+    linkStyle 1 stroke:none;
+    classDef hidden display:none;
+    style a display:none;
+    style b display:none;
+</pre></div>
+</div>
+<p>Correct target naming:</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&quot;graph&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+graph LR
+    subgraph a [&quot; &quot;]
+        direction TB
+        target1
+        target2
+    end
+    subgraph b [&quot; &quot;]
+        direction TB
+        Region
+    end
+    Region[&quot;Room1&quot;] --&gt;|Room1 Right Door| target1:::hidden
+    Region --- target2:::hidden --&gt;|Room1 Right Door| Region
+
+    linkStyle 1 stroke:none;
+    classDef hidden display:none;
+    style a display:none;
+    style b display:none;
+</pre></div>
+</div>
+<p>(implementing-grouping)=#### Implementing grouping</p>
+<p>When you created your entrances, you defined the group each entrance belongs to. Now you will have to define how groups
+should connect with each other. This is done with the <code class="docutils literal notranslate"><span class="pre">target_group_lookup</span></code> and <code class="docutils literal notranslate"><span class="pre">preserve_group_order</span></code> parameters.
+There is also a convenience function <code class="docutils literal notranslate"><span class="pre">bake_target_group_lookup</span></code> which can help to prepare group lookups when more
+complex group mapping logic is needed. Some recipes for <code class="docutils literal notranslate"><span class="pre">target_group_lookup</span></code> are presented here.</p>
+<p>For the recipes below, assume the following groups (if the syntax used here is unfamiliar to you, “bit masking” and
+“bitwise operators” would be the terms to search for):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Groups</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="c1"># Directions</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">TOP</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">DOOR</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="c1"># Areas</span>
+    <span class="n">FIELD</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+    <span class="n">CAVE</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+    <span class="n">MOUNTAIN</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+    <span class="c1"># Bitmasks</span>
+    <span class="n">DIRECTION_MASK</span> <span class="o">=</span> <span class="n">FIELD</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">AREA_MASK</span> <span class="o">=</span> <span class="o">~</span><span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Directional matching:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">direction_matching_group_lookup</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># with preserve_group_order = False, pair a left transition to either a right transition or door randomly</span>
+    <span class="c1"># with preserve_group_order = True, pair a left transition to a right transition, or else a door if no</span>
+    <span class="c1">#   viable right transitions remain</span>
+    <span class="n">Groups</span><span class="o">.</span><span class="n">LEFT</span><span class="p">:</span> <span class="p">[</span><span class="n">Groups</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">Groups</span><span class="o">.</span><span class="n">DOOR</span><span class="p">],</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Terrain matching or dungeon shuffle:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">randomize_within_same_group</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">group</span><span class="p">]</span>
+<span class="n">identity_group_lookup</span> <span class="o">=</span> <span class="n">bake_target_group_lookup</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">randomize_within_same_group</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Directional + area shuffle:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_target_groups</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="c1"># example group: LEFT | CAVE</span>
+    <span class="c1"># example result: [RIGHT | CAVE, DOOR | CAVE]</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">group</span> <span class="o">&amp;</span> <span class="n">Groups</span><span class="o">.</span><span class="n">DIRECTION_MASK</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="n">group</span> <span class="o">&amp;</span> <span class="n">Groups</span><span class="o">.</span><span class="n">AREA_MASK</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">pair_direction</span> <span class="o">|</span> <span class="n">area</span> <span class="k">for</span> <span class="n">pair_direction</span> <span class="ow">in</span> <span class="n">direction_matching_group_lookup</span><span class="p">[</span><span class="n">direction</span><span class="p">]]</span>
+<span class="n">target_group_lookup</span> <span class="o">=</span> <span class="n">bake_target_group_lookup</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">get_target_groups</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(when-to-call-<code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code>)=#### When to call <code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code></p>
+<p>The correct step for this is <code class="docutils literal notranslate"><span class="pre">World.connect_entrances</span></code>.</p>
+<p>Currently, you could theoretically do it as early as <code class="docutils literal notranslate"><span class="pre">World.create_regions</span></code> or as late as <code class="docutils literal notranslate"><span class="pre">pre_fill</span></code>.
+However, there are upcoming changes to Item Plando and Generic Entrance Randomizer to make the two features work better
+together.
+These changes necessitate that entrance randomization is done exactly in <code class="docutils literal notranslate"><span class="pre">World.connect_entrances</span></code>.
+It is fine for your Entrances to be connected differently or not at all before this step.</p>
+<p>(informing-your-client-about-randomized-entrances)=#### Informing your client about randomized entrances</p>
+<p><code class="docutils literal notranslate"><span class="pre">randomize_entrances</span></code> returns the completed <code class="docutils literal notranslate"><span class="pre">ERPlacementState</span></code>. The <code class="docutils literal notranslate"><span class="pre">pairings</span></code> attribute contains a list of the
+created placements by name which can be used to populate slot data.</p>
+<p>(imposing-custom-constraints-on-randomization)=### Imposing custom constraints on randomization</p>
+<p>Generic ER is, as the name implies, generic! That means that your world may have some use case which is not covered by
+the ER implementation. To solve this, you can create a custom <code class="docutils literal notranslate"><span class="pre">Entrance</span></code> class which provides custom implementations
+for <code class="docutils literal notranslate"><span class="pre">is_valid_source_transition</span></code> and <code class="docutils literal notranslate"><span class="pre">can_connect_to</span></code>. These allow arbitrary constraints to be implemented on
+randomization, for instance helping to prevent restrictive sphere 1s or ensuring a maximum distance from a “hub” region.</p>
+<blockquote>
+<div><p>[!IMPORTANT]
+When implementing these functions, make sure to use <code class="docutils literal notranslate"><span class="pre">super().is_valid_source_transition</span></code> and <code class="docutils literal notranslate"><span class="pre">super().can_connect_to</span></code>
+as part of your implementation. Otherwise ER may behave unexpectedly.</p>
+</div></blockquote>
+<p>(implementation-details)=## Implementation details</p>
+<p>This section is a medium-level explainer of the implementation of ER for those who don’t want to decipher the code.
+However, a basic understanding of the mechanics of <code class="docutils literal notranslate"><span class="pre">fill_restrictive</span></code> will be helpful as many of the underlying
+algorithms are shared</p>
+<p>ER uses a forward fill approach to create the region layout. First, ER collects <code class="docutils literal notranslate"><span class="pre">all_state</span></code> and performs a region sweep
+from Menu, similar to fill. ER then proceeds in stages to complete the randomization:</p>
+<ol class="arabic simple">
+<li><p>Attempt to connect all non-dead-end regions, prioritizing access to unseen regions so there will always be new exits
+to pair off.</p></li>
+<li><p>Attempt to connect all dead-end regions, so that all regions will be placed</p></li>
+<li><p>Connect all remaining dangling edges now that all regions are placed.</p>
+<ol class="arabic simple">
+<li><p>Connect any other dead end entrances (e.g. second entrances to the same dead end regions).</p></li>
+<li><p>Connect all remaining non-dead-ends amongst each other.</p></li>
+</ol>
+</li>
+</ol>
+<p>The process for each connection will do the following:</p>
+<ol class="arabic simple">
+<li><p>Select a randomizable exit of a reachable region which is a valid source transition.</p></li>
+<li><p>Get its group and check <code class="docutils literal notranslate"><span class="pre">target_group_lookup</span></code> to determine which groups are valid targets.</p></li>
+<li><p>Look up ER targets from those groups and find one which is valid according to <code class="docutils literal notranslate"><span class="pre">can_connect_to</span></code></p></li>
+<li><p>Connect the source exit to the target’s target_region and delete the target.</p>
+<ul class="simple">
+<li><p>In stage 1, before placing the last valid source transition, an additional speculative sweep is performed to ensure
+that there will be an available exit after the placement so randomization can continue.</p></li>
+</ul>
+</li>
+<li><p>If it’s coupled mode, find the reverse exit and target by name and connect them as well.</p></li>
+<li><p>Sweep to update reachable regions.</p></li>
+<li><p>Call the <code class="docutils literal notranslate"><span class="pre">on_connect</span></code> callback.</p></li>
+</ol>
+<p>This process repeats until the stage is complete, no valid source transition is found, or no valid target transition is
+found for any source transition. Unlike fill, there is no attempt made to save a failed randomization.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="settings%20api.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="network%20protocol.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/entrance randomization.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="network%20protocol.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="settings%20api.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

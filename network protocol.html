@@ -1,0 +1,1566 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="tests.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="entrance%20randomization.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tests.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="entrance%20randomization.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(archipelago-general-client)=# Archipelago General Client
+(archipelago-connection-handshake)=## Archipelago Connection Handshake
+These steps should be followed in order to establish a gameplay connection with an Archipelago session.</p>
+<ol class="arabic simple">
+<li><p>Client establishes WebSocket connection to Archipelago server.</p></li>
+<li><p>Server accepts connection and responds with a <a class="reference internal" href="#roominfo"><span class="xref myst">RoomInfo</span></a> packet.</p></li>
+<li><p>Client may send a <a class="reference internal" href="#getdatapackage"><span class="xref myst">GetDataPackage</span></a> packet.</p></li>
+<li><p>Server sends a <a class="reference internal" href="netutils.html#NetUtils.MultiData.datapackage" title="NetUtils.MultiData.datapackage"><span class="xref myst py py-attr">DataPackage</span></a> packet in return. (If the client sent GetDataPackage.)</p></li>
+<li><p>Client sends <a class="reference internal" href="entrance.html#BaseClasses.Entrance.connect" title="BaseClasses.Entrance.connect"><span class="xref myst py py-meth">Connect</span></a> packet in order to authenticate with the server.</p></li>
+<li><p>Server validates the client’s packet and responds with <a class="reference internal" href="#connected"><span class="xref myst">Connected</span></a> or <a class="reference internal" href="#ConnectionRefused"><span class="xref myst">ConnectionRefused</span></a>.</p></li>
+<li><p>Server may send <a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a> to the client, in the case that the client is missing items that are queued up for it.</p></li>
+<li><p>Server sends <a class="reference internal" href="#printjson"><span class="xref myst">PrintJSON</span></a> to all players to notify them of the new client connection.</p></li>
+</ol>
+<p>In the case that the client does not authenticate properly and receives a <a class="reference internal" href="#connectionrefused"><span class="xref myst">ConnectionRefused</span></a> then the server will maintain the connection and allow for follow-up <a class="reference internal" href="#Connect"><span class="xref myst">Connect</span></a> packet.</p>
+<p>There are also a number of community-supported libraries available that implement this network protocol to make integrating with Archipelago easier.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Language/Runtime</p></th>
+<th class="head"><p>Project</p></th>
+<th class="head"><p>Remarks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Python</p></td>
+<td><p><a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/CommonClient.py">Archipelago CommonClient</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/SNIClient.py">Archipelago SNIClient</a></p></td>
+<td><p>For Super Nintendo Game Support; Utilizes <a class="reference external" href="https://github.com/alttpo/sni">SNI</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>JVM (Java / Kotlin)</p></td>
+<td><p><a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago.MultiClient.Java">Archipelago.MultiClient.Java</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>.NET (C# / F# / VB.NET)</p></td>
+<td><p><a class="reference external" href="https://www.nuget.org/packages/Archipelago.MultiClient.Net">Archipelago.MultiClient.Net</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>C++</p></td>
+<td><p><a class="reference external" href="https://github.com/black-sliver/apclientpp">apclientpp</a></p></td>
+<td><p>header-only</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><a class="reference external" href="https://github.com/N00byKing/APCpp">APCpp</a></p></td>
+<td><p>CMake</p></td>
+</tr>
+<tr class="row-even"><td><p>JavaScript / TypeScript</p></td>
+<td><p><a class="reference external" href="https://www.npmjs.com/package/archipelago.js">archipelago.js</a></p></td>
+<td><p>Browser and Node.js Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>Haxe</p></td>
+<td><p><a class="reference external" href="https://lib.haxe.org/p/hxArchipelago">hxArchipelago</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Rust</p></td>
+<td><p><a class="reference external" href="https://github.com/ryanisaacg/archipelago_rs">ArchipelagoRS</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Lua</p></td>
+<td><p><a class="reference external" href="https://github.com/black-sliver/lua-apclientpp">lua-apclientpp</a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Game Maker + Studio 1.x</p></td>
+<td><p><a class="reference external" href="https://github.com/black-sliver/gm-apclientpp">gm-apclientpp</a></p></td>
+<td><p>For GM7, GM8 and GMS1.x, maybe older</p></td>
+</tr>
+<tr class="row-odd"><td><p>GameMaker: Studio 2.x+</p></td>
+<td><p><a class="reference external" href="https://discord.com/channels/731205301247803413/1166418532519653396">see Discord</a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>(synchronizing-items)=## Synchronizing Items
+After a client connects, it will receive all previously collected items for its associated slot in a <a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a> packet. This will include items the client may have already processed in a previous play session.<br />
+To ensure the client is able to reject those items if it needs to, each item in the packet has an associated <code class="docutils literal notranslate"><span class="pre">index</span></code> argument. You will need to find a way to save the “last processed item index” to the player’s local savegame, a local file, or something to that effect. Before connecting, you should load that “last processed item index” value and compare against it in your received items handling.</p>
+<p>When the client receives a <a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a> packet, if the <code class="docutils literal notranslate"><span class="pre">index</span></code> argument does not match the next index that the client expects then it is expected that the client will re-sync items with the server. This can be accomplished by sending the server a <a class="reference internal" href="#Sync"><span class="xref myst">Sync</span></a> packet and then a <a class="reference internal" href="#LocationChecks"><span class="xref myst">LocationChecks</span></a> packet.</p>
+<p>Even if the client detects a desync, it can still accept the items provided in this packet to prevent gameplay interruption.</p>
+<p>When the client receives a <a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a> packet and the <code class="docutils literal notranslate"><span class="pre">index</span></code> arg is <code class="docutils literal notranslate"><span class="pre">0</span></code> (zero) then the client should accept the provided <code class="docutils literal notranslate"><span class="pre">items</span></code> list as its full inventory. (Abandon previous inventory.)</p>
+<p>(archipelago-protocol-packets)=# Archipelago Protocol Packets
+Packets are sent between the multiworld server and client in order to sync information between them. Below is a directory of each packet.</p>
+<p>Packets are simple JSON lists in which any number of ordered network commands can be sent, which are objects. Each command has a “cmd” key, indicating its purpose. All packet argument types documented here refer to JSON types, unless otherwise specified.</p>
+<p>An object can contain the “class” key, which will tell the content data type, such as “Version” in the following example.</p>
+<p>Websocket connections should support per-message compression. Uncompressed connections are deprecated and may stop
+working in the future.</p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s2">&quot;cmd&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;RoomInfo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;version&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;major&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;minor&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;build&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;class&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Version&quot;</span><span class="p">},</span><span class="w"> </span><span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;WebHost&quot;</span><span class="p">],</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>((server–&gt;-client))=## (Server -&gt; Client)
+These packets are sent from the multiworld server to the client. They are not messages which the server accepts.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#roominfo"><span class="xref myst">RoomInfo</span></a></p></li>
+<li><p><a class="reference internal" href="#connectionrefused"><span class="xref myst">ConnectionRefused</span></a></p></li>
+<li><p><a class="reference internal" href="#connected"><span class="xref myst">Connected</span></a></p></li>
+<li><p><a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a></p></li>
+<li><p><a class="reference internal" href="#locationinfo"><span class="xref myst">LocationInfo</span></a></p></li>
+<li><p><a class="reference internal" href="#roomupdate"><span class="xref myst">RoomUpdate</span></a></p></li>
+<li><p><a class="reference internal" href="#printjson"><span class="xref myst">PrintJSON</span></a></p></li>
+<li><p><a class="reference internal" href="netutils.html#NetUtils.MultiData.datapackage" title="NetUtils.MultiData.datapackage"><span class="xref myst py py-attr">DataPackage</span></a></p></li>
+<li><p><a class="reference internal" href="#bounced"><span class="xref myst">Bounced</span></a></p></li>
+<li><p><a class="reference internal" href="#invalidpacket"><span class="xref myst">InvalidPacket</span></a></p></li>
+<li><p><a class="reference internal" href="#retrieved"><span class="xref myst">Retrieved</span></a></p></li>
+<li><p><a class="reference internal" href="#setreply"><span class="xref myst">SetReply</span></a></p></li>
+</ul>
+<p>(roominfo)=### RoomInfo
+Sent to clients when they connect to an Archipelago server.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>version</p></td>
+<td><p><a class="reference internal" href="#networkversion"><span class="xref myst">NetworkVersion</span></a></p></td>
+<td><p>Object denoting the version of Archipelago which the server is running.</p></td>
+</tr>
+<tr class="row-odd"><td><p>generator_version</p></td>
+<td><p><a class="reference internal" href="#networkversion"><span class="xref myst">NetworkVersion</span></a></p></td>
+<td><p>Object denoting the version of Archipelago which generated the multiworld.</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Denotes special features or capabilities that the sender is capable of. Example: <code class="docutils literal notranslate"><span class="pre">WebHost</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>password</p></td>
+<td><p>bool</p></td>
+<td><p>Denoted whether a password is required to join this room.</p></td>
+</tr>
+<tr class="row-even"><td><p>permissions</p></td>
+<td><p>dict[str, <a class="reference internal" href="#permission"><span class="xref myst">Permission</span></a>]</p></td>
+<td><p>Mapping of permission name to <a class="reference internal" href="netutils.html#NetUtils.Permission" title="NetUtils.Permission"><span class="xref myst py py-class">Permission</span></a>, keys are: “release”, “collect” and “remaining”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>hint_cost</p></td>
+<td><p>int</p></td>
+<td><p>The percentage of total locations that need to be checked to receive a hint from the server.</p></td>
+</tr>
+<tr class="row-even"><td><p>location_check_points</p></td>
+<td><p>int</p></td>
+<td><p>The amount of hint points you receive per item/location check completed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>games</p></td>
+<td><p>list[str]</p></td>
+<td><p>List of games present in this multiworld.</p></td>
+</tr>
+<tr class="row-even"><td><p>datapackage_checksums</p></td>
+<td><p>dict[str, str]</p></td>
+<td><p>Checksum hash of the individual games’ data packages the server will send. Used by newer clients to decide which games’ caches are outdated. See <a class="reference internal" href="#data-package-contents"><span class="xref myst">Data Package Contents</span></a> for more information.</p></td>
+</tr>
+<tr class="row-odd"><td><p>seed_name</p></td>
+<td><p>str</p></td>
+<td><p>Uniquely identifying name of this generation</p></td>
+</tr>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>float</p></td>
+<td><p>Unix time stamp of “now”. Send for time synchronization if wanted for things like the DeathLink Bounce.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(release)=#### release
+Dictates what is allowed when it comes to a player releasing their run. A release is an action which distributes the rest of the items in a player’s run to those other players awaiting them.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code>: Distributes a player’s items to other players when they complete their goal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code>: Denotes that players may release at any time in the game.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto-enabled</span></code>: Both of the above options together.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disabled</span></code>: All release modes disabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">goal</span></code>: Allows for manual use of release command once a player completes their goal. (Disabled until goal completion)</p></li>
+</ul>
+<p>(collect)=#### collect
+Dictates what is allowed when it comes to a player collecting their run. A collect is an action which sends the rest of the items in a player’s run.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">auto</span></code>: Automatically when they complete their goal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code>: Denotes that players may !collect at any time in the game.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">auto-enabled</span></code>: Both of the above options together.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disabled</span></code>: All collect modes disabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">goal</span></code>: Allows for manual use of collect command once a player completes their goal. (Disabled until goal completion)</p></li>
+</ul>
+<p>(remaining)=#### remaining
+Dictates what is allowed when it comes to a player querying the items remaining in their run.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">goal</span></code>: Allows a player to query for items remaining in their run but only after they completed their own goal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">enabled</span></code>: Denotes that players may query for any items remaining in their run (even those belonging to other players).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">disabled</span></code>: All remaining item query modes disabled.</p></li>
+</ul>
+<p>(connectionrefused)=### ConnectionRefused
+Sent to clients when the server refuses connection. This is sent during the initial connection handshake.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>errors</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. When provided, should contain any one of: <code class="docutils literal notranslate"><span class="pre">InvalidSlot</span></code>, <code class="docutils literal notranslate"><span class="pre">InvalidGame</span></code>, <code class="docutils literal notranslate"><span class="pre">IncompatibleVersion</span></code>, <code class="docutils literal notranslate"><span class="pre">InvalidPassword</span></code>, or <code class="docutils literal notranslate"><span class="pre">InvalidItemsHandling</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>InvalidSlot indicates that the sent ‘name’ field did not match any auth entry on the server.
+InvalidGame indicates that a correctly named slot was found, but the game for it mismatched.
+IncompatibleVersion indicates a version mismatch.
+InvalidPassword indicates the wrong, or no password when it was required, was sent.
+InvalidItemsHandling indicates a wrong value type or flag combination was sent.</p>
+<p>(connected)=### Connected
+Sent to clients when the connection handshake is successfully completed.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>team</p></td>
+<td><p>int</p></td>
+<td><p>Your team number. See <a class="reference internal" href="#networkplayer"><span class="xref myst">NetworkPlayer</span></a> for more info on team number.</p></td>
+</tr>
+<tr class="row-odd"><td><p>slot</p></td>
+<td><p>int</p></td>
+<td><p>Your slot number on your team. See <a class="reference internal" href="#networkplayer"><span class="xref myst">NetworkPlayer</span></a> for more info on the slot number.</p></td>
+</tr>
+<tr class="row-even"><td><p>players</p></td>
+<td><p>list[<a class="reference internal" href="#networkplayer"><span class="xref myst">NetworkPlayer</span></a>]</p></td>
+<td><p>List denoting other players in the multiworld, whether connected or not.</p></td>
+</tr>
+<tr class="row-odd"><td><p>missing_locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>Contains ids of remaining locations that need to be checked. Useful for trackers, among other things.</p></td>
+</tr>
+<tr class="row-even"><td><p>checked_locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>Contains ids of all locations that have been checked. Useful for trackers, among other things. Location ids are in the range of ± 2<sup>53</sup>-1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>slot_data</p></td>
+<td><p>dict[str, any]</p></td>
+<td><p>Contains a json object for slot related data, differs per game. Empty if not required. Not present if slot_data in <a class="reference internal" href="entrance.html#BaseClasses.Entrance.connect" title="BaseClasses.Entrance.connect"><span class="xref myst py py-meth">Connect</span></a> is false.</p></td>
+</tr>
+<tr class="row-even"><td><p>slot_info</p></td>
+<td><p>dict[int, <a class="reference internal" href="#networkslot"><span class="xref myst">NetworkSlot</span></a>]</p></td>
+<td><p>maps each slot to a <a class="reference internal" href="netutils.html#NetUtils.NetworkSlot" title="NetUtils.NetworkSlot"><span class="xref myst py py-class">NetworkSlot</span></a> information.</p></td>
+</tr>
+<tr class="row-odd"><td><p>hint_points</p></td>
+<td><p>int</p></td>
+<td><p>Number of hint points that the current player has.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(receiveditems)=### ReceivedItems
+Sent to clients when they receive an item.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>index</p></td>
+<td><p>int</p></td>
+<td><p>The next empty slot in the list of items for the receiving client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>items</p></td>
+<td><p>list[<a class="reference internal" href="#networkitem"><span class="xref myst">NetworkItem</span></a>]</p></td>
+<td><p>The items which the client is receiving.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(locationinfo)=### LocationInfo
+Sent to clients to acknowledge a received <a class="reference internal" href="#locationscouts"><span class="xref myst">LocationScouts</span></a> packet and responds with the item in the location(s) being scouted.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>locations</p></td>
+<td><p>list[<a class="reference internal" href="#networkitem"><span class="xref myst">NetworkItem</span></a>]</p></td>
+<td><p>Contains list of item(s) in the location(s) scouted.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(roomupdate)=### RoomUpdate
+Sent when there is a need to update information about the present game session.
+(arguments)=#### Arguments
+RoomUpdate may contain the same arguments from <a class="reference internal" href="#roominfo"><span class="xref myst">RoomInfo</span></a> and, once authenticated, arguments from
+<a class="reference internal" href="#connected"><span class="xref myst">Connected</span></a> with the following exceptions:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>players</p></td>
+<td><p>list[<a class="reference internal" href="#networkplayer"><span class="xref myst">NetworkPlayer</span></a>]</p></td>
+<td><p>Sent in the event of an alias rename. Always sends all players, whether connected or not.</p></td>
+</tr>
+<tr class="row-odd"><td><p>checked_locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>May be a partial update, containing new locations that were checked, especially from a coop partner in the same slot.</p></td>
+</tr>
+<tr class="row-even"><td><p>missing_locations</p></td>
+<td><p>-</p></td>
+<td><p>Never sent in this packet. If needed, it is the inverse of <code class="docutils literal notranslate"><span class="pre">checked_locations</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>All arguments for this packet are optional, only changes are sent.</p>
+<p>(printjson)=### PrintJSON
+Sent to clients purely to display a message to the player. While various message types provide additional arguments, clients only need to evaluate the <code class="docutils literal notranslate"><span class="pre">data</span></code> argument to construct the human-readable message text. All other arguments may be ignored safely.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Message Types</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>data</p></td>
+<td><p>list[<a class="reference internal" href="#jsonmessagepart"><span class="xref myst">JSONMessagePart</span></a>]</p></td>
+<td><p>(all)</p></td>
+<td><p>Textual content of this message</p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p>str</p></td>
+<td><p>(any)</p></td>
+<td><p><a class="reference internal" href="#printjsontype"><span class="xref myst">PrintJsonType</span></a> of this message (optional)</p></td>
+</tr>
+<tr class="row-even"><td><p>receiving</p></td>
+<td><p>int</p></td>
+<td><p>ItemSend, ItemCheat, Hint</p></td>
+<td><p>Destination player’s ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>item</p></td>
+<td><p><a class="reference internal" href="#networkitem"><span class="xref myst">NetworkItem</span></a></p></td>
+<td><p>ItemSend, ItemCheat, Hint</p></td>
+<td><p>Source player’s ID, location ID, item ID and item flags</p></td>
+</tr>
+<tr class="row-even"><td><p>found</p></td>
+<td><p>bool</p></td>
+<td><p>Hint</p></td>
+<td><p>Whether the location hinted for was checked</p></td>
+</tr>
+<tr class="row-odd"><td><p>team</p></td>
+<td><p>int</p></td>
+<td><p>Join, Part, Chat, TagsChanged, Goal, Release, Collect, ItemCheat</p></td>
+<td><p>Team of the triggering player</p></td>
+</tr>
+<tr class="row-even"><td><p>slot</p></td>
+<td><p>int</p></td>
+<td><p>Join, Part, Chat, TagsChanged, Goal, Release, Collect</p></td>
+<td><p>Slot of the triggering player</p></td>
+</tr>
+<tr class="row-odd"><td><p>message</p></td>
+<td><p>str</p></td>
+<td><p>Chat, ServerChat</p></td>
+<td><p>Original chat message without sender prefix</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Join, TagsChanged</p></td>
+<td><p>Tags of the triggering player</p></td>
+</tr>
+<tr class="row-odd"><td><p>countdown</p></td>
+<td><p>int</p></td>
+<td><p>Countdown</p></td>
+<td><p>Amount of seconds remaining on the countdown</p></td>
+</tr>
+</tbody>
+</table>
+<p>(printjsontype)=#### PrintJsonType
+PrintJsonType indicates the type of a <a class="reference internal" href="#printjson"><span class="xref myst">PrintJSON</span></a> packet. Different types can be handled differently by the client and can also contain additional arguments. When receiving an unknown or missing type, the <code class="docutils literal notranslate"><span class="pre">data</span></code>’s list[<a class="reference internal" href="netutils.html#NetUtils.JSONMessagePart" title="NetUtils.JSONMessagePart"><span class="xref myst py py-class">JSONMessagePart</span></a>] should still be displayed to the player as normal text.</p>
+<p>Currently defined types are:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Subject</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ItemSend</p></td>
+<td><p>A player received an item.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ItemCheat</p></td>
+<td><p>A player used the <code class="docutils literal notranslate"><span class="pre">!getitem</span></code> command.</p></td>
+</tr>
+<tr class="row-even"><td><p>Hint</p></td>
+<td><p>A player hinted.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Join</p></td>
+<td><p>A player connected.</p></td>
+</tr>
+<tr class="row-even"><td><p>Part</p></td>
+<td><p>A player disconnected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chat</p></td>
+<td><p>A player sent a chat message.</p></td>
+</tr>
+<tr class="row-even"><td><p>ServerChat</p></td>
+<td><p>The server broadcasted a message.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tutorial</p></td>
+<td><p>The client has triggered a tutorial message, such as when first connecting.</p></td>
+</tr>
+<tr class="row-even"><td><p>TagsChanged</p></td>
+<td><p>A player changed their tags.</p></td>
+</tr>
+<tr class="row-odd"><td><p>CommandResult</p></td>
+<td><p>Someone (usually the client) entered an <code class="docutils literal notranslate"><span class="pre">!</span></code> command.</p></td>
+</tr>
+<tr class="row-even"><td><p>AdminCommandResult</p></td>
+<td><p>The client entered an <code class="docutils literal notranslate"><span class="pre">!admin</span></code> command.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Goal</p></td>
+<td><p>A player reached their goal.</p></td>
+</tr>
+<tr class="row-even"><td><p>Release</p></td>
+<td><p>A player released the remaining items in their world.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Collect</p></td>
+<td><p>A player collected the remaining items for their world.</p></td>
+</tr>
+<tr class="row-even"><td><p>Countdown</p></td>
+<td><p>The current server countdown has progressed.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(datapackage)=### DataPackage
+Sent to clients to provide what is known as a ‘data package’ which contains information to enable a client to most easily communicate with the Archipelago server. Contents include things like location id to name mappings, among others; see <a class="reference internal" href="#data-package-contents"><span class="xref myst">Data Package Contents</span></a> for more info.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>data</p></td>
+<td><p><a class="reference internal" href="#data-package-contents"><span class="xref myst">DataPackageObject</span></a></p></td>
+<td><p>The data package as a JSON object.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(bounced)=### Bounced
+Sent to clients after a client requested this message be sent to them, more info in the <a class="reference internal" href="#bounce"><span class="xref myst">Bounce</span></a> package.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>games</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. Game names this message is targeting</p></td>
+</tr>
+<tr class="row-odd"><td><p>slots</p></td>
+<td><p>list[int]</p></td>
+<td><p>Optional. Player slot IDs that this message is targeting</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. Client <a class="reference internal" href="commonclient.html#CommonClient.CommonContext.tags" title="CommonClient.CommonContext.tags"><span class="xref myst py py-attr">Tags</span></a> this message is targeting</p></td>
+</tr>
+<tr class="row-odd"><td><p>data</p></td>
+<td><p>dict</p></td>
+<td><p>Optional. The data in the <a class="reference internal" href="#bounce"><span class="xref myst">Bounce</span></a> package copied</p></td>
+</tr>
+</tbody>
+</table>
+<p>(invalidpacket)=### InvalidPacket
+Sent to clients if the server caught a problem with a packet. This only occurs for errors that are explicitly checked for.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>str</p></td>
+<td><p>The <a class="reference internal" href="#packetproblemtype"><span class="xref myst">PacketProblemType</span></a> that was detected in the packet.</p></td>
+</tr>
+<tr class="row-odd"><td><p>original_cmd</p></td>
+<td><p>str | None</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">cmd</span></code> argument of the faulty packet, will be <code class="docutils literal notranslate"><span class="pre">None</span></code> if the <code class="docutils literal notranslate"><span class="pre">cmd</span></code> failed to be parsed.</p></td>
+</tr>
+<tr class="row-even"><td><p>text</p></td>
+<td><p>str</p></td>
+<td><p>A descriptive message of the problem at hand.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(packetproblemtype)=##### PacketProblemType
+<code class="docutils literal notranslate"><span class="pre">PacketProblemType</span></code> indicates the type of problem that was detected in the faulty packet, the known problem types are below but others may be added in the future.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cmd</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cmd</span></code> argument of the faulty packet that could not be parsed correctly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>arguments</p></td>
+<td><p>Arguments of the faulty packet which were not correct.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(retrieved)=### Retrieved
+Sent to clients as a response the a <a class="reference internal" href="settings.html#settings.Group.get" title="settings.Group.get"><span class="xref myst py py-meth">Get</span></a> package.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>keys</p></td>
+<td><p>dict[str, any]</p></td>
+<td><p>A key-value collection containing all the values for the keys requested in the <a class="reference internal" href="settings.html#settings.Group.get" title="settings.Group.get"><span class="xref myst py py-meth">Get</span></a> package.</p></td>
+</tr>
+</tbody>
+</table>
+<p>If a requested key was not present in the server’s data, the associated value will be <code class="docutils literal notranslate"><span class="pre">null</span></code>.</p>
+<p>Additional arguments added to the <a class="reference internal" href="settings.html#settings.Group.get" title="settings.Group.get"><span class="xref myst py py-meth">Get</span></a> package that triggered this <a class="reference internal" href="#Retrieved"><span class="xref myst">Retrieved</span></a> will also be passed along.</p>
+<p>(setreply)=### SetReply
+Sent to clients in response to a <a class="reference internal" href="#set"><span class="xref myst">Set</span></a> package if want_reply was set to true, or if the client has registered to receive updates for a certain key using the <a class="reference internal" href="#SetNotify"><span class="xref myst">SetNotify</span></a> package. SetReply packages are sent even if a <a class="reference internal" href="#Set"><span class="xref myst">Set</span></a> package did not alter the value for the key.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>str</p></td>
+<td><p>The key that was updated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>any</p></td>
+<td><p>The new value for the key.</p></td>
+</tr>
+<tr class="row-even"><td><p>original_value</p></td>
+<td><p>any</p></td>
+<td><p>The value the key had before it was updated. Not present on “_read” prefixed special keys.</p></td>
+</tr>
+<tr class="row-odd"><td><p>slot</p></td>
+<td><p>int</p></td>
+<td><p>The slot that originally sent the Set package causing this change.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Additional arguments added to the <a class="reference internal" href="#set"><span class="xref myst">Set</span></a> package that triggered this <a class="reference internal" href="#SetReply"><span class="xref myst">SetReply</span></a> will also be passed along.</p>
+<p>((client–&gt;-server))=## (Client -&gt; Server)
+These packets are sent purely from client to server. They are not accepted by clients.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="entrance.html#BaseClasses.Entrance.connect" title="BaseClasses.Entrance.connect"><span class="xref myst py py-meth">Connect</span></a></p></li>
+<li><p><a class="reference internal" href="#connectupdate"><span class="xref myst">ConnectUpdate</span></a></p></li>
+<li><p><a class="reference internal" href="#sync"><span class="xref myst">Sync</span></a></p></li>
+<li><p><a class="reference internal" href="#locationchecks"><span class="xref myst">LocationChecks</span></a></p></li>
+<li><p><a class="reference internal" href="#locationscouts"><span class="xref myst">LocationScouts</span></a></p></li>
+<li><p><a class="reference internal" href="#createhints"><span class="xref myst">CreateHints</span></a></p></li>
+<li><p><a class="reference internal" href="#updatehint"><span class="xref myst">UpdateHint</span></a></p></li>
+<li><p><a class="reference internal" href="#statusupdate"><span class="xref myst">StatusUpdate</span></a></p></li>
+<li><p><a class="reference internal" href="#say"><span class="xref myst">Say</span></a></p></li>
+<li><p><a class="reference internal" href="#getdatapackage"><span class="xref myst">GetDataPackage</span></a></p></li>
+<li><p><a class="reference internal" href="#bounce"><span class="xref myst">Bounce</span></a></p></li>
+<li><p><a class="reference internal" href="settings.html#settings.Group.get" title="settings.Group.get"><span class="xref myst py py-meth">Get</span></a></p></li>
+<li><p><a class="reference internal" href="#set"><span class="xref myst">Set</span></a></p></li>
+<li><p><a class="reference internal" href="#setnotify"><span class="xref myst">SetNotify</span></a></p></li>
+</ul>
+<p>(connect)=### Connect
+Sent by the client to initiate a connection to an Archipelago game session.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>password</p></td>
+<td><p>str</p></td>
+<td><p>If the game session requires a password, it should be passed here.</p></td>
+</tr>
+<tr class="row-odd"><td><p>game</p></td>
+<td><p>str</p></td>
+<td><p>The name of the game the client is playing. Example: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">Link</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">Past</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>str</p></td>
+<td><p>The player name for this client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>uuid</p></td>
+<td><p>str</p></td>
+<td><p>Unique identifier for player. Cached in the user cache \Archipelago\Cache\common.json</p></td>
+</tr>
+<tr class="row-even"><td><p>version</p></td>
+<td><p><a class="reference internal" href="#networkversion"><span class="xref myst">NetworkVersion</span></a></p></td>
+<td><p>An object representing the Archipelago version this client supports.</p></td>
+</tr>
+<tr class="row-odd"><td><p>items_handling</p></td>
+<td><p>int</p></td>
+<td><p>Flags configuring which items should be sent by the server. Read below for individual flags.</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Denotes special features or capabilities that the sender is capable of. <a class="reference internal" href="commonclient.html#CommonClient.CommonContext.tags" title="CommonClient.CommonContext.tags"><span class="xref myst py py-attr">Tags</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>slot_data</p></td>
+<td><p>bool</p></td>
+<td><p>If true, the Connect answer will contain slot_data</p></td>
+</tr>
+</tbody>
+</table>
+<p>(items_handling-flags)=#### items_handling flags</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0b000</p></td>
+<td><p>No ReceivedItems is sent to you, ever.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b001</p></td>
+<td><p>Indicates you get items sent from other worlds.</p></td>
+</tr>
+<tr class="row-even"><td><p>0b010</p></td>
+<td><p>Indicates you get items sent from your own world. Requires 0b001 to be set.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b100</p></td>
+<td><p>Indicates you get your starting inventory sent. Requires 0b001 to be set.</p></td>
+</tr>
+<tr class="row-even"><td><p>null</p></td>
+<td><p>Null or undefined loads settings from world definition for backwards compatibility. This is deprecated.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(authentication)=#### Authentication
+Many, if not all, other packets require a successfully authenticated client. This is described in more detail in <a class="reference internal" href="#archipelago-connection-handshake"><span class="xref myst">Archipelago Connection Handshake</span></a>.</p>
+<p>(connectupdate)=### ConnectUpdate
+Update arguments from the Connect package, currently only updating tags and items_handling is supported.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>items_handling</p></td>
+<td><p>int</p></td>
+<td><p>Flags configuring which items should be sent by the server.</p></td>
+</tr>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Denotes special features or capabilities that the sender is capable of. <a class="reference internal" href="commonclient.html#CommonClient.CommonContext.tags" title="CommonClient.CommonContext.tags"><span class="xref myst py py-attr">Tags</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<p>(sync)=### Sync
+Sent to server to request a <a class="reference internal" href="#receiveditems"><span class="xref myst">ReceivedItems</span></a> packet to synchronize items.
+(arguments)=#### Arguments
+No arguments necessary.</p>
+<p>(locationchecks)=### LocationChecks
+Sent to server to inform it of locations that the client has checked. Used to inform the server of new checks that are made, as well as to sync state.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>The ids of the locations checked by the client. May contain any number of checks, even ones sent before; duplicates do not cause issues with the Archipelago server.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(locationscouts)=### LocationScouts
+Sent to the server to retrieve the items that are on a specified list of locations. The server will respond with a <a class="reference internal" href="#locationinfo"><span class="xref myst">LocationInfo</span></a> packet containing the items located in the scouted locations.
+Fully remote clients without a patch file may use this to “place” items onto their in-game locations, most commonly to display their names or item classifications before/upon pickup.</p>
+<p>LocationScouts can also be used to inform the server of locations the client has seen, but not checked. This creates a hint as if the player had run <code class="docutils literal notranslate"><span class="pre">!hint_location</span></code> on a location, but without deducting hint points.
+This is useful in cases where an item appears in the game world, such as ‘ledge items’ in <em>A Link to the Past</em>. To do this, set the <code class="docutils literal notranslate"><span class="pre">create_as_hint</span></code> parameter to a non-zero value.<br />
+Note that LocationScouts with a non-zero <code class="docutils literal notranslate"><span class="pre">create_as_hint</span></code> value will <em>always</em> create a <strong>persistent</strong> hint (listed in the Hints tab of concerning players’ TextClients), even if the location was already found. If this is not desired behavior, you need to prevent sending LocationScouts with <code class="docutils literal notranslate"><span class="pre">create_as_hint</span></code> for already found locations in your client-side code.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>The ids of the locations seen by the client. May contain any number of locations, even ones sent before; duplicates do not cause issues with the Archipelago server.</p></td>
+</tr>
+<tr class="row-odd"><td><p>create_as_hint</p></td>
+<td><p>int</p></td>
+<td><p>If non-zero, the scouted locations get created and broadcasted as a player-visible hint. <br/>If 2 only new hints are broadcast, however this does not remove them from the LocationInfo reply.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(createhints)=### CreateHints</p>
+<p>Sent to the server to create hints for a specified list of locations.<br />
+Hints that already exist will be silently skipped and their status will not be updated.</p>
+<p>When creating hints for another slot’s locations, the packet will fail if any of those locations don’t contain items for the requesting slot.<br />
+When creating hints for your own slot’s locations, non-existing locations will silently be skipped.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>locations</p></td>
+<td><p>list[int]</p></td>
+<td><p>The ids of the locations to create hints for.</p></td>
+</tr>
+<tr class="row-odd"><td><p>player</p></td>
+<td><p>int</p></td>
+<td><p>The ID of the player whose locations are being hinted for. Defaults to the requesting slot.</p></td>
+</tr>
+<tr class="row-even"><td><p>status</p></td>
+<td><p><a class="reference internal" href="#hintstatus"><span class="xref myst">HintStatus</span></a></p></td>
+<td><p>If included, sets the status of the hint to this status. Defaults to <code class="docutils literal notranslate"><span class="pre">HINT_UNSPECIFIED</span></code>. Cannot set <code class="docutils literal notranslate"><span class="pre">HINT_FOUND</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(updatehint)=### UpdateHint
+Sent to the server to update the status of a Hint. The client must be the ‘receiving_player’ of the Hint, or the update fails.</p>
+<p>(arguments)=### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>player</p></td>
+<td><p>int</p></td>
+<td><p>The ID of the player whose location is being hinted for.</p></td>
+</tr>
+<tr class="row-odd"><td><p>location</p></td>
+<td><p>int</p></td>
+<td><p>The ID of the location to update the hint for. If no hint exists for this location, the packet is ignored.</p></td>
+</tr>
+<tr class="row-even"><td><p>status</p></td>
+<td><p><a class="reference internal" href="#hintstatus"><span class="xref myst">HintStatus</span></a></p></td>
+<td><p>Optional. If included, sets the status of the hint to this status. Cannot set <code class="docutils literal notranslate"><span class="pre">HINT_FOUND</span></code>, or change the status from <code class="docutils literal notranslate"><span class="pre">HINT_FOUND</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(hintstatus)=#### HintStatus
+An enumeration containing the possible hint states.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HintStatus</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">HINT_UNSPECIFIED</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># The receiving player has not specified any status</span>
+    <span class="n">HINT_NO_PRIORITY</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># The receiving player has specified that the item is unneeded</span>
+    <span class="n">HINT_AVOID</span> <span class="o">=</span> <span class="mi">20</span>       <span class="c1"># The receiving player has specified that the item is detrimental</span>
+    <span class="n">HINT_PRIORITY</span> <span class="o">=</span> <span class="mi">30</span>    <span class="c1"># The receiving player has specified that the item is needed</span>
+    <span class="n">HINT_FOUND</span> <span class="o">=</span> <span class="mi">40</span>       <span class="c1"># The location has been collected. Status cannot be changed once found.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Hints for items with <code class="docutils literal notranslate"><span class="pre">ItemClassification.trap</span></code> default to <code class="docutils literal notranslate"><span class="pre">HINT_AVOID</span></code>.</p></li>
+<li><p>Hints created with <code class="docutils literal notranslate"><span class="pre">LocationScouts</span></code>, <code class="docutils literal notranslate"><span class="pre">!hint_location</span></code>, or similar (hinting a location) default to <code class="docutils literal notranslate"><span class="pre">HINT_UNSPECIFIED</span></code>.</p></li>
+<li><p>Hints created with <code class="docutils literal notranslate"><span class="pre">!hint</span></code> or similar (hinting an item for yourself) default to <code class="docutils literal notranslate"><span class="pre">HINT_PRIORITY</span></code>.</p></li>
+<li><p>Once a hint is collected, its’ status is updated to <code class="docutils literal notranslate"><span class="pre">HINT_FOUND</span></code> automatically, and can no longer be changed.</p></li>
+</ul>
+<p>(statusupdate)=### StatusUpdate
+Sent to the server to update on the sender’s status. Examples include readiness or goal completion. (Example: defeated Ganon in A Link to the Past)</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>status</p></td>
+<td><p>ClientStatus[int]</p></td>
+<td><p>One of <a class="reference internal" href="#clientstatus"><span class="xref myst">Client States</span></a>. Send as int. Follow the link for more information.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(say)=### Say
+Basic chat command which sends text to the server to be distributed to other clients.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>text</p></td>
+<td><p>str</p></td>
+<td><p>Text to send to others.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(getdatapackage)=### GetDataPackage
+Requests the data package from the server. Does not require client authentication.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>games</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. If specified, will only send back the specified data. Such as, [“Factorio”] -&gt; Datapackage with only Factorio data.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(bounce)=### Bounce
+Send this message to the server, tell it which clients should receive the message and
+the server will forward the message to all those targets to which any one requirement applies.</p>
+<p>(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>games</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. Game names that should receive this message</p></td>
+</tr>
+<tr class="row-odd"><td><p>slots</p></td>
+<td><p>list[int]</p></td>
+<td><p>Optional. Player IDs that should receive this message</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>list[str]</p></td>
+<td><p>Optional. Client tags that should receive this message</p></td>
+</tr>
+<tr class="row-odd"><td><p>data</p></td>
+<td><p>dict</p></td>
+<td><p>Optional. Any data you want to send</p></td>
+</tr>
+</tbody>
+</table>
+<p>(get)=### Get
+Used to request a single or multiple values from the server’s data storage, see the <a class="reference internal" href="#set"><span class="xref myst">Set</span></a> package for how to write values to the data storage. A Get package will be answered with a <a class="reference internal" href="#Retrieved"><span class="xref myst">Retrieved</span></a> package.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>keys</p></td>
+<td><p>list[str]</p></td>
+<td><p>Keys to retrieve the values for.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Additional arguments sent in this package will also be added to the <a class="reference internal" href="#retrieved"><span class="xref myst">Retrieved</span></a> package it triggers.</p>
+<p>Some special keys exist with specific return data, all of them have the prefix <code class="docutils literal notranslate"><span class="pre">_read_</span></code>, so <code class="docutils literal notranslate"><span class="pre">hints_{team}_{slot}</span></code> is <code class="docutils literal notranslate"><span class="pre">_read_hints_{team}_{slot}</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>hints_{team}_{slot}</p></td>
+<td><p>list[<a class="reference internal" href="#hint"><span class="xref myst">Hint</span></a>]</p></td>
+<td><p>All Hints belonging to the requested Player.</p></td>
+</tr>
+<tr class="row-odd"><td><p>slot_data_{slot}</p></td>
+<td><p>dict[str, any]</p></td>
+<td><p>slot_data belonging to the requested slot.</p></td>
+</tr>
+<tr class="row-even"><td><p>item_name_groups_{game_name}</p></td>
+<td><p>dict[str, list[str]]</p></td>
+<td><p>item_name_groups belonging to the requested game.</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_name_groups_{game_name}</p></td>
+<td><p>dict[str, list[str]]</p></td>
+<td><p>location_name_groups belonging to the requested game.</p></td>
+</tr>
+<tr class="row-even"><td><p>client_status_{team}_{slot}</p></td>
+<td><p><a class="reference internal" href="#clientstatus"><span class="xref myst">ClientStatus</span></a></p></td>
+<td><p>The current game status of the requested player.</p></td>
+</tr>
+<tr class="row-odd"><td><p>race_mode</p></td>
+<td><p>int</p></td>
+<td><p>0 if race mode is disabled, and 1 if it’s enabled.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(set)=### Set
+Used to write data to the server’s data storage, that data can then be shared across worlds or just saved for later. Values for keys in the data storage can be retrieved with a <a class="reference internal" href="settings.html#settings.Group.get" title="settings.Group.get"><span class="xref myst py py-meth">Get</span></a> package, or monitored with a <a class="reference internal" href="#SetNotify"><span class="xref myst">SetNotify</span></a> package.
+Keys that start with <code class="docutils literal notranslate"><span class="pre">_read_</span></code> cannot be set.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>str</p></td>
+<td><p>The key to manipulate. Can never start with “_read”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>default</p></td>
+<td><p>any</p></td>
+<td><p>The default value to use in case the key has no value on the server.</p></td>
+</tr>
+<tr class="row-even"><td><p>want_reply</p></td>
+<td><p>bool</p></td>
+<td><p>If true, the server will send a <a class="reference internal" href="#setreply"><span class="xref myst">SetReply</span></a> response back to the client.</p></td>
+</tr>
+<tr class="row-odd"><td><p>operations</p></td>
+<td><p>list[<a class="reference internal" href="#datastorageoperation"><span class="xref myst">DataStorageOperation</span></a>]</p></td>
+<td><p>Operations to apply to the value, multiple operations can be present and they will be executed in order of appearance.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Additional arguments sent in this package will also be added to the <a class="reference internal" href="#setreply"><span class="xref myst">SetReply</span></a> package it triggers.</p>
+<p>(datastorageoperation)=#### DataStorageOperation
+A DataStorageOperation manipulates or alters the value of a key in the data storage. If the operation transforms the value from one state to another then the current value of the key is used as the starting point otherwise the <a class="reference internal" href="#set"><span class="xref myst">Set</span></a>’s package <code class="docutils literal notranslate"><span class="pre">default</span></code> is used if the key does not exist on the server already.
+DataStorageOperations consist of an object containing both the operation to be applied, provided in the form of a string, as well as the value to be used for that operation, Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The following operations can be applied to a datastorage key</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>replace</p></td>
+<td><p>Sets the current value of the key to <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>default</p></td>
+<td><p>If the key has no value yet, sets the current value of the key to <code class="docutils literal notranslate"><span class="pre">default</span></code> of the <a class="reference internal" href="#set"><span class="xref myst">Set</span></a>’s package (<code class="docutils literal notranslate"><span class="pre">value</span></code> is ignored).</p></td>
+</tr>
+<tr class="row-even"><td><p>add</p></td>
+<td><p>Adds <code class="docutils literal notranslate"><span class="pre">value</span></code> to the current value of the key, if both the current value and <code class="docutils literal notranslate"><span class="pre">value</span></code> are arrays then <code class="docutils literal notranslate"><span class="pre">value</span></code> will be appended to the current value.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mul</p></td>
+<td><p>Multiplies the current value of the key by <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>pow</p></td>
+<td><p>Multiplies the current value of the key to the power of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mod</p></td>
+<td><p>Sets the current value of the key to the remainder after division by <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>floor</p></td>
+<td><p>Floors the current value (<code class="docutils literal notranslate"><span class="pre">value</span></code> is ignored).</p></td>
+</tr>
+<tr class="row-odd"><td><p>ceil</p></td>
+<td><p>Ceils the current value (<code class="docutils literal notranslate"><span class="pre">value</span></code> is ignored).</p></td>
+</tr>
+<tr class="row-even"><td><p>max</p></td>
+<td><p>Sets the current value of the key to <code class="docutils literal notranslate"><span class="pre">value</span></code> if <code class="docutils literal notranslate"><span class="pre">value</span></code> is bigger.</p></td>
+</tr>
+<tr class="row-odd"><td><p>min</p></td>
+<td><p>Sets the current value of the key to <code class="docutils literal notranslate"><span class="pre">value</span></code> if <code class="docutils literal notranslate"><span class="pre">value</span></code> is lower.</p></td>
+</tr>
+<tr class="row-even"><td><p>and</p></td>
+<td><p>Applies a bitwise AND to the current value of the key with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>or</p></td>
+<td><p>Applies a bitwise OR to the current value of the key with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>xor</p></td>
+<td><p>Applies a bitwise Exclusive OR to the current value of the key with <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>left_shift</p></td>
+<td><p>Applies a bitwise left-shift to the current value of the key by <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>right_shift</p></td>
+<td><p>Applies a bitwise right-shift to the current value of the key by <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>remove</p></td>
+<td><p>List only: removes the first instance of <code class="docutils literal notranslate"><span class="pre">value</span></code> found in the list.</p></td>
+</tr>
+<tr class="row-even"><td><p>pop</p></td>
+<td><p>List or Dict: for lists it will remove the index of the <code class="docutils literal notranslate"><span class="pre">value</span></code> given. for dicts it removes the element with the specified key of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>update</p></td>
+<td><p>List or Dict: Adds the elements of <code class="docutils literal notranslate"><span class="pre">value</span></code> to the container if they weren’t already present. In the case of a Dict, already present keys will have their corresponding values updated.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(setnotify)=### SetNotify
+Used to register your current session for receiving all <a class="reference internal" href="#setreply"><span class="xref myst">SetReply</span></a> packages of certain keys to allow your client to keep track of changes.
+(arguments)=#### Arguments</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>keys</p></td>
+<td><p>list[str]</p></td>
+<td><p>Keys to receive all <a class="reference internal" href="#setreply"><span class="xref myst">SetReply</span></a> packages for.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(appendix)=## Appendix</p>
+<p>(coop)=### Coop
+Coop in Archipelago is automatically facilitated by the server, however some of the default behaviour may not be what you desire.</p>
+<p>If the game in question is a remote-items game (attribute on AutoWorld), then all items will always be sent and received.
+If the game in question is not a remote-items game, then any items that are placed within the same world will not be send by the server.</p>
+<p>To manually react to others in the same player slot doing checks, listen to <a class="reference internal" href="#roomupdate"><span class="xref myst">RoomUpdate</span></a> -&gt; checked_locations.</p>
+<p>(networkplayer)=### NetworkPlayer
+A list of objects. Each object denotes one player. Each object has four fields about the player, in this order: <code class="docutils literal notranslate"><span class="pre">team</span></code>, <code class="docutils literal notranslate"><span class="pre">slot</span></code>, <code class="docutils literal notranslate"><span class="pre">alias</span></code>, and <code class="docutils literal notranslate"><span class="pre">name</span></code>. <code class="docutils literal notranslate"><span class="pre">team</span></code> and <code class="docutils literal notranslate"><span class="pre">slot</span></code> are ints, <code class="docutils literal notranslate"><span class="pre">alias</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> are strs.</p>
+<p>Each player belongs to a <code class="docutils literal notranslate"><span class="pre">team</span></code> and has a <code class="docutils literal notranslate"><span class="pre">slot</span></code>. Team numbers start at <code class="docutils literal notranslate"><span class="pre">0</span></code>. Slot numbers are unique per team and start at <code class="docutils literal notranslate"><span class="pre">1</span></code>. Slot number <code class="docutils literal notranslate"><span class="pre">0</span></code> refers to the Archipelago server; this may appear in instances where the server grants the player an item.</p>
+<p><code class="docutils literal notranslate"><span class="pre">alias</span></code> represents the player’s name in current time. <code class="docutils literal notranslate"><span class="pre">name</span></code> is the original name used when the session was generated. This is typically distinct in games which require baking names into ROMs or for async games.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetworkPlayer</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">team</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">slot</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">alias</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Lord MeowsiePuss&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Meow&quot;</span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Doggo&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bork&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Angry Duck&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Angry Quack&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mountain Duck&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Honk&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>(networkitem)=### NetworkItem
+Items that are sent over the net (in packets) use the following data structure and are sent as objects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetworkItem</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">item</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">player</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>In JSON this may look like:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;item&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;item&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;item&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;flags&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">item</span></code> is the item id of the item. Item ids are only supported in the range of [-2<sup>53</sup> + 1, 2<sup>53</sup> - 1], with anything ≤ 0 reserved for Archipelago use.</p>
+<p><code class="docutils literal notranslate"><span class="pre">location</span></code> is the location id of the item inside the world. Location ids are only supported in the range of [-2<sup>53</sup> + 1, 2<sup>53</sup> - 1], with anything ≤ 0 reserved for Archipelago use.</p>
+<p><code class="docutils literal notranslate"><span class="pre">player</span></code> is the player slot of the world the item is located in, except when inside an <a class="reference internal" href="#locationinfo"><span class="xref myst">LocationInfo</span></a> Packet then it will be the slot of the player to receive the item</p>
+<p><code class="docutils literal notranslate"><span class="pre">flags</span></code> are bit flags:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Flag</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Nothing special about this item</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b001</p></td>
+<td><p>If set, indicates the item can unlock logical advancement</p></td>
+</tr>
+<tr class="row-even"><td><p>0b010</p></td>
+<td><p>If set, indicates the item is especially useful</p></td>
+</tr>
+<tr class="row-odd"><td><p>0b100</p></td>
+<td><p>If set, indicates the item is a trap</p></td>
+</tr>
+</tbody>
+</table>
+<p>(jsonmessagepart)=### JSONMessagePart
+Message nodes sent along with <a class="reference internal" href="#printjson"><span class="xref myst">PrintJSON</span></a> packet to be reconstructed into a legible message. The nodes are intended to be read in the order they are listed in the packet.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JSONMessagePart</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="c1"># only available if type is a color</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="c1"># only available if type is an item_id or item_name</span>
+    <span class="n">player</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="c1"># only available if type is either item or location</span>
+    <span class="n">hint_status</span><span class="p">:</span> <span class="n">HintStatus</span> <span class="o">|</span> <span class="kc">None</span> <span class="c1"># only available if type is hint_status</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">type</span></code> is used to denote the intent of the message part. This can be used to indicate special information which may be rendered differently depending on client. How these types are displayed in Archipelago’s ALttP client is not the end-all be-all. Other clients may choose to interpret and display these messages differently.
+Possible values for <code class="docutils literal notranslate"><span class="pre">type</span></code> include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>text</p></td>
+<td><p>Regular text content. Is the default type and as such may be omitted.</p></td>
+</tr>
+<tr class="row-odd"><td><p>player_id</p></td>
+<td><p>player ID of someone on your team, should be resolved to Player Name</p></td>
+</tr>
+<tr class="row-even"><td><p>player_name</p></td>
+<td><p>Player Name, could be a player within a multiplayer game or from another team, not ID resolvable</p></td>
+</tr>
+<tr class="row-odd"><td><p>item_id</p></td>
+<td><p>Item ID, should be resolved to Item Name</p></td>
+</tr>
+<tr class="row-even"><td><p>item_name</p></td>
+<td><p>Item Name, not currently used over network, but supported by reference Clients.</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_id</p></td>
+<td><p>Location ID, should be resolved to Location Name</p></td>
+</tr>
+<tr class="row-even"><td><p>location_name</p></td>
+<td><p>Location Name, not currently used over network, but supported by reference Clients.</p></td>
+</tr>
+<tr class="row-odd"><td><p>entrance_name</p></td>
+<td><p>Entrance Name. No ID mapping exists.</p></td>
+</tr>
+<tr class="row-even"><td><p>hint_status</p></td>
+<td><p>The <a class="reference internal" href="#hintstatus"><span class="xref myst">HintStatus</span></a> of the hint. Both <code class="docutils literal notranslate"><span class="pre">text</span></code> and <code class="docutils literal notranslate"><span class="pre">hint_status</span></code> are given.</p></td>
+</tr>
+<tr class="row-odd"><td><p>color</p></td>
+<td><p>Regular text that should be colored. Only <code class="docutils literal notranslate"><span class="pre">type</span></code> that will contain <code class="docutils literal notranslate"><span class="pre">color</span></code> data.</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">color</span></code> is used to denote a console color to display the message part with and is only send if the <code class="docutils literal notranslate"><span class="pre">type</span></code> is <code class="docutils literal notranslate"><span class="pre">color</span></code>. This is limited to console colors due to backwards compatibility needs with games such as ALttP. Although background colors as well as foreground colors are listed, only one may be applied to a <a class="reference internal" href="#jsonmessagepart"><span class="xref myst">JSONMessagePart</span></a> at a time.</p>
+<p>Color options:</p>
+<ul class="simple">
+<li><p>bold</p></li>
+<li><p>underline</p></li>
+<li><p>black</p></li>
+<li><p>red</p></li>
+<li><p>green</p></li>
+<li><p>yellow</p></li>
+<li><p>blue</p></li>
+<li><p>magenta</p></li>
+<li><p>cyan</p></li>
+<li><p>white</p></li>
+<li><p>black_bg</p></li>
+<li><p>red_bg</p></li>
+<li><p>green_bg</p></li>
+<li><p>yellow_bg</p></li>
+<li><p>blue_bg</p></li>
+<li><p>magenta_bg</p></li>
+<li><p>cyan_bg</p></li>
+<li><p>white_bg</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">text</span></code> is the content of the message part to be displayed.
+<code class="docutils literal notranslate"><span class="pre">player</span></code> marks owning player id for location/item,
+<code class="docutils literal notranslate"><span class="pre">flags</span></code> contains the <a class="reference internal" href="#networkitem"><span class="xref myst">NetworkItem</span></a> flags that belong to the item</p>
+<p>(clientstatus)=### ClientStatus
+An enumeration containing the possible client states that may be used to inform
+the server in <a class="reference internal" href="#statusupdate"><span class="xref myst">StatusUpdate</span></a>. The MultiServer automatically sets
+the client state to <code class="docutils literal notranslate"><span class="pre">ClientStatus.CLIENT_CONNECTED</span></code> on the first active connection
+to a slot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClientStatus</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">CLIENT_UNKNOWN</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">CLIENT_CONNECTED</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">CLIENT_READY</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">CLIENT_PLAYING</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">CLIENT_GOAL</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<p>(networkversion)=### NetworkVersion
+An object representing software versioning. Used in the <a class="reference internal" href="entrance.html#BaseClasses.Entrance.connect" title="BaseClasses.Entrance.connect"><span class="xref myst py py-meth">Connect</span></a> packet to allow the client to inform the server of the Archipelago version it supports.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Version</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">major</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">minor</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">build</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>If constructing version information as a dict for a custom client rather than as a NamedTuple built into the CommonClient, you must add the <code class="docutils literal notranslate"><span class="pre">class</span></code> key to allow Archipelago to compare version support.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;Version&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;build&quot;</span><span class="p">:</span> <span class="n">X</span><span class="p">,</span>
+      <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="n">Y</span><span class="p">,</span>
+      <span class="s2">&quot;minor&quot;</span><span class="p">:</span> <span class="n">Z</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>(slottype)=### SlotType
+An enum representing the nature of a slot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SlotType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntFlag</span><span class="p">):</span>
+    <span class="n">spectator</span> <span class="o">=</span> <span class="mb">0b00</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="mb">0b01</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="mb">0b10</span>
+</pre></div>
+</div>
+<p>(networkslot)=### NetworkSlot
+An object representing static information about a slot.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NetUtils</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlotType</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetworkSlot</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+   <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+   <span class="n">game</span><span class="p">:</span> <span class="nb">str</span>
+   <span class="nb">type</span><span class="p">:</span> <span class="n">SlotType</span>
+   <span class="n">group_members</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># only populated if type == group</span>
+</pre></div>
+</div>
+<p>(permission)=### Permission
+An enumeration containing the possible command permission, for commands that may be restricted.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Permission</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">disabled</span> <span class="o">=</span> <span class="mb">0b000</span>  <span class="c1"># 0, completely disables access</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="mb">0b001</span>  <span class="c1"># 1, allows manual use</span>
+    <span class="n">goal</span> <span class="o">=</span> <span class="mb">0b010</span>  <span class="c1"># 2, allows manual use after goal completion</span>
+    <span class="n">auto</span> <span class="o">=</span> <span class="mb">0b110</span>  <span class="c1"># 6, forces use after goal completion, only works for release and collect</span>
+    <span class="n">auto_enabled</span> <span class="o">=</span> <span class="mb">0b111</span>  <span class="c1"># 7, forces use after goal completion, allows manual use any time</span>
+</pre></div>
+</div>
+<p>(hint)=### Hint
+An object representing a Hint.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NamedTuple</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Hint</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+    <span class="n">receiving_player</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">finding_player</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">item</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">found</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">entrance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">item_flags</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">HintStatus</span> <span class="o">=</span> <span class="n">HintStatus</span><span class="o">.</span><span class="n">HINT_UNSPECIFIED</span>
+</pre></div>
+</div>
+<p>(data-package-contents)=### Data Package Contents
+A data package is a JSON object which may contain arbitrary metadata to enable a client to interact with the Archipelago
+server most easily and not maintain their own mappings. Some contents include:</p>
+<ul class="simple">
+<li><p>Name to ID mappings for items and locations.</p></li>
+<li><p>A checksum of each game’s data package for clients to tell if a cached package is invalid.</p></li>
+</ul>
+<p>We encourage clients to cache the data package they receive on disk, or otherwise not tied to a session. You will know
+when your cache is outdated if the <a class="reference internal" href="#roominfo"><span class="xref myst">RoomInfo</span></a> packet or the datapackage itself denote a different checksum
+than any locally cached ones.</p>
+<p><strong>Important Notes about IDs and Names</strong>:</p>
+<ul>
+<li><p>IDs ≤ 0 are reserved for “Archipelago” and should not be used by other world implementations.</p></li>
+<li><p>The IDs from the game “Archipelago” (in <code class="docutils literal notranslate"><span class="pre">worlds/generic</span></code>) may be used in any world.</p>
+<ul class="simple">
+<li><p>Especially Location ID <code class="docutils literal notranslate"><span class="pre">-1</span></code>: <code class="docutils literal notranslate"><span class="pre">Cheat</span> <span class="pre">Console</span></code> and <code class="docutils literal notranslate"><span class="pre">-2</span></code>: <code class="docutils literal notranslate"><span class="pre">Server</span></code> (typically Remote Start Inventory)</p></li>
+</ul>
+</li>
+<li><p>Any names and IDs are only unique in its own world data package, but different games may reuse these names or IDs.</p>
+<ul>
+<li><p>At runtime, you will need to look up the game of the player to know which item or location ID/Name to lookup in the
+data package. This can be easily achieved by reviewing the <code class="docutils literal notranslate"><span class="pre">slot_info</span></code> for a particular player ID prior to lookup.</p></li>
+<li><p>For example, a data package like this is valid (Some properties such as <code class="docutils literal notranslate"><span class="pre">checksum</span></code> were omitted):</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;games&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Game A&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;location_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Boss Chest&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;item_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Item X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;Game B&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;location_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Minigame Prize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;item_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;Item X&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>(contents)=#### Contents</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>games</p></td>
+<td><p>dict[str, GameData]</p></td>
+<td><p>Mapping of all Games and their respective data</p></td>
+</tr>
+</tbody>
+</table>
+<p>(gamedata)=#### GameData
+GameData is a <strong>dict</strong> but contains these keys and values. It’s broken out into another “type” for ease of documentation.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>item_name_to_id</p></td>
+<td><p>dict[str, int]</p></td>
+<td><p>Mapping of all item names to their respective ID.</p></td>
+</tr>
+<tr class="row-odd"><td><p>location_name_to_id</p></td>
+<td><p>dict[str, int]</p></td>
+<td><p>Mapping of all location names to their respective ID.</p></td>
+</tr>
+<tr class="row-even"><td><p>checksum</p></td>
+<td><p>str</p></td>
+<td><p>A checksum hash of this game’s data.</p></td>
+</tr>
+</tbody>
+</table>
+<p>(tags)=### Tags
+Tags are represented as a list of strings, the common client tags follow:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AP</p></td>
+<td><p>Signifies that this client is a reference client, its usefulness is mostly in debugging to compare client behaviours more easily.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DeathLink</p></td>
+<td><p>Client participates in the DeathLink mechanic, therefore will send and receive DeathLink bounce packets.</p></td>
+</tr>
+<tr class="row-even"><td><p>HintGame</p></td>
+<td><p>Indicates the client is a hint game, made to send hints instead of locations. Special join/leave message,¹ <code class="docutils literal notranslate"><span class="pre">game</span></code> is optional.²</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tracker</p></td>
+<td><p>Indicates the client is a tracker, made to track instead of sending locations. Special join/leave message,¹ <code class="docutils literal notranslate"><span class="pre">game</span></code> is optional.²</p></td>
+</tr>
+<tr class="row-even"><td><p>TextOnly</p></td>
+<td><p>Indicates the client is a basic client, made to chat instead of sending locations. Special join/leave message,¹ <code class="docutils literal notranslate"><span class="pre">game</span></code> is optional.²</p></td>
+</tr>
+<tr class="row-odd"><td><p>NoText</p></td>
+<td><p>Indicates the client does not want to receive text messages, improving performance if not needed.</p></td>
+</tr>
+</tbody>
+</table>
+<p>¹: When connecting or disconnecting, the chat message shows e.g. “tracking”.<br />
+²: Allows <code class="docutils literal notranslate"><span class="pre">game</span></code> to be empty or null in <a class="reference internal" href="entrance.html#BaseClasses.Entrance.connect" title="BaseClasses.Entrance.connect"><span class="xref myst py py-meth">Connect</span></a>. Game and version validation will then be skipped.</p>
+<p>(deathlink)=### DeathLink
+A special kind of Bounce packet that can be supported by any AP game. It targets the tag “DeathLink” and carries the following data:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>float</p></td>
+<td><p>Unix Time Stamp of time of death.</p></td>
+</tr>
+<tr class="row-odd"><td><p>cause</p></td>
+<td><p>str</p></td>
+<td><p>Optional. Text to explain the cause of death. When provided, or checked, if the string is non-empty, it should contain the player name, ex. “Berserker was run over by a train.”</p></td>
+</tr>
+<tr class="row-even"><td><p>source</p></td>
+<td><p>str</p></td>
+<td><p>Name of the player who first died. Can be a slot name, but can also be a name from within a multiplayer game.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="entrance%20randomization.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tests.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/network protocol.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tests.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="entrance%20randomization.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

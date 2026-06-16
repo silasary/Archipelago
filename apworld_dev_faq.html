@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Archipelago World Code Owners / Maintainers Document" href="codeowners.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="tests.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codeowners.html" title="Archipelago World Code Owners / Maintainers Document"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tests.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(apworld-dev-faq)=# APWorld Dev FAQ</p>
+<p>This document is meant as a reference tool to show solutions to common problems when developing an apworld.
+It is not intended to answer every question about Archipelago and it assumes you have read the other docs,
+including <a class="reference internal" href="contributing.html"><span class="doc std std-doc">Contributing</span></a>, <a class="reference internal" href="adding%20games.html"><span class="std std-doc">Adding Games</span></a>, and <a class="reference internal" href="world%20api.html"><span class="std std-doc">World API</span></a>.</p>
+<hr class="docutils" />
+<p>(i’ve-never-added-a-game-to-archipelago-before.-should-i-start-with-the-apworld-or-the-game-client?)=### I’ve never added a game to Archipelago before. Should I start with the APWorld or the game client?</p>
+<p>Strictly speaking, this is a false dichotomy: we do <em>not</em> recommend doing 100% of client work before the APWorld,
+or 100% of APWorld work before the client. It’s important to iterate on both parts and test them together.
+However, the early iterations tend to be very similar for most games,
+so the typical recommendation for first-time AP developers is:</p>
+<ul class="simple">
+<li><p>Start with a proof-of-concept for <a class="reference internal" href="adding%20games.html"><span class="doc std std-doc">the game client</span></a></p>
+<ul>
+<li><p>Figure out how to interface with the game. Whether that means “modding” the game, or patching a ROM file,
+or developing a separate client program that edits the game’s memory, or some other technique.</p></li>
+<li><p>Figure out how to give items and detect locations in the actual game. Not every item and location,
+just one of each major type (e.g. opening a chest vs completing a sidequest) to prove all the items and locations
+you want can actually be implemented.</p></li>
+<li><p>Figure out how to make a websocket connection to an AP server, possibly using a client library (see [Network Protocol](&lt;network%20protocol).
+To make absolutely sure this part works, you may want to test the connection by generating a multiworld
+with a different game, then making your client temporarily pretend to be that other game.</p></li>
+</ul>
+</li>
+<li><p>Next, make a “trivial” APWorld, i.e. an APWorld that always generates the same items and locations</p>
+<ul>
+<li><p>If you’ve never done this before, likely the fastest approach is to copy-paste <a class="reference internal" href="#apquest%3E"><span class="xref myst">APQuest</span></a>, and read the many
+comments in there until you understand how to edit the items and locations.</p></li>
+</ul>
+</li>
+<li><p>Then you can do your first “end-to-end test”: generate a multiworld using your APWorld, [run a local server](&lt;running%20from%20source)
+to host it, connect to that local server from your game client, actually check a location in the game,
+and finally make sure the client successfully sent that location check to the AP server
+as well as received an item from it.</p></li>
+</ul>
+<p>That’s about where general recommendations end. What you should do next will depend entirely on your game
+(e.g. implement more items, write down logic rules, add client features, prototype a tracker, etc).
+If you’re not sure, then this would be a good time to re-read [Adding Games](&lt;adding%20games), and <a class="reference internal" href="world%20api.html"><span class="std std-doc">World API</span></a>.</p>
+<p>There are a few assumptions in this recommendation worth stating explicitly, namely:</p>
+<ul class="simple">
+<li><p>If something you want to do is infeasible, you want to find out that it’s infeasible as soon as possible, before
+you write a bunch of code assuming it could be done. That’s why we recommend starting with the game client.</p>
+<ul>
+<li><p>Getting an APWorld to generate whatever items/locations you want is always feasible, since items/locations are
+little more than id numbers and name strings during generation.</p></li>
+</ul>
+</li>
+<li><p>You generally want to get to an “end-to-end playable” prototype quickly. On top of all the technical challenges these
+docs describe, it’s also important to check that a randomizer is <em>fun to play</em>, and figure out what features would be
+essential for a public release.</p></li>
+<li><p>A first-time world developer may or may not be deeply familiar with Archipelago, but they’re almost certainly familiar
+with the game they want to randomize. So judging whether your game client is working correctly might be significantly
+easier than judging if your APWorld is working.</p></li>
+</ul>
+<hr class="docutils" />
+<p>(my-game-has-a-restrictive-start-that-leads-to-fill-errors)=### My game has a restrictive start that leads to fill errors</p>
+<p>A “restrictive start” here means having a combination of very few sphere 1 locations and potentially requiring more
+than one item to get a player to sphere 2.</p>
+<p>One way to fix this is to hint to the Generator that an item needs to be in sphere one with local_early_items.
+Here, <code class="docutils literal notranslate"><span class="pre">1</span></code> represents the number of “Sword” items the Generator will attempt to place in sphere one.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">early_item_name</span> <span class="o">=</span> <span class="s2">&quot;Sword&quot;</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">local_early_items</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">][</span><span class="n">early_item_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Some alternative ways to try to fix this problem are:</p>
+<ul class="simple">
+<li><p>Add more locations to sphere one of your world, potentially only when there would be a restrictive start</p></li>
+<li><p>Pre-place items yourself, such as during <code class="docutils literal notranslate"><span class="pre">create_items</span></code></p></li>
+<li><p>Put items into the player’s starting inventory using <code class="docutils literal notranslate"><span class="pre">push_precollected</span></code></p></li>
+<li><p>Raise an exception, such as an <code class="docutils literal notranslate"><span class="pre">OptionError</span></code> during <code class="docutils literal notranslate"><span class="pre">generate_early</span></code>, to disallow options that would lead to a
+restrictive start</p></li>
+</ul>
+<hr class="docutils" />
+<p>(i-have-multiple-options-that-change-the-item/location-pool-counts-and-need-to-make-sure-i-am-not-submitting-more/fewer-items-than-locations)=### I have multiple options that change the item/location pool counts and need to make sure I am not submitting more/fewer items than locations</p>
+<p>In an ideal situation your system for producing locations and items wouldn’t leave any opportunity for them to be
+unbalanced. But in real, complex situations, that might be unfeasible.</p>
+<p>If that’s the case, you can create extra filler based on the difference between your unfilled locations and your
+itempool by comparing <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/BaseClasses.py#:~:text=get_unfilled_locations">get_unfilled_locations</a>
+to your list of items to submit</p>
+<p>Note: to use self.create_filler(), self.get_filler_item_name() should be defined to only return valid filler item names</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">total_locations</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">get_unfilled_locations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">))</span>
+<span class="n">item_pool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_non_filler_items</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_locations</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_pool</span><span class="p">)):</span>
+    <span class="n">item_pool</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_filler</span><span class="p">())</span>
+
+<span class="bp">self</span><span class="o">.</span><span class="n">multiworld</span><span class="o">.</span><span class="n">itempool</span> <span class="o">+=</span> <span class="n">item_pool</span>
+</pre></div>
+</div>
+<p>A faster alternative to the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop would be to use a
+<a class="reference external" href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">list comprehension</a>:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">item_pool</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_filler</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_locations</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_pool</span><span class="p">))]</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>(i-learned-about-indirect-conditions-in-the-world-api-document,-but-i-want-to-know-more.-what-are-they-and-why-are-they-necessary?)=### I learned about indirect conditions in the world API document, but I want to know more. What are they and why are they necessary?</p>
+<p>The world API document mentions how to use <code class="docutils literal notranslate"><span class="pre">multiworld.register_indirect_condition</span></code> to register indirect conditions and
+<strong>when</strong> you should use them, but not <em>how</em> they work and <em>why</em> they are necessary. This is because the explanation is
+quite complicated.</p>
+<p>Region sweep (the algorithm that determines which regions are reachable) is a Breadth-First Search of the region graph.
+It starts from the origin region, checks entrances one by one, and adds newly reached regions and their entrances to
+the queue until there is nothing more to check.</p>
+<p>For performance reasons, AP only checks every entrance once. However, if an entrance’s access_rule depends on region
+access, then the following may happen:</p>
+<ol class="arabic simple">
+<li><p>The entrance is checked and determined to be nontraversable because the region in its access_rule hasn’t been
+reached yet during the graph search.</p></li>
+<li><p>Then, the region in its access_rule is determined to be reachable.</p></li>
+</ol>
+<p>This entrance <em>would</em> be in logic if it were rechecked, but it won’t be rechecked this cycle.
+To account for this case, AP would have to recheck all entrances every time a new region is reached until no new
+regions are reached.</p>
+<p>An indirect condition is how you can manually define that a specific entrance needs to be rechecked during region sweep
+if a specific region is reached during it.
+This keeps most of the performance upsides. Even in a game making heavy use of indirect conditions (ex: The Witness),
+using them is significantly faster than just “rechecking each entrance until nothing new is found”.
+The reason entrance access rules using <code class="docutils literal notranslate"><span class="pre">location.can_reach</span></code> and <code class="docutils literal notranslate"><span class="pre">entrance.can_reach</span></code> are also affected is because they
+call <code class="docutils literal notranslate"><span class="pre">region.can_reach</span></code> on their respective parent/source region.</p>
+<p>We recognize it can feel like a trap since it will not alert you when you are missing an indirect condition,
+and that some games have very complex access rules.
+As of <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/pull/3682">PR #3682 (Core: Region handling customization)</a>
+being merged, it is possible for a world to opt out of indirect conditions entirely, instead using the system of
+checking each entrance whenever a region has been reached, although this does come with a performance cost.
+Opting out of using indirect conditions should only be used by games that <em>really</em> need it. For most games, it should
+be reasonable to know all entrance → region dependencies, making indirect conditions preferred because they are
+much faster.</p>
+<hr class="docutils" />
+<p>(i-uploaded-the-generated-output-of-my-world-to-the-webhost-and-webhost-is-erroring-on-corrupted-multidata)=### I uploaded the generated output of my world to the webhost and webhost is erroring on corrupted multidata</p>
+<p>The error <code class="docutils literal notranslate"><span class="pre">Could</span> <span class="pre">not</span> <span class="pre">load</span> <span class="pre">multidata.</span> <span class="pre">File</span> <span class="pre">may</span> <span class="pre">be</span> <span class="pre">corrupted</span> <span class="pre">or</span> <span class="pre">incompatible.</span></code> occurs when uploading a locally generated
+file where there is an issue with the multidata contained within it. It may come with a description like
+<code class="docutils literal notranslate"><span class="pre">(No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'worlds.myworld')</span></code> or <code class="docutils literal notranslate"><span class="pre">(global</span> <span class="pre">'worlds.myworld.names.ItemNames'</span> <span class="pre">is</span> <span class="pre">forbidden)</span></code></p>
+<p>Pickling is a way to compress python objects such that they can be decompressed and be used to rebuild the
+python objects. This means that if one of your custom class instances ends up in the multidata, the server would not
+be able to load that custom class to decompress the data, which can fail either because the custom class is unknown
+(because it cannot load your world module) or the class it’s attempting to import to decompress is deemed unsafe.</p>
+<p>Common situations where this can happen include:</p>
+<ul class="simple">
+<li><p>Using Option instances directly in slot_data. Ex: using <code class="docutils literal notranslate"><span class="pre">options.option_name</span></code> instead of <code class="docutils literal notranslate"><span class="pre">options.option_name.value</span></code>.
+Also, consider using the <code class="docutils literal notranslate"><span class="pre">options.as_dict(&quot;option_name&quot;,</span> <span class="pre">&quot;option_two&quot;)</span></code> helper.</p></li>
+<li><p>Using enums as Location/Item names in the datapackage. When building out <code class="docutils literal notranslate"><span class="pre">location_name_to_id</span></code> and <code class="docutils literal notranslate"><span class="pre">item_name_to_id</span></code>,
+make sure that you are not using your enum class for either the names or ids in these mappings.</p></li>
+</ul>
+<hr class="docutils" />
+<p>(some-locations-are-technically-possible-to-check-with-few-or-no-items,-but-they’d-be-very-tedious-or-frustrating.-how-do-worlds-deal-with-this?)=### Some locations are technically possible to check with few or no items, but they’d be very tedious or frustrating. How do worlds deal with this?</p>
+<p>Sometimes the game can be modded to skip these locations or make them less tedious. But when this issue is due to a fundamental aspect of the game, then the general answer is “soft logic” (and its subtypes like “combat logic”, “money logic”, etc.). For example: you can logically require that a player have several helpful items before fighting the final boss, even if a skilled player technically needs no items to beat it. Randomizer logic should describe what’s <em>fun</em> rather than what’s technically possible.</p>
+<p>Concrete examples of soft logic include:</p>
+<ul class="simple">
+<li><p>Defeating a boss might logically require health upgrades, damage upgrades, certain weapons, etc. that aren’t strictly necessary.</p></li>
+<li><p>Entering a high-level area might logically require access to enough other parts of the game that checking other locations should naturally get the player to the soft-required level.</p></li>
+<li><p>Buying expensive shop items might logically require access to a place where you can quickly farm money, or logically require access to enough parts of the game that checking other locations should naturally generate enough money without grinding.</p></li>
+</ul>
+<p>Remember that all items referenced by logic (however hard or soft) must be <code class="docutils literal notranslate"><span class="pre">progression</span></code>. Since you typically don’t want to turn a ton of <code class="docutils literal notranslate"><span class="pre">filler</span></code> items into <code class="docutils literal notranslate"><span class="pre">progression</span></code> just for this, it’s common to e.g. write money logic using only the rare “$100” item, so the dozens of “$1” and “$10” items in your world can remain <code class="docutils literal notranslate"><span class="pre">filler</span></code>.</p>
+<hr class="docutils" />
+<p>(what-if-my-game-has-“missable”-or-“one-time-only”-locations-or-region-connections?)=### What if my game has “missable” or “one-time-only” locations or region connections?</p>
+<p>Archipelago logic assumes that once a region or location becomes reachable, it stays reachable forever, no matter what
+the player does in-game. Slightly more formally: Receiving an AP item must never cause a region connection or location
+to “go out of logic” (become unreachable when it was previously reachable), and receiving AP items is the only kind of
+state change that AP logic acknowledges. No other actions or events can change reachability.</p>
+<p>So when the game itself does not follow this assumption, the options are:</p>
+<ul class="simple">
+<li><p>Modify the game to make that location/connection repeatable</p></li>
+<li><p>If there are both missable and repeatable ways to check the location/traverse the connection, then write logic for
+only the repeatable ways</p></li>
+<li><p>Don’t generate the missable location/connection at all</p>
+<ul>
+<li><p>For connections, any logical regions will still need to be reachable through other, <em>repeatable</em> connections</p></li>
+<li><p>For locations, this may require game changes to remove the vanilla item if it affects logic</p></li>
+</ul>
+</li>
+<li><p>Decide that resetting the save file is part of the game’s logic, and warn players about that</p></li>
+</ul>
+<hr class="docutils" />
+<p>(what-are-“local”-vs-“remote”-items,-and-what-are-the-pros-and-cons-of-each?)=### What are “local” vs “remote” items, and what are the pros and cons of each?</p>
+<p>First off, these terms can be misleading. Since the whole point of a multi-game multiworld randomizer is that some items
+are going to be placed in other slots (unless there’s only one slot), the choice isn’t really “local vs remote”;
+it’s “mixed local/remote vs all remote”. You have to get “remote items” working to be an AP implementation at all, and
+it’s often simpler to handle every item/location the same way, so you generally shouldn’t worry about “local items”
+until you’ve finished more critical features.</p>
+<p>Next, “local” and “remote” items confusingly refer to multiple concepts, so it’s important to clearly separate them:</p>
+<ul class="simple">
+<li><p>Whether an item happens to get placed in the same slot it originates from, or a different slot. I’ll call these
+“locally placed” and “remotely placed” items.</p></li>
+<li><p>Whether an AP client implements location checking for locally placed items by skipping the usual AP server roundtrip
+(i.e. sending [LocationChecks](&lt;network%20protocol)
+then receiving [ReceivedItems](&lt;network%20protocol)
+) and directly giving the item to the player, or by doing the AP server roundtrip regardless. I’ll call these
+“locally implemented” items and “remotely implemented” items.</p>
+<ul>
+<li><p>Locally implementing items requires the AP client to know what the locally placed items were without asking an AP
+server (or else you’d effectively be doing remote items with extra steps). Typically, it gets that information from
+a patch file, which is one reason why games that already need a patch file are more likely to choose local items.</p></li>
+<li><p>If items are remotely implemented, the AP client can use [location scouts](&lt;network%20protocol)
+to learn what items are placed on what locations. Features that require this information are sometimes mistakenly
+assumed to require locally implemented items, but location scouts work just as well as patch file data.</p></li>
+</ul>
+</li>
+<li><p>[The <code class="docutils literal notranslate"><span class="pre">items_handling</span></code> bitflags in the Connect packet](&lt;network%20protocol).
+AP clients with remotely implemented items will typically set all three flags, including “from your own world”.
+Clients with locally implemented items might set only the “from other worlds” flag.</p>
+<ul>
+<li><p>Whether a local items client sets the “starting inventory” flag likely depends on other details. For example, if a ROM
+is being patched, and starting inventory can be added to that patch, then it makes sense to leave the flag unset.</p></li>
+</ul>
+</li>
+</ul>
+<p>When people talk about “local vs remote items” as a choice that world devs have to make, they mean deciding whether
+your client will locally or remotely implement the items which happen to be locally placed (or make both
+implementations, or let the player choose an implementation).</p>
+<p>Theoretically, the biggest benefit of “local items” is that it allows a solo (single slot) multiworld to be played
+entirely offline, with no AP server, from start to finish. This is similar to a “standalone”/non-AP randomizer,
+except that you still get AP’s player options, generation, etc. for free.
+For some games, there are also technical constraints that make certain items easier to implement locally,
+or less glitchy when implemented locally, as long as you’re okay with never allowing these items to be placed remotely
+(or offering the player even more options).</p>
+<p>The main downside (besides more implementation work) is that “local items” can’t support “same slot co-op”.
+That’s when two players on two different machines connect to the same slot and play together.
+This only works if both players receive all the items for that slot, including ones found by the other player,
+which requires those items to be implemented remotely so the AP server can send them to all of that slot’s clients.</p>
+<p>So to recap:</p>
+<ul class="simple">
+<li><p>(All) remote items is often the simplest choice, since you have to implement remote items anyway.</p></li>
+<li><p>Remote items enable same slot co-op.</p></li>
+<li><p>Local items enable solo offline play.</p></li>
+<li><p>If you want to support both solo offline play and same slot co-op,
+you might need to expose local vs remote items as an option to the player.</p></li>
+</ul>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="tests.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="codeowners.html"
+                          title="next chapter">Archipelago World Code Owners / Maintainers Document</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/apworld_dev_faq.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="codeowners.html" title="Archipelago World Code Owners / Maintainers Document"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tests.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

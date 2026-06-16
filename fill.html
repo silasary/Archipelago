@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Fill &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Entrance Rando" href="entrance_rando.html" />
+    <link rel="prev" title="Rules Helpers" href="rules.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance_rando.html" title="Entrance Rando"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="Rules Helpers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fill</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-Fill">
+<span id="fill"></span><h1>Fill<a class="headerlink" href="#module-Fill" title="Link to this heading">¶</a></h1>
+<dl class="py exception">
+<dt class="sig sig-object py" id="Fill.FillError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">FillError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Fill.FillError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.accessibility_corrections">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">accessibility_corrections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.accessibility_corrections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.balance_multiworld_progression">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">balance_multiworld_progression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.balance_multiworld_progression" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.distribute_early_items">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">distribute_early_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itempool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Fill.distribute_early_items" title="Link to this definition">¶</a></dt>
+<dd><p>returns new fill_locations and itempool</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.distribute_items_restrictive">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">distribute_items_restrictive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">panic_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'swap'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'raise'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'start_inventory'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'swap'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.distribute_items_restrictive" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.distribute_planned_blocks">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">distribute_planned_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plando_blocks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock" title="BaseClasses.PlandoItemBlock"><span class="pre">PlandoItemBlock</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Fill.distribute_planned_blocks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.fast_fill">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">fast_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Fill.fast_fill" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.fill_restrictive">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">fill_restrictive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single_player_placement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_place</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_partial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_excluded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">one_item_per_player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Unknown'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.fill_restrictive" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>multiworld</strong> – Multiworld to be filled.</p></li>
+<li><p><strong>base_state</strong> – State assumed before fill.</p></li>
+<li><p><strong>locations</strong> – Locations to be filled with item_pool, gets mutated by removing locations that get filled.</p></li>
+<li><p><strong>item_pool</strong> – Items to fill into the locations, gets mutated by removing items that get placed.</p></li>
+<li><p><strong>single_player_placement</strong> – if true, can speed up placement if everything belongs to a single player</p></li>
+<li><p><strong>lock</strong> – locations are set to locked as they are filled</p></li>
+<li><p><strong>swap</strong> – if true, swaps of already place items are done in the event of a dead end</p></li>
+<li><p><strong>on_place</strong> – callback that is called when a placement happens</p></li>
+<li><p><strong>allow_partial</strong> – only place what is possible. Remaining items will be in the item_pool list.</p></li>
+<li><p><strong>allow_excluded</strong> – if true and placement fails, it is re-attempted while ignoring excluded on Locations</p></li>
+<li><p><strong>name</strong> – name of this fill step for progress logging purposes</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.flood_items">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">flood_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.flood_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.inaccessible_location_rules">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">inaccessible_location_rules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Fill.inaccessible_location_rules" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.parse_planned_blocks">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">parse_planned_blocks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock" title="BaseClasses.PlandoItemBlock"><span class="pre">PlandoItemBlock</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Fill.parse_planned_blocks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.remaining_fill">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">remaining_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itempool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Remaining'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_unplaceable_to_start_inventory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_location_can_fill</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.remaining_fill" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.resolve_early_locations_for_planned">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">resolve_early_locations_for_planned</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Fill.resolve_early_locations_for_planned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.swap_location_item">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">swap_location_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_locked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Fill.swap_location_item" title="Link to this definition">¶</a></dt>
+<dd><p>Swaps Items of locations. Does NOT swap flags like shop_slot or locked, but does swap event</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Fill.sweep_from_pool">
+<span class="sig-prename descclassname"><span class="pre">Fill.</span></span><span class="sig-name descname"><span class="pre">sweep_from_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">itempool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></span><a class="headerlink" href="#Fill.sweep_from_pool" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fill</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.FillError"><code class="docutils literal notranslate"><span class="pre">FillError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.accessibility_corrections"><code class="docutils literal notranslate"><span class="pre">accessibility_corrections()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.balance_multiworld_progression"><code class="docutils literal notranslate"><span class="pre">balance_multiworld_progression()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.distribute_early_items"><code class="docutils literal notranslate"><span class="pre">distribute_early_items()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.distribute_items_restrictive"><code class="docutils literal notranslate"><span class="pre">distribute_items_restrictive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.distribute_planned_blocks"><code class="docutils literal notranslate"><span class="pre">distribute_planned_blocks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.fast_fill"><code class="docutils literal notranslate"><span class="pre">fast_fill()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.fill_restrictive"><code class="docutils literal notranslate"><span class="pre">fill_restrictive()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.flood_items"><code class="docutils literal notranslate"><span class="pre">flood_items()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.inaccessible_location_rules"><code class="docutils literal notranslate"><span class="pre">inaccessible_location_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.parse_planned_blocks"><code class="docutils literal notranslate"><span class="pre">parse_planned_blocks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.remaining_fill"><code class="docutils literal notranslate"><span class="pre">remaining_fill()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.resolve_early_locations_for_planned"><code class="docutils literal notranslate"><span class="pre">resolve_early_locations_for_planned()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.swap_location_item"><code class="docutils literal notranslate"><span class="pre">swap_location_item()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Fill.sweep_from_pool"><code class="docutils literal notranslate"><span class="pre">sweep_from_pool()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="rules.html"
+                          title="previous chapter">Rules Helpers</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="entrance_rando.html"
+                          title="next chapter">Entrance Rando</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fill.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="entrance_rando.html" title="Entrance Rando"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rules.html" title="Rules Helpers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fill</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

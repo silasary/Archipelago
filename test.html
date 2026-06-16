@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Test Bases &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common Client" href="commonclient.html" />
+    <link rel="prev" title="NetUtils" href="netutils.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commonclient.html" title="Common Client"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="netutils.html" title="NetUtils"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Test Bases</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-test.bases">
+<span id="test-bases"></span><h1>Test Bases<a class="headerlink" href="#module-test.bases" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">test.bases.</span></span><span class="sig-name descname"><span class="pre">WorldTestBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test.bases.WorldTestBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.assertAccessDependency">
+<span class="sig-name descname"><span class="pre">assertAccessDependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">possible_items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_check_listed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.assertAccessDependency" title="Link to this definition">¶</a></dt>
+<dd><p>Asserts that the provided locations can’t be reached without the listed items but can be reached with any
+one of the provided combinations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.assertBeatable">
+<span class="sig-name descname"><span class="pre">assertBeatable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beatable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#test.bases.WorldTestBase.assertBeatable" title="Link to this definition">¶</a></dt>
+<dd><p>Asserts that the game can be beaten with the current state</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.auto_construct">
+<span class="sig-name descname"><span class="pre">auto_construct</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#test.bases.WorldTestBase.auto_construct" title="Link to this definition">¶</a></dt>
+<dd><p>automatically set up a world for each test in this class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.can_reach_entrance">
+<span class="sig-name descname"><span class="pre">can_reach_entrance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.can_reach_entrance" title="Link to this definition">¶</a></dt>
+<dd><p>Determines if the current state can reach the provided entrance name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.can_reach_location">
+<span class="sig-name descname"><span class="pre">can_reach_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.can_reach_location" title="Link to this definition">¶</a></dt>
+<dd><p>Determines if the current state can reach the provided location name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.can_reach_region">
+<span class="sig-name descname"><span class="pre">can_reach_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.can_reach_region" title="Link to this definition">¶</a></dt>
+<dd><p>Determines if the current state can reach the provided region name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.collect">
+<span class="sig-name descname"><span class="pre">collect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.collect" title="Link to this definition">¶</a></dt>
+<dd><p>Collects the provided item(s) into state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.collect_all_but">
+<span class="sig-name descname"><span class="pre">collect_all_but</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.collect_all_but" title="Link to this definition">¶</a></dt>
+<dd><p>Collects all pre-placed items and items in the multiworld itempool except those provided</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.collect_by_name">
+<span class="sig-name descname"><span class="pre">collect_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.collect_by_name" title="Link to this definition">¶</a></dt>
+<dd><p>collect all of the items in the item pool that have the given names</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.constructed">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">constructed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#test.bases.WorldTestBase.constructed" title="Link to this definition">¶</a></dt>
+<dd><p>A multiworld has been constructed by this point</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.count" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the amount of an item currently in state</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.game">
+<span class="sig-name descname"><span class="pre">game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.game" title="Link to this definition">¶</a></dt>
+<dd><p>Define game name in subclass, example “Secret of Evermore”.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.get_item_by_name">
+<span class="sig-name descname"><span class="pre">get_item_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></span><a class="headerlink" href="#test.bases.WorldTestBase.get_item_by_name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the first item found in placed items, or in the itempool with the matching name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.get_items_by_name">
+<span class="sig-name descname"><span class="pre">get_items_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.get_items_by_name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns actual items from the itempool that match the provided name(s)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.memory_leak_tested">
+<span class="sig-name descname"><span class="pre">memory_leak_tested</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#test.bases.WorldTestBase.memory_leak_tested" title="Link to this definition">¶</a></dt>
+<dd><p>remember if memory leak test was already done for this class</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.multiworld">
+<span class="sig-name descname"><span class="pre">multiworld</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span><a class="headerlink" href="#test.bases.WorldTestBase.multiworld" title="Link to this definition">¶</a></dt>
+<dd><p>The constructed MultiWorld instance after setup.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#test.bases.WorldTestBase.options" title="Link to this definition">¶</a></dt>
+<dd><p>Define options that should be used when setting up this TestBase.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#test.bases.WorldTestBase.player" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.remove" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the provided item(s) from state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.remove_by_name">
+<span class="sig-name descname"><span class="pre">remove_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.remove_by_name" title="Link to this definition">¶</a></dt>
+<dd><p>Remove all of the items in the item pool with the given names from state</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.run_default_tests">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">run_default_tests</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#test.bases.WorldTestBase.run_default_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Not possible or identical to the base test that’s always being run already</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.setUp" title="Link to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.tearDown">
+<span class="sig-name descname"><span class="pre">tearDown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.tearDown" title="Link to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.test_all_state_can_reach_everything">
+<span class="sig-name descname"><span class="pre">test_all_state_can_reach_everything</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.bases.WorldTestBase.test_all_state_can_reach_everything" title="Link to this definition">¶</a></dt>
+<dd><p>Ensure all state can reach everything and complete the game with the defined options</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.test_empty_state_can_reach_something">
+<span class="sig-name descname"><span class="pre">test_empty_state_can_reach_something</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.bases.WorldTestBase.test_empty_state_can_reach_something" title="Link to this definition">¶</a></dt>
+<dd><p>Ensure empty state can reach at least one location with the defined options</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.test_fill">
+<span class="sig-name descname"><span class="pre">test_fill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.bases.WorldTestBase.test_fill" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a multiworld and validates placements with the defined options</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.world">
+<span class="sig-name descname"><span class="pre">world</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="world.html#worlds.AutoWorld.World" title="worlds.AutoWorld.World"><span class="pre">World</span></a></span><a class="headerlink" href="#test.bases.WorldTestBase.world" title="Link to this definition">¶</a></dt>
+<dd><p>The constructed World instance after setup.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="test.bases.WorldTestBase.world_setup">
+<span class="sig-name descname"><span class="pre">world_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#test.bases.WorldTestBase.world_setup" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Test Bases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#test.bases.WorldTestBase"><code class="docutils literal notranslate"><span class="pre">WorldTestBase</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="netutils.html"
+                          title="previous chapter">NetUtils</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="commonclient.html"
+                          title="next chapter">Common Client</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/test.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commonclient.html" title="Common Client"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="netutils.html" title="NetUtils"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Test Bases</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

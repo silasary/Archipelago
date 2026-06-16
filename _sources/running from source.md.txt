@@ -1,0 +1,105 @@
+(running-from-source)=# Running From Source
+
+If you just want to play and there is a compiled version available on the
+[Archipelago releases page](https://github.com/ArchipelagoMW/Archipelago/releases),
+use that version. These steps are for developers or platforms without compiled releases available.
+
+(general)=## General
+
+What you'll need:
+ * [Python 3.11.9 or newer but less than 3.14](https://www.python.org/downloads/), not the Windows Store version
+   * On Windows, please consider only using the latest supported version in production environments since security
+     updates for older versions are not easily available.
+ * pip: included in downloads from python.org, separate in many Linux distributions
+ * Matching C compiler
+   * possibly optional, read operating system specific sections
+
+Then run any of the starting point scripts, like Generate.py, and the included ModuleUpdater should prompt to install or update the
+required modules and after pressing enter proceed to install everything automatically.
+After this, you should be able to run the programs.
+
+ * `Launcher.py` gives access to many components, including clients registered in `worlds/LauncherComponents.py`.
+    * The Launcher button "Generate Template Options" will generate default yamls for all worlds.
+ * With yaml(s) in the `Players` folder, `Generate.py` will generate the multiworld archive.
+ * `MultiServer.py`, with the filename of the generated archive as a command line parameter, will host the multiworld locally.
+    * `--log_network` is a command line parameter useful for debugging.
+ * `WebHost.py` will host the website on your computer.
+    * You can copy `docs/webhost configuration sample.yaml` to `config.yaml`
+    to change WebHost options (like the web hosting port number).
+
+
+(windows)=## Windows
+
+Recommended steps
+ * Download and install a "Windows installer (64-bit)" from the [Python download page](https://www.python.org/downloads)
+   * [read above](#general) which versions are supported
+
+ * **Optional**: Download and install Visual Studio Build Tools from
+   [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/).
+   * Refer to [Windows Compilers on the python wiki](https://wiki.python.org/moin/WindowsCompilers) for details. 
+     Generally, selecting the box for "Desktop Development with C++" will provide what you need.
+   * Build tools are not required if all modules are installed pre-compiled. Pre-compiled modules are pinned on
+     [Discord in #ap-core-dev](https://discord.com/channels/731205301247803413/731214280439103580/905154456377757808)
+
+ * It is recommended to use [PyCharm IDE](https://www.jetbrains.com/pycharm/)
+ * Run ModuleUpdate.py which will prompt installation of missing modules, press enter to confirm
+   * In PyCharm: right-click ModuleUpdate.py and select `Run 'ModuleUpdate'`
+   * Without PyCharm: open a command prompt in the source folder and type `py ModuleUpdate.py`
+
+
+(macos)=## macOS
+
+Refer to [Guide to Run Archipelago from Source Code on macOS](https://archipelago.gg/tutorial/Archipelago/mac/en).
+
+
+(linux)=## Linux
+
+If your Linux distribution ships a compatible Python version (see [General](#general)) and pip, you can use that,
+otherwise you may need to install Python from a 3rd party. Refer to documentation of your Linux distribution.
+
+Installing a C compiler is usually optional. The package is typically named `gcc`, sometimes another package with the
+base build tools may be required, i.e. `build-essential` (Debian/Ubuntu) or `base-devel` (Arch).
+
+After getting the source code, it is strongly recommended to create a
+[venv](https://docs.python.org/3/tutorial/venv.html) (Virtual Environment)
+by hand or using an IDE, such as PyCharm, because Archipelago requires specific versions of Python packages.
+
+Run `python ModuleUpdate.py` in the project root to install packages, run `python Launcher.py` to run the Launcher.
+
+(building)=### Building
+
+Builds contain (almost) all dependencies to run Archipelago on any Linux distribution that is as new or newer than the
+one it was built on. Beware that currently only the oldest Ubuntu LTS available in GitHub actions is supported for that.
+This means the easiest way to generate a build is by running the `Build` action from GitHub actions instead of building
+locally. If you still want to, e.g. for local testing, you can by running
+
+`python setup.py build_exe` to generate a binary distribution of Archipelago in `build/`. Or to generate an AppImage
+first generate the binary distribution and then run `python setup.py bdist_appimage` to populate `dist/`. You need to
+put an `appimagetool` into the directory you run the command from, rename it to `appimagetool` and make it executable.
+
+
+(optional:-sni)=## Optional: SNI
+
+[SNI](https://github.com/alttpo/sni/blob/main/README.md) is required to use SNIClient. If not integrated into the project, it has to be started manually.
+
+You can get the latest SNI release at [SNI Github releases](https://github.com/alttpo/sni/releases).
+It should be dropped as "SNI" into the root folder of the project. Alternatively, you can point the sni setting in
+host.yaml at your SNI folder.
+
+
+(optional:-git)=## Optional: Git
+
+[Git](https://git-scm.com) is required to install some of the packages that Archipelago depends on.
+It may be possible to run Archipelago from source without it, at your own risk.
+
+It is also generally recommended to have Git installed and understand how to use it, especially if you're thinking about contributing.
+
+You can download the latest release of Git at [The downloads page on the Git website](https://git-scm.com/downloads).
+
+Beyond that, there are also graphical interfaces for Git that make it more accessible.
+For repositories on Github (such as this one), [Github Desktop](https://desktop.github.com) is one such option.
+PyCharm has a built-in version control integration that supports Git.
+
+(running-tests)=## Running tests
+
+Information about running tests can be found in [tests.md](tests)

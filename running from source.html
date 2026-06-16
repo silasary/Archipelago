@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="adding%20games.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="style.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="adding%20games.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="style.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(running-from-source)=# Running From Source</p>
+<p>If you just want to play and there is a compiled version available on the
+<a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/releases">Archipelago releases page</a>,
+use that version. These steps are for developers or platforms without compiled releases available.</p>
+<p>(general)=## General</p>
+<p>What you’ll need:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/downloads/">Python 3.11.9 or newer but less than 3.14</a>, not the Windows Store version</p>
+<ul>
+<li><p>On Windows, please consider only using the latest supported version in production environments since security
+updates for older versions are not easily available.</p></li>
+</ul>
+</li>
+<li><p>pip: included in downloads from python.org, separate in many Linux distributions</p></li>
+<li><p>Matching C compiler</p>
+<ul>
+<li><p>possibly optional, read operating system specific sections</p></li>
+</ul>
+</li>
+</ul>
+<p>Then run any of the starting point scripts, like Generate.py, and the included ModuleUpdater should prompt to install or update the
+required modules and after pressing enter proceed to install everything automatically.
+After this, you should be able to run the programs.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Launcher.py</span></code> gives access to many components, including clients registered in <code class="docutils literal notranslate"><span class="pre">worlds/LauncherComponents.py</span></code>.</p>
+<ul>
+<li><p>The Launcher button “Generate Template Options” will generate default yamls for all worlds.</p></li>
+</ul>
+</li>
+<li><p>With yaml(s) in the <code class="docutils literal notranslate"><span class="pre">Players</span></code> folder, <code class="docutils literal notranslate"><span class="pre">Generate.py</span></code> will generate the multiworld archive.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MultiServer.py</span></code>, with the filename of the generated archive as a command line parameter, will host the multiworld locally.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">--log_network</span></code> is a command line parameter useful for debugging.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WebHost.py</span></code> will host the website on your computer.</p>
+<ul>
+<li><p>You can copy <code class="docutils literal notranslate"><span class="pre">docs/webhost</span> <span class="pre">configuration</span> <span class="pre">sample.yaml</span></code> to <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>
+to change WebHost options (like the web hosting port number).</p></li>
+</ul>
+</li>
+</ul>
+<p>(windows)=## Windows</p>
+<p>Recommended steps</p>
+<ul class="simple">
+<li><p>Download and install a “Windows installer (64-bit)” from the <a class="reference external" href="https://www.python.org/downloads">Python download page</a></p>
+<ul>
+<li><p><a class="reference internal" href="#general"><span class="xref myst">read above</span></a> which versions are supported</p></li>
+</ul>
+</li>
+<li><p><strong>Optional</strong>: Download and install Visual Studio Build Tools from
+<a class="reference external" href="https://visualstudio.microsoft.com/visual-cpp-build-tools/">Visual Studio Build Tools</a>.</p>
+<ul>
+<li><p>Refer to <a class="reference external" href="https://wiki.python.org/moin/WindowsCompilers">Windows Compilers on the python wiki</a> for details.
+Generally, selecting the box for “Desktop Development with C++” will provide what you need.</p></li>
+<li><p>Build tools are not required if all modules are installed pre-compiled. Pre-compiled modules are pinned on
+<a class="reference external" href="https://discord.com/channels/731205301247803413/731214280439103580/905154456377757808">Discord in #ap-core-dev</a></p></li>
+</ul>
+</li>
+<li><p>It is recommended to use <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm IDE</a></p></li>
+<li><p>Run ModuleUpdate.py which will prompt installation of missing modules, press enter to confirm</p>
+<ul>
+<li><p>In PyCharm: right-click ModuleUpdate.py and select <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">'ModuleUpdate'</span></code></p></li>
+<li><p>Without PyCharm: open a command prompt in the source folder and type <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">ModuleUpdate.py</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>(macos)=## macOS</p>
+<p>Refer to <a class="reference external" href="https://archipelago.gg/tutorial/Archipelago/mac/en">Guide to Run Archipelago from Source Code on macOS</a>.</p>
+<p>(linux)=## Linux</p>
+<p>If your Linux distribution ships a compatible Python version (see <a class="reference internal" href="#general"><span class="xref myst">General</span></a>) and pip, you can use that,
+otherwise you may need to install Python from a 3rd party. Refer to documentation of your Linux distribution.</p>
+<p>Installing a C compiler is usually optional. The package is typically named <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, sometimes another package with the
+base build tools may be required, i.e. <code class="docutils literal notranslate"><span class="pre">build-essential</span></code> (Debian/Ubuntu) or <code class="docutils literal notranslate"><span class="pre">base-devel</span></code> (Arch).</p>
+<p>After getting the source code, it is strongly recommended to create a
+<a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">venv</a> (Virtual Environment)
+by hand or using an IDE, such as PyCharm, because Archipelago requires specific versions of Python packages.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">ModuleUpdate.py</span></code> in the project root to install packages, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">Launcher.py</span></code> to run the Launcher.</p>
+<p>(building)=### Building</p>
+<p>Builds contain (almost) all dependencies to run Archipelago on any Linux distribution that is as new or newer than the
+one it was built on. Beware that currently only the oldest Ubuntu LTS available in GitHub actions is supported for that.
+This means the easiest way to generate a build is by running the <code class="docutils literal notranslate"><span class="pre">Build</span></code> action from GitHub actions instead of building
+locally. If you still want to, e.g. for local testing, you can by running</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build_exe</span></code> to generate a binary distribution of Archipelago in <code class="docutils literal notranslate"><span class="pre">build/</span></code>. Or to generate an AppImage
+first generate the binary distribution and then run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_appimage</span></code> to populate <code class="docutils literal notranslate"><span class="pre">dist/</span></code>. You need to
+put an <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> into the directory you run the command from, rename it to <code class="docutils literal notranslate"><span class="pre">appimagetool</span></code> and make it executable.</p>
+<p>(optional:-sni)=## Optional: SNI</p>
+<p><a class="reference external" href="https://github.com/alttpo/sni/blob/main/README.md">SNI</a> is required to use SNIClient. If not integrated into the project, it has to be started manually.</p>
+<p>You can get the latest SNI release at <a class="reference external" href="https://github.com/alttpo/sni/releases">SNI Github releases</a>.
+It should be dropped as “SNI” into the root folder of the project. Alternatively, you can point the sni setting in
+host.yaml at your SNI folder.</p>
+<p>(optional:-git)=## Optional: Git</p>
+<p><a class="reference external" href="https://git-scm.com">Git</a> is required to install some of the packages that Archipelago depends on.
+It may be possible to run Archipelago from source without it, at your own risk.</p>
+<p>It is also generally recommended to have Git installed and understand how to use it, especially if you’re thinking about contributing.</p>
+<p>You can download the latest release of Git at <a class="reference external" href="https://git-scm.com/downloads">The downloads page on the Git website</a>.</p>
+<p>Beyond that, there are also graphical interfaces for Git that make it more accessible.
+For repositories on Github (such as this one), <a class="reference external" href="https://desktop.github.com">Github Desktop</a> is one such option.
+PyCharm has a built-in version control integration that supports Git.</p>
+<p>(running-tests)=## Running tests</p>
+<p>Information about running tests can be found in <a class="reference internal" href="tests.html"><span class="doc std std-doc">tests.md</span></a></p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="style.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="adding%20games.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/running from source.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="adding%20games.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="style.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

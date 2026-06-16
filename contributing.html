@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="world%20maintainer.html" />
+    <link rel="prev" title="Archipelago API Reference" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="world%20maintainer.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Archipelago API Reference"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(contributing-guidelines)=# Contributing Guidelines</p>
+<p>All contributions are welcome, though we have a few requests of contributors, whether they be for core, webhost, or new
+game contributions:</p>
+<ul class="simple">
+<li><p><strong>Follow styling guidelines.</strong>
+Please take a look at the <a class="reference internal" href="style.html"><span class="doc std std-doc">code style documentation</span></a>
+to ensure ease of communication and uniformity.</p></li>
+<li><p><strong>Ensure that critical changes are covered by tests.</strong>
+It is strongly recommended that unit tests are used to avoid regression and to ensure everything is still working.
+If you wish to contribute by adding a new game, please take a look at
+the <a class="reference internal" href="tests.html"><span class="doc std std-doc">logic unit test documentation</span></a>.
+If you wish to contribute to the website, please take a look at <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/tree/main/test/webhost">these tests</a>.</p></li>
+<li><p><strong>Do not introduce unit test failures/regressions.</strong>
+Archipelago supports multiple versions of Python. You may need to download older Python versions to fully test
+your changes. Currently, the oldest supported version
+is <a class="reference external" href="https://www.python.org/downloads/release/python-31113/">Python 3.11</a>.
+It is recommended that automated github actions are turned on in your fork to have github run unit tests after
+pushing.
+You can turn them on here:<br />
+<img alt="Github actions example" src="docs/img/github-actions-example.png" /></p></li>
+<li><p><strong>When reviewing PRs, please leave a message about what was done.</strong>
+We don’t have full test coverage, so manual testing can help.
+For code changes that could affect multiple worlds or that could have changes in unexpected code paths, manual testing
+or checking if all code paths are covered by automated tests is desired. The original author may not have been able
+to test all possibly affected worlds, or didn’t know it would affect another world. In such cases, it is helpful to
+state which games or settings were rolled, if any.
+Please also tell us if you looked at code, just did functional testing, did both, or did neither.
+If testing the PR depends on other PRs, please state what you merged into what for testing.
+We cannot determine what “LGTM” means without additional context, so that should not be the norm.</p></li>
+</ul>
+<p>Other than these requests, we tend to judge code on a case-by-case basis.</p>
+<p>For contribution to the website, please refer to the <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/blob/main/WebHostLib/README.md">WebHost README</a>.</p>
+<p>If you want to contribute to the core, you will be subject to stricter review on your pull requests. It is recommended
+that you get in touch with other core maintainers via the <a class="reference external" href="https://archipelago.gg/discord">Discord</a>.</p>
+<p>If you want to add Archipelago support for a new game, please take a look at
+the <a class="reference internal" href="adding%20games.html"><span class="doc std std-doc">adding games documentation</span></a>
+which details what is required to implement support for a game, and has tips on to get started.
+If you want to merge a new game into the main Archipelago repo, please make sure to read the responsibilities as a
+<a class="reference internal" href="world%20maintainer.html"><span class="doc std std-doc">world maintainer</span></a>.</p>
+<p>For other questions, feel free to explore the <a class="reference external" href="https://github.com/ArchipelagoMW/Archipelago/tree/main/docs">main documentation folder</a>, and ask us questions in the
+(ap-world-dev-channel-of-the-<a class="reference external" href="https://archipelago.gg/discord">discord</a>.)=#ap-world-dev channel of the <a class="reference external" href="https://archipelago.gg/discord">Discord</a>.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Archipelago API Reference</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="world%20maintainer.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/contributing.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="world%20maintainer.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Archipelago API Reference"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

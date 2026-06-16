@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="style.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="contributing.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(world-maintainer)=# World Maintainer</p>
+<p>A world maintainer is a person responsible for a world or part of a world in Archipelago.</p>
+<p>If a world author does not want to take on the responsibilities of a world maintainer, they can release their world as
+an unofficial <a class="reference internal" href="apworld%20specification.html"><span class="doc std std-doc">APWorld</span></a> or maintain their own fork instead.</p>
+<p>All current world maintainers are listed in the <a class="reference internal" href="codeowners.html"><span class="doc std std-doc">CODEOWNERS</span></a> document.</p>
+<p>(responsibilities)=## Responsibilities</p>
+<p>Unless these are shared between multiple people, we expect the following from each world maintainer</p>
+<ul class="simple">
+<li><p>Be on our Discord to get updates on problems with and suggestions for the world.</p></li>
+<li><p>Decide if a feature (pull request) should be merged.</p></li>
+<li><p>Review contents of such pull requests or organize peer reviews or post that you did not review the content.</p></li>
+<li><p>Fix or point out issues when core changes break your code.</p></li>
+<li><p>Use the watch function on GitHub, the #github-updates channel on Discord or check manually from time to time for new
+pull requests. Core maintainers may also ping you if a pull request concerns your world.</p></li>
+<li><p>Test (or have tested) the world on the main branch from time to time, especially during RC (release candidate) phases
+of development.</p></li>
+<li><p>Let us know of long periods of unavailability.</p></li>
+</ul>
+<p>(becoming-a-world-maintainer)=## Becoming a World Maintainer</p>
+<p>(adding-a-world)=### Adding a World</p>
+<p>When we merge your world into the core Archipelago repository, you automatically become world maintainer unless you
+nominate someone else (i.e. there are multiple devs).</p>
+<p>(being-added-as-a-maintainer-to-an-existing-implementation)=### Being added as a maintainer to an existing implementation</p>
+<p>At any point, a world maintainer can approve the addition of another maintainer to their world.<br />
+In order to do this, either an existing maintainer or the new maintainer must open a PR updating the
+<a class="reference internal" href="codeowners.html"><span class="doc std std-doc">CODEOWNERS</span></a> file.<br />
+This change must be approved by all existing maintainers of the affected world, the new maintainer candidate, and
+one core maintainer.<br />
+To help the core team review the change, information about the new maintainer and their contributions should be
+included in the PR description.</p>
+<p>(getting-voted)=### Getting Voted</p>
+<p>When a world is unmaintained, the <a class="reference external" href="https://github.com/orgs/ArchipelagoMW/people">core maintainers</a>
+can vote for a new maintainer if there is a candidate.
+For a vote to pass, the majority of participating core maintainers must vote in the affirmative.
+The time limit is 1 week, but can end early if the majority is reached earlier.
+Voting shall be conducted on Discord in #ap-core-dev.</p>
+<p>(dropping-out)=## Dropping out</p>
+<p>(resigning)=### Resigning</p>
+<p>A world maintainer can resign and have their username removed from the <a class="reference internal" href="codeowners.html"><span class="doc std std-doc">CODEOWNERS</span></a> document. If no
+new maintainer takes over management of the world, the world becomes unmaintained.</p>
+<p>(getting-voted-out)=### Getting Voted out</p>
+<p>A world maintainer can be voted out by the <a class="reference external" href="https://github.com/orgs/ArchipelagoMW/people">core maintainers</a>,
+for example when they become unreachable.
+For a vote to pass, the majority of participating core maintainers must vote in the affirmative.
+The time limit is 2 weeks, but can end early if the majority is reached earlier AND the world maintainer was pinged and
+made their case or was pinged and has been unreachable for more than 2 weeks already.
+Voting shall be conducted on Discord in #ap-core-dev. Commits that are a direct result of the voting shall include
+date, voting members and final result in the commit message.</p>
+<p>(handling-of-unmaintained-worlds)=## Handling of Unmaintained Worlds</p>
+<p>As long as worlds are known to work for the most part, they can stay included. Once the world becomes broken, it shall
+be deleted.</p>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="contributing.html"
+                          title="previous chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="style.html"
+                          title="next chapter">&lt;no title&gt;</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/world maintainer.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="style.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

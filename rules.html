@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Rules Helpers &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Fill" href="fill.html" />
+    <link rel="prev" title="Options" href="options.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fill.html" title="Fill"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="options.html" title="Options"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rules Helpers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-worlds.generic.Rules">
+<span id="rules-helpers"></span><h1>Rules Helpers<a class="headerlink" href="#module-worlds.generic.Rules" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.add_item_rule">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">add_item_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'and'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.add_item_rule" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.add_rule">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">add_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'and'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.add_rule" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.allow_self_locking_items">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">allow_self_locking_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">item_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#worlds.generic.Rules.allow_self_locking_items" title="Link to this definition">¶</a></dt>
+<dd><p>This function sets rules on the supplied spot, such that the supplied item_name(s) can possibly be placed there.</p>
+<p>spot: Location or Region that the item(s) are allowed to be placed in
+item_names: item name or names that are allowed to be placed in the Location or Region</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.exclusion_rules">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">exclusion_rules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#worlds.generic.Rules.exclusion_rules" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.forbid_item">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">forbid_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.forbid_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.forbid_items">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">forbid_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.forbid_items" title="Link to this definition">¶</a></dt>
+<dd><p>unused, but kept as a debugging tool.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.forbid_items_for_player">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">forbid_items_for_player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.forbid_items_for_player" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.item_name_in_location_names">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">item_name_in_location_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_name_player_pairs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#worlds.generic.Rules.item_name_in_location_names" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.item_name_in_locations">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">item_name_in_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#worlds.generic.Rules.item_name_in_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.locality_needed">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">locality_needed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#worlds.generic.Rules.locality_needed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.locality_rules">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">locality_rules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multiworld</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="multiworld.html#BaseClasses.MultiWorld" title="BaseClasses.MultiWorld"><span class="pre">MultiWorld</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.locality_rules" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.location_item_name">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">location_item_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#worlds.generic.Rules.location_item_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worlds.generic.Rules.set_rule">
+<span class="sig-prename descclassname"><span class="pre">worlds.generic.Rules.</span></span><span class="sig-name descname"><span class="pre">set_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#worlds.generic.Rules.set_rule" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rules Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.add_item_rule"><code class="docutils literal notranslate"><span class="pre">add_item_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.add_rule"><code class="docutils literal notranslate"><span class="pre">add_rule()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.allow_self_locking_items"><code class="docutils literal notranslate"><span class="pre">allow_self_locking_items()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.exclusion_rules"><code class="docutils literal notranslate"><span class="pre">exclusion_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.forbid_item"><code class="docutils literal notranslate"><span class="pre">forbid_item()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.forbid_items"><code class="docutils literal notranslate"><span class="pre">forbid_items()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.forbid_items_for_player"><code class="docutils literal notranslate"><span class="pre">forbid_items_for_player()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.item_name_in_location_names"><code class="docutils literal notranslate"><span class="pre">item_name_in_location_names()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.item_name_in_locations"><code class="docutils literal notranslate"><span class="pre">item_name_in_locations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.locality_needed"><code class="docutils literal notranslate"><span class="pre">locality_needed()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.locality_rules"><code class="docutils literal notranslate"><span class="pre">locality_rules()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.location_item_name"><code class="docutils literal notranslate"><span class="pre">location_item_name()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds.generic.Rules.set_rule"><code class="docutils literal notranslate"><span class="pre">set_rule()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="options.html"
+                          title="previous chapter">Options</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="fill.html"
+                          title="next chapter">Fill</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="fill.html" title="Fill"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="options.html" title="Options"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rules Helpers</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

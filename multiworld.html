@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MultiWorld &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CollectionState" href="collectionstate.html" />
+    <link rel="prev" title="BaseClasses" href="baseclasses.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="collectionstate.html" title="CollectionState"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="baseclasses.html" title="BaseClasses"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" accesskey="U">BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MultiWorld</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="multiworld">
+<h1>MultiWorld<a class="headerlink" href="#multiworld" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">BaseClasses.</span></span><span class="sig-name descname"><span class="pre">MultiWorld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">players</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.AttributeProxy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">AttributeProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.AttributeProxy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RegionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">players</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.add_group">
+<span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.add_group" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.append" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.entrance_cache">
+<span class="sig-name descname"><span class="pre">entrance_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.entrance_cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.extend" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.location_cache">
+<span class="sig-name descname"><span class="pre">location_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.location_cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.RegionManager.region_cache">
+<span class="sig-name descname"><span class="pre">region_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.RegionManager.region_cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.add_group">
+<span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">players</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AbstractSet</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">frozenset({})</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="baseclasses.html#BaseClasses.Group" title="BaseClasses.Group"><span class="pre">Group</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.add_group" title="Link to this definition">¶</a></dt>
+<dd><p>Create a group with name and return the assigned player ID and group.
+If a group of this name already exists, the set of players is extended instead of creating a new one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.can_beat_game">
+<span class="sig-name descname"><span class="pre">can_beat_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">starting_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.can_beat_game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.completion_condition">
+<span class="sig-name descname"><span class="pre">completion_condition</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">CollectionRule</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.completion_condition" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.create_item">
+<span class="sig-name descname"><span class="pre">create_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.create_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.debug_types">
+<span class="sig-name descname"><span class="pre">debug_types</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#BaseClasses.MultiWorld.debug_types" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.early_items">
+<span class="sig-name descname"><span class="pre">early_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.early_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.exclude_locations">
+<span class="sig-name descname"><span class="pre">exclude_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.ExcludeLocations" title="Options.ExcludeLocations"><span class="pre">Options.ExcludeLocations</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.exclude_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.find_item">
+<span class="sig-name descname"><span class="pre">find_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.find_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.find_item_locations">
+<span class="sig-name descname"><span class="pre">find_item_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_group_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.find_item_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.find_items_in_locations">
+<span class="sig-name descname"><span class="pre">find_items_in_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolve_group_locations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.find_items_in_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.fulfills_accessibility">
+<span class="sig-name descname"><span class="pre">fulfills_accessibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.fulfills_accessibility" title="Link to this definition">¶</a></dt>
+<dd><p>Check if accessibility rules are fulfilled with current or supplied state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.game">
+<span class="sig-name descname"><span class="pre">game</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_all_ids">
+<span class="sig-name descname"><span class="pre">get_all_ids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_all_ids" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_all_state">
+<span class="sig-name descname"><span class="pre">get_all_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_partial_entrances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect_pre_fill_items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perform_sweep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_all_state" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a new CollectionState, and collects all precollected items, all items in the multiworld itempool, those
+specified in each worlds’ <cite>get_pre_fill_items()</cite>, and then sweeps the multiworld collecting any other items
+it is able to reach, building as complete of a completed game state as possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>use_cache</strong> – Deprecated and unused.</p></li>
+<li><p><strong>allow_partial_entrances</strong> – Whether the CollectionState should allow for disconnected entrances while
+sweeping, such as before entrance randomization is complete.</p></li>
+<li><p><strong>collect_pre_fill_items</strong> – Whether the items in each worlds’ <cite>get_pre_fill_items()</cite> should be added to this
+state.</p></li>
+<li><p><strong>perform_sweep</strong> – Whether this state should perform a sweep for reachable locations, collecting any placed
+items it can.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The completed CollectionState.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_entrance">
+<span class="sig-name descname"><span class="pre">get_entrance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entrance_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_entrance" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_entrances">
+<span class="sig-name descname"><span class="pre">get_entrances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_entrances" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_file_safe_player_name">
+<span class="sig-name descname"><span class="pre">get_file_safe_player_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_file_safe_player_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_filled_locations">
+<span class="sig-name descname"><span class="pre">get_filled_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_filled_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_game_groups">
+<span class="sig-name descname"><span class="pre">get_game_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_game_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_game_players">
+<span class="sig-name descname"><span class="pre">get_game_players</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_game_players" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_game_worlds">
+<span class="sig-name descname"><span class="pre">get_game_worlds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.get_game_worlds" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_items">
+<span class="sig-name descname"><span class="pre">get_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_location">
+<span class="sig-name descname"><span class="pre">get_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_location" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_locations">
+<span class="sig-name descname"><span class="pre">get_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_name_string_for_object">
+<span class="sig-name descname"><span class="pre">get_name_string_for_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="baseclasses.html#BaseClasses.HasNameAndPlayer" title="BaseClasses.HasNameAndPlayer"><span class="pre">HasNameAndPlayer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_name_string_for_object" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_out_file_name_base">
+<span class="sig-name descname"><span class="pre">get_out_file_name_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_out_file_name_base" title="Link to this definition">¶</a></dt>
+<dd><p>the base name (without file extension) for each player’s output file for a seed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_placeable_locations">
+<span class="sig-name descname"><span class="pre">get_placeable_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_placeable_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_player_groups">
+<span class="sig-name descname"><span class="pre">get_player_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_player_groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_player_name">
+<span class="sig-name descname"><span class="pre">get_player_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_player_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_reachable_locations">
+<span class="sig-name descname"><span class="pre">get_reachable_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_reachable_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_region">
+<span class="sig-name descname"><span class="pre">get_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_region" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_regions">
+<span class="sig-name descname"><span class="pre">get_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_sendable_spheres">
+<span class="sig-name descname"><span class="pre">get_sendable_spheres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_sendable_spheres" title="Link to this definition">¶</a></dt>
+<dd><p>yields a set of multiserver sendable locations (location.item.code: int) for each logical sphere</p>
+<p>If there are unreachable locations, the last sphere of reachable locations is followed by an empty set,
+and then a set of all of the unreachable locations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_spheres">
+<span class="sig-name descname"><span class="pre">get_spheres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_spheres" title="Link to this definition">¶</a></dt>
+<dd><p>yields a set of locations for each logical sphere</p>
+<p>If there are unreachable locations, the last sphere of reachable
+locations is followed by an empty set, and then a set of all of the
+unreachable locations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_unfilled_locations">
+<span class="sig-name descname"><span class="pre">get_unfilled_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.get_unfilled_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.get_unfilled_locations_for_players">
+<span class="sig-name descname"><span class="pre">get_unfilled_locations_for_players</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">players</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.get_unfilled_locations_for_players" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.groups">
+<span class="sig-name descname"><span class="pre">groups</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="baseclasses.html#BaseClasses.Group" title="BaseClasses.Group"><span class="pre">Group</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.groups" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.has_beaten_game">
+<span class="sig-name descname"><span class="pre">has_beaten_game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.has_beaten_game" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.indirect_connections">
+<span class="sig-name descname"><span class="pre">indirect_connections</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.indirect_connections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.is_race">
+<span class="sig-name descname"><span class="pre">is_race</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#BaseClasses.MultiWorld.is_race" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.item_links">
+<span class="sig-name descname"><span class="pre">item_links</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.ItemLinks" title="Options.ItemLinks"><span class="pre">Options.ItemLinks</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.item_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.itempool">
+<span class="sig-name descname"><span class="pre">itempool</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.itempool" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.link_items">
+<span class="sig-name descname"><span class="pre">link_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.link_items" title="Link to this definition">¶</a></dt>
+<dd><p>Called to link together items in the itempool related to the registered item link groups.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.local_early_items">
+<span class="sig-name descname"><span class="pre">local_early_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.local_early_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.local_items">
+<span class="sig-name descname"><span class="pre">local_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.LocalItems" title="Options.LocalItems"><span class="pre">Options.LocalItems</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.local_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.non_local_items">
+<span class="sig-name descname"><span class="pre">non_local_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.NonLocalItems" title="Options.NonLocalItems"><span class="pre">Options.NonLocalItems</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.non_local_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.per_slot_randoms">
+<span class="sig-name descname"><span class="pre">per_slot_randoms</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="utils.html#Utils.DeprecateDict" title="Utils.DeprecateDict"><span class="pre">Utils.DeprecateDict</span></a><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">random.Random</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.per_slot_randoms" title="Link to this definition">¶</a></dt>
+<dd><p>Deprecated. Please use <cite>self.random</cite> instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.plando_item_blocks">
+<span class="sig-name descname"><span class="pre">plando_item_blocks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock" title="BaseClasses.PlandoItemBlock"><span class="pre">PlandoItemBlock</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.plando_item_blocks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.plando_options">
+<span class="sig-name descname"><span class="pre">plando_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoOptions" title="BaseClasses.PlandoOptions"><span class="pre">PlandoOptions</span></a></span><a class="headerlink" href="#BaseClasses.MultiWorld.plando_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.player_ids">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">player_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.player_ids" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.player_name">
+<span class="sig-name descname"><span class="pre">player_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.player_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.precollected_items">
+<span class="sig-name descname"><span class="pre">precollected_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.precollected_items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.priority_locations">
+<span class="sig-name descname"><span class="pre">priority_locations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.PriorityLocations" title="Options.PriorityLocations"><span class="pre">Options.PriorityLocations</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.priority_locations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.progression_balancing">
+<span class="sig-name descname"><span class="pre">progression_balancing</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.ProgressionBalancing" title="Options.ProgressionBalancing"><span class="pre">Options.ProgressionBalancing</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.progression_balancing" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.push_item">
+<span class="sig-name descname"><span class="pre">push_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="location.html#BaseClasses.Location" title="BaseClasses.Location"><span class="pre">Location</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.push_item" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.push_precollected">
+<span class="sig-name descname"><span class="pre">push_precollected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.push_precollected" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.random">
+<span class="sig-name descname"><span class="pre">random</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">random.Random</span></span><a class="headerlink" href="#BaseClasses.MultiWorld.random" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.regions">
+<span class="sig-name descname"><span class="pre">regions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#BaseClasses.MultiWorld.RegionManager" title="BaseClasses.MultiWorld.RegionManager"><span class="pre">RegionManager</span></a></span><a class="headerlink" href="#BaseClasses.MultiWorld.regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.register_indirect_condition">
+<span class="sig-name descname"><span class="pre">register_indirect_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="region.html#BaseClasses.Region" title="BaseClasses.Region"><span class="pre">Region</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="entrance.html#BaseClasses.Entrance" title="BaseClasses.Entrance"><span class="pre">Entrance</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.register_indirect_condition" title="Link to this definition">¶</a></dt>
+<dd><p>Report that access to this Region can result in unlocking this Entrance,
+state.can_reach(Region) in the Entrance’s traversal condition, as opposed to pure transition logic.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.secure">
+<span class="sig-name descname"><span class="pre">secure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.secure" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.seed_name">
+<span class="sig-name descname"><span class="pre">seed_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#BaseClasses.MultiWorld.seed_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.set_item_links">
+<span class="sig-name descname"><span class="pre">set_item_links</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.set_item_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.set_options">
+<span class="sig-name descname"><span class="pre">set_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Namespace</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.set_options" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.set_seed">
+<span class="sig-name descname"><span class="pre">set_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BaseClasses.MultiWorld.set_seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.start_hints">
+<span class="sig-name descname"><span class="pre">start_hints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.StartHints" title="Options.StartHints"><span class="pre">Options.StartHints</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.start_hints" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.start_inventory">
+<span class="sig-name descname"><span class="pre">start_inventory</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.StartInventory" title="Options.StartInventory"><span class="pre">Options.StartInventory</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.start_inventory" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.start_inventory_from_pool">
+<span class="sig-name descname"><span class="pre">start_inventory_from_pool</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.StartInventoryPool" title="Options.StartInventoryPool"><span class="pre">Options.StartInventoryPool</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.start_inventory_from_pool" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.start_location_hints">
+<span class="sig-name descname"><span class="pre">start_location_hints</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="options.html#Options.StartLocationHints" title="Options.StartLocationHints"><span class="pre">Options.StartLocationHints</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.start_location_hints" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.state">
+<span class="sig-name descname"><span class="pre">state</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="collectionstate.html#BaseClasses.CollectionState" title="BaseClasses.CollectionState"><span class="pre">CollectionState</span></a></span><a class="headerlink" href="#BaseClasses.MultiWorld.state" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.unlocks_new_location">
+<span class="sig-name descname"><span class="pre">unlocks_new_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="item.html#BaseClasses.Item" title="BaseClasses.Item"><span class="pre">Item</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.unlocks_new_location" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.world_name_lookup">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">world_name_lookup</span></span><a class="headerlink" href="#BaseClasses.MultiWorld.world_name_lookup" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="BaseClasses.MultiWorld.worlds">
+<span class="sig-name descname"><span class="pre">worlds</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'AutoWorld.World'</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#BaseClasses.MultiWorld.worlds" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="baseclasses.html">BaseClasses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.CollectionState"><code class="docutils literal notranslate"><span class="pre">CollectionState</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.DEFAULT_COLLECTION_RULE"><code class="docutils literal notranslate"><span class="pre">DEFAULT_COLLECTION_RULE()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Entrance"><code class="docutils literal notranslate"><span class="pre">Entrance</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceInfo"><code class="docutils literal notranslate"><span class="pre">EntranceInfo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.EntranceType"><code class="docutils literal notranslate"><span class="pre">EntranceType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.HasNameAndPlayer"><code class="docutils literal notranslate"><span class="pre">HasNameAndPlayer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ItemClassification"><code class="docutils literal notranslate"><span class="pre">ItemClassification</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Location"><code class="docutils literal notranslate"><span class="pre">Location</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.LocationProgressType"><code class="docutils literal notranslate"><span class="pre">LocationProgressType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.MultiWorld"><code class="docutils literal notranslate"><span class="pre">MultiWorld</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoItemBlock"><code class="docutils literal notranslate"><span class="pre">PlandoItemBlock</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.PlandoOptions"><code class="docutils literal notranslate"><span class="pre">PlandoOptions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Spoiler"><code class="docutils literal notranslate"><span class="pre">Spoiler</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.ThreadBarrierProxy"><code class="docutils literal notranslate"><span class="pre">ThreadBarrierProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.Tutorial"><code class="docutils literal notranslate"><span class="pre">Tutorial</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="baseclasses.html#BaseClasses.get_seed"><code class="docutils literal notranslate"><span class="pre">get_seed()</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MultiWorld</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collectionstate.html">CollectionState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entrance.html">Entrance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="item.html">Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location.html">Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="region.html">Region</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="baseclasses.html"
+                          title="previous chapter">BaseClasses</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="collectionstate.html"
+                          title="next chapter">CollectionState</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/multiworld.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="collectionstate.html" title="CollectionState"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="baseclasses.html" title="BaseClasses"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="baseclasses.html" >BaseClasses</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">MultiWorld</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

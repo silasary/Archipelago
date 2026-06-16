@@ -1,0 +1,769 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(api-guide)=# API Guide</p>
+<p>Archipelago has a rudimentary API that can be queried by endpoints. The API is a work-in-progress and should be improved over time.</p>
+<p>The following API requests are formatted as: <code class="docutils literal notranslate"><span class="pre">https://&lt;Archipelago</span> <span class="pre">URL&gt;/api/&lt;endpoint&gt;</span></code></p>
+<p>The returned data will be formatted in a combination of JSON lists or dicts, with their keys or values being notated in <code class="docutils literal notranslate"><span class="pre">blocks</span></code> (if applicable)</p>
+<p>Current endpoints:</p>
+<ul class="simple">
+<li><p>Datapackage API</p>
+<ul>
+<li><p><a class="reference internal" href="netutils.html#NetUtils.MultiData.datapackage" title="NetUtils.MultiData.datapackage"><span class="xref myst py py-attr"><code class="docutils literal notranslate"><span class="pre">/datapackage</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#datapackagestringchecksum"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/datapackage/&lt;string:checksum&gt;</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#datapackagechecksum"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/datapackage_checksum</span></code></span></a></p></li>
+</ul>
+</li>
+<li><p>Generation API</p>
+<ul>
+<li><p><a class="reference internal" href="#generate"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/generate</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="netutils.html#NetUtils.Hint.status" title="NetUtils.Hint.status"><span class="xref myst py py-attr"><code class="docutils literal notranslate"><span class="pre">/status/&lt;suuid:seed&gt;</span></code></span></a></p></li>
+</ul>
+</li>
+<li><p>Room API</p>
+<ul>
+<li><p><a class="reference internal" href="#roomstatus"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/room_status/&lt;suuid:room_id&gt;</span></code></span></a></p></li>
+</ul>
+</li>
+<li><p>Tracker API</p>
+<ul>
+<li><p><a class="reference internal" href="#tracker"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/tracker/&lt;suuid:tracker&gt;</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#statictracker"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/static_tracker/&lt;suuid:tracker&gt;</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#slotdatatracker"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/slot_data_tracker/&lt;suuid:tracker&gt;</span></code></span></a></p></li>
+</ul>
+</li>
+<li><p>User API</p>
+<ul>
+<li><p><a class="reference internal" href="#getrooms"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/get_rooms</span></code></span></a></p></li>
+<li><p><a class="reference internal" href="#getseeds"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">/get_seeds</span></code></span></a></p></li>
+</ul>
+</li>
+</ul>
+<p>(api-data-caching)=## API Data Caching
+To reduce the strain on an Archipelago WebHost, many API endpoints will cache their data and only poll new data in timed intervals. Each endpoint has their own caching time related to the type of data being served. More dynamic data is refreshed more frequently, while static data is cached for longer.<br />
+Each API endpoint will have their “Cache timer” listed under their definition (if any).
+API calls to these endpoints should not be faster than the listed timer. This will result in wasted processing for your client and (more importantly) the Archipelago WebHost, as the data will not be refreshed by the WebHost until the internal timer has elapsed.</p>
+<p>(datapackage-endpoints)=## Datapackage Endpoints
+These endpoints are used by applications to acquire a room’s datapackage, and validate that they have the correct datapackage for use. Datapackages normally include, item IDs, location IDs, and name groupings, for a given room, and are essential for mapping IDs received from Archipelago to their correct items or locations.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/datapackage</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/datapackage</span></code>
+<a name="datapackage"></a></p>
+<p>Fetches the current datapackage from the WebHost.<br />
+<strong>Cache timer: None</strong></p>
+<p>You’ll receive a dict named <code class="docutils literal notranslate"><span class="pre">games</span></code> that contains a named dict of every game and its data currently supported by Archipelago.<br />
+Each game will have:</p>
+<ul class="simple">
+<li><p>A checksum <code class="docutils literal notranslate"><span class="pre">checksum</span></code></p></li>
+<li><p>A dict of item groups <code class="docutils literal notranslate"><span class="pre">item_name_groups</span></code></p></li>
+<li><p>Item name to AP ID dict <code class="docutils literal notranslate"><span class="pre">item_name_to_id</span></code></p></li>
+<li><p>A dict of location groups <code class="docutils literal notranslate"><span class="pre">location_name_groups</span></code></p></li>
+<li><p>Location name to AP ID dict <code class="docutils literal notranslate"><span class="pre">location_name_to_id</span></code></p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;games&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">        </span><span class="nt">&quot;Clique&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;checksum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0271f7a80b44ba72187f92815c2bc8669cb464c7&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;item_name_groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;Everything&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="s2">&quot;A Cool Filler Item (No Satisfaction Guaranteed)&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="s2">&quot;Button Activation&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="s2">&quot;Feeling of Satisfaction&quot;</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;item_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;A Cool Filler Item (No Satisfaction Guaranteed)&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">69696967</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;Button Activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">69696968</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;Feeling of Satisfaction&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">69696969</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;location_name_groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;Everywhere&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="s2">&quot;The Big Red Button&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="s2">&quot;The Item on the Desk&quot;</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;location_name_to_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;The Big Red Button&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">69696969</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;The Item on the Desk&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">69696968</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">/datapackage/&lt;string:checksum&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/datapackage/&lt;string:checksum&gt;</span></code>
+<a name="datapackagestringchecksum"></a></p>
+<p>Fetches a single datapackage by checksum.<br />
+<strong>Cache timer: None</strong></p>
+<p>Returns a dict of the game’s data with:</p>
+<ul class="simple">
+<li><p>A checksum <code class="docutils literal notranslate"><span class="pre">checksum</span></code></p></li>
+<li><p>A dict of item groups <code class="docutils literal notranslate"><span class="pre">item_name_groups</span></code></p></li>
+<li><p>Item name to AP ID dict <code class="docutils literal notranslate"><span class="pre">item_name_to_id</span></code></p></li>
+<li><p>A dict of location groups <code class="docutils literal notranslate"><span class="pre">location_name_groups</span></code></p></li>
+<li><p>Location name to AP ID dict <code class="docutils literal notranslate"><span class="pre">location_name_to_id</span></code></p></li>
+</ul>
+<p>Its format will be identical to the whole-datapackage endpoint (<code class="docutils literal notranslate"><span class="pre">/datapackage</span></code>), except you’ll only be returned the single game’s data in a dict.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/datapackage_checksum</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/datapackage_checksum</span></code>
+<a name="datapackagechecksum"></a></p>
+<p>Fetches the checksums of the current static datapackages on the WebHost.<br />
+<strong>Cache timer: None</strong></p>
+<p>You’ll receive a dict with <code class="docutils literal notranslate"><span class="pre">game:checksum</span></code> key-value pairs for all the current officially supported games.<br />
+Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="err">...</span>
+<span class="nt">&quot;Factorio&quot;</span><span class="p">:</span><span class="s2">&quot;a699194a9589db3ebc0d821915864b422c782f44&quot;</span><span class="p">,</span>
+<span class="err">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(generation-endpoint)=## Generation Endpoint
+These endpoints are used internally for the WebHost to generate games and validate their generation. They are also used by external applications to generate games automatically.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/generate</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/generate</span></code>
+<a name="generate"></a>
+Submits a game to the WebHost for generation.<br />
+<strong>This endpoint only accepts a POST HTTP request.</strong><br />
+<strong>Cache timer: None</strong></p>
+<p>There are two ways to submit data for generation: With a file and with JSON.</p>
+<p>(with-a-file:)=#### With a file:
+Have your ZIP of yaml(s) or a single yaml, and submit a POST request to the <code class="docutils literal notranslate"><span class="pre">/generate</span></code> endpoint.<br />
+If the options are valid, you’ll be returned a successful generation response. (see <a class="reference internal" href="#generation-response"><span class="xref myst">Generation Response</span></a>)</p>
+<p>Example using the python requests library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Games.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)}</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://archipelago.gg/api/generate&quot;</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(with-json:)=#### With JSON:
+Compile your weights/yaml data into a dict. Then insert that into a dict with the key <code class="docutils literal notranslate"><span class="pre">&quot;weights&quot;</span></code>.<br />
+Finally, submit a POST request to the <code class="docutils literal notranslate"><span class="pre">/generate</span></code> endpoint.<br />
+If the weighted options are valid, you’ll be returned a successful generation response (see <a class="reference internal" href="#generation-response"><span class="xref myst">Generation Response</span></a>)</p>
+<p>Example using the python requests library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Test&quot;</span><span class="p">:{</span><span class="s2">&quot;game&quot;</span><span class="p">:</span> <span class="s2">&quot;Factorio&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span><span class="s2">&quot;Factorio&quot;</span><span class="p">:</span> <span class="p">{}},}</span>
+<span class="n">weights</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;weights&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://archipelago.gg/api/generate&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(generation-response:)=#### Generation Response:
+(successful-generation:)=##### Successful Generation:
+Upon successful generation, you’ll be sent a JSON dict response detailing the generation:</p>
+<ul class="simple">
+<li><p>The UUID of the generation <code class="docutils literal notranslate"><span class="pre">detail</span></code></p></li>
+<li><p>The SUUID of the generation <code class="docutils literal notranslate"><span class="pre">encoded</span></code></p></li>
+<li><p>The response text <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
+<li><p>The page that will resolve to the seed/room generation page once generation has completed <code class="docutils literal notranslate"><span class="pre">url</span></code></p></li>
+<li><p>The API status page of the generation <code class="docutils literal notranslate"><span class="pre">wait_api_url</span></code> (see <a class="reference internal" href="netutils.html#NetUtils.Hint.status" title="NetUtils.Hint.status"><span class="xref myst py py-attr">Status Endpoint</span></a>)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19878f16-5a58-4b76-aab7-d6bf38be9463&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;encoded&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GYePFlpYS3aqt9a_OL6UYw&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Generation of seed 19878f16-5a58-4b76-aab7-d6bf38be9463 started successfully.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://archipelago.gg/wait/GYePFlpYS3aqt9a_OL6UYw&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;wait_api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://archipelago.gg/api/status/GYePFlpYS3aqt9a_OL6UYw&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(failed-generation:)=##### Failed Generation:</p>
+<p>Upon failed generation, you’ll be returned a single key-value pair. The key will always be <code class="docutils literal notranslate"><span class="pre">text</span></code><br />
+The value will give you a hint as to what may have gone wrong.</p>
+<ul class="simple">
+<li><p>Options without tags, and a 400 status code</p></li>
+<li><p>Options in a string, and a 400 status code</p></li>
+<li><p>Invalid file/weight string, <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">options</span> <span class="pre">found.</span> <span class="pre">Expected</span> <span class="pre">file</span> <span class="pre">attachment</span> <span class="pre">or</span> <span class="pre">json</span> <span class="pre">weights.</span></code> with a 400 status code</p></li>
+<li><p>Too many slots for the server to process, <code class="docutils literal notranslate"><span class="pre">Max</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">multiworld</span> <span class="pre">exceeded</span></code> with a 409 status code</p></li>
+</ul>
+<p>If the generation detects a issue in generation, you’ll be sent a dict with two key-value pairs (<code class="docutils literal notranslate"><span class="pre">text</span></code> and <code class="docutils literal notranslate"><span class="pre">detail</span></code>) and a 400 status code. The values will be:</p>
+<ul class="simple">
+<li><p>Summary of issue in <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
+<li><p>Detailed issue in <code class="docutils literal notranslate"><span class="pre">detail</span></code></p></li>
+</ul>
+<p>In the event of an unhandled server exception, you’ll be provided a dict with a single key <code class="docutils literal notranslate"><span class="pre">text</span></code>:</p>
+<ul class="simple">
+<li><p>Exception, <code class="docutils literal notranslate"><span class="pre">Uncaught</span> <span class="pre">Exception:</span> <span class="pre">&lt;error&gt;</span></code> with a 500 status code</p></li>
+</ul>
+<p>(<code class="docutils literal notranslate"><span class="pre">/status/&lt;suuid:seed&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/status/&lt;suuid:seed&gt;</span></code>
+<a name="status"></a>
+Retrieves the status of the seed’s generation.<br />
+<strong>Cache timer: None</strong></p>
+<p>This endpoint will return a dict with a single key-value pair. The key will always be <code class="docutils literal notranslate"><span class="pre">text</span></code><br />
+The value will tell you the status of the generation:</p>
+<ul class="simple">
+<li><p>Generation was completed: <code class="docutils literal notranslate"><span class="pre">Generation</span> <span class="pre">done</span></code> with a 201 status code</p></li>
+<li><p>Generation request was not found: <code class="docutils literal notranslate"><span class="pre">Generation</span> <span class="pre">not</span> <span class="pre">found</span></code> with a 404 status code</p></li>
+<li><p>Generation of the seed failed: <code class="docutils literal notranslate"><span class="pre">Generation</span> <span class="pre">failed</span></code> with a 500 status code</p></li>
+<li><p>Generation is in progress still: <code class="docutils literal notranslate"><span class="pre">Generation</span> <span class="pre">running</span></code> with a 202 status code</p></li>
+</ul>
+<p>(room-endpoints)=## Room Endpoints
+Endpoints to fetch information of the active WebHost room with the supplied room_ID.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/room_status/&lt;suuid:room_id&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/room_status/&lt;suuid:room_id&gt;</span></code><br />
+<a name="roomstatus"></a>
+<strong>Cache timer: None</strong></p>
+<p>Will provide a dict of room data with the following keys:</p>
+<ul class="simple">
+<li><p>Tracker SUUID (<code class="docutils literal notranslate"><span class="pre">tracker</span></code>)</p></li>
+<li><p>A list of players (<code class="docutils literal notranslate"><span class="pre">players</span></code>)</p>
+<ul>
+<li><p>Each item containing a list with the Slot name and Game</p></li>
+</ul>
+</li>
+<li><p>Last known hosted port (<code class="docutils literal notranslate"><span class="pre">last_port</span></code>)</p></li>
+<li><p>Last activity timestamp (<code class="docutils literal notranslate"><span class="pre">last_activity</span></code>)</p></li>
+<li><p>The room timeout counter (<code class="docutils literal notranslate"><span class="pre">timeout</span></code>)</p></li>
+<li><p>A list of downloads for files required for gameplay (<code class="docutils literal notranslate"><span class="pre">downloads</span></code>)</p>
+<ul>
+<li><p>Each item is a dict containing the download URL and slot (<code class="docutils literal notranslate"><span class="pre">slot</span></code>, <code class="docutils literal notranslate"><span class="pre">download</span></code>)</p></li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;downloads&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/slot_file/kK5fmxd8TfisU5Yp_eg/1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/slot_file/kK5fmxd8TfisU5Yp_eg/2&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/slot_file/kK5fmxd8TfisU5Yp_eg/3&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/slot_file/kK5fmxd8TfisU5Yp_eg/4&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;download&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/slot_file/kK5fmxd8TfisU5Yp_eg/5&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;last_activity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:35:45 GMT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;last_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">52122</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;players&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;Slot_Name_1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;Slot_Name_2&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;Slot_Name_3&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;Slot_Name_4&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;Slot_Name_5&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tracker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2gVkMQgISGScA8wsvDZg5A&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(tracker-endpoints)=## Tracker Endpoints
+Endpoints to fetch information regarding players of an active WebHost room with the supplied tracker_ID. The tracker ID
+can either be viewed while on a room tracker page, or from the <a class="reference internal" href="#room-endpoints"><span class="xref myst">room’s endpoint</span></a>.</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/tracker/&lt;suuid:tracker&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/tracker/&lt;suuid:tracker&gt;</span></code>
+<a name=tracker></a>
+<strong>Cache timer: 60 seconds</strong></p>
+<p>Will provide a dict of tracker data with the following keys:</p>
+<ul class="simple">
+<li><p>A list of players current alias data (<code class="docutils literal notranslate"><span class="pre">aliases</span></code>)</p>
+<ul>
+<li><p>Each item containing a dict with, their alias <code class="docutils literal notranslate"><span class="pre">alias</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alias</span></code> will return <code class="docutils literal notranslate"><span class="pre">null</span></code> if there is no alias set</p></li>
+</ul>
+</li>
+<li><p>A list of items each player has received as a <a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">NetworkItem</span></a> (<code class="docutils literal notranslate"><span class="pre">player_items_received</span></code>)</p>
+<ul>
+<li><p>Each item containing a dict with, a list of NetworkItems <code class="docutils literal notranslate"><span class="pre">items</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list of checks done by each player as a list of the location id’s (<code class="docutils literal notranslate"><span class="pre">player_checks_done</span></code>)</p>
+<ul>
+<li><p>Each item containing a dict with, a list of checked location id’s <code class="docutils literal notranslate"><span class="pre">locations</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list of the total number of checks done by all players (<code class="docutils literal notranslate"><span class="pre">total_checks_done</span></code>)</p>
+<ul>
+<li><p>Each item will contain a dict with, the total checks done <code class="docutils literal notranslate"><span class="pre">checks_done</span></code>, and the team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list of <a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">Hints</span></a> data that players have used or received (<code class="docutils literal notranslate"><span class="pre">hints</span></code>)</p>
+<ul>
+<li><p>Each item containing a dict containing, a list of hint data <code class="docutils literal notranslate"><span class="pre">hints</span></code>, the player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list containing the last activity time for each player, formatted in RFC 1123 format (<code class="docutils literal notranslate"><span class="pre">activity_timers</span></code>)</p>
+<ul>
+<li><p>Each item containing, last activity time <code class="docutils literal notranslate"><span class="pre">time</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list containing the last connection time for each player, formatted in RFC 1123 format (<code class="docutils literal notranslate"><span class="pre">connection_timers</span></code>)</p>
+<ul>
+<li><p>Each item containing, the time of their last connection <code class="docutils literal notranslate"><span class="pre">time</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+<li><p>A list of the current <a class="reference internal" href="network%20protocol.html"><span class="doc std std-doc">ClientStatus</span></a> of each player (<code class="docutils literal notranslate"><span class="pre">player_status</span></code>)</p>
+<ul>
+<li><p>Each item will contain, their status <code class="docutils literal notranslate"><span class="pre">status</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;aliases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Incompetence&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Slot_Name_2&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;alias&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;player_items_received&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;player_checks_done&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;locations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">2</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;locations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">2</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;total_checks_done&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;checks_done&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;activity_timers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:35:45 GMT&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:42:46 GMT&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;connection_timers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:38:25 GMT&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 21:03:00 GMT&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;player_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">/static_tracker/&lt;suuid:tracker&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/static_tracker/&lt;suuid:tracker&gt;</span></code>
+<a name=statictracker></a>
+<strong>Cache timer: 300 seconds</strong></p>
+<p>Will provide a dict of static tracker data with the following keys:</p>
+<ul class="simple">
+<li><p>A list of item_link groups and their member players (<code class="docutils literal notranslate"><span class="pre">groups</span></code>)</p>
+<ul>
+<li><p>Each item containing a dict with, the slot registering the group <code class="docutils literal notranslate"><span class="pre">slot</span></code>, the item_link name <code class="docutils literal notranslate"><span class="pre">name</span></code>, and a list of members <code class="docutils literal notranslate"><span class="pre">members</span></code></p></li>
+</ul>
+</li>
+<li><p>A dict of datapackage hashes for each game (<code class="docutils literal notranslate"><span class="pre">datapackage</span></code>)</p>
+<ul>
+<li><p>Each item is a named dict of the game’s name.</p>
+<ul>
+<li><p>Each game contains two keys, the datapackage’s checksum hash <code class="docutils literal notranslate"><span class="pre">checksum</span></code>, and the version <code class="docutils literal notranslate"><span class="pre">version</span></code></p></li>
+</ul>
+</li>
+<li><p>This hash can then be sent to the datapackage API to receive the appropriate datapackage as necessary</p></li>
+</ul>
+</li>
+<li><p>A list of number of checks found vs. total checks available per player (<code class="docutils literal notranslate"><span class="pre">player_locations_total</span></code>)</p>
+<ul>
+<li><p>Each list item contains a dict with three keys, the total locations for that slot <code class="docutils literal notranslate"><span class="pre">total_locations</span></code>, their player number <code class="docutils literal notranslate"><span class="pre">player</span></code>, and their team <code class="docutils literal notranslate"><span class="pre">team</span></code></p></li>
+<li><p>Same logic as the multitracker template: found = len(player_checks_done.locations) / total = player_locations_total.total_locations (all available checks).</p></li>
+</ul>
+</li>
+<li><p>The game each player is playing (<code class="docutils literal notranslate"><span class="pre">player_game</span></code>)</p>
+<ul>
+<li><p>Provided as a list of objects with <code class="docutils literal notranslate"><span class="pre">team</span></code>, <code class="docutils literal notranslate"><span class="pre">player</span></code>, and <code class="docutils literal notranslate"><span class="pre">game</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testGroup&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;members&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">2</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;slot&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myCoolLink&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;members&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">4</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;datapackage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Archipelago&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;checksum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ac9141e9ad0318df2fa27da5f20c50a842afeecb&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;The Messenger&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;checksum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6991cbcda7316b65bcb072667f3ee4c4cae71c0b&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;player_locations_total&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_locations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;total_locations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;player_game&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Archipelago&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;game&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The Messenger&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">/slot_data_tracker/&lt;suuid:tracker&gt;</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/slot_data_tracker/&lt;suuid:tracker&gt;</span></code>
+<a name=slotdatatracker></a>
+Will provide a list of each player’s slot_data.<br />
+<strong>Cache timer: 300 seconds</strong></p>
+<p>Each list item will contain a dict with the player’s data:</p>
+<ul class="simple">
+<li><p>player slot number <code class="docutils literal notranslate"><span class="pre">player</span></code></p></li>
+<li><p>A named dict <code class="docutils literal notranslate"><span class="pre">slot_data</span></code> containing any set slot data for that player</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slot_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;example_option&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;other_option&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slot_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;example_option&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;other_option&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>(user-endpoints)=## User Endpoints
+User endpoints can get room and seed details from the current session tokens (cookies)</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">/get_rooms</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/get_rooms</span></code><br />
+<a name="getrooms"></a>
+Retreives a list of all rooms currently owned by the session token.<br />
+<strong>Cache timer: None</strong></p>
+<p>Each list item will contain a dict with the room’s details:</p>
+<ul class="simple">
+<li><p>Room SUUID (<code class="docutils literal notranslate"><span class="pre">room_id</span></code>)</p></li>
+<li><p>Seed SUUID (<code class="docutils literal notranslate"><span class="pre">seed_id</span></code>)</p></li>
+<li><p>Creation timestamp (<code class="docutils literal notranslate"><span class="pre">creation_time</span></code>)</p></li>
+<li><p>Last activity timestamp (<code class="docutils literal notranslate"><span class="pre">last_activity</span></code>)</p></li>
+<li><p>Last known AP port (<code class="docutils literal notranslate"><span class="pre">last_port</span></code>)</p></li>
+<li><p>Room timeout counter in seconds (<code class="docutils literal notranslate"><span class="pre">timeout</span></code>)</p></li>
+<li><p>Room tracker SUUID (<code class="docutils literal notranslate"><span class="pre">tracker</span></code>)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;creation_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 19:46:53 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_activity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 21:16:02 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">52122</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0D30FgQaRcWivFsw9o8qzw&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;seed_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TFjiarBgTsCj5-Jbe8u33A&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tracker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;52BycvJhRe6knrYH8v4bag&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;creation_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:36:42 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_activity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:36:46 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;last_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">56884</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;room_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LMCFchESSNyuqcY3GxkhwA&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;seed_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CENtJMXCTGmkIYCzjB5Csg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">7200</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;tracker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2gVkMQgISGScA8wsvDZg5A&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">/get_seeds</span></code>)=### <code class="docutils literal notranslate"><span class="pre">/get_seeds</span></code><br />
+<a name="getseeds"></a>
+Retreives a list of all seeds currently owned by the session token.<br />
+<strong>Cache timer: None</strong></p>
+<p>Each item in the list will contain a dict with the seed’s details:</p>
+<ul class="simple">
+<li><p>Seed SUUID (<code class="docutils literal notranslate"><span class="pre">seed_id</span></code>)</p></li>
+<li><p>Creation timestamp (<code class="docutils literal notranslate"><span class="pre">creation_time</span></code>)</p></li>
+<li><p>A list of player slots (<code class="docutils literal notranslate"><span class="pre">players</span></code>)</p>
+<ul>
+<li><p>Each item in the list will contain a list of the slot name and game</p></li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;creation_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 19:46:52 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;players&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_1&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_2&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_3&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_4&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_5&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Ocarina of Time&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;seed_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CENtJMXCTGmkIYCzjB5Csg&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;creation_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Fri, 18 Apr 2025 20:36:39 GMT&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;players&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_1&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Clique&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_2&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Clique&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_3&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Clique&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;Slot_Name_4&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;Archipelago&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;seed_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TFjiarBgTsCj5-Jbe8u33A&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/webhost api.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

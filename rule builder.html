@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Archipelago 0.6.8 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=cbb4336f" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    <script src="_static/documentation_options.js?v=ac3b80e6"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>(rule-builder)=# Rule Builder</p>
+<p>This document describes the API provided for the rule builder. Using this API provides you with with a simple interface
+to define rules and the following advantages:</p>
+<ul class="simple">
+<li><p>Rule classes that avoid all the common pitfalls</p></li>
+<li><p>Logic optimization</p></li>
+<li><p>Automatic result caching (opt-in)</p></li>
+<li><p>Serialization/deserialization</p></li>
+<li><p>Human-readable logic explanations for players</p></li>
+</ul>
+<p>(overview)=## Overview</p>
+<p>The rule builder consists of 3 main parts:</p>
+<ol class="arabic simple">
+<li><p>The rules, which are classes that inherit from <code class="docutils literal notranslate"><span class="pre">rule_builder.rules.Rule</span></code>. These are what you write for your logic.
+They can be combined and take into account your world’s options. There are a number of default rules listed below,
+and you can create as many custom rules for your world as needed. When assigning the rules to a location or entrance
+they must be resolved.</p></li>
+<li><p>Resolved rules, which are classes that inherit from <code class="docutils literal notranslate"><span class="pre">rule_builder.rules.Rule.Resolved</span></code>. These are the optimized rules
+specific to one player that are set as a location or entrance’s access rule. You generally shouldn’t be directly
+creating these but they’ll be created when assigning rules to locations or entrances. These are what power the
+human-readable logic explanations.</p></li>
+<li><p>The optional rule builder world subclass <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code>, which is a class your world can inherit from
+instead of <code class="docutils literal notranslate"><span class="pre">World</span></code>. It adds a caching system to the rules that will lazy evaluate and cache the result.</p></li>
+</ol>
+<p>(usage)=## Usage</p>
+<p>For the most part the only difference in usage is instead of writing lambdas for your logic, you write static Rule
+objects. You then must use <code class="docutils literal notranslate"><span class="pre">world.set_rule</span></code> to assign the rule to a location or entrance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="ow">in</span><span class="o">-</span><span class="n">your</span><span class="o">-</span><span class="n">world</span><span class="s1">&#39;s-create_regions-method)=# In your world&#39;</span><span class="n">s</span> <span class="n">create_regions</span> <span class="n">method</span>
+<span class="n">location</span> <span class="o">=</span> <span class="n">MyWorldLocation</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">set_rule</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;A Big Gun&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The rule builder comes with a number of rules by default:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True_</span></code>: Always returns true</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False_</span></code>: Always returns false</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">And</span></code>: Checks that all child rules are true (also provided by <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Or</span></code>: Checks that at least one child rule is true (also provided by <code class="docutils literal notranslate"><span class="pre">|</span></code> operator)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AtLeast</span></code>: Checks that at least some count of rules is true</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Has</span></code>: Checks that the player has the given item with the given count (default 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasAll</span></code>: Checks that the player has all given items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasAny</span></code>: Checks that the player has at least one of the given items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasAllCounts</span></code>: Checks that the player has all of the counts for the given items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasAnyCount</span></code>: Checks that the player has any of the counts for the given items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasFromList</span></code>: Checks that the player has some number of given items</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasFromListUnique</span></code>: Checks that the player has some number of given items, ignoring duplicates of the same item</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasGroup</span></code>: Checks that the player has some number of items from a given item group</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HasGroupUnique</span></code>: Checks that the player has some number of items from a given item group, ignoring duplicates of the
+same item</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CanReachLocation</span></code>: Checks that the player can logically reach the given location</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CanReachRegion</span></code>: Checks that the player can logically reach the given region</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CanReachEntrance</span></code>: Checks that the player can logically reach the given entrance</p></li>
+</ul>
+<p>You can combine these rules together to describe the logic required for something. For example, to check if a player
+either has <code class="docutils literal notranslate"><span class="pre">Movement</span> <span class="pre">ability</span></code> or they have both <code class="docutils literal notranslate"><span class="pre">Key</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">Key</span> <span class="pre">2</span></code>, you can do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Movement ability&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">HasAll</span><span class="p">(</span><span class="s2">&quot;Key 1&quot;</span><span class="p">,</span> <span class="s2">&quot;Key 2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>⚠️ Composing rules with the <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> keywords will not work. You must use the bitwise <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and <code class="docutils literal notranslate"><span class="pre">|</span></code> operators. In
+order to catch mistakes, the rule builder will not let you do boolean operations. As a consequence, in order to check
+if a rule is defined you must use <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">rule</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code>.</p>
+</div></blockquote>
+<p>(assigning-rules)=### Assigning rules</p>
+<p>When assigning the rule you must use the <code class="docutils literal notranslate"><span class="pre">set_rule</span></code> helper to correctly resolve and register the rule.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">set_rule</span><span class="p">(</span><span class="n">location_or_entrance</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is also a <code class="docutils literal notranslate"><span class="pre">create_entrance</span></code> helper that will resolve the rule, check if it’s <code class="docutils literal notranslate"><span class="pre">False</span></code>, and if not create the
+entrance and set the rule. This allows you to skip creating entrances that will never be valid. You can also specify
+<code class="docutils literal notranslate"><span class="pre">force_creation=True</span></code> if you would like to create the entrance even if the rule is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">create_entrance</span><span class="p">(</span><span class="n">from_region</span><span class="p">,</span> <span class="n">to_region</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>⚠️ If you use a <code class="docutils literal notranslate"><span class="pre">CanReachLocation</span></code> rule on an entrance, you will either have to create the locations first, or specify
+the location’s parent region name with the <code class="docutils literal notranslate"><span class="pre">parent_region_name</span></code> argument of <code class="docutils literal notranslate"><span class="pre">CanReachLocation</span></code>.</p>
+</div></blockquote>
+<p>You can also set a rule for your world’s completion condition:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">set_completion_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(restricting-options)=### Restricting options</p>
+<p>Every rule allows you to specify which options it’s applicable for. You can provide the argument <code class="docutils literal notranslate"><span class="pre">options</span></code> which is an
+iterable of <code class="docutils literal notranslate"><span class="pre">OptionFilter</span></code> instances. When resolved, if no filters are provided or all of them pass then the rule will
+resolve as normal. Otherwise, the rule will be replaced with <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> depending on what <code class="docutils literal notranslate"><span class="pre">filtered_resolution</span></code>
+is set to, which defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule1</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span>
+    <span class="s2">&quot;Fast Travel Spell&quot;</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">RandoFastTravel</span><span class="p">,</span> <span class="n">RandoFastTravel</span><span class="o">.</span><span class="n">option_true</span><span class="p">)],</span>
+<span class="p">)</span>
+<span class="n">rule2</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span>
+    <span class="s2">&quot;Starting Party Member&quot;</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">RandoParty</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>  <span class="c1"># option attributes are suggested but any value works</span>
+    <span class="n">filtered_resolution</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want a comparison that isn’t equals, you can specify with the <code class="docutils literal notranslate"><span class="pre">operator</span></code> argument. The following operators are
+allowed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eq</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">==</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ne</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">!=</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">&gt;</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lt</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">&lt;</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ge</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">&gt;=</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">le</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">&lt;=</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">in</span></code>: <code class="docutils literal notranslate"><span class="pre">option_value</span> <span class="pre">in</span> <span class="pre">filter_value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">contains</span></code>: <code class="docutils literal notranslate"><span class="pre">filter_value</span> <span class="pre">in</span> <span class="pre">option_value</span></code> (note reversed operands)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule1</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Movement Ability&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">SkipsLevel</span><span class="p">,</span> <span class="n">SkipsLevel</span><span class="o">.</span><span class="n">option_hard</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;lt&quot;</span><span class="p">)])</span>
+<span class="n">rule2</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">ChoiceOption</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;in&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p>To check if the player has received the switch item if switches are randomized, or if they can reach the switch when not
+randomized:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Red switch&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">SwitchRando</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+    <span class="o">|</span> <span class="n">CanReachLocation</span><span class="p">(</span><span class="s2">&quot;Red switch&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">SwitchRando</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>To add an extra logic requirement on the easiest difficulty which is ignored for other difficulties:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="c1"># ...the rest of the logic</span>
+    <span class="o">&amp;</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;QoL item&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">Difficulty</span><span class="p">,</span> <span class="n">Difficulty</span><span class="o">.</span><span class="n">option_easy</span><span class="p">)],</span> <span class="n">filtered_resolution</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If you would like to provide option filters when reusing or composing rules, you can use the <code class="docutils literal notranslate"><span class="pre">Filtered</span></code> helper rule:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">common_rule</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">HasAny</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">rule</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Filtered</span><span class="p">(</span><span class="n">common_rule</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">Opt</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+    <span class="o">|</span> <span class="n">Filtered</span><span class="p">(</span><span class="n">Has</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">CanReachRegion</span><span class="p">(</span><span class="s2">&quot;Y&quot;</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">Opt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>For convenience, you can also use the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> and <code class="docutils literal notranslate"><span class="pre">|</span></code> operators to apply options to rules:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">common_rule</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">easy_filter</span> <span class="o">=</span> <span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">Difficulty</span><span class="p">,</span> <span class="n">Difficulty</span><span class="o">.</span><span class="n">option_easy</span><span class="p">)]</span>
+<span class="n">common_rule_only_on_easy</span> <span class="o">=</span> <span class="n">common_rule</span> <span class="o">&amp;</span> <span class="n">easy_filter</span>
+<span class="n">common_rule_skipped_on_easy</span> <span class="o">=</span> <span class="n">common_rule</span> <span class="o">|</span> <span class="n">easy_filter</span>
+</pre></div>
+</div>
+<p>Combining the above, you can easily bypass a requirement based on option choices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Some Upgrade&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">OptionFilter</span><span class="p">(</span><span class="n">CombatDifficulty</span><span class="p">,</span> <span class="n">CombatDifficulty</span><span class="o">.</span><span class="n">option_medium</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;ge&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(field-resolvers)=### Field resolvers</p>
+<p>When creating rules you may sometimes need to set a field to a value that depends on the world instance. You can use a
+<code class="docutils literal notranslate"><span class="pre">FieldResolver</span></code> to define how to populate that field when the rule is being resolved.</p>
+<p>There are two build-in field resolvers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FromOption</span></code>: Resolves to the value of the given option</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FromWorldAttr</span></code>: Resolves to the value of the given world instance attribute, can specify a dotted path <code class="docutils literal notranslate"><span class="pre">a.b.c</span></code> to get
+a nested attribute or dict item</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">mcguffin_count</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">world</span><span class="o">.</span><span class="n">precalculated_value</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="n">rule</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">FromOption</span><span class="p">(</span><span class="n">McguffinCount</span><span class="p">))</span>
+    <span class="o">|</span> <span class="n">HasGroup</span><span class="p">(</span><span class="s2">&quot;Important items&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">FromWorldAttr</span><span class="p">(</span><span class="s2">&quot;precalculated_value&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="p">(</span><span class="n">results</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="o">-</span><span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">-|-</span><span class="n">hasgroup</span><span class="p">(</span><span class="s2">&quot;important-items&quot;</span><span class="p">,</span><span class="o">-</span><span class="n">count</span><span class="o">=</span><span class="mi">99</span><span class="p">))</span><span class="o">=</span><span class="c1"># Results in Has(&quot;A&quot;, count=5) | HasGroup(&quot;Important items&quot;, count=99)</span>
+</pre></div>
+</div>
+<p>You can define your own resolvers by creating a class that inherits from <code class="docutils literal notranslate"><span class="pre">FieldResolver</span></code>, provides your game name, and
+implements a <code class="docutils literal notranslate"><span class="pre">resolve</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FromCustomResolution</span><span class="p">(</span><span class="n">FieldResolver</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;MyGame&quot;</span><span class="p">):</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="nd">@override</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">some_math_calculation</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modifier</span><span class="p">)</span>
+
+
+<span class="n">rule</span> <span class="o">=</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Combat Level&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">FromCustomResolution</span><span class="p">(</span><span class="s2">&quot;combat&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If you want to support rule serialization and your resolver contains non-serializable properties you may need to
+override <code class="docutils literal notranslate"><span class="pre">to_dict</span></code> or <code class="docutils literal notranslate"><span class="pre">from_dict</span></code>.</p>
+<p>(enabling-caching)=## Enabling caching</p>
+<p>The rule builder provides a <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code> base class for your <code class="docutils literal notranslate"><span class="pre">World</span></code> class that enables caching on your
+rules.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWorld</span><span class="p">(</span><span class="n">CachedRuleBuilderWorld</span><span class="p">):</span>
+    <span class="n">game</span> <span class="o">=</span> <span class="s2">&quot;My Game&quot;</span>
+</pre></div>
+</div>
+<p>If your world’s logic is very simple and you don’t have many nested rules, the caching system may have more overhead
+cost than time it saves. You’ll have to benchmark your own world to see if it should be enabled or not.</p>
+<p>(item-name-mapping)=### Item name mapping</p>
+<p>If you have multiple real items that map to a single logic item, add a <code class="docutils literal notranslate"><span class="pre">item_mapping</span></code> class dict to your world that maps
+actual item names to real item names so the cache system knows what to invalidate.</p>
+<p>For example, if you have multiple <code class="docutils literal notranslate"><span class="pre">Currency</span> <span class="pre">x&lt;num&gt;</span></code> items on locations, but your rules only check a singular logical
+<code class="docutils literal notranslate"><span class="pre">Currency</span></code> item, eg <code class="docutils literal notranslate"><span class="pre">Has(&quot;Currency&quot;,</span> <span class="pre">1000)</span></code>, you’ll want to map each numerical currency item to the single logical
+<code class="docutils literal notranslate"><span class="pre">Currency</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyWorld</span><span class="p">(</span><span class="n">CachedRuleBuilderWorld</span><span class="p">):</span>
+    <span class="n">item_mapping</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Currency x10&quot;</span><span class="p">:</span> <span class="s2">&quot;Currency&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Currency x50&quot;</span><span class="p">:</span> <span class="s2">&quot;Currency&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Currency x100&quot;</span><span class="p">:</span> <span class="s2">&quot;Currency&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Currency x500&quot;</span><span class="p">:</span> <span class="s2">&quot;Currency&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>(defining-custom-rules)=## Defining custom rules</p>
+<p>You can create a custom rule by creating a class that inherits from <code class="docutils literal notranslate"><span class="pre">Rule</span></code> or any of the default rules. You must provide
+the game name as an argument to the class. It’s recommended to use the <code class="docutils literal notranslate"><span class="pre">&#64;dataclass</span></code> decorator to reduce boilerplate, and
+to also provide your world as a type argument to add correct type checking to the <code class="docutils literal notranslate"><span class="pre">_instantiate</span></code> method.</p>
+<p>You must provide or inherit a <code class="docutils literal notranslate"><span class="pre">Resolved</span></code> child class that defines an <code class="docutils literal notranslate"><span class="pre">_evaluate</span></code> method. This class will automatically
+be converted into a frozen <code class="docutils literal notranslate"><span class="pre">dataclass</span></code>. If your world has caching enabled you may need to define one or more
+dependencies functions as outlined below.</p>
+<p>To add a rule that checks if the user has enough mcguffins to goal, with a randomized requirement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CanGoal</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_instantiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">:</span> <span class="s2">&quot;MyWorld&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">:</span>
+        <span class="c1"># caching_enabled only needs to be passed in when your world inherits from CachedRuleBuilderWorld</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Resolved</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">required_mcguffins</span><span class="p">,</span> <span class="n">player</span><span class="o">=</span><span class="n">world</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="n">caching_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="n">goal</span><span class="p">:</span> <span class="nb">int</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;McGuffin&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">goal</span><span class="p">)</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">item_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+            <span class="c1"># this function is only required if you have caching enabled</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;McGuffin&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)}}</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">explain_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">JSONMessagePart</span><span class="p">]:</span>
+            <span class="c1"># this method can be overridden to display custom explanations</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Goal with &quot;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;green&quot;</span> <span class="k">if</span> <span class="n">state</span> <span class="ow">and</span> <span class="bp">self</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;salmon&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">goal</span><span class="p">)},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot; McGuffins&quot;</span><span class="p">},</span>
+            <span class="p">]</span>
+</pre></div>
+</div>
+<p>Your custom rule can also resolve to builtin rules instead of needing to define your own:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ComplicatedFilter</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_instantiate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">world</span><span class="p">:</span> <span class="s2">&quot;MyWorld&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">world</span><span class="o">.</span><span class="n">some_precalculated_bool</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;Item 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">world</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">some_option</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">CanReachRegion</span><span class="p">(</span><span class="s2">&quot;Region 1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">False_</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(item-dependencies)=### Item dependencies</p>
+<p>If your world inherits from <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code> and there are items that when collected will affect the result of
+your rule evaluation, it must define an <code class="docutils literal notranslate"><span class="pre">item_dependencies</span></code> function that returns a mapping of the item name to the id
+of your rule. These dependencies will be combined to inform the caching system. It may be worthwhile to define this
+function even when caching is disabled as more things may use it in the future.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="n">item_name</span><span class="p">:</span> <span class="nb">str</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">item_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">item_name</span><span class="p">:</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)}}</span>
+</pre></div>
+</div>
+<p>All of the default <code class="docutils literal notranslate"><span class="pre">Has*</span></code> rules define this function already.</p>
+<p>(region-dependencies)=### Region dependencies</p>
+<p>If your custom rule references other regions, it must define a <code class="docutils literal notranslate"><span class="pre">region_dependencies</span></code> function that returns a mapping of
+region names to the id of your rule regardless of if your world inherits from <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code>. These
+dependencies will be combined to register indirect connections when you set this rule on an entrance and inform the
+caching system if applicable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="n">region_name</span><span class="p">:</span> <span class="nb">str</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">region_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">region_name</span><span class="p">:</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)}}</span>
+</pre></div>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">CanReachLocation</span></code>, <code class="docutils literal notranslate"><span class="pre">CanReachRegion</span></code>, and <code class="docutils literal notranslate"><span class="pre">CanReachEntrance</span></code> rules define this function already.</p>
+<p>(location-dependencies)=### Location dependencies</p>
+<p>If your custom rule references other locations, it must define a <code class="docutils literal notranslate"><span class="pre">location_dependencies</span></code> function that returns a mapping
+of the location name to the id of your rule regardless of if your world inherits from <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code>. These
+dependencies will be combined to register indirect connections when you set this rule on an entrance and inform the
+caching system if applicable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="n">location_name</span><span class="p">:</span> <span class="nb">str</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">location_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">location_name</span><span class="p">:</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)}}</span>
+</pre></div>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">CanReachLocation</span></code> rule defines this function already.</p>
+<p>(entrance-dependencies)=### Entrance dependencies</p>
+<p>If your custom rule references other entrances, it must define a <code class="docutils literal notranslate"><span class="pre">entrance_dependencies</span></code> function that returns a mapping
+of the entrance name to the id of your rule regardless of if your world inherits from <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code>. These
+dependencies will be combined to register indirect connections when you set this rule on an entrance and inform the
+caching system if applicable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">[</span><span class="s2">&quot;MyWorld&quot;</span><span class="p">],</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="n">entrance_name</span><span class="p">:</span> <span class="nb">str</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">entrance_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">entrance_name</span><span class="p">:</span> <span class="p">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)}}</span>
+</pre></div>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">CanReachEntrance</span></code> rule defines this function already.</p>
+<p>(rule-explanations)=### Rule explanations</p>
+<p>Resolved rules have a default implementation for <code class="docutils literal notranslate"><span class="pre">explain_json</span></code> and <code class="docutils literal notranslate"><span class="pre">explain_str</span></code> functions. The former optionally
+accepts a <code class="docutils literal notranslate"><span class="pre">CollectionState</span></code> and returns a list of <code class="docutils literal notranslate"><span class="pre">JSONMessagePart</span></code> appropriate for <code class="docutils literal notranslate"><span class="pre">print_json</span></code> in a client. It will
+display a human-readable message that explains what the rule requires. The latter is similar but returns a string. It is
+useful when debugging. There is also a <code class="docutils literal notranslate"><span class="pre">__str__</span></code> method defined to check what a rule is without a state.</p>
+<p>To implement a custom message with a custom rule, override the <code class="docutils literal notranslate"><span class="pre">explain_json</span></code> and/or <code class="docutils literal notranslate"><span class="pre">explain_str</span></code> method on your
+<code class="docutils literal notranslate"><span class="pre">Resolved</span></code> class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Resolved</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">):</span>
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">explain_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">JSONMessagePart</span><span class="p">]:</span>
+            <span class="n">has_item</span> <span class="o">=</span> <span class="n">state</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;growth spurt&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;You must be &quot;</span>
+            <span class="k">if</span> <span class="n">has_item</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;You are &quot;</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span>
+            <span class="k">elif</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;You are not &quot;</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;salmon&quot;</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">start</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;THIS&quot;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot; tall to beat the game&quot;</span><span class="p">},</span>
+            <span class="p">]</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">explain_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">CollectionState</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;growth spurt&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;You ARE this tall and can beat the game&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;You are not THIS tall and cannot beat the game&quot;</span>
+
+        <span class="nd">@override</span>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;You must be THIS tall to beat the game&quot;</span>
+</pre></div>
+</div>
+<p>(cache-control)=### Cache control</p>
+<p>By default your custom rule will work through the cache system as any other rule if caching is enabled. There are two
+class attributes on the <code class="docutils literal notranslate"><span class="pre">Resolved</span></code> class you can override to change this behavior.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">force_recalculate</span></code>: Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> will cause your custom rule to skip going through the caching system and
+always recalculate when being evaluated. When a rule with this flag enabled is composed with <code class="docutils literal notranslate"><span class="pre">And</span></code> or <code class="docutils literal notranslate"><span class="pre">Or</span></code> it will
+cause any parent rules to always force recalculate as well. Use this flag when it’s difficult to determine when your
+rule should be marked as stale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">skip_cache</span></code>: Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> will also cause your custom rule to skip going through the caching system when
+being evaluated. However, it will <strong>not</strong> affect any other rules when composed with <code class="docutils literal notranslate"><span class="pre">And</span></code> or <code class="docutils literal notranslate"><span class="pre">Or</span></code>, so it must still
+define its <code class="docutils literal notranslate"><span class="pre">*_dependencies</span></code> functions as required. Use this flag when the evaluation of this rule is trivial and the
+overhead of the caching system will slow it down.</p></li>
+</ul>
+<p>(caveats)=### Caveats</p>
+<ul class="simple">
+<li><p>Ensure you are passing <code class="docutils literal notranslate"><span class="pre">caching_enabled=True</span></code> in your <code class="docutils literal notranslate"><span class="pre">_instantiate</span></code> function when creating resolved rule instances if
+your world has opted into caching.</p></li>
+<li><p>Resolved rules are forced to be frozen dataclasses. They and all their attributes must be immutable and hashable.</p></li>
+<li><p>If your rule creates child rules ensure they are being resolved through the world rather than creating <code class="docutils literal notranslate"><span class="pre">Resolved</span></code>
+instances directly.</p></li>
+</ul>
+<p>(serialization)=## Serialization</p>
+<p>The rule builder is intended to be written first in Python for optimization and type safety. To facilitate exporting the
+rules to a client or tracker, rules have a <code class="docutils literal notranslate"><span class="pre">to_dict</span></code> method that returns a JSON-compatible dict. Since the location and
+entrance logic structure varies greatly from world to world, the actual JSON dumping is left up to the world dev.</p>
+<p>The dict contains a <code class="docutils literal notranslate"><span class="pre">rule</span></code> key with the name of the rule, an <code class="docutils literal notranslate"><span class="pre">options</span></code> key with the rule’s list of option filters, and
+an <code class="docutils literal notranslate"><span class="pre">args</span></code> key that contains any other arguments the individual rule has. For example, this is what a simple <code class="docutils literal notranslate"><span class="pre">Has</span></code> rule
+would look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;Has&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;item_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Some item&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">And</span></code> and <code class="docutils literal notranslate"><span class="pre">Or</span></code> rules, instead of an <code class="docutils literal notranslate"><span class="pre">args</span></code> key, they have a <code class="docutils literal notranslate"><span class="pre">children</span></code> key containing a list of their child rules in
+the same serializable format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;And&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">...</span><span class="p">,</span>  <span class="c1"># each serialized rule</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A full example is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">Has</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">ToggleOption</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]),</span>
+    <span class="n">Or</span><span class="p">(</span><span class="n">Has</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">CanReachRegion</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">),</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">OptionFilter</span><span class="p">(</span><span class="n">ToggleOption</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]),</span>
+<span class="p">)</span>
+<span class="k">assert</span> <span class="n">rule</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="o">==</span> <span class="p">{</span>
+    <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;And&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;Has&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;option&quot;</span><span class="p">:</span> <span class="s2">&quot;worlds.my_world.options.ToggleOption&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;eq&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;item_name&quot;</span><span class="p">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;Or&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;option&quot;</span><span class="p">:</span> <span class="s2">&quot;worlds.my_world.options.ToggleOption&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;eq&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;Has&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;item_name&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;CanReachRegion&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;region_name&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>(custom-serialization)=### Custom serialization</p>
+<p>To define a different format for your custom rules, override the <code class="docutils literal notranslate"><span class="pre">to_dict</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BasicLogicRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="c1"># Return whatever format works best for you</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;logic&quot;</span><span class="p">:</span> <span class="s2">&quot;basic&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>If your logic has been done in custom JSON first, you can define a <code class="docutils literal notranslate"><span class="pre">from_dict</span></code> class method on your rules to parse it
+correctly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BasicLogicRule</span><span class="p">(</span><span class="n">Rule</span><span class="p">,</span> <span class="n">game</span><span class="o">=</span><span class="s2">&quot;My Game&quot;</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">world_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">World</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">())</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(apis)=## APIs</p>
+<p>This section is provided for reference, refer to the above sections for examples.</p>
+<p>(world-api)=### World API</p>
+<p>These are properties and helpers that are available to you in your world.</p>
+<p>(methods)=#### Methods</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rule_from_dict(data)</span></code>: Create a rule instance from a deserialized dict representation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">register_rule_builder_dependencies()</span></code>: Register all rules that depend on location or entrance access with the
+inherited dependencies, gets called automatically after set_rules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_rule(spot:</span> <span class="pre">Location</span> <span class="pre">|</span> <span class="pre">Entrance,</span> <span class="pre">rule:</span> <span class="pre">Rule)</span></code>: Resolve a rule, register its dependencies, and set it on the given
+location or entrance</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_completion_rule(rule:</span> <span class="pre">Rule)</span></code>: Sets the completion condition for this world</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">create_entrance(from_region:</span> <span class="pre">Region,</span> <span class="pre">to_region:</span> <span class="pre">Region,</span> <span class="pre">rule:</span> <span class="pre">Rule</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">force_creation:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False)</span></code>:
+Attempt to create an entrance from <code class="docutils literal notranslate"><span class="pre">from_region</span></code> to <code class="docutils literal notranslate"><span class="pre">to_region</span></code>, skipping creation if <code class="docutils literal notranslate"><span class="pre">rule</span></code> is defined and evaluates
+to <code class="docutils literal notranslate"><span class="pre">False_()</span></code> unless force_creation is <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+<p>(cachedrulebuilderworld-properties)=#### CachedRuleBuilderWorld Properties</p>
+<p>The following property is only available when inheriting from <code class="docutils literal notranslate"><span class="pre">CachedRuleBuilderWorld</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">item_mapping:</span> <span class="pre">dict[str,</span> <span class="pre">str]</span></code>: A mapping of actual item name to logical item name</p></li>
+</ul>
+<p>(rule-api)=### Rule API</p>
+<p>These are properties and helpers that you can use or override for custom rules.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_instantiate(world:</span> <span class="pre">World)</span></code>: Create a new resolved rule instance, override for custom rules as required</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_dict()</span></code>: Create a JSON-compatible dict representation of this rule, override if you want to customize your rule’s
+serialization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">from_dict(data,</span> <span class="pre">world_cls:</span> <span class="pre">type[World])</span></code>: Return a new rule instance from a deserialized representation, override if
+you’ve overridden <code class="docutils literal notranslate"><span class="pre">to_dict</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__str__()</span></code>: Basic string representation of a rule, useful for debugging</p></li>
+</ul>
+<p>(resolved-rule-api)=#### Resolved rule API</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">player:</span> <span class="pre">int</span></code>: The slot this rule is resolved for</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_evaluate(state:</span> <span class="pre">CollectionState)</span></code>: Evaluate this rule against the given state, override this to define the logic for
+this rule</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">item_dependencies()</span></code>: A mapping of item name to set of ids, override this if your custom rule depends on item
+collection</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">region_dependencies()</span></code>: A mapping of region name to set of ids, override this if your custom rule depends on reaching
+regions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">location_dependencies()</span></code>: A mapping of location name to set of ids, override this if your custom rule depends on
+reaching locations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">entrance_dependencies()</span></code>: A mapping of entrance name to set of ids, override this if your custom rule depends on
+reaching entrances</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explain_json(state:</span> <span class="pre">CollectionState</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None)</span></code>: Return a list of printJSON messages describing this rule’s logic
+(and if state is defined its evaluation) in a human readable way, override to explain custom rules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explain_str(state:</span> <span class="pre">CollectionState</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None)</span></code>: Return a string describing this rule’s logic (and if state is
+defined its evaluation) in a human readable way, override to explain custom rules, more useful for debugging</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">__str__()</span></code>: A string describing this rule’s logic without its evaluation, override to explain custom rules</p></li>
+</ul>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/header-logo.svg" alt="Logo of Archipelago"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Get Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="codeowners.html">Archipelago World Code Owners / Maintainers Document</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Code Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="autoworld.html">worlds.AutoWorld</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseclasses.html">BaseClasses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="options.html">Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rules.html">Rules Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fill.html">Fill</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entrance_rando.html">Entrance Rando</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patch.html">Patch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netutils.html">NetUtils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test.html">Test Bases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commonclient.html">Common Client</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rule builder.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Archipelago 0.6.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">&lt;no title&gt;</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Archipelago.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>
