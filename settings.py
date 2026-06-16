@@ -627,8 +627,8 @@ class ServerOptions(Group):
     disable_item_cheat: DisableItemCheat | bool = False
     location_check_points: LocationCheckPoints = LocationCheckPoints(1)
     hint_cost: HintCost = HintCost(10)
-    release_mode: ReleaseMode = ReleaseMode("auto")
-    collect_mode: CollectMode = CollectMode("auto")
+    release_mode: ReleaseMode = ReleaseMode("goal")
+    collect_mode: CollectMode = CollectMode("goal")
     remaining_mode: RemainingMode = RemainingMode("goal")
     countdown_mode: CountdownMode = CountdownMode("auto")
     auto_shutdown: AutoShutdown = AutoShutdown(0)
