@@ -17,7 +17,7 @@ if base_dir not in sys.path:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "Archipelago"
-copyright = "2025, Archipelago"
+copyright = "2026, Archipelago"
 author = "Archipelago"
 release = __version__
 

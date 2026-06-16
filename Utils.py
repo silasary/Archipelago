@@ -770,7 +770,7 @@ def _mp_save_filename(res: "multiprocessing.Queue[typing.Optional[str]]", *args:
     if is_kivy_running():
         raise RuntimeError("kivy should not be running in multiprocess")
     res.put(save_filename(*args))
-    
+
 def _run_for_stdout(*args: str):
     env = env_cleared_lib_path()
     return subprocess.run(args, capture_output=True, text=True, env=env).stdout.split("\n", 1)[0] or None
@@ -1389,7 +1389,7 @@ def build_sphinx_docs() -> None:
                 lines = f.readlines()
             # starting at -1 so i can iterate it early instead of in every if block
             line_index = -1
-            while line_index < len(lines):
+            while line_index < len(lines) - 1:
                 line_index += 1
                 line = lines[line_index]
                 # add explicit markdown headers for myst-parser to catch
