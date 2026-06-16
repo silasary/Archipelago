@@ -41,6 +41,7 @@ the requirements of not only contributing to the main project, but the requireme
     rules
     fill
     entrance_rando
+    rule builder
     utils
     patch
     settings
