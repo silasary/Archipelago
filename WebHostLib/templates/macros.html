@@ -32,7 +32,7 @@
                             {% elif patch.game == "Super Mario 64" and room.seed.slots|length == 1 %}
                             <a href="{{ url_for("download_slot_file", room_id=room.id, player_id=patch.player_id) }}" download>
                                 Download APSM64EX File...</a>
-                            {% elif patch.game == "Factorio" %}
+                            {% elif patch.game == "Factorio" or patch.game == "Factorio - Space Age Without Space" %}
                             <a href="{{ url_for("download_slot_file", room_id=room.id, player_id=patch.player_id) }}" download>
                                 Download Factorio Mod...</a>
                             {% elif patch.game | is_applayercontainer(patch.data, patch.player_id) %}
@@ -42,7 +42,27 @@
                                 No file to download for this game.
                             {% endif %}
                         {% else %}
-                            No file to download for this game.
+                            {% if patch.game == "Jigsaw" %}
+                            <a href="https://jigsaw-ap.netlify.app/?hostport={{ config['HOST_ADDRESS'] }}:{{ room.last_port }}&name={{ patch.player_name | e}}">
+                                Open game on jigsaw-ap.netlify.app</a>
+                            {% elif patch.game == "Candy Box 2" %}
+                            <a href="https://candybox2-ap.vicr123.com">
+                                Join game on candybox2-ap.vicr123.com</a>
+                            {% elif patch.game == "Clique" %}
+                            <a href="https://clique.pharware.com/">
+                                Join game on clique.pharware.com</a>
+                            {% elif patch.game == "Paint" %}
+                            <a href="https://mariomantaw.github.io/jspaint/">
+                                Join game on mariomantaw.github.io/jspaint</a>
+                            {% elif patch.game == "Wordipelago" %}
+                            <a href="https://apworlds.com/wordipelago">
+                                Join game on apworlds.com/wordipelago</a>
+                            {% elif patch.game == "Yacht Dice" %}
+                            <a href="https://yacht-dice-ap.netlify.app/?hostport={{ config['HOST_ADDRESS'] }}:{{ room.last_port }}&name={{ patch.player_name | e}}&go=LS">
+                                Join game on yacht-dice-ap.netlify.app</a>
+                            {% else %}
+                                No file to download for this game.
+                            {% endif %}
                         {% endif %}
                     </td>
                     <td><a href="{{ url_for("get_player_tracker", tracker=room.tracker, tracked_team=0, tracked_player=patch.player_id) }}">Tracker</a></td>
