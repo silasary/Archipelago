@@ -452,7 +452,7 @@ class FactorioSAWS(World):
                         new_ingredient = pool.pop(0)
                     liquids_used += 1 if new_ingredient in fluids else 0
                 new_ingredients[new_ingredient] = 10 if new_ingredient in fluids else 1
-        products = original.products
+        products = dict(original.products)
         category = self.get_category(original.category, liquids_used)
         if "fluoroketone-cold" in new_ingredients:
             products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
@@ -560,7 +560,7 @@ class FactorioSAWS(World):
             if remaining_num_ingredients > 1:
                 logging.warning("could not randomize recipe")
 
-        products = original.products
+        products = dict(original.products)
         category = self.get_category(original.category, liquids_used)
         if "fluoroketone-cold" in new_ingredients:
             products["fluoroketone-hot"] = max(1, round(new_ingredients["fluoroketone-cold"] / 2))
