@@ -435,7 +435,8 @@ class FactorioSAWS(World):
                           ingredients_offset: int = 0) -> Recipe:
 
         count: int = len(original.ingredients) + ingredients_offset
-        assert len(pool) >= count, f"Can't pick {count} many items from pool {pool}."
+        if len(pool) < count:
+            raise OptionError(f"Ingredient pool for {original.name} too small; try adjusting recipe_difficulty_factor, increase recipe_pool_max_tiers_below, or decrease recipe_ingredients_offset")
         new_ingredients = {}
         liquids_used = 0
         recipe_override = self.get_ut_data("recipes")
@@ -590,6 +591,8 @@ class FactorioSAWS(World):
         if recipe_override is not None and "rocket-part" in recipe_override:
             rocket_ingredients = recipe_override["rocket-part"]
         else:
+            if len(valid_pool) < 3+ingredients_offset:
+                raise OptionError("Ingredient pool for rocket-part too small; try adjusting recipe_difficulty_factor or max_science_pack, or decrease recipe_ingredients_offset")
             rocket_ingredients = {valid_pool[x]: 10 for x in range(3 + ingredients_offset)}
 
         self.custom_recipes = {"rocket-part": Recipe("rocket-part", original_rocket_part.category,
