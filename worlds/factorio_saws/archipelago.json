@@ -1,9 +1,12 @@
 {
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
-    "world_version": "0.9.2",
+    "world_version": "0.9.3",
     "minimum_ap_version": "0.6.0",
     "changelog": [
+        "## 0.9.3",
+        "* Fixed a cross-slot bleed involving custom recipes that use fluoroketone.",
+        "* Added a better error message for impossible yaml combinations.",
         "## 0.9.2",
         "* Made Energy Bridge recipe actually random",
         "* Made fish immune to lightning strikes.",
