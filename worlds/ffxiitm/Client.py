@@ -13,12 +13,13 @@ ModuleUpdate.update()
 
 import Utils
 
-tracker_loaded = False
-try:
-    from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
-    tracker_loaded = True
-except ModuleNotFoundError:
-    from CommonClient import CommonContext as CommonContext
+# tracker_loaded = False
+# try:
+#     from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
+#     tracker_loaded = True
+# except ModuleNotFoundError:
+#     from CommonClient import CommonContext as CommonContext
+from CommonClient import CommonContext as CommonContext
 
 check_num = 0
 
@@ -32,6 +33,12 @@ from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProc
 def check_stdin() -> None:
     if Utils.is_windows and sys.stdin:
         print("WARNING: Console input is not routed reliably on Windows, use the GUI instead.")
+
+def clear_AP_files(file_dir):
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if 'obtain' in file or 'current_map' in file: continue
+            os.remove(root+"/"+file)
 
 class FFXIITMClientCommandProcessor(ClientCommandProcessor):
     # def _cmd_test(self):
@@ -48,6 +55,7 @@ class FFXIITMContext(CommonContext):
 
     def __init__(self, server_address, password):
         super(FFXIITMContext, self).__init__(server_address, password)
+        self.most_recent_check = None
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
@@ -56,12 +64,8 @@ class FFXIITMContext(CommonContext):
             self.game_communication_path = os.path.expandvars(r"%localappdata%/FFXIITM")
         else:
             self.game_communication_path = os.path.expandvars(r"$HOME/FFXIITM")
-        if not os.path.exists(self.game_communication_path):
-            os.makedirs(self.game_communication_path)
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
+        os.makedirs(self.game_communication_path, exist_ok=True)
+        clear_AP_files(self.game_communication_path)
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -71,10 +75,7 @@ class FFXIITMContext(CommonContext):
 
     async def connection_closed(self):
         await super(FFXIITMContext, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root + "/" + file)
+        clear_AP_files(self.game_communication_path)
 
     @property
     def endpoints(self):
@@ -85,10 +86,7 @@ class FFXIITMContext(CommonContext):
 
     async def shutdown(self):
         await super(FFXIITMContext, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
+        clear_AP_files(self.game_communication_path)
 
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
@@ -167,7 +165,9 @@ async def game_watcher(ctx: FFXIITMContext):
                 if file.find("victory") > -1:
                     victory = True
         if len(sending) > len(ctx.locations_checked):
+            # logger.info(f"checks: {len(ctx.locations_checked)} -> {len(sending)}")
             ctx.syncing = True
+
         ctx.locations_checked = sending
         if not ctx.finished_game and victory:
             await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
