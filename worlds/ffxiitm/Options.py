@@ -8,7 +8,7 @@ class TrialVictory(Range):
     Which Trial holds the victory items
     """
     default = 20
-    range_start = 10
+    range_start = 1
     range_end = 100
     display_name = "Victory Trial"
 
