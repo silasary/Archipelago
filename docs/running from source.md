@@ -49,7 +49,7 @@ Recommended steps
 
 ## macOS
 
-Refer to [Guide to Run Archipelago from Source Code on macOS](../worlds/generic/docs/mac_en.md).
+Refer to [Guide to Run Archipelago from Source Code on macOS](https://archipelago.gg/tutorial/Archipelago/mac/en).
 
 
 ## Linux
@@ -78,16 +78,6 @@ first generate the binary distribution and then run `python setup.py bdist_appim
 put an `appimagetool` into the directory you run the command from, rename it to `appimagetool` and make it executable.
 
 
-## Optional: A Link to the Past Enemizer
-
-Only required to generate seeds that include A Link to the Past with certain options enabled. You will receive an
-error if it is required.
-
-You can get the latest Enemizer release at [Enemizer Github releases](https://github.com/Ijwu/Enemizer/releases).
-It should be dropped as "EnemizerCLI" into the root folder of the project. Alternatively, you can point the Enemizer
-setting in host.yaml at your Enemizer executable.
-
-
 ## Optional: SNI
 
 [SNI](https://github.com/alttpo/sni/blob/main/README.md) is required to use SNIClient. If not integrated into the project, it has to be started manually.
@@ -112,4 +102,4 @@ PyCharm has a built-in version control integration that supports Git.
 
 ## Running tests
 
-Information about running tests can be found in [tests.md](https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/tests.md#running-tests)
+Information about running tests can be found in [tests.md](/docs/tests.md#running-tests)

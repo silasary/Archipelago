@@ -279,7 +279,7 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                                   f"(name: {args.name.get(player, name)})")
                 player_errors.append(
                     f"{len(player_errors) + 1}. "
-                    f"File {path} document #{doc_index + 1} (name: {args.name.get(player, name)}) is invalid. "
+                    f"File {path} document #{doc_index + 1} (with name: {args.name.get(player, name)}) is invalid. "
                     f"Please fix your yaml.\n{Utils.get_all_causes(e)}")
 
             # increment for each yaml document in the file
@@ -585,7 +585,8 @@ def roll_settings(weights: dict, plando_options: PlandoOptions = PlandoOptions.b
         raise Exception(f"Invalid game: {ret.game}")
     if ret.game not in AutoWorldRegister.world_types:
         from worlds import failed_world_loads
-        picks = Utils.get_fuzzy_results(ret.game, list(AutoWorldRegister.world_types) + failed_world_loads, limit=1)[0]
+        picks = Utils.get_fuzzy_results(ret.game, list(AutoWorldRegister.world_types) + list(failed_world_loads.keys()),
+                                        limit=1)[0]
         if picks[0] in failed_world_loads:
             raise Exception(f"No functional world found to handle game {ret.game}. "
                             f"Did you mean '{picks[0]}' ({picks[1]}% sure)? "
