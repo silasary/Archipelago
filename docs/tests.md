@@ -6,7 +6,7 @@ steps on how to write your own.
 ## Generic Tests
 
 Some generic tests are run on every World to ensure basic functionality with default options. These basic tests can be
-found in the [general test directory](/test/general).
+found in the [general test directory](https://github.com/ArchipelagoMW/Archipelago/tree/main/test/general).
 
 ## Defining World Tests
 
@@ -98,7 +98,7 @@ for multiple inputs) the base test. Some important things to consider when attem
   timing data, so they are not suitable for slow tests.
 
 * Archipelago's tests are test-runner-agnostic. That means tests are not allowed to use e.g. `@pytest.mark.parametrize`.
-  Instead, we define our own parametrization helpers in [test.param](/test/param.py).
+  Instead, we define our own parametrization helpers in [test.param](https://github.com/ArchipelagoMW/Archipelago/blob/main/test/param.py).
 
 * Classes inheriting from `WorldTestBase`, including those created by the helpers in `test.param`, will run all
   base tests by default, make sure the produced tests actually do what you aim for and do not waste a lot of
@@ -137,9 +137,25 @@ tests folder within your world.
 You can also find the 'Archipelago Unittests' as an option in the dropdown at the top of the window
 next to the run and debug buttons.
 
+To run the suite scoped to a single world, use the shared **APQuest Tests** run configuration in the dropdown.
+To test your own world, duplicate it in *Edit Configurations…* and change the `AP_TEST_WORLDS` environment
+variable to your world's folder name.
+
 #### Running Tests without Pycharm
 
 Run `pip install pytest pytest-subtests`, then use your IDE to run tests or run `pytest` from the source folder.
+
+#### Running Tests for Specific Worlds
+
+Set the `AP_TEST_WORLDS` environment variable to a comma-separated list of world **folder** names to scope a run
+to just those worlds:
+
+```
+AP_TEST_WORLDS=apquest pytest
+```
+
+Pass several worlds with a comma, e.g. `AP_TEST_WORLDS=apquest,pokemon_emerald`. Add
+`--continue-on-collection-errors` if your environment is missing the webhost requirements (`flask`, etc.).
 
 #### Running Tests Multithreaded
 

@@ -49,7 +49,7 @@ Recommended steps
 
 ## macOS
 
-Refer to [Guide to Run Archipelago from Source Code on macOS](../worlds/generic/docs/mac_en.md).
+Refer to [Guide to Run Archipelago from Source Code on macOS](https://archipelago.gg/tutorial/Archipelago/mac/en).
 
 
 ## Linux
@@ -102,4 +102,4 @@ PyCharm has a built-in version control integration that supports Git.
 
 ## Running tests
 
-Information about running tests can be found in [tests.md](https://github.com/ArchipelagoMW/Archipelago/blob/main/docs/tests.md#running-tests)
+Information about running tests can be found in [tests.md](/docs/tests.md#running-tests)
