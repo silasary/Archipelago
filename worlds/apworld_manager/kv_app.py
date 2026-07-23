@@ -175,10 +175,14 @@ def launch(*launch_args: str):
 
         def open_release(self):
             import webbrowser
-            if self.details['latest_version'].release_url:
-                webbrowser.open(self.details['latest_version'].release_url)
-            else:
-                webbrowser.open(self.details['latest_version'].download_url.split('/releases')[0])
+            release_url = self.details["latest_version"].release_url
+            if not release_url:
+                release_url = self.details["latest_version"].download_url.split("/releases")[0]
+
+            if release_url.startswith("https://api.github.com/repos/"):
+                release_url = release_url.replace("https://api.github.com/repos/", "https://github.com/")
+
+            webbrowser.open(release_url)
 
         def open_wiki(self):
             import webbrowser
