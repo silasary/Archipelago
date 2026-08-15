@@ -1,9 +1,11 @@
 {
     "game": "Final Fantasy XII Trial Mode",
-	"authors": [ "Silasary" ],
-    "minimum_ap_version": "0.6.3",
+	"authors": [ "Silasary", "Sheen" ],
+    "minimum_ap_version": "0.6.7",
     "world_version": "0.1.0",
     "changelog": [
-        "Added logical requirements to stages."
-    ]
+        "Added logical requirements to stages, updated client."
+    ],
+	"compatible_version": 7,
+	"version": 7
 }
