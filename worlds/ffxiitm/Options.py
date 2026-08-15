@@ -12,6 +12,13 @@ class TrialVictory(Range):
     range_end = 100
     display_name = "Victory Trial"
 
+class SecretEquipment(Toggle):
+    """
+    Adds the Seitengrat, Great Trango, Wyrmhero Blade, and Gendarme to the item pool
+    """
+    display_name = "Include Secret Equipment"
+
 @dataclass
 class FF12TMOptions(PerGameCommonOptions):
     trial_victory: TrialVictory
+    secret_equipment: SecretEquipment

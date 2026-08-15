@@ -4,7 +4,7 @@ import typing
 import settings
 from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
-from .Items import FFXIITMItem, FFXIITMItemData, event_item_table, get_items_by_category, item_table, weapons_by_tier, armors_by_tier, hats_by_tier, espers
+from .Items import FFXIITMItem, FFXIITMItemData, event_item_table, get_items_by_category, item_table, weapons_by_tier, armors_by_tier, hats_by_tier, espers, flattened_weapons_by_tier, flattened_armors_by_tier, flattened_hats_by_tier
 from .Locations import FFXIITMLocation, location_table, get_locations_by_category
 from .Options import FF12TMOptions
 from .Regions import create_regions
@@ -55,12 +55,22 @@ class FFXIITMWorld(World):
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}
     item_name_groups = {
-        # "Item": {name for name, data in item_table.items() if data.category == "Item"},
+        "Item": {name for name, data in item_table.items() if data.category == "Item"},
         "Equipment": {name for name, data in item_table.items() if data.category == "Equipment"},
         "Magick": {name for name, data in item_table.items() if data.category == "Magick"},
         "Technick": {name for name, data in item_table.items() if data.category == "Technick"},
         "Mist": {name for name, data in item_table.items() if data.category == "Mist"},
     }
+    for tier, weapons in flattened_weapons_by_tier.items():
+        item_name_groups[f'T{tier} weapons'] = weapons
+    for tier, armors in flattened_armors_by_tier.items():
+        item_name_groups[f'T{tier} armors'] = armors
+    for tier, hats in flattened_hats_by_tier.items():
+        item_name_groups[f'T{tier} hats'] = hats
+
+    item_name_groups['Accessories'] = [name for name,data in item_table.items() if data.subcategory == 'Accessory']
+    item_name_groups['Shields'] = [name for name,data in item_table.items() if data.subcategory == 'Shield']
+
 
     def fill_slot_data(self) -> dict:
         return {
@@ -100,10 +110,13 @@ class FFXIITMWorld(World):
         # mist = remove_starting_inventory(self.item_name_groups["Mist"])
 
         all_items = remove_starting_inventory({name for name, data in item_table.items() if data.category in ["Mist", "Magick", "Equipment", "Technick"]}) #excludes filler
-        extract_items(all_items, ["Steal", "Poach", "Seitengrat", "Great Trango","Gendarme"],count=5) #remove steal, poach, and the invisible weapons from the item pool
+        progressives = []
+        extract_items(all_items, ["Steal", "Poach"],count=2) #remove steal and poach from the item pool
         self.random.shuffle(all_items)
 
-        progressives = []
+        secret_equipment = extract_items(all_items, ["Seitengrat", "Great Trango","Gendarme", "Wyrmhero Blade"], count=4) #remove secret weapons from pool
+        if self.options.secret_equipment and goal_floor >= 5: progressives += secret_equipment #add them to pool
+
         if goal_floor >= 10:
             progressives += extract_items(all_items, ["Second Job"])
             progressives += extract_items(all_items, espers,count=3+goal_floor//10)
@@ -124,7 +137,7 @@ class FFXIITMWorld(World):
                 progressives += extract_items(all_items, equipment_list, count=1)
         if goal_floor >= 20:
             progressives += extract_items(all_items, ["Fira", "Thundara", "Blizzara", "Darkra", "Bio", "Aeroga"], count=100)
-        if goal_floor >= 40:
+        if goal_floor >= 30:
             for type, equipment_list in weapons_by_tier[4].items():
                 progressives += extract_items(all_items, equipment_list, count=1)
             progressives += extract_items(all_items, ["Cura", "Curaga", "Esuna", "Esunaga", "Raise", "Telekinesis", "Embroidered Tippet", "Golden Amulet", "Rose Corsage"], count=100)

@@ -46,30 +46,30 @@ def set_rules(world: "FFXIITMWorld", player: int):
             HasFromList(*flattened_hats_by_tier[3], count=1))
         if floor == 15:
             world.set_rule(floor_entrance,
-            HasFromList(*flattened_armors_by_tier[3], count=2) &
+            HasFromList(*flattened_armors_by_tier[3], count=3) &
             HasFromList(*flattened_hats_by_tier[3], count=2) &
-            HasFromList(*flattened_weapons_by_tier[3], count=2))
+            HasFromList(*flattened_weapons_by_tier[3], count=4))
         if floor == 20:
-            world.set_rule(floor_entrance, HasFromList(*(T2_magick + T3_magick), count=1))
-
+            world.set_rule(floor_entrance,
+            HasFromList(*(T2_magick + T3_magick), count=1))
         if floor == 30:
             world.set_rule(floor_entrance,
-            HasFromList(*(T2_magick + T3_magick), count=1) &
-            HasFromList(*(flattened_armors_by_tier[3]+flattened_armors_by_tier[4]), count=4) &
+            Has("Cura") &
+            HasFromList(*(T2_magick + T3_magick), count=3) &
+            HasFromList(*flattened_weapons_by_tier[4], count=2) &
             HasFromList(*(flattened_hats_by_tier[3]+flattened_hats_by_tier[4]), count=4) &
-            HasFromList(*(flattened_weapons_by_tier[3]+flattened_weapons_by_tier[4]), count=4))
+            HasFromList(*(flattened_armors_by_tier[3]+flattened_armors_by_tier[4]), count=4))
 
         if floor == 40:
             world.set_rule(floor_entrance,
-            Has("Cura") &
             HasAny("Esuna","Esunaga") &
-            HasFromList(*flattened_weapons_by_tier[4], count=1))
+            HasFromList(*flattened_weapons_by_tier[4], count=3))
 
         if floor == 50:
             world.set_rule(floor_entrance,
             HasFromList(*T3_magick, count=1) &
             HasAny("Raise","Arise") &
-            HasFromList(*flattened_weapons_by_tier[4], count=2) &
+            HasFromList(*flattened_weapons_by_tier[4], count=4) &
             HasFromList(*flattened_armors_by_tier[4], count=2) &
             HasFromList(*flattened_hats_by_tier[4], count=2))
         if floor == 60:
