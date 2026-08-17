@@ -12,13 +12,16 @@ import ModuleUpdate
 ModuleUpdate.update()
 
 import Utils
+from CommonClient import CommonContext
 
 tracker_loaded = False
 try:
-    from worlds.tracker.TrackerClient import TrackerGameContext as CommonContext
+    from worlds.tracker.TrackerClient import TrackerCommandProcessor, TrackerGameContext
+    ClientCommandProcessor = TrackerCommandProcessor
+    CommonContext = TrackerGameContext
     tracker_loaded = True
 except ModuleNotFoundError:
-    from CommonClient import CommonContext as CommonContext
+    pass
 
 check_num = 0
 
