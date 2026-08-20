@@ -1,4 +1,4 @@
-from typing import Iterable, List
+from typing import Any, Iterable, List
 import typing
 
 import settings
@@ -15,7 +15,12 @@ import random
 
 class FFXIITMSettings(settings.Group):
     class InstallScript(settings.Bool):
-        """Automatically install/update the lua script when you launch the client.  If false, you will need to manually install the script from data/lua."""
+        """
+        Automatically install/update the lua script when you launch the client.
+        If false, you will need to manually install the script from data/lua.
+
+        Note: This setting only works if the game is installed in the default location.
+        """
 
     install_script: typing.Union[InstallScript, bool] = True
 
@@ -51,6 +56,8 @@ class FFXIITMWorld(World):
     web = FFXIITMWeb()
     settings: typing.ClassVar[FFXIITMSettings]
 
+    ut_can_gen_without_yaml = True
+
 
     item_name_to_id = {name: data.code for name, data in item_table.items()}
     location_name_to_id = {name: data.code for name, data in location_table.items()}
@@ -71,6 +78,22 @@ class FFXIITMWorld(World):
     item_name_groups['Accessories'] = [name for name,data in item_table.items() if data.subcategory == 'Accessory']
     item_name_groups['Shields'] = [name for name,data in item_table.items() if data.subcategory == 'Shield']
 
+
+
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
+        # returns slot data to be used in UT regen
+        return slot_data
+
+    def generate_early(self):
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if self.game in self.multiworld.re_gen_passthrough:
+                self.passthrough = self.multiworld.re_gen_passthrough[self.game]
+
+                for key, value in self.passthrough.items():
+                    if hasattr(self.options, key):
+                        opt = getattr(self.options, key)
+                        opt.value = opt.from_any(value).value
 
     def fill_slot_data(self) -> dict:
         return {
