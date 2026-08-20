@@ -1,10 +1,11 @@
 
 import sys
 from CommonClient import get_base_parser
+from Utils import gui_enabled
 from .world_manager import SortStages, install_world, refresh_apworld_table, repositories
 
 
-def launch(*launch_args: str):
+def launch_kivy(apworlds):
     import kvui  # noqa
     from kivy.properties import DictProperty
 
@@ -251,10 +252,13 @@ def launch(*launch_args: str):
             super().__init__(**kwargs)
             self.data = data
 
+    app = DirectoryApp(apworlds=apworlds)
+    app.run()
+
+
+def launch(*launch_args: str):
     repositories.load_repos_from_settings()
     repositories.refresh()
-
-
 
     apworlds = refresh_apworld_table()
 
@@ -286,9 +290,15 @@ def launch(*launch_args: str):
                 install_world(world)
         return
 
-    if not args.nogui:
-        app = DirectoryApp(apworlds=apworlds)
-        app.run()
+    if gui_enabled:
+        launch_kivy(apworlds)
+    elif not args.update_all and not args.install:
+        try:
+            from .curses import launch as launch_curses
+            launch_curses(apworlds)
+        except ImportError:
+            print("Curses gui is not supported on this version of Archipelago. "
+                  "Please either use the gui, use the cli args, or update Archipelago when Curses is supported")
 
     repositories.cleanup_downloads()
 
