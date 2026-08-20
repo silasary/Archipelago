@@ -7,7 +7,7 @@ def launch(apworlds):
         "{0:<50}|{1:<45}|{2:<25}".format(
             w["title"][:50],
             w["description"][:45],
-            w["latest_version"].data["metadata"]["world_version"][:25],
+            w["install_text"][:25],
         ) for w in apworlds]
     key = lambda index: apworlds[index]
 
