@@ -103,7 +103,7 @@ class FFXIITMWorld(World):
     def create_items(self):
         goal_floor = self.options.trial_victory.value
         # print(goal_floor)
-        if goal_floor == 98: goal_floor = 97 #there are no AP locations on floor 97
+        if goal_floor == 98: goal_floor = 97 #there are no AP locations on floor 98
         victory_location_name = random.sample(list(get_locations_by_category("Trial " + str(goal_floor).rjust(3, "0")).keys()),1)[0]
         self.multiworld.get_location(victory_location_name, self.player).place_locked_item(self.create_item("Victory"))
         item_pool: List[FFXIITMItem] = []

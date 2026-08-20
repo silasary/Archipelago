@@ -32,8 +32,8 @@ def set_rules(world: "FFXIITMWorld", player: int):
 
 
 
-        if floor + 1 % 10 == 0: #add esper requirements on floors 10n+1 to avoid rule conflicts on the same entrance
-            world.set_rule(floor_entrance,HasGroup("Mist", (floor+1)//10))
+        if (floor - 1) % 10 == 0 and floor > 10: #add esper requirements on floors 10n+1 to avoid rule conflicts on the same entrance
+            world.set_rule(floor_entrance,HasGroup("Mist", (floor)//10 + 1)) #Note: Second Job counts as Mist
 
         if floor == 10:
             world.set_rule(floor_entrance,Has("Second Job"))
