@@ -38,8 +38,8 @@ class FFXIITMWeb(WebWorld):
         "A guide to setting up the Final Fantasy XII Trial Mode Randomizer software on your computer. This guide covers single-player, "
         "multiworld, and related software.",
         "English",
-        "ffxiitm_en.md",
-        "ffxiitm/en",
+        "setup_en.md",
+        "setup/en",
         ["Gicu"]
     )]
 
