@@ -82,7 +82,6 @@ def set_rules(world: "FFXIITMWorld", player: int):
         if floor == 70:
             world.set_rule(floor_entrance,
             HasFromList(*T3_magick, count=2) &
-            Has("Cat-ear Hood") &
             HasAny("Dispel", "Dispelga") &
             HasAny("Curaga", "Renew") &
             HasFromList(*flattened_weapons_by_tier[5], count=2) &
@@ -98,11 +97,11 @@ def set_rules(world: "FFXIITMWorld", player: int):
         if floor == 84:
             world.set_rule(floor_entrance, HasAny("Scourge","Flare", "Scathe", "Bio","Toxify","Telekinesis")) #can't use attacks against Chaos
         if floor == 85:
-            world.set_rule(floor_entrance,Has("Zodiark"))
+            world.set_rule(floor_entrance,HasAll("Opal Ring", "Zodiark"))
         if floor == 90:
             world.set_rule(floor_entrance,
             HasAny("Reflectga", "Reflect") &
-            HasAll("Opal Ring", "Nihopalaoa", "Reverse") &
+            HasAll("Nihopalaoa", "Reverse") &
             HasFromList(*flattened_weapons_by_tier[5], count=5) &
             HasFromList(*flattened_armors_by_tier[5], count=5) &
             HasFromList(*flattened_hats_by_tier[5], count=5) &
