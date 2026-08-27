@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict
 
-from Options import Choice, PerGameCommonOptions, Range, Option, Toggle, DeathLink, DefaultOnToggle, OptionSet
+from Options import Choice, PerGameCommonOptions, Range, Option, Toggle, DeathLink, DefaultOnToggle, OptionSet, StartInventoryPool
 
 class TrialVictory(Range):
     """
@@ -22,3 +22,4 @@ class SecretEquipment(Toggle):
 class FF12TMOptions(PerGameCommonOptions):
     trial_victory: TrialVictory
     secret_equipment: SecretEquipment
+    start_inventory_from_pool: StartInventoryPool

@@ -102,7 +102,6 @@ class FFXIITMWorld(World):
 
     def create_items(self):
         goal_floor = self.options.trial_victory.value
-        # print(goal_floor)
         if goal_floor == 98: goal_floor = 97 #there are no AP locations on floor 98
         victory_location_name = random.sample(list(get_locations_by_category("Trial " + str(goal_floor).rjust(3, "0")).keys()),1)[0]
         self.multiworld.get_location(victory_location_name, self.player).place_locked_item(self.create_item("Victory"))
@@ -131,8 +130,8 @@ class FFXIITMWorld(World):
         # magick = remove_starting_inventory(self.item_name_groups["Magick"])
         # technick = remove_starting_inventory(self.item_name_groups["Technick"])
         # mist = remove_starting_inventory(self.item_name_groups["Mist"])
-
-        all_items = remove_starting_inventory({name for name, data in item_table.items() if data.category in ["Mist", "Magick", "Equipment", "Technick"]}) #excludes filler
+        all_items = [name for name, data in item_table.items() if data.category in ["Mist", "Magick", "Equipment", "Technick"]] #excludes filler
+        # all_items = remove_starting_inventory(all_items)
         progressives = []
         extract_items(all_items, ["Steal", "Poach"],count=2) #remove steal and poach from the item pool
         self.random.shuffle(all_items)
@@ -171,9 +170,9 @@ class FFXIITMWorld(World):
                 progressives += extract_items(all_items, equipment_list, count=2)
             for type, equipment_list in hats_by_tier[4].items():
                 progressives += extract_items(all_items, equipment_list, count=2)
-            progressives += extract_items(all_items, ["Berserk", "Cat-ear Hood", "Dispel", "Dispelga", "Berserk", "Berserk Bracers", "Protect", "Protectga", "Shell", "Shellga", "Curaja"], count=100)
+            progressives += extract_items(all_items, ["Berserk", "Cat-ear Hood", "Dispel", "Dispelga", "Berserker Bracers", "Protect", "Protectga", "Shell", "Shellga", "Curaja"], count=100)
             progressives += extract_items(all_items, ["Ardor", "Scathe", "Firaga", "Thundaga", "Blizzaga", "Darkga", "Scourge", "Flare",  "Toxify"], count = 100)
-            progressives += extract_items(all_items, ["Reverse", "Arise", "Renew", "Reflect", "Reflega", "Hastega", "Bravery", "Faith", "Syphon", "Bubble", "Nihopalaoa", "Genji Gloves", "Opal Ring", "Ribbon", "Embroidered Tippet", "Golden Amulet", "Demon Shield", "Zodiac Escutcheon"], count=100)
+            progressives += extract_items(all_items, ["Reverse", "Arise", "Renew", "Reflect", "Reflectga", "Hastega", "Bravery", "Faith", "Syphon", "Bubble", "Nihopalaoa", "Genji Gloves", "Opal Ring", "Ribbon", "Demon Shield", "Zodiac Escutcheon"], count=100)
         if goal_floor >= 60:
             for type, equipment_list in weapons_by_tier[5].items():
                 progressives += extract_items(all_items, equipment_list, count=1)
@@ -232,7 +231,9 @@ class FFXIITMWorld(World):
 
     def create_item(self, name: str) -> FFXIITMItem:
         data = item_table[name]
-        return FFXIITMItem(name, data.classification, data.code, self.player)
+        output = FFXIITMItem(name, data.classification, data.code, self.player)
+        if name in self.options.start_inventory_from_pool.keys(): output.classification = ItemClassification.progression #forces start_inventory_from_pool items to be progression so generation can't fail if you include everything
+        return output
 
     def create_event(self, name: str) -> FFXIITMItem:
         data = event_item_table[name]

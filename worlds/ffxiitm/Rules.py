@@ -91,7 +91,7 @@ def set_rules(world: "FFXIITMWorld", player: int):
 
         if floor == 80:
             world.set_rule(floor_entrance,
-            HasAny("Berserk","Berserk Bracers") &
+            HasAny("Berserk","Berserker Bracers") &
             HasFromList(*flattened_weapons_by_tier[5], count=3) &
             HasFromList(*flattened_armors_by_tier[5], count=3) &
             HasFromList(*flattened_hats_by_tier[5], count=3))
@@ -101,7 +101,7 @@ def set_rules(world: "FFXIITMWorld", player: int):
             world.set_rule(floor_entrance,Has("Zodiark"))
         if floor == 90:
             world.set_rule(floor_entrance,
-            HasAny("Reflega", "Reflect") &
+            HasAny("Reflectga", "Reflect") &
             HasAll("Opal Ring", "Nihopalaoa", "Reverse") &
             HasFromList(*flattened_weapons_by_tier[5], count=5) &
             HasFromList(*flattened_armors_by_tier[5], count=5) &
