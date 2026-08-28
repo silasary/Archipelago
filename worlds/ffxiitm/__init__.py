@@ -33,14 +33,14 @@ components.append(Component("Final Fantasy XII Trial Mode Client",  func=launch_
 
 class FFXIITMWeb(WebWorld):
     theme = "ocean"
-    tutorials = [Tutorial(
+    tutorials = [Tutorial(  # noqa: RUF012
         "Multiworld Setup Guide",
         "A guide to setting up the Final Fantasy XII Trial Mode Randomizer software on your computer. This guide covers single-player, "
         "multiworld, and related software.",
         "English",
-        "ffxiitm_en.md",
-        "ffxiitm/en",
-        ["Gicu"]
+        "setup_en.md",
+        "setup/en",
+        ["Silasary"]
     )]
 
 class FFXIITMWorld(World):
