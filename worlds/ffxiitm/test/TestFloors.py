@@ -1,5 +1,14 @@
-from worlds.ffxiitm.test import FFXIITMTestBase
+from .bases import FFXIITMTestBase
 
+class OneFloorTest(FFXIITMTestBase):
+    options = {
+        "trial_victory": 1,
+    }
+
+class EightFloorsTest(FFXIITMTestBase):
+    options = {
+        "trial_victory": 8,
+    }
 
 class TenFloorsTest(FFXIITMTestBase):
     options = {
