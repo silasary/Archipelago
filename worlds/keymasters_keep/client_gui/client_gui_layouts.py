@@ -1163,25 +1163,39 @@ class KeepTrialsLayout(BoxLayout):
         for trial in trials:
             # Creates a trial layout using the appropriate constructor
             trial_layout: AvailableTrialLayout|CompletedTrialLayout = (
-                CompletedTrialLayout(self.ctx, self.area, trial)
-                if is_completed_view
-                else AvailableTrialLayout(self.ctx, self.area, trial)
+                CompletedTrialLayout(self.ctx, self.area, trial) if
+                is_completed_view else
+                AvailableTrialLayout(self.ctx, self.area, trial)
             )
             trial_layout.hide()
             self.add_widget(trial_layout)
             self.trial_layouts.append(trial_layout)
 
+    def has_trials(self) -> bool:
+        if self.is_completed_view:
+            return (
+                len(self.ctx.game_state["trials_available"][self.area]) <
+                len(self.ctx.area_trials[self.area])
+            )
+        else:
+            return bool(self.ctx.game_state["trials_available"][self.area])
+
+    def should_display_trial(self, trial) -> bool:
+        if self.is_completed_view:
+            return trial.archipelago_id not in self.ctx.game_state["trials_available"][self.area]
+        else:
+            return trial.archipelago_id in self.ctx.game_state["trials_available"][self.area]
+
     def update(self) -> None:
         unlocked: bool = self.ctx.game_state["areas_unlocked"][self.area]
-        has_available_trials: bool = bool(self.ctx.game_state["trials_available"][self.area])
 
-        if unlocked and has_available_trials:
+        if unlocked and self.has_trials():
             self.area_label.show()
             self.game_label.show()
 
             trial_layout: AvailableTrialLayout|CompletedTrialLayout
             for trial_layout in self.trial_layouts:
-                if trial_layout.trial.archipelago_id in self.ctx.game_state["trials_available"][self.area]:
+                if self.should_display_trial(trial_layout.trial):
                     trial_layout.show()
                 else:
                     trial_layout.hide()
@@ -1317,7 +1331,6 @@ class AvailableTrialsLayout(ScrollView):
                 self.goal_trial_layout.hide()
 
         # Area Labels, Game Labels and Available Trials
-        area: KeymastersKeepRegions
         keep_layout: KeepTrialsLayout
         for keep_layout in self.keep_layouts.values():
             keep_layout.update()
@@ -1368,9 +1381,7 @@ class CompletedTrialsLayout(ScrollView):
 
     no_trials_label: Label
 
-    area_labels: Dict[KeymastersKeepRegions, TrialAreaLabel]
-    game_labels: Dict[KeymastersKeepRegions, TrialGameLabel]
-    completed_trial_layouts: Dict[KeymastersKeepRegions, List[CompletedTrialLayout]]
+    keep_layouts: Dict[KeymastersKeepRegions, KeepTrialsLayout]
 
     goal_area_label: GoalAreaLabel
     goal_game_label: GoalGameLabel
@@ -1384,9 +1395,7 @@ class CompletedTrialsLayout(ScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
-        self.area_labels = dict()
-        self.game_labels = dict()
-        self.completed_trial_layouts = dict()
+        self.keep_layouts = dict()
 
         self.no_trials_label = Label(
             text="You haven't completed any trials yet. Once you do, they'll appear here!",
@@ -1420,29 +1429,15 @@ class CompletedTrialsLayout(ScrollView):
         area: KeymastersKeepRegions
         trials: List[KeymastersKeepLocationData]
         for area, trials in self.ctx.area_trials.items():
-            area_label: TrialAreaLabel = TrialAreaLabel(self.ctx, area)
-            area_label.hide()
+            keep_layout: KeepTrialsLayout = KeepTrialsLayout(
+                self.ctx,
+                area,
+                trials,
+                True,
+            )
 
-            self.layout.add_widget(area_label)
-            self.area_labels[area] = area_label
-
-            game_label: TrialGameLabel = TrialGameLabel(self.ctx, area)
-            game_label.hide()
-
-            self.layout.add_widget(game_label)
-            self.game_labels[area] = game_label
-
-            trial: KeymastersKeepLocationData
-            for trial in trials:
-                completed_trial_layout: CompletedTrialLayout = CompletedTrialLayout(self.ctx, area, trial)
-                completed_trial_layout.hide()
-
-                self.layout.add_widget(completed_trial_layout)
-
-                if area not in self.completed_trial_layouts:
-                    self.completed_trial_layouts[area] = list()
-
-                self.completed_trial_layouts[area].append(completed_trial_layout)
+            self.layout.add_widget(keep_layout)
+            self.keep_layouts[area] = keep_layout
 
         self.add_widget(self.layout)
 
@@ -1474,31 +1469,9 @@ class CompletedTrialsLayout(ScrollView):
                 self.goal_trial_layout.hide()
 
         # Area Labels, Game Labels and Completed Trials
-        area: KeymastersKeepRegions
-        for area in self.area_labels:
-            unlocked: bool = self.ctx.game_state["areas_unlocked"][area]
-
-            has_completed_trials: bool = (
-                len(self.ctx.game_state["trials_available"][area]) < len(self.ctx.area_trials[area])
-            )
-
-            if unlocked and has_completed_trials:
-                self.area_labels[area].show()
-                self.game_labels[area].show()
-
-                completed_trial_layout: CompletedTrialLayout
-                for completed_trial_layout in self.completed_trial_layouts[area]:
-                    if completed_trial_layout.trial.archipelago_id not in self.ctx.game_state["trials_available"][area]:
-                        completed_trial_layout.show()
-                    else:
-                        completed_trial_layout.hide()
-            else:
-                self.area_labels[area].hide()
-                self.game_labels[area].hide()
-
-                completed_trial_layout: CompletedTrialLayout
-                for completed_trial_layout in self.completed_trial_layouts[area]:
-                    completed_trial_layout.hide()
+        keep_layout: KeepTrialsLayout
+        for keep_layout in self.keep_layouts.values():
+            keep_layout.update()
 
 
 class TrialsCompletedTabLayout(BoxLayout):
