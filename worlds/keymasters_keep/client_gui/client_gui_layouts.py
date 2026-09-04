@@ -1026,7 +1026,7 @@ class KeepTrialsLayout(BoxLayout):
     ) -> None:
         super().__init__(
             orientation="vertical",
-            size_hint_y = None,
+            size_hint_y=None,
         )
 
         self.height = 0
@@ -1081,10 +1081,7 @@ class AvailableTrialsLayout(ScrollView):
 
     no_trials_label: Label
 
-    keep_trial_layouts: Dict[KeymastersKeepRegions, KeepTrialsLayout]
-    area_labels: Dict[KeymastersKeepRegions, TrialAreaLabel]
-    game_labels: Dict[KeymastersKeepRegions, TrialGameLabel]
-    available_trial_layouts: Dict[KeymastersKeepRegions, List[AvailableTrialLayout]]
+    keep_layouts: Dict[KeymastersKeepRegions, KeepTrialsLayout]
 
     goal_area_label: GoalAreaLabel
     goal_game_label: GoalGameLabel
@@ -1101,10 +1098,7 @@ class AvailableTrialsLayout(ScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
-        self.keep_trial_layouts = dict()
-        self.area_labels = dict()
-        self.game_labels = dict()
-        self.available_trial_layouts = dict()
+        self.keep_layouts = dict()
 
         self.no_trials_label = Label(
             text="No trials are currently available. Unlock keep areas to uncover more!",
@@ -1138,34 +1132,10 @@ class AvailableTrialsLayout(ScrollView):
         area: KeymastersKeepRegions
         trials: List[KeymastersKeepLocationData]
         for area, trials in self.ctx.area_trials.items():
-            keep_trial_layout: KeepTrialsLayout = KeepTrialsLayout(self.ctx, area, trials)
+            keep_layout: KeepTrialsLayout = KeepTrialsLayout(self.ctx, area, trials)
 
-            self.layout.add_widget(keep_trial_layout)
-            self.keep_trial_layouts[area] = keep_trial_layout
-
-            area_label: TrialAreaLabel = TrialAreaLabel(self.ctx, area)
-            area_label.hide()
-
-            self.layout.add_widget(area_label)
-            self.area_labels[area] = area_label
-
-            game_label: TrialGameLabel = TrialGameLabel(self.ctx, area)
-            game_label.hide()
-
-            self.layout.add_widget(game_label)
-            self.game_labels[area] = game_label
-
-            trial: KeymastersKeepLocationData
-            for trial in trials:
-                available_trial_layout: AvailableTrialLayout = AvailableTrialLayout(self.ctx, area, trial)
-                available_trial_layout.hide()
-
-                self.layout.add_widget(available_trial_layout)
-
-                if area not in self.available_trial_layouts:
-                    self.available_trial_layouts[area] = list()
-
-                self.available_trial_layouts[area].append(available_trial_layout)
+            self.layout.add_widget(keep_layout)
+            self.keep_layouts[area] = keep_layout
 
         self.add_widget(self.layout)
 
@@ -1223,29 +1193,9 @@ class AvailableTrialsLayout(ScrollView):
 
         # Area Labels, Game Labels and Available Trials
         area: KeymastersKeepRegions
-        for area in self.area_labels:
-            self.keep_trial_layouts[area].update()
-
-            unlocked: bool = self.ctx.game_state["areas_unlocked"][area]
-            has_available_trials: bool = bool(self.ctx.game_state["trials_available"][area])
-
-            if unlocked and has_available_trials:
-                self.area_labels[area].show()
-                self.game_labels[area].show()
-
-                available_trial_layout: AvailableTrialLayout
-                for available_trial_layout in self.available_trial_layouts[area]:
-                    if available_trial_layout.trial.archipelago_id in self.ctx.game_state["trials_available"][area]:
-                        available_trial_layout.show()
-                    else:
-                        available_trial_layout.hide()
-            else:
-                self.area_labels[area].hide()
-                self.game_labels[area].hide()
-
-                available_trial_layout: AvailableTrialLayout
-                for available_trial_layout in self.available_trial_layouts[area]:
-                    available_trial_layout.hide()
+        keep_layout: KeepTrialsLayout
+        for keep_layout in self.keep_layouts.values():
+            keep_layout.update()
 
 
 class TrialsTabLayout(BoxLayout):
