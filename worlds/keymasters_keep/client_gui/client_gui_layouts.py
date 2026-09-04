@@ -1008,6 +1008,72 @@ class AvailableGoalTrialLayout(BoxLayout):
         Clipboard.copy(self.ctx.goal_trial_game_objective)
 
 
+class KeepTrialsLayout(BoxLayout):
+    ctx: KeymastersKeepContext
+
+    area: KeymastersKeepRegions
+    trials: List[KeymastersKeepLocationData]
+
+    area_label: TrialAreaLabel
+    game_label: TrialGameLabel
+    trial_layouts: List[AvailableTrialLayout]
+
+    def __init__(
+        self,
+        ctx: KeymastersKeepContext,
+        area: KeymastersKeepRegions,
+        trials: List[KeymastersKeepLocationData]
+    ) -> None:
+        super().__init__(
+            orientation="vertical",
+            size_hint_y = None,
+        )
+
+        self.height = 0
+        self.bind(minimum_height=self.setter("height"))
+
+        self.ctx = ctx
+
+        self.area = area
+        self.trials = trials
+
+        self.area_label = TrialAreaLabel(self.ctx, self.area)
+        self.game_label = TrialGameLabel(self.ctx, self.area)
+        self.trial_layouts = list()
+
+        self.add_widget(self.area_label)
+        self.add_widget(self.game_label)
+
+        trial: KeymastersKeepLocationData
+        for trial in trials:
+            trial_layout: AvailableTrialLayout = AvailableTrialLayout(self.ctx, self.area, trial)
+            trial_layout.hide()
+            self.add_widget(trial_layout)
+            self.trial_layouts.append(trial_layout)
+
+    def update(self) -> None:
+        unlocked: bool = self.ctx.game_state["areas_unlocked"][self.area]
+        has_available_trials: bool = bool(self.ctx.game_state["trials_available"][self.area])
+
+        if unlocked and has_available_trials:
+            self.area_label.show()
+            self.game_label.show()
+
+            trial_layout: AvailableTrialLayout
+            for trial_layout in self.trial_layouts:
+                if trial_layout.trial.archipelago_id in self.ctx.game_state["trials_available"][self.area]:
+                    trial_layout.show()
+                else:
+                    trial_layout.hide()
+        else:
+            self.area_label.hide()
+            self.game_label.hide()
+
+            trial_layout: AvailableTrialLayout
+            for trial_layout in self.trial_layouts:
+                trial_layout.hide()
+
+
 class AvailableTrialsLayout(ScrollView):
     ctx: KeymastersKeepContext
 
@@ -1015,6 +1081,7 @@ class AvailableTrialsLayout(ScrollView):
 
     no_trials_label: Label
 
+    keep_trial_layouts: Dict[KeymastersKeepRegions, KeepTrialsLayout]
     area_labels: Dict[KeymastersKeepRegions, TrialAreaLabel]
     game_labels: Dict[KeymastersKeepRegions, TrialGameLabel]
     available_trial_layouts: Dict[KeymastersKeepRegions, List[AvailableTrialLayout]]
@@ -1034,6 +1101,7 @@ class AvailableTrialsLayout(ScrollView):
         self.layout = BoxLayout(orientation="vertical", size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter("height"))
 
+        self.keep_trial_layouts = dict()
         self.area_labels = dict()
         self.game_labels = dict()
         self.available_trial_layouts = dict()
@@ -1070,6 +1138,11 @@ class AvailableTrialsLayout(ScrollView):
         area: KeymastersKeepRegions
         trials: List[KeymastersKeepLocationData]
         for area, trials in self.ctx.area_trials.items():
+            keep_trial_layout: KeepTrialsLayout = KeepTrialsLayout(self.ctx, area, trials)
+
+            self.layout.add_widget(keep_trial_layout)
+            self.keep_trial_layouts[area] = keep_trial_layout
+
             area_label: TrialAreaLabel = TrialAreaLabel(self.ctx, area)
             area_label.hide()
 
@@ -1151,6 +1224,8 @@ class AvailableTrialsLayout(ScrollView):
         # Area Labels, Game Labels and Available Trials
         area: KeymastersKeepRegions
         for area in self.area_labels:
+            self.keep_trial_layouts[area].update()
+
             unlocked: bool = self.ctx.game_state["areas_unlocked"][area]
             has_available_trials: bool = bool(self.ctx.game_state["trials_available"][area])
 
