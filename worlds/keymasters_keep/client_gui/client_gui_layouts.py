@@ -1171,15 +1171,6 @@ class KeepTrialsLayout(BoxLayout):
             self.add_widget(trial_layout)
             self.trial_layouts.append(trial_layout)
 
-    def has_trials(self) -> bool:
-        if self.is_completed_view:
-            return (
-                len(self.ctx.game_state["trials_available"][self.area]) <
-                len(self.ctx.area_trials[self.area])
-            )
-        else:
-            return bool(self.ctx.game_state["trials_available"][self.area])
-
     def should_display_trial(self, trial) -> bool:
         if self.is_completed_view:
             return trial.archipelago_id not in self.ctx.game_state["trials_available"][self.area]
@@ -1188,8 +1179,9 @@ class KeepTrialsLayout(BoxLayout):
 
     def update(self) -> None:
         unlocked: bool = self.ctx.game_state["areas_unlocked"][self.area]
+        has_visible_trials: bool = any(self.should_display_trial(trial) for trial in self.trials)
 
-        if unlocked and self.has_trials():
+        if unlocked and has_visible_trials:
             self.area_label.show()
             self.game_label.show()
 
