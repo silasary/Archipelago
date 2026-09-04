@@ -857,6 +857,67 @@ class AvailableTrialLayout(BoxLayout):
         Clipboard.copy(self.ctx.area_trial_game_objectives[self.trial.name])
 
 
+class CompletedTrialLayout(BoxLayout):
+    ctx: KeymastersKeepContext
+
+    area: KeymastersKeepRegions
+    trial: KeymastersKeepLocationData
+
+    copy_button: Button
+
+    def __init__(
+        self,
+        ctx: KeymastersKeepContext,
+        area: KeymastersKeepRegions,
+        trial: KeymastersKeepLocationData,
+    ) -> None:
+        super().__init__(orientation="horizontal", size_hint_y=None, height="40dp", spacing="8dp")
+
+        self.ctx = ctx
+
+        self.area = area
+        self.trial = trial
+
+        self.copy_button = Button(
+            text="Copy",
+            width="56dp",
+            size_hint_x=None,
+            halign="left",
+        )
+
+        self.copy_button.bind(on_press=self.on_copy_button_press)
+
+        self.add_widget(self.copy_button)
+
+        trial_objective: str = self.ctx.area_trial_game_objectives[self.trial.name]
+
+        trial_label: TrialLabel = TrialLabel(
+            text=f"[b]{self.trial.name}[/b]\n[color=bbbbbb]{escape_markup(trial_objective)}[/color]",
+            markup=True,
+            size_hint_y=None,
+            height="40dp",
+            halign="left",
+            valign="middle",
+        )
+
+        trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        self.add_widget(trial_label)
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "40dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+    def on_copy_button_press(self, _) -> None:
+        Clipboard.copy(self.ctx.area_trial_game_objectives[self.trial.name])
+
+
 class GoalAreaLabel(Label):
     ctx: KeymastersKeepContext
 
@@ -1008,21 +1069,75 @@ class AvailableGoalTrialLayout(BoxLayout):
         Clipboard.copy(self.ctx.goal_trial_game_objective)
 
 
+class CompletedGoalTrialLayout(BoxLayout):
+    ctx: KeymastersKeepContext
+
+    copy_button: Button
+
+    def __init__(self, ctx: KeymastersKeepContext) -> None:
+        super().__init__(orientation="horizontal", size_hint_y=None, height="40dp", spacing="8dp")
+
+        self.ctx = ctx
+
+        self.copy_button = Button(
+            text="Copy",
+            width="56dp",
+            size_hint_x=None,
+            halign="left",
+        )
+
+        self.copy_button.bind(on_press=self.on_copy_button_press)
+
+        self.add_widget(self.copy_button)
+
+        trial_name: str = KeymastersKeepLocations.THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY.value
+        trial_objective: str = self.ctx.goal_trial_game_objective
+
+        trial_label: TrialLabel = TrialLabel(
+            text=f"[b]{trial_name}[/b]\n[color=bbbbbb]{escape_markup(trial_objective)}[/color]",
+            markup=True,
+            size_hint_y=None,
+            height="40dp",
+            halign="left",
+            valign="middle",
+        )
+
+        trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
+
+        self.add_widget(trial_label)
+
+    def show(self) -> None:
+        self.opacity = 1.0
+        self.height = "40dp"
+        self.disabled = False
+
+    def hide(self) -> None:
+        self.opacity = 0.0
+        self.height = "0dp"
+        self.disabled = True
+
+    def on_copy_button_press(self, _) -> None:
+        Clipboard.copy(self.ctx.goal_trial_game_objective)
+
+
 class KeepTrialsLayout(BoxLayout):
     ctx: KeymastersKeepContext
 
     area: KeymastersKeepRegions
     trials: List[KeymastersKeepLocationData]
 
+    is_completed_view: bool
+
     area_label: TrialAreaLabel
     game_label: TrialGameLabel
-    trial_layouts: List[AvailableTrialLayout]
+    trial_layouts: List[AvailableTrialLayout|CompletedTrialLayout]
 
     def __init__(
         self,
         ctx: KeymastersKeepContext,
         area: KeymastersKeepRegions,
-        trials: List[KeymastersKeepLocationData]
+        trials: List[KeymastersKeepLocationData],
+        is_completed_view: bool
     ) -> None:
         super().__init__(
             orientation="vertical",
@@ -1033,9 +1148,9 @@ class KeepTrialsLayout(BoxLayout):
         self.bind(minimum_height=self.setter("height"))
 
         self.ctx = ctx
-
         self.area = area
         self.trials = trials
+        self.is_completed_view = is_completed_view
 
         self.area_label = TrialAreaLabel(self.ctx, self.area)
         self.game_label = TrialGameLabel(self.ctx, self.area)
@@ -1046,7 +1161,12 @@ class KeepTrialsLayout(BoxLayout):
 
         trial: KeymastersKeepLocationData
         for trial in trials:
-            trial_layout: AvailableTrialLayout = AvailableTrialLayout(self.ctx, self.area, trial)
+            # Creates a trial layout using the appropriate constructor
+            trial_layout: AvailableTrialLayout|CompletedTrialLayout = (
+                CompletedTrialLayout(self.ctx, self.area, trial)
+                if is_completed_view
+                else AvailableTrialLayout(self.ctx, self.area, trial)
+            )
             trial_layout.hide()
             self.add_widget(trial_layout)
             self.trial_layouts.append(trial_layout)
@@ -1059,7 +1179,7 @@ class KeepTrialsLayout(BoxLayout):
             self.area_label.show()
             self.game_label.show()
 
-            trial_layout: AvailableTrialLayout
+            trial_layout: AvailableTrialLayout|CompletedTrialLayout
             for trial_layout in self.trial_layouts:
                 if trial_layout.trial.archipelago_id in self.ctx.game_state["trials_available"][self.area]:
                     trial_layout.show()
@@ -1069,7 +1189,7 @@ class KeepTrialsLayout(BoxLayout):
             self.area_label.hide()
             self.game_label.hide()
 
-            trial_layout: AvailableTrialLayout
+            trial_layout: AvailableTrialLayout|CompletedTrialLayout
             for trial_layout in self.trial_layouts:
                 trial_layout.hide()
 
@@ -1132,7 +1252,12 @@ class AvailableTrialsLayout(ScrollView):
         area: KeymastersKeepRegions
         trials: List[KeymastersKeepLocationData]
         for area, trials in self.ctx.area_trials.items():
-            keep_layout: KeepTrialsLayout = KeepTrialsLayout(self.ctx, area, trials)
+            keep_layout: KeepTrialsLayout = KeepTrialsLayout(
+                self.ctx,
+                area,
+                trials,
+                False,
+            )
 
             self.layout.add_widget(keep_layout)
             self.keep_layouts[area] = keep_layout
@@ -1234,118 +1359,6 @@ class TrialsTabLayout(BoxLayout):
             self.layout_content.add_widget(self.layout_content_available_trials)
 
         self.layout_content_available_trials.update()
-
-
-class CompletedGoalTrialLayout(BoxLayout):
-    ctx: KeymastersKeepContext
-
-    copy_button: Button
-
-    def __init__(self, ctx: KeymastersKeepContext) -> None:
-        super().__init__(orientation="horizontal", size_hint_y=None, height="40dp", spacing="8dp")
-
-        self.ctx = ctx
-
-        self.copy_button = Button(
-            text="Copy",
-            width="56dp",
-            size_hint_x=None,
-            halign="left",
-        )
-
-        self.copy_button.bind(on_press=self.on_copy_button_press)
-
-        self.add_widget(self.copy_button)
-
-        trial_name: str = KeymastersKeepLocations.THE_KEYMASTERS_CHALLENGE_CHAMBER_VICTORY.value
-        trial_objective: str = self.ctx.goal_trial_game_objective
-
-        trial_label: TrialLabel = TrialLabel(
-            text=f"[b]{trial_name}[/b]\n[color=bbbbbb]{escape_markup(trial_objective)}[/color]",
-            markup=True,
-            size_hint_y=None,
-            height="40dp",
-            halign="left",
-            valign="middle",
-        )
-
-        trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        self.add_widget(trial_label)
-
-    def show(self) -> None:
-        self.opacity = 1.0
-        self.height = "40dp"
-        self.disabled = False
-
-    def hide(self) -> None:
-        self.opacity = 0.0
-        self.height = "0dp"
-        self.disabled = True
-
-    def on_copy_button_press(self, _) -> None:
-        Clipboard.copy(self.ctx.goal_trial_game_objective)
-
-
-class CompletedTrialLayout(BoxLayout):
-    ctx: KeymastersKeepContext
-
-    area: KeymastersKeepRegions
-    trial: KeymastersKeepLocationData
-
-    copy_button: Button
-
-    def __init__(
-        self,
-        ctx: KeymastersKeepContext,
-        area: KeymastersKeepRegions,
-        trial: KeymastersKeepLocationData,
-    ) -> None:
-        super().__init__(orientation="horizontal", size_hint_y=None, height="40dp", spacing="8dp")
-
-        self.ctx = ctx
-
-        self.area = area
-        self.trial = trial
-
-        self.copy_button = Button(
-            text="Copy",
-            width="56dp",
-            size_hint_x=None,
-            halign="left",
-        )
-
-        self.copy_button.bind(on_press=self.on_copy_button_press)
-
-        self.add_widget(self.copy_button)
-
-        trial_objective: str = self.ctx.area_trial_game_objectives[self.trial.name]
-
-        trial_label: TrialLabel = TrialLabel(
-            text=f"[b]{self.trial.name}[/b]\n[color=bbbbbb]{escape_markup(trial_objective)}[/color]",
-            markup=True,
-            size_hint_y=None,
-            height="40dp",
-            halign="left",
-            valign="middle",
-        )
-
-        trial_label.bind(size=lambda label, size: setattr(label, "text_size", size))
-
-        self.add_widget(trial_label)
-
-    def show(self) -> None:
-        self.opacity = 1.0
-        self.height = "40dp"
-        self.disabled = False
-
-    def hide(self) -> None:
-        self.opacity = 0.0
-        self.height = "0dp"
-        self.disabled = True
-
-    def on_copy_button_press(self, _) -> None:
-        Clipboard.copy(self.ctx.area_trial_game_objectives[self.trial.name])
 
 
 class CompletedTrialsLayout(ScrollView):
