@@ -6,7 +6,7 @@ steps on how to write your own.
 ## Generic Tests
 
 Some generic tests are run on every World to ensure basic functionality with default options. These basic tests can be
-found in the [general test directory](/test/general).
+found in the [general test directory](https://github.com/ArchipelagoMW/Archipelago/tree/main/test/general).
 
 ## Defining World Tests
 
@@ -98,7 +98,7 @@ for multiple inputs) the base test. Some important things to consider when attem
   timing data, so they are not suitable for slow tests.
 
 * Archipelago's tests are test-runner-agnostic. That means tests are not allowed to use e.g. `@pytest.mark.parametrize`.
-  Instead, we define our own parametrization helpers in [test.param](/test/param.py).
+  Instead, we define our own parametrization helpers in [test.param](https://github.com/ArchipelagoMW/Archipelago/blob/main/test/param.py).
 
 * Classes inheriting from `WorldTestBase`, including those created by the helpers in `test.param`, will run all
   base tests by default, make sure the produced tests actually do what you aim for and do not waste a lot of
@@ -131,7 +131,7 @@ Unless you configured PyCharm to use pytest as a test runner, you may get import
 edit the run configuration, and set the working directory to the Archipelago directory which contains all the project files. 
 
 If you only want to run your world's defined tests, repeat the steps for the test directory within your world.
-Your working directory should be the directory of your world in the worlds directory and the script should be the 
+Your working directory should be the root Archipelago directory and the script should be the 
 tests folder within your world.
 
 You can also find the 'Archipelago Unittests' as an option in the dropdown at the top of the window
