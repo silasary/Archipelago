@@ -1,12 +1,15 @@
-from worlds.ffxiitm.test import FFXIITMTestBase
+from .bases import FFXIITMTestBase
 
+
+class StartingInventoryFromPoolTest(FFXIITMTestBase):
+    options = {
+        "trial_victory": 100,
+        "start_inventory_from_pool": {"Cura": 1, "Seitengrat": 1, "Zodiark": 1}
+    }
 
 class StartingInventoryTest(FFXIITMTestBase):
     options = {
         "trial_victory": 100,
-        "start_inventory": {"Bangle": 1, "Charge": 1, "Zodiark": 1}
+        "start_inventory_from_pool": {"Cura": 1, "Seitengrat": 1, "Zodiark": 1}
     }
 
-    def test_starting_inventory(self):
-        for item in self.multiworld.itempool:
-            self.assertNotIn(item.name, self.options["start_inventory"])

@@ -6,6 +6,7 @@ import pkgutil
 import sys
 import asyncio
 import shutil
+import time
 from typing import TYPE_CHECKING
 
 import ModuleUpdate
@@ -36,12 +37,39 @@ def check_stdin() -> None:
     if Utils.is_windows and sys.stdin:
         print("WARNING: Console input is not routed reliably on Windows, use the GUI instead.")
 
-class FFXIITMClientCommandProcessor(ClientCommandProcessor):
-    # def _cmd_test(self):
-    #     """Test"""
-    #     self.output(f"Test")
-    pass
+def clear_AP_files(file_dir):
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if 'obtain' in file or 'current_map' in file: continue
+            os.remove(root+"/"+file)
 
+def get_trial_from_location_id(location_id):
+    trial = ((location_id//10 -1) % 1000)+1 # 451001 -> 100
+    if location_id % 10 == 0: trial -= 1 #specifically for trial 31 because it has 5 chests
+    return trial
+
+
+class FFXIITMClientCommandProcessor(ClientCommandProcessor):
+
+    def _cmd_send_previous_chests(self):
+        '''sends missed chests from all trials before the most recently collect chest'''
+        check = self.ctx.most_recent_check
+        if check > 0:
+            current_trial = get_trial_from_location_id(check)
+            # self.output(f'you are in Trial {current_trial}')
+            locations_to_send = [l for l in self.ctx.missing_locations if get_trial_from_location_id(l) < current_trial]
+
+            for ss in locations_to_send:
+                filename = f"send{ss}"
+                with open(os.path.join(self.ctx.game_communication_path, filename), 'w') as f:
+                    f.close()
+        else:
+            self.output('No found chests detected in this session.')
+
+    def _cmd_toggle_always_send_previous_chests(self):
+        '''toggle whether to always send previous trials chests upon chest pickup'''
+        self.ctx.always_send_previous_chests = not self.ctx.always_send_previous_chests
+        self.output(f'Current state: {self.ctx.always_send_previous_chests}')
 
 class FFXIITMContext(CommonContext):
     command_processor = FFXIITMClientCommandProcessor
@@ -49,8 +77,12 @@ class FFXIITMContext(CommonContext):
     items_handling = 0b111  # full remote
     tags = {"AP"}
 
+
     def __init__(self, server_address, password):
         super(FFXIITMContext, self).__init__(server_address, password)
+        self.local_command_processor = self.command_processor(self)
+        self.most_recent_check = 0
+        self.always_send_previous_chests = False
         self.send_index: int = 0
         self.syncing = False
         self.awaiting_bridge = False
@@ -59,12 +91,10 @@ class FFXIITMContext(CommonContext):
             self.game_communication_path = os.path.expandvars(r"%localappdata%/FFXIITM")
         else:
             self.game_communication_path = os.path.expandvars(r"$HOME/FFXIITM")
-        if not os.path.exists(self.game_communication_path):
-            os.makedirs(self.game_communication_path)
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
+        os.makedirs(self.game_communication_path, exist_ok=True)
+        clear_AP_files(self.game_communication_path)
+
+
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -74,10 +104,7 @@ class FFXIITMContext(CommonContext):
 
     async def connection_closed(self):
         await super(FFXIITMContext, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root + "/" + file)
+        clear_AP_files(self.game_communication_path)
 
     @property
     def endpoints(self):
@@ -88,19 +115,15 @@ class FFXIITMContext(CommonContext):
 
     async def shutdown(self):
         await super(FFXIITMContext, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
+        clear_AP_files(self.game_communication_path)
 
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
-            if not os.path.exists(self.game_communication_path):
-                os.makedirs(self.game_communication_path)
-            for ss in self.checked_locations:
-                filename = f"send{ss}"
-                with open(os.path.join(self.game_communication_path, filename), 'w') as f:
-                    f.close()
+            os.makedirs(self.game_communication_path,exist_ok=True)
+            # for ss in self.checked_locations:
+                # filename = f"send{ss}"
+                # with open(os.path.join(self.game_communication_path, filename), 'w') as f:
+                    # f.close()
         if cmd in {"ReceivedItems"}:
             start_index = args["index"]
             if start_index != len(self.items_received):
@@ -128,14 +151,19 @@ class FFXIITMContext(CommonContext):
                         with open(os.path.join(self.game_communication_path, filename), 'w') as f:
                             f.write(str(net_item.item) + "\n" + str(net_item.location) + "\n" + str(net_item.player))
                             f.close()
+                            # time.sleep(0.1)
 
-        if cmd in {"RoomUpdate"}:
-            if "checked_locations" in args:
-                for ss in self.checked_locations:
-                    filename = f"send{ss}"
-                    with open(os.path.join(self.game_communication_path, filename), 'w') as f:
-                        f.close()
-
+        # Collected items do not need to be communicated to the mod
+        # if cmd in {"RoomUpdate"}:
+            # if "checked_locations" in args:
+                # logger.info(f'collect detected. There should now be {len(self.checked_locations)} locations checked')
+                # for ss in self.checked_locations:
+                    # self.checked_locations
+                    # filename = f"send{ss}"
+                    # if not os.path.exists(os.path.join(self.game_communication_path, filename)):
+                        # with open(os.path.join(self.game_communication_path, f"collected{ss}"), 'w') as f:
+                            # f.close()
+                        # if ss not in self.locations_checked: self.locations_checked.append(ss)
         super().on_package(cmd, args)
 
     def make_gui(self):
@@ -152,26 +180,34 @@ class FFXIITMContext(CommonContext):
 
 
 async def game_watcher(ctx: FFXIITMContext):
+    new_locations = []
     while not ctx.exit_event.is_set():
         if ctx.syncing:
             sync_msg = [{'cmd': 'Sync'}]
             if ctx.locations_checked:
-                sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
+                # sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
+                sync_msg.append({"cmd": "LocationChecks", "locations": new_locations})
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
-        sending = []
+        location_roundup = []
         victory = False
         for root, dirs, files in os.walk(ctx.game_communication_path):
             for file in files:
-                if file.find("send") > -1:
+                if 'send' in file:
                     st = file.split("send", -1)[1]
                     if st != "nil":
-                        sending = sending+[(int(st))]
-                if file.find("victory") > -1:
+                        location_roundup.append(int(st))
+                if "victory" in file:
                     victory = True
-        if len(sending) > len(ctx.locations_checked):
+        if len(location_roundup) > len(ctx.locations_checked):
+            # logger.info(f"checks: {len(ctx.locations_checked)} -> {len(location_roundup)}")
             ctx.syncing = True
-        ctx.locations_checked = sending
+            new_locations = [l for l in location_roundup if l not in ctx.locations_checked]
+            ctx.most_recent_check = max(ctx.most_recent_check, new_locations[-1])
+
+            if ctx.always_send_previous_chests: ctx.local_command_processor._cmd_send_previous_chests()
+        ctx.locations_checked = location_roundup
+
         if not ctx.finished_game and victory:
             await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
             ctx.finished_game = True
@@ -233,4 +269,4 @@ def copy_data() -> None:
     except IOError:
         logging.warning("Unable to copy ffxii_tm_ap.lua to /data/lua in your Archipelago install.")
 
-copy_data()
+# copy_data()
