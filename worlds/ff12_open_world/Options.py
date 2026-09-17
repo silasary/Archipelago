@@ -16,7 +16,7 @@ class ShuffleMainParty(Toggle):
 
 
 class ProgressiveScaling(Toggle):
-    """In addition to the progression scaling, also scale the progression based on the number of party members, 
+    """In addition to the progression scaling, also scale the progression based on the number of party members,
     the second license board has been unlocked, and progressive access to slightly easier regions to unlock more difficult areas."""
     display_name = "Difficulty Progressive Scaling"
     default = 1
@@ -80,6 +80,24 @@ class BahamutUnlock(Choice):
     option_random_location = 6
     default = 0
 
+class MoogleHints(Choice):
+    """Allows each Sky Pirate's Den award and the Dusty Letter provide hints from the moogle cartographers.
+
+    None - Moogle Hints are disabled.
+    Exact - Hints give the exact item in the exact location.
+    Vague Type - Hints give the type ('Unique Key Item'/'Chop'/'Black Orb'/'Writ of Transit'/'Useless Trophy'/'Ability'/'Other') in the exact location.
+    Vague Area - Hints give the exact item in the area.
+    Unknown but Exact Location - Hints will hint that something ('?????') is in the exact location.
+    Random per Hint - Each hint will be one of the above types, chosen randomly.
+    """
+    display_name = "Moogle Hints"
+    option_none = 0
+    option_exact = 1
+    option_vague_type = 2
+    option_vague_area = 3
+    option_unknown_but_exact_location = 4
+    option_random_per_hint = 5
+    default = 0
 
 @dataclass
 class FF12OpenWorldGameOptions(PerGameCommonOptions):
@@ -93,3 +111,4 @@ class FF12OpenWorldGameOptions(PerGameCommonOptions):
     include_clan_hall_rewards: IncludeClanHallRewards
     allow_seitengrat: AllowSeitengrat
     bahamut_unlock: BahamutUnlock
+    moogle_hints: MoogleHints

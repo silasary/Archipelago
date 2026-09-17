@@ -197,7 +197,7 @@ class FF12OpenWorldWorld(World):
         locations_to_add = self.multiworld.random.sample(treasure_names,
                                                          k=255)
 
-        self.selected_treasures = [loc for loc in locations_to_add]        
+        self.selected_treasures = [loc for loc in locations_to_add]
 
         # Add first index reward locations.
         reward_names = [name for name, data in location_data_table.items()
@@ -213,16 +213,16 @@ class FF12OpenWorldWorld(World):
 
         secondary_reward_names = [name for name, data in location_data_table.items()
                                   if data.type == "reward" and data.secondary_index > 0]
-        
+
         # Add half of the secondary reward locations randomly.
         secondary_added = self.multiworld.random.sample(secondary_reward_names,
                                                         k=len(secondary_reward_names) // 2)
         locations_to_add += secondary_added
-        
+
         # Add enough non excluded secondary reward locations to meet at least progression + useful item counts.
         remaining_non_excluded_secondary = [name for name in secondary_reward_names
                                if name not in locations_to_add and
-                               self.get_loc_classification(name) != LocationProgressType.EXCLUDED]                        
+                               self.get_loc_classification(name) != LocationProgressType.EXCLUDED]
         secondary_needed = 0
         for _, data in item_data_table.items():
             if data.classification & (ItemClassification.progression | ItemClassification.useful):
@@ -401,11 +401,11 @@ class FF12OpenWorldWorld(World):
 
     def create_rule(self, location_name: str) -> Callable[[CollectionState], bool]:
         return lambda state: rule_data_table[location_name](state, self.player)
-    
+
     def state_has_difficulty_access(self, state: CollectionState, difficulty: int, player: int, range: int) -> bool:
         if not state_has_characters(state, difficulty, player):
             return False
-        
+
         if difficulty == 0:
             return True
 
@@ -444,12 +444,12 @@ class FF12OpenWorldWorld(World):
                                                                   3)
         else:
             raise Exception(f"Could not create character rule for {name}.")
-        
+
     def create_chara_rule_entrance(self, entrance: Tuple[str, str]) -> Callable[[CollectionState], bool]:
         return lambda state: self.state_has_difficulty_access(state,
                                                               entrance_rule_difficulty_table[entrance],
                                                               self.player,
-                                                              3)      
+                                                              3)
 
     def create_entrance_rule(self, entrance: Tuple[str, str]) -> Callable[[CollectionState], bool]:
         return lambda state: entrance_rule_data_table[entrance](state, self.player)
@@ -481,11 +481,77 @@ class FF12OpenWorldWorld(World):
                 self.options.allow_seitengrat = options["allow_seitengrat"]
                 self.options.bahamut_unlock = options["bahamut_unlock"]
 
+    def generate_moogle_hints(self, hintable_items: list[Item]) -> List:
+        hint_type = self.options.moogle_hints.value
+        if hint_type == 0:
+            return []
+
+        self.random.shuffle(hintable_items)
+        writ_id = item_data_table["Writ of Transit"].code
+        pinewood_chop_id = item_data_table["Pinewood Chop"].code
+        sandalwood_chop_id = item_data_table["Sandalwood Chop"].code
+        black_orb_id = item_data_table["Black Orb"].code
+        rab_aero_id = item_data_table["Rabanastre Aeropass"].code
+        balf_aero_id = item_data_table["Balfonheim Aeropass"].code
+        def hint_text(item: Item, hint_type: int) -> str:
+            if not item.location:
+                raise ValueError("Tried to generate a hint for an item without a location?")
+
+            if item.location.player == self.player:
+                slot = "Your"
+            else:
+                slot = self.multiworld.get_player_name(item.location.player) + "'s"
+            match hint_type:
+                case 1:  # Exact
+                    return f"{slot} {item.location.name} has {item.name}"
+                case 2:  # Vague Type
+                    item_type = "an Important Key Item"
+                    if item.game == self.game:
+                        if item.code == writ_id:
+                            item_type = "a Writ of Transit"
+                        elif item.code in [pinewood_chop_id, sandalwood_chop_id]:
+                            item_type = "a Chop"
+                        elif item.code == black_orb_id:
+                            item_type = "a Black Orb"
+                        elif rab_aero_id <= item.code <= balf_aero_id:
+                            item_type = "an Aeropass"
+
+                    return f"{slot} {item.location.name} has {item_type}"
+
+                case 3:  # Vague Location
+                    if item.location.parent_region is not None:
+                        return f"{slot} {item.location.parent_region.name} has {item.name}"
+                    return f"{slot} has {item.name}"
+
+                case 4:
+                    return f"{slot} {item.location.name} has ???"
+
+                case _:
+                    return "Cannot generate hint"
+        hints = []
+        for i in range(35):
+            hint_type = self.options.moogle_hints.value
+            if hint_type == 5:  # Random per-hint
+                hint_type = self.random.randint(1, 4)
+            hint_data: dict[str, Any] = {
+                "text": hint_text(hintable_items[i], hint_type)
+            }
+            if hint_type == 1:
+                hint_data["create_hint"] = (hintable_items[i].location.player, hintable_items[i].location.address)
+            hints.append(hint_data)
+
+        return hints
+
     def generate_output(self, output_directory: str) -> None:
         spheres: List[Dict[str, Any]] = []
         cur_sphere = 0
+        hintable_items: list[Item] = []
         for locations in self.multiworld.get_spheres():
             for loc in locations:
+                if loc.item and loc.address and loc.item.classification == ItemClassification.progression and cur_sphere > 3 and \
+                        (loc.player == self.player or loc.item.player == self.player):
+                    hintable_items.append(loc.item)
+
                 # Skip locations that are not for this player
                 if loc.player != self.player:
                     continue
@@ -501,6 +567,9 @@ class FF12OpenWorldWorld(World):
                                     "item": event_data_table[loc.name].item,
                                     "sphere": cur_sphere})
             cur_sphere += 1
+
+
+        moogle_hints = self.generate_moogle_hints(hintable_items)
 
         seed_name = self.multiworld.seed_name + "_" + self.multiworld.get_player_name(self.player)
         data = {
@@ -522,7 +591,8 @@ class FF12OpenWorldWorld(World):
                      "item": self.excluded_locations[loc][0],
                      "amount": self.excluded_locations[loc][1]}
                     for loc in self.excluded_locations.keys()
-                ]
+                ],
+                "moogle_hints": moogle_hints,
             }
         }
         # Package output using an APPlayerContainer for consistency with other worlds
