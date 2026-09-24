@@ -1,6 +1,6 @@
 {
     "game": "APWorld Manager",
-    "world_version": "0.0.25",
+    "world_version": "0.0.26",
     "changelog": [
         "* More error handling when a repo has invalid data."
     ]
