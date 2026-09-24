@@ -12,13 +12,11 @@ import argparse
 import logging
 import multiprocessing
 import os
-import shlex
 import subprocess
 import sys
 import urllib.parse
 from collections.abc import Callable, Sequence
-from shutil import which
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from worlds.LauncherComponents import Component, Type
@@ -29,81 +27,10 @@ if __name__ == "__main__":
     ModuleUpdate.update()
 
 import Utils
-from Utils import env_cleared_lib_path, init_logging, is_linux, is_macos, is_windows, local_path
+from Utils import init_logging, local_path
 
 if __name__ == "__main__":
     init_logging('Launcher')
-
-def open_host_yaml():
-    s = settings.get_settings()
-    file = s.filename
-    s.save()
-    assert file, "host.yaml missing"
-    if is_linux:
-        exe = which('sensible-editor') or which('gedit') or \
-              which('xdg-open') or which('gnome-open') or which('kde-open')
-    elif is_macos:
-        exe = which("open")
-    else:
-        webbrowser.open(file)
-        return
-
-    env = env_cleared_lib_path()
-    subprocess.Popen([exe, file], env=env)
-
-def open_patch():
-    suffixes = []
-    for c in components:
-        if c.type == Type.CLIENT and \
-                isinstance(c.file_identifier, SuffixIdentifier) and \
-                (c.script_name is None or isfile(get_exe(c)[-1])):
-            suffixes += c.file_identifier.suffixes
-    try:
-        filename = open_filename("Select patch", (("Patches", suffixes),))
-    except Exception as e:
-        messagebox("Error", str(e), error=True)
-    else:
-        file, component = identify(filename)
-        if file and component:
-            exe = get_exe(component)
-            if exe is None or not isfile(exe[-1]):
-                exe = get_exe("Launcher")
-
-            launch([*exe, file], component.cli)
-
-
-def generate_yamls(*args):
-    from Options import generate_yaml_templates
-
-    parser = argparse.ArgumentParser(description="Generate Template Options", usage="[-h] [--skip_open_folder]")
-    parser.add_argument("--skip_open_folder", action="store_true")
-    args = parser.parse_args(args)
-
-    target = Utils.user_path("Players", "Templates")
-    generate_yaml_templates(target, False)
-    if not args.skip_open_folder:
-        open_folder(target)
-
-
-def browse_files():
-    open_folder(user_path())
-
-
-def open_folder(folder_path):
-    if is_linux:
-        exe = which('xdg-open') or which('gnome-open') or which('kde-open')
-    elif is_macos:
-        exe = which("open")
-    else:
-        webbrowser.open(folder_path)
-        return
-
-    if exe:
-        env = env_cleared_lib_path()
-        subprocess.Popen([exe, folder_path], env=env)
-    else:
-        logging.warning(f"No file browser available to open {folder_path}")
-
 
 def update_settings():
     from settings import get_settings
@@ -143,25 +70,8 @@ def launch(exe: Sequence[str], in_terminal: bool = False) -> bool:
 
     If `in_terminal` is True, it will attempt to run in a terminal window,
     and the return value will indicate whether one was found."""
-    if in_terminal:
-        if is_windows:
-            # intentionally using a window title with a space so it gets quoted and treated as a title
-            subprocess.Popen(["start", "Running Archipelago", *exe], shell=True)
-            return True
-        elif is_linux:
-            terminal = which("x-terminal-emulator") or which("konsole") or which("gnome-terminal") or which("xterm")
-            if terminal:
-                # Clear LD_LIB_PATH during terminal startup, but set it again when running command in case it's needed
-                ld_lib_path = os.environ.get("LD_LIBRARY_PATH")
-                lib_path_setter = f"env LD_LIBRARY_PATH={shlex.quote(ld_lib_path)} " if ld_lib_path else ""
-                env = env_cleared_lib_path()
-
-                subprocess.Popen([terminal, "-e", lib_path_setter + shlex.join(exe)], env=env)
-                return True
-        elif is_macos:
-            terminal = [which("open"), "-W", "-a", "Terminal.app"]
-            subprocess.Popen([*terminal, *exe])
-            return True
+    if in_terminal and Utils.run_in_terminal(exe):
+        return True
     subprocess.Popen(exe)
     return False
 

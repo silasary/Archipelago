@@ -10,3 +10,7 @@ ex. "MyGame4: implement new game" or "Docs: add new guide for customizing MyGame
 
 
 ## If this makes graphical changes, please attach screenshots.
+
+
+## Was AI used in the creation of this PR?
+
