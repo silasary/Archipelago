@@ -1,9 +1,12 @@
 {
     "game": "Factorio - Space Age Without Space",
     "authors": ["Silasary"],
-    "world_version": "0.9.4",
+    "world_version": "0.9.5",
     "minimum_ap_version": "0.6.0",
     "changelog": [
+        "## 0.9.5",
+        "* Fixed leak in mod title when multiple SAWS slots were in a multiworld",
+        "",
         "## 0.9.4",
         "* Added the Quality Trap.  This lovely trap will hide a Quality Module 3 in a random machine.  Everyone loves free gifts, right?",
         "",
