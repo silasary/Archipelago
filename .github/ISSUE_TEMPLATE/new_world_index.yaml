@@ -1,0 +1,10 @@
+name: Add a new world to the World Manager Index
+description: Request a world
+title: "Category: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You're in the wrong repo, please add an issue in [the Index repo](https://GitHub.com/silasary/apworlds) instead.
