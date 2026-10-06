@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import threading
 from typing import List, Any, Dict, Tuple
 
 from BaseClasses import Region, Tutorial, ItemClassification, CollectionState, Callable, LocationProgressType, \
@@ -82,6 +83,8 @@ class FF12OpenWorldWorld(World):
         self.excluded_locations: Dict[str, tuple[str, int]] = {}
         self.re_gen_data: Dict[str, Any] = {}
         self.origin_region_name = "Initial"
+        self.moogle_hints: list[dict[str, Any]] = []
+        self.moogle_hints_ready = threading.Event()
 
     def create_item(self, name: str) -> FF12OpenWorldItem:
         return FF12OpenWorldItem(name, item_data_table[name].classification, item_data_table[name].code, self.player)
@@ -569,7 +572,8 @@ class FF12OpenWorldWorld(World):
             cur_sphere += 1
 
 
-        moogle_hints = self.generate_moogle_hints(hintable_items)
+        self.moogle_hints = self.generate_moogle_hints(hintable_items)
+        self.moogle_hints_ready.set()
 
         seed_name = self.multiworld.seed_name + "_" + self.multiworld.get_player_name(self.player)
         data = {
@@ -592,7 +596,7 @@ class FF12OpenWorldWorld(World):
                      "amount": self.excluded_locations[loc][1]}
                     for loc in self.excluded_locations.keys()
                 ],
-                "moogle_hints": moogle_hints,
+                "moogle_hints": self.moogle_hints,
             }
         }
         # Package output using an APPlayerContainer for consistency with other worlds
@@ -606,9 +610,11 @@ class FF12OpenWorldWorld(World):
         )
         container.write()
 
-    def fill_slot_data(self) -> Dict[str, Any]:
+    def fill_slot_data(self) -> dict[str, Any]:
+        self.moogle_hints_ready.wait()
         return {
             "treasures": self.selected_treasures,
+            "moogle_hints": [h.get("create_hint") for h in self.moogle_hints],
             "re_gen_locations": [location.name for location in self.multiworld.get_locations(self.player)],
             "characters": self.character_order,
             "options": {
