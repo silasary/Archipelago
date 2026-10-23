@@ -675,6 +675,11 @@ class FactorioSAWS(World):
             needed_recipes |= {"satellite"}
 
         needed_items = {location.crafted_item for location in self.craftsanity_locations}
+        for item in self.custom_recipes:
+            if item in needed_items:
+                self.advancement_technologies |= {tech.name for tech in self.custom_recipes[item].recursive_unlocking_technologies}
+                needed_items -= {item}
+
         for recipe_name, recipe in recipes.items():
             for product in recipe.products:
                 if product in needed_items:
