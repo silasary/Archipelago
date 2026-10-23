@@ -438,6 +438,11 @@ class FactorioSAWS(World):
         count: int = len(original.ingredients) + ingredients_offset
         if len(pool) < count:
             raise OptionError(f"Ingredient pool for {original.name} too small; try adjusting recipe_difficulty_factor, increase recipe_pool_max_tiers_below, or decrease recipe_ingredients_offset")
+
+        non_liquid_count = sum(1 for ingredient in pool if ingredient not in fluids)
+        if non_liquid_count + allow_liquids < count:
+            raise OptionError(f"Non-fluid ingredient pool for {original.name} too small; try adjusting recipe_difficulty_factor, increase recipe_pool_max_tiers_below, or decrease recipe_ingredients_offset")
+
         new_ingredients = {}
         liquids_used = 0
         recipe_override = self.get_ut_data("recipes")
