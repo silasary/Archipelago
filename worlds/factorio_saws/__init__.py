@@ -606,8 +606,11 @@ class FactorioSAWS(World):
                                                      original_rocket_part.products,
                                                      original_rocket_part.energy)}
 
-        categories = ["metallurgy", "organic", "electromagnetics", "cryogenics", "centrifuging"]
-        self.random.shuffle(categories)
+        categories = self.get_ut_data("pack_categories")
+        if categories is None:
+            categories = ["metallurgy", "organic", "electromagnetics", "cryogenics", "centrifuging"]
+            self.random.shuffle(categories)
+        self.pack_categories = categories.copy()
 
         if self.options.recipe_ingredients:
             valid_pool = []
@@ -787,6 +790,7 @@ class FactorioSAWS(World):
             "tech_prereq": {loc.name: [req.name for req in self.tech_tree_layout_prerequisites[loc]]
                             for loc in self.tech_tree_layout_prerequisites},
             "tech_pack": packs,
+            "pack_categories": self.pack_categories,
             "silo": self.options.silo.value,
             "satellite": self.options.satellite.value,
             "goal": self.options.goal.value,
