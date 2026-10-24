@@ -448,6 +448,7 @@ class FactorioSAWS(World):
         recipe_override = self.get_ut_data("recipes")
         if recipe_override is not None and original.name in recipe_override:
             new_ingredients = recipe_override[original.name]
+            liquids_used = sum(1 for ingredient in new_ingredients if ingredient in fluids)
         else:
             for _ in range(count):
                 new_ingredient = pool.pop()
@@ -490,6 +491,7 @@ class FactorioSAWS(World):
         recipe_override = self.get_ut_data("recipes")
         if recipe_override is not None and original.name in recipe_override:
             new_ingredients = recipe_override[original.name]
+            liquids_used = sum(1 for ingredient in new_ingredients if ingredient in fluids)
         else:
             # fill all but one slot with random ingredients, last with a good match
             while remaining_num_ingredients > 0 and pool:
