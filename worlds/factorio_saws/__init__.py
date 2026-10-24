@@ -438,11 +438,17 @@ class FactorioSAWS(World):
         count: int = len(original.ingredients) + ingredients_offset
         if len(pool) < count:
             raise OptionError(f"Ingredient pool for {original.name} too small; try adjusting recipe_difficulty_factor, increase recipe_pool_max_tiers_below, or decrease recipe_ingredients_offset")
+
+        non_liquid_count = sum(1 for ingredient in pool if ingredient not in fluids)
+        if non_liquid_count + allow_liquids < count:
+            raise OptionError(f"Non-fluid ingredient pool for {original.name} too small; try adjusting recipe_difficulty_factor, increase recipe_pool_max_tiers_below, or decrease recipe_ingredients_offset")
+
         new_ingredients = {}
         liquids_used = 0
         recipe_override = self.get_ut_data("recipes")
         if recipe_override is not None and original.name in recipe_override:
             new_ingredients = recipe_override[original.name]
+            liquids_used = sum(1 for ingredient in new_ingredients if ingredient in fluids)
         else:
             for _ in range(count):
                 new_ingredient = pool.pop()
@@ -485,6 +491,7 @@ class FactorioSAWS(World):
         recipe_override = self.get_ut_data("recipes")
         if recipe_override is not None and original.name in recipe_override:
             new_ingredients = recipe_override[original.name]
+            liquids_used = sum(1 for ingredient in new_ingredients if ingredient in fluids)
         else:
             # fill all but one slot with random ingredients, last with a good match
             while remaining_num_ingredients > 0 and pool:
@@ -601,8 +608,11 @@ class FactorioSAWS(World):
                                                      original_rocket_part.products,
                                                      original_rocket_part.energy)}
 
-        categories = ["metallurgy", "organic", "electromagnetics", "cryogenics", "centrifuging"]
-        self.random.shuffle(categories)
+        categories = self.get_ut_data("pack_categories")
+        if categories is None:
+            categories = ["metallurgy", "organic", "electromagnetics", "cryogenics", "centrifuging"]
+            self.random.shuffle(categories)
+        self.pack_categories = categories.copy()
 
         if self.options.recipe_ingredients:
             valid_pool = []
@@ -675,6 +685,11 @@ class FactorioSAWS(World):
             needed_recipes |= {"satellite"}
 
         needed_items = {location.crafted_item for location in self.craftsanity_locations}
+        for item in self.custom_recipes:
+            if item in needed_items:
+                self.advancement_technologies |= {tech.name for tech in self.custom_recipes[item].recursive_unlocking_technologies}
+                needed_items -= {item}
+
         for recipe_name, recipe in recipes.items():
             for product in recipe.products:
                 if product in needed_items:
@@ -777,6 +792,7 @@ class FactorioSAWS(World):
             "tech_prereq": {loc.name: [req.name for req in self.tech_tree_layout_prerequisites[loc]]
                             for loc in self.tech_tree_layout_prerequisites},
             "tech_pack": packs,
+            "pack_categories": self.pack_categories,
             "silo": self.options.silo.value,
             "satellite": self.options.satellite.value,
             "goal": self.options.goal.value,
