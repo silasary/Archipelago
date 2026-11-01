@@ -4,9 +4,9 @@
     "game": "Keymaster's Keep",
     "idgb_id": null,
     "minimum_ap_version": "0.6.4",
-    "world_version": "2.1.5",
+    "world_version": "2.1.6",
     "changelog":[
-        "Added new yaml option to guarantee a game will be used at least once",
-        "Added full traceback to broken_games.txt for easier debugging"
+        "Allow for weighted constraints, and also to filter constraints that would make the game time-consuming or difficult.",
+        ""
     ]
 }
