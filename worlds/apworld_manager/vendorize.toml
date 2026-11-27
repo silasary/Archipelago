@@ -1,0 +1,4 @@
+target = "_vendor"
+packages = [
+    "packaging>=26"
+]
